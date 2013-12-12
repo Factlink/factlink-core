@@ -1,5 +1,5 @@
 class window.AddEvidenceFormView extends Backbone.Marionette.Layout
-  className: 'add-evidence-form'
+  className: 'add-evidence-form evidence-centered'
   template: 'evidence/add_evidence_form'
 
   regions:
@@ -7,16 +7,50 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       selector: '.input-region'
       regionType: Factlink.DetachableViewsRegion
 
+  events:
+    'change input[name=argumentType]': '_updateArgumentType'
+    'click .js-switch-to-factlink': '_switchToAddFactRelationView'
+    'click .js-switch-to-comment': '_switchToAddCommentView'
+
+  ui:
+    switchToFactlink: '.js-switch-to-factlink'
+    switchToComment: '.js-switch-to-comment'
+
   initialize: ->
-    @_recent_collection = new RecentlyViewedFacts
-    @_recent_collection.fetch()
+    @_argumentTypeModel = new Backbone.Model
+
+    @_searchView = new AutoCompleteFactRelationsView
+      collection: @_filtered_facts()
+      addToCollection: @collection
+      fact_id: @collection.fact.id
+      argumentTypeModel: @_argumentTypeModel
+
+    @_addCommentView ?= new AddCommentView
+      addToCollection: @collection
+      argumentTypeModel: @_argumentTypeModel
 
     @inputRegion.defineViews
-      search_view: => @searchView()
-      add_comment_view: => @addCommentView()
+      search_view: => @_searchView
+      add_comment_view: => @_addCommentView
 
   onRender: ->
-    @switchToCommentView()
+    @_updateArgumentType()
+    @_switchToAddCommentView()
+
+  _updateArgumentType: ->
+    @_argumentTypeModel.set 'argument_type', @$('input[name=argumentType]:checked').val()
+
+  _switchToAddCommentView: ->
+    @ui.switchToFactlink.show()
+    @ui.switchToComment.hide()
+    @inputRegion.switchTo 'add_comment_view'
+    mp_track "Evidence: Switching to comment"
+
+  _switchToAddFactRelationView: ->
+    @ui.switchToFactlink.hide()
+    @ui.switchToComment.show()
+    @inputRegion.switchTo 'search_view'
+    mp_track "Evidence: Switching to FactRelation"
 
   _filtered_facts: ->
     fact_relations_masquerading_as_facts = @_collectionUtils().map new Backbone.Collection,
@@ -27,53 +61,3 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
 
   _collectionUtils: ->
     @_____collectionUtils ?= new CollectionUtils this
-
-  searchView: ->
-    searchView = new AutoCompleteFactRelationsView
-      collection: @_filtered_facts()
-      fact_id: @collection.fact.id
-      type: @collection.believesType()
-      recent_collection: @_recent_collection
-    @listenTo searchView, 'createFactRelation', (fact_relation, onFinish) ->
-      @createFactRelation(fact_relation, onFinish)
-    @listenTo searchView, 'switch_to_comment_view', @switchToCommentView
-    searchView
-
-  addCommentView: ->
-    addCommentView = new AddCommentView
-      addToCollection: @collection
-      type: @options.type
-    @listenTo addCommentView, 'switch_to_fact_relation_view', @switchToFactRelationView
-
-    addCommentView
-
-  createFactRelation: (fact_relation, onFinish=->)->
-    return @showError() unless fact_relation.isValid()
-
-    @collection.add fact_relation
-    @inputRegion.switchTo('search_view')
-
-    @collection.trigger 'start_adding_model'
-    fact_relation.save {},
-      error: =>
-        onFinish()
-        @collection.remove fact_relation
-        @collection.trigger 'error_adding_model'
-        @showError()
-
-      success: =>
-        onFinish()
-        @inputRegion.getView('search_view').reset()
-        @collection.trigger 'saved_added_model'
-
-        mp_track "Evidence: Added",
-          factlink_id: @options.fact_id
-          type: @options.type
-
-  switchToCommentView: ->
-    @inputRegion.switchTo 'add_comment_view'
-
-  switchToFactRelationView: ->
-    @inputRegion.switchTo 'search_view'
-
-  showError: -> FactlinkApp.NotificationCenter.error 'Your Factlink could not be posted, please try again.'

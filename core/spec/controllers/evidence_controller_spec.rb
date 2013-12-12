@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'pavlov_helper'
 
-describe SupportingEvidenceController do
+describe EvidenceController do
   include PavlovSupport
   render_views
 
@@ -24,7 +24,7 @@ describe SupportingEvidenceController do
 
     context "adding a new fact as evidence to a fact" do
       it "should return the existing fact as new evidence" do
-        post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
+        post 'create', fact_id: f1.id, evidence_id: f2.id, type: 'believes', format: :json
 
         parsed_content = JSON.parse(response.body)
         parsed_content["from_fact"]["id"].should == f2.id
@@ -33,18 +33,22 @@ describe SupportingEvidenceController do
       end
 
       it "should initially believe the fact relation" do
-        post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
+        post 'create', fact_id: f1.id, evidence_id: f2.id, type: 'believes', format: :json
 
         parsed_content = JSON.parse(response.body)
 
-        expect(parsed_content["current_user_opinion"]).to eq 'believes'
-        expect(parsed_content["impact"]).to eq 1.0
+        argument_votes = parsed_content["argument_votes"]
+
+        expect(argument_votes["current_user_opinion"]).to eq 'believes'
+        expect(argument_votes["believes"]).to eq 1
+        expect(argument_votes["disbelieves"]).to eq 0
+        expect(argument_votes["doubts"]).to eq 0
       end
 
       it "should not set the user's opinion on the evidence to believe" do
         f2.add_opinion(:disbelieves, user.graph_user)
 
-        post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
+        post 'create', fact_id: f1.id, evidence_id: f2.id, type: 'believes', format: :json
         response.should be_success
 
         parsed_content = JSON.parse(response.body)
@@ -62,22 +66,17 @@ describe SupportingEvidenceController do
     render_views
 
     it "should render json succesfully" do
-      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
-      FactoryGirl.reload # hack because of fixture in check
+      FactoryGirl.reload
 
-      fr = f1.add_evidence :supporting, f2, user
+      fr = f1.add_evidence :believes, f2, user
       f2.add_opinion(:believes, user.graph_user)
       fr.add_opinion(:believes, user.graph_user)
 
       authenticate_user!(user)
 
       get 'show', fact_id: f1.id, id: fr.id, format: :json
-      response.should be_success
 
-      response_body = response.body.to_s
-      # strip mongo id, since otherwise comparison will always fail
-      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
-      Approvals.verify(response_body, format: :json, name: 'evidence#show should keep the same content')
+      Approvals.verify(response.body, format: :json, name: 'evidence#show should keep the same content')
     end
   end
 end
@@ -96,13 +95,14 @@ describe EvidenceController do
     Activity::Subject.stub(:activity)
   end
 
-  describe :set_opinion do
+  describe :update_opinion do
     it "should be able to set an opinion" do
-      fr = f1.add_evidence :supporting, f2, user
+      fr = f1.add_evidence :believes, f2, user
 
       authenticate_user!(user)
       should_check_can :opinionate, fr
-      post 'set_opinion', username: 'ohwellwhatever', id: 1, fact_id: f1.id, id: fr.id, type: :believes, format: :json
+      post 'update_opinion', username: 'ohwellwhatever',
+        id: 1, fact_id: f1.id, id: fr.id, current_user_opinion: :believes, format: :json
 
       response.should be_success
 

@@ -1,6 +1,6 @@
 require 'screenshot_helper'
 
-describe "factlink", type: :feature do
+describe "factlink", type: :feature, driver: :poltergeist_slow do
   it "the layout of the profile page is correct" do
     user = sign_in_user create :full_user
     visit user_path(user)

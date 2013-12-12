@@ -16,7 +16,6 @@ module Queries
 
     def validate
       validate_in_set :by, by, [:_id, :graph_user_id]
-      user_ids.each { |id| validate_hexadecimal_string :id, id.to_s }
     end
 
     def execute
@@ -40,7 +39,7 @@ module Queries
     end
 
     def top_user_topics user_id
-      query(:'user_topics/top_with_authority_for_user',
+      query(:'user_topics/top_for_user',
             user_id: user_id.to_s, limit_topics: top_topics_limit)
     end
   end

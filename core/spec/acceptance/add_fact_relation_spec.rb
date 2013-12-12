@@ -11,22 +11,13 @@ feature "adding factlinks to a fact", type: :feature do
 
   let(:factlink) { create :fact, created_by: @user.graph_user }
 
-  scenario "initially the evidence list should be empty" do
-    go_to_discussion_page_of factlink
-
-
-    within_evidence_list do
-      expect(all '.evidence-votable', visible: false).to be_empty
-    end
-  end
-
   scenario "after adding a piece of evidence, evidence list should contain that item" do
     go_to_discussion_page_of factlink
 
     supporting_factlink = backend_create_fact
 
-    add_existing_factlink :supporting, supporting_factlink
-    sleep 2
+    add_existing_factlink :believes, supporting_factlink
+
     within ".evidence-votable", visible: false do
       page.should have_content supporting_factlink.to_s
     end
@@ -37,7 +28,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     supporting_factlink = backend_create_fact
 
-    add_existing_factlink :supporting, supporting_factlink
+    add_existing_factlink :believes, supporting_factlink
 
     find('.evidence-relevance-text', text: "1") # wait until request has finished
 
@@ -51,7 +42,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     supporting_factlink = backend_create_fact
 
-    add_existing_factlink :supporting, supporting_factlink
+    add_existing_factlink :believes, supporting_factlink
 
     find('.evidence-relevance-text', text: "1") # wait until request has finished
 

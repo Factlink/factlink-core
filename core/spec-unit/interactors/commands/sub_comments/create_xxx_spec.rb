@@ -7,38 +7,6 @@ describe Commands::SubComments::CreateXxx do
     stub_classes 'SubComment', 'User'
   end
 
-  describe 'validation' do
-    it 'without user doesn''t validate' do
-      expect_validating(parent_id: '1', parent_class: 'Comment',
-                        content: 'Hoi!', user: nil)
-        .to fail_validation('user should not be nil.')
-    end
-
-    it 'without content doesn''t validate' do
-      expect_validating(parent_id: '1', parent_class: 'FactRelation',
-                        content: '', user: double)
-        .to fail_validation('content should not be empty.')
-    end
-
-    it 'with a invalid parent_id for Comment parent class doesn''t validate' do
-      expect_validating(parent_id: 1, parent_class: 'Comment', content: 'Hoi!',
-                        user: double)
-        .to fail_validation('parent_id should be an hexadecimal string.')
-    end
-
-    it 'with a invalid parent_id for FactRelation parent class doesn''t validate' do
-      expect_validating(parent_id: '2a', parent_class: 'FactRelation',
-                        content: 'Hoi!', user: double)
-        .to fail_validation('parent_id should be an integer.')
-    end
-
-    it 'with a invalid parent_class doesn''t validate' do
-      expect_validating(parent_id: '1', parent_class: 'bla', content: 'Hoi!',
-                        user: double)
-        .to fail_validation('parent_class should be on of these values: ["Comment", "FactRelation"].')
-    end
-  end
-
   describe '#call' do
     it 'correctly' do
       parent_id = 1

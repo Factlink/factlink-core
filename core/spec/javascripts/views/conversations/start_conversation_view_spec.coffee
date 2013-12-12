@@ -10,11 +10,11 @@ describe 'StartConversationView', ->
       content = view.$('.js-message-textarea').val()
       expect(content).to.equal "henk"
 
-    it 'contains the text "Check out this Factlink!"" in the textarea when no default message is given', ->
+    it 'contains the text "Check out this #{Factlink.Global.t.factlink}!"" in the textarea when no default message is given', ->
       view = new StartConversationView
       view.render()
       content = view.$('.js-message-textarea').val()
-      expect(content).to.equal "Check out this Factlink!"
+      expect(content).to.equal "Check out this #{Factlink.Global.t.factlink}!"
 
 
   describe "clicking on the textarea", ->

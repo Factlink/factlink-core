@@ -1,1 +1,26 @@
-<div class="input-region clearfix"></div>
+<div class="evidence-box discussion-evidenceish discussion-evidenceish-box">
+  <div class="evidence-box-triangle"></div>
+  {{!triangle must be first to make sure tooltips from content are painted on top
+   without needing a z-index; z-index isn't permitted because triangle's "border"
+   is actually a negative-z-index grey triangle.}}
+
+  <div class="discussion-evidenceish-content">
+    <label class="add-evidence-form-label">
+      <input class="add-evidence-form-radio spec-evidence-radio-disbelieves" type="radio" name="argumentType" value="disbelieves" checked="checked">
+      Weakening <span class="opinion_indicator disagreeing"></span>
+    </label>
+
+    <label class="add-evidence-form-label">
+      <input class="add-evidence-form-radio spec-evidence-radio-believes" type="radio" name="argumentType" value="believes">
+      Supporting <span class="opinion_indicator agreeing"></span>
+    </label>
+
+    <div class="input-region clearfix"></div>
+
+    <div class="add-evidence-form-view-toggle">
+      <a href="javascript:void(0)" class="js-switch-to-factlink">Search for {{global.t.factlinks}} (beta)</a>
+
+      <a href="javascript:void(0)" class="js-switch-to-comment">&larr; Return to adding comment</a>
+    </div>
+  </div>
+</div>

@@ -1,9 +1,8 @@
 [
   {
-    "timestamp": 799248945000.0,
-    "subject_class": "Comment",
+    "timestamp": "<timestamp>",
     "user": {
-      "id": "<STRIPPED>",
+      "id": "<id>",
       "name": "John2 Doe2",
       "username": "johndoe2",
       "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
@@ -15,12 +14,9 @@
       ]
     },
     "action": "created_comment",
-    "translated_action": "<span class=\"translation_missing\" title=\"translation missing: en.fact_created_comment_action\">Fact Created Comment Action</span>",
-    "subject": "<STRIPPED>",
     "time_ago": "1 minute",
-    "id": "<STRIPPED>",
+    "id": "<id>",
     "activity": {
-      "action": "created_comment",
       "target_url": "/fact-1/f/1",
       "fact_displaystring": "Fact 1",
       "fact": "Fact 1"

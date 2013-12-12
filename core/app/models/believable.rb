@@ -4,18 +4,6 @@ class Believable
     @key = key
   end
 
-  def dead_opinion
-    believes_count = people_believes.count
-    disbelieves_count = people_disbelieves.count
-    doubts_count = people_doubts.count
-    authority = believes_count + disbelieves_count + doubts_count
-
-    return DeadOpinion.zero if authority.zero?
-
-    DeadOpinion.new(believes_count.to_f/authority.to_f, disbelieves_count.to_f/authority.to_f,
-                    doubts_count.to_f/authority.to_f, authority.to_f)
-  end
-
   def votes
     {
       believes: people_believes.count,

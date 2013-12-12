@@ -9,8 +9,7 @@ describe FactsController do
 
   describe :show do
     it "should render json successful" do
-      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
-      FactoryGirl.reload # hack because of fixture in check
+      FactoryGirl.reload
 
       authenticate_user!(user)
       fact = nil
@@ -28,17 +27,12 @@ describe FactsController do
       should_check_can :show, fact
 
       get :show, id: fact.id, format: :json
-      response.should be_success
 
-      response_body = response.body.to_s
-      # strip mongo id, since otherwise comparison will always fail
-      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
-      Approvals.verify(response_body, format: :json, name: 'facts#show should keep the same content')
+      Approvals.verify(response.body, format: :json, name: 'facts#show should keep the same content')
     end
 
     it "should render json successful for non-logged in users" do
-      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
-      FactoryGirl.reload # hack because of fixture in check
+      FactoryGirl.reload
 
       fact = nil
 
@@ -55,12 +49,8 @@ describe FactsController do
       should_check_can :show, fact
 
       get :show, id: fact.id, format: :json
-      response.should be_success
 
-      response_body = response.body.to_s
-      # strip mongo id, since otherwise comparison will always fail
-      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
-      Approvals.verify(response_body, format: :json, name: 'facts#show should keep the same content for anonymous')
+      Approvals.verify(response.body, format: :json, name: 'facts#show should keep the same content for anonymous')
     end
   end
 

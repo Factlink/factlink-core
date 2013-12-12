@@ -28,11 +28,7 @@ module Queries
       end
 
       def votes
-        query(:'facts/get_votes', id: id)
-      end
-
-      def validate
-        validate_integer_string :id, id
+        query(:'believable/votes', believable: fact.believable)
       end
     end
   end

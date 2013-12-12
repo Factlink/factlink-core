@@ -1,15 +1,12 @@
 class window.ActivityItemView extends Backbone.Marionette.ItemView
-  template: "activities/generic_activity"
   tryAppend: (model) -> false
 
   @classForModel: (model) ->
     switch model.get("action")
-      when "created_comment", "added_supporting_evidence", "added_weakening_evidence"
-        AddedEvidenceView
+      when "created_comment", "created_fact_relation"
+        CreatedFactRelationView
       when "created_sub_comment"
-        CreatedCommentView
-      when "created_channel"
-        CreatedChannelView
+        CreatedSubCommentView
       when "believes", "doubts", "disbelieves"
         AddedOpinionView
       when "added_fact_to_channel" # TODO: rename actual activity to added_fact_to_topic
@@ -17,19 +14,28 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
       when 'followed_user'
         FollowedUserView
       else
-        ActivityItemView
+        throw 'Unknown activity action: ' + model.get("action")
 
-class CreatedChannelView extends ActivityItemView
-  template: "activities/created_channel"
 
-class AddedEvidenceView extends ActivityItemView
-  template: "activities/added_evidence"
+class CreatedFactRelationView extends ActivityItemView
+  template: "activities/created_fact_relation"
 
-class CreatedCommentView extends ActivityItemView
-  template: "activities/created_comment"
+class CreatedSubCommentView extends ActivityItemView
+  template: "activities/created_sub_comment"
 
 class AddedOpinionView extends ActivityItemView
   template: "activities/added_opinion"
+  templateHelpers: =>
+    translated_action: @_translatedAction()
+
+  _translatedAction: ->
+    switch @model.get('action')
+      when "believes"
+        Factlink.global.t.fact_believe_past_singular_action_about
+      when "believes"
+        Factlink.global.t.fact_disbelieve_past_singular_action_about
+      when "believes"
+        Factlink.global.t.fact_doubt_past_singular_action_about
 
 class FollowedUserView extends ActivityItemView
   tagName: 'span'

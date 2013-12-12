@@ -18,7 +18,7 @@ feature "adding comments to a fact", type: :feature do
     go_to_discussion_page_of factlink
 
     comment = 'Geert is een buffel'
-    add_comment :supporting, comment
+    add_comment :believes, comment
 
     assert_comment_exists comment
 
@@ -31,7 +31,7 @@ feature "adding comments to a fact", type: :feature do
     go_to_discussion_page_of factlink
 
     comment = 'Buffels zijn niet klein te krijgen joh'
-    add_comment :supporting, comment
+    add_comment :believes, comment
     assert_comment_exists comment
 
     go_to_discussion_page_of factlink
@@ -45,7 +45,7 @@ feature "adding comments to a fact", type: :feature do
     go_to_discussion_page_of factlink
 
     comment = 'Buffels zijn niet klein te krijgen joh'
-    add_comment :supporting, comment
+    add_comment :believes, comment
     assert_comment_exists comment
 
     within_evidence_list do
@@ -68,8 +68,8 @@ feature "adding comments to a fact", type: :feature do
     comment1 = 'Vroeger was Gerard een hengst'
     comment2 = 'Henk is nog steeds een buffel'
 
-    add_comment :supporting, comment1
-    add_comment :supporting, comment2
+    add_comment :believes, comment1
+    add_comment :believes, comment2
 
     assert_comment_exists comment1
     assert_comment_exists comment2
@@ -81,17 +81,15 @@ feature "adding comments to a fact", type: :feature do
   end
 
   scenario 'comments and facts should be sorted on relevance' do
-    user_authority_on_fact = 1
-
     go_to_discussion_page_of factlink
 
     comment1 = 'Buffels zijn niet klein te krijgen joh'
     factlink2 = backend_create_fact
     comment3 = 'Geert is een baas'
 
-    add_comment :supporting, comment1
-    add_existing_factlink :supporting, factlink2
-    add_comment :supporting, comment3
+    add_comment :believes, comment1
+    add_existing_factlink :believes, factlink2
+    add_comment :believes, comment3
 
     # make sure sorting is done:
     sleep 1
@@ -119,7 +117,7 @@ feature "adding comments to a fact", type: :feature do
 
     comment = 'Vroeger had Gerard een hele stoere fiets'
 
-    add_comment :supporting, comment
+    add_comment :believes, comment
     assert_comment_exists comment
 
     within_evidence_list do

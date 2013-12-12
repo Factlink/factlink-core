@@ -98,7 +98,7 @@ FactoryGirl.define do
     association :fact
     association :from_fact, factory: :fact
     association :created_by, :factory => :graph_user
-    type :supporting
+    type :believes
   end
 
   factory :comment do

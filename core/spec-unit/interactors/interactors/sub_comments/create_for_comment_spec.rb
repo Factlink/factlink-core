@@ -6,8 +6,7 @@ describe Interactors::SubComments::CreateForComment do
 
   before do
     stub_classes 'Comment', 'SubComment', 'KillObject',
-                 'Commands::SubComments::CreateXxx',
-                 'Queries::AuthorityOnFactFor'
+                 'Commands::SubComments::CreateXxx'
   end
 
   it '.authorized denied the user cannot show the comment' do

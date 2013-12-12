@@ -1,14 +1,6 @@
 require 'spec_helper'
 
 describe Fact do
-  def self.other_one(this)
-    this == :supporting ? :weakening : :supporting
-  end
-
-  def other_one(this)
-    self.class.other_one(this)
-  end
-
   subject(:fact) { create :fact }
 
   let(:factlink) { create :fact }
@@ -48,59 +40,21 @@ describe Fact do
   end
 
   context "initially" do
-    it "should have no evidence for a type, or the :both type" do
-      expect(fact.evidence(:supporting).count).to eq 0
-      expect(fact.evidence(:weakening).count).to eq 0
-      expect(fact.evidence(:both).count).to eq 0
+    it "should have no evidence" do
+      fact_relations = Pavlov.query(:'fact_relations/for_fact', fact: fact)
+
+      expect(fact_relations.count).to eq 0
     end
   end
 
-  [:supporting, :weakening].each do |relation|
-    describe ".add_evidence" do
+  describe ".add_evidence" do
+    it 'saves the evidence' do
+      fact.add_evidence('disbelieves', factlink, graph_user)
+      fact_relations = Pavlov.query(:'fact_relations/for_fact', fact: fact)
 
-      context "with one #{relation} fact" do
-        before do
-          @fr = fact.add_evidence(relation,factlink,graph_user)
-        end
-
-        describe "should have one evidence" do
-          it "for the relation #{relation}" do
-            expect(fact.evidence(relation).count).to eq 1
-          end
-          it "for :both" do
-            expect(fact.evidence(:both).count).to eq 1
-          end
-        end
-      end
-
-      context "with two #{relation} fact" do
-        it "should have two #{relation} facts and two facts for :both" do
-
-          factlink2 = create :fact
-
-          fact.add_evidence(relation,factlink,graph_user)
-          fact.add_evidence(relation,factlink2,graph_user)
-
-          expect(fact.evidence(relation).count).to eq 2
-          expect(fact.evidence(:both).count).to eq 2
-        end
-      end
-
-      context "with one #{relation} fact and one #{other_one(relation)} fact" do
-        it "should have one #{relation}, one #{other_one(relation)} fact and two for :both" do
-          factlink2 = create :fact
-
-          fact.add_evidence(relation,factlink,graph_user)
-          fact.add_evidence(other_one(relation),factlink2,graph_user)
-
-          expect(fact.evidence(relation).count).to eq 1
-          expect(fact.evidence(other_one(relation)).count).to eq 1
-          expect(fact.evidence(:both).count).to eq 2
-        end
-      end
+      expect(fact_relations.first.type).to eq 'disbelieves'
     end
   end
-
 
   describe "Mongoid properties: " do
     context "after setting a displaystring to 'hiephoi'" do
@@ -203,7 +157,7 @@ describe Fact do
       supported_fact  = Fact.create created_by: graph_user
       supporting_fact = Fact.create created_by: graph_user
 
-      supported_fact.add_evidence(:supporting, supporting_fact, graph_user)
+      supported_fact.add_evidence(:believes, supporting_fact, graph_user)
 
       expect(supported_fact.deletable?).to be_false
     end
@@ -212,7 +166,7 @@ describe Fact do
       supported_fact  = Fact.create created_by: graph_user
       supporting_fact = Fact.create created_by: graph_user
 
-      supported_fact.add_evidence(:supporting, supporting_fact, graph_user)
+      supported_fact.add_evidence(:believes, supporting_fact, graph_user)
 
       expect(supported_fact.deletable?).to be_false
     end

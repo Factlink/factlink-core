@@ -143,11 +143,7 @@
 // Used for a bird's eye view of components dependent on the z-axis
 // Try to avoid customizing these :)
 @zindexDropdown:          1000;
-@zindexPopover:           1010;
-@zindexTooltip:           1030;
 @zindexFixedNavbar:       1030;
-@zindexModalBackdrop:     1040;
-@zindexModal:             1050;
 @max-z-index:             2147483647;
 
 // Input placeholder text color
@@ -175,7 +171,6 @@
 
 @navbarHeight:                    42px;
 @navbarMargin:                    18px;
-@navbarLinkColorActive:           @gray;
 
 // Form states and alerts
 // -------------------------
@@ -198,23 +193,6 @@
 // Bubble
 
 @popup-padding: 10px;
-
-
-// Tooltips and popovers
-// -------------------------
-@tooltipColor:            #fff;
-@tooltipBackground:       #000;
-@tooltipArrowWidth:       5px;
-@tooltipArrowColor:       @tooltipBackground;
-
-@popoverBackground:       #fff;
-@popoverArrowWidth:       10px;
-@popoverArrowColor:       #fff;
-@popoverTitleBackground:  darken(@popoverBackground, 3%);
-
-// Special enhancement for popovers
-@popoverArrowOuterWidth:  @popoverArrowWidth + 1;
-@popoverArrowOuterColor:  rgba(0,0,0,.25);
 
 // Our own poovers
 // Rename to @popover... once we get rid over Twitter popovers
@@ -251,9 +229,9 @@
 @factlinkInactiveColor:     lighten(@factlinkActiveColor, 10%);
 
 // Discussion page half-circles
-@supportingImpactColor:     rgba(100,190,160, 0.9);
-@weakeningImpactColor:      rgba(220,120,120, 0.9);
-@unsureImpactColor:         rgba(90,140,170, 0.9);
+@believesEvidenceImpactColor:    rgba(100,190,160, 0.9);
+@disbelievesEvidenceImpactColor: rgba(220,120,120, 0.9);
+@doubtsEvidenceImpactColor:      rgba(90,140,170, 0.9);
 
 // Layouting
 @siteWidth:                 960px;

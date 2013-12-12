@@ -1,7 +1,6 @@
-class GenericNotificationView extends Backbone.Marionette.Layout
+class NotificationView extends Backbone.Marionette.Layout
   tagName: "li"
   className: "activity"
-  template: "notifications/generic"
   templateHelpers: ->
     user: (new User @model.get('user')).toJSON()
 
@@ -17,19 +16,16 @@ class GenericNotificationView extends Backbone.Marionette.Layout
 
   markAsRead: -> @$el.removeClass "unread"
 
-class NotificationAddedEvidenceView extends GenericNotificationView
-  template: "notifications/added_evidence"
+class NotificationAddedArgumentView extends NotificationView
+  template: "notifications/added_argument"
 
-class NotificationInvitedView extends GenericNotificationView
-  template: "notifications/invited"
-
-class NotificationCreatedConversationView extends GenericNotificationView
+class NotificationCreatedConversationView extends NotificationView
   template: "notifications/created_conversation"
 
-class NotificationRepliedMessageView extends GenericNotificationView
+class NotificationRepliedMessageView extends NotificationView
   template: "notifications/replied_message"
 
-class NotificationUserFollowedUser extends GenericNotificationView
+class NotificationUserFollowedUser extends NotificationView
   template: "notifications/user_followed_user"
 
   regions:
@@ -40,17 +36,15 @@ class NotificationUserFollowedUser extends GenericNotificationView
     user = new User(@model.get('user'))
     @addBackRegion.show new FollowUserButtonView(user: user, mini: true)
 
-class CreatedCommentView extends GenericNotificationView
-  template: "notifications/created_comment"
+class NotificationCreatedSubCommentView extends NotificationView
+  template: "notifications/_created_sub_comment"
 
 window.NotificationView = (opts) ->
   switch opts.model.get("action")
-    when "created_comment", "created_sub_comment"
-      new CreatedCommentView(opts)
-    when "added_supporting_evidence", "added_weakening_evidence"
-      new NotificationAddedEvidenceView(opts)
-    when "invites"
-      new NotificationInvitedView(opts)
+    when "created_sub_comment"
+      new NotificationCreatedSubCommentView(opts)
+    when "created_comment", "created_fact_relation"
+      new NotificationAddedArgumentView(opts)
     when "created_conversation"
       new NotificationCreatedConversationView(opts)
     when "replied_message"
@@ -58,4 +52,4 @@ window.NotificationView = (opts) ->
     when "followed_user"
       new NotificationUserFollowedUser(opts)
     else
-      new GenericNotificationView(opts)
+      throw 'Unknown notification action: ' + opts.model.get("action")

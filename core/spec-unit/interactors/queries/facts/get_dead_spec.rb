@@ -9,13 +9,6 @@ describe Queries::Facts::GetDead do
     stub_classes 'Fact'
   end
 
-  describe 'validations' do
-    it 'requires fact_id to be an integer' do
-      expect_validating(id: 'a')
-        .to fail_validation('id should be an integer string.')
-    end
-  end
-
   describe '#call' do
     let(:fact_data) do
       double :fact_data,
@@ -23,14 +16,18 @@ describe Queries::Facts::GetDead do
         created_at: 15,
         title: 'title'
     end
+
     let(:live_fact) do
       double :fact,
         id: '1',
         has_site?: false,
         data: fact_data,
-        deletable?: false
+        deletable?: false,
+        believable: believable
     end
+
     let(:votes) { double }
+    let(:believable) { double }
 
     let(:site) do
       double :site, url: 'http://example.org/'
@@ -42,7 +39,8 @@ describe Queries::Facts::GetDead do
         has_site?: true,
         site: site,
         data: fact_data,
-        deletable?: false
+        deletable?: false,
+        believable: believable
     end
 
     before do
@@ -53,10 +51,7 @@ describe Queries::Facts::GetDead do
           .with(live_fact_with_site.id)
           .and_return(live_fact_with_site)
       Pavlov.stub(:query)
-            .with(:'facts/get_votes', id: live_fact.id)
-            .and_return(votes)
-      Pavlov.stub(:query)
-            .with(:'facts/get_votes', id: live_fact_with_site.id)
+            .with(:'believable/votes', believable: believable)
             .and_return(votes)
     end
 

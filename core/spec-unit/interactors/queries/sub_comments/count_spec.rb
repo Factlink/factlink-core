@@ -4,23 +4,6 @@ require_relative '../../../../app/interactors/queries/sub_comments/count'
 describe Queries::SubComments::Count do
   include PavlovSupport
 
-  describe 'validation' do
-    it 'without valid parent_class doesn''t validate' do
-      expect_validating(parent_id: 1, parent_class: 'bla').
-        to fail_validation('parent_class should be on of these values: ["Comment", "FactRelation"].')
-    end
-
-    it 'without valid parent_id for FactRelation doesn''t validate' do
-      expect_validating(parent_id: 2, parent_class: 'FactRelation').
-        to fail_validation('parent_id should be an integer string.')
-    end
-
-    it 'without valid parent_id for Comment doesn''t validate' do
-      expect_validating(parent_id: 1, parent_class: 'Comment').
-        to fail_validation('parent_id should be an hexadecimal string.')
-    end
-  end
-
   describe '#call' do
     before do
       stub_classes('SubComment')

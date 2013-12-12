@@ -9,23 +9,6 @@ describe Interactors::CreateConversationWithMessage do
                 'Commands::CreateActivity', 'User'
   end
 
-  describe '.validate' do
-    it 'throws error on empty message' do
-      expect_validating(content: '')
-        .to fail_validation 'content cannot be empty'
-    end
-
-    it 'throws error on message with just whitespace' do
-      expect_validating(content: " \t\n")
-        .to fail_validation 'content cannot be empty'
-    end
-
-    it 'throws error on too long message' do
-      expect_validating(content: 'a' * 5001)
-        .to fail_validation 'content cannot be longer than 5000 characters.'
-    end
-  end
-
   describe '#call' do
     it 'should call the right commands' do
       graph_user   = double
@@ -68,7 +51,7 @@ describe Interactors::CreateConversationWithMessage do
 
     it 'should delete the conversation when the message raises an exception' do
       fact_id = double
-      usernames = double
+      usernames = ['foo']
       sender = double id: 13
       content = 'something'
       conversation = double
@@ -98,7 +81,7 @@ describe Interactors::CreateConversationWithMessage do
       current_user = double(id: 'a1')
       pavlov_options = {current_user: current_user}
 
-      interactor = described_class.new fact_id: double, recipient_usernames: double,
+      interactor = described_class.new fact_id: double, recipient_usernames: ['foo'],
                                        sender_id: current_user.id, content: 'foo', pavlov_options:pavlov_options
 
       expect(interactor.authorized?).to eq true
@@ -109,7 +92,7 @@ describe Interactors::CreateConversationWithMessage do
       sender = double(id: '2')
 
       pavlov_options = {current_user: current_user}
-      interactor = described_class.new fact_id: double, recipient_usernames: double, sender_id: sender.id,
+      interactor = described_class.new fact_id: double, recipient_usernames: ['foo'], sender_id: sender.id,
                                        content: 'foo', pavlov_options: pavlov_options
 
       expect do

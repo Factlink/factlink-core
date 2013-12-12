@@ -1,5 +1,3 @@
-require 'redis/aid'
-
 module Queries
   module Site
     class TopTopics
@@ -7,11 +5,6 @@ module Queries
       include Pavlov::Query
 
       arguments :site_id, :nr
-
-      def validate
-        validate_integer :site_id, site_id
-        validate_integer :nr, nr
-      end
 
       def key
         redis[site_id][:top_topics]

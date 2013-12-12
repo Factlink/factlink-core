@@ -2,7 +2,10 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  add_fact: "add Factlink" # when updating, update jslib template
+  add_fact: "add annotation" # when updating, update jslib template
+
+  factlink: "annotation"
+  factlinks: "annotations"
 
   fact_believe_action: "agree"
   fact_doubt_action: "neutral"
@@ -15,8 +18,6 @@ en:
   fact_believe_opinion: "agree"
   fact_disbelieve_opinion: "disagree"
   fact_doubt_opinion: "unsure"
-
-  fact_removed_opinions_past_action: "withdrew opinion"
 
   fact_believe_present_singular_action: "agrees"
   fact_disbelieve_present_singular_action: "disagrees"
@@ -50,10 +51,6 @@ en:
   fact_remove_opinion_past_action: "removed opinion"
   fact_add_evidence_past_action: "added evidence"
 
-  fact_believe_collection_name: "supporting"
-  fact_disbelieve_collection_name: "weakening"
-  fact_doubt_collection_name: "unsure"
-
   post_comment: "Post comment"
 
   channel: "channel"
@@ -64,6 +61,7 @@ en:
   follow_topic: "follow topic"
   followed: "followed"
   following: "following"
+  followers: "followers"
   unfollow: "unfollow"
   is_now_following_you: "is now following you"
 
@@ -72,12 +70,12 @@ en:
   topic:  "topic"
   topics: "topics"
   topic_name: "topic name"
-  add_to_topics: "what is this Factlink about"
-  created_user_topic: "started posting to a topic"
+  add_to_topics: "what is this annotation about"
   favourites: "followed topics"
   favourite: "follow"
   unfavourite: "unfollow"
   favourited: "followed"
+  favouritours: "followers"
 
   ago: "ago"
   show: "show" # when updating, update jslib template
@@ -85,8 +83,6 @@ en:
 
   you: "you"
   nobody: "nobody"
-
-  fact_added_fact_to_channel_action: "added your Factlink to their channel"
 
   facts:
       new:

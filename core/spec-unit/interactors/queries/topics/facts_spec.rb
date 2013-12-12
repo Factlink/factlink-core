@@ -64,21 +64,4 @@ describe Queries::Topics::Facts do
       expect(command.redis_key).to eq final_key
     end
   end
-
-  describe '#validation' do
-    it :slug_title do
-      expect_validating(slug_title: 1, count: 100, max_timestamp: 123).
-        to fail_validation('slug_title should be a string.')
-    end
-
-    it :count do
-      expect_validating(slug_title: '1e', count: 'q', max_timestamp: 123).
-        to fail_validation('count should be an integer.')
-    end
-
-    it :max_timestamp do
-      expect_validating(slug_title: '1e', count: 100, max_timestamp: 'q').
-        to fail_validation('max_timestamp should be an integer.')
-    end
-  end
 end

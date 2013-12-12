@@ -34,11 +34,4 @@ describe Commands::Twitter::ShareFactlink do
       interactor.call
     end
   end
-
-  describe 'validations' do
-    it 'requires integer fact_id' do
-      expect_validating(fact_id: '')
-        .to fail_validation('fact_id should be an integer string.')
-    end
-  end
 end

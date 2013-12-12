@@ -7,7 +7,6 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   ui:
     'post_factlink': '.js-submit-post-factlink'
-    'opinion_animation': '.js-opinion-animation'
 
   events:
     'click .js-submit-post-factlink': 'post_factlink',
@@ -20,7 +19,6 @@ class window.FactsNewView extends Backbone.Marionette.Layout
   templateHelpers: ->
     fact_text: @options.fact_text
     add_to_topic_header: Factlink.Global.t.add_to_topics.capitalize()
-    guided: FactlinkApp.guided
 
   initialize: ->
     @addToCollection = new OwnChannelCollection
@@ -34,10 +32,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
       @renderShareNewFact()
       @openOpinionHelptext()
     else
-      @learnMoreRegion.show new LearnMoreBottomView
-
-    if FactlinkApp.guided
-      @ui.opinion_animation.show()
+      @learnMoreRegion.show new LearnMoreView
 
   onBeforeClose: ->
     @closeOpinionHelptext()
@@ -59,7 +54,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     @suggestedTopicsRegion.show suggestionView
 
   renderPersistentWheelView: ->
-    @wheel = new FactVotes
+    @wheel = new FactVotes {}, fact: null
     persistentWheelView = new PersistentWheelView
       el: @$('.fact-wheel')
       model: @wheel
@@ -67,7 +62,6 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     persistentWheelView.render()
 
     @wheel.on 'change:current_user_opinion', =>
-      @ui.opinion_animation.hide()
       @closeOpinionHelptext()
 
   renderShareNewFact: ->

@@ -27,7 +27,6 @@ module Commands
       end
 
       def validate
-        validate_integer_string :fact_id, fact_id
         validate_connected :twitter if sharing_options[:twitter]
         validate_connected :facebook if sharing_options[:facebook]
       end

@@ -10,7 +10,7 @@ class FactRelation < OurOhm
   reference :fact, Fact
   reference :created_by, GraphUser
 
-  attribute :type # => :supporting || :weakening
+  attribute :type # => :believes || :disbelieves
   index :type
 
   delegate :opinionated_users_ids, :opiniated, :add_opiniated, :remove_opinionateds,
@@ -21,22 +21,14 @@ class FactRelation < OurOhm
     assert_present :from_fact_id
     assert_present :fact_id
     assert_present :type
-    assert_member :type, [:supporting, :weakening, 'supporting', 'weakening']
+    assert_member :type, [:believes, :disbelieves, 'believes', 'disbelieves']
     assert_unique [:from_fact_id, :fact_id, :type]
     assert_present :created_by
   end
 
   def self.get_or_create(from, type, to, user)
-    id = get_id(from,type,to)
-    if id
-      self[id]
-    else
-      create_new(from,type,to, user)
-    end
-  end
-
-  def self.get_id(from,type,to)
-    key['gcby'][from.id][type][to.id].get
+    find(type: type, fact_id: to.id, from_fact_id: from.id).first or
+      create_new(from, type, to, user)
   end
 
   def self.create_new(from,type,to,user)
@@ -48,13 +40,9 @@ class FactRelation < OurOhm
     )
     fail "Creating FactRelation went wrong" if fact_relation.new?
 
-    #TODO this should use a collection
-    to.evidence(type) << fact_relation
-    key['gcby'][from.id][type][to.id].set(fact_relation.id)
-
     fact_relation
   end
-  private_class_method :create_new, :get_id
+  private_class_method :create_new
 
   def create
     self.created_at ||= Time.now.utc.to_s
@@ -62,17 +50,11 @@ class FactRelation < OurOhm
     super
   end
 
-  def get_type_opinion
-    Opinion.for_type(OpinionType.for_relation_type(type))
-  end
-
   def deletable?
     EvidenceDeletable.new(self, self.class.to_s, believable, created_by_id).deletable?
   end
 
   def delete
-    self.class.key['gcby'][from_fact.id][type][fact.id].del
-    fact.evidence(type).delete(self)
     believable.delete
     super
   end
@@ -87,6 +69,10 @@ class FactRelation < OurOhm
 
   def remove_opinions(user)
     remove_opinionateds(user)
+  end
+
+  def to_s
+    from_fact.to_s
   end
 
   private

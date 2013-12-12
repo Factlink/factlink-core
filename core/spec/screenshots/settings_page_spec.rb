@@ -1,6 +1,6 @@
 require 'screenshot_helper'
 
-describe "factlink", type: :feature do
+describe "factlink", type: :feature, driver: :poltergeist_slow do
   before :each do
     @user = sign_in_user create :full_user
   end

@@ -16,7 +16,7 @@
 
 
 // It would look weird for the evidence boxes to end before the impact circles.
-// Therefore, the supporting/weaking boxes need a minimum height.
+// Therefore, the believing/disbelieving boxes need a minimum height.
 @evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
 
 
@@ -75,12 +75,6 @@
   border-radius: 1000px;
 }
 
-.evidence-relevance-text-container {
-  position: relative; // for tooltip
-  z-index: 2; // force it just above the other evidence, inside this stacking context
-              // and also over voting popover
-}
-
 .evidence-relevance-text {
   .new-design-font();
   font-size: @heading1FontSize;
@@ -92,12 +86,12 @@
   width: 50%;
 }
 
-.evidence-supporting > .evidence-box, .evidence-weakening > .evidence-box {
+.evidence-believes > .evidence-box, .evidence-disbelieves > .evidence-box {
   margin: @evidenceBoxTopOffset -@negativeColumnMargin @evidenceBoxSpacing -@negativeColumnMargin;
   min-height: @evidenceBoxMinHeight;
 }
 
-.evidence-supporting, .evidence-loading {
+.evidence-believes, .evidence-loading {
   > .evidence-relevance, > .evidence-box {
     float: right;
     clear: right;
@@ -111,7 +105,7 @@
   }
 }
 
-.evidence-weakening {
+.evidence-disbelieves {
   > .evidence-relevance, > .evidence-box {
     float: left;
     clear: left;
@@ -125,7 +119,7 @@
   }
 }
 
-.evidence-unsure {
+.evidence-unsure, .evidence-centered {
   > .evidence-relevance, > .evidence-box {
     margin: auto;
     clear: both;
@@ -172,20 +166,20 @@
   right:  -@impactColouredBorderWidth;
 }
 
-.evidence-supporting > .evidence-relevance::after {
+.evidence-believes > .evidence-relevance::after {
   left: ceil(@impactCircleDiameter/2) - 1px;
   border-top-right-radius:    1000px;
   border-bottom-right-radius: 1000px;
 
-  border: @impactColouredBorderWidth solid @supportingImpactColor;
+  border: @impactColouredBorderWidth solid @believesEvidenceImpactColor;
   border-left: none;
 }
 
-.evidence-weakening > .evidence-relevance::after {
+.evidence-disbelieves > .evidence-relevance::after {
   right: floor(@impactCircleDiameter/2) - 2px;
   border-top-left-radius:    1000px;
   border-bottom-left-radius: 1000px;
-  border: @impactColouredBorderWidth solid @weakeningImpactColor;
+  border: @impactColouredBorderWidth solid @disbelievesEvidenceImpactColor;
   border-right: none;
 }
 
@@ -193,28 +187,29 @@
   top: floor(@impactCircleDiameter/2) - 1px;
   border-bottom-left-radius:  1000px;
   border-bottom-right-radius: 1000px;
-  border: @impactColouredBorderWidth solid @unsureImpactColor;
+  border: @impactColouredBorderWidth solid @doubtsEvidenceImpactColor;
   border-top: none;
 }
 
 // Evidence triangles (arrows)
-.evidence-supporting .evidence-box-triangle,
-.evidence-weakening .evidence-box-triangle {
+.evidence-believes .evidence-box-triangle,
+.evidence-disbelieves .evidence-box-triangle {
   top: @triangleTop;
   margin-top: -@triangleSize;
 }
 
-.evidence-supporting .evidence-box-triangle {
+.evidence-believes .evidence-box-triangle {
   .triangle-arrow-left();
   left: 0;
 }
 
-.evidence-weakening .evidence-box-triangle {
+.evidence-disbelieves .evidence-box-triangle {
   .triangle-arrow-right();
   right: 0;
 }
 
-.evidence-unsure .evidence-box-triangle {
+.evidence-unsure .evidence-box-triangle,
+.evidence-centered .evidence-box-triangle {
   .triangle-arrow-up();
   top: 0;
   left: 50%;
@@ -295,7 +290,6 @@
 
 .evidence-relevance-vote-popover {
   z-index: 1; // force it just above the other evidence, inside this stacking context
-              // but under the authority popovers
 }
 
 // Circle at the end of the evidence line
@@ -303,115 +297,17 @@
   position: relative;
   min-height: 30px;
 
-  @circleRadius: @middleLineWidth + 2*@evidenceAddCircleExtraRadius;
+  @circleRadius: @middleLineWidth;
   &:after {
     content: '';
     display: block;
     position: absolute;
-    bottom: -@circleRadius - (@evidenceAddLinesTop - @evidenceAddCircleExtraRadius);
+    bottom: -@circleRadius - 2px;
     left: 50%;
-    margin-left: -2px;
+    margin-left: -1px;
     width: @circleRadius;
     height: @circleRadius;
     border-radius: 5px; //half would be enough
     background-color: @discussionLineColor;
   }
-
-  &.evidence-terminator-before-add-evidence {
-    height: 80px;
-  }
-}
-
-// Add evidence buttons
-@weakeningLineOffset: 4px + -ceil(@middleLineWidth/2);
-@supportingLineOffset: 4px + floor(@middleLineWidth/2);
-@evidenceAddLinesTop: 3px;
-@evidenceAddCircleExtraRadius: 1px;
-@evidenceAddLineLength: @negativeColumnMargin;
-
-.evidence-add {
-  min-height: 220px; // to accommodate for the fact relation search
-}
-
-.evidence-add-buttons {
-  position: relative;
-}
-
-.evidence-add-tooltip {
-  cursor: pointer;
-}
-
-.evidence-add-weakening-line, .evidence-add-supporting-line {
-  position: absolute;
-  top: @evidenceAddLinesTop;
-  height: @middleLineWidth;
-  width: @evidenceAddLineLength + 5px; // some extra length to avoid rounding issues
-  background-color: @discussionLineColor;
-}
-
-.evidence-add-weakening-line {
-  right: 50%;
-  margin-right: @weakeningLineOffset;
-}
-
-.evidence-add-supporting-line {
-  left: 50%;
-  margin-left: @supportingLineOffset;
-}
-
-.evidence-add-supporting-wrapper, .evidence-add-weakening-wrapper {
-  position: absolute;
-  top: -100px;
-  visibility: hidden;
-  bottom: -100px;
-  margin-top: 4.5px;
-  text-align: center;
-  visibility: visible;
-  margin: 0 @negativeColumnMargin;
-  &:before{
-    content: "";
-    display: inline-block;
-    vertical-align: middle;
-    height: 100%;
-    margin-top: 5px;
-  }
-}
-
-.evidence-add-supporting-wrapper {
-  left: 50%;
-}
-
-.evidence-add-weakening-wrapper {
-  right: 50%;
-}
-
-.evidence-add .evidence-relevance {
-  margin-top: -@impactCircleDiameter/2;
-  cursor: pointer;
-
-  background-color: white;
-  box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonBorder;
-  transition: box-shadow 0.1s, border-top 0.1s;
-
-  &:hover {
-    box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonDarkBorder;
-  }
-
-  &:active {
-    border-top: @largeButtonBorderWidth solid @buttonDarkBorder;
-    box-shadow: @blockBorder, 0 @largeButtonBorderWidth white;
-  }
-}
-
-.evidence-add-cross {
-  width:  @impactCircleDiameter;
-  height: @impactCircleDiameter;
-  border-radius: 1000px;
-
-  background: asset-data-url('icon-cross.png') no-repeat 17px 17px;
-  opacity: 0.4;
-}
-
-.evidence-relevance:hover .evidence-add-cross {
-  opacity: 0.6;
 }

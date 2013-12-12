@@ -1,59 +1,51 @@
-class EvidenceRelevanceView extends Backbone.Marionette.ItemView
-  className: 'evidence-relevance-text-container'
-  template: 'evidence/evidence_relevance'
-
-  initialize: ->
-    @listenTo @model, 'change:impact', @render
-
 class EvidenceLayoutView extends Backbone.Marionette.Layout
   template: 'evidence/evidence_layout'
 
   regions:
     contentRegion: '.js-content-region'
     voteRegion: '.js-vote-region'
-    relevanceRegion: '.js-relevance-region'
+
+  ui:
+    relevance: '.js-relevance'
 
   typeCss: ->
-    if Factlink.Global.can_haz.comments_no_opinions
-      return 'evidence-weakening'
     switch @model.get('type')
-      when 'believes' then 'evidence-supporting'
-      when 'disbelieves' then 'evidence-weakening'
+      when 'believes' then 'evidence-believes'
+      when 'disbelieves' then 'evidence-disbelieves'
       when 'doubts' then 'evidence-unsure'
 
   render: ->
     super
     @$el.addClass @typeCss()
-    @listenTo @model, 'change:impact', @_updateIrrelevant
-    @_updateIrrelevant()
-    @relevanceRegion.show new EvidenceRelevanceView model: @model
     this
-
-  _updateIrrelevant: ->
-    @$el.toggleClass 'evidence-irrelevant', !@model.positiveImpact()
-
 
 class VotableEvidenceLayoutView extends EvidenceLayoutView
   className: 'evidence-votable'
 
   onRender: ->
     @contentRegion.show new FactRelationOrCommentView model: @model
+    @listenTo @model.argumentVotes(), 'change', @_updateRelevance
+    @_updateRelevance()
 
     if Factlink.Global.signed_in
-      @voteRegion.show new EvidenceVoteView model: @model
+      @voteRegion.show new EvidenceVoteView model: @model.argumentVotes()
       @$el.addClass 'evidence-has-arrows'
 
+  _updateRelevance: ->
+    @ui.relevance.text format_as_short_number(@model.argumentVotes().relevance())
+
+    relevant = @model.argumentVotes().relevance() >= 0
+    @$el.toggleClass 'evidence-irrelevant', !relevant
 
 class OpinionatorsEvidenceLayoutView extends EvidenceLayoutView
 
   shouldShow: ->
-    return false if Factlink.Global.can_haz.comments_no_opinions
     @model.has('impact') && @model.get('impact') > 0.0
 
   onRender: ->
     @$el.toggle @shouldShow()
     @contentRegion.show new InteractingUsersView model: @model
-
+    @ui.relevance.text format_as_short_number(@model.get('impact'))
 
 class EvidenceCollectionView extends Backbone.Marionette.CollectionView
   itemView: EvidenceLayoutView
@@ -81,20 +73,20 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
   ui:
     terminator: '.js-terminator'
     loading: '.js-evidence-loading'
+    loaded: '.js-evidence-loaded'
 
   onRender: ->
+    if Factlink.Global.signed_in
+      @addRegion.show new AddEvidenceFormView
+        collection: @collection.realEvidenceCollection
+        fact_id: @collection.fact.id
+    else
+      @learnMoreRegion.show new LearnMoreView
+
     @collectionRegion.show new EvidenceCollectionView collection: @collection
     @_updateLoading()
 
-    if Factlink.Global.signed_in
-      @ui.terminator.addClass 'evidence-terminator-before-add-evidence'
-      @addRegion.show new AddEvidenceView
-        collection: @collection
-        fact_id: @collection.fact.id
-
   _updateLoading: ->
     @ui.loading.toggle !!@collection.loading()
+    @ui.loaded.toggle !@collection.loading()
     @ui.terminator.toggleClass 'evidence-terminator-circle', !@collection.loading()
-
-    unless Factlink.Global.signed_in || @collection.loading()
-      @learnMoreRegion.show new LearnMoreBottomView

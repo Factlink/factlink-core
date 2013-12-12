@@ -3,7 +3,10 @@
 #  - Sponsored by Kabisa ICT - http://kabisa.nl
 # Rails 3 update by Floris Huetink <floris@avocado.nl> (github: florish)
 nl:
-  add_fact: "Factlink toevoegen"
+  add_fact: "annotatie toevoegen"
+
+  factlink: "annotatie"
+  factlinks: "annotaties"
 
   fact_believe_action: "stem in met"
   fact_doubt_action: "stem neutraal op"
@@ -16,8 +19,6 @@ nl:
   fact_believe_opinion: "eens"
   fact_disbelieve_opinion: "oneens"
   fact_doubt_opinion: "onzeker"
-
-  fact_removed_opinions_past_action: "trok mening in"
 
   fact_believe_present_singular_action: "stemt in"
   fact_disbelieve_present_singular_action: "ontkent"
@@ -51,10 +52,6 @@ nl:
   fact_remove_opinion_past_action: "trok zijn mening terug"
   fact_add_evidence_past_action: "voegde argument toe"
 
-  fact_believe_collection_name: "ondersteunend"
-  fact_disbelieve_collection_name: "verzwakkend"
-  fact_doubt_collection_name: "onzeker"
-
   post_comment: "Post bericht"
 
   channel: "kanaal"
@@ -65,6 +62,7 @@ nl:
   follow_topic: "topic volgen"
   followed: "volgt"
   following: "volgt"
+  followers: "volgers"
   unfollow: "ontvolgen"
   is_now_following_you: "volgt je nu"
 
@@ -73,12 +71,12 @@ nl:
   topic: "onderwerp"
   topics: "onderwerpen"
   topic_name: "naam van onderwerp"
-  add_to_topics: "waar gaat deze Factlink over"
-  created_user_topic: "is begonnen met posten naar een onderwerp"
+  add_to_topics: "waar gaat deze annotatie over"
   favourites: "gevolgde topics"
   favourite: "volgen"
   unfavourite: "ontvolgen"
   favourited: "volgend"
+  favouritours: "volgers"
 
   ago: "geleden"
   show: "toon"
@@ -86,8 +84,6 @@ nl:
 
   you: "jij"
   nobody: "niemand"
-
-  fact_added_fact_to_channel_action: "heeft jouw Factlink toegevoegd aan zijn/haar kanaal"
 
   facts:
     new:

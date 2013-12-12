@@ -4,114 +4,65 @@ action = activity.action
 created_at = activity.created_at
 user =  activity.user.user
 
-json.subject_class subject.class.to_s
-
-
-json.user {|j| j.partial! 'users/user_partial', user: user }
+json.user {json.partial! 'users/user_partial', user: user }
 
 json.action action
-json.translated_action t("fact_#{action.to_s}_action".to_sym)
-
-json.subject subject.to_s
 
 json.time_ago TimeFormatter.as_time_ago(created_at.to_time)
 
 json.id activity.id
 
-json.activity do |json|
+json.activity do
 
   case action
-  when "added_supporting_evidence", "added_weakening_evidence"
-    json.action             :added
-    json.evidence           subject.to_s
-    json.evidence_url       friendly_fact_path(subject)
-    json.fact_url           friendly_fact_path(object)
+
+  # For easier refactoring we note where each activity is used.
+  # These tags come from Activity::ListenerCreator and Activity::Listener::Stream (sigh)
+  # Try to keep 'em in sync
+
+  # notifications, stream_activities
+  when "created_fact_relation", "created_comment", "created_sub_comment"
     json.target_url         friendly_fact_path(object)
     json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
 
     if showing_notifications
       json.fact truncate("#{object}", length: 85, separator: " ")
     else
-      json.fact { |j| j.partial! 'facts/fact', fact: object }
+      json.fact { json.partial! 'facts/fact', fact: object }
     end
 
-  when "created_comment"
-    json.action             :created_comment
-    json.target_url         friendly_fact_path(object)
-    json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
-
-    if showing_notifications
-      json.fact truncate("#{object}", length: 85, separator: " ")
-    else
-      json.fact { |j| j.partial! 'facts/fact', fact: object }
-    end
-
-  when "created_sub_comment"
-    json.action       :created_sub_comment
-    json.target_url   friendly_fact_path(object)
-    json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
-
-    if showing_notifications
-      json.fact truncate("#{object}", length: 85, separator: " ")
-    else
-      json.fact { |j| j.partial! 'facts/fact', fact: object }
-    end
-
-  when "created_channel"
-    topic = subject.topic
-    json.topic_title               topic.title
-    json.topic_url                 topic_path(topic.slug_title)
-
-    json.created_channel_definition t(:created_user_topic)
+  # stream_activities
   when "added_fact_to_channel" # TODO: rename actual activity to added_fact_to_topic
     json.partial! 'activities/added_fact_to_topic_activity',
         subject: subject,
         object: object,
         user: user
+
+  # stream_activities
   when "believes", "doubts", "disbelieves"
-    if showing_notifications
-      json.action action
+    json.fact { json.partial! 'facts/fact', fact: subject}
 
-      json.translated_action case action
-        when 'believes'
-          t(:fact_believe_past_singular_action_about)
-        when 'disbelieves'
-          t(:fact_disbelieve_past_singular_action_about)
-        when 'doubts'
-          t(:fact_doubt_past_singular_action_about)
-        end
-
-
-      if subject.class.to_s == "Fact"
-        json.fact_path friendly_fact_path subject
-        json.subject truncate("#{subject}", length: 85, separator: ' ')
-      elsif subject.class.to_s == "FactRelation"
-        json.fact_path friendly_fact_path subject.from_fact
-        json.subject truncate("#{subject.from_fact}", length: 85, separator: ' ')
-      end
-    else
-      json.fact { |j| j.partial! 'facts/fact', fact: subject}
-    end
-
+  # notifications
   when "created_conversation"
     json.target_url conversation_path(subject)
 
-    json.message do |message|
-      message.content truncate("#{subject.messages.first.content}", length: 85, separator: ' ')
+    json.message do
+      json.content truncate("#{subject.messages.first.content}", length: 85, separator: ' ')
     end
 
+  # notifications
   when "replied_message"
     json.target_url conversation_message_path(subject.conversation, subject)
 
-    json.message do |message|
-      message.content truncate("#{subject.content}", length: 85, separator: ' ')
+    json.message do
+      json.content truncate("#{subject.content}", length: 85, separator: ' ')
     end
+
+  # notifications, stream_activities
   when "followed_user"
     json.target_url user_profile_path(user.username)
-    json.followed_user do |followed_user|
-      followed_user.partial! 'users/user_partial', user: subject.user
+    json.followed_user do
+      json.partial! 'users/user_partial', user: subject.user
     end
-  when "invites"
-    json.target_url user_profile_path(user)
   end
 end

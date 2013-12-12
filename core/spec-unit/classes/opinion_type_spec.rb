@@ -13,12 +13,7 @@ describe OpinionType do
       expect { OpinionType.real_for(:henk) }.to raise_error RuntimeError, "invalid opinion"
     end
   end
-  describe '.for_relation_type' do
-    it "returns the proper opinion" do
-      expect(OpinionType.for_relation_type(:supporting)).to eq :believes
-      expect(OpinionType.for_relation_type(:weakening)).to eq :disbelieves
-    end
-  end
+
   describe '.types' do
     it "includes the valid types" do
       expect(OpinionType.types).to include :believes

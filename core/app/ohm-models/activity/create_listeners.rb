@@ -19,14 +19,16 @@ class Activity < OurOhm
       ->(a) { reject_self(followers_for_fact(a.object),a) }
     end
 
-    def forGraphUser_someone_added_evidence_to_a_fact_you_follow
+    # notifications, stream_activities
+    def forGraphUser_fact_relation_was_added
       {
-        subject_class: "Fact",
-        action: [:added_supporting_evidence, :added_weakening_evidence],
+        subject_class: "FactRelation",
+        action: [:created_fact_relation],
         write_ids: people_who_follow_a_fact_which_is_object
       }
     end
 
+    # notifications, stream_activities
     def forGraphUser_comment_was_added
       {
         subject_class: "Comment",
@@ -35,6 +37,7 @@ class Activity < OurOhm
       }
     end
 
+    # notifications
     def forGraphUser_someone_send_you_a_message
       {
         subject_class: "Conversation",
@@ -43,6 +46,7 @@ class Activity < OurOhm
       }
     end
 
+    # notifications
     def forGraphUser_someone_send_you_a_reply
       {
         subject_class: "Message",
@@ -51,14 +55,7 @@ class Activity < OurOhm
       }
     end
 
-    def forGraphUser_someone_invited_you
-      {
-        subject_class: "GraphUser",
-        action: :invites,
-        write_ids: ->(a) { [a.subject_id] }
-      }
-    end
-
+    # notifications
     def forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation
       {
         subject_class: "SubComment",
@@ -67,6 +64,7 @@ class Activity < OurOhm
       }
     end
 
+    # stream_activities
     def forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow
       {
         subject_class: "SubComment",
@@ -75,6 +73,7 @@ class Activity < OurOhm
       }
     end
 
+    # stream_activities
     def forGraphUser_someone_opinionated_a_fact_you_created
       {
         subject_class: "Fact",
@@ -84,6 +83,7 @@ class Activity < OurOhm
       }
     end
 
+    # stream_activities
     def forGraphUser_someone_added_a_fact_you_created_to_his_channel
       {
         subject_class: "Fact",
@@ -95,6 +95,7 @@ class Activity < OurOhm
       }
     end
 
+    # notifications
     def forGraphUser_someone_followed_you
       {
         subject_class: 'GraphUser',
@@ -111,15 +112,16 @@ class Activity < OurOhm
     end
 
     def create_notification_activities
+      # NOTE: Please update the tags above and in _activity.json.jbuilder when changing this!!
       notification_activities = [
-        forGraphUser_someone_added_evidence_to_a_fact_you_follow,
+        forGraphUser_fact_relation_was_added,
         forGraphUser_someone_send_you_a_message,
         forGraphUser_someone_send_you_a_reply,
         forGraphUser_comment_was_added,
-        forGraphUser_someone_invited_you,
         forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation,
         forGraphUser_someone_followed_you
       ]
+
       Activity::Listener.register do
         activity_for "GraphUser"
         named :notifications
@@ -130,8 +132,9 @@ class Activity < OurOhm
     def create_stream_activities
       Activity::Listener.register_listener Activity::Listener::Stream.new
 
+      # NOTE: Please update the tags above and in _activity.json.jbuilder when changing this!!
       stream_activities = [
-        forGraphUser_someone_added_evidence_to_a_fact_you_follow,
+        forGraphUser_fact_relation_was_added,
         forGraphUser_comment_was_added,
         forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow,
         forGraphUser_someone_opinionated_a_fact_you_created,

@@ -1,6 +1,6 @@
 require 'screenshot_helper'
 
-describe "factlink", type: :feature do
+describe "factlink", type: :feature, driver: :poltergeist_slow do
   include Screenshots::DiscussionHelper
 
   it "the layout of the new discussion page is correct with doubters on top, and
@@ -18,8 +18,6 @@ describe "factlink", type: :feature do
     go_to_fact_show_of factlink
 
     page.should have_content factlink.data.displaystring
-
-    find('.js-weakening-button').click
 
     assume_unchanged_screenshot "fact_show_A"
   end
@@ -42,7 +40,6 @@ describe "factlink", type: :feature do
 
     page.should have_content factlink.data.displaystring
 
-    find('.js-supporting-button').click
     find('.js-switch-to-factlink').click
 
     assume_unchanged_screenshot "fact_show_B"

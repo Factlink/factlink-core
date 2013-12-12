@@ -10,9 +10,6 @@ class ActivityMailer < ActionMailer::Base
                             .find(user_id)
     @activity = Activity[activity_id]
 
-    blacklisted_activities = ['invites']
-
-    return if blacklisted_activities.include? @activity.action
     return unless @activity.still_valid?
     return unless @user
 
@@ -35,7 +32,7 @@ class ActivityMailer < ActionMailer::Base
     user = activity.user.user
 
     case activity.action
-    when 'added_supporting_evidence', 'added_weakening_evidence', 'created_comment', 'created_sub_comment'
+    when 'created_fact_relation', 'created_comment', 'created_sub_comment'
       factlink = activity.object.data.displaystring.truncate(50)
       "Discussion on #{factlink}"
     when 'created_conversation'

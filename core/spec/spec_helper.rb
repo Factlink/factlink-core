@@ -32,15 +32,20 @@ RSpec.configure do |config|
     ElasticSearch.create
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.orm = "mongoid"
-    Authority.logger = nil
   end
 
   config.before(:each) do
     ElasticSearch.clean
     Ohm.flush
     DatabaseCleaner.clean
-    Timecop.return
   end
+end
+
+Approvals.configure do |c|
+  c.excluded_json_keys = {
+    id: /\Aid\z/,
+    timestamp: /\Atimestamp\z/
+  }
 end
 
 # Speed improvements in password hashing

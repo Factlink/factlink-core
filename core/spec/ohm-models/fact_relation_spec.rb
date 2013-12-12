@@ -14,24 +14,21 @@ describe FactRelation do
 
   describe "#get_or_create" do
     it "should return a new factrelation when the relation does not exist" do
-      fr = FactRelation.get_or_create(fact1, :supporting, fact2, gu)
+      fr = FactRelation.get_or_create(fact1, :believes, fact2, gu)
       fr.should be_a(FactRelation)
       fr.should_not be_new
     end
 
-
-    [:supporting, :weakening, 'supporting','weakening'].each do |type|
-      it "should return a new factrelation when the relation does not exist" do
-        fr = FactRelation.new type: type,
-                              fact: fact1,
-                              from_fact: fact2,
-                              created_by: gu
-        fr.save
-        fr.should_not be_new
-      end
+    it "doesn't return a new factrelation when the relation type does exist" do
+      fr = FactRelation.new type: :believes,
+                            fact: fact1,
+                            from_fact: fact2,
+                            created_by: gu
+      fr.save
+      fr.should_not be_new
     end
 
-    it "should return a new factrelation when the relation does not exist" do
+    it "should return a new factrelation when the relation type does not exist" do
       fr = FactRelation.new type: :retroverting,
                             fact: fact1,
                             from_fact: fact2,
@@ -41,45 +38,34 @@ describe FactRelation do
     end
 
     it "should have a created_by GraphUser when created" do
-      fr = FactRelation.get_or_create(evidence, :supporting, parent, gu)
+      fr = FactRelation.get_or_create(evidence, :believes, parent, gu)
       fr.created_by.should be_a(GraphUser)
     end
 
     it "should find the relation when the relation does exist" do
-      fr = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
+      fr = FactRelation.get_or_create(fact1,:believes,fact2,gu)
       fr.should be_a(FactRelation)
-      fr2 = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
+      fr2 = FactRelation.get_or_create(fact1,:believes,fact2,gu)
       fr2.should be_a(FactRelation)
-      fr3 = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
+      fr3 = FactRelation.get_or_create(fact1,:believes,fact2,gu)
       fr3.should be_a(FactRelation)
       expect(fr).to eq fr2
       expect(fr2).to eq fr3
     end
   end
 
-  it "should add itself to the list of evidence" do
-    FactRelation.get_or_create(fact1,:supporting,fact2,gu)
-    fact2.evidence(:supporting).to_a.collect { |x| x.from_fact }.should =~ [fact1]
-  end
-
-  it "should delete itself from lists referring to it" do
-    fr = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
-    fr.delete
-    expect(fact2.evidence(:supporting).size).to eq 0
-  end
-
   it "should not be able to create identical factRelations" do
-    FactRelation.get_or_create(fact1,:supporting,fact2,gu)
-    FactRelation.get_or_create(fact1,:supporting,fact2,gu)
+    FactRelation.get_or_create(fact1,:believes,fact2,gu)
+    FactRelation.get_or_create(fact1,:believes,fact2,gu)
     expect(FactRelation.all.size).to eq 1
-    FactRelation.get_or_create(fact2,:supporting,fact1,gu)
-    FactRelation.get_or_create(fact2,:supporting,fact1,gu)
+    FactRelation.get_or_create(fact2,:believes,fact1,gu)
+    FactRelation.get_or_create(fact2,:believes,fact1,gu)
     expect(FactRelation.all.size).to eq 2
   end
 
   describe :deletable? do
     include PavlovSupport
-    let(:fr) { FactRelation.get_or_create(fact1,:supporting,fact2,gu) }
+    let(:fr) { FactRelation.get_or_create(fact1,:believes,fact2,gu) }
 
     it "should be true initially" do
       fr.deletable?.should be_true

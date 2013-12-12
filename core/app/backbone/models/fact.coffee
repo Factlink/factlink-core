@@ -29,10 +29,7 @@ class window.Fact extends Backbone.Model
         opts.success?()
 
   getFactVotes: ->
-    unless @_fact_votes?
-      @_fact_votes = new FactVotes _.extend {}, @get("fact_votes"), fact_id: @id
-      @on 'change:id', -> @_fact_votes.set 'fact_id', @id
-    @_fact_votes
+    @_fact_votes ?= new FactVotes @get("fact_votes"), fact: this
 
   clientLink: -> "/client/facts/#{@id}"
 

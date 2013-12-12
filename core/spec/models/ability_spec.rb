@@ -165,14 +165,17 @@ describe Ability do
 
     describe "of my own" do
       it { subject.should be_able_to :read, c1 }
+      it { subject.should be_able_to :destroy, c1 }
     end
 
     describe "of someone else" do
-      it { subject.should be_able_to :read, c2 }
+      it { subject.should     be_able_to :read, c2 }
+      it { subject.should_not be_able_to :destroy, c2 }
     end
 
     describe "without logging in" do
-      it { anonymous.should be_able_to :read, c1 }
+      it { anonymous.should     be_able_to :read, c1 }
+      it { anonymous.should_not be_able_to :destroy, c1 }
     end
   end
 
@@ -210,24 +213,6 @@ describe Ability do
     it "should be able to view a topic" do
       subject.should be_able_to :show, topic
       anonymous.should be_able_to :show, topic
-    end
-  end
-
-  describe "to invite users" do
-    it "should not be possible when you have no invites" do
-      anonymous.should_not be_able_to :invite, User
-      subject.should_not be_able_to :invite, User
-      admin.should_not be_able_to :invite, User
-    end
-    describe "when you have invitations" do
-      before do
-        user.invitation_limit = 3
-        admin_user.invitation_limit = 3
-      end
-      it "should be possible when you have no invites" do
-        subject.should be_able_to :invite, User
-        admin.should be_able_to :invite, User
-      end
     end
   end
 

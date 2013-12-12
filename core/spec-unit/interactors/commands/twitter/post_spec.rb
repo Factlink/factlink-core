@@ -34,17 +34,6 @@ describe Commands::Twitter::Post do
   end
 
   describe 'validation' do
-    it 'requires a message' do
-      twitter_account = double persisted?: true
-      user = double
-      pavlov_options = { current_user: user }
-
-      user.stub(:social_account).with('twitter').and_return(twitter_account)
-
-      expect_validating(message: '', pavlov_options: pavlov_options)
-        .to fail_validation('message should be a nonempty string.')
-    end
-
     it 'throws an error if no twitter account is linked' do
       message  = 'message'
       twitter_account = double persisted?: false

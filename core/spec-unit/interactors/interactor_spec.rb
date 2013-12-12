@@ -1,4 +1,3 @@
-require 'active_support'
 require 'pavlov/interactor'
 
 describe Pavlov::Interactor do

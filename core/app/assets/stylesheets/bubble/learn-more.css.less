@@ -13,6 +13,7 @@
   display: inline-block;
   visibility: visible;
   padding: (15px + @buttonOffset) 15px 15px;
+  margin-top: @triangleSize+10px;
 }
 
 .learn-more-button {
@@ -20,24 +21,8 @@
 }
 
 .learn-more-arrow {
+  .triangle-arrow-up();
+  top: 0;
   left: 50%;
   margin-left: -@triangleSize;
-}
-
-.learn-more-top {
-  margin-bottom: 20px;
-
-  .learn-more-arrow {
-    .triangle-arrow-down();
-    bottom: 0;
-  }
-}
-
-.learn-more-bottom {
-  margin-top: @triangleSize+10px;
-
-  .learn-more-arrow {
-    .triangle-arrow-up();
-    top: 0;
-  }
 }

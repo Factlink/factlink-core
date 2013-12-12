@@ -11,10 +11,6 @@ module Commands
                     fields: [:username, :full_name],
                     fields_changed: changed)
       end
-
-      def validate
-        validate_not_nil :user, user
-      end
     end
   end
 end
