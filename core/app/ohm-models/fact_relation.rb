@@ -10,7 +10,7 @@ class FactRelation < OurOhm
   reference :fact, Fact
   reference :created_by, GraphUser
 
-  attribute :type # => :believes || :disbelieves
+  attribute :type # => :believes || :disbelieves || :doubts
   index :type
 
   delegate :opinionated_users_ids, :opiniated, :add_opiniated, :remove_opinionateds,
@@ -20,7 +20,7 @@ class FactRelation < OurOhm
     assert_present :from_fact_id
     assert_present :fact_id
     assert_present :type
-    assert_member :type, [:believes, :disbelieves, 'believes', 'disbelieves']
+    assert OpinionType.include?(type.to_s), 'Unknown opinion type'
     assert_unique [:from_fact_id, :fact_id, :type]
     assert_present :created_by
   end
@@ -72,12 +72,6 @@ class FactRelation < OurOhm
 
   def to_s
     from_fact.to_s
-  end
-
-  private
-
-  def assert_member(att, set, error = [att, :not_member])
-    assert set.include?(send(att)), error
   end
 
   protected

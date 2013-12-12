@@ -44,6 +44,8 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
 
   _setArgumentTypeToOpinion: ->
     opinion = @_factVotes.get('current_user_opinion')
+    opinion = 'doubts' if opinion == 'no_vote'
+
     @$("input[name=argumentType][value=#{opinion}]").prop('checked', true)
     @_updateArgumentType()
 

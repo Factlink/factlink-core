@@ -26,30 +26,30 @@ feature "adding factlinks to a fact", type: :feature do
   scenario "we can click on evidence to go to the page of that factlink" do
     go_to_discussion_page_of factlink
 
-    supporting_factlink = backend_create_fact
+    weakening_factlink = backend_create_fact
 
-    add_existing_factlink :believes, supporting_factlink
+    add_existing_factlink :disbelieves, weakening_factlink
 
     find('.evidence-relevance-text', text: "1") # wait until request has finished
 
-    find('.evidence-votable span', text: supporting_factlink.to_s).click
+    find('.evidence-votable span', text: weakening_factlink.to_s).click
 
-    find('.top-fact-text', text: supporting_factlink.to_s)
+    find('.top-fact-text', text: weakening_factlink.to_s)
   end
 
   scenario "we can click on evidence to go to the page of that factlink in the client" do
     go_to_discussion_page_of factlink
 
-    supporting_factlink = backend_create_fact
+    neutral_factlink = backend_create_fact
 
-    add_existing_factlink :believes, supporting_factlink
+    add_existing_factlink :doubts, neutral_factlink
 
     find('.evidence-relevance-text', text: "1") # wait until request has finished
 
     go_to_fact_show_of factlink
 
-    find('.evidence-votable span', text: supporting_factlink.to_s).click
+    find('.evidence-votable span', text: neutral_factlink.to_s).click
 
-    find('.top-fact-text', text: supporting_factlink.to_s)
+    find('.top-fact-text', text: neutral_factlink.to_s)
   end
 end
