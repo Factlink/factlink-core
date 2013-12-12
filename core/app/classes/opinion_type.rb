@@ -9,6 +9,6 @@ class OpinionType
   end
 
   def self.types
-    [:believes, :doubts, :disbelieves]
+    ['believes', 'disbelieves', 'doubts']
   end
 end

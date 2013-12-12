@@ -24,9 +24,9 @@ class Believable
   end
 
   def opiniated(type)
-    fail 'Unknown opinion type' unless OpinionType.types.include?(type)
+    fail 'Unknown opinion type' unless OpinionType.types.include?(type.to_s)
 
-    graph_user_set "people_#{type}"
+    graph_user_set "people_#{type.to_s}"
   end
 
   def add_opiniated(type, graph_user)
