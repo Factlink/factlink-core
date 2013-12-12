@@ -20,7 +20,7 @@ class Activity < OurOhm
     end
 
     # notifications, stream_activities
-    def forGraphUser_fact_relation_was_added
+    def forGraphUser_fact_relation_was_added_to_a_fact_you_follow
       {
         subject_class: "FactRelation",
         action: [:created_fact_relation],
@@ -29,7 +29,7 @@ class Activity < OurOhm
     end
 
     # notifications, stream_activities
-    def forGraphUser_comment_was_added
+    def forGraphUser_comment_was_added_to_a_fact_you_follow
       {
         subject_class: "Comment",
         action: :created_comment,
@@ -114,10 +114,10 @@ class Activity < OurOhm
     def create_notification_activities
       # NOTE: Please update the tags above and in _activity.json.jbuilder when changing this!!
       notification_activities = [
-        forGraphUser_fact_relation_was_added,
+        forGraphUser_fact_relation_was_added_to_a_fact_you_follow,
         forGraphUser_someone_send_you_a_message,
         forGraphUser_someone_send_you_a_reply,
-        forGraphUser_comment_was_added,
+        forGraphUser_comment_was_added_to_a_fact_you_follow,
         forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation,
         forGraphUser_someone_followed_you
       ]
@@ -134,8 +134,8 @@ class Activity < OurOhm
 
       # NOTE: Please update the tags above and in _activity.json.jbuilder when changing this!!
       stream_activities = [
-        forGraphUser_fact_relation_was_added,
-        forGraphUser_comment_was_added,
+        forGraphUser_fact_relation_was_added_to_a_fact_you_follow,
+        forGraphUser_comment_was_added_to_a_fact_you_follow,
         forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow,
         forGraphUser_someone_opinionated_a_fact_you_created,
         forGraphUser_someone_added_a_fact_you_created_to_his_channel,
