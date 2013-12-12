@@ -60,7 +60,7 @@ class FactsController < ApplicationController
       # TODO: switch the following two if blocks if possible
       if @fact and (params[:opinion] and OpinionType.types.include?(params[:opinion]))
         @fact.add_opinion(params[:opinion], current_user.graph_user)
-        Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(params[:opinion]), @fact)
+        Activity::Subject.activity(current_user.graph_user, params[:opinion], @fact)
       end
 
       add_to_channels @fact, params[:channels]

@@ -67,7 +67,7 @@ class EvidenceController < ApplicationController
     # Create FactRelation
     fact_relation = fact.add_evidence(type, evidence, current_user)
     fact_relation.add_opinion(:believes, current_graph_user)
-    Activity::Subject.activity(current_graph_user, OpinionType.real_for(:believes),fact_relation)
+    Activity::Subject.activity(current_graph_user, :believes, fact_relation)
 
     fact_relation
   end
