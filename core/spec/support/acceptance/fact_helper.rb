@@ -33,7 +33,7 @@ module Acceptance
 
     def click_wheel_part position, css_path=''
       #fire click event on svg element
-      if Capybara.current_driver == :poltergeist then
+      if /^poltergeist/.match Capybara.current_driver.to_s then
         #workaround for https://github.com/jonleighton/poltergeist/issues/331
         page.execute_script("
           var svgEl = document.querySelectorAll('#{css_path} .fact-wheel path')[#{position}];
