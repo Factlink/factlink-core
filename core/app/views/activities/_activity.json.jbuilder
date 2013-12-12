@@ -4,7 +4,7 @@ action = activity.action
 created_at = activity.created_at
 user =  activity.user.user
 
-json.user {|j| j.partial! 'users/user_partial', user: user }
+json.user {json.partial! 'users/user_partial', user: user }
 
 json.action action
 
@@ -12,7 +12,7 @@ json.time_ago TimeFormatter.as_time_ago(created_at.to_time)
 
 json.id activity.id
 
-json.activity do |json|
+json.activity do
 
   case action
 
@@ -28,7 +28,7 @@ json.activity do |json|
     if showing_notifications
       json.fact truncate("#{object}", length: 85, separator: " ")
     else
-      json.fact { |j| j.partial! 'facts/fact', fact: object }
+      json.fact { json.partial! 'facts/fact', fact: object }
     end
 
   # stream_activities
@@ -40,29 +40,29 @@ json.activity do |json|
 
   # stream_activities
   when "believes", "doubts", "disbelieves"
-    json.fact { |j| j.partial! 'facts/fact', fact: subject}
+    json.fact { json.partial! 'facts/fact', fact: subject}
 
   # notifications
   when "created_conversation"
     json.target_url conversation_path(subject)
 
-    json.message do |j|
-      j.content truncate("#{subject.messages.first.content}", length: 85, separator: ' ')
+    json.message do
+      json.content truncate("#{subject.messages.first.content}", length: 85, separator: ' ')
     end
 
   # notifications
   when "replied_message"
     json.target_url conversation_message_path(subject.conversation, subject)
 
-    json.message do |j|
-      j.content truncate("#{subject.content}", length: 85, separator: ' ')
+    json.message do
+      json.content truncate("#{subject.content}", length: 85, separator: ' ')
     end
 
   # notifications, stream_activities
   when "followed_user"
     json.target_url user_profile_path(user.username)
-    json.followed_user do |j|
-      j.partial! 'users/user_partial', user: subject.user
+    json.followed_user do
+      json.partial! 'users/user_partial', user: subject.user
     end
   end
 end
