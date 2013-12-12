@@ -1,5 +1,5 @@
 module OpinionType
   def self.types
-    ['believes', 'disbelieves', 'doubts']
+    @types ||= ['believes', 'disbelieves', 'doubts'].freeze
   end
 end
