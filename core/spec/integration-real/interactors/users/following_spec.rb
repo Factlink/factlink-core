@@ -45,8 +45,7 @@ describe 'user following' do
             :somethings, fact
 
           a2 = Activity::Subject.activity user2.graph_user,
-            :added_fact_to_channel, fact,
-            :to, channel
+            :added_fact_to_channel, fact, channel
 
           a3 = Activity::Subject.activity user2.graph_user,
             :something_elses, fact
