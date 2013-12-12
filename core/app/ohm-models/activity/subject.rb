@@ -5,9 +5,5 @@ class Activity < OurOhm
       Activity.create(user: graph_user,action: action, subject: subject, object: object)
     end
 
-    def activity *args
-      Activity::Subject.activity(*args)
-    end
-
   end
 end
