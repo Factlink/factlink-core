@@ -1,5 +1,6 @@
 class TourController < ApplicationController
   before_filter :common_tour
+  before_filter :track_click
 
   # first step is account, and this is in other controllers
   # search for @step_in_signup_process = :account
@@ -22,6 +23,16 @@ class TourController < ApplicationController
   def tour_done
     redirect_to after_sign_in_path_for(current_user)
     mp_track "Tour: Finished"
+  end
+
+  def track_click
+    unless params[:ref].blank?
+      ref = params[:ref]
+      if ['chrome_extension_skip', 'firefox_extension_skip',
+          'chrome_extension_next', 'firefox_extension_next'].include?(ref)
+        mp_track "#{ref} click".capitalize
+      end
+    end
   end
 
   private
