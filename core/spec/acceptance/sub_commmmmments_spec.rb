@@ -35,7 +35,7 @@ feature "sub_comments", type: :feature do
 
   scenario "A user can comment on a fact relation" do
     @fact_relation_user_b = create :fact, created_by: @user_b.graph_user
-    @factlink_user_a.add_evidence("supporting", @fact_relation_user_b, @user_b)
+    @factlink_user_a.add_evidence("believes", @fact_relation_user_b, @user_b)
 
     sub_comment_text = "Sub Comment 1"
 
@@ -55,7 +55,7 @@ feature "sub_comments", type: :feature do
 
   scenario "After adding a subcomment the evidence can not be removed any more" do
     @fact_relation_user_b = create :fact, created_by: @user_b.graph_user
-    @factlink_user_a.add_evidence("supporting", @fact_relation_user_b, @user_a)
+    @factlink_user_a.add_evidence("believes", @fact_relation_user_b, @user_a)
 
     sub_comment_text = "Sub Comment 1"
 

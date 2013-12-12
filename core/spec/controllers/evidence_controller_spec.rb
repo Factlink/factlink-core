@@ -68,7 +68,7 @@ describe EvidenceController do
     it "should render json succesfully" do
       FactoryGirl.reload
 
-      fr = f1.add_evidence :supporting, f2, user
+      fr = f1.add_evidence :believes, f2, user
       f2.add_opinion(:believes, user.graph_user)
       fr.add_opinion(:believes, user.graph_user)
 
@@ -97,7 +97,7 @@ describe EvidenceController do
 
   describe :update_opinion do
     it "should be able to set an opinion" do
-      fr = f1.add_evidence :supporting, f2, user
+      fr = f1.add_evidence :believes, f2, user
 
       authenticate_user!(user)
       should_check_can :opinionate, fr

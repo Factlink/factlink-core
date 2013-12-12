@@ -10,6 +10,7 @@ json.subject_class subject.class.to_s
 json.user {|j| j.partial! 'users/user_partial', user: user }
 
 json.action action
+
 json.translated_action t("fact_#{action.to_s}_action".to_sym)
 
 json.subject subject.to_s
@@ -21,10 +22,9 @@ json.id activity.id
 json.activity do |json|
 
   case action
-  when "added_supporting_evidence", "added_weakening_evidence"
+  when "created_fact_relation"
     json.action             :added
     json.evidence           subject.to_s
-    json.evidence_url       friendly_fact_path(subject)
     json.fact_url           friendly_fact_path(object)
     json.target_url         friendly_fact_path(object)
     json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
@@ -56,13 +56,6 @@ json.activity do |json|
     else
       json.fact { |j| j.partial! 'facts/fact', fact: object }
     end
-
-  when "created_channel"
-    topic = subject.topic
-    json.topic_title               topic.title
-    json.topic_url                 topic_path(topic.slug_title)
-
-    json.created_channel_definition t(:created_user_topic)
   when "added_fact_to_channel" # TODO: rename actual activity to added_fact_to_topic
     json.partial! 'activities/added_fact_to_topic_activity',
         subject: subject,

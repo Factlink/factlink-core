@@ -48,8 +48,6 @@ module Commands
         if pavlov_options.has_key? 'serialize_id'
           self.pavlov_options = Util::PavlovContextSerialization.deserialize_pavlov_context(pavlov_options)
         end
-
-        validate_integer_string  :fact_id, fact_id
         validate_nonempty_string :facebook_app_namespace,
                                   pavlov_options[:facebook_app_namespace]
       end

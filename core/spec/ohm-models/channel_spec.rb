@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Channel do
-  include AddFactToChannelSupport
   subject(:channel) { Channel.create(created_by: u1, title: "Subject") }
 
   let(:ch1) { Channel.create(created_by: u2, title: "Something") }

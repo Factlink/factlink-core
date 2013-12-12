@@ -1,7 +1,6 @@
 require "spec_helper"
 
 describe 'activity queries' do
-  include AddFactToChannelSupport
   include RedisSupport
   let(:gu1) { create(:full_user).graph_user }
   let(:gu2) { create(:full_user).graph_user }
@@ -38,58 +37,58 @@ describe 'activity queries' do
       f.created_by.stream_activities.key.del # delete other activities
 
       ch = create :channel, created_by: gu2
-      add_fact_to_channel f, ch
+      Pavlov.interactor :'channels/add_fact',
+                  fact: f, channel: ch,
+                  pavlov_options: { current_user: ch.created_by.user }
 
       notification = gu1.stream_activities.map(&:to_hash_without_time).should == [
         {:user => gu2, :action => :added_fact_to_channel, :subject => f, :object => ch}
       ]
     end
 
-    [:supporting, :weakening].each do |type|
-      it "should return activity when a users adds #{type} evidence to a fact that you created" do
-        f1 = create :fact
-        f2 = create :fact
-        f1.add_evidence type, f2, gu1
-        f1.created_by.notifications.map(&:to_hash_without_time).should == [
-          {user: gu1, action: :"added_#{type}_evidence", subject: f2, object: f1}
-        ]
-      end
-
-      it "should return activity when a users adds #{type} evidence to a fact that you believed" do
-        f1 = create :fact
-        f1.add_opinion(:believes, gu1)
-        Activity::Subject.activity(gu1, OpinionType.real_for(:believes), f1)
-
-        f2 = create :fact
-        f1.add_evidence type, f2, gu2
-        gu1.notifications.map(&:to_hash_without_time).should == [
-          {user: gu2, action: :"added_#{type}_evidence", subject: f2, object: f1}
-        ]
-      end
-
-      it "should return activity when a users adds #{type} evidence to a fact that you supported" do
-        f1 = create :fact
-        f2 = create :fact
-        f3 = create :fact
-        f1.add_evidence :supporting, f2, gu1
-        f1.add_evidence type, f3, gu2
-        gu1.notifications.map(&:to_hash_without_time).should == [
-          {user: gu2, action: :"added_#{type}_evidence", subject: f3, object: f1}
-        ]
-      end
+    it "should return activity when a users adds supporting evidence to a fact that you created" do
+      f1 = create :fact
+      f2 = create :fact
+      fr = f1.add_evidence :believes, f2, gu1
+      f1.created_by.notifications.map(&:to_hash_without_time).should == [
+        {user: gu1, action: :"created_fact_relation", subject: fr, object: f1}
+      ]
     end
-    [:believes, :doubts, :disbelieves].each do |opinion|
-      it "should return activity when a user opinionates a fact of the user" do
-        f1 = create :fact
-        f1.created_by.stream_activities.key.del # delete other activities
 
-        f1.add_opinion(opinion, gu1)
-        Activity::Subject.activity(gu1, OpinionType.real_for(opinion), f1)
+    it "should return activity when a users adds supporting evidence to a fact that you believed" do
+      f1 = create :fact
+      f1.add_opinion(:believes, gu1)
+      Activity::Subject.activity(gu1, OpinionType.real_for(:believes), f1)
 
-        f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
-            {user: gu1, action: opinion, subject: f1}
-        ]
-      end
+      f2 = create :fact
+      fr = f1.add_evidence :believes, f2, gu2
+      gu1.notifications.map(&:to_hash_without_time).should == [
+        {user: gu2, action: :"created_fact_relation", subject: fr, object: f1}
+      ]
+    end
+
+    it "should return activity when a users adds supporting evidence to a fact that you supported" do
+      f1 = create :fact
+      f2 = create :fact
+      f3 = create :fact
+      f1.add_evidence :believes, f2, gu1
+      fr = f1.add_evidence :believes, f3, gu2
+      gu1.notifications.map(&:to_hash_without_time).should == [
+        {user: gu2, action: :"created_fact_relation", subject: fr, object: f1}
+      ]
+    end
+
+    it "should return activity when a user opinionates a fact of the user" do
+      opinion = :doubts
+      f1 = create :fact
+      f1.created_by.stream_activities.key.del # delete other activities
+
+      f1.add_opinion(opinion, gu1)
+      Activity::Subject.activity(gu1, OpinionType.real_for(opinion), f1)
+
+      f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
+          {user: gu1, action: opinion, subject: f1}
+      ]
     end
   end
 
@@ -313,7 +312,7 @@ describe 'activity queries' do
 
           fact = create :fact, created_by: current_user.graph_user
 
-          fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+          fact_relation = fact.add_evidence :believes, create(:fact), current_user
 
           fact.add_opinion :believes, gu1
 
@@ -331,7 +330,7 @@ describe 'activity queries' do
 
           fact = create :fact, created_by: current_user.graph_user
 
-          fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+          fact_relation = fact.add_evidence :believes, create(:fact), current_user
 
           fact.add_opinion :believes, gu1
 
@@ -350,7 +349,7 @@ describe 'activity queries' do
 
           fact = create :fact, created_by: current_user.graph_user
 
-          fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+          fact_relation = fact.add_evidence :believes, create(:fact), current_user
 
           fact_relation.add_opinion :believes, gu1
 
@@ -368,7 +367,7 @@ describe 'activity queries' do
 
           fact = create :fact, created_by: current_user.graph_user
 
-          fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+          fact_relation = fact.add_evidence :believes, create(:fact), current_user
 
           fact_relation.add_opinion :believes, gu1
 
@@ -388,7 +387,7 @@ describe 'activity queries' do
 
           fact = create :fact, created_by: current_user.graph_user
 
-          fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+          fact_relation = fact.add_evidence :believes, create(:fact), current_user
 
           as(gu1.user) do |pavlov|
             pavlov.interactor(:'sub_comments/create_for_fact_relation', fact_relation_id: fact_relation.id.to_i, content: 'content')
@@ -407,7 +406,7 @@ describe 'activity queries' do
           sub_comment = ()
           fact = create :fact, created_by: current_user.graph_user
 
-          fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+          fact_relation = fact.add_evidence :believes, create(:fact), current_user
 
           as(gu1.user) do |pavlov|
             pavlov.interactor(:'sub_comments/create_for_fact_relation', fact_relation_id: fact_relation.id.to_i, content: 'content')
@@ -462,7 +461,9 @@ describe 'activity queries' do
         f1 = create :fact, created_by: gu3
 
         ch1 = create :channel, created_by: gu1
-        add_fact_to_channel f1, ch1
+        Pavlov.interactor :'channels/add_fact',
+                          fact: f1, channel: ch1,
+                          pavlov_options: { current_user: ch1.created_by.user }
 
         gu2.stream_activities.map(&:to_hash_without_time).should == [
           {user: gu1, action: :added_fact_to_channel, subject: f1, object: ch1}

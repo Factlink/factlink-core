@@ -28,11 +28,4 @@ describe Queries::Topics::FactsCount do
       expect( query.call ).to eq count
     end
   end
-
-  describe '#validation' do
-    it :slug_title do
-      expect_validating(slug_title: 1).
-        to fail_validation('slug_title should be a string.')
-    end
-  end
 end

@@ -10,16 +10,6 @@ describe Commands::CreateConversation do
     stub_classes 'Conversation', 'Queries::UserByUsername', 'Fact'
   end
 
-  it 'throws an error when recipient_usernames is not a list' do
-    expect_validating(fact_id: fact_id, recipients_usernames: nil)
-      .to fail_validation 'recipient_usernames should be a list'
-  end
-
-  it 'throws an error when recipient_usernames is an empty list' do
-    expect_validating(fact_id: fact_id, recipient_usernames: [])
-      .to fail_validation 'recipient_usernames should not be empty'
-  end
-
   describe '#call' do
     it 'should execute correctly' do
       username = 'username'

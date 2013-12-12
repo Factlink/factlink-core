@@ -38,13 +38,9 @@ class window.ActivitiesGroupView extends Backbone.Marionette.CompositeView
       @collection.add model
 
 class UserActivitiesGroupView extends ActivitiesGroupView
-  template: 'activities/user_activities_group'
   className: 'activity-group'
   itemView: Backbone.View
   itemViewContainer: ".js-region-activities"
-
-  @actions: ["created_channel"]
-  actions: -> UserActivitiesGroupView.actions
 
   constructor: ->
     super
@@ -78,7 +74,7 @@ class UserActivitiesGroupView extends ActivitiesGroupView
 class UserFactActivitiesGroupView extends UserActivitiesGroupView
   template: 'activities/user_fact_activities_group'
 
-  @actions: ["added_fact_to_channel", "created_comment", "created_sub_comment", "added_supporting_evidence", "added_weakening_evidence", "believes", "doubts", "disbelieves"]
+  @actions: ["added_fact_to_channel", "created_comment", "created_sub_comment", "created_fact_relation", "believes", "doubts", "disbelieves"]
   actions: -> UserFactActivitiesGroupView.actions
 
   onRender: ->
@@ -99,7 +95,7 @@ class UserFactActivitiesGroupView extends UserActivitiesGroupView
     activity.get('action') in ['believes', 'disbelieves', 'doubts']
 
   isAddedArgument: (activity) ->
-    activity.get('action') in ["created_comment", "added_supporting_evidence", "added_weakening_evidence"]
+    activity.get('action') in ["created_comment", "created_fact_relation"]
 
   activityMadeRedundantBy: (newActivity, oldActivity) ->
     @isOpinion(oldActivity) && @isOpinion(newActivity) ||

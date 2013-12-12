@@ -47,17 +47,14 @@ describe Fact do
     end
   end
 
-  ['supporting', 'weakening'].each do |relation|
-    describe ".add_evidence" do
-      it 'saves the evidence' do
-        fact.add_evidence(relation,factlink,graph_user)
-        fact_relations = Pavlov.query(:'fact_relations/for_fact', fact: fact)
+  describe ".add_evidence" do
+    it 'saves the evidence' do
+      fact.add_evidence('disbelieves', factlink, graph_user)
+      fact_relations = Pavlov.query(:'fact_relations/for_fact', fact: fact)
 
-        expect(fact_relations.first.type).to eq relation
-      end
+      expect(fact_relations.first.type).to eq 'disbelieves'
     end
   end
-
 
   describe "Mongoid properties: " do
     context "after setting a displaystring to 'hiephoi'" do
@@ -160,7 +157,7 @@ describe Fact do
       supported_fact  = Fact.create created_by: graph_user
       supporting_fact = Fact.create created_by: graph_user
 
-      supported_fact.add_evidence(:supporting, supporting_fact, graph_user)
+      supported_fact.add_evidence(:believes, supporting_fact, graph_user)
 
       expect(supported_fact.deletable?).to be_false
     end
@@ -169,7 +166,7 @@ describe Fact do
       supported_fact  = Fact.create created_by: graph_user
       supporting_fact = Fact.create created_by: graph_user
 
-      supported_fact.add_evidence(:supporting, supporting_fact, graph_user)
+      supported_fact.add_evidence(:believes, supporting_fact, graph_user)
 
       expect(supported_fact.deletable?).to be_false
     end

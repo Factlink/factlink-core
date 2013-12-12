@@ -4,29 +4,11 @@ require_relative '../../../../app/interactors/commands/facts/create'
 
 describe Commands::Facts::Create do
   include PavlovSupport
-
-  describe 'validations' do
-    it 'requires displaystring to be a nonempty string' do
-      expect_validating(displaystring: '', title: 'title', creator: double, site: double)
-        .to fail_validation('displaystring should be a nonempty string.')
-    end
-
-    it 'requires title to be a string' do
-      expect_validating(displaystring: 'displaystring', title: 1, creator: double, site: double)
-        .to fail_validation('title should be a string.')
-    end
-
-    it 'requires user not to be nil' do
-      expect_validating(displaystring: 'displaystring', title: 'title', creator: nil, site: double)
-        .to fail_validation('creator should not be nil.')
-    end
+  before do
+    stub_classes 'FactData', 'Fact'
   end
 
   describe '.create_fact_data' do
-    before do
-      stub_classes 'FactData'
-    end
-
     it 'creates a fact data with displaystring, title and returns it' do
       displaystring = 'displaystring'
       title = 'title'
@@ -47,10 +29,6 @@ describe Commands::Facts::Create do
   end
 
   describe '#call' do
-    before do
-      stub_classes 'Fact'
-    end
-
     it 'creates a fact with site and returns it' do
       displaystring = 'displaystring'
       title = 'title'

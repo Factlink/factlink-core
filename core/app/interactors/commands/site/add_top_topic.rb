@@ -20,11 +20,6 @@ module Commands
       def redis
         Nest.new(:site,Redis.current)
       end
-
-      def validate
-        validate_integer :site_id, site_id
-        validate_string :topic_slug, topic_slug
-      end
     end
   end
 end

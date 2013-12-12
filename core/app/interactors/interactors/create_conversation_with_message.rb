@@ -3,6 +3,7 @@ require_relative '../util/mixpanel'
 module Interactors
   class CreateConversationWithMessage
     include Pavlov::Interactor
+    include Util::Validations
     include Util::Mixpanel
 
     arguments :fact_id, :recipient_usernames, :sender_id, :content
@@ -30,6 +31,7 @@ module Interactors
     end
 
     def validate
+      validate_non_empty_list :recipient_usernames, recipient_usernames
       unless content.strip.length > 0
         errors.add :content, 'cannot be empty'
       end

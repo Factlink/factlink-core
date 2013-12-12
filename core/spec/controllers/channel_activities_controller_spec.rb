@@ -15,7 +15,7 @@ describe ChannelActivitiesController do
       Interactors::Channels::AddFact.new(
         fact: f,
         channel: ch1,
-        pavlov_options: { no_current_user: true }).call
+        pavlov_options: { current_user: user }).call
     end
     ch1
   end

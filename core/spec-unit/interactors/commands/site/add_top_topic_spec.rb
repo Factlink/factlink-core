@@ -4,18 +4,6 @@ require_relative '../../../../app/interactors/commands/site/add_top_topic.rb'
 describe Commands::Site::AddTopTopic do
   include PavlovSupport
 
-  describe 'validations' do
-    it 'requires topic_slug' do
-      expect_validating(topic_slug: 15, site_id: 1)
-        .to fail_validation('topic_slug should be a string.')
-    end
-
-    it 'requires site_id' do
-      expect_validating(topic_slug: '', site_id: '11ee')
-        .to fail_validation('site_id should be an integer.')
-    end
-  end
-
   describe '#call' do
     it '.key returns the correct redis key' do
       site_id = 6

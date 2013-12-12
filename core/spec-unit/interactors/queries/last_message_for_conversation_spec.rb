@@ -15,11 +15,6 @@ describe Queries::LastMessageForConversation do
     stub_classes "Message", "KillObject"
   end
 
-  it 'throws when initialized with a argument that is not a hexadecimal string' do
-    expect_validating(conversation: double(id: 'g6'), pavlov_options: { current_user: double })
-      .to fail_validation 'id should be an hexadecimal string.'
-  end
-
   describe "#authorized?" do
     it 'throws when the conversation does not contain the current user' do
       expect do

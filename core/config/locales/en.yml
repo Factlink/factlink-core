@@ -51,10 +51,6 @@ en:
   fact_remove_opinion_past_action: "removed opinion"
   fact_add_evidence_past_action: "added evidence"
 
-  fact_believe_collection_name: "supporting"
-  fact_disbelieve_collection_name: "weakening"
-  fact_doubt_collection_name: "unsure"
-
   post_comment: "Post comment"
 
   channel: "channel"
@@ -75,7 +71,6 @@ en:
   topics: "topics"
   topic_name: "topic name"
   add_to_topics: "what is this annotation about"
-  created_user_topic: "started posting to a topic"
   favourites: "followed topics"
   favourite: "follow"
   unfavourite: "unfollow"
