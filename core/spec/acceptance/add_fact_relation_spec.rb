@@ -11,15 +11,6 @@ feature "adding factlinks to a fact", type: :feature do
 
   let(:factlink) { create :fact, created_by: @user.graph_user }
 
-  scenario "initially the evidence list should be empty" do
-    go_to_discussion_page_of factlink
-
-
-    within_evidence_list do
-      expect(all '.evidence-votable', visible: false).to be_empty
-    end
-  end
-
   scenario "after adding a piece of evidence, evidence list should contain that item" do
     go_to_discussion_page_of factlink
 
