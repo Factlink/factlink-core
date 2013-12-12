@@ -1,8 +1,8 @@
 class MigrateRemoveOldActivitiesForUserWorker
   @queue = :aaa_migration
 
-  def self.perform user_id
-    graph_user = User.find(user_id).graph_user
+  def self.perform graph_user_id
+    graph_user = GraphUser[graph_user_id]
 
     graph_user.notifications.each do |a|
       unless Activity.valid_actions_in_notifications.include?(a.action)

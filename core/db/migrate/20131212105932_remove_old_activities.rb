@@ -7,8 +7,8 @@ class RemoveOldActivities < Mongoid::Migration
       end
     end
 
-    User.all.ids.each do |id|
-      Resque.enqueue MigrateRemoveOldActivitiesForUserWorker, id
+    GraphUser.all.ids.each do |graph_user_id|
+      Resque.enqueue MigrateRemoveOldActivitiesForUserWorker, graph_user_id
     end
   end
 
