@@ -27,7 +27,7 @@ class Activity < OurOhm
   end
 
   def validate
-    assert self.class.valid_actions.include? action
+    assert self.class.valid_actions.include?(action)
   end
 
   alias :old_set_user :user= unless method_defined?(:old_set_user)
