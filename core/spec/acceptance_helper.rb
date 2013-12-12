@@ -43,7 +43,6 @@ RSpec.configure do |config|
       debug: false,
       js_errors: false,
       timeout: 60,
-      phantomjs_options: ['--load-images=no'],
     }
     Capybara::Poltergeist::Driver.new(app, options)
   end
