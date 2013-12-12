@@ -1,5 +1,14 @@
 @import "bootstrap/mixins";
 
+.add-opinion-or-evidence {
+  // Hack to position the form nicely against the evidence-terminator-circle
+  margin-top: -5px;
+
+  > .evidence-box {
+    width: 360px;
+  }
+}
+
 .add-evidence-form {
   .auto-complete-fact-relations {
     overflow: hidden;
