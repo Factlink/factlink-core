@@ -24,7 +24,9 @@ class Believable
   end
 
   def opiniated(type)
-    send(:"people_#{OpinionType.real_for(type)}")
+    fail 'Unknown opinion type' unless OpinionType.types.include?(type)
+
+    send(:"people_#{type}")
   end
 
   def add_opiniated(type, graph_user)
