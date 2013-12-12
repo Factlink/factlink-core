@@ -1,6 +1,6 @@
 require 'screenshot_helper'
 
-describe "factlink", type: :feature do
+describe "factlink", type: :feature, driver: :poltergeist_slow do
   it "the layout of the admin page is correct" do
     user1 = sign_in_user create :full_user
     user2 = create :full_user

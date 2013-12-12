@@ -1,6 +1,6 @@
 require 'screenshot_helper'
 
-describe "Static pages:", type: :feature do
+describe "Static pages:", type: :feature, driver: :poltergeist_slow do
   describe "Homepage" do
     it "normally" do
       visit "/"
