@@ -1,6 +1,6 @@
 class RemoveOldActivities < Mongoid::Migration
   def self.up
-    Activity.all.each do |activity|
+    Activity.all.each do |a|
       unless a.still_valid?
         a.delete
       end
