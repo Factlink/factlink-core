@@ -1,6 +1,6 @@
 require 'screenshot_helper'
 
-describe "Non signed in pages:", type: :feature do
+describe "Non signed in pages:", type: :feature, driver: :poltergeist_slow do
   include Acceptance::ChannelHelper
   include Screenshots::DiscussionHelper
 
