@@ -79,7 +79,6 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     if Factlink.Global.signed_in
       @addRegion.show new AddEvidenceFormView
         collection: @collection.realEvidenceCollection
-        fact_id: @collection.fact.id
     else
       @learnMoreRegion.show new LearnMoreView
 
