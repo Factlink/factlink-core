@@ -122,6 +122,12 @@ class Activity < OurOhm
         forGraphUser_someone_followed_you
       ]
 
+      notification_activities.map{ |a| a[:action] }.flatten.map(&:to_s).each do |action|
+        unless Activity.valid_actions_in_notifications.include? action
+          fail "Invalid activity action for notifications: #{action}"
+        end
+      end
+
       Activity::Listener.register do
         activity_for "GraphUser"
         named :notifications
@@ -141,6 +147,12 @@ class Activity < OurOhm
         forGraphUser_someone_added_a_fact_you_created_to_his_channel,
       ]
 
+      stream_activities.map{ |a| a[:action] }.flatten.map(&:to_s).each do |action|
+        unless Activity.valid_actions_in_stream_activities.include? action
+          fail "Invalid activity action for notifications: #{action}"
+        end
+      end
+
       Activity::Listener.register do
         activity_for "GraphUser"
         named :stream_activities
@@ -150,5 +162,3 @@ class Activity < OurOhm
 
   end
 end
-
-Activity::ListenerCreator.new.create_activity_listeners

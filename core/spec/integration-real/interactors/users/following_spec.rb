@@ -42,13 +42,13 @@ describe 'user following' do
           channel = pavlov.command(:'channels/create', title: 'henk')
 
           a1 = Activity.create user: user2.graph_user,
-            type: :somethings, subject: fact
+            type: :believes, subject: fact
 
           a2 = Activity.create user: user2.graph_user,
             type: :added_fact_to_channel, subject: fact, object: channel
 
           a3 = Activity.create user: user2.graph_user,
-            type: :something_elses, subject: fact
+            type: :disbelieves, subject: fact
 
           a4 = Activity.create user: user2.graph_user,
             type: :followed_user, subject: user3.graph_user
