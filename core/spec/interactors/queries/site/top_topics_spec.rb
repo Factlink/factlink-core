@@ -8,18 +8,6 @@ describe Queries::Site::TopTopics do
     stub_classes 'Topic'
   end
 
-  describe 'validations' do
-    it 'requires site_id to be an integer' do
-      expect_validating(site_id: '', nr: 2).
-        to fail_validation('site_id should be an integer.')
-    end
-
-    it 'requires the number of items to return' do
-      expect_validating(site_id: 1, nr: 'a').
-        to fail_validation('nr should be an integer.')
-    end
-  end
-
   describe '#key' do
     it '.key returns the correct redis key' do
       site_id = 6

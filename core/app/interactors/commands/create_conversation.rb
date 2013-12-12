@@ -1,13 +1,8 @@
 module Commands
   class CreateConversation
     include Pavlov::Command
-    include Util::Validations
 
     arguments :fact_id, :recipient_usernames
-
-    def validate
-      validate_non_empty_list :recipient_usernames, recipient_usernames
-    end
 
     def execute
       conversation = Conversation.new

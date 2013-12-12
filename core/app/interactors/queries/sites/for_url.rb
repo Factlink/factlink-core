@@ -5,12 +5,8 @@ module Queries
 
       arguments :url
 
-      def validate
-        validate_string :url, @url
-      end
-
       def execute
-        @site ||= ::Site.find(url: @url).first
+        ::Site.find(url: url).first
       end
     end
   end

@@ -4,10 +4,6 @@ module Queries
       include Pavlov::Query
       arguments :comment_id
 
-      def validate
-        validate_hexadecimal_string :comment_id, @comment_id
-      end
-
       def execute
         comment = Comment.find(@comment_id)
 

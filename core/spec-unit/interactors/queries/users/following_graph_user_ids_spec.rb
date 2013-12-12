@@ -9,10 +9,6 @@ describe Queries::Users::FollowingGraphUserIds do
   end
 
   describe '#execute' do
-    before do
-      described_class.any_instance.stub(validate: true)
-    end
-
     it 'returns the ids of users that the specified user is following' do
       graph_user_id = double
       ids = double
@@ -25,18 +21,6 @@ describe Queries::Users::FollowingGraphUserIds do
       result = query.call
 
       expect(result).to eq ids
-    end
-  end
-
-  describe '#validate' do
-    it 'calls the correct validation methods' do
-      graph_user_id = double
-      UserFollowingUsers.stub(:new).and_return(double(following_ids: nil))
-      query = described_class.new graph_user_id: graph_user_id
-
-      query.should_receive(:validate_integer_string).with(:graph_user_id, graph_user_id)
-
-      query.call
     end
   end
 end

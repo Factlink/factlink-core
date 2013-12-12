@@ -4,43 +4,10 @@ require_relative '../../../app/interactors/commands/create_comment.rb'
 describe Commands::CreateComment do
   include PavlovSupport
   before do
-    stub_classes 'Comment', 'FactData', 'User', 'Fact'
-  end
-
-  it 'should initialize correctly' do
-    command = described_class.new fact_id: 1, type: 'believes', content: 'hoi',
-                                  user_id: '2a'
-
-    command.should_not be_nil
-  end
-
-  describe 'validations' do
-    it 'without user_id doesn\'t validate' do
-      expect_validating(fact_id: 1, type: 'believes', content: 'Hoi!', user_id: 'not hex')
-        .to fail_validation('user_id should be an hexadecimal string.')
-    end
-
-    it 'without content doesn\'t validate' do
-      expect_validating(fact_id: 1, type: 'believes', content: '', user_id: '2a')
-        .to fail_validation('content should not be empty.')
-    end
-
-    it 'with a invalid fact_data_id doesn\'t validate' do
-      expect_validating(fact_id: 'x', type: 'believes', content: 'Hoi!', user_id: '2a')
-        .to fail_validation('fact_id should be an integer.')
-    end
-
-    it 'with a invalid type doesn\'t validate' do
-      expect_validating(fact_id: 1, type: 'dunno', content: 'Hoi!', user_id: '2a')
-        .to fail_validation('type should be on of these values: ["believes", "disbelieves", "doubts"].')
-    end
+    stub_classes 'Comment', 'FactData', 'User', 'Fact', 'KillObject'
   end
 
   describe '#call' do
-    before do
-      stub_classes('KillObject')
-    end
-
     it 'correctly' do
       fact_id = 1
       type = 'believes'
