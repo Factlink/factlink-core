@@ -17,7 +17,7 @@ feature "adding factlinks to a fact", type: :feature do
     supporting_factlink = backend_create_fact
 
     add_existing_factlink :believes, supporting_factlink
-    sleep 2
+
     within ".evidence-votable", visible: false do
       page.should have_content supporting_factlink.to_s
     end
