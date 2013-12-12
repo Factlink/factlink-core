@@ -1,6 +1,4 @@
 class FactRelation < OurOhm
-  include Activity::Subject
-
   attr_accessor :sub_comments_count
 
   attribute :created_at

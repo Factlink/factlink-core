@@ -1,6 +1,4 @@
 class Channel < OurOhm
-  include Activity::Subject
-
   attribute :title
   index :title
 
