@@ -22,6 +22,7 @@ class TourController < ApplicationController
   def tour_done
     redirect_to after_sign_in_path_for(current_user)
     mp_track "Tour: Finished"
+    mp_track_people_event tour_completed: true
   end
 
   private
@@ -41,8 +42,6 @@ class TourController < ApplicationController
 
     current_user.seen_tour_step = action_name
     current_user.save!
-
-    mp_track_people_event tour_completed: true if seen_the_tour(current_user)
   end
 
   def track_click
