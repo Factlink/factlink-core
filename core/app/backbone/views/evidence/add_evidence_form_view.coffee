@@ -1,5 +1,5 @@
 class window.AddEvidenceFormView extends Backbone.Marionette.Layout
-  className: 'add-evidence-form evidence-centered'
+  className: 'add-evidence-form'
   template: 'evidence/add_evidence_form'
 
   regions:
