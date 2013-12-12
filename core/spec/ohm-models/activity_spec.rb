@@ -28,7 +28,7 @@ describe Activity do
             .and_return(interactor)
         interactor.should_receive(:call)
 
-        Activity.create
+        Activity.create action: :followed_user
       end
     end
   end
@@ -41,7 +41,7 @@ describe Activity do
     before :each do
       a = Activity.create(
              :user => gu,
-             :action => :foo,
+             :action => :followed_user,
              :subject => b1,
              :object => b2
            )
@@ -64,7 +64,7 @@ describe Activity do
     before :each do
       a = Activity.create(
              :user => gu,
-             :action => :foo,
+             :action => :followed_user,
              :subject => gu2,
              :object => gu3
            )
@@ -85,46 +85,46 @@ describe Activity do
 
   describe "still_valid?" do
     it "should be valid for an activity with everything set" do
-      activity = Activity.create(user: gu, action: :foo, subject: gu2, object: gu3)
+      activity = Activity.create(user: gu, action: :followed_user, subject: gu2, object: gu3)
       expect(activity).to be_still_valid
     end
 
     it "should be valid when the user is not set" do
-      activity = Activity.create(action: :foo, subject: gu2, object: gu3)
+      activity = Activity.create(action: :followed_user, subject: gu2, object: gu3)
       expect(activity).to be_still_valid
     end
 
     it "should be valid when the subject is unset/not set" do
-      activity = Activity.create(user: gu, action: :foo, object: gu3)
+      activity = Activity.create(user: gu, action: :followed_user, object: gu3)
       expect(activity).to be_still_valid
     end
 
     it "should be valid when the object is unset/not set" do
-      activity = Activity.create(user: gu, action: :foo, subject: gu2)
+      activity = Activity.create(user: gu, action: :followed_user, subject: gu2)
       expect(activity).to be_still_valid
     end
 
     it "should not be valid if the graph_user object is deleted" do
-      activity = Activity.create(user: gu, action: :foo)
+      activity = Activity.create(user: gu, action: :followed_user)
       gu.delete
       expect(activity).to_not be_still_valid
     end
 
     it "should not be valid if the user is deleted" do
-      activity = Activity.create(user: gu, action: :foo)
+      activity = Activity.create(user: gu, action: :followed_user)
       Pavlov.command('users/mark_as_deleted', user:gu.user)
       activity = Activity[activity.id]
       expect(activity).to_not be_still_valid
     end
 
     it "should not be valid if the subject is deleted" do
-      activity = Activity.create(action: :foo, subject: gu2)
+      activity = Activity.create(action: :followed_user, subject: gu2)
       gu2.delete
       expect(activity).to_not be_still_valid
     end
 
     it "should not be valid if the object is deleted" do
-      activity = Activity.create(action: :foo, object: gu3)
+      activity = Activity.create(action: :followed_user, object: gu3)
       gu3.delete
       expect(activity).to_not be_still_valid
     end
@@ -150,14 +150,14 @@ describe Activity do
   describe 'list management' do
     let(:activity) do Activity.create(
              :user => gu,
-             :action => :foo,
+             :action => :followed_user,
              :subject => b1,
              :object => b2
            )
     end
     let (:activity2) do Activity.create(
                :user => gu,
-               :action => :foo2,
+               :action => :followed_user,
                :subject => b1,
                :object => b2
              )
