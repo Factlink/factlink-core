@@ -25,16 +25,6 @@ class TourController < ApplicationController
     mp_track "Tour: Finished"
   end
 
-  def track_click
-    unless params[:ref].blank?
-      ref = params[:ref]
-      if ['chrome_extension_skip', 'firefox_extension_skip',
-          'chrome_extension_next', 'firefox_extension_next'].include?(ref)
-        mp_track "#{ref} click".capitalize
-      end
-    end
-  end
-
   private
 
   def common_tour
@@ -55,5 +45,12 @@ class TourController < ApplicationController
     mp_track_people_event tour_completed: true if seen_the_tour(current_user)
   rescue => exception
     Raven.capture_exception(exception)
+  end
+
+  def track_click
+    if ['chrome_extension_skip', 'firefox_extension_skip',
+        'chrome_extension_next', 'firefox_extension_next'].include?(params[:ref])
+      mp_track "#{params[:ref]} click".capitalize
+    end
   end
 end
