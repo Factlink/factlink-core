@@ -1,11 +1,13 @@
 require_relative '../../app/classes/opinion_type'
 
 describe OpinionType do
-  describe '.types' do
+  describe '.include?' do
     it "includes the valid types" do
-      expect(OpinionType.types).to include 'believes'
-      expect(OpinionType.types).to include 'doubts'
-      expect(OpinionType.types).to include 'disbelieves'
+      expect(OpinionType).to include 'believes'
+      expect(OpinionType).to include :believes
+      expect(OpinionType).to include 'doubts'
+      expect(OpinionType).to include 'disbelieves'
+      expect(OpinionType).to_not include 'blah'
     end
   end
 end
