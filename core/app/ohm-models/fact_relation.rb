@@ -14,7 +14,6 @@ class FactRelation < OurOhm
   index :type
 
   delegate :opinionated_users_ids, :opiniated, :add_opiniated, :remove_opinionateds,
-           :people_believes, :people_doubts, :people_disbelieves,
            :to => :believable
 
   def validate

@@ -12,11 +12,12 @@ describe Queries::Facts::InteractingUsers do
     it 'returns a user who believes the fact' do
       user = double(id: 2, username: 'my_username', name: 'Joop Bouwhuis' )
       graph_user = double(user: user, id: 13)
-      fact = double(id: 1, people_believes: [graph_user])
+      fact = double(id: 1)
       query = described_class.new(fact_id: fact.id, skip: 0, take: 3,
                                   opinion: 'believes')
 
       Fact.stub(:[]).with(fact.id).and_return(fact)
+      fact.stub(:opiniated).with('believes').and_return([graph_user])
 
       result = query.call
 
@@ -27,11 +28,12 @@ describe Queries::Facts::InteractingUsers do
     it 'returns a user who disbelieves the fact' do
       user = double(id: 2, username: 'my_username', name: 'Joop Bouwhuis' )
       graph_user = double(user: user, id: 13)
-      fact = double id: 1, people_disbelieves: [graph_user]
+      fact = double(id: 1)
       query = described_class.new(fact_id: fact.id, skip: 0, take: 3,
                                   opinion: 'disbelieves')
 
       Fact.stub(:[]).with(fact.id).and_return(fact)
+      fact.stub(:opiniated).with('disbelieves').and_return([graph_user])
 
       result = query.call
 
@@ -42,11 +44,12 @@ describe Queries::Facts::InteractingUsers do
     it 'returns a user who doubts the fact' do
       user = double(id: 2, username: 'my_username', name: 'Joop Bouwhuis' )
       graph_user = double(user: user, id: 13)
-      fact = double(id: 1, people_doubts: [graph_user])
+      fact = double(id: 1)
       query = described_class.new(fact_id: fact.id, skip: 0, take: 3,
                                   opinion: 'doubts')
 
       Fact.stub(:[]).with(fact.id).and_return(fact)
+      fact.stub(:opiniated).with('doubts').and_return([graph_user])
 
       result = query.call
 
@@ -61,12 +64,13 @@ describe Queries::Facts::InteractingUsers do
       graph_user1 = double(user: user1, id: 13)
       graph_user2 = double(user: user2, id: 14)
       graph_user3 = double(user: user3, id: 15)
-      fact = double id: 1, people_believes: [graph_user1, graph_user2, graph_user3]
+      fact = double(id: 1)
       pavlov_options = { current_user: double(graph_user_id: 666) }
       query = described_class.new(fact_id: 1, skip: 1, take: 1,
                                   opinion: 'believes', pavlov_options: pavlov_options)
 
       Fact.stub(:[]).with(fact.id).and_return(fact)
+      fact.stub(:opiniated).with('believes').and_return([graph_user1, graph_user2, graph_user3])
 
       result = query.call
 
@@ -84,7 +88,7 @@ describe Queries::Facts::InteractingUsers do
       user2.stub graph_user: graph_user2,
                  graph_user_id: graph_user2.id
       graph_user3 = double(user: user3, id: 17)
-      fact = double id: 1, people_believes: [graph_user1, graph_user2, graph_user3]
+      fact = double(id: 1)
       current_user = user2
       pavlov_options = {
         current_user: current_user
@@ -93,6 +97,7 @@ describe Queries::Facts::InteractingUsers do
                                   opinion: 'believes', pavlov_options: pavlov_options)
 
       Fact.stub(:[]).with(fact.id).and_return(fact)
+      fact.stub(:opiniated).with('believes').and_return([graph_user1, graph_user2, graph_user3])
 
       result = query.call
 
