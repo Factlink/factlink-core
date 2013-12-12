@@ -43,8 +43,6 @@ class TourController < ApplicationController
     current_user.save!
 
     mp_track_people_event tour_completed: true if seen_the_tour(current_user)
-  rescue => exception
-    Raven.capture_exception(exception)
   end
 
   def track_click
