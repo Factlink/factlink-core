@@ -20,8 +20,7 @@ class FactRelation < OurOhm
     assert_present :from_fact_id
     assert_present :fact_id
     assert_present :type
-    assert_member :type, [:believes, :disbelieves, :doubts,
-                         'believes', 'disbelieves', 'doubts']
+    assert OpinionType.include?(type.to_s), 'Unknown opinion type'
     assert_unique [:from_fact_id, :fact_id, :type]
     assert_present :created_by
   end
@@ -73,12 +72,6 @@ class FactRelation < OurOhm
 
   def to_s
     from_fact.to_s
-  end
-
-  private
-
-  def assert_member(att, set, error = [att, :not_member])
-    assert set.include?(send(att)), error
   end
 
   protected
