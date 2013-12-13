@@ -47,9 +47,13 @@
 }
 
 .add-evidence-form-button {
-  background: darken(@buttonBackground,3%);
+  background: @buttonBackground;
   padding: 4px;
   color: @metaFontColor;
+  &:hover{
+    color: black;
+    background: darken(@buttonBackground,5%);
+  }
   &.supporting {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
