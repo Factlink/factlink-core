@@ -84,7 +84,7 @@ describe 'activity queries' do
       f1.created_by.stream_activities.key.del # delete other activities
 
       f1.add_opinion(opinion, gu1)
-      Activity.create user: gu1, type: opinion, subject: f1
+      Activity.create user: gu1, action: opinion, subject: f1
 
       f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
           {user: gu1, action: opinion, subject: f1}
