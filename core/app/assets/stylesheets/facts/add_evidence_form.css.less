@@ -63,17 +63,21 @@
 input.add-evidence-form-radio {
   display: none;
   margin-top: -3px;
-  &:checked + .supporting{
+
+  &:checked + .supporting,
+  &:checked + .neutral,
+  &:checked + .weakening {
+    color: white;
+  }
+
+  &:checked + .supporting {
     background: @buttonSuccessBackground;
-    color: white;
   }
-  &:checked + .neutral{
+  &:checked + .neutral {
     background: @buttonConfirmBackground;
-    color: white;
   }
-  &:checked + .weakening{
+  &:checked + .weakening {
     background: @buttonDangerBackground;
-    color: white;
   }
 }
 
