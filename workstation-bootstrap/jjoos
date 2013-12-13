@@ -14,11 +14,10 @@ sudo apt-add-repository -y ppa:ubuntu-wine/ppa
 
 #dropbox
 sudo apt-key -y adv --keyserver pgp.mit.edu --recv-keys 5044912E
-sudo apt-add-repository "deb http://linux.dropbox.com/ubuntu $(lsb_release -sc) main"
+sudo apt-add-repository "deb http://linux.dropbox.com/ubuntu raring main"
 
 sudo apt-key -y adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59
 sudo apt-add-repository "deb http://repository.spotify.com stable non-free"
-
 
 sudo apt-get -y -qq update
 
@@ -29,9 +28,6 @@ sudo apt-get -y install syncdrive \
            gitg \
            dropbox \
            unar \
-           tilda \
-           wallch \
-           terra \
            wine1.7 \
            compizconfig-settings-manager \
            compiz-plugins-extra \
