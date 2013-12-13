@@ -3,7 +3,6 @@ class Site < OurOhm; end # needed because of removed const_missing from ohm
 class FactRelation < OurOhm;end # needed because of removed const_missing from ohm
 
 class Fact < OurOhm
-  include Activity::Subject
   include Pavlov::Helpers
 
   delegate :opinionated_users_ids, :opiniated, :add_opiniated, :remove_opinionateds,
@@ -54,7 +53,8 @@ class Fact < OurOhm
 
   def add_evidence(type, evidence, user)
     fr = FactRelation.get_or_create(evidence,type,self,user)
-    activity(user.graph_user, :created_fact_relation, fr, :to, self)
+    Activity.create user: user.graph_user, action: :created_fact_relation,
+      subject: fr, object: self
     fr
   end
 
