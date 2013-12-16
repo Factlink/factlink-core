@@ -22,7 +22,10 @@ describe "searching", type: :feature do
     # create factlink:
     fact_title = "fact to be found"
     visit new_fact_path fact: fact_title
-    click_button "Post to Factlink"
+
+    eventually_succeeds do
+      fail StandardError, "Fact not created" unless Fact.all.to_a.last
+    end
 
     # and search for it:
     visit root_path
