@@ -1,8 +1,6 @@
 class window.FactsNewView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.PopoverMixin
 
-  template: "client/facts_new"
-
   className: 'fact-new-container'
 
   ui:
