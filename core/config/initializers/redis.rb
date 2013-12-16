@@ -8,4 +8,3 @@ connection_hash = {
 
 Ohm.connect(connection_hash)
 Redis.current = Redis.new(connection_hash)
-Redis::Aid.redis = Redis.new(connection_hash)

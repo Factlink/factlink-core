@@ -354,9 +354,6 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     redis (2.2.2)
-    redis-aid (0.1.0)
-      nest
-      redis (>= 2.0)
     redis-namespace (1.1.1)
       redis (< 3.0.0)
     redis-objects (0.5.3)
@@ -555,7 +552,6 @@ DEPENDENCIES
   rake (~> 10.1.0)
   rb-fsevent (~> 0.9.1)
   redis (~> 2.2.1)
-  redis-aid (~> 0.1.0)
   redis-objects (~> 0.5.3)
   resque (= 1.23.0)
   resque-sentry (~> 0.1.0)
