@@ -15,7 +15,6 @@ module TourHelper
   def tour_steps
     [
       :account,
-      :create_your_first_factlink,
       :install_extension,
       :interests,
       :tour_done

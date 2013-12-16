@@ -7,7 +7,6 @@
 //= require jquery.color
 //= require jquery.placeholder
 //= require raven
-//= require state-machine
 
 //= require globals/globals
 
