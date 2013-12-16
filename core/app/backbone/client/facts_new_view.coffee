@@ -1,8 +1,3 @@
-  renderShareNewFact: ->
-    @factSharingOptions = new FactSharingOptions
-    @shareNewFactRegion.show new NewFactShareButtonsView
-      model: @factSharingOptions
-
   post_factlink: (e)->
     @ui.post_factlink.prop('disabled', true).text('Posting...')
 
@@ -14,7 +9,6 @@
       fact_url: @options.url
       fact_title: @options.title
       channels: channel_ids
-      fact_sharing_options: @factSharingOptions.toJSON()
 
     fact.save {},
       success: =>
