@@ -13,11 +13,6 @@ testserver:
     hostname: 172.18.64.2
     port: 9200
 
-vagrant:
-  elasticsearch:
-    hostname: 10.253.0.1
-    port: 9200
-
 staging:
   elasticsearch:
     hostname: 172.18.64.11
