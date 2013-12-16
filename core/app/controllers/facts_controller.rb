@@ -37,9 +37,9 @@ class FactsController < ApplicationController
 
   def create
     # support both old names, and names which correspond to json in show
-    fact_text = (params[:fact] || params[:displaystring]).to_s
-    url = (params[:url] || params[:fact_url]).to_s
-    title = (params[:title] || params[:fact_title]).to_s
+    fact_text = params[:displaystring].to_s
+    url = params[:url].to_s
+    title = params[:fact_title].to_s
 
     sharing_options = params[:fact_sharing_options] || {}
 
