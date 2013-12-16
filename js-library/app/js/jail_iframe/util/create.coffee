@@ -10,7 +10,7 @@ getTextRange = ->
 FactlinkJailRoot.createFactFromSelection = ->
   success = ->
     FactlinkJailRoot.createButton.hide()
-    FactlinkJailRoot.off 'factlinkAdded', success
+    FactlinkJailRoot.off 'modalOpened', success
 
   selInfo = FactlinkJailRoot.getSelectionInfo()
 
@@ -19,7 +19,7 @@ FactlinkJailRoot.createFactFromSelection = ->
   siteTitle = selInfo.title
   guided = !!FactlinkConfig.guided
 
-  FactlinkJailRoot.on 'factlinkAdded', success
+  FactlinkJailRoot.on 'modalOpened', success
   FactlinkJailRoot.factlinkCoreEnvoy 'prepareNewFactlink', text, siteUrl, siteTitle, guided
 
 # We make this a global function so it can be used for direct adding of facts
