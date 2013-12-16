@@ -4,11 +4,6 @@ class TourController < ApplicationController
   # first step is account, and this is in other controllers
   # search for @step_in_signup_process = :account
 
-  def create_your_first_factlink
-    render layout: "tour"
-    mp_track "Tour: Loaded create your first Factlink"
-  end
-
   def install_extension
     render layout: "tour"
     mp_track "Tour: Loaded install extension"
