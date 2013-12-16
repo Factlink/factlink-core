@@ -16,7 +16,6 @@ FactlinkJailRoot.annotatedSiteReceiver =
     FactlinkJailRoot.selectRanges(FactlinkJailRoot.search(fact), id)
     FactlinkJailRoot.trigger 'factlinkAdded'
     @closeModal_noAction()
-    FactlinkJailRoot.showFactlinkCreatedNotification()
 
   closeModal_deleteFactlink: (id) ->
     $("span.factlink[data-factid=#{id}]").each (i, val) ->

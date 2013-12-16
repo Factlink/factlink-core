@@ -38,12 +38,6 @@ show = (options) ->
   message = new FactlinkJailRoot.Views.Notification options
   message.render()
 
-FactlinkJailRoot.showFactlinkCreatedNotification = ->
-  show
-    message: 'Annotation posted!'
-    type_classes: 'fl-message-success fl-message-icon-logo'
-    in_screen_time: 1000
-
 FactlinkJailRoot.showShouldSelectTextNotification = ->
   show
     message: 'To create an annotation, select a statement and click the Factlink button.'
