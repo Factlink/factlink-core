@@ -1,14 +1,3 @@
-  renderPersistentWheelView: ->
-    @wheel = new FactVotes {}, fact: null
-    persistentWheelView = new PersistentWheelView
-      el: @$('.fact-wheel')
-      model: @wheel
-      showsTotalVotesTooltip: FactlinkApp.guided
-    persistentWheelView.render()
-
-    @wheel.on 'change:current_user_opinion', =>
-      @closeOpinionHelptext()
-
   renderShareNewFact: ->
     @factSharingOptions = new FactSharingOptions
     @shareNewFactRegion.show new NewFactShareButtonsView
