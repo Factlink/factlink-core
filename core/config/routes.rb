@@ -130,8 +130,6 @@ FactlinkUI::Application.routes.draw do
         get "find" => "channels#search", as: "find"
       end
 
-      get "/facts/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
-
       member do
         post "toggle/fact/:fact_id/" => "channels#toggle_fact"
 
@@ -162,7 +160,6 @@ FactlinkUI::Application.routes.draw do
     member do
       scope "/facts" do
         get "/" => "topics#facts", as: "topic_facts"
-        get "/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
       end
     end
   end
