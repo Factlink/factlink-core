@@ -36,19 +36,13 @@ class FactsController < ApplicationController
   end
 
   def create
-    # support both old names, and names which correspond to json in show
-    fact_text = params[:displaystring].to_s
-    url = params[:url].to_s
-    title = params[:fact_title].to_s
-
-    sharing_options = params[:fact_sharing_options] || {}
-
     authenticate_user!
     authorize! :create, Fact
 
     @fact = interactor(:'facts/create',
-                           displaystring: fact_text, url: url,
-                           title: title, sharing_options: sharing_options)
+                           displaystring: params[:displaystring],
+                           url: params[:url],
+                           title: params[:fact_title])
     @site = @fact.site
 
     mp_track "Factlink: Created",
@@ -112,6 +106,7 @@ class FactsController < ApplicationController
   def share
     authorize! :share, @fact
 
+    # TODO: WRAP IN INTERACTOR
     command :'facts/social_share', fact_id: @fact.id, sharing_options: params[:fact_sharing_options]
 
     render json: {}

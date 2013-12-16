@@ -80,7 +80,7 @@ feature 'the profile page', type: :feature do
 
     fact = nil
     as(followed_user) do |backend|
-      fact = backend.interactor(:'facts/create', displaystring: displaystring, url: '', title: 'title', sharing_options: {})
+      fact = backend.interactor(:'facts/create', displaystring: displaystring, url: '', title: 'title')
       backend.interactor(:'channels/add_fact', fact: fact, channel: channel)
     end
 
