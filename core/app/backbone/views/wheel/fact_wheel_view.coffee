@@ -183,7 +183,7 @@ class window.FactWheelView extends Backbone.Marionette.ItemView
       opacity: destinationOpacity
     , arc_animation_speed(), "<>")
 
-  clickOpinionType: ->
+  clickOpinionType: (opinion_type) ->
     if @model.get('current_user_opinion') == opinion_type
       @model.saveCurrentUserOpinion 'no_vote'
     else
