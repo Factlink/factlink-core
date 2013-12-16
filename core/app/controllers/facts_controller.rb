@@ -50,11 +50,6 @@ class FactsController < ApplicationController
       channels: params[:channels]
     mp_track_people_event last_factlink_created: DateTime.now
 
-    if OpinionType.include?(params[:opinion])
-      @fact.add_opinion(params[:opinion], current_user.graph_user)
-      Activity.create user: current_user.graph_user, action: params[:opinion], subject: @fact
-    end
-
     add_to_channels @fact, params[:channels]
 
     render 'facts/show', formats: [:json]
