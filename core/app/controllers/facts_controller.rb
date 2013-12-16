@@ -40,9 +40,9 @@ class FactsController < ApplicationController
     authorize! :create, Fact
 
     @fact = interactor(:'facts/create',
-                           displaystring: params[:displaystring],
-                           url: params[:url],
-                           title: params[:fact_title])
+                           displaystring: params[:displaystring].to_s,
+                           url: params[:url].to_s,
+                           title: params[:fact_title].to_s)
     @site = @fact.site
 
     mp_track "Factlink: Created",
