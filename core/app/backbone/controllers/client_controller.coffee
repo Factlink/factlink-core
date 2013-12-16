@@ -23,11 +23,7 @@ class window.ClientController
       fact.save {},
         success: =>
           @annotatedSiteEnvoy 'highlightNewFactlink', params.fact, fact.id
-
-          if params.guided == 'true'
-            @annotatedSiteEnvoy 'closeModal_noAction'
-          else
-            Backbone.history.navigate "/client/facts/#{fact.id}", trigger: true
+          Backbone.history.navigate "/client/facts/#{fact.id}", trigger: true
     else
       view = new NewFactLoginView model: fact
       view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
