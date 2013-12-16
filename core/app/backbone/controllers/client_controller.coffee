@@ -15,9 +15,9 @@ class window.ClientController
 
   showNewFact: (params={}) =>
     fact = new Fact
-      displaystring: params.fact
+      displaystring: params.displaystring
       url: params.url
-      fact_title: params.title
+      fact_title: params.fact_title
 
     if Factlink.Global.signed_in
       fact.save {},
