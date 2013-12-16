@@ -1,5 +1,5 @@
 <div class="install-extension-wrapper">
-  <h1 class="tour-header">Congratulations with your first Factlink!</h1>
+  <h1 class="tour-header">Welcome to Factlink!</h1>
 
   <div class="install-extension-middle">
     <div class="install-extension-picture">
@@ -10,7 +10,7 @@
 
     <div class="install-extension-text">
       <div class="visible-when-chrome">
-        You've just created an <%= t(:factlink) %> using the Factlink button. Next, you can add the button to your browser so you can create <%= t(:factlinks) %> on any web site out there!
+        Next, add a button to your browser to create <%= t(:factlinks) %> on all websites!
 
         <div class="transparent-border">
           <% if FactlinkUI::Application.config.use_chrome_webstore %>
@@ -24,7 +24,7 @@
       </div>
 
       <div class="visible-when-firefox">
-        You've just created an <%= t(:factlink) %> using the Factlink button. Next, you can add the button to your browser so you can create <%= t(:factlinks) %> on any web site out there!
+        Next, add a button to your browser to create <%= t(:factlinks) %> on all websites!
 
         <div class="transparent-border">
           <div class="should-install-firefox-extension">
@@ -38,8 +38,8 @@
       </div>
 
       <div class="visible-when-unsupported-browser install-extension-text-unsupported">
-        Unfortunately you don't have the appropriate browser to add a Factlink button.
-        Fortunately we have a bookmarklet which you can add to your bookmarks.<br />
+        Unfortunately you don't have the appropriate browser to install Factlink on.
+        Fortunately we have a bookmarklet which you can add to your bookmarks. Then click it to create <%= t(:factlinks) %> on all websites!<br />
 
         <div class="dashed-border">
           <a id="bookmarklet-button" class="bookmarklet button button-confirm" onclick="return false"
