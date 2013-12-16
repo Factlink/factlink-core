@@ -9,16 +9,19 @@ FactlinkJailRoot.annotatedSiteReceiver =
     $("#factlink-modal-frame").fadeIn 'fast'
     FactlinkJailRoot.trigger 'modalOpened'
 
+  highlightNewFactlink: (displaystring, id) ->
+    FactlinkJailRoot.selectRanges(FactlinkJailRoot.search(displaystring), id)
+    FactlinkJailRoot.trigger 'factlinkAdded'
+
   closeModal_noAction: ->
     $("#factlink-modal-frame").fadeOut 'fast', -> FactlinkJailRoot.trigger 'modalClosed'
 
-  closeModal_highlightNewFactlink: (fact, id) ->
-    FactlinkJailRoot.selectRanges(FactlinkJailRoot.search(fact), id)
-    FactlinkJailRoot.trigger 'factlinkAdded'
+  # For compatibility, please remove the next time you see this
+  closeModal_highlightNewFactlink: (displaystring, id) ->
+    @highlightNewFactlink(displaystring, id)
     @closeModal_noAction()
 
   closeModal_deleteFactlink: (id) ->
     $("span.factlink[data-factid=#{id}]").each (i, val) ->
       $(val).contents().unwrap()
     @closeModal_noAction()
-
