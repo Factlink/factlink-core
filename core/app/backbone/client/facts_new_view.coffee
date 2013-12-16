@@ -16,7 +16,6 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   templateHelpers: ->
     fact_text: @options.fact_text
-    add_to_topic_header: Factlink.Global.t.add_to_topics.capitalize()
 
   initialize: ->
     @addToCollection = new OwnChannelCollection
