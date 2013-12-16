@@ -77,7 +77,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     fact = new Fact
       opinion: @wheel.get('current_user_opinion')
       displaystring: @options.fact_text
-      fact_url: @options.url
+      url: @options.url
       fact_title: @options.title
       channels: channel_ids
       fact_sharing_options: @factSharingOptions.toJSON()
