@@ -31,8 +31,7 @@ describe ClientController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title',
-                                     sharing_options: {})
+                                     title: 'title')
       end
 
       ability.stub(:can?).with(:show, Fact).and_return(true)

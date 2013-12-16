@@ -11,19 +11,19 @@ describe Interactors::Facts::Create do
 
   describe 'validation' do
     it 'requires displaystring to be a nonempty string' do
-      hash = { displaystring: '', url: 'u', title: 't', sharing_options: 'a' }
+      hash = { displaystring: '', url: 'u', title: 't'}
       expect_validating(hash)
         .to fail_validation('displaystring should be a nonempty string.')
     end
 
     it 'requires title to be a string' do
-      hash = { displaystring: 'ds', url: 'u', title: 4, sharing_options: 'a' }
+      hash = { displaystring: 'ds', url: 'u', title: 4}
       expect_validating(hash)
         .to fail_validation('title should be a string.')
     end
 
     it 'requires url to be a string' do
-      hash = { displaystring: 'ds', url: 6, title: 't', sharing_options: 'a' }
+      hash = { displaystring: 'ds', url: 6, title: 't'}
       expect_validating(hash)
         .to fail_validation('url should be a string.')
     end
@@ -36,7 +36,7 @@ describe Interactors::Facts::Create do
              .and_return(false)
 
     interactor = described_class.new displaystring: 'displaystring', url: 'url',
-                                     title: 'title', sharing_options: double, pavlov_options: { ability:ability }
+                                     title: 'title', pavlov_options: { ability:ability }
 
     expect { interactor.call }
       .to raise_error Pavlov::AccessDenied, "Unauthorized"
@@ -51,13 +51,12 @@ describe Interactors::Facts::Create do
       fact_data = double(persisted?: true)
       fact = double(id: '1', errors: [], data: fact_data)
       user = double(id: '123abc')
-      sharing_options = {}
       Blacklist.stub default: double
       Blacklist.default.stub(:matches?).with(url).and_return false
 
       pavlov_options = { current_user: user, ability: double(can?: true) }
       interactor = described_class.new displaystring: displaystring, url: url,
-                                       title: title, sharing_options: sharing_options,
+                                       title: title,
                                        pavlov_options: pavlov_options
 
       Pavlov.stub(:query)
@@ -77,11 +76,6 @@ describe Interactors::Facts::Create do
             .and_return(fact)
 
       Pavlov.should_receive(:command)
-            .with(:'facts/social_share',
-                      fact_id: fact.id.to_s, sharing_options: sharing_options,
-                      pavlov_options: pavlov_options)
-
-      Pavlov.should_receive(:command)
             .with(:'facts/add_to_recently_viewed',
                       fact_id: fact.id.to_i, user_id: user.id.to_s,
                       pavlov_options: pavlov_options)
@@ -97,13 +91,12 @@ describe Interactors::Facts::Create do
       fact_data = double(persisted?: true)
       fact = double(id: '1', errors: [], data: fact_data)
       user = double(id: '123abc')
-      sharing_options = double
       Blacklist.stub default: double
       Blacklist.default.stub(:matches?).with(url).and_return false
 
       pavlov_options = { current_user: user, ability: double(can?: true) }
       interactor = described_class.new displaystring: displaystring, url: url,
-                                       title: title, sharing_options: sharing_options,
+                                       title: title,
                                        pavlov_options: pavlov_options
 
       Pavlov.stub(:query)
@@ -116,11 +109,6 @@ describe Interactors::Facts::Create do
                       displaystring: displaystring, title: title, creator: user,
                       site: site, pavlov_options: pavlov_options)
             .and_return(fact)
-
-      Pavlov.should_receive(:command)
-            .with(:'facts/social_share',
-                      fact_id: fact.id.to_s, sharing_options: sharing_options,
-                      pavlov_options: pavlov_options)
 
       Pavlov.should_receive(:command)
             .with(:'facts/add_to_recently_viewed',
@@ -137,13 +125,12 @@ describe Interactors::Facts::Create do
       fact_data = double(persisted?: true)
       fact = double(id: '1', errors: [], data: fact_data)
       user = double(id: '123abc')
-      sharing_options = double
       Blacklist.stub default: double
       Blacklist.default.stub(:matches?).with(url).and_return true
 
       pavlov_options = { current_user: user, ability: double(can?: true) }
       interactor = described_class.new displaystring: displaystring, url: url,
-                                       title: title, sharing_options: sharing_options,
+                                       title: title,
                                        pavlov_options: pavlov_options
 
       Pavlov.should_receive(:command)
@@ -151,11 +138,6 @@ describe Interactors::Facts::Create do
                       displaystring: displaystring, title: title, creator: user,
                       site: nil, pavlov_options: pavlov_options)
             .and_return(fact)
-
-      Pavlov.should_receive(:command)
-            .with(:'facts/social_share',
-                      fact_id: fact.id.to_s, sharing_options: sharing_options,
-                      pavlov_options: pavlov_options)
 
       Pavlov.should_receive(:command)
             .with(:'facts/add_to_recently_viewed',
