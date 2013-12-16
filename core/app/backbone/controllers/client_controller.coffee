@@ -22,7 +22,11 @@ class window.ClientController
     if Factlink.Global.signed_in
       fact.save {},
         success: =>
-          Backbone.history.navigate "/client/facts/#{fact.id}", trigger: true
+          # TODO: don't close modal when highlighting new factlink
+          @annotatedSiteEnvoy 'closeModal_highlightNewFactlink', params.fact, fact.id
+
+          unless params.guided
+            Backbone.history.navigate "/client/facts/#{fact.id}", trigger: true
     else
       view = new NewFactLoginView model: fact
       view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
@@ -30,5 +34,3 @@ class window.ClientController
       clientModal = new DiscussionModalContainer
       FactlinkApp.discussionModalRegion.show clientModal
       clientModal.mainRegion.show view
-
-    # TODO: reintroduce event: closeModal_highlightNewFactlink
