@@ -2,13 +2,11 @@ window.initClientCommunicator = ->
   local =
     showFactlink: (id) -> showUrl "/client/facts/#{id}"
 
-    prepareNewFactlink: (text, siteUrl, siteTitle, guided) ->
+    prepareNewFactlink: (text, siteUrl, siteTitle) ->
       showUrl "/facts/new" +
         "?fact=" + encodeURIComponent(text) +
         "&url=" + encodeURIComponent(siteUrl) +
-        "&title=" + encodeURIComponent(siteTitle) +
-        "&guided=" + encodeURIComponent(guided)
-
+        "&title=" + encodeURIComponent(siteTitle)
 
   showUrl = (url) ->
     # Force (re)loading the url, even if already showing that url
