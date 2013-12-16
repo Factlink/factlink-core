@@ -50,8 +50,6 @@ class FactsController < ApplicationController
       channels: params[:channels]
     mp_track_people_event last_factlink_created: DateTime.now
 
-    add_to_channels @fact, params[:channels]
-
     render 'facts/show', formats: [:json]
   end
 
@@ -115,14 +113,5 @@ class FactsController < ApplicationController
 
   def fact_id
     params[:fact_id] || params[:id]
-  end
-
-  def add_to_channels fact, channel_ids
-    return unless channel_ids
-
-    channels = channel_ids.map { |id| Channel[id] }.compact
-    channels.each do |channel|
-      interactor(:'channels/add_fact', fact: fact, channel: channel)
-    end
   end
 end
