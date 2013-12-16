@@ -57,11 +57,11 @@
     color: black;
     background: darken(@buttonBackground,5%);
   }
-  &.add-evidence-form-button-supporting {
+  &.add-evidence-form-button-believes {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
   }
-  &.add-evidence-form-button-weakening {
+  &.add-evidence-form-button-disbelieves {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
   }
@@ -71,25 +71,25 @@ input.add-evidence-form-radio {
   display: none;
   margin-top: -3px;
 
-  &:checked + .add-evidence-form-button-supporting,
-  &:checked + .add-evidence-form-button-neutral,
-  &:checked + .add-evidence-form-button-weakening {
+  &:checked + .add-evidence-form-button-believes,
+  &:checked + .add-evidence-form-button-doubts,
+  &:checked + .add-evidence-form-button-disbelieves {
     color: white;
     position: relative;
     top: -2px;
   }
 
-  &:checked + .add-evidence-form-button-supporting {
+  &:checked + .add-evidence-form-button-believes {
     background: @buttonSuccessBackground;
     border-top: 0px;
     border-bottom: 2px darken(@buttonSuccessBackground,10%) solid;
   }
-  &:checked + .add-evidence-form-button-neutral {
+  &:checked + .add-evidence-form-button-doubts {
     background: @buttonConfirmBackground;
     border-top: 0px;
     border-bottom: 2px darken(@buttonConfirmBackground,10%) solid;
   }
-  &:checked + .add-evidence-form-button-weakening {
+  &:checked + .add-evidence-form-button-disbelieves {
     background: @buttonDangerBackground;
     border-top: 0px;
     border-bottom: 2px darken(@buttonDangerBackground,10%) solid;
