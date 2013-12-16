@@ -13,9 +13,11 @@ describe "creating a Factlink", type: :feature do
   it "should add a factlink" do
     fact_name = "baronnenbillen"
 
-    visit new_fact_path(fact: fact_name)
+    visit new_fact_path(displaystring: fact_name)
 
-    click_button "Post to Factlink"
+    eventually_succeeds do
+      fail StandardError, "Fact not created" unless Fact.all.to_a.last
+    end
 
     go_to_profile_page_of @user
 
@@ -26,12 +28,11 @@ describe "creating a Factlink", type: :feature do
   it "should be able to delete a factlink" do
     fact_name = "raar"
 
-    # create fact:
-    visit new_fact_path(fact: fact_name)
+    visit new_fact_path(displaystring: fact_name)
 
-    click_button "Post to Factlink"
-
-    sleep 1
+    eventually_succeeds do
+      fail StandardError, "Fact not created" unless Fact.all.to_a.last
+    end
 
     go_to_discussion_page_of Fact.all.to_a.last
 

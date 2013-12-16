@@ -1,1 +1,0 @@
-class window.PassiveWheelView extends BaseFactWheelView
