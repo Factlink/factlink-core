@@ -52,9 +52,9 @@ class window.TopFactView extends Backbone.Marionette.Layout
       radius: 45
 
     if Factlink.Global.signed_in
-      wheel_view = new InteractiveWheelView wheel_view_options
+      wheel_view = new FactWheelView wheel_view_options
     else
-      wheel_view = new BaseFactWheelView _.defaults(respondsToMouse: false, wheel_view_options)
+      wheel_view = new FactWheelView _.defaults(respondsToMouse: false, wheel_view_options)
 
     @listenTo @model, 'change', ->
       votes.set @model.get("fact_votes")

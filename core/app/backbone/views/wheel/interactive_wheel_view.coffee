@@ -1,1 +1,0 @@
-class window.InteractiveWheelView extends BaseFactWheelView

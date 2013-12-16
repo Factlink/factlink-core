@@ -4,7 +4,7 @@ arc_animation_speed = ->
   else
     200
 
-class window.BaseFactWheelView extends Backbone.Marionette.ItemView
+class window.FactWheelView extends Backbone.Marionette.ItemView
   className: "wheel"
   defaults:
     respondsToMouse: true
@@ -38,7 +38,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     formatted_total_votes: format_as_short_number(@model.totalCount())
 
   initialize: (options) ->
-    @options = $.extend(true, {}, BaseFactWheelView.prototype.defaults, @defaults, options)
+    @options = $.extend(true, {}, FactWheelView.prototype.defaults, @defaults, options)
     @opinionTypeRaphaels = {}
     @listenTo @model, 'change', @reRender, @
 
