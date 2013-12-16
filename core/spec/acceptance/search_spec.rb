@@ -21,7 +21,7 @@ describe "searching", type: :feature do
   it "should find a just created factlink" do
     # create factlink:
     fact_title = "fact to be found"
-    visit new_fact_path fact: fact_title
+    visit new_fact_path displaystring: fact_title
 
     eventually_succeeds do
       fail StandardError, "Fact not created" unless Fact.all.to_a.last

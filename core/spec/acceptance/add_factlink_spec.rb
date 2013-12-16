@@ -13,7 +13,7 @@ describe "creating a Factlink", type: :feature do
   it "should add a factlink" do
     fact_name = "baronnenbillen"
 
-    visit new_fact_path(fact: fact_name)
+    visit new_fact_path(displaystring: fact_name)
 
     eventually_succeeds do
       fail StandardError, "Fact not created" unless Fact.all.to_a.last
@@ -28,7 +28,7 @@ describe "creating a Factlink", type: :feature do
   it "should be able to delete a factlink" do
     fact_name = "raar"
 
-    visit new_fact_path(fact: fact_name)
+    visit new_fact_path(displaystring: fact_name)
 
     eventually_succeeds do
       fail StandardError, "Fact not created" unless Fact.all.to_a.last
