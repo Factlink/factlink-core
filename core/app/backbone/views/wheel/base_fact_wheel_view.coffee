@@ -184,7 +184,10 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     , arc_animation_speed(), "<>")
 
   clickOpinionType: ->
-    # Implemented by children
+    if @model.get('current_user_opinion') == opinion_type
+      @model.saveCurrentUserOpinion 'no_vote'
+    else
+      @model.saveCurrentUserOpinion opinion_type
 
   bindTooltips: (fractions) ->
     if @options.showsTooltips
