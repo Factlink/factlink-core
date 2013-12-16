@@ -24,7 +24,9 @@ class window.ClientController
         success: =>
           @annotatedSiteEnvoy 'highlightNewFactlink', params.fact, fact.id
 
-          unless params.guided
+          if params.guided == 'true'
+            @annotatedSiteEnvoy 'closeModal_noAction'
+          else
             Backbone.history.navigate "/client/facts/#{fact.id}", trigger: true
     else
       view = new NewFactLoginView model: fact
