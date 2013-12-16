@@ -57,11 +57,11 @@
     color: black;
     background: darken(@buttonBackground,5%);
   }
-  &.supporting {
+  &.add-evidence-form-button-supporting {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
   }
-  &.weakening {
+  &.add-evidence-form-button-weakening {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
   }
@@ -71,25 +71,25 @@ input.add-evidence-form-radio {
   display: none;
   margin-top: -3px;
 
-  &:checked + .supporting,
-  &:checked + .neutral,
-  &:checked + .weakening {
+  &:checked + .add-evidence-form-button-supporting,
+  &:checked + .add-evidence-form-button-neutral,
+  &:checked + .add-evidence-form-button-weakening {
     color: white;
     position: relative;
     top: -2px;
   }
 
-  &:checked + .supporting {
+  &:checked + .add-evidence-form-button-supporting {
     background: @buttonSuccessBackground;
     border-top: 0px;
     border-bottom: 2px darken(@buttonSuccessBackground,10%) solid;
   }
-  &:checked + .neutral {
+  &:checked + .add-evidence-form-button-neutral {
     background: @buttonConfirmBackground;
     border-top: 0px;
     border-bottom: 2px darken(@buttonConfirmBackground,10%) solid;
   }
-  &:checked + .weakening {
+  &:checked + .add-evidence-form-button-weakening {
     background: @buttonDangerBackground;
     border-top: 0px;
     border-bottom: 2px darken(@buttonDangerBackground,10%) solid;
