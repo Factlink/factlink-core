@@ -23,31 +23,6 @@ describe "creating a Factlink", type: :feature do
     page.should have_content fact_name
   end
 
-  it "should add a factlink to a topic" do
-    fact_name = "baronnenbillen"
-    new_topic_name = 'Gerrit'
-
-    visit new_fact_path(fact: fact_name)
-
-    add_as_new_channel new_topic_name
-    click_button "Post to Factlink"
-
-    eventually_succeeds do
-      fail StandardError, "Fact not created" unless Fact.all.to_a.last
-    end
-
-    go_to_discussion_page_of Fact.all.to_a.last
-
-    open_repost_modal do
-      added_channels_should_contain new_topic_name
-    end
-
-    visit current_path
-    open_repost_modal do
-      added_channels_should_contain new_topic_name
-    end
-  end
-
   it "should be able to delete a factlink" do
     fact_name = "raar"
 
