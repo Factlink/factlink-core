@@ -22,7 +22,7 @@ class window.ClientController
     if Factlink.Global.signed_in
       fact.save {},
         success: =>
-          @annotatedSiteEnvoy 'highlightNewFactlink', params.fact, fact.id
+          @annotatedSiteEnvoy 'highlightNewFactlink', params.displaystring, fact.id
           Backbone.history.navigate "/client/facts/#{fact.id}", trigger: true
     else
       view = new NewFactLoginView model: fact
