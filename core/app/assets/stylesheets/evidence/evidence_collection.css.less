@@ -20,7 +20,7 @@
 }
 
 // Relevance circles on the left
-.evidence-relevance {
+.evidence-vote {
   position: absolute;
   top: @evidenceRelevanceTop + @arrowHeight + @arrowInnerSpacing;
   left: 0;
@@ -31,7 +31,7 @@
   border-radius: 1000px;
 }
 
-.evidence-relevance-text {
+.evidence-vote-relevance {
   .new-design-font();
   font-size: @heading1FontSize;
   line-height: @impactCircleDiameter;
@@ -39,7 +39,7 @@
 }
 
 // Coloured half-circles
-.evidence-relevance::after {
+.evidence-vote::after {
   content: '';
   position: absolute;
   top:    -@impactColouredBorderWidth;
@@ -51,30 +51,30 @@
   border-bottom-right-radius: 1000px;
 }
 
-.evidence-believes .evidence-relevance::after {
+.evidence-believes .evidence-vote::after {
   border: @impactColouredBorderWidth solid @believesEvidenceImpactColor;
   border-left: none;
 }
 
-.evidence-disbelieves .evidence-relevance::after {
+.evidence-disbelieves .evidence-vote::after {
   border: @impactColouredBorderWidth solid @disbelievesEvidenceImpactColor;
   border-left: none;
 }
 
-.evidence-unsure .evidence-relevance::after {
+.evidence-unsure .evidence-vote::after {
   border: @impactColouredBorderWidth solid @doubtsEvidenceImpactColor;
   border-left: none;
 }
 
 // Voting arrows
-.evidence-relevance-vote-up, .evidence-relevance-vote-down {
+.evidence-vote-up, .evidence-vote-down {
   width: @arrowWidth;
   height: @arrowHeight;
   position: absolute;
   left: @impactCircleDiameter/2 - @arrowWidth/2 + 1px;
 }
 
-.evidence-relevance-vote-up {
+.evidence-vote-up {
   top: -@arrowHeight - @arrowInnerSpacing;
   background: asset-data-url( 'evidence-arrows/up-arrow-unclicked.png');
   opacity: 0.7;
@@ -88,7 +88,7 @@
   }
 }
 
-.evidence-relevance-vote-down {
+.evidence-vote-down {
   bottom: -@arrowHeight - @arrowInnerSpacing;
   background: asset-data-url('evidence-arrows/down-arrow-unclicked.png');
   opacity: 0.7;
