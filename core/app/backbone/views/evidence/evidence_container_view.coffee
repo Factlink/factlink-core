@@ -71,7 +71,6 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     'request sync': '_updateLoading'
 
   ui:
-    terminator: '.js-terminator'
     loading: '.js-evidence-loading'
     loaded: '.js-evidence-loaded'
 
@@ -88,4 +87,3 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
   _updateLoading: ->
     @ui.loading.toggle !!@collection.loading()
     @ui.loaded.toggle !@collection.loading()
-    @ui.terminator.toggleClass 'evidence-terminator-circle', !@collection.loading()
