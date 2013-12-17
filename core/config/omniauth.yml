@@ -25,15 +25,6 @@ testserver:
       id: "2mqTPE21rj9R4fcPI6FPQ"
       secret: "y4i9T3Q1CSvU6IsTfUUKNYjEP5414JEqSnY03e2YtM"
 
-vagrant:
-  omniauth:
-    facebook:
-      id: "394296183970720"
-      secret: "7b82d480717098805e22524f87e3893f"
-    twitter:
-      id: "2mqTPE21rj9R4fcPI6FPQ"
-      secret: "y4i9T3Q1CSvU6IsTfUUKNYjEP5414JEqSnY03e2YtM"
-
 staging:
   omniauth:
     facebook:

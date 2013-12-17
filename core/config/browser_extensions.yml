@@ -10,10 +10,6 @@ testserver:
   chrome:
     id: bmekjogijonolmphikpeppogdmcclkfc
 
-vagrant:
-  chrome:
-    id: bmekjogijonolmphikpeppogdmcclkfc
-
 staging:
   chrome:
     id: fkhpmbcgikfdnnobmembneidakkifjgp
