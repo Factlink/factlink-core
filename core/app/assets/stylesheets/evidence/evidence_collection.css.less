@@ -19,6 +19,7 @@
   margin-bottom: 20px;
 }
 
+// Relevance circles on the left
 .evidence-relevance {
   position: absolute;
   top: @evidenceRelevanceTop;
@@ -35,20 +36,6 @@
   font-size: @heading1FontSize;
   line-height: @impactCircleDiameter;
   text-align: center;
-}
-
-.evidence-box {
-  margin-left: 100px;
-}
-
-// Irrelevant (faded out)
-.evidence-irrelevant > .evidence-box {
-  opacity: 0.6;
-  .transition(opacity 0.2s);
-
-  &:hover {
-    opacity: 0.9;
-  }
 }
 
 // Coloured half-circles
@@ -134,5 +121,20 @@
 
   .evidence-relevance-vote-up, .evidence-relevance-vote-down {
     display: block;
+  }
+}
+
+// Evidence box
+.evidence-box {
+  margin-left: 100px;
+}
+
+// Irrelevant (faded out)
+.evidence-irrelevant > .evidence-box {
+  opacity: 0.6;
+  .transition(opacity 0.2s);
+
+  &:hover {
+    opacity: 0.9;
   }
 }
