@@ -151,11 +151,6 @@ class ApplicationController < ActionController::Base
     Resque.enqueue(SetLastInteractionForUser, current_user.id, DateTime.now.to_i)
   end
 
-  def jslib_url
-    FactlinkUI::Application.config.jslib_url
-  end
-  helper_method :jslib_url
-
   def open_graph_formatter
     @open_graph_formatter ||= OpenGraphFormatter.new
   end
