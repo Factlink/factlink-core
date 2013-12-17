@@ -37,16 +37,12 @@ html[data-factlink-suppress-scrolling] {
 
 span.factlink {
   cursor: pointer;
+  transition: all $highlight_visibility_transition_time;
+  background: rgba(128, 128, 128, 0.2) !important;
 
   &.fl-active, &.fl-scroll-highlight, &.fl-load-highlight {
     background: #B4D5FE !important;
     color: #333;
-  }
-  transition: all $highlight_visibility_transition_time;
-
-  &.fl-first::before {
-    padding: 0 3px 0 0;
-    content: '\2713';
   }
 }
 
