@@ -134,10 +134,6 @@ class ApplicationController < ActionController::Base
   def initialize_mixpanel
     @mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
 
-    if action_is_intermediate?
-      @mixpanel.append_api('disable', ['mp_page_view'])
-    end
-
     if current_user
       @mixpanel.append_api('name_tag', current_user.username)
       @mixpanel.append_identify(current_user.id.to_s)
@@ -146,7 +142,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_last_interaction_for_user
   def set_last_interaction_for_user
-    if user_signed_in? and not action_is_intermediate? and request.format == "text/html"
+    if user_signed_in? and request.format == "text/html"
       mp_track_people_event last_interaction_at: DateTime.now
       mp_track_people_event last_browser_name: view_context.browser.name
       mp_track_people_event last_browser_version: view_context.browser.version
@@ -165,10 +161,6 @@ class ApplicationController < ActionController::Base
   helper_method :open_graph_formatter
 
   private
-
-  def action_is_intermediate? #TODO:emn:xdm-refactor
-    action_name == "intermediate" and controller_name == "facts"
-  end
 
   def can_haz feature
     can? :"see_feature_#{feature}", Ability::FactlinkWebapp
