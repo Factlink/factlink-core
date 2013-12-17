@@ -163,33 +163,26 @@
   position: absolute;
   top:    -@impactColouredBorderWidth;
   bottom: -@impactColouredBorderWidth;
-  left:   -@impactColouredBorderWidth;
   right:  -@impactColouredBorderWidth;
+  left: ceil(@impactCircleDiameter/2) - 1px;
+
+  border-top-right-radius:    1000px;
+  border-bottom-right-radius: 1000px;
 }
 
 .evidence-believes > .evidence-relevance::after {
-  left: ceil(@impactCircleDiameter/2) - 1px;
-  border-top-right-radius:    1000px;
-  border-bottom-right-radius: 1000px;
-
   border: @impactColouredBorderWidth solid @believesEvidenceImpactColor;
   border-left: none;
 }
 
 .evidence-disbelieves > .evidence-relevance::after {
-  right: floor(@impactCircleDiameter/2) - 2px;
-  border-top-left-radius:    1000px;
-  border-bottom-left-radius: 1000px;
   border: @impactColouredBorderWidth solid @disbelievesEvidenceImpactColor;
-  border-right: none;
+  border-left: none;
 }
 
 .evidence-unsure > .evidence-relevance::after {
-  top: floor(@impactCircleDiameter/2) - 1px;
-  border-bottom-left-radius:  1000px;
-  border-bottom-right-radius: 1000px;
   border: @impactColouredBorderWidth solid @doubtsEvidenceImpactColor;
-  border-top: none;
+  border-left: none;
 }
 
 // Evidence triangles (arrows)
