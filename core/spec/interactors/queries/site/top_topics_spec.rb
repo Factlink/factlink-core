@@ -12,15 +12,8 @@ describe Queries::Site::TopTopics do
     it '.key returns the correct redis key' do
       site_id = 6
       query = described_class.new site_id: site_id, nr: 3
-      redis_helper = double
-      key = double
-      sub_key = double
 
-      query.should_receive(:redis).and_return( redis_helper )
-      redis_helper.should_receive(:[]).with(site_id).and_return(sub_key)
-      sub_key.should_receive(:[]).with(:top_topics).and_return(key)
-
-      expect(query.key).to eq key
+      expect(query.key).to eq  "site:#{site_id}:top_topics"
     end
   end
 

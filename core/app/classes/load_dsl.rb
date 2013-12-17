@@ -2,7 +2,7 @@ class LoadDsl
   include Pavlov::Helpers
 
   def pavlov_options
-    { current_user: state_user }
+    { current_user: @state_user }
   end
 
   class UndefinedUserError < StandardError;end

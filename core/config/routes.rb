@@ -130,8 +130,6 @@ FactlinkUI::Application.routes.draw do
         get "find" => "channels#search", as: "find"
       end
 
-      get "/facts/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
-
       member do
         post "toggle/fact/:fact_id/" => "channels#toggle_fact"
 
@@ -162,7 +160,6 @@ FactlinkUI::Application.routes.draw do
     member do
       scope "/facts" do
         get "/" => "topics#facts", as: "topic_facts"
-        get "/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
       end
     end
   end
@@ -171,7 +168,6 @@ FactlinkUI::Application.routes.draw do
     get 'setup-account' => 'users/setup#edit', as: 'setup_account'
     put 'setup-account' => 'users/setup#update'
     get "install-extension" => "tour#install_extension", as: "install_extension"
-    get "create-your-first-factlink" => "tour#create_your_first_factlink", as: "create_your_first_factlink"
     get "interests" => "tour#interests", as: "interests"
     get "tour-done" => "tour#tour_done", as: "tour_done"
   end

@@ -2,7 +2,10 @@ require 'stringex'
 
 class Topic
   include Mongoid::Document
-  include Redis::Aid::Ns(:new_topic)
+
+  def self.redis
+    Nest.new(:new_topic)
+  end
 
   field :title
   index(title: 1)

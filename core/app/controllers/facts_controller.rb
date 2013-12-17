@@ -7,7 +7,6 @@ class FactsController < ApplicationController
     only: [
       :show,
       :discussion_page,
-      :discussion_page_redirect,
       :destroy,
       :update,
       :opinion,
@@ -28,40 +27,20 @@ class FactsController < ApplicationController
     backbone_responder
   end
 
-  def discussion_page_redirect # remove before 2014
-    authorize! :show, @fact
-
-    redirect_path = FactUrl.new(@fact).friendly_fact_path
-    redirect_to redirect_path, status: :moved_permanently
-  end
-
   def create
-    # support both old names, and names which correspond to json in show
-    fact_text = (params[:fact] || params[:displaystring]).to_s
-    url = (params[:url] || params[:fact_url]).to_s
-    title = (params[:title] || params[:fact_title]).to_s
-
-    sharing_options = params[:fact_sharing_options] || {}
-
     authenticate_user!
     authorize! :create, Fact
 
     @fact = interactor(:'facts/create',
-                           displaystring: fact_text, url: url,
-                           title: title, sharing_options: sharing_options)
+                           displaystring: params[:displaystring].to_s,
+                           url: params[:url].to_s,
+                           title: params[:fact_title].to_s)
     @site = @fact.site
 
     mp_track "Factlink: Created",
       opinion: params[:opinion],
       channels: params[:channels]
     mp_track_people_event last_factlink_created: DateTime.now
-
-    if OpinionType.include?(params[:opinion])
-      @fact.add_opinion(params[:opinion], current_user.graph_user)
-      Activity.create user: current_user.graph_user, action: params[:opinion], subject: @fact
-    end
-
-    add_to_channels @fact, params[:channels]
 
     render 'facts/show', formats: [:json]
   end
@@ -112,6 +91,7 @@ class FactsController < ApplicationController
   def share
     authorize! :share, @fact
 
+    # TODO: WRAP IN INTERACTOR
     command :'facts/social_share', fact_id: @fact.id, sharing_options: params[:fact_sharing_options]
 
     render json: {}
@@ -125,14 +105,5 @@ class FactsController < ApplicationController
 
   def fact_id
     params[:fact_id] || params[:id]
-  end
-
-  def add_to_channels fact, channel_ids
-    return unless channel_ids
-
-    channels = channel_ids.map { |id| Channel[id] }.compact
-    channels.each do |channel|
-      interactor(:'channels/add_fact', fact: fact, channel: channel)
-    end
   end
 end

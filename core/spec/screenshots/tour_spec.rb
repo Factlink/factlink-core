@@ -14,12 +14,6 @@ describe "Check the tour", type: :feature, driver: :poltergeist_slow do
     assume_unchanged_screenshot 'extension'
   end
 
-  it 'Create your first factlink page should be the same' do
-    visit create_your_first_factlink_path
-
-    assume_unchanged_screenshot 'create_your_first_factlink'
-  end
-
   it 'Interests page should be the same' do
     user = create :user
     Pavlov.command(:'users/add_handpicked_user', user_id: user.id.to_s)

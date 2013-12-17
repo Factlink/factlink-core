@@ -14,17 +14,20 @@ class window.ClientController
         newClientModal.mainRegion.show view
 
   showNewFact: (params={}) =>
-    clientModal = new DiscussionModalContainer
-    FactlinkApp.discussionModalRegion.show clientModal
-    FactlinkApp.guided = params.guided == 'true'
-    if params.fact
-      mp_track("Modal: Open prepare")
-    factsNewView = new FactsNewView
-      fact_text: params.fact
-      title: params.title
+    fact = new Fact
+      displaystring: params.displaystring
       url: params.url
-    factsNewView.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
-    factsNewView.on 'factCreated', (fact) =>
-      @annotatedSiteEnvoy 'closeModal_highlightNewFactlink', params.fact, fact.id
-    clientModal.mainRegion.show factsNewView
+      fact_title: params.fact_title
 
+    if Factlink.Global.signed_in
+      fact.save {},
+        success: =>
+          @annotatedSiteEnvoy 'highlightNewFactlink', params.displaystring, fact.id
+          Backbone.history.navigate "/client/facts/#{fact.id}", trigger: true
+    else
+      view = new NewFactLoginView model: fact
+      view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
+
+      clientModal = new DiscussionModalContainer
+      FactlinkApp.discussionModalRegion.show clientModal
+      clientModal.mainRegion.show view

@@ -18,8 +18,7 @@ describe FactsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title',
-                                     sharing_options: {})
+                                     title: 'title')
         fact.add_opinion :believes, user.graph_user
       end
 
@@ -40,8 +39,7 @@ describe FactsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title',
-                                     sharing_options: {})
+                                     title: 'title')
         fact.add_opinion :believes, user.graph_user
       end
 
@@ -63,8 +61,7 @@ describe FactsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title',
-                                     sharing_options: {})
+                                     title: 'title')
       end
 
       fact.data.displaystring = "baas<xss> of niet"
@@ -90,8 +87,7 @@ describe FactsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title',
-                                     sharing_options: {})
+                                     title: 'title')
       end
       fact_id = fact.id
 
@@ -108,12 +104,7 @@ describe FactsController do
   describe :create do
     it "should work with json" do
       authenticate_user!(user)
-      post 'create', format: :json, url: "http://example.org/", fact: "Facity Fact", title: "Title"
-      response.code.should eq("200")
-    end
-    it "should work with json, with initial belief" do
-      authenticate_user!(user)
-      post 'create', format: :json, url: "http://example.org/", fact: "Facity Fact", title: "Title", :opinion => :believes
+      post 'create', format: :json, url: "http://example.org/", displaystring: "Facity Fact", fact_title: "Title"
       response.code.should eq("200")
     end
   end
@@ -127,8 +118,7 @@ describe FactsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title',
-                                     sharing_options: {})
+                                     title: 'title')
       end
 
       get :evidence_search, id: fact.id, s: "Baron"
@@ -145,8 +135,7 @@ describe FactsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title',
-                                     sharing_options: {})
+                                     title: 'title')
       end
 
       Twitter::Client.any_instance.should_receive(:update)
@@ -163,8 +152,7 @@ describe FactsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title',
-                                     sharing_options: {})
+                                     title: 'title')
       end
 
       Koala::Facebook::API.any_instance.should_receive(:put_wall_post)

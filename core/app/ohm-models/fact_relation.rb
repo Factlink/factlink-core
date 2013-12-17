@@ -35,7 +35,7 @@ class FactRelation < OurOhm
       fact: to,
       type: type
     )
-    fail "Creating FactRelation went wrong" if fact_relation.new?
+    fail "Creating FactRelation went wrong #{fact_relation.errors.inspect}" if fact_relation.new?
 
     fact_relation
   end

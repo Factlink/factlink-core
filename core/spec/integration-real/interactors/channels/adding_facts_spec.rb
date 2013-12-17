@@ -7,7 +7,7 @@ describe 'when adding a fact to a channel' do
     let(:user) { create :full_user }
     it "adds the fact to the channel" do
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: '', sharing_options: {}
+        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
 
         channel = pavlov.command :'channels/create', title: 'something'
         pavlov.interactor :'channels/add_fact', fact: fact, channel: channel
@@ -18,7 +18,7 @@ describe 'when adding a fact to a channel' do
 
     it "adds the fact to the channels topic" do
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: '', sharing_options: {}
+        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
 
         channel = pavlov.command :'channels/create', title: 'something'
         pavlov.interactor :'channels/add_fact', fact: fact, channel: channel

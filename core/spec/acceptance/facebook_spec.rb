@@ -1,6 +1,8 @@
 require 'acceptance_helper'
 
 describe "Facebook", type: :feature do
+  include Acceptance::FactHelper
+
   context "as a logged in user with expired token" do
     before do
       @user = sign_in_user create :full_user, :confirmed
@@ -17,7 +19,8 @@ describe "Facebook", type: :feature do
     end
 
     it "contains the iframe in the client" do
-      visit new_fact_path
+      factlink = backend_create_fact
+      go_to_fact_show_of factlink
 
       expect(page).to have_selector ".facebook_renewal_iframe"
     end
