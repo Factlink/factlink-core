@@ -48,8 +48,6 @@
 
 .add-evidence-form-button {
   background: @buttonBackground;
-  border-top: 2px darken(@buttonBackground,10%) solid;
-  border-bottom: 0px;
   padding: 4px;
   color: @metaFontColor;
   &:hover{
@@ -74,24 +72,16 @@ input.add-evidence-form-radio {
   &:checked + .add-evidence-form-button-doubts,
   &:checked + .add-evidence-form-button-disbelieves {
     color: white;
-    position: relative;
-    top: -2px;
   }
 
   &:checked + .add-evidence-form-button-believes {
     background: @buttonSuccessBackground;
-    border-top: 0px;
-    border-bottom: 2px darken(@buttonSuccessBackground,10%) solid;
   }
   &:checked + .add-evidence-form-button-doubts {
     background: @buttonConfirmBackground;
-    border-top: 0px;
-    border-bottom: 2px darken(@buttonConfirmBackground,10%) solid;
   }
   &:checked + .add-evidence-form-button-disbelieves {
     background: @buttonDangerBackground;
-    border-top: 0px;
-    border-bottom: 2px darken(@buttonDangerBackground,10%) solid;
   }
 }
 
