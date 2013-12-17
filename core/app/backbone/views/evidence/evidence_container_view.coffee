@@ -5,9 +5,6 @@ class EvidenceLayoutView extends Backbone.Marionette.Layout
     contentRegion: '.js-content-region'
     voteRegion: '.js-vote-region'
 
-  ui:
-    relevance: '.js-relevance'
-
   typeCss: ->
     switch @model.get('type')
       when 'believes' then 'evidence-believes'
@@ -24,15 +21,11 @@ class VotableEvidenceLayoutView extends EvidenceLayoutView
 
   onRender: ->
     @contentRegion.show new FactRelationOrCommentView model: @model
-    @listenTo @model.argumentVotes(), 'change', @_updateRelevance
-    @_updateRelevance()
+    @listenTo @model.argumentVotes(), 'change', @_updateIrrelevance
+    @_updateIrrelevance()
+    @voteRegion.show new EvidenceVoteView model: @model.argumentVotes()
 
-    if Factlink.Global.signed_in
-      @voteRegion.show new EvidenceVoteView model: @model.argumentVotes()
-
-  _updateRelevance: ->
-    @ui.relevance.text format_as_short_number(@model.argumentVotes().relevance())
-
+  _updateIrrelevance: ->
     relevant = @model.argumentVotes().relevance() >= 0
     @$el.toggleClass 'evidence-irrelevant', !relevant
 
@@ -44,7 +37,6 @@ class OpinionatorsEvidenceLayoutView extends EvidenceLayoutView
   onRender: ->
     @$el.toggle @shouldShow()
     @contentRegion.show new InteractingUsersView model: @model
-    @ui.relevance.text format_as_short_number(@model.get('impact'))
 
 class EvidenceCollectionView extends Backbone.Marionette.CollectionView
   itemView: EvidenceLayoutView

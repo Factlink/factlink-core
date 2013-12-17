@@ -9,16 +9,16 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
   ui:
     upButton: '.js-up'
     downButton: '.js-down'
-
-  initialize: ->
-    @listenTo @model, "change", @_updateButtons
+    relevance: '.js-relevance'
 
   onRender: ->
-    @_updateButtons()
+    @listenTo @model, "change", @_updateValues
+    @_updateValues()
 
-  _updateButtons: ->
+  _updateValues: ->
     @ui.upButton.toggleClass 'active', @model.get('current_user_opinion') == 'believes'
     @ui.downButton.toggleClass 'active', @model.get('current_user_opinion') == 'disbelieves'
+    @ui.relevance.text format_as_short_number(@model.relevance())
 
   _on_up_vote: ->
     mp_track "Factlink: Upvote evidence click"
