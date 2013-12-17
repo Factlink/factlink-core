@@ -1,6 +1,6 @@
 class Button
   constructor: (dom_events={}) ->
-    @$el = $(@template)
+    @$el = $(@content)
     @$el.appendTo(FactlinkJailRoot.$factlinkCoreContainer)
     for event, callback of dom_events
       @$el.bind event, callback
@@ -23,7 +23,7 @@ class Button
 
 
 class FactlinkJailRoot.ShowButton extends Button
-  template: """
+  content: """
     <div class="fl-button">
       <span class="fl-default-message">Show Annotation</span>
       <span class="fl-loading-message">Loading...</span>
@@ -32,7 +32,7 @@ class FactlinkJailRoot.ShowButton extends Button
 
 
 class FactlinkJailRoot.CreateButton extends Button
-  template: """
+  content: """
     <div class="fl-button">
       <span class="fl-default-message">Add Annotation</span>
       <span class="fl-loading-message">Loading...</span>

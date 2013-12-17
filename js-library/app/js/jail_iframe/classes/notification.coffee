@@ -2,14 +2,14 @@ FactlinkJailRoot.Views ||= {}
 FactlinkJailRoot.Views.Notifications ||= {}
 
 class FactlinkJailRoot.Views.Notification
-  template: """
+  content: """
     <div class="fl-message">
       <div class="fl-message-icon"></div><span class="fl-message-content fl-js-message"></span>
     </div>
   """
 
   constructor: (@options={}) ->
-    @$el = $(@template)
+    @$el = $(@content)
     @$el.addClass(@options.type_classes)
     @setMessage(@options.message)
 
