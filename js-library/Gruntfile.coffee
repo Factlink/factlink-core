@@ -114,10 +114,7 @@ module.exports = (grunt) ->
 
       dist:
         files: [
-          { src: ['*.js', '*.js.gz',
-                  '**/*.css',
-                  '**/*.css.gz',
-                  '**/*.png', '**/*.gif', 'robots.txt'], cwd: 'build', dest: 'dist', expand: true }
+          { src: ['*.js', '*.js.gz', 'robots.txt'], cwd: 'build', dest: 'dist', expand: true }
         ]
     watch:
       files: ['app/js/**/*', 'app/css/**/*', 'test/**/*', 'Gruntfile.coffee']
