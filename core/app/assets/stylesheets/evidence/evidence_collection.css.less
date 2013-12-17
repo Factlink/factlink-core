@@ -1,11 +1,21 @@
 @import "bootstrap/mixins";
 
+// Layout variables
+@topFactWheelOverhang: 62px;
+@impactCircleDiameter: 53px;
+@impactColouredBorderWidth: 3px;
+
+// Arrows:
+@arrowInnerSpacing: 8px;
+@arrowWidth: 21px;
+@arrowHeight: 12px;
+
 // It would look weird for the evidence boxes to end before the impact circles.
 // Therefore, the believing/disbelieving boxes need a minimum height.
 @evidenceBoxMinHeight: @impactCircleDiameter;
 
 .evidence-container {
-  margin: @topFactWheelOverhang @evidenceRegionHorizontalMargin 0;
+  margin: @topFactWheelOverhang 16px 0;
   box-sizing: content-box;
 }
 
