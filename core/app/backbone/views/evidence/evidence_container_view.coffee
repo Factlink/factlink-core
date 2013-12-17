@@ -29,7 +29,6 @@ class VotableEvidenceLayoutView extends EvidenceLayoutView
 
     if Factlink.Global.signed_in
       @voteRegion.show new EvidenceVoteView model: @model.argumentVotes()
-      @$el.addClass 'evidence-has-arrows'
 
   _updateRelevance: ->
     @ui.relevance.text format_as_short_number(@model.argumentVotes().relevance())
@@ -71,7 +70,6 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     'request sync': '_updateLoading'
 
   ui:
-    terminator: '.js-terminator'
     loading: '.js-evidence-loading'
     loaded: '.js-evidence-loaded'
 
@@ -88,4 +86,3 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
   _updateLoading: ->
     @ui.loading.toggle !!@collection.loading()
     @ui.loaded.toggle !@collection.loading()
-    @ui.terminator.toggleClass 'evidence-terminator-circle', !@collection.loading()

@@ -4,14 +4,14 @@
   .white-block-with-shadow();
   .new-design-font();
   position: relative;
-  padding: 30px 35px 25px;
+  padding: 30px @topFactHorizontalPadding 25px;
   margin-top: 40px;
 }
 
 .top-fact-user-heading {
   position: absolute;
   top: -10px;
-  left: 35px;
+  left: @topFactHorizontalPadding;
 }
 
 .top-fact-text {
@@ -46,42 +46,4 @@
     margin-right: 10px;
     margin-left: 4px;
   }
-}
-
-@informationLabelHeight: 40px;
-.top-fact-disbelieves-information, .top-fact-believes-information {
-  background-color: @translucentGrey;
-  color: @metaFontColor;
-  position: absolute;
-  width: 355px;
-  bottom: -@informationLabelHeight;
-  height: @informationLabelHeight;
-  line-height: @informationLabelHeight;
-  text-align: center;
-  z-index: -1;
-  border-radius: @baseBorderRadius;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-
-  &:after { // arrows
-    top: 100%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    border-color: none;
-    border-top-color: @translucentGrey;
-    border-width: 12px;
-    left: 50%;
-    margin-left: -12px;
-  }
-}
-
-.top-fact-disbelieves-information {
-  left: 5px;
-}
-
-.top-fact-believes-information {
-  right: 5px;
 }

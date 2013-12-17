@@ -1,74 +1,30 @@
 @import "bootstrap/mixins";
 
-// Triangles:
-// - An inner triangle with the box's background color
-// - An outer triangle "fake border" that's 1px offset
-@innerTriangleOffset: @triangleSize - 1px;
-@triangleTop: floor(@impactCircleDiameter/2) + @argumentBoxTopOverhang;
+// Layout variables
+@impactCircleDiameter: 53px;
+@impactColouredBorderWidth: 3px;
+@evidenceRelevanceTop: 10px;
 
-// The dicussion page has 3 columns, 2x 50% and one fixed - so more than 100% total.
-// This means we need some negative margins to make it fit.
-@negativeColumnMargin: @middleColumnWidth/2;
-
-// Evidence boxes are after impact circles in DOM, but are pulled up so their
-// visual top is above the impact circle top.
-@evidenceBoxTopOffset: -(@impactCircleDiameter + @argumentBoxTopOverhang);
-
-
-// It would look weird for the evidence boxes to end before the impact circles.
-// Therefore, the believing/disbelieving boxes need a minimum height.
-@evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
-
-
-@unsureImpactToBoxDistance: @impactCircleTopSpacing/2 + @triangleSize;
-
-// The unsure (middle) box needs to leave space for the impact circle since its
-// impact circle cannot be floated (both left/right would be problematic).
-@unsureImpactRelativeTop: -@impactCircleDiameter
-                          - @unsureImpactToBoxDistance
-                          + @impactCircleTopSpacing
-                          - @argumentBoxTopOverhang;
+// Arrows:
+@arrowInnerSpacing: 8px;
+@arrowWidth: 21px;
+@arrowHeight: 12px;
 
 .evidence-container {
-  padding: 0 @negativeColumnMargin @evidenceRegionBottomPadding;
-  margin: @topFactWheelOverhang @evidenceRegionHorizontalMargin 0;
-  box-sizing: content-box;
+  margin: 80px @topFactHorizontalPadding 0;
 }
 
-.evidence-list {
+.evidence-believes, .evidence-disbelieves, .evidence-unsure {
   position: relative;
+  margin-bottom: 20px;
 }
 
-.evidence-line-background {
-  position: absolute;
-  left: 50%;
-  width: 0px;
-  margin-left: -(floor(@middleLineWidth/2));
-  z-index: -2;
-  top: -@topFactWheelOverhang;
-  bottom: 0;
-  box-shadow: 0 0 80px 100px @semiTransparentLayerColor;
-
-  .evidence-line {
-    position: absolute;
-    left: 0;
-    width: @middleLineWidth;
-    top: 0;
-    bottom: 0;
-    background: @discussionLineColor;
-  }
-}
-
-.evidence-terminator {
-  clear: both;
-}
-
-.evidence-relevance, .evidence-box {
-  position: relative;
-  .box-sizing(border-box);
-}
-
+// Relevance circles on the left
 .evidence-relevance {
+  position: absolute;
+  top: @evidenceRelevanceTop;
+  left: 0;
+
   .white-block-with-shadow();
   width:  @impactCircleDiameter;
   height: @impactCircleDiameter;
@@ -82,139 +38,32 @@
   text-align: center;
 }
 
-.evidence-box {
-  width: 50%;
-}
-
-.evidence-believes > .evidence-box, .evidence-disbelieves > .evidence-box {
-  margin: @evidenceBoxTopOffset -@negativeColumnMargin @evidenceBoxSpacing -@negativeColumnMargin;
-  min-height: @evidenceBoxMinHeight;
-}
-
-.evidence-believes, .evidence-loading {
-  > .evidence-relevance, > .evidence-box {
-    float: right;
-    clear: right;
-  }
-
-  > .evidence-relevance {
-    margin-top: @impactCircleTopSpacing;
-    position: relative;
-    margin-right: 50%;
-    right: ceil(-@impactCircleDiameter/2);
-  }
-}
-
-.evidence-disbelieves {
-  > .evidence-relevance, > .evidence-box {
-    float: left;
-    clear: left;
-  }
-
-  > .evidence-relevance {
-    margin-top: @impactCircleTopSpacing;
-    position: relative;
-    margin-left: 50%;
-    left: floor(-@impactCircleDiameter/2);
-  }
-}
-
-.evidence-unsure, .evidence-centered {
-  > .evidence-relevance, > .evidence-box {
-    margin: auto;
-    clear: both;
-    left: -1px; // correct for even width container
-  }
-
-  > .evidence-relevance {
-    top: @unsureImpactRelativeTop;
-    margin-bottom: @unsureImpactRelativeTop;
-  }
-
-  > .evidence-box {
-    margin-top: @unsureImpactToBoxDistance;
-    margin-bottom: @evidenceBoxSpacing;
-    position: relative;
-  }
-
-  > .evidence-spacer-left,
-  > .evidence-spacer-right {
-    width: 1px;
-    visibility: hidden;
-    height: @impactCircleTopSpacing - @unsureImpactRelativeTop;
-  }
-  > .evidence-spacer-left  { float: left; }
-  > .evidence-spacer-right { float: right; }
-}
-
-// Irrelevant (faded out)
-.evidence-irrelevant > .evidence-box {
-  opacity: 0.6;
-  .transition(opacity 0.2s);
-
-  &:hover {
-    opacity: 0.9;
-  }
-}
-
 // Coloured half-circles
 .evidence-relevance::after {
   content: '';
   position: absolute;
   top:    -@impactColouredBorderWidth;
   bottom: -@impactColouredBorderWidth;
-  left:   -@impactColouredBorderWidth;
   right:  -@impactColouredBorderWidth;
+  left: ceil(@impactCircleDiameter/2) - 1px;
+
+  border-top-right-radius:    1000px;
+  border-bottom-right-radius: 1000px;
 }
 
 .evidence-believes > .evidence-relevance::after {
-  left: ceil(@impactCircleDiameter/2) - 1px;
-  border-top-right-radius:    1000px;
-  border-bottom-right-radius: 1000px;
-
   border: @impactColouredBorderWidth solid @believesEvidenceImpactColor;
   border-left: none;
 }
 
 .evidence-disbelieves > .evidence-relevance::after {
-  right: floor(@impactCircleDiameter/2) - 2px;
-  border-top-left-radius:    1000px;
-  border-bottom-left-radius: 1000px;
   border: @impactColouredBorderWidth solid @disbelievesEvidenceImpactColor;
-  border-right: none;
+  border-left: none;
 }
 
 .evidence-unsure > .evidence-relevance::after {
-  top: floor(@impactCircleDiameter/2) - 1px;
-  border-bottom-left-radius:  1000px;
-  border-bottom-right-radius: 1000px;
   border: @impactColouredBorderWidth solid @doubtsEvidenceImpactColor;
-  border-top: none;
-}
-
-// Evidence triangles (arrows)
-.evidence-believes .evidence-box-triangle,
-.evidence-disbelieves .evidence-box-triangle {
-  top: @triangleTop;
-  margin-top: -@triangleSize;
-}
-
-.evidence-believes .evidence-box-triangle {
-  .triangle-arrow-left();
-  left: 0;
-}
-
-.evidence-disbelieves .evidence-box-triangle {
-  .triangle-arrow-right();
-  right: 0;
-}
-
-.evidence-unsure .evidence-box-triangle,
-.evidence-centered .evidence-box-triangle {
-  .triangle-arrow-up();
-  top: 0;
-  left: 50%;
-  margin-left: -@triangleSize;
+  border-left: none;
 }
 
 // Voting arrows
@@ -224,29 +73,6 @@
   right: 0;
   top: 0;
   bottom: 0;
-}
-
-.evidence-votable > .evidence-relevance {
-  margin-top: @impactCircleTopSpacing + @impactCircleVotableWithoutArrowsTopSpacing;
-}
-
-.evidence-unsure.evidence-votable > .evidence-relevance {
-  top: @unsureImpactRelativeTop + @impactCircleVotableWithoutArrowsTopSpacing;
-  margin-bottom: @unsureImpactRelativeTop + @impactCircleVotableWithoutArrowsTopSpacing;
-}
-
-@arrowAdditionalSpacing: @arrowHeight + @arrowInnerSpacing;
-.evidence-votable.evidence-has-arrows > .evidence-relevance {
-  margin-top: @impactCircleTopSpacing + @arrowAdditionalSpacing;
-  margin-bottom: @arrowAdditionalSpacing;
-}
-
-.evidence-votable.evidence-has-arrows > .evidence-box {
-  margin-top: @evidenceBoxTopOffset - @arrowAdditionalSpacing;
-}
-
-.evidence-votable.evidence-has-arrows.evidence-unsure > .evidence-box {
-  margin-top: -@argumentBoxTopOverhang;
 }
 
 .evidence-relevance-vote-up, .evidence-relevance-vote-down {
@@ -259,65 +85,56 @@
 }
 
 .evidence-relevance-vote-up {
-  background: asset-data-url( 'evidence-arrows/up-arrow-unclicked.png');
   top: -@arrowHeight - @arrowInnerSpacing;
+  background: asset-data-url( 'evidence-arrows/up-arrow-unclicked.png');
+  opacity: 0.7;
 
   &:hover {
-    background: asset-data-url('evidence-arrows/up-arrow-unclicked-hover.png');
+    opacity: 1;
   }
 
   &.active {
     background: asset-data-url('evidence-arrows/up-arrow-clicked.png');
-
-    &:hover {
-      background: asset-data-url('evidence-arrows/up-arrow-clicked-hover.png');
-    }
   }
 }
 
 .evidence-relevance-vote-down {
-  background: asset-data-url('evidence-arrows/down-arrow-unclicked.png');
   bottom: -@arrowHeight - @arrowInnerSpacing;
+  background: asset-data-url('evidence-arrows/down-arrow-unclicked.png');
+  opacity: 0.7;
 
   &:hover {
-    background: asset-data-url('evidence-arrows/down-arrow-unclicked-hover.png');
+    opacity: 1;
   }
 
   &.active {
     background: asset-data-url('evidence-arrows/down-arrow-clicked.png');
-
-    &:hover {
-      background: asset-data-url('evidence-arrows/down-arrow-clicked-hover.png');
-    }
   }
 }
 
 .evidence-votable {
+  padding-top: @evidenceishHeadingOverhang;
+
+  .evidence-relevance {
+    top: @evidenceRelevanceTop + @arrowHeight + @arrowInnerSpacing;
+  }
+
   .evidence-relevance-vote-up, .evidence-relevance-vote-down {
     display: block;
   }
 }
 
-.evidence-relevance-vote-popover {
-  z-index: 1; // force it just above the other evidence, inside this stacking context
+// Evidence box
+.evidence-box {
+  margin-left: 100px;
 }
 
-// Circle at the end of the evidence line
-.evidence-terminator-circle {
-  position: relative;
-  min-height: 30px;
+// Irrelevant (faded out)
+.evidence-irrelevant > .evidence-box {
+  opacity: 0.6;
+  .transition(opacity 0.2s);
 
-  @circleRadius: @middleLineWidth;
-  &:after {
-    content: '';
-    display: block;
-    position: absolute;
-    bottom: -@circleRadius - 2px;
-    left: 50%;
-    margin-left: -1px;
-    width: @circleRadius;
-    height: @circleRadius;
-    border-radius: 5px; //half would be enough
-    background-color: @discussionLineColor;
+  &:hover {
+    opacity: 0.9;
   }
 }
