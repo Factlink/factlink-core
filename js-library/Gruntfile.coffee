@@ -99,8 +99,6 @@ module.exports = (grunt) ->
     shell:
       gzip_js_files:
         command: ' find build/ -iname \'*.js\'  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
-      gzip_css_files:
-        command: ' find build/ -iname \'*.css\'  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
 
     copy:
       build:
@@ -171,7 +169,7 @@ module.exports = (grunt) ->
     'clean', 'copy:build',  'copy:start_stop_files', 'coffee','copy:postFactlinkObject',
     'sass', 'cssUrlEmbed', 'cssmin',
     'concat', 'uglify', 'code_inliner',
-    'shell:gzip_css_files', 'shell:gzip_js_files', 'copy:dist'
+    'shell:gzip_js_files', 'copy:dist'
   ]
   grunt.registerTask 'test',    ['qunit']
 
