@@ -6,6 +6,7 @@ class ChannelFacts
 
   def add_fact fact
     channel.sorted_internal_facts.add(fact)
+    fact.channels.add(channel)
   end
 
   def remove_fact(fact)

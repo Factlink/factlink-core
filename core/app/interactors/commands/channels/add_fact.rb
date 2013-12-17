@@ -7,7 +7,6 @@ module Commands
 
       def execute
         ChannelFacts.new(channel).add_fact fact
-        fact.channels.add channel
       end
     end
   end
