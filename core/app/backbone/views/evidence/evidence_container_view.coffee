@@ -29,7 +29,6 @@ class VotableEvidenceLayoutView extends EvidenceLayoutView
 
     if Factlink.Global.signed_in
       @voteRegion.show new EvidenceVoteView model: @model.argumentVotes()
-      @$el.addClass 'evidence-has-arrows'
 
   _updateRelevance: ->
     @ui.relevance.text format_as_short_number(@model.argumentVotes().relevance())

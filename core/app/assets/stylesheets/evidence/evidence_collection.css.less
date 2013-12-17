@@ -1,34 +1,25 @@
 @import "bootstrap/mixins";
 
-// The dicussion page has 3 columns, 2x 50% and one fixed - so more than 100% total.
-// This means we need some negative margins to make it fit.
-@negativeColumnMargin: @middleColumnWidth/2;
-
-// Evidence boxes are after impact circles in DOM, but are pulled up so their
-// visual top is above the impact circle top.
-@evidenceBoxTopOffset: -(@impactCircleDiameter + @argumentBoxTopOverhang);
-
-
 // It would look weird for the evidence boxes to end before the impact circles.
 // Therefore, the believing/disbelieving boxes need a minimum height.
-@evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
+@evidenceBoxMinHeight: @impactCircleDiameter;
 
 .evidence-container {
-  padding: 0 @negativeColumnMargin @evidenceRegionBottomPadding;
   margin: @topFactWheelOverhang @evidenceRegionHorizontalMargin 0;
   box-sizing: content-box;
 }
 
-.evidence-list {
+.evidence-believes, .evidence-disbelieves, .evidence-unsure {
   position: relative;
-}
-
-.evidence-relevance, .evidence-box {
-  position: relative;
-  .box-sizing(border-box);
+  margin-bottom: 20px;
 }
 
 .evidence-relevance {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -@impactCircleDiameter/2;
+
   .white-block-with-shadow();
   width:  @impactCircleDiameter;
   height: @impactCircleDiameter;
@@ -43,21 +34,8 @@
 }
 
 .evidence-box {
-  width: 50%;
-  margin: @evidenceBoxTopOffset -@negativeColumnMargin @evidenceBoxSpacing -@negativeColumnMargin;
   min-height: @evidenceBoxMinHeight;
-}
-
-.evidence-relevance, .evidence-box {
-  float: right;
-  clear: right;
-}
-
-.evidence-relevance {
-  margin-top: @impactCircleTopSpacing;
-  position: relative;
-  margin-right: 50%;
-  right: ceil(-@impactCircleDiameter/2);
+  margin-left: 100px;
 }
 
 // Irrelevant (faded out)
@@ -107,21 +85,6 @@
   bottom: 0;
 }
 
-.evidence-votable > .evidence-relevance {
-  margin-top: @impactCircleTopSpacing + @impactCircleVotableWithoutArrowsTopSpacing;
-}
-
-
-@arrowAdditionalSpacing: @arrowHeight + @arrowInnerSpacing;
-.evidence-votable.evidence-has-arrows > .evidence-relevance {
-  margin-top: @impactCircleTopSpacing + @arrowAdditionalSpacing;
-  margin-bottom: @arrowAdditionalSpacing;
-}
-
-.evidence-votable.evidence-has-arrows > .evidence-box {
-  margin-top: @evidenceBoxTopOffset - @arrowAdditionalSpacing;
-}
-
 .evidence-relevance-vote-up, .evidence-relevance-vote-down {
   width: @arrowWidth;
   height: @arrowHeight;
@@ -163,8 +126,4 @@
   .evidence-relevance-vote-up, .evidence-relevance-vote-down {
     display: block;
   }
-}
-
-.evidence-relevance-vote-popover {
-  z-index: 1; // force it just above the other evidence, inside this stacking context
 }
