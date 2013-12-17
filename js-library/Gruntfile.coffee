@@ -30,7 +30,6 @@ module.exports = (grunt) ->
           'build/js/jail_iframe/wrap/first.js'
           'build/js/jail_iframe/plugins/*.js'
           'build/js/jail_iframe/classes/*.js'
-          'build/js/jail_iframe/views/*.js'
           'build/js/jail_iframe/util/*.js'
           'build/js/jail_iframe/initializers/*.js'
           'build/js/jail_iframe/wrap/last.js'
