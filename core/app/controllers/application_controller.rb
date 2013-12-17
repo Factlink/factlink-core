@@ -121,10 +121,10 @@ class ApplicationController < ActionController::Base
   end
 
   def mp_track_people_event(opts={})
-    if current_user
-      req_env = MixpanelRequestPresenter.new(request).to_hash
-      Resque.enqueue(Mixpanel::TrackPeopleEventJob, current_user.id, opts, req_env)
-    end
+    return unless user_signed_in?
+
+    req_env = MixpanelRequestPresenter.new(request).to_hash
+    Resque.enqueue(Mixpanel::TrackPeopleEventJob, current_user.id, opts, req_env)
   end
 
   before_filter :initialize_mixpanel
