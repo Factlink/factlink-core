@@ -32,9 +32,9 @@ class AddedOpinionView extends ActivityItemView
     switch @model.get('action')
       when "believes"
         Factlink.Global.t.fact_believe_past_singular_action_about
-      when "believes"
+      when "disbelieves"
         Factlink.Global.t.fact_disbelieve_past_singular_action_about
-      when "believes"
+      when "doubts"
         Factlink.Global.t.fact_doubt_past_singular_action_about
 
 class FollowedUserView extends ActivityItemView
