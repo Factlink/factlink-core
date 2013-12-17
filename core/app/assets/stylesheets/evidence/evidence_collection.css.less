@@ -1,10 +1,5 @@
 @import "bootstrap/mixins";
 
-// Triangles:
-// - An inner triangle with the box's background color
-// - An outer triangle "fake border" that's 1px offset
-@triangleTop: floor(@impactCircleDiameter/2) + @argumentBoxTopOverhang;
-
 // The dicussion page has 3 columns, 2x 50% and one fixed - so more than 100% total.
 // This means we need some negative margins to make it fit.
 @negativeColumnMargin: @middleColumnWidth/2;
@@ -105,14 +100,6 @@
 .evidence-unsure > .evidence-relevance::after {
   border: @impactColouredBorderWidth solid @doubtsEvidenceImpactColor;
   border-left: none;
-}
-
-// Evidence triangles (arrows)
-.evidence-box-triangle {
-  .triangle-arrow-left();
-  left: 0;
-  top: @triangleTop;
-  margin-top: -@triangleSize;
 }
 
 // Voting arrows
