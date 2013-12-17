@@ -1,17 +1,7 @@
 class window.ClientController
   constructor: (@annotatedSiteEnvoy) ->
   showFact: (fact_id) ->
-    fact = new Fact id: fact_id
-
-    fact.on 'destroy', => @annotatedSiteEnvoy 'closeModal_deleteFactlink', fact_id
-
-    fact.fetch
-      success: =>
-        newClientModal = new DiscussionModalContainer
-        FactlinkApp.discussionModalRegion.show newClientModal
-        view = new DiscussionView model: fact
-        view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
-        newClientModal.mainRegion.show view
+    @_renderDiscussion new Fact id: fact_id
 
   showNewFact: (params={}) =>
     fact = new Fact
@@ -23,7 +13,11 @@ class window.ClientController
       fact.save {},
         success: =>
           @annotatedSiteEnvoy 'highlightNewFactlink', params.displaystring, fact.id
-          Backbone.history.navigate "/client/facts/#{fact.id}", trigger: true
+          FactlinkApp.NotificationCenter.success "Added #{Factlink.Global.t.factlink}.",
+            'Undo', -> fact.destroy()
+
+          @_renderDiscussion fact
+          Backbone.history.navigate "/client/facts/#{fact.id}", trigger: false
     else
       view = new NewFactLoginView model: fact
       view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
@@ -31,3 +25,14 @@ class window.ClientController
       clientModal = new DiscussionModalContainer
       FactlinkApp.discussionModalRegion.show clientModal
       clientModal.mainRegion.show view
+
+  _renderDiscussion: (fact) ->
+    fact.on 'destroy', => @annotatedSiteEnvoy 'closeModal_deleteFactlink', fact.id
+
+    fact.fetch
+      success: =>
+        newClientModal = new DiscussionModalContainer
+        FactlinkApp.discussionModalRegion.show newClientModal
+        view = new DiscussionView model: fact
+        view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
+        newClientModal.mainRegion.show view
