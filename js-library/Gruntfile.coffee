@@ -71,8 +71,6 @@ module.exports = (grunt) ->
           'build/css/framed_controls.css': ['build/css/framed_controls_without_embeds.css']
     cssmin:
       build:
-        options:
-          banner: banner_template
         expand: true
         cwd: 'build/css/'
         dest: 'build/css/'
