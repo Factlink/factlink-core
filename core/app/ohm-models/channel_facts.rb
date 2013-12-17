@@ -10,7 +10,7 @@ class ChannelFacts
 
   def remove_fact(fact)
     channel.sorted_internal_facts.delete(fact)
-    Resque.enqueue(RemoveFactFromChannel, fact.id, channel.id)
+    fact.channels.delete(channel)
   end
 
   def include? obj
