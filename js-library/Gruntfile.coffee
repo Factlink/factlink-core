@@ -62,11 +62,11 @@ module.exports = (grunt) ->
     sass:
       build:
         files:
-          'build/css/basic_without_base64.css': 'app/css/basic.scss'
+          'build/css/basic_without_embeds.css': 'app/css/basic.scss'
     cssUrlEmbed:
       encodeDirectly:
         files:
-          'build/css/basic.css': ['build/css/basic_without_base64.css']
+          'build/css/basic.css': ['build/css/basic_without_embeds.css']
     cssmin:
       build:
         options:
