@@ -30,10 +30,6 @@ class FactlinkJailRoot.ShowButton extends Button
     </div>
   """
 
-  setCoordinates: (top, left) =>
-    return if @position_already_determined
-    @position_already_determined = true
-    super
 
 class FactlinkJailRoot.CreateButton extends Button
   template: """
