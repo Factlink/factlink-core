@@ -52,4 +52,4 @@ window.NotificationView = (opts) ->
     when "followed_user"
       new NotificationUserFollowedUser(opts)
     else
-      throw 'Unknown notification action: ' + opts.model.get("action")
+      throw new Error 'Unknown notification action: ' + opts.model.get("action")

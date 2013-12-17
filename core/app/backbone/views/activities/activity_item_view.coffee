@@ -14,7 +14,7 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
       when 'followed_user'
         FollowedUserView
       else
-        throw 'Unknown activity action: ' + model.get("action")
+        throw new Error 'Unknown activity action: ' + model.get("action")
 
 
 class CreatedFactRelationView extends ActivityItemView
