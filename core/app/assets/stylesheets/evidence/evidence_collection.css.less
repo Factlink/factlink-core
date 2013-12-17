@@ -3,7 +3,6 @@
 // Triangles:
 // - An inner triangle with the box's background color
 // - An outer triangle "fake border" that's 1px offset
-@innerTriangleOffset: @triangleSize - 1px;
 @triangleTop: floor(@impactCircleDiameter/2) + @argumentBoxTopOverhang;
 
 // The dicussion page has 3 columns, 2x 50% and one fixed - so more than 100% total.
@@ -18,16 +17,6 @@
 // It would look weird for the evidence boxes to end before the impact circles.
 // Therefore, the believing/disbelieving boxes need a minimum height.
 @evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
-
-
-@unsureImpactToBoxDistance: @impactCircleTopSpacing/2 + @triangleSize;
-
-// The unsure (middle) box needs to leave space for the impact circle since its
-// impact circle cannot be floated (both left/right would be problematic).
-@unsureImpactRelativeTop: -@impactCircleDiameter
-                          - @unsureImpactToBoxDistance
-                          + @impactCircleTopSpacing
-                          - @argumentBoxTopOverhang;
 
 .evidence-container {
   padding: 0 @negativeColumnMargin @evidenceRegionBottomPadding;
@@ -84,67 +73,20 @@
 
 .evidence-box {
   width: 50%;
-}
-
-.evidence-believes > .evidence-box, .evidence-disbelieves > .evidence-box {
   margin: @evidenceBoxTopOffset -@negativeColumnMargin @evidenceBoxSpacing -@negativeColumnMargin;
   min-height: @evidenceBoxMinHeight;
 }
 
-.evidence-believes, .evidence-loading {
-  > .evidence-relevance, > .evidence-box {
-    float: right;
-    clear: right;
-  }
-
-  > .evidence-relevance {
-    margin-top: @impactCircleTopSpacing;
-    position: relative;
-    margin-right: 50%;
-    right: ceil(-@impactCircleDiameter/2);
-  }
+.evidence-relevance, .evidence-box {
+  float: right;
+  clear: right;
 }
 
-.evidence-disbelieves {
-  > .evidence-relevance, > .evidence-box {
-    float: left;
-    clear: left;
-  }
-
-  > .evidence-relevance {
-    margin-top: @impactCircleTopSpacing;
-    position: relative;
-    margin-left: 50%;
-    left: floor(-@impactCircleDiameter/2);
-  }
-}
-
-.evidence-unsure, .evidence-centered {
-  > .evidence-relevance, > .evidence-box {
-    margin: auto;
-    clear: both;
-    left: -1px; // correct for even width container
-  }
-
-  > .evidence-relevance {
-    top: @unsureImpactRelativeTop;
-    margin-bottom: @unsureImpactRelativeTop;
-  }
-
-  > .evidence-box {
-    margin-top: @unsureImpactToBoxDistance;
-    margin-bottom: @evidenceBoxSpacing;
-    position: relative;
-  }
-
-  > .evidence-spacer-left,
-  > .evidence-spacer-right {
-    width: 1px;
-    visibility: hidden;
-    height: @impactCircleTopSpacing - @unsureImpactRelativeTop;
-  }
-  > .evidence-spacer-left  { float: left; }
-  > .evidence-spacer-right { float: right; }
+.evidence-relevance {
+  margin-top: @impactCircleTopSpacing;
+  position: relative;
+  margin-right: 50%;
+  right: ceil(-@impactCircleDiameter/2);
 }
 
 // Irrelevant (faded out)
@@ -186,28 +128,11 @@
 }
 
 // Evidence triangles (arrows)
-.evidence-believes .evidence-box-triangle,
-.evidence-disbelieves .evidence-box-triangle {
-  top: @triangleTop;
-  margin-top: -@triangleSize;
-}
-
-.evidence-believes .evidence-box-triangle {
+.evidence-box-triangle {
   .triangle-arrow-left();
   left: 0;
-}
-
-.evidence-disbelieves .evidence-box-triangle {
-  .triangle-arrow-right();
-  right: 0;
-}
-
-.evidence-unsure .evidence-box-triangle,
-.evidence-centered .evidence-box-triangle {
-  .triangle-arrow-up();
-  top: 0;
-  left: 50%;
-  margin-left: -@triangleSize;
+  top: @triangleTop;
+  margin-top: -@triangleSize;
 }
 
 // Voting arrows
@@ -223,10 +148,6 @@
   margin-top: @impactCircleTopSpacing + @impactCircleVotableWithoutArrowsTopSpacing;
 }
 
-.evidence-unsure.evidence-votable > .evidence-relevance {
-  top: @unsureImpactRelativeTop + @impactCircleVotableWithoutArrowsTopSpacing;
-  margin-bottom: @unsureImpactRelativeTop + @impactCircleVotableWithoutArrowsTopSpacing;
-}
 
 @arrowAdditionalSpacing: @arrowHeight + @arrowInnerSpacing;
 .evidence-votable.evidence-has-arrows > .evidence-relevance {
@@ -236,10 +157,6 @@
 
 .evidence-votable.evidence-has-arrows > .evidence-box {
   margin-top: @evidenceBoxTopOffset - @arrowAdditionalSpacing;
-}
-
-.evidence-votable.evidence-has-arrows.evidence-unsure > .evidence-box {
-  margin-top: -@argumentBoxTopOverhang;
 }
 
 .evidence-relevance-vote-up, .evidence-relevance-vote-down {
