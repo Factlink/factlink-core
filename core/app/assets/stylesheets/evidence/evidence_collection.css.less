@@ -9,10 +9,6 @@
 @arrowWidth: 21px;
 @arrowHeight: 12px;
 
-// It would look weird for the evidence boxes to end before the impact circles.
-// Therefore, the believing/disbelieving boxes need a minimum height.
-@evidenceBoxMinHeight: @impactCircleDiameter;
-
 .evidence-container {
   margin: 80px 30px 0;
 }
@@ -42,7 +38,6 @@
 }
 
 .evidence-box {
-  min-height: @evidenceBoxMinHeight;
   margin-left: 100px;
 }
 
