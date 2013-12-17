@@ -73,8 +73,8 @@ module.exports = (grunt) ->
           banner: banner_template
         expand: true
         cwd: 'build/css/'
-        src: ['**/*.css']
         dest: 'build/css/'
+        src: '*.css'
         ext: '.min.css'
     uglify:
       options: {
