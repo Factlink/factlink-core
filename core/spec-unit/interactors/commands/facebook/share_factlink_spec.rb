@@ -21,8 +21,7 @@ describe Commands::Facebook::ShareFactlink do
 
       user.stub(:social_account).with('facebook').and_return(facebook_account)
 
-      pavlov_options = { current_user: user,
-                         facebook_app_namespace: namespace }
+      pavlov_options = { current_user: user }
 
       Koala::Facebook::API.stub(:new)
                           .with(token)
@@ -62,8 +61,7 @@ describe Commands::Facebook::ShareFactlink do
 
       user.stub(:social_account).with('facebook').and_return(facebook_account)
 
-      pavlov_options = { current_user: user,
-                         facebook_app_namespace: namespace }
+      pavlov_options = { current_user: user }
 
       Koala::Facebook::API.stub(:new)
                           .with(token)
@@ -90,15 +88,6 @@ describe Commands::Facebook::ShareFactlink do
       command = described_class.new fact_id: fact.id, pavlov_options: pavlov_options
 
       command.call
-    end
-  end
-
-
-  describe 'validations' do
-    it 'requires the pavlov_options[:facebook_app_namespace]
-        to be a nonempty_string' do
-      expect_validating(fact_id: '1')
-        .to fail_validation('facebook_app_namespace should be a nonempty string.')
     end
   end
 end

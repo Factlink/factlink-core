@@ -148,11 +148,6 @@ class ApplicationController < ActionController::Base
     Resque.enqueue(SetLastInteractionForUser, current_user.id, DateTime.now.to_i)
   end
 
-  def open_graph_formatter
-    @open_graph_formatter ||= OpenGraphFormatter.new
-  end
-  helper_method :open_graph_formatter
-
   private
 
   def can_haz feature

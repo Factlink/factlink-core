@@ -25,20 +25,7 @@ describe ClientController do
   describe :fact_show do
     it "should render successful" do
       authenticate_user!(user)
-      fact = nil
-
-      as(user) do |pavlov|
-        fact = pavlov.interactor(:'facts/create',
-                                     displaystring: 'displaystring',
-                                     url: 'url',
-                                     title: 'title')
-      end
-
-      ability.stub(:can?).with(:show, Fact).and_return(true)
-      ability.stub(:can?).with(:share_to, an_instance_of(SocialAccount)).and_return(false)
-      should_check_can :show, fact
-
-      get :fact_show, id: fact.id
+      get :fact_show, id: '123'
       response.should be_success
     end
   end
