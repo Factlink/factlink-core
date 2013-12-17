@@ -11,7 +11,6 @@ class ChannelFacts
   def remove_fact(fact)
     channel.sorted_internal_facts.delete(fact) if channel.sorted_internal_facts.include?(fact)
     Resque.enqueue(RemoveFactFromChannel, fact.id, channel.id)
-    channel.activity(channel.created_by,:removed,fact,:from,channel)
   end
 
   def include? obj
