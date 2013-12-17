@@ -132,22 +132,23 @@ class ApplicationController < ActionController::Base
 
   before_filter :initialize_mixpanel
   def initialize_mixpanel
-    @mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
+    return unless user_signed_in? and request.format == "text/html"
 
-    if current_user
-      @mixpanel.append_api('name_tag', current_user.username)
-      @mixpanel.append_identify(current_user.id.to_s)
-    end
+    mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
+
+    # the following two commands set data in the frontend using js
+    mixpanel.append_api('name_tag', current_user.username)
+    mixpanel.append_identify(current_user.id.to_s)
   end
 
   before_filter :set_last_interaction_for_user
   def set_last_interaction_for_user
-    if user_signed_in? and request.format == "text/html"
-      mp_track_people_event last_interaction_at: DateTime.now
-      mp_track_people_event last_browser_name: view_context.browser.name
-      mp_track_people_event last_browser_version: view_context.browser.version
-      Resque.enqueue(SetLastInteractionForUser, current_user.id, DateTime.now.to_i)
-    end
+    return unless user_signed_in? and request.format == "text/html"
+
+    mp_track_people_event last_interaction_at: DateTime.now
+    mp_track_people_event last_browser_name: view_context.browser.name
+    mp_track_people_event last_browser_version: view_context.browser.version
+    Resque.enqueue(SetLastInteractionForUser, current_user.id, DateTime.now.to_i)
   end
 
   def jslib_url
