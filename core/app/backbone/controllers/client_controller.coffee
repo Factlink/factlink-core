@@ -13,7 +13,7 @@ class window.ClientController
       fact.save {},
         success: =>
           @annotatedSiteEnvoy 'highlightNewFactlink', params.displaystring, fact.id
-          FactlinkApp.NotificationCenter.success "Successfully created #{Factlink.Global.t.factlink}",
+          FactlinkApp.NotificationCenter.success "Added #{Factlink.Global.t.factlink}.",
             'Undo', -> fact.destroy()
 
           @_renderDiscussion fact
