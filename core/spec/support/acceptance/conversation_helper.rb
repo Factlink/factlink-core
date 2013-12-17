@@ -59,7 +59,7 @@ module Acceptance
     end
 
     def open_message_with_content(message_str)
-      find(".conversations-link").click
+      visit conversations_path
 
       within '.messages-overview-item' do
         page.should have_content(message_str)
