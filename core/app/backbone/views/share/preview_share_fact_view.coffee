@@ -15,7 +15,7 @@ class window.PreviewShareFactView extends Backbone.Marionette.Layout
   _share: ->
     @model.share @options.provider_name,
       success: =>
-        FactlinkApp.NotificationCenter.success "Sharing to #{@_niceProviderName()} in a minute!"
+        FactlinkApp.NotificationCenter.success "Sharing to #{@_niceProviderName()}."
         @trigger 'success'
       error: =>
         FactlinkApp.NotificationCenter.error "Error when sharing to #{@_niceProviderName()}"
