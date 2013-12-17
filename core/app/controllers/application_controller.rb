@@ -26,13 +26,10 @@ class ApplicationController < ActionController::Base
           flash[:alert] = t('devise.failure.unauthenticated')
           redirect_to root_path(return_to: request.original_url)
         end
-
-        format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
-        format.any  { fail exception }
-      else
-        format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
-        format.any  { fail exception }
       end
+
+      format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
+      format.any  { fail exception }
     end
   end
 
