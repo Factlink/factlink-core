@@ -28,26 +28,6 @@
   position: relative;
 }
 
-.evidence-line-background {
-  position: absolute;
-  left: 50%;
-  width: 0px;
-  margin-left: -(floor(@middleLineWidth/2));
-  z-index: -2;
-  top: -@topFactWheelOverhang;
-  bottom: 0;
-  box-shadow: 0 0 80px 100px @semiTransparentLayerColor;
-
-  .evidence-line {
-    position: absolute;
-    left: 0;
-    width: @middleLineWidth;
-    top: 0;
-    bottom: 0;
-    background: @discussionLineColor;
-  }
-}
-
 .evidence-terminator {
   clear: both;
 }
@@ -169,36 +149,30 @@
 }
 
 .evidence-relevance-vote-up {
-  background: asset-data-url( 'evidence-arrows/up-arrow-unclicked.png');
   top: -@arrowHeight - @arrowInnerSpacing;
+  background: asset-data-url( 'evidence-arrows/up-arrow-unclicked.png');
+  opacity: 0.7;
 
   &:hover {
-    background: asset-data-url('evidence-arrows/up-arrow-unclicked-hover.png');
+    opacity: 1;
   }
 
   &.active {
     background: asset-data-url('evidence-arrows/up-arrow-clicked.png');
-
-    &:hover {
-      background: asset-data-url('evidence-arrows/up-arrow-clicked-hover.png');
-    }
   }
 }
 
 .evidence-relevance-vote-down {
-  background: asset-data-url('evidence-arrows/down-arrow-unclicked.png');
   bottom: -@arrowHeight - @arrowInnerSpacing;
+  background: asset-data-url('evidence-arrows/down-arrow-unclicked.png');
+  opacity: 0.7;
 
   &:hover {
-    background: asset-data-url('evidence-arrows/down-arrow-unclicked-hover.png');
+    opacity: 1;
   }
 
   &.active {
     background: asset-data-url('evidence-arrows/down-arrow-clicked.png');
-
-    &:hover {
-      background: asset-data-url('evidence-arrows/down-arrow-clicked-hover.png');
-    }
   }
 }
 
@@ -210,24 +184,4 @@
 
 .evidence-relevance-vote-popover {
   z-index: 1; // force it just above the other evidence, inside this stacking context
-}
-
-// Circle at the end of the evidence line
-.evidence-terminator-circle {
-  position: relative;
-  min-height: 30px;
-
-  @circleRadius: @middleLineWidth;
-  &:after {
-    content: '';
-    display: block;
-    position: absolute;
-    bottom: -@circleRadius - 2px;
-    left: 50%;
-    margin-left: -1px;
-    width: @circleRadius;
-    height: @circleRadius;
-    border-radius: 5px; //half would be enough
-    background-color: @discussionLineColor;
-  }
 }
