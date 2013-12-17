@@ -1,6 +1,6 @@
 //IMPORTANT: please use only double quotes to delimit strings
 (function(){
-  var lib_url = "<%= jslib_url %>";
+  var lib_url = "<%= FactlinkUI::Application.config.jslib_url %>";
 
   <% if ['development'].include?(Rails.env) %>
     var loader_filename = "/factlink_loader_bookmarklet.js?" + (new Date()).getTime();
