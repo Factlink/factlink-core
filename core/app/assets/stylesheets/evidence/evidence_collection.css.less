@@ -22,7 +22,7 @@
 // Relevance circles on the left
 .evidence-relevance {
   position: absolute;
-  top: @evidenceRelevanceTop;
+  top: @evidenceRelevanceTop + @arrowHeight + @arrowInnerSpacing;
   left: 0;
 
   .white-block-with-shadow();
@@ -67,21 +67,11 @@
 }
 
 // Voting arrows
-.evidence-relevance-vote {
-  position: absolute; // needs to be positioned for popover
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-}
-
 .evidence-relevance-vote-up, .evidence-relevance-vote-down {
   width: @arrowWidth;
   height: @arrowHeight;
   position: absolute;
   left: @impactCircleDiameter/2 - @arrowWidth/2 + 1px;
-
-  display: none;
 }
 
 .evidence-relevance-vote-up {
@@ -114,14 +104,6 @@
 
 .evidence-votable {
   padding-top: @evidenceishHeadingOverhang;
-
-  .evidence-relevance {
-    top: @evidenceRelevanceTop + @arrowHeight + @arrowInnerSpacing;
-  }
-
-  .evidence-relevance-vote-up, .evidence-relevance-vote-down {
-    display: block;
-  }
 }
 
 // Evidence box
