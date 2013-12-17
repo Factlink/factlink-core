@@ -52,15 +52,15 @@
   color: @metaFontColor;
   &:hover{
     color: black;
-    background: darken(@buttonBackground,5%);
+    background: @buttonDarkBackground;
   }
   &.add-evidence-form-button-believes {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-top-right-radius: @baseBorderRadius;
+    border-bottom-right-radius: @baseBorderRadius;
   }
   &.add-evidence-form-button-disbelieves {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-top-left-radius: @baseBorderRadius;
+    border-bottom-left-radius: @baseBorderRadius;
   }
 }
 
