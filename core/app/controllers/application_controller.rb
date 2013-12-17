@@ -159,11 +159,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :jslib_url
 
-  def open_graph_formatter
-    @open_graph_formatter ||= OpenGraphFormatter.new
-  end
-  helper_method :open_graph_formatter
-
   private
 
   def action_is_intermediate? #TODO:emn:xdm-refactor
