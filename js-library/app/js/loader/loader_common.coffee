@@ -58,6 +58,8 @@ window.FACTLINK_START_LOADER = ->
 
   jail_window = jslib_jail_iframe.contentWindow
   jail_window.FactlinkConfig = window.FactlinkConfig
+  jail_window.FrameCss = frame_style_code
+
   #### Load iframe with script tag
   jslib_jail_doc = jail_window.document
 
@@ -72,5 +74,6 @@ window.FACTLINK_START_LOADER = ->
 
 jslib_jail_code = __INLINE_JS_PLACEHOLDER__
 style_code = __INLINE_CSS_PLACEHOLDER__
+frame_style_code = __INLINE_FRAME_CSS_PLACEHOLDER__
 
 

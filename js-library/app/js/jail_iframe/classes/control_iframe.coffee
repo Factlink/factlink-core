@@ -9,6 +9,9 @@ class ControlIframe
     #need doctype to avoid quirks mode
     @doc.write('<!DOCTYPE html><title></title>')
     @doc.close()
+    style = @doc.createElement('style')
+    style.appendChild(@doc.createTextNode(FrameCss))
+    @doc.head.appendChild(style)
 
   destroy: ->
     return unless @el
