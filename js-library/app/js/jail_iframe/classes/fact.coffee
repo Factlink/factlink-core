@@ -119,9 +119,6 @@ class FactlinkJailRoot.Fact
   destroy: ->
     for el in @elements
       $el = $(el)
-      unless $el.is('.fl-first')
-        $el.before $el.html()
-
       $el.remove()
 
     @fact_interaction.destroy()

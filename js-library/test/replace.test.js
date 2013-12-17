@@ -41,8 +41,8 @@ test("the first element in a factlink that is matched " +
     1,
     {});
 
-  equal($('.first  span.factlink:first').is('.fl-first'), true);
-  equal($('.second span.factlink:first').is('.fl-first'), true);
+  equal($('.first  span.factlink:first').is('.factlink'), true);
+  equal($('.second span.factlink:first').is('.factlink'), true);
 });
 
 test("multiple Factlinks within the same element should be highlighted", function() {

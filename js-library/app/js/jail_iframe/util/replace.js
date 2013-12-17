@@ -35,10 +35,6 @@ var createFactSpan = function(text, id, first) {
       .addClass('factlink')
       .attr('data-factid', id);
 
-    if (first === true) {
-      span.addClass("fl-first");
-    }
-
     span.html(text);
 
     return span[0];
