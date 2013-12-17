@@ -3,6 +3,7 @@
 // Layout variables
 @impactCircleDiameter: 53px;
 @impactColouredBorderWidth: 3px;
+@evidenceRelevanceTop: 10px;
 
 // Arrows:
 @arrowInnerSpacing: 8px;
@@ -20,9 +21,8 @@
 
 .evidence-relevance {
   position: absolute;
-  top: 50%;
+  top: @evidenceRelevanceTop;
   left: 0;
-  margin-top: -@impactCircleDiameter/2;
 
   .white-block-with-shadow();
   width:  @impactCircleDiameter;
@@ -126,7 +126,11 @@
 }
 
 .evidence-votable {
-  padding-top: 22px;
+  padding-top: @evidenceishHeadingOverhang;
+
+  .evidence-relevance {
+    top: @evidenceRelevanceTop + @arrowHeight + @arrowInnerSpacing;
+  }
 
   .evidence-relevance-vote-up, .evidence-relevance-vote-down {
     display: block;
