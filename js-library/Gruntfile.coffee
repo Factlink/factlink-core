@@ -139,6 +139,10 @@ module.exports = (grunt) ->
         content_file: 'build/css/basic.css'
       }
       {
+        placeholder: '__INLINE_FRAME_CSS_PLACEHOLDER__'
+        content_file: 'build/css/framed_controls.css'
+      }
+      {
         placeholder: '__INLINE_JS_PLACEHOLDER__'
         content_file: 'build/jail_iframe.js'
       }
