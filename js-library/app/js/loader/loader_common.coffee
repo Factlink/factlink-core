@@ -62,7 +62,7 @@ window.FACTLINK_START_LOADER = ->
   jslib_jail_doc = jail_window.document
 
   jslib_jail_doc.open()
-  jslib_jail_doc.write """<!DOCTYPE html><title></title>"""
+  jslib_jail_doc.write '<!DOCTYPE html><title></title>'
   jslib_jail_doc.close()
 
   script_tag = jslib_jail_doc.createElement 'script'
