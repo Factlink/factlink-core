@@ -63,10 +63,12 @@ module.exports = (grunt) ->
       build:
         files:
           'build/css/basic_without_embeds.css': 'app/css/basic.scss'
+          'build/css/framed_controls_without_embeds.css': 'app/css/framed_controls.scss'
     cssUrlEmbed:
       encodeDirectly:
         files:
           'build/css/basic.css': ['build/css/basic_without_embeds.css']
+          'build/css/framed_controls.css': ['build/css/framed_controls_without_embeds.css']
     cssmin:
       build:
         options:
