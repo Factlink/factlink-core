@@ -15,7 +15,6 @@ FactlinkJailRoot.createReceiverEnvoy = (receiver) ->
   handler = (e) ->
     if typeof e.data == 'string' && startsWith(e.data, msgPrefix)
       data_obj = JSON.parse(e.data.substring(msgPrefix.length))
-      console.log data_obj[0], data_obj[1]
       receiver[data_obj[0]].apply receiver, data_obj[1]
     return
   window.addEventListener 'message', handler
