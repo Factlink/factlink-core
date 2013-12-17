@@ -8,8 +8,6 @@ class ClientController < ApplicationController
   end
 
   def fact_show
-    fact = interactor(:'facts/get', id: params[:id]) or raise_404
-    authorize! :show, fact
     render_client
   end
 
