@@ -14,7 +14,7 @@ describe Interactors::Facts::Opinionators
       ability = double
       ability.should_receive(:can?).with(:show, Fact).and_return(false)
 
-      interactor = described_class.new(fact_id: 0, skip: 0, take: 0,
+      interactor = described_class.new(fact_id: 0,
                                        type: 'believes', pavlov_options: { ability: ability } )
 
       expect { interactor.call }
@@ -24,12 +24,12 @@ describe Interactors::Facts::Opinionators
 
   describe '#validate' do
     it 'requires fact_id to be a integer string' do
-      expect_validating( fact_id: 'a', skip: 0, take: 3, type: 'disbelieves' )
+      expect_validating( fact_id: 'a', type: 'disbelieves' )
         .to fail_validation('fact_id should be an integer.')
     end
 
     it 'it throws when initialized with a unknown opinion type' do
-      expect_validating( fact_id: 1, skip: 0, take: 3, type: 'W00T')
+      expect_validating( fact_id: 1, type: 'W00T')
         .to fail_validation 'type should be on of these values: ["believes", "disbelieves", "doubts"].'
     end
   end
@@ -37,8 +37,6 @@ describe Interactors::Facts::Opinionators
   describe '#call' do
     it 'correctly' do
       fact_id = 1
-      skip = 0
-      take = 0
       u1 = double
       type = 'believes'
 
@@ -50,7 +48,7 @@ describe Interactors::Facts::Opinionators
                       pavlov_options: pavlov_options)
             .and_return(users: [u1], total: 1)
 
-      interactor = described_class.new fact_id: fact_id, skip: skip, take: take,
+      interactor = described_class.new fact_id: fact_id,
                                        type: type, pavlov_options: pavlov_options
       results = interactor.call
 
