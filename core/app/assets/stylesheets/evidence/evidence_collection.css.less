@@ -14,9 +14,10 @@
   margin: 80px @topFactHorizontalPadding 0;
 }
 
-.evidence-believes, .evidence-disbelieves, .evidence-unsure {
+.evidence-votable {
   position: relative;
   margin-bottom: 20px;
+  padding-top: @evidenceishHeadingOverhang;
 }
 
 // Relevance circles on the left
@@ -100,10 +101,6 @@
   &.active {
     background: asset-data-url('evidence-arrows/down-arrow-clicked.png');
   }
-}
-
-.evidence-votable {
-  padding-top: @evidenceishHeadingOverhang;
 }
 
 // Evidence box

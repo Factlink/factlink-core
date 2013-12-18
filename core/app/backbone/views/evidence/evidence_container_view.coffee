@@ -1,4 +1,5 @@
-class EvidenceLayoutView extends Backbone.Marionette.Layout
+class EvidenceView extends Backbone.Marionette.Layout
+  className: 'evidence-votable'
   template: 'evidence/evidence_layout'
 
   regions:
@@ -7,9 +8,9 @@ class EvidenceLayoutView extends Backbone.Marionette.Layout
 
   typeCss: ->
     switch @model.get('type')
-      when 'believes' then 'evidence-votable evidence-believes'
-      when 'disbelieves' then 'evidence-votable evidence-disbelieves'
-      when 'doubts' then 'evidence-votable evidence-unsure'
+      when 'believes' then 'evidence-believes'
+      when 'disbelieves' then 'evidence-disbelieves'
+      when 'doubts' then 'evidence-unsure'
 
   onRender: ->
     @$el.addClass @typeCss()
@@ -23,7 +24,7 @@ class EvidenceLayoutView extends Backbone.Marionette.Layout
     @$el.toggleClass 'evidence-irrelevant', !relevant
 
 class EvidenceCollectionView extends Backbone.Marionette.CollectionView
-  itemView: EvidenceLayoutView
+  itemView: EvidenceView
   className: 'evidence-listing'
 
 class window.EvidenceContainerView extends Backbone.Marionette.Layout
