@@ -1,6 +1,6 @@
 class OpinionatorsAvatarView extends Backbone.Marionette.Layout
   tagName: 'span'
-  className: 'discussion-interacting-users-avatar'
+  className: 'opinionators-avatar'
   template: 'opinionators/avatar'
 
   onRender: ->
@@ -11,7 +11,7 @@ class window.OpinionatorsAvatarsView extends Backbone.Marionette.CompositeView
   template: "opinionators/avatars"
   itemView: OpinionatorsAvatarView
 
-  itemViewContainer: ".js-interactor-avatars-collection"
+  itemViewContainer: ".js-opinionators-avatars-collection"
 
   events:
     'click .js-show-all' : 'show_all'
