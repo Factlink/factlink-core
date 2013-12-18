@@ -5,13 +5,7 @@ class window.OpinionatersCollection extends Backbone.Factlink.Collection
     take: 1000000 # TODO: remove when removed in backend
 
   initialize: (models, options) ->
-    @_fact_id = options.fact.id
-
-    votes = options.fact.getFactVotes()
-    votes.on 'sync', =>
-      @fetch()
-
-  fact_id: -> @_fact_id
+    @_fact_id = options.fact_id
 
   url: ->
     "/facts/#{@_fact_id}/interactors"

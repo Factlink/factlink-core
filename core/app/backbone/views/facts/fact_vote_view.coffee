@@ -25,7 +25,7 @@ class window.FactVoteView extends Backbone.Marionette.Layout
       new OpinionatersEvidence(type: 'believes')
       new OpinionatersEvidence(type: 'disbelieves')
       new OpinionatersEvidence(type: 'doubts')
-    ], fact: @model
+    ], fact_id: @model.id
     opinionatersCollection.fetch()
 
     @avatarsBelievesRegion.show new InteractingUsersAvatarsView
@@ -37,6 +37,7 @@ class window.FactVoteView extends Backbone.Marionette.Layout
 
     @_votes = @model.getFactVotes()
     @listenTo @_votes, 'change:current_user_opinion', @_updateActiveButton
+    @listenTo @_votes, 'sync', -> opinionatersCollection.fetch()
     @_updateActiveButton()
 
   _updateActiveButton: ->
