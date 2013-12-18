@@ -1,15 +1,19 @@
 @import "bootstrap/mixins";
 
+@avatarSize: 32px;
+@avatarLineHeight: @avatarSize + 4px;
+@cellVerticalPadding: 5px;
+
 .fact-vote-table {
   border-collapse: collapse;
   width: 100%;
-  min-height: 46px;
+  min-height: @avatarLineHeight + 2*@cellVerticalPadding;
 }
 
 .fact-vote-table-cell-believes,
 .fact-vote-table-cell-disbelieves,
 .fact-vote-table-cell-doubts {
-  padding: 5px 10px;
+  padding: @cellVerticalPadding 10px;
   width: 33%;
   text-align: right;
 }
@@ -45,7 +49,7 @@
 }
 
 .opinionators-avatars {
-  line-height: 36px;
+  line-height: @avatarLineHeight
 }
 
 .opinionators-avatar {
@@ -61,7 +65,7 @@
 .opinionators-avatar-link {
   // for user statistics popovers:
   display: inline-block;
-  height: 32px;
+  height: @avatarSize;
 }
 
 .opinionators-avatar-image {
