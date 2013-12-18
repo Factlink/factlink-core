@@ -1,2 +1,9 @@
-body { margin: 0; }
+html {
+  overflow: hidden;
+  width: 500px;
+}
+body {
+  margin: 0;
+  float:left; //shrink to fit
+}
 * { box-sizing: border-box; }
