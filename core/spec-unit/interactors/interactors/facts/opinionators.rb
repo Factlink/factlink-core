@@ -45,7 +45,7 @@ describe Interactors::Facts::Opinionators
       pavlov_options = { ability: double(can?: true)}
 
       Pavlov.stub(:query)
-            .with(:'facts/interacting_users',
+            .with(:'facts/opinionators',
                       fact_id: fact_id, opinion: type,
                       pavlov_options: pavlov_options)
             .and_return(users: [u1], total: 1)

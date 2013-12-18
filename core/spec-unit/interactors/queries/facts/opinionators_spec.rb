@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/facts/interacting_users.rb'
+require_relative '../../../../app/interactors/queries/facts/opinionators.rb'
 
-describe Queries::Facts::InteractingUsers do
+describe Queries::Facts::Opinionators do
   include PavlovSupport
 
   before do

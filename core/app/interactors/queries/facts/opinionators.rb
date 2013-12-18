@@ -2,7 +2,7 @@ require_relative '../../kill_object'
 
 module Queries
   module Facts
-    class InteractingUsers
+    class Opinionators
       include Pavlov::Query
 
       arguments :fact_id, :opinion

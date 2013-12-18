@@ -7,7 +7,7 @@ module Interactors
       arguments :fact_id, :type
 
       def execute
-        interacting_users = query(:'facts/interacting_users',
+        interacting_users = query(:'facts/opinionators',
                                       fact_id: fact_id,
                                       opinion: type)
 
