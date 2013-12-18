@@ -20,14 +20,6 @@ class ChannelsController < ApplicationController
     @channels = interactor(:'channels/visible_of_user_for_user', user: @user)
   end
 
-  def show
-    authorize! :show, @channel
-
-    backbone_responder do
-      @channel = interactor(:'channels/get', id: @channel.id)
-    end
-  end
-
   # TODO: Move to topicscontroller, this searches for topics, not for channels
   def search
     # TODO: add access control

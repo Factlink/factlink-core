@@ -1,7 +1,6 @@
-require_relative './index.rb'
 module Interactors
   module Channels
-    class VisibleOfUserForUser < Index
+    class VisibleOfUserForUser
     include Pavlov::Interactor
       include Util::CanCan
 
