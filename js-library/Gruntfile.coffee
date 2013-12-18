@@ -135,7 +135,6 @@ module.exports = (grunt) ->
       }
     ]
     targets = [
-      'build/factlink.js'
       'build/factlink_loader_basic.js'
       'build/factlink_loader_bookmarklet.js'
       'build/factlink_loader_publishers.js'
