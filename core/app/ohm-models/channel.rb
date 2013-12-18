@@ -39,12 +39,19 @@ class Channel < OurOhm
     super
   end
 
-  def channel_facts
-    ChannelFacts.new(self)
+  def add_fact fact
+    sorted_internal_facts.add(fact)
+    fact.channels.add(self)
   end
-  private :channel_facts
-  delegate :remove_fact, :include?,
-           :to => :channel_facts
+
+  def remove_fact(fact)
+    sorted_internal_facts.delete(fact)
+    fact.channels.delete(self)
+  end
+
+  def include? obj
+    sorted_internal_facts.include?(obj)
+  end
 
   def validate
     assert_present :title
