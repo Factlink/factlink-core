@@ -61,7 +61,7 @@ module Acceptance
 
       def wait_until_last_argument_has_one_vote
         within '.evidence-votable:last-child' do
-          page.find('.evidence-relevance-text', text: 1)
+          page.find('.spec-evidence-relevance', text: 1)
         end
       end
 
