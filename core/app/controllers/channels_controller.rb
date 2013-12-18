@@ -97,7 +97,7 @@ class ChannelsController < ApplicationController
 
     fact = Fact[params[:fact_id]]
 
-    interactor(:'channels/add_fact', fact: fact, channel: @channel)
+    interactor(:'channels/remove_fact', fact: fact, channel: @channel)
 
     render json: {}
   end
