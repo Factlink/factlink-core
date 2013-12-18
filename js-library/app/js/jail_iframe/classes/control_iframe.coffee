@@ -3,6 +3,7 @@ class FactlinkJailRoot.ControlIframe
   constructor: ->
     console.log('creating frame')
     @el = document.createElement('iframe')
+    @el.className = 'factlink-control-frame'
     #need to append to outer document before we can access frame document.
     FactlinkJailRoot.$factlinkCoreContainer.append(@el)
     @$el = $(@el)
