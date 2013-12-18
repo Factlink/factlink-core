@@ -103,7 +103,7 @@ module.exports = (grunt) ->
         files: [
           { src: ['**/*.js', '**/*.png', '**/*.gif', 'robots.txt'], cwd: 'app', dest: 'build', expand: true }
         ]
-      start_stop_files:
+      extension_events:
         files: [
           { src: ['factlink.*.js'], cwd: 'build/js/extension_events', dest: 'build', expand: true }
         ]
@@ -160,7 +160,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'jail_iframe', []
   grunt.registerTask 'compile',  [
-    'clean', 'copy:build',  'copy:start_stop_files', 'coffee','copy:postFactlinkObject',
+    'clean', 'copy:build',  'copy:extension_events', 'coffee','copy:postFactlinkObject',
     'sass', 'cssUrlEmbed', 'cssmin',
     'concat', 'uglify', 'code_inliner',
     'shell:gzip_js_files', 'copy:dist'
