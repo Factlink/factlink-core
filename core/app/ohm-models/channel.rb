@@ -32,13 +32,6 @@ class Channel < OurOhm
 
   timestamped_set :sorted_internal_facts, Fact
 
-  def delete
-    Activity.for(self).each do |a|
-      a.delete
-    end
-    super
-  end
-
   def validate
     assert_present :title
     assert_present :slug_title
