@@ -1,22 +1,23 @@
-class InteractingUsersAvatarView extends Backbone.Marionette.Layout
-  tagName: 'li'
-  className: 'discussion-interacting-users-avatar'
-  template: 'interacting_users/avatar'
+class OpinionatorsAvatarView extends Backbone.Marionette.Layout
+  tagName: 'span'
+  className: 'opinionators-avatar'
+  template: 'opinionators/avatar'
 
   onRender: ->
     UserPopoverContentView.makeTooltip @, @model
 
-class window.InteractingUsersAvatarsView extends Backbone.Marionette.CompositeView
-  className: 'discussion-interacting-users-avatars'
-  template: "interacting_users/avatars"
-  itemView: InteractingUsersAvatarView
+class window.OpinionatorsAvatarsView extends Backbone.Marionette.CompositeView
+  tagName: 'span'
+  className: 'opinionators-avatars'
+  template: "opinionators/avatars"
+  itemView: OpinionatorsAvatarView
 
-  itemViewContainer: ".js-interactor-avatars-collection"
+  itemViewContainer: ".js-opinionators-avatars-collection"
 
   events:
     'click .js-show-all' : 'show_all'
 
-  number_of_items: 7
+  number_of_items: 4
 
   initialize: (options) ->
     @listenTo @collection, 'add remove reset sync', @render
@@ -36,5 +37,4 @@ class window.InteractingUsersAvatarsView extends Backbone.Marionette.CompositeVi
     e.stopPropagation()
     e.preventDefault()
     @number_of_items = Infinity
-    @collection.howManyPer(1000000)
-    @collection.fetch()
+    @render()

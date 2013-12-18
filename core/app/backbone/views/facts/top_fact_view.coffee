@@ -7,11 +7,11 @@ class window.TopFactView extends Backbone.Marionette.Layout
     'click .js-repost': 'showRepost'
 
   regions:
-    wheelRegion: '.js-fact-wheel-region'
     userHeadingRegion: '.js-user-heading-region'
     userRegion: '.js-user-name-region'
     deleteRegion: '.js-delete-region'
     shareRegion: '.js-share-region'
+    factVoteTableRegion: '.js-fact-vote-table-region'
 
   templateHelpers: =>
     showDelete: @model.can_destroy()
@@ -29,8 +29,8 @@ class window.TopFactView extends Backbone.Marionette.Layout
         model: @model.user()
         $offsetParent: @$el
 
-    @wheelRegion.show @_wheelView()
     @deleteRegion.show @_deleteButtonView() if @model.can_destroy()
+    @factVoteTableRegion.show new FactVoteTableView model: @model
 
     if Factlink.Global.signed_in
       @shareRegion.show new TopFactShareButtonsView model: @model
@@ -42,22 +42,3 @@ class window.TopFactView extends Backbone.Marionette.Layout
         wait: true
         success: -> mp_track "Factlink: Destroy"
     deleteButtonView
-
-  _wheelView: ->
-    votes = @model.getFactVotes()
-
-    wheel_view_options =
-      fact: @model.attributes
-      model: votes
-      radius: 45
-
-    if Factlink.Global.signed_in
-      wheel_view = new FactWheelView wheel_view_options
-    else
-      wheel_view = new FactWheelView _.defaults(respondsToMouse: false, wheel_view_options)
-
-    @listenTo @model, 'change', ->
-      votes.set @model.get("fact_votes")
-      wheel_view.render()
-
-    wheel_view

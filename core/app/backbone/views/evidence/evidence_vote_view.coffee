@@ -24,14 +24,8 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
 
   _on_up_vote: ->
     mp_track "Factlink: Upvote evidence click"
-    if @model.get('current_user_opinion') == 'believes'
-      @model.saveCurrentUserOpinion 'no_vote'
-    else
-      @model.saveCurrentUserOpinion 'believes'
+    @model.clickCurrentUserOpinion 'believes'
 
   _on_down_vote: ->
     mp_track "Factlink: Downvote evidence click"
-    if @model.get('current_user_opinion') == 'disbelieves'
-      @model.saveCurrentUserOpinion 'no_vote'
-    else
-      @model.saveCurrentUserOpinion 'disbelieves'
+    @model.clickCurrentUserOpinion 'disbelieves'

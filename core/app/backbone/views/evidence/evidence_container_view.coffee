@@ -1,4 +1,5 @@
-class EvidenceLayoutView extends Backbone.Marionette.Layout
+class EvidenceView extends Backbone.Marionette.Layout
+  className: 'evidence-argument'
   template: 'evidence/evidence_layout'
 
   regions:
@@ -11,15 +12,8 @@ class EvidenceLayoutView extends Backbone.Marionette.Layout
       when 'disbelieves' then 'evidence-disbelieves'
       when 'doubts' then 'evidence-unsure'
 
-  render: ->
-    super
-    @$el.addClass @typeCss()
-    this
-
-class VotableEvidenceLayoutView extends EvidenceLayoutView
-  className: 'evidence-votable'
-
   onRender: ->
+    @$el.addClass @typeCss()
     @contentRegion.show new FactRelationOrCommentView model: @model
     @listenTo @model.argumentVotes(), 'change', @_updateIrrelevance
     @_updateIrrelevance()
@@ -29,25 +23,9 @@ class VotableEvidenceLayoutView extends EvidenceLayoutView
     relevant = @model.argumentVotes().relevance() >= 0
     @$el.toggleClass 'evidence-irrelevant', !relevant
 
-class OpinionatorsEvidenceLayoutView extends EvidenceLayoutView
-
-  shouldShow: ->
-    @model.has('impact') && @model.get('impact') > 0.0
-
-  onRender: ->
-    @$el.toggle @shouldShow()
-    @contentRegion.show new InteractingUsersView model: @model
-
 class EvidenceCollectionView extends Backbone.Marionette.CollectionView
-  itemView: EvidenceLayoutView
+  itemView: EvidenceView
   className: 'evidence-listing'
-
-  getItemView: (item) ->
-    if item instanceof OpinionatersEvidence
-      OpinionatorsEvidenceLayoutView
-    else
-      VotableEvidenceLayoutView
-
 
 class window.EvidenceContainerView extends Backbone.Marionette.Layout
   className: 'evidence-container'
@@ -68,7 +46,7 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
   onRender: ->
     if Factlink.Global.signed_in
       @addRegion.show new AddOpinionOrEvidenceView
-        collection: @collection.realEvidenceCollection
+        collection: @collection
     else
       @learnMoreRegion.show new LearnMoreView
 

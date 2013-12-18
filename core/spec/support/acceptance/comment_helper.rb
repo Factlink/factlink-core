@@ -60,7 +60,7 @@ module Acceptance
       end
 
       def wait_until_last_argument_has_one_vote
-        within '.evidence-votable:last-child' do
+        within '.evidence-argument:last-child' do
           page.find('.spec-evidence-relevance', text: 1)
         end
       end
@@ -99,7 +99,7 @@ module Acceptance
       end
 
       def vote_comment direction, comment
-        within('.evidence-votable', text: comment, visible: false) do
+        within('.evidence-argument', text: comment, visible: false) do
           find(".spec-evidence-vote-#{direction}").click
         end
       end
