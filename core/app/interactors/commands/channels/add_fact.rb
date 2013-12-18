@@ -6,7 +6,8 @@ module Commands
       arguments :fact, :channel
 
       def execute
-        channel.add_fact fact
+        channel.sorted_internal_facts.add(fact)
+        fact.channels.add(channel)
       end
     end
   end

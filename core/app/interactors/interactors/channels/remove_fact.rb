@@ -6,7 +6,8 @@ module Interactors
       arguments :fact, :channel
 
       def execute
-        channel.remove_fact(fact)
+        channel.sorted_internal_facts.delete(fact)
+        fact.channels.delete(channel)
       end
 
       def authorized?
