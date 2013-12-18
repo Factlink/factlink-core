@@ -105,13 +105,12 @@ module.exports = (grunt) ->
         ]
       start_stop_files:
         files: [
-          { src: ['factlink.*.js'], cwd: 'build/js', dest: 'build', expand: true }
+          { src: ['factlink.*.js'], cwd: 'build/js/extension_events', dest: 'build', expand: true }
         ]
       postFactlinkObject:
         files: [
           { src: ['postFactlinkObject.js'], cwd: 'build/js/jail_iframe/util', dest: 'build', expand: true }
         ]
-
       dist:
         files: [
           { src: ['*.js', '*.js.gz', 'robots.txt'], cwd: 'build', dest: 'dist', expand: true }
