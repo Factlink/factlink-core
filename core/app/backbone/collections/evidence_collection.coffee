@@ -1,4 +1,4 @@
-class window.RealEvidenceCollection extends Backbone.Factlink.Collection
+class window.EvidenceCollection extends Backbone.Factlink.Collection
 
   initialize: (models, options) ->
     @fact = options.fact
