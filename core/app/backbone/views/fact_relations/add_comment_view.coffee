@@ -59,4 +59,4 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   _textAreaView: ->
     @__textAreaView ?= new Backbone.Factlink.TextAreaView
       model: @_textModel()
-      placeholder: 'Comment...'
+      placeholder: 'What do you think?'
