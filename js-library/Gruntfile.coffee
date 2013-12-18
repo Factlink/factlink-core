@@ -117,7 +117,7 @@ module.exports = (grunt) ->
         ]
     watch:
       files: ['app/**/*', 'test/**/*', 'Gruntfile.coffee']
-      tasks: ['compile', 'test']
+      tasks: ['compile'] # , 'test']
     qunit:
       all: ['test/*.html']
 
@@ -165,7 +165,7 @@ module.exports = (grunt) ->
   ]
   grunt.registerTask 'test',    ['qunit']
 
-  grunt.registerTask 'default', ['compile', 'test']
+  grunt.registerTask 'default', ['compile'] #, 'test'
   grunt.registerTask 'server',  ['compile']
 
   grunt.loadNpmTasks 'grunt-sass'
