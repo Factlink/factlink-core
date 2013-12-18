@@ -13,10 +13,10 @@ module Screenshots
 
       supporting_factlink = backend_create_fact_with_long_text
       go_to_discussion_page_of supporting_factlink
-      click_agree
+      click_agree supporting_factlink, @user
 
       go_to_discussion_page_of factlink
-      click_agree
+      click_agree factlink, @user
 
       add_comment :doubts, comment_text
       add_existing_factlink :believes, supporting_factlink

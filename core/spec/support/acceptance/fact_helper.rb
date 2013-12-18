@@ -23,9 +23,13 @@ module Acceptance
       create :fact, created_by: user.graph_user
     end
 
-    def click_agree
+    def click_agree fact, user
       # TODO: use `click_button 'Agree'` when getting rid of the "agree/disagree/add comment" box
       first('button', text: 'Agree').click
+
+      eventually_succeeds do
+        expect(fact.believable.opinion_of_graph_user(user.graph_user)).to eq "believes"
+      end
     end
   end
 end

@@ -19,11 +19,7 @@ describe "factlink", type: :feature do
 
       page.should have_content(@factlink.data.title)
 
-      click_agree
-
-      eventually_succeeds do
-        expect(@factlink.believable.opinion_of_graph_user(@user.graph_user)).to eq "believes"
-      end
+      click_agree @factlink, @user
     end
 
     it "should find a factlink when searching on a exact phrase containing small words" do
