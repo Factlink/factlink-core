@@ -34,7 +34,7 @@ class ActivityMailer < ActionMailer::Base
     case activity.action
     when 'created_fact_relation', 'created_comment', 'created_sub_comment'
       factlink = activity.object.data.displaystring.truncate(50)
-      "Discussion on #{factlink}"
+      "Discussion on \"#{factlink}\""
     when 'created_conversation'
       "#{user} has sent you a message"
     when 'replied_message'
