@@ -4,8 +4,8 @@ class window.DiscussionView extends Backbone.Marionette.Layout
   template: 'facts/discussion'
 
   regions:
-    factRegion: '.js-region-fact'
-    evidenceRegion: '.js-region-evidence'
+    factRegion: '.js-fact-region'
+    evidenceRegion: '.js-evidence-region'
 
   onRender: ->
     @listenTo @model, 'destroy', -> FactlinkApp.vent.trigger 'close_discussion_modal'
