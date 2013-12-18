@@ -1,13 +1,13 @@
 class window.FactVoteView extends Backbone.Marionette.Layout
   template:
     text: """
-      <div class="discussion-evidenceish discussion-evidenceish-box">
-        <div class="discussion-evidenceish-content">
-          <div><button class="button js-button-believes">Agree <span class="opinion_indicator agreeing"> </button> <div class="js-avatars-believes-region"></div></div>
-          <div><button class="button js-button-doubts">Unsure <span class="opinion_indicator unsure"> </button> <div class="js-avatars-doubts-region"></div></div>
-          <div><button class="button js-button-disbelieves">Disagree <span class="opinion_indicator disagreeing"> </button> <div class="js-avatars-disbelieves-region"></div></div>
-        </div>
-      </div>
+      <table>
+        <tr>
+          <td><button class="button js-button-believes">Agree</button> <span class="js-avatars-believes-region"></span></td>
+          <td><button class="button js-button-doubts">Unsure</button> <span class="js-avatars-doubts-region"></span></td>
+          <td><button class="button js-button-disbelieves">Disagree</button> <span class="js-avatars-disbelieves-region"></span></td>
+        </tr>
+      </table>
     """
 
   regions:
