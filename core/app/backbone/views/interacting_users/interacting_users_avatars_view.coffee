@@ -1,5 +1,5 @@
 class InteractingUsersAvatarView extends Backbone.Marionette.Layout
-  tagName: 'li'
+  tagName: 'span'
   className: 'discussion-interacting-users-avatar'
   template: 'interacting_users/avatar'
 
@@ -7,6 +7,7 @@ class InteractingUsersAvatarView extends Backbone.Marionette.Layout
     UserPopoverContentView.makeTooltip @, @model
 
 class window.InteractingUsersAvatarsView extends Backbone.Marionette.CompositeView
+  tagName: 'span'
   className: 'discussion-interacting-users-avatars'
   template: "interacting_users/avatars"
   itemView: InteractingUsersAvatarView
