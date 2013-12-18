@@ -1,5 +1,4 @@
 require 'pavlov_helper'
-require_relative '../../../../app/ohm-models/channel_facts.rb'
 require_relative '../../../../app/interactors/commands/channels/add_fact'
 
 describe Commands::Channels::AddFact do
