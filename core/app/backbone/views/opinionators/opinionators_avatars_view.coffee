@@ -17,7 +17,7 @@ class window.OpinionatorsAvatarsView extends Backbone.Marionette.CompositeView
   events:
     'click .js-show-all' : 'show_all'
 
-  number_of_items: 7
+  number_of_items: 4
 
   initialize: (options) ->
     @listenTo @collection, 'add remove reset sync', @render
