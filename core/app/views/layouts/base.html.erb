@@ -3,7 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title><%= yield :title %></title>
+    <title>
+      <% if content_for? :page_title %>
+        <%= yield :title %>
+      <% else %>
+        Factlink &mdash; Because the web needs what you know
+      <% end %>
+    </title>
     <meta name="description" content="">
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,700' rel='stylesheet' type='text/css'>
