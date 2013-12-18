@@ -20,25 +20,27 @@ class window.FactVoteView extends Backbone.Marionette.Layout
     'click .js-button-doubts': -> @_votes.saveCurrentUserOpinion 'doubts'
     'click .js-button-disbelieves': -> @_votes.saveCurrentUserOpinion 'disbelieves'
 
-  onRender: ->
-    opinionatersCollection = new OpinionatersCollection [
+  initialize: ->
+    @_votes = @model.getFactVotes()
+    @listenTo @_votes, 'change:current_user_opinion', @_updateActiveButton
+    @listenTo @_votes, 'sync', -> @_opinionatersCollection.fetch()
+
+    @_opinionatersCollection = new OpinionatersCollection [
       new OpinionatersEvidence(type: 'believes')
       new OpinionatersEvidence(type: 'disbelieves')
       new OpinionatersEvidence(type: 'doubts')
     ], fact_id: @model.id
-    opinionatersCollection.fetch()
+    @_opinionatersCollection.fetch()
+
+  onRender: ->
+    @_updateActiveButton()
 
     @avatarsBelievesRegion.show new InteractingUsersAvatarsView
-      collection: opinionatersCollection.get('believes').opinionaters()
+      collection: @_opinionatersCollection.get('believes').opinionaters()
     @avatarsDisbelievesRegion.show new InteractingUsersAvatarsView
-      collection: opinionatersCollection.get('disbelieves').opinionaters()
+      collection: @_opinionatersCollection.get('disbelieves').opinionaters()
     @avatarsDoubtsRegion.show new InteractingUsersAvatarsView
-      collection: opinionatersCollection.get('doubts').opinionaters()
-
-    @_votes = @model.getFactVotes()
-    @listenTo @_votes, 'change:current_user_opinion', @_updateActiveButton
-    @listenTo @_votes, 'sync', -> opinionatersCollection.fetch()
-    @_updateActiveButton()
+      collection: @_opinionatersCollection.get('doubts').opinionaters()
 
   _updateActiveButton: ->
     @$('button').removeClass 'button-success button-confirm button-danger'
