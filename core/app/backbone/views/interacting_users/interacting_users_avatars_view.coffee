@@ -16,7 +16,7 @@ class window.InteractingUsersAvatarsView extends Backbone.Marionette.CompositeVi
   events:
     'click .js-show-all' : 'show_all'
 
-  number_of_items: 7
+  number_of_items: 1000
 
   initialize: (options) ->
     @listenTo @collection, 'add remove reset sync', @render

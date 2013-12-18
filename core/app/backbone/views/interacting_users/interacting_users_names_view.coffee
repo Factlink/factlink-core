@@ -30,7 +30,7 @@ class window.InteractingUsersNamesView extends Backbone.Marionette.CompositeView
   events:
     'click a.js-show-all' : 'show_all'
 
-  number_of_items: 3
+  number_of_items: 1000
 
   initialize: (options) ->
     @listenTo @collection, 'add remove reset sync', @render
