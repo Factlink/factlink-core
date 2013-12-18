@@ -51,7 +51,7 @@ feature "adding comments to a fact", type: :feature do
     within_evidence_list do
       # there is just one factlink in the list
       find('.spec-evidence-relevance', text: "1")
-      find('.evidence-relevance-vote-up').click
+      find('.spec-evidence-vote-up').click
       find('.spec-evidence-relevance', text: "0")
     end
 
