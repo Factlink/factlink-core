@@ -16,9 +16,9 @@ class window.FactVoteTableView extends Backbone.Marionette.Layout
     avatarsDisbelievesRegion: '.js-avatars-disbelieves-region'
 
   events:
-    'click .js-button-believes': -> @_votes.saveCurrentUserOpinion 'believes'
-    'click .js-button-doubts': -> @_votes.saveCurrentUserOpinion 'doubts'
-    'click .js-button-disbelieves': -> @_votes.saveCurrentUserOpinion 'disbelieves'
+    'click .js-button-believes': -> @_votes.clickCurrentUserOpinion 'believes'
+    'click .js-button-doubts': -> @_votes.clickCurrentUserOpinion 'doubts'
+    'click .js-button-disbelieves': -> @_votes.clickCurrentUserOpinion 'disbelieves'
 
   initialize: ->
     @_votes = @model.getFactVotes()

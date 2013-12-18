@@ -9,8 +9,8 @@ class window.AddOpinionOrEvidenceView extends Backbone.Marionette.Layout
     buttons: '.js-buttons'
 
   events:
-    'click .js-believes': -> @_factVotes.saveCurrentUserOpinion 'believes'
-    'click .js-disbelieves': -> @_factVotes.saveCurrentUserOpinion 'disbelieves'
+    'click .js-believes': -> @_factVotes.clickCurrentUserOpinion 'believes'
+    'click .js-disbelieves': -> @_factVotes.clickCurrentUserOpinion 'disbelieves'
     'click .js-comment': '_showForm'
 
   onRender: ->
