@@ -8,7 +8,6 @@ class InteractingUsersAvatarView extends Backbone.Marionette.Layout
 
 class window.InteractingUsersAvatarsView extends Backbone.Marionette.CompositeView
   tagName: 'span'
-  className: 'discussion-interacting-users-avatars'
   template: "interacting_users/avatars"
   itemView: InteractingUsersAvatarView
 
