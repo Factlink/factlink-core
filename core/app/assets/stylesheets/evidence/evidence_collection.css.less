@@ -39,32 +39,16 @@
   text-align: center;
 }
 
-// Coloured half-circles
-.evidence-vote::after {
-  content: '';
-  position: absolute;
-  top:    -@impactColouredBorderWidth;
-  bottom: -@impactColouredBorderWidth;
-  right:  -@impactColouredBorderWidth;
-  left: ceil(@impactCircleDiameter/2) - 1px;
-
-  border-top-right-radius:    1000px;
-  border-bottom-right-radius: 1000px;
+.evidence-believes .evidence-box {
+  border-left: @impactColouredBorderWidth solid @believesEvidenceImpactColor;
 }
 
-.evidence-believes .evidence-vote::after {
-  border: @impactColouredBorderWidth solid @believesEvidenceImpactColor;
-  border-left: none;
+.evidence-disbelieves .evidence-box {
+  border-left: @impactColouredBorderWidth solid @disbelievesEvidenceImpactColor;
 }
 
-.evidence-disbelieves .evidence-vote::after {
-  border: @impactColouredBorderWidth solid @disbelievesEvidenceImpactColor;
-  border-left: none;
-}
-
-.evidence-unsure .evidence-vote::after {
-  border: @impactColouredBorderWidth solid @doubtsEvidenceImpactColor;
-  border-left: none;
+.evidence-unsure .evidence-box {
+  border-left: @impactColouredBorderWidth solid @doubtsEvidenceImpactColor;
 }
 
 // Voting arrows
