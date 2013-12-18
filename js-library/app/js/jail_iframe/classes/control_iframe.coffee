@@ -4,6 +4,7 @@ class ControlIframe
     @el = document.createElement('iframe');
     #need to append to outer document before we can access frame document.
     FactlinkJailRoot.$factlinkCoreContainer.append(@el)
+    @$el = $(@el)
     @doc = @el.contentWindow.document;
     @doc.open()
     #need doctype to avoid quirks mode
@@ -17,4 +18,4 @@ class ControlIframe
     return unless @el
     @doc = null
     @el.parentElement?.removeChild(@el)
-    @el = null
+    @$el = @el = null
