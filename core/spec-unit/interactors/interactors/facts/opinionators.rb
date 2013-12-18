@@ -1,7 +1,8 @@
 require 'pavlov_helper'
 require_relative '../../../../app/interactors/interactors/facts/opinion_users.rb'
 
-describe Interactors::Facts::OpinionUsers do
+describe Interactors::Facts::Opinionators
+ do
   include PavlovSupport
 
   before do

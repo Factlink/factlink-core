@@ -1,6 +1,6 @@
 module Interactors
   module Facts
-    class OpinionUsers
+    class Opinionators
       include Pavlov::Interactor
       include Util::CanCan
 
