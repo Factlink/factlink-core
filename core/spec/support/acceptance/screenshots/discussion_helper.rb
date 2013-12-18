@@ -23,13 +23,13 @@ module Screenshots
 
       vote_comment :down, comment_text
 
-      within('.evidence-votable', text: comment_text, visible: false) do
+      within('.evidence-argument', text: comment_text, visible: false) do
         find('a', text: 'Comment').click
         add_sub_comment(sub_comment_text)
         assert_sub_comment_exists sub_comment_text_normalized
       end
 
-      within('.evidence-votable', text: supporting_factlink.data.displaystring, visible: false) do
+      within('.evidence-argument', text: supporting_factlink.data.displaystring, visible: false) do
         find('.js-down').click
         eventually_succeeds do
           find('a', text: 'Comment').click

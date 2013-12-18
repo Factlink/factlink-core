@@ -1,5 +1,5 @@
 class EvidenceView extends Backbone.Marionette.Layout
-  className: 'evidence-votable'
+  className: 'evidence-argument'
   template: 'evidence/evidence_layout'
 
   regions:
