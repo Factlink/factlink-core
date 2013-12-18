@@ -19,6 +19,10 @@ class ControlIframe
     while bodyEl.firstChild
       bodyEl.removeChild(bodyEl.firstChild)
     bodyEl.appendChild(contentNode)
+  resizeFrame: ->
+    @el.style.width = @doc.body.clientWidth  + 'px'
+    @el.style.height = @doc.body.clientHeight + 'px'
+
   destroy: ->
     return unless @el
     @doc = null
