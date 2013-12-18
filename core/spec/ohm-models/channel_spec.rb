@@ -78,7 +78,6 @@ describe Channel do
 
       it "should set the lowercase title" do
         channel.title = "HasfudUrbar"
-        channel.lowercase_title.should  == "hasfudurbar"
       end
     end
 

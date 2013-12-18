@@ -36,6 +36,11 @@ if defined?(NewRelic)
     add_method_tracer :set_last_interaction_for_user
   end
 
+  SitesController.class_eval do
+    include NewRelic::Agent::MethodTracer
+    add_method_tracer :is_blacklisted
+  end
+
   Moped::Connection.class_eval do
     include NewRelic::Agent::MethodTracer
     add_method_tracer :connect, 'Moped/connect/#{self.host}:#{self.port} (timeout: #{self.timeout}, ssl: #{!!self.options[:ssl]})'
