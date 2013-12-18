@@ -1,27 +1,41 @@
 class Button
   constructor: (dom_events={}) ->
-    @$el = $(@content)
-    @$el.appendTo(FactlinkJailRoot.$factlinkCoreContainer)
+    @frame = new FactlinkJailRoot.ControlIframe()
+    @frame.doc.body.innerHTML = @content
+    el = @el=  @frame.doc.body.firstChild
     for event, callback of dom_events
-      @$el.bind event, callback
+      el.addEventListener event, callback
+    @frame.resizeFrame()
+    @$el = $(el)
 
-  startLoading: => @$el.addClass    "fl-loading"
-  stopLoading:  => @$el.removeClass "fl-loading"
+
+  startLoading: => @$el.addClass "fl-loading"
+  stopLoading:  => @$el.removeClass  "fl-loading"
 
   setCoordinates: (top, left) =>
-    return if @$el.hasClass 'active'
-    FactlinkJailRoot.set_position_of_element top, left, window, @$el
+#    return if @$el.hasClass 'active'
     console.log 'setting position'
+    FactlinkJailRoot.set_position_of_element top, left, window, @frame.$el
 
   show: =>
     @stopLoading()
-    FactlinkJailRoot.$factlinkCoreContainer.find('div.fl-button').removeClass('active')
     console.log @el.className
+    #TODO:what's this line do?
+    #FactlinkJailRoot.$factlinkCoreContainer.find('div.fl-button').removeClass('active')
     @$el.addClass 'active been-active'
+    @frame.$el.addClass 'factlink-frame-visible'
+    console.log @el.className
 
-  hide: => @$el.removeClass 'active'
 
-  destroy: => @$el.remove()
+  hide: =>
+    @$el.removeClass 'active'
+    @frame.$el.removeClass 'factlink-frame-visible'
+    console.log 'hiding frame'
+
+
+  destroy: =>
+    @frame.destroy()
+    console.log 'destroying frame'
 
 
 class FactlinkJailRoot.ShowButton extends Button
