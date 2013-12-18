@@ -1,13 +1,13 @@
-class window.FactVoteView extends Backbone.Marionette.Layout
+class window.FactVoteTableView extends Backbone.Marionette.Layout
+  tagName: 'table'
+  className: 'fact-vote-table'
   template:
     text: """
-      <table>
         <tr>
           <td><button class="button js-button-believes">Agree</button> <span class="js-avatars-believes-region"></span></td>
           <td><button class="button js-button-doubts">Unsure</button> <span class="js-avatars-doubts-region"></span></td>
           <td><button class="button js-button-disbelieves">Disagree</button> <span class="js-avatars-disbelieves-region"></span></td>
         </tr>
-      </table>
     """
 
   regions:
