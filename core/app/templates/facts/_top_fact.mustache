@@ -1,25 +1,27 @@
 <div class="js-user-heading-region"></div>
 
-<div class="top-fact-text">
-  {{displaystring}}
-</div>
-
-<div class="top-fact-controls">
-
-  <div class="top-fact-poster-controls">
-    {{#showDelete}}
-      <div class="top-fact-delete js-delete-region"></div>
-    {{/showDelete}}
-    <i class="icon-time"></i> {{created_by_ago}} by
-    <span class="js-user-name-region"></span>
+<div class="top-fact-content">
+  <div class="top-fact-text">
+    {{displaystring}}
   </div>
 
-  {{#global.signed_in}}
-    <button class="button button-small button-confirm js-repost">Topics</button>
-  {{/global.signed_in}}
+  <div class="top-fact-controls">
 
-  <div class="js-fact-vote-table-region"></div>
+    <div class="top-fact-poster-controls">
+      {{#showDelete}}
+        <div class="top-fact-delete js-delete-region"></div>
+      {{/showDelete}}
+      <i class="icon-time"></i> {{created_by_ago}} by
+      <span class="js-user-name-region"></span>
+    </div>
+
+    {{#global.signed_in}}
+      <button class="button button-small button-confirm js-repost">Topics</button>
+    {{/global.signed_in}}
+  </div>
 </div>
+
+<div class="js-fact-vote-table-region"></div>
 
 {{! at the end for rendering of popovers on top of the rest !}}
 <div class="js-share-region"></div>
