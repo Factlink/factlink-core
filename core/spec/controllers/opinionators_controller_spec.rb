@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe FactInteractorsController do
+describe OpinionatorsController do
   include PavlovSupport
 
   render_views
@@ -20,7 +20,7 @@ describe FactInteractorsController do
 
       get :index, fact_id: fact.id
 
-      Approvals.verify(response.body, format: :json, name: 'fact_interactors#index should keep the same content')
+      Approvals.verify(response.body, format: :json, name: 'opinionators#index should keep the same content')
     end
   end
 end

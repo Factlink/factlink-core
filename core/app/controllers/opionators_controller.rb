@@ -1,4 +1,4 @@
-class FactInteractorsController < ApplicationController
+class OpinionatorsController < ApplicationController
   respond_to :json
 
   def index
