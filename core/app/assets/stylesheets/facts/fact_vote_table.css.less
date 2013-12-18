@@ -1,0 +1,36 @@
+@import "bootstrap/mixins";
+
+.fact-vote-table {
+  border-collapse: collapse;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.fact-vote-table-cell-believes,
+.fact-vote-table-cell-disbelieves,
+.fact-vote-table-cell-doubts {
+  padding: 5px 10px;
+}
+
+.cell-background(@color) {
+  background-color: lighten(@color, 10%);
+  &.fact-vote-table-cell-active {
+    background-color: darken(@color, 10%);
+  }
+}
+.fact-vote-table-cell-believes {
+  .cell-background(@believesEvidenceImpactColor);
+}
+.fact-vote-table-cell-disbelieves {
+  .cell-background(@disbelievesEvidenceImpactColor);
+}
+.fact-vote-table-cell-doubts {
+  .cell-background(@doubtsEvidenceImpactColor);
+}
+
+.fact-vote-table-active-icon {
+  display: none;
+}
+.fact-vote-table-cell-active .fact-vote-table-active-icon {
+  display: inline;
+}
