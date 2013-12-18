@@ -2,7 +2,7 @@ class window.OpinionatersCollection extends Backbone.Factlink.Collection
   model: OpinionatersEvidence
 
   default_fetch_data:
-    take: 7
+    take: 1000000 # TODO: remove when removed in backend
 
   initialize: (models, options) ->
     @_fact_id = options.fact.id
