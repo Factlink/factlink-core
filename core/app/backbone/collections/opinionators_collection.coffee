@@ -1,5 +1,5 @@
-class window.OpinionatersCollection extends Backbone.Factlink.Collection
-  model: OpinionatersEvidence
+class window.OpinionatorsCollection extends Backbone.Factlink.Collection
+  model: OpinionatorsEvidence
 
   default_fetch_data:
     take: 1000000 # TODO: remove when removed in backend

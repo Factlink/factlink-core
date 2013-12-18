@@ -23,24 +23,24 @@ class window.FactVoteTableView extends Backbone.Marionette.Layout
   initialize: ->
     @_votes = @model.getFactVotes()
     @listenTo @_votes, 'change:current_user_opinion', @_updateActiveCell
-    @listenTo @_votes, 'sync', -> @_opinionatersCollection.fetch()
+    @listenTo @_votes, 'sync', -> @_opinionatorsCollection.fetch()
 
-    @_opinionatersCollection = new OpinionatersCollection [
-      new OpinionatersEvidence(type: 'believes')
-      new OpinionatersEvidence(type: 'disbelieves')
-      new OpinionatersEvidence(type: 'doubts')
+    @_opinionatorsCollection = new OpinionatorsCollection [
+      new OpinionatorsEvidence(type: 'believes')
+      new OpinionatorsEvidence(type: 'disbelieves')
+      new OpinionatorsEvidence(type: 'doubts')
     ], fact_id: @model.id
-    @_opinionatersCollection.fetch()
+    @_opinionatorsCollection.fetch()
 
   onRender: ->
     @_updateActiveCell()
 
     @avatarsBelievesRegion.show new OpinionatorsAvatarsView
-      collection: @_opinionatersCollection.get('believes').opinionaters()
+      collection: @_opinionatorsCollection.get('believes').opinionators()
     @avatarsDisbelievesRegion.show new OpinionatorsAvatarsView
-      collection: @_opinionatersCollection.get('disbelieves').opinionaters()
+      collection: @_opinionatorsCollection.get('disbelieves').opinionators()
     @avatarsDoubtsRegion.show new OpinionatorsAvatarsView
-      collection: @_opinionatersCollection.get('doubts').opinionaters()
+      collection: @_opinionatorsCollection.get('doubts').opinionators()
 
   _updateActiveCell: ->
     opinion = @_votes.get('current_user_opinion')
