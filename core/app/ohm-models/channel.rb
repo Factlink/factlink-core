@@ -2,8 +2,6 @@ class Channel < OurOhm
   attribute :title
   index :title
 
-  attribute :lowercase_title
-
   attribute :slug_title
   index :slug_title
 
@@ -18,7 +16,6 @@ class Channel < OurOhm
   alias :old_set_title :title= unless method_defined?(:old_set_title)
   def title=(new_title)
     old_set_title new_title
-    self.lowercase_title = new_title.downcase
     self.slug_title = new_title.to_url
   end
 
