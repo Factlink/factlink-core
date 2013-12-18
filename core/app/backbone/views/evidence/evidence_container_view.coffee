@@ -68,7 +68,7 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
   onRender: ->
     if Factlink.Global.signed_in
       @addRegion.show new AddOpinionOrEvidenceView
-        collection: @collection.realEvidenceCollection
+        collection: @collection
     else
       @learnMoreRegion.show new LearnMoreView
 
