@@ -38,8 +38,6 @@ module Commands
         if pavlov_options.has_key? 'serialize_id'
           self.pavlov_options = Util::PavlovContextSerialization.deserialize_pavlov_context(pavlov_options)
         end
-
-        validate_integer_string  :fact_id, fact_id
       end
     end
   end

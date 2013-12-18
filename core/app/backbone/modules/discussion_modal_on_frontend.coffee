@@ -31,7 +31,7 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, Fact
     return if FactlinkApp.onClientApp
 
     FactlinkApp.vent.on 'close_discussion_modal', ->
-      throw 'background_page_url is null' unless background_page_url?
+      throw new Error 'background_page_url is null' unless background_page_url?
 
       Backbone.history.navigate background_page_url, true
 

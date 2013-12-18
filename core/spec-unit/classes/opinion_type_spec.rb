@@ -1,24 +1,13 @@
 require_relative '../../app/classes/opinion_type'
 
 describe OpinionType do
-  describe '.real_for' do
-    it "returns the proper opinion" do
-      expect(OpinionType.real_for(:believes)).to eq :believes
-      expect(OpinionType.real_for(:beliefs)).to eq :believes
-      expect(OpinionType.real_for(:disbelieves)).to eq :disbelieves
-      expect(OpinionType.real_for(:disbeliefs)).to eq :disbelieves
-      expect(OpinionType.real_for(:doubts)).to eq :doubts
-    end
-    it "raises when improper input is given" do
-      expect { OpinionType.real_for(:henk) }.to raise_error RuntimeError, "invalid opinion"
-    end
-  end
-
-  describe '.types' do
+  describe '.include?' do
     it "includes the valid types" do
-      expect(OpinionType.types).to include :believes
-      expect(OpinionType.types).to include :doubts
-      expect(OpinionType.types).to include :disbelieves
+      expect(OpinionType).to include 'believes'
+      expect(OpinionType).to include :believes
+      expect(OpinionType).to include 'doubts'
+      expect(OpinionType).to include 'disbelieves'
+      expect(OpinionType).to_not include 'blah'
     end
   end
 end

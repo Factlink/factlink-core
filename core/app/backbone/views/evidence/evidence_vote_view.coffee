@@ -1,5 +1,5 @@
 class window.EvidenceVoteView extends Backbone.Marionette.ItemView
-  className: 'evidence-relevance-vote'
+  className: 'evidence-vote'
   template: 'evidence/evidence_vote'
 
   events:
@@ -9,16 +9,18 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
   ui:
     upButton: '.js-up'
     downButton: '.js-down'
+    relevance: '.js-relevance'
 
-  initialize: ->
-    @listenTo @model, "change", @_updateButtons
+  modelEvents:
+    'change': '_updateValues'
 
   onRender: ->
-    @_updateButtons()
+    @_updateValues()
 
-  _updateButtons: ->
+  _updateValues: ->
     @ui.upButton.toggleClass 'active', @model.get('current_user_opinion') == 'believes'
     @ui.downButton.toggleClass 'active', @model.get('current_user_opinion') == 'disbelieves'
+    @ui.relevance.text format_as_short_number(@model.relevance())
 
   _on_up_vote: ->
     mp_track "Factlink: Upvote evidence click"

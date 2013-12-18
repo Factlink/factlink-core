@@ -25,8 +25,7 @@ describe Channel do
   context "only channels" do
     before do
       # TODO: remove this once activities are not created in the models any more, but in interactors
-      stub_const 'Activity::Subject', Class.new
-      Activity::Subject.stub(:activity)
+      Activity.stub(:create)
     end
 
     describe "creating a channel" do

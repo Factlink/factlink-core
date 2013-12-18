@@ -21,16 +21,4 @@ describe Commands::Users::UnfollowUser do
       query.call
     end
   end
-
-  describe 'validations' do
-    it 'requires valid graph_user_id' do
-      expect_validating(graph_user_id: '', user_to_follow_graph_user_id: '1').
-        to fail_validation('graph_user_id should be an integer string.')
-    end
-
-    it 'requires valid user_to_follow_graph_user_id' do
-      expect_validating(graph_user_id: '12', user_to_follow_graph_user_id: '').
-        to fail_validation('user_to_unfollow_graph_user_id should be an integer string.')
-    end
-  end
 end

@@ -26,13 +26,10 @@ class ApplicationController < ActionController::Base
           flash[:alert] = t('devise.failure.unauthenticated')
           redirect_to root_path(return_to: request.original_url)
         end
-
-        format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
-        format.any  { fail exception }
-      else
-        format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
-        format.any  { fail exception }
       end
+
+      format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
+      format.any  { fail exception }
     end
   end
 
@@ -124,62 +121,34 @@ class ApplicationController < ActionController::Base
   end
 
   def mp_track_people_event(opts={})
-    if current_user
-      req_env = MixpanelRequestPresenter.new(request).to_hash
-      Resque.enqueue(Mixpanel::TrackPeopleEventJob, current_user.id, opts, req_env)
-    end
-  end
+    return unless user_signed_in?
 
-  before_filter :track_click
-  def track_click
-    unless params[:ref].blank?
-      ref = params[:ref]
-      if ['extension_skip', 'extension_next'].include?(ref)
-        mp_track "#{ref} click".capitalize
-      end
-    end
-
+    req_env = MixpanelRequestPresenter.new(request).to_hash
+    Resque.enqueue(Mixpanel::TrackPeopleEventJob, current_user.id, opts, req_env)
   end
 
   before_filter :initialize_mixpanel
   def initialize_mixpanel
-    @mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
+    return unless user_signed_in? and request.format == "text/html"
 
-    if action_is_intermediate?
-      @mixpanel.append_api('disable', ['mp_page_view'])
-    end
+    mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
 
-    if current_user
-      @mixpanel.append_api('name_tag', current_user.username)
-      @mixpanel.append_identify(current_user.id.to_s)
-    end
+    # the following two commands set data in the frontend using js
+    mixpanel.append_api('name_tag', current_user.username)
+    mixpanel.append_identify(current_user.id.to_s)
   end
 
   before_filter :set_last_interaction_for_user
   def set_last_interaction_for_user
-    if user_signed_in? and not action_is_intermediate? and request.format == "text/html"
-      mp_track_people_event last_interaction_at: DateTime.now
-      mp_track_people_event last_browser_name: view_context.browser.name
-      mp_track_people_event last_browser_version: view_context.browser.version
-      Resque.enqueue(SetLastInteractionForUser, current_user.id, DateTime.now.to_i)
-    end
-  end
+    return unless user_signed_in? and request.format == "text/html"
 
-  def jslib_url
-    FactlinkUI::Application.config.jslib_url
+    mp_track_people_event last_interaction_at: DateTime.now
+    mp_track_people_event last_browser_name: view_context.browser.name
+    mp_track_people_event last_browser_version: view_context.browser.version
+    Resque.enqueue(SetLastInteractionForUser, current_user.id, DateTime.now.to_i)
   end
-  helper_method :jslib_url
-
-  def open_graph_formatter
-    @open_graph_formatter ||= OpenGraphFormatter.new
-  end
-  helper_method :open_graph_formatter
 
   private
-
-  def action_is_intermediate? #TODO:emn:xdm-refactor
-    action_name == "intermediate" and controller_name == "facts"
-  end
 
   def can_haz feature
     can? :"see_feature_#{feature}", Ability::FactlinkWebapp

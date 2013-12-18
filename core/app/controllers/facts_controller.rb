@@ -7,7 +7,6 @@ class FactsController < ApplicationController
     only: [
       :show,
       :discussion_page,
-      :discussion_page_redirect,
       :destroy,
       :update,
       :opinion,
@@ -28,45 +27,22 @@ class FactsController < ApplicationController
     backbone_responder
   end
 
-  def discussion_page_redirect # remove before 2014
-    authorize! :show, @fact
-
-    redirect_path = FactUrl.new(@fact).friendly_fact_path
-    redirect_to redirect_path, status: :moved_permanently
-  end
-
   def create
-    # support both old names, and names which correspond to json in show
-    fact_text = (params[:fact] || params[:displaystring]).to_s
-    url = (params[:url] || params[:fact_url]).to_s
-    title = (params[:title] || params[:fact_title]).to_s
-
-    sharing_options = params[:fact_sharing_options] || {}
-
     authenticate_user!
     authorize! :create, Fact
 
     @fact = interactor(:'facts/create',
-                           displaystring: fact_text, url: url,
-                           title: title, sharing_options: sharing_options)
+                           displaystring: params[:displaystring].to_s,
+                           url: params[:url].to_s,
+                           title: params[:fact_title].to_s)
     @site = @fact.site
 
-    respond_to do |format|
-      mp_track "Factlink: Created",
-        opinion: params[:opinion],
-        channels: params[:channels]
-      mp_track_people_event last_factlink_created: DateTime.now
+    mp_track "Factlink: Created",
+      opinion: params[:opinion],
+      channels: params[:channels]
+    mp_track_people_event last_factlink_created: DateTime.now
 
-      # TODO: switch the following two if blocks if possible
-      if @fact and (params[:opinion] and ['beliefs', 'believes', 'doubts', 'disbeliefs', 'disbelieves'].include?(params[:opinion]))
-        @fact.add_opinion(OpinionType.real_for(params[:opinion]), current_user.graph_user)
-        Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(params[:opinion]), @fact)
-      end
-
-      add_to_channels @fact, params[:channels]
-
-      format.json { render 'facts/show' }
-    end
+    render 'facts/show', formats: [:json]
   end
 
   def destroy
@@ -83,9 +59,9 @@ class FactsController < ApplicationController
     if params[:current_user_opinion] == 'no_vote'
       @fact.remove_opinions(current_user.graph_user)
     else
-      type = OpinionType.real_for(params[:current_user_opinion])
+      type = params[:current_user_opinion]
       @fact.add_opinion(type, current_user.graph_user)
-      Activity::Subject.activity(current_user.graph_user, type, @fact)
+      Activity.create user: current_user.graph_user, action: type, subject: @fact
     end
 
     render json: {}
@@ -115,6 +91,7 @@ class FactsController < ApplicationController
   def share
     authorize! :share, @fact
 
+    # TODO: WRAP IN INTERACTOR
     command :'facts/social_share', fact_id: @fact.id, sharing_options: params[:fact_sharing_options]
 
     render json: {}
@@ -128,14 +105,5 @@ class FactsController < ApplicationController
 
   def fact_id
     params[:fact_id] || params[:id]
-  end
-
-  def add_to_channels fact, channel_ids
-    return unless channel_ids
-
-    channels = channel_ids.map { |id| Channel[id] }.compact
-    channels.each do |channel|
-      interactor(:'channels/add_fact', fact: fact, channel: channel)
-    end
   end
 end

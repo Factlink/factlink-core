@@ -1,18 +1,12 @@
 module Queries
   module Site
     class TopTopics
-      include Redis::Aid::Ns(:site)
       include Pavlov::Query
 
       arguments :site_id, :nr
 
-      def validate
-        validate_integer :site_id, site_id
-        validate_integer :nr, nr
-      end
-
       def key
-        redis[site_id][:top_topics]
+        Nest.new(:site)[site_id][:top_topics]
       end
 
       def execute

@@ -1,26 +1,29 @@
-<div class="evidence-box discussion-evidenceish discussion-evidenceish-box">
-  <div class="evidence-box-triangle"></div>
-  {{!triangle must be first to make sure tooltips from content are painted on top
-   without needing a z-index; z-index isn't permitted because triangle's "border"
-   is actually a negative-z-index grey triangle.}}
+<div class="add-evidence-form-comment-type">
+  <label class="add-evidence-form-label">
+    <input class="add-evidence-form-radio" type="radio" name="argumentType" value="disbelieves">
 
-  <div class="discussion-evidenceish-content">
-    <label class="add-evidence-form-label">
-      <input class="add-evidence-form-radio spec-evidence-radio-disbelieves" type="radio" name="argumentType" value="disbelieves" checked="checked">
-      Weakening <span class="opinion_indicator disagreeing"></span>
-    </label>
+    <div class="add-evidence-form-button add-evidence-form-button-disbelieves spec-evidence-radio-disbelieves">Weakening</div>
+  </label>
 
-    <label class="add-evidence-form-label">
-      <input class="add-evidence-form-radio spec-evidence-radio-believes" type="radio" name="argumentType" value="believes">
-      Supporting <span class="opinion_indicator agreeing"></span>
-    </label>
+  <label class="add-evidence-form-label">
+    <input class="add-evidence-form-radio" type="radio" name="argumentType" value="doubts">
 
-    <div class="input-region clearfix"></div>
+    <div class="add-evidence-form-button add-evidence-form-button-doubts spec-evidence-radio-doubts">Neutral</div>
+  </label>
 
-    <div class="add-evidence-form-view-toggle">
-      <a href="javascript:void(0)" class="js-switch-to-factlink">Search for {{global.t.factlinks}} (beta)</a>
+  <label class="add-evidence-form-label">
+    <input class="add-evidence-form-radio" type="radio" name="argumentType" value="believes">
 
-      <a href="javascript:void(0)" class="js-switch-to-comment">&larr; Return to adding comment</a>
-    </div>
-  </div>
+    <div class="add-evidence-form-button add-evidence-form-button-believes spec-evidence-radio-believes">Supporting</div>
+  </label>
+</div>
+
+<div class="input-region clearfix"></div>
+
+<div class="add-evidence-form-view-toggle">
+  <a href="javascript:void(0)" class="js-switch-to-factlink">Search
+    for {{global.t.factlinks}} (beta)</a>
+
+  <a href="javascript:void(0)" class="js-switch-to-comment">&larr; Return
+    to adding comment</a>
 </div>

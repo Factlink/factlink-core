@@ -1,3 +1,9 @@
-sirportly_conf = YAML::load_file(Rails.root.join('config/sirportly.yml'))[Rails.env]['sirportly']
+webform_id = case Rails.env.to_sym
+  when :development then 91
+  when :test        then 1
+  when :testserver  then 93
+  when :staging     then 94
+  when :production  then 95
+  end
 
-FactlinkUI::Application.config.sirportly_webform_id = sirportly_conf['webform_id']
+FactlinkUI::Application.config.sirportly_webform_id = webform_id

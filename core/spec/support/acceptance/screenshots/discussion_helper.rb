@@ -18,11 +18,8 @@ module Screenshots
       go_to_discussion_page_of factlink
       click_wheel_part 0
 
-      add_comment :believes, comment_text
+      add_comment :doubts, comment_text
       add_existing_factlink :believes, supporting_factlink
-
-      # make sure sorting is done:
-      sleep 1
 
       vote_comment :down, comment_text
 

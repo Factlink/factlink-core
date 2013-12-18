@@ -1,10 +1,10 @@
 @import "bootstrap/mixins";
 
+.add-opinion-or-evidence {
+  min-height: 200px; // prevent jumping when switching to annotations
+}
+
 .add-evidence-form {
-
-  // Hack to position the form nicely against the evidence-terminator-circle
-  margin-top: -5px;
-
   .auto-complete-fact-relations {
     overflow: hidden;
     position: relative;
@@ -29,14 +29,54 @@
   }
 }
 
+.add-evidence-form-comment-type {
+  display: table;
+  width: 300px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 .add-evidence-form-label {
-  display: inline-block;
-  margin: 0 10px 10px 0;
+  display: table-cell;
   cursor: pointer;
 }
 
+.add-evidence-form-button {
+  background: @buttonBackground;
+  padding: 4px;
+  color: @linkColor;
+  &:hover{
+    background: @buttonDarkBackground;
+  }
+  &.add-evidence-form-button-believes {
+    border-top-right-radius: @baseBorderRadius;
+    border-bottom-right-radius: @baseBorderRadius;
+  }
+  &.add-evidence-form-button-disbelieves {
+    border-top-left-radius: @baseBorderRadius;
+    border-bottom-left-radius: @baseBorderRadius;
+  }
+}
+
 input.add-evidence-form-radio {
+  display: none;
   margin-top: -3px;
+
+  &:checked + .add-evidence-form-button-believes,
+  &:checked + .add-evidence-form-button-doubts,
+  &:checked + .add-evidence-form-button-disbelieves {
+    color: white;
+  }
+
+  &:checked + .add-evidence-form-button-believes {
+    background: @buttonSuccessBackground;
+  }
+  &:checked + .add-evidence-form-button-doubts {
+    background: @buttonConfirmBackground;
+  }
+  &:checked + .add-evidence-form-button-disbelieves {
+    background: @buttonDangerBackground;
+  }
 }
 
 .add-evidence-form-view-toggle {

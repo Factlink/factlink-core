@@ -2,7 +2,6 @@ require 'pavlov'
 
 class GraphUser < OurOhm;end # needed because of removed const_missing from ohm
 
-require_relative 'activity/subject'
 require_relative 'activity/followers'
 require_relative 'activity/listener'
 require_relative 'activity/create_listeners'
@@ -19,6 +18,24 @@ class Activity < OurOhm
 
   attribute :action
   index     :action
+
+  def self.valid_actions_in_notifications
+    %w(created_fact_relation created_comment created_sub_comment
+        created_conversation replied_message followed_user)
+  end
+
+  def self.valid_actions_in_stream_activities
+     %w(created_fact_relation created_comment created_sub_comment
+        added_fact_to_channel believes doubts disbelieves followed_user)
+  end
+
+  def self.valid_actions
+    (valid_actions_in_notifications + valid_actions_in_stream_activities).uniq
+  end
+
+  def validate
+    assert self.class.valid_actions.include?(action.to_s), "invalid action: #{action.to_s}"
+  end
 
   alias :old_set_user :user= unless method_defined?(:old_set_user)
   def user=(new_user)
@@ -72,7 +89,7 @@ class Activity < OurOhm
   # WARNING: if this method returns false, we assume it will never become
   #          valid again either, and remove/destroy freely.
   def still_valid?
-    user_still_valid? and subject_still_valid? and object_still_valid?
+    valid? and user_still_valid? and subject_still_valid? and object_still_valid?
   end
 
   def timestamp
@@ -117,3 +134,5 @@ class Activity < OurOhm
     object or not object_id
   end
 end
+
+Activity::ListenerCreator.new.create_activity_listeners

@@ -7,7 +7,7 @@ set :keep_releases, 10
 
 ########
 # Stages
-set :stages, %w(vagrant testserver staging production)
+set :stages, %w(testserver staging production)
 require 'capistrano/ext/multistage'
 
 #################
@@ -72,7 +72,7 @@ namespace :deploy do
   #
   namespace :assets do
     task :precompile, :roles => :web, :except => { :no_release => true } do
-      run %Q{cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} #{asset_env} assets:precompile:primary}
+      run %Q{cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} #{asset_env} assets:precompile}
     end
   end
 end

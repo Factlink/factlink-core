@@ -47,7 +47,7 @@ describe Activity::Listener do
 
       send_mail_for_activity_should_be_invoked
 
-      @a = Activity.create subject: b1, object: f1, action: :foobar
+      @a = Activity.create subject: b1, object: f1, action: :followed_user
     end
 
     it "should return no result when no queries are defined" do
@@ -72,7 +72,7 @@ describe Activity::Listener do
         named :foo
       end
 
-      activity = Activity.create subject: Blob.create, action: :foobar
+      activity = Activity.create subject: Blob.create, action: :followed_user
       expect(listener.matches_any?(activity)).to eq false
     end
 
@@ -82,10 +82,10 @@ describe Activity::Listener do
         named :foo
 
         activity subject_class: "Blob",
-                 action: :foobar
+                 action: :followed_user
       end
 
-      activity = Activity.create subject: Blob.create, action: :foobar
+      activity = Activity.create subject: Blob.create, action: :followed_user
       expect(listener.matches_any?(activity)).to eq true
     end
 
@@ -95,10 +95,10 @@ describe Activity::Listener do
         named :foo
 
         activity subject_class: "Bar",
-                 action: :foobar
+                 action: :followed_user
       end
 
-      activity = Activity.create subject: Blob.create, action: :foobar
+      activity = Activity.create subject: Blob.create, action: :followed_user
       expect(listener.matches_any?(activity)).to eq false
     end
   end
@@ -111,7 +111,7 @@ describe Activity::Listener do
 
       send_mail_for_activity_should_be_invoked
 
-      @a = Activity.create subject: b1, object: f1, action: :foobar
+      @a = Activity.create subject: b1, object: f1, action: :followed_user
     end
 
     it "should not match for an empty query" do
@@ -121,7 +121,7 @@ describe Activity::Listener do
     it "should match if a property is the same" do
       expect(subject.matches({subject_class: Blob },@a)).to be_true
       expect(subject.matches({object_class: Foo },@a)).to be_true
-      expect(subject.matches({action: :foobar},@a)).to be_true
+      expect(subject.matches({action: :followed_user},@a)).to be_true
     end
 
     it "should not match if a property is different" do
@@ -131,7 +131,7 @@ describe Activity::Listener do
     end
 
     it "should match if a property is in a list" do
-      expect(subject.matches({action: [:foobar, :jigglypuff]},@a)).to be_true
+      expect(subject.matches({action: [:followed_user, :jigglypuff]},@a)).to be_true
     end
 
     it "should not match if a property is not in a list" do
@@ -141,7 +141,7 @@ describe Activity::Listener do
     it "should execute the extra_condition query to see if the activity matches" do
       expect(subject.matches({
         subject_class: Blob,
-        extra_condition: ->(a) { a.action.to_s == 'foobar' }
+        extra_condition: ->(a) { a.action.to_s == 'followed_user' }
       },@a)).to be_true
       expect(subject.matches({
         subject_class: Blob,
@@ -160,7 +160,7 @@ describe Activity::Listener do
       subject.listname = :activities
       subject.queries << {subject_class: Foo, write_ids: ->(a) { [f1.id] } }
 
-      a1 = Activity.create subject: f1, object: f1, action: :foobar
+      a1 = Activity.create subject: f1, object: f1, action: :followed_user
       subject.process a1
       expect(f1.activities.ids).to match_array [a1.id]
       expect(f2.activities.ids).to match_array []
@@ -171,7 +171,7 @@ describe Activity::Listener do
       subject.listname = :activities
       subject.queries << {subject_class: Foo, write_ids: ->(a) { [a.subject.id] } }
 
-      a1 = Activity.create subject: f1, object: f1, action: :foobar
+      a1 = Activity.create subject: f1, object: f1, action: :followed_user
       subject.process a1
       expect(f1.activities.ids).to match_array [a1.id]
       expect(f2.activities.ids).to match_array []

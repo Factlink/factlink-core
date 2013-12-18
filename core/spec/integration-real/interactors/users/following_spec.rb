@@ -38,21 +38,20 @@ describe 'user following' do
         a1, a2, a3, a4 = ()
 
         as(user2) do |pavlov|
-          fact = pavlov.interactor(:'facts/create', displaystring: 'test', url: '', title: '', sharing_options: {})
+          fact = pavlov.interactor(:'facts/create', displaystring: 'test', url: '', title: '')
           channel = pavlov.command(:'channels/create', title: 'henk')
 
-          a1 = Activity::Subject.activity user2.graph_user,
-            :somethings, fact
+          a1 = Activity.create user: user2.graph_user,
+            action: :believes, subject: fact
 
-          a2 = Activity::Subject.activity user2.graph_user,
-            :added_fact_to_channel, fact,
-            :to, channel
+          a2 = Activity.create user: user2.graph_user,
+            action: :added_fact_to_channel, subject: fact, object: channel
 
-          a3 = Activity::Subject.activity user2.graph_user,
-            :something_elses, fact
+          a3 = Activity.create user: user2.graph_user,
+            action: :disbelieves, subject: fact
 
-          a4 = Activity::Subject.activity user2.graph_user,
-            :followed_user, user3.graph_user
+          a4 = Activity.create user: user2.graph_user,
+            action: :followed_user, subject: user3.graph_user
         end
 
         as(user1) do |pavlov|

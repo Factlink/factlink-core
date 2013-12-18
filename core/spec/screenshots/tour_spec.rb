@@ -1,6 +1,6 @@
 require 'screenshot_helper'
 
-describe "Check the tour", type: :feature do
+describe "Check the tour", type: :feature, driver: :poltergeist_slow do
   include PavlovSupport
 
   before do
@@ -12,12 +12,6 @@ describe "Check the tour", type: :feature do
     visit install_extension_path
 
     assume_unchanged_screenshot 'extension'
-  end
-
-  it 'Create your first factlink page should be the same' do
-    visit create_your_first_factlink_path
-
-    assume_unchanged_screenshot 'create_your_first_factlink'
   end
 
   it 'Interests page should be the same' do

@@ -7,13 +7,13 @@ describe Interactors::Topics::Facts do
 
   it 'after adding activities they exist' do
     as(user) do |pavlov|
-      fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: '', sharing_options: {}
+      fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
       channel = pavlov.command :'channels/create', title: 'something'
 
       a1 = pavlov.command :'create_activity', graph_user: channel.created_by,
                                               action: :added_fact_to_channel, subject: fact, object: channel
       a2 = pavlov.command :'create_activity', graph_user: channel.created_by,
-                                              action: :foo, subject: nil, object: nil
+                                              action: :followed_user, subject: nil, object: nil
 
       all_activity_ids = Activity.all.ids
       just_created_ids = [a1, a2].map(&:id)
@@ -24,20 +24,20 @@ describe Interactors::Topics::Facts do
   context 'after cleanup' do
     it 'invalid activities are removed from a list' do
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: '', sharing_options: {}
-        fact2 = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: '', sharing_options: {}
-        fact3 = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: '', sharing_options: {}
+        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
+        fact2 = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
+        fact3 = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
         channel = pavlov.command :'channels/create', title: 'something'
         channel2 = pavlov.command :'channels/create', title: 'something else'
 
         valid = pavlov.command :'create_activity', graph_user: channel.created_by,
-                                                   action: :foo, subject: fact3, object: channel2
+                                                   action: :followed_user, subject: fact3, object: channel2
         with_invalid_subject = pavlov.command :'create_activity', graph_user: channel.created_by,
-                                                                  action: :foo, subject: fact, object: nil
+                                                                  action: :followed_user, subject: fact, object: nil
         with_invalid_object = pavlov.command :'create_activity', graph_user: channel.created_by,
-                                                                 action: :foo, subject: fact2, object: channel
+                                                                 action: :followed_user, subject: fact2, object: channel
         valid_with_nils = pavlov.command :'create_activity', graph_user: channel.created_by,
-                                                             action: :foo, subject: nil, object: nil
+                                                             action: :followed_user, subject: nil, object: nil
 
         fact.delete
         channel.delete

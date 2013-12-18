@@ -10,11 +10,6 @@ describe Queries::MessagesForConversation do
     stub_classes 'Message'
   end
 
-  it 'it throws when initialized with a argument that is not a hexadecimal string' do
-    expect_validating(conversation: double(id: 'g6'))
-      .to fail_validation 'id should be an hexadecimal string.'
-  end
-
   describe '#call' do
     it 'retrieves dead representations of the messages belonging to the conversation' do
       user_id = 11

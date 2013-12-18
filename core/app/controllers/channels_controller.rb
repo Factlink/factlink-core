@@ -38,26 +38,11 @@ class ChannelsController < ApplicationController
   def create
     authorize! :update, @user
 
-    # HACK: to ensure the code also acts like it created a channel when the
-    # channel already existed. This is needed because sometimes the add_to_channel
-    # code in the frontend did not have the list of current channels yet, and tries
-    # to create a new channel, while we already have a channel. Since this isn't properly
-    # handled in the frontend, the fastest way around it was to act like we created a new
-    # channel, but actually return an existing channel.
     title_hash = (params[:channel] || params).slice(:title)
     title = title_hash[:title]
 
-    @channels = Channel.find(created_by_id: current_user.graph_user_id)
-
-    # TODO: even if we don't fix conceptualla, at least search on the index slug_title here
-    @channels.each do |channel|
-      @channel = channel if channel.lowercase_title == title.downcase
-    end
-
-    unless @channel
-      @channel = Channel.new(title_hash)
-      @channel.created_by = current_user.graph_user
-    end
+    @channel = Channel.new(title_hash)
+    @channel.created_by = current_user.graph_user
 
     if @channel.valid?
       @channel.save

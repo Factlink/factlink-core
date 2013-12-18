@@ -15,8 +15,6 @@
     }
   </style>
 
-  <%= render "base/open_graph" %>
-
   <%= csrf_meta_tag %>
   <%= inject_special_test_code %>
 </head>
@@ -38,8 +36,6 @@
     Factlink.setSignedIn(<%= current_ability.signed_in?.to_json.html_safe %>);
 
     FactlinkApp.start({factlinkAppMode: FactlinkAppMode.coreInClient});
-    // should we turn on guided globally in this backbone session:
-    FactlinkApp.guided = <%= (params[:guided] == "true").to_json.html_safe %>;
 
     Backbone.history.start({pushState: Modernizr.history});
   </script>

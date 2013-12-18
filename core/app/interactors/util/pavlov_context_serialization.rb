@@ -21,8 +21,7 @@ module Util
       {
         current_user: user,
         ability: ability || Ability.new(user),
-        mixpanel: FactlinkUI::Application.config.mixpanel.new({}, true),
-        facebook_app_namespace: FactlinkUI::Application.config.facebook_app_namespace
+        mixpanel: FactlinkUI::Application.config.mixpanel.new({}, true)
       }
     end
   end

@@ -13,19 +13,19 @@ describe Interactors::Topics::Facts do
 
     as(user1) do |pavlov|
       channel1 = pavlov.command(:'channels/create', title: title)
-      fact1 = pavlov.interactor(:'facts/create', displaystring: 'a fact', url: '', title: '', sharing_options: {})
+      fact1 = pavlov.interactor(:'facts/create', displaystring: 'a fact', url: '', title: '')
       pavlov.interactor(:'channels/add_fact', fact: fact1, channel: channel1)
     end
 
     as(user2) do |pavlov|
       channel2 = pavlov.command(:'channels/create', title: title)
-      fact2 = pavlov.interactor(:'facts/create', displaystring: 'a fact', url: '', title: '', sharing_options: {})
+      fact2 = pavlov.interactor(:'facts/create', displaystring: 'a fact', url: '', title: '')
       pavlov.interactor(:'channels/add_fact', fact: fact2, channel: channel2)
     end
 
     as(user3) do |pavlov|
       channel3 = pavlov.command(:'channels/create', title: title)
-      fact3 = pavlov.interactor(:'facts/create', displaystring: 'a fact', url: '', title: '', sharing_options: {})
+      fact3 = pavlov.interactor(:'facts/create', displaystring: 'a fact', url: '', title: '')
       pavlov.interactor(:'channels/add_fact', fact: fact3, channel: channel3)
     end
 

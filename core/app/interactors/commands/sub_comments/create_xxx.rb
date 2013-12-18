@@ -15,19 +15,6 @@ module Commands
 
         sub_comment
       end
-
-      def validate
-        validate_not_nil            :user, @user
-        validate_regex              :content, @content, /\S/,
-          "should not be empty."
-        validate_in_set             :parent_class, @parent_class,
-          ['Comment','FactRelation']
-        if @parent_class == 'FactRelation'
-          validate_integer            :parent_id, @parent_id
-        elsif @parent_class == 'Comment'
-          validate_hexadecimal_string :parent_id, @parent_id
-        end
-      end
     end
   end
 end

@@ -22,10 +22,10 @@ describe 'activity queries' do
       f1.created_by.stream_activities.key.del # delete other activities
 
       f1.add_opinion(:believes, gu1)
-      Activity::Subject.activity(gu1, OpinionType.real_for(:believes), f1)
+      Activity.create user: gu1, action: :believes, subject: f1
 
       f1.add_opinion(:disbelieves, f1.created_by)
-      Activity::Subject.activity(f1.created_by, OpinionType.real_for(:disbelieves), f1)
+      Activity.create user: f1.created_by, action: :disbelieves, subject: f1
 
       f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
         {user: gu1, action: :believes, subject: f1},
@@ -55,10 +55,25 @@ describe 'activity queries' do
       ]
     end
 
+    it "should add stream activity when a user you follow adds evidence" do
+      f1 = create :fact
+      f2 = create :fact
+
+      as(gu2.user) do |pavlov|
+        pavlov.interactor(:'users/follow_user', user_name: gu2.user.username, user_to_follow_user_name: gu1.user.username)
+      end
+
+      fr = f1.add_evidence :believes, f2, gu1
+
+      gu2.stream_activities.map(&:to_hash_without_time).should == [
+        {user: gu1, action: :"created_fact_relation", subject: fr, object: f1}
+      ]
+    end
+
     it "should return activity when a users adds supporting evidence to a fact that you believed" do
       f1 = create :fact
       f1.add_opinion(:believes, gu1)
-      Activity::Subject.activity(gu1, OpinionType.real_for(:believes), f1)
+      Activity.create user: gu1, action: :believes, subject: f1
 
       f2 = create :fact
       fr = f1.add_evidence :believes, f2, gu2
@@ -84,7 +99,7 @@ describe 'activity queries' do
       f1.created_by.stream_activities.key.del # delete other activities
 
       f1.add_opinion(opinion, gu1)
-      Activity::Subject.activity(gu1, OpinionType.real_for(opinion), f1)
+      Activity.create user: gu1, action: opinion, subject: f1
 
       f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
           {user: gu1, action: opinion, subject: f1}
@@ -163,6 +178,23 @@ describe 'activity queries' do
           {user: user.graph_user, action: :created_comment, subject: Comment.find(comment.id), object: fact }
         ]
       end
+      it "creates a stream activity for the user's followers" do
+        fact = create(:fact)
+        user = create(:full_user)
+
+        as(gu1.user) do |pavlov|
+          pavlov.interactor(:'users/follow_user', user_name: gu1.user.username, user_to_follow_user_name: user.username)
+        end
+
+        interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
+                                                       type: 'believes', content: 'tex message',
+                                                       pavlov_options: { current_user: user })
+        comment = interactor.call
+
+        gu1.stream_activities.map(&:to_hash_without_time).should == [
+          {user: user.graph_user, action: :created_comment, subject: Comment.find(comment.id), object: fact }
+        ]
+      end
     end
 
   end
@@ -208,6 +240,28 @@ describe 'activity queries' do
           end
 
           gu1.notifications.map(&:to_hash_without_time).should == [
+          ]
+        end
+
+        it "creates a stream activity for the user's followers" do
+          comment, sub_comment = ()
+
+          fact = create :fact, created_by: current_user.graph_user
+
+          as(current_user) do |pavlov|
+            comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'disbelieves', content: 'content')
+          end
+
+          as(gu1.user) do |pavlov|
+            pavlov.interactor(:'users/follow_user', user_name: gu1.user.username, user_to_follow_user_name: current_user.username)
+          end
+
+          as(current_user) do |pavlov|
+            sub_comment = pavlov.interactor(:'sub_comments/create_for_comment', comment_id: comment.id.to_s, content: 'content')
+          end
+
+          gu1.stream_activities.map(&:to_hash_without_time).should == [
+            {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
           ]
         end
       end

@@ -9,11 +9,6 @@ describe Queries::UsersByIds do
     stub_classes 'User'
   end
 
-  it 'throws when initialized with a argument that is not a hexadecimal string' do
-    expect_validating(user_ids: ['g6'])
-      .to fail_validation 'id should be an hexadecimal string.'
-  end
-
   describe '#call' do
     it 'should work with an empty list of ids' do
       query = described_class.new(user_ids: [])

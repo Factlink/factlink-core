@@ -1,7 +1,6 @@
 [
   {
     "timestamp": "<timestamp>",
-    "subject_class": "SubComment",
     "user": {
       "id": "<id>",
       "name": "John2 Doe2",
@@ -15,12 +14,9 @@
       ]
     },
     "action": "created_sub_comment",
-    "translated_action": "<span class=\"translation_missing\" title=\"translation missing: en.fact_created_sub_comment_action\">Fact Created Sub Comment Action</span>",
-    "subject": "SubComment",
     "time_ago": "1 minute",
     "id": "<id>",
     "activity": {
-      "action": "created_sub_comment",
       "target_url": "/fact-1/f/1",
       "fact_displaystring": "Fact 1",
       "fact": "Fact 1"

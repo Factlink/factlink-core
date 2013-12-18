@@ -5,9 +5,6 @@ class EvidenceLayoutView extends Backbone.Marionette.Layout
     contentRegion: '.js-content-region'
     voteRegion: '.js-vote-region'
 
-  ui:
-    relevance: '.js-relevance'
-
   typeCss: ->
     switch @model.get('type')
       when 'believes' then 'evidence-believes'
@@ -24,16 +21,11 @@ class VotableEvidenceLayoutView extends EvidenceLayoutView
 
   onRender: ->
     @contentRegion.show new FactRelationOrCommentView model: @model
-    @listenTo @model.argumentVotes(), 'change', @_updateRelevance
-    @_updateRelevance()
+    @listenTo @model.argumentVotes(), 'change', @_updateIrrelevance
+    @_updateIrrelevance()
+    @voteRegion.show new EvidenceVoteView model: @model.argumentVotes()
 
-    if Factlink.Global.signed_in
-      @voteRegion.show new EvidenceVoteView model: @model.argumentVotes()
-      @$el.addClass 'evidence-has-arrows'
-
-  _updateRelevance: ->
-    @ui.relevance.text format_as_short_number(@model.argumentVotes().relevance())
-
+  _updateIrrelevance: ->
     relevant = @model.argumentVotes().relevance() >= 0
     @$el.toggleClass 'evidence-irrelevant', !relevant
 
@@ -45,7 +37,6 @@ class OpinionatorsEvidenceLayoutView extends EvidenceLayoutView
   onRender: ->
     @$el.toggle @shouldShow()
     @contentRegion.show new InteractingUsersView model: @model
-    @ui.relevance.text format_as_short_number(@model.get('impact'))
 
 class EvidenceCollectionView extends Backbone.Marionette.CollectionView
   itemView: EvidenceLayoutView
@@ -71,15 +62,13 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     'request sync': '_updateLoading'
 
   ui:
-    terminator: '.js-terminator'
     loading: '.js-evidence-loading'
     loaded: '.js-evidence-loaded'
 
   onRender: ->
     if Factlink.Global.signed_in
-      @addRegion.show new AddEvidenceFormView
+      @addRegion.show new AddOpinionOrEvidenceView
         collection: @collection.realEvidenceCollection
-        fact_id: @collection.fact.id
     else
       @learnMoreRegion.show new LearnMoreView
 
@@ -89,4 +78,3 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
   _updateLoading: ->
     @ui.loading.toggle !!@collection.loading()
     @ui.loaded.toggle !@collection.loading()
-    @ui.terminator.toggleClass 'evidence-terminator-circle', !@collection.loading()

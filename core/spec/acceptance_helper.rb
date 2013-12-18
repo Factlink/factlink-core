@@ -14,7 +14,6 @@ require 'poltergeist_style_overrides'
 
 require 'capybara-screenshot/rspec'
 require 'database_cleaner'
-require 'timecop'
 
 require 'pavlov_helper'
 
@@ -28,8 +27,30 @@ WebMock.disable_net_connect!(:allow_localhost => true)
 RSpec.configure do |config|
   config.filter_run_excluding slow: true unless ENV['RUN_SLOW_TESTS']
 
-  # webkit always has js enabled, so always use this:
-  driver = if ENV["USE_SELENIUM"] then :selenium else :poltergeist end
+  Capybara.register_driver :poltergeist do |app|
+    options = {
+      debug: false,
+      js_errors: false,
+      timeout: 60,
+      phantomjs_options: ['--load-images=no'],
+    }
+    Capybara::Poltergeist::Driver.new(app, options)
+  end
+
+  Capybara.register_driver :poltergeist_slow do |app|
+    options = {
+      debug: false,
+      js_errors: false,
+      timeout: 60,
+    }
+    Capybara::Poltergeist::Driver.new(app, options)
+  end
+
+  driver = if ENV["USE_SELENIUM"]
+             :selenium
+           else
+             :poltergeist
+           end
 
   Capybara.javascript_driver = driver
   Capybara.default_driver = driver
@@ -46,11 +67,6 @@ RSpec.configure do |config|
     ElasticSearch.create
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.orm = "mongoid"
-    Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app, { debug: false,
-                                               js_errors: false,
-                                               timeout: 60 })
-    end
   end
 
   config.before(:each) do

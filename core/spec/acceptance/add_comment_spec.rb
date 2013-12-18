@@ -37,7 +37,7 @@ feature "adding comments to a fact", type: :feature do
     go_to_discussion_page_of factlink
 
     within_evidence_list do
-      find('.evidence-relevance-text').should have_content 1
+      find('.spec-evidence-relevance').should have_content 1
     end
   end
 
@@ -50,15 +50,15 @@ feature "adding comments to a fact", type: :feature do
 
     within_evidence_list do
       # there is just one factlink in the list
-      find('.evidence-relevance-text', text: "1")
-      find('.evidence-relevance-vote-up').click
-      find('.evidence-relevance-text', text: "0")
+      find('.spec-evidence-relevance', text: "1")
+      find('.spec-evidence-vote-up').click
+      find('.spec-evidence-relevance', text: "0")
     end
 
     go_to_discussion_page_of factlink
 
     within_evidence_list do
-      find('.evidence-relevance-text', text: "0")
+      find('.spec-evidence-relevance', text: "0")
     end
   end
 
@@ -89,7 +89,7 @@ feature "adding comments to a fact", type: :feature do
 
     add_comment :believes, comment1
     add_existing_factlink :believes, factlink2
-    add_comment :believes, comment3
+    add_comment :doubts, comment3
 
     # make sure sorting is done:
     sleep 1

@@ -16,7 +16,6 @@ module Queries
 
     def validate
       validate_in_set :by, by, [:_id, :graph_user_id]
-      user_ids.each { |id| validate_hexadecimal_string :id, id.to_s }
     end
 
     def execute

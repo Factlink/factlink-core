@@ -30,4 +30,10 @@ describe Topic do
       Topic.get_or_create_by_channel(ch)
     end
   end
+
+  describe '.redis' do
+    it 'is new_topic' do
+      expect(Topic.redis).to eq 'new_topic'
+    end
+  end
 end

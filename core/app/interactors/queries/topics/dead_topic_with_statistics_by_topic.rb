@@ -21,10 +21,6 @@ module Queries
       def favouritours_count
         query(:'topics/favouritours_count', topic_id: alive_topic.id)
       end
-
-      def validate
-        validate_not_nil :alive_topic, alive_topic
-      end
     end
   end
 end

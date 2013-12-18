@@ -11,27 +11,14 @@
   white-space: nowrap;
   background-color: white;
   vertical-align: middle;
-}
-
-.share-button-togglable {
-  &:hover {
-    opacity: 0.4;
-  }
-
-  &.share-button-togglable-checked {
-    transition: opacity 0.1s;
-    opacity: 1;
-  }
-}
-
-.share-button-hoverable {
-  transition: opacity 0.1s;
-  opacity: 0.75;
 
   // Workaround to fix flickering frame in Chrome
   // (See: http://stackoverflow.com/questions/5814101/css3-transition-transform-translate3d-causes-severe-flicker-on-first-or-last-fr)
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+
+  transition: opacity 0.1s;
+  opacity: 0.75;
 
   &:hover {
     opacity: 1;
@@ -39,23 +26,11 @@
 }
 
 .share-button-twitter {
-  &.share-button-togglable {
-    background-image: asset-data-url("sharing_icons/twitter_disabled.png");
-  }
-
-  &, &.share-button-togglable:hover, &.share-button-togglable-checked {
-    background-image: asset-data-url("sharing_icons/twitter.png");
-  }
+  background-image: asset-data-url("sharing_icons/twitter.png");
 }
 
 .share-button-facebook {
-  &.share-button-togglable {
-    background-image: asset-data-url("sharing_icons/facebook_disabled.png");
-  }
-
-  &, &.share-button-togglable:hover, &.share-button-togglable-checked {
-    background-image: asset-data-url("sharing_icons/facebook.png");
-  }
+  background-image: asset-data-url("sharing_icons/facebook.png");
 }
 
 .share-button-message {
