@@ -14,7 +14,7 @@ class window.OpinionatersCollection extends Backbone.Factlink.Collection
   fact_id: -> @_fact_id
 
   url: ->
-    "/facts/#{@_fact_id}/interactors"
+    "/facts/#{@_fact_id}/opinionators"
 
   fetch: (options={}) ->
     options = _.clone options

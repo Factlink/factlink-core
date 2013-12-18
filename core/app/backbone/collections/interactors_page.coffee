@@ -16,7 +16,7 @@ class window.InteractorsPage extends Backbone.Paginator.requestPager
     fact_id = options.fact_id
     @paginator_core =
       dataType: "json"
-      url: "/facts/#{fact_id}/interactors/#{@type}"
+      url: "/facts/#{fact_id}/opinionators/#{@type}"
     @paginator_ui =
       perPage: options.perPage || 6
       firstPage: 1
