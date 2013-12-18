@@ -1,4 +1,7 @@
 class window.OpinionatersEvidence extends Backbone.Model
 
   opinionaters: ->
-    @_opinionaters ?= new Users @get('users')
+    unless @_opinionaters?
+      @_opinionaters = new Users @get('users')
+      @on 'change', => @_opinionaters.reset @get('users')
+    @_opinionaters
