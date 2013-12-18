@@ -1,15 +1,15 @@
-class InteractingUsersAvatarView extends Backbone.Marionette.Layout
+class OpinionatorsAvatarView extends Backbone.Marionette.Layout
   tagName: 'span'
   className: 'discussion-interacting-users-avatar'
-  template: 'interacting_users/avatar'
+  template: 'opinionators/avatar'
 
   onRender: ->
     UserPopoverContentView.makeTooltip @, @model
 
-class window.InteractingUsersAvatarsView extends Backbone.Marionette.CompositeView
+class window.OpinionatorsAvatarsView extends Backbone.Marionette.CompositeView
   tagName: 'span'
-  template: "interacting_users/avatars"
-  itemView: InteractingUsersAvatarView
+  template: "opinionators/avatars"
+  itemView: OpinionatorsAvatarView
 
   itemViewContainer: ".js-interactor-avatars-collection"
 

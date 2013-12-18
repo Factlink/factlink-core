@@ -35,11 +35,11 @@ class window.FactVoteTableView extends Backbone.Marionette.Layout
   onRender: ->
     @_updateActiveCell()
 
-    @avatarsBelievesRegion.show new InteractingUsersAvatarsView
+    @avatarsBelievesRegion.show new OpinionatorsAvatarsView
       collection: @_opinionatersCollection.get('believes').opinionaters()
-    @avatarsDisbelievesRegion.show new InteractingUsersAvatarsView
+    @avatarsDisbelievesRegion.show new OpinionatorsAvatarsView
       collection: @_opinionatersCollection.get('disbelieves').opinionaters()
-    @avatarsDoubtsRegion.show new InteractingUsersAvatarsView
+    @avatarsDoubtsRegion.show new OpinionatorsAvatarsView
       collection: @_opinionatersCollection.get('doubts').opinionaters()
 
   _updateActiveCell: ->
