@@ -8,6 +8,7 @@ class OpinionatorsAvatarView extends Backbone.Marionette.Layout
 
 class window.OpinionatorsAvatarsView extends Backbone.Marionette.CompositeView
   tagName: 'span'
+  className: 'opinionators-avatars'
   template: "opinionators/avatars"
   itemView: OpinionatorsAvatarView
 

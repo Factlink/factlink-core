@@ -4,9 +4,9 @@ class window.FactVoteTableView extends Backbone.Marionette.Layout
   template:
     text: """
         <tr>
-          <td class="fact-vote-table-cell-believes js-cell-believes"><button class="button js-button-believes"><span class="icon-ok fact-vote-table-active-icon"></span> Agree</button> <span class="js-avatars-believes-region"></span></td>
-          <td class="fact-vote-table-cell-doubts js-cell-doubts"><button class="button js-button-doubts"><span class="icon-ok fact-vote-table-active-icon"></span> Unsure</button> <span class="js-avatars-doubts-region"></span></td>
-          <td class="fact-vote-table-cell-disbelieves js-cell-disbelieves"><button class="button js-button-disbelieves"><span class="icon-ok fact-vote-table-active-icon"></span> Disagree</button> <span class="js-avatars-disbelieves-region"></span></td>
+          <td class="fact-vote-table-cell-believes js-cell-believes"><button class="button fact-vote-table-cell-button js-button-believes"><span class="icon-ok fact-vote-table-active-icon"></span> Agree</button> <span class="js-avatars-believes-region"></span></td>
+          <td class="fact-vote-table-cell-doubts js-cell-doubts"><button class="button fact-vote-table-cell-button js-button-doubts"><span class="icon-ok fact-vote-table-active-icon"></span> Unsure</button> <span class="js-avatars-doubts-region"></span></td>
+          <td class="fact-vote-table-cell-disbelieves js-cell-disbelieves"><button class="button fact-vote-table-cell-button js-button-disbelieves"><span class="icon-ok fact-vote-table-active-icon"></span> Disagree</button> <span class="js-avatars-disbelieves-region"></span></td>
         </tr>
     """
 

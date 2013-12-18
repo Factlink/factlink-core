@@ -3,6 +3,7 @@
 .fact-vote-table {
   border-collapse: collapse;
   width: 100%;
+  min-height: 46px;
 }
 
 .fact-vote-table-cell-believes,
@@ -10,22 +11,30 @@
 .fact-vote-table-cell-doubts {
   padding: 5px 10px;
   width: 33%;
+  text-align: right;
 }
 
 .cell-background(@color) {
-  background-color: lighten(@color, 10%);
+  background-color: fade(@color, 35%);
   &.fact-vote-table-cell-active {
-    background-color: darken(@color, 10%);
+    background-color: @color;
   }
 }
 .fact-vote-table-cell-believes {
   .cell-background(@believesEvidenceImpactColor);
+  border-bottom-left-radius: @baseBorderRadius;
 }
 .fact-vote-table-cell-disbelieves {
   .cell-background(@disbelievesEvidenceImpactColor);
+  border-bottom-right-radius: @baseBorderRadius;
 }
 .fact-vote-table-cell-doubts {
   .cell-background(@doubtsEvidenceImpactColor);
+}
+
+.fact-vote-table-cell-button {
+  float: left;
+  margin-top: 4px;
 }
 
 .fact-vote-table-active-icon {
@@ -35,12 +44,26 @@
   display: inline;
 }
 
-.opinionators-avatars-avatar {
-  position: relative;
-  margin-left: 4px;
+.opinionators-avatars {
+  line-height: 36px;
 }
 
-.opinionators-avatars-avatar-image {
+.opinionators-avatar {
+  margin-left: 4px;
+
+  // for popovers:
+  display: inline-block;
+  position: relative;
+  line-height: @baseLineHeight;
+  text-align: left;
+}
+
+.opinionators-avatar-link {
+  // for popovers:
+  display: inline-block;
+  height: 32px;
+}
+
+.opinionators-avatar-image {
   border-radius: 3px;
-  line-height: 36px;
 }
