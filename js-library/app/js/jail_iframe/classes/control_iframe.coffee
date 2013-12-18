@@ -1,7 +1,7 @@
 
 class ControlIframe
   constructor: ->
-    @el = document.createElement('iframe');
+    @el = document.createElement('iframe')
     #need to append to outer document before we can access frame document.
     FactlinkJailRoot.$factlinkCoreContainer.append(@el)
     @$el = $(@el)
