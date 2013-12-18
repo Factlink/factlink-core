@@ -14,6 +14,11 @@ class ControlIframe
     style.appendChild(@doc.createTextNode(FrameCss))
     @doc.head.appendChild(style)
 
+  setContent: (contentNode) ->
+    bodyEl = @doc.body
+    while bodyEl.firstChild
+      bodyEl.removeChild(bodyEl.firstChild)
+    bodyEl.appendChild(contentNode)
   destroy: ->
     return unless @el
     @doc = null
