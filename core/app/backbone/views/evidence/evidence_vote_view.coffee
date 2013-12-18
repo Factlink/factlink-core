@@ -11,8 +11,10 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
     downButton: '.js-down'
     relevance: '.js-relevance'
 
+  modelEvents:
+    'change': '_updateValues'
+
   onRender: ->
-    @listenTo @model, "change", @_updateValues
     @_updateValues()
 
   _updateValues: ->
