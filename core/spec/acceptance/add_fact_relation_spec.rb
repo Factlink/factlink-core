@@ -4,6 +4,7 @@ feature "adding factlinks to a fact", type: :feature do
   include Acceptance
   include Acceptance::FactHelper
   include Acceptance::CommentHelper
+  include Acceptance::ClientPathHelper
 
   background do
     @user = sign_in_user create :full_user, :confirmed
