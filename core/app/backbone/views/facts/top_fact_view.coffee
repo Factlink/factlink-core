@@ -11,6 +11,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
     userRegion: '.js-user-name-region'
     deleteRegion: '.js-delete-region'
     shareRegion: '.js-share-region'
+    factVoteRegion: '.js-fact-vote-region'
 
   templateHelpers: =>
     showDelete: @model.can_destroy()
@@ -29,6 +30,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
         $offsetParent: @$el
 
     @deleteRegion.show @_deleteButtonView() if @model.can_destroy()
+    @factVoteRegion.show new FactVoteView model: @model
 
     if Factlink.Global.signed_in
       @shareRegion.show new TopFactShareButtonsView model: @model
