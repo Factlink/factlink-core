@@ -1,5 +1,5 @@
 
-class ControlIframe
+class FactlinkJailRoot.ControlIframe
   constructor: ->
     console.log('creating frame')
     @el = document.createElement('iframe')
