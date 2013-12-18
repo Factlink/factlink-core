@@ -23,21 +23,4 @@ describe FactInteractorsController do
       Approvals.verify(response.body, format: :json, name: 'fact_interactors#index should keep the same content')
     end
   end
-
-  describe :show do
-    it "should keep the same content" do
-      FactoryGirl.reload
-
-      fact = create :fact
-
-      5.times do
-        fact.add_opiniated :disbelieves, (create :user).graph_user
-      end
-
-      get :show, fact_id: fact.id, id: 'disbelieves'
-
-      Approvals.verify(response.body, format: :json, name: 'fact_interactors#show should keep the same content')
-    end
-  end
-
 end

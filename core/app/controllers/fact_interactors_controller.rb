@@ -3,38 +3,14 @@ class FactInteractorsController < ApplicationController
 
   def index
     # TODO: Make an interactor that does this once we get rid of "show"
+    fact_id = params[:fact_id].to_i
+
     @interactors = [
-      interactor(:'facts/opinion_users', fact_id: fact_id,
-                                         skip: skip, take: take, type: 'believes'),
-      interactor(:'facts/opinion_users', fact_id: fact_id,
-                                         skip: skip, take: take, type: 'disbelieves'),
-      interactor(:'facts/opinion_users', fact_id: fact_id,
-                                         skip: skip, take: take, type: 'doubts')
+      interactor(:'facts/opinion_users', fact_id: fact_id, type: 'believes'),
+      interactor(:'facts/opinion_users', fact_id: fact_id, type: 'disbelieves'),
+      interactor(:'facts/opinion_users', fact_id: fact_id, type: 'doubts')
     ]
 
     render 'fact_interactors/index', formats: ['json']
-  end
-
-  def show
-    @data = interactor(:'facts/opinion_users', fact_id: fact_id,
-                                               skip: skip, take: take, type: type)
-
-    render 'fact_interactors/show', formats: ['json']
-  end
-
-  def fact_id
-    params[:fact_id].to_i
-  end
-
-  def type
-    params[:id].to_s
-  end
-
-  def skip
-    (params[:skip] || 0).to_i
-  end
-
-  def take
-    (params[:take] || 3).to_i
   end
 end
