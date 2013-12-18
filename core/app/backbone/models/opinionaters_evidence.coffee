@@ -1,4 +1,8 @@
 class window.OpinionatersEvidence extends Backbone.Model
+  defaults:
+    users: []
+
+  idAttribute: 'type'
 
   opinionaters: ->
     unless @_opinionaters?

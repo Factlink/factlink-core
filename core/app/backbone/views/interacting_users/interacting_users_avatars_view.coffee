@@ -36,5 +36,4 @@ class window.InteractingUsersAvatarsView extends Backbone.Marionette.CompositeVi
     e.stopPropagation()
     e.preventDefault()
     @number_of_items = Infinity
-    @collection.howManyPer(1000000)
-    @collection.fetch()
+    @render()
