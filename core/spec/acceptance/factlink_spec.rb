@@ -19,57 +19,10 @@ describe "factlink", type: :feature do
 
       page.should have_content(@factlink.data.title)
 
-      agreed_path_position = 0
-
-      old_agreed_path_opacity = wheel_path_opacity agreed_path_position
-      old_agreed_path_shape = wheel_path_d agreed_path_position
-
-      click_wheel_part agreed_path_position
+      click_agree
 
       eventually_succeeds do
-        old_agreed_path_opacity.should_not eq wheel_path_opacity agreed_path_position
-        old_agreed_path_shape.should_not eq wheel_path_d agreed_path_position
-      end
-    end
-
-    it "can be neutraled" do
-      @factlink = backend_create_fact_of_user @user
-      search_string = 'Test search'
-
-      go_to_discussion_page_of @factlink
-
-      page.should have_content(@factlink.data.title)
-
-      neutral_path_position = 1
-
-      old_neutral_path_opacity = wheel_path_opacity neutral_path_position
-      old_neutral_path_shape = wheel_path_d neutral_path_position
-
-      click_wheel_part neutral_path_position
-      eventually_succeeds do
-        old_neutral_path_opacity.should_not eq wheel_path_opacity neutral_path_position
-        old_neutral_path_shape.should eq wheel_path_d neutral_path_position
-      end
-    end
-
-    it "can be disagreed" do
-      @factlink = backend_create_fact_of_user @user
-      search_string = 'Test search'
-
-      go_to_discussion_page_of @factlink
-
-      page.should have_content(@factlink.data.title)
-
-      disagreed_path_position = 2
-
-      old_disagreed_path_opacity = wheel_path_opacity disagreed_path_position
-      old_disagreed_path_shape = wheel_path_d disagreed_path_position
-
-      click_wheel_part disagreed_path_position
-
-      eventually_succeeds do
-        old_disagreed_path_opacity.should_not eq wheel_path_opacity disagreed_path_position
-        old_disagreed_path_shape.should_not eq wheel_path_d disagreed_path_position
+        expect(@factlink.believable.opinion_of_graph_user(@user.graph_user)).to eq "believes"
       end
     end
 
