@@ -11,7 +11,7 @@ describe 'channel facts management' do
       channel = pavlov.command :'channels/create', title: 'something'
       pavlov.interactor :'channels/add_fact', fact: fact, channel: channel
 
-      expect(channel).to include(fact)
+      expect(channel.sorted_internal_facts).to include(fact)
     end
   end
 

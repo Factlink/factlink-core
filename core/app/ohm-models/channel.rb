@@ -39,10 +39,6 @@ class Channel < OurOhm
     super
   end
 
-  def include? obj
-    sorted_internal_facts.include?(obj)
-  end
-
   def validate
     assert_present :title
     assert_present :slug_title
