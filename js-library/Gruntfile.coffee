@@ -145,8 +145,6 @@ module.exports = (grunt) ->
       'build/factlink_loader_bookmarklet.js'
       'build/factlink_loader_publishers.js'
     ]
-
-
     file_variant_funcs.forEach (file_variant_func) ->
         replacements.forEach (replacement) ->
           input_filename = file_variant_func(replacement.content_file)
