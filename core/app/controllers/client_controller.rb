@@ -1,5 +1,5 @@
 class ClientController < ApplicationController
-  def page
+  def show
     render inline: '', layout: 'client'
   end
 end
