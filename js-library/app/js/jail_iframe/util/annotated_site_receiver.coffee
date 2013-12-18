@@ -7,6 +7,7 @@ FactlinkJailRoot.annotatedSiteReceiver =
 
   openModalOverlay: ->
     $("#factlink-modal-frame").fadeIn 'fast'
+    console.log 'fadeIn', $("#factlink-modal-frame")[0]
     FactlinkJailRoot.trigger 'modalOpened'
 
   highlightNewFactlink: (displaystring, id) ->

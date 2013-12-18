@@ -11,10 +11,12 @@ class Button
   setCoordinates: (top, left) =>
     return if @$el.hasClass 'active'
     FactlinkJailRoot.set_position_of_element top, left, window, @$el
+    console.log 'setting position'
 
   show: =>
     @stopLoading()
     FactlinkJailRoot.$factlinkCoreContainer.find('div.fl-button').removeClass('active')
+    console.log @el.className
     @$el.addClass 'active been-active'
 
   hide: => @$el.removeClass 'active'
