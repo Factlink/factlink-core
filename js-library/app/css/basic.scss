@@ -4,16 +4,6 @@
 @import "notification.scss";
 @import "publisher_button.scss";
 
-/* Actual styles start */
-$z-index      : 2147483644; // max z-index supported: 2147483647
-$max-z-index  : 2147483647;
-$button-width : 130px;
-$button-height: 30px;
-$border-color : #1c5c90;
-$buttonBackground: rgba(32,32,32,0.6);
-
-$button_visibility_transition_time : 300ms;
-$highlight_visibility_transition_time: 200ms;
 
 #fl-wrapper-1,
 #fl-wrapper-1 > #fl-wrapper-2,
@@ -53,22 +43,30 @@ span.factlink {
 }
 
 #fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3 > #fl {
-  visibility: visible;
-  height: 0;
-  width: 0;
 
-  #factlink-iframe {
-    border: 0px solid transparent;
+  > #factlink-iframe {
+    border: none;
     height: 0px;
     width: 0px;
+    display: none;
   }
 
-  #factlink-modal-frame {
+  > .factlink-control-frame {
+    border: none;
+    z-index: $max-z-index;
+    display: block;
+    height: 0;
+    width: 0;
+    position: absolute;
+  }
+
+
+  > #factlink-modal-frame {
     background: transparent;
     border: none;
     z-index: $max-z-index;
     padding: 0;
-    display: none;
+    display: block;
     margin: 0;
     width: 100%;
     height: 100%;
@@ -76,62 +74,25 @@ span.factlink {
     top: 0;
     left: 0;
   }
-  .fl-button {
-    cursor:   pointer;
-    display: block;
+
+  > .factlink-control-frame, > #factlink-modal-frame {
     visibility: hidden;
-    height:   $button-height;
-    width:    $button-width;
-    position: absolute;
-    z-index:  $max-z-index;
-    text-align: center;
-
-    border-radius: 3px;
-    line-height: $button-height;
-    padding: 0 20px;
-    background-color: $buttonBackground;
-    color: white;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
-
-    // This is done because of transitions crashes on iOS devices.
-    // For now we're disabling transitions on devices smaller than 1025 pixels
-    // Most PC have bigger screens so, this works perfect for PC's
-
-    @media only screen and (min-device-width: 1025px) {
-      opacity: 0;
-
-      &.been-active {
-        transition: opacity $button_visibility_transition_time,
-                    visibility 0 $button_visibility_transition_time;
-      }
-
-      &.active {
-        opacity: 1;
-        transition: opacity $button_visibility_transition_time,
-                    visibility 0 0;
-      }
-    }
-
-    &.active {
+    &.factlink-frame-visible {
       visibility: visible;
     }
 
-    &:before {
-      position: relative;
-      top: 5px;
-      margin-right: 4px;
-      content: url("../images/logo-white.png");
-    }
+    @media only screen and (min-device-width: 1025px) {
+      transition: opacity $button_visibility_transition_time,
+      visibility 0 $button_visibility_transition_time;
+      opacity: 0;
 
-    &:hover {
-      background-color: rgba(32,32,32,0.7);
+
+      &.factlink-frame-visible {
+        opacity: 1;
+        transition: opacity $button_visibility_transition_time,
+        visibility 0 0;
+      }
     }
   }
 
-  .fl-loading:before { content: url("../images/loading-indicator.gif"); }
-
-  .fl-loading-message { display: none; }
-
-  .fl-loading .fl-loading-message { display: inline; }
-  .fl-loading .fl-default-message { display: none; }
 }
