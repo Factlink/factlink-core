@@ -13,10 +13,6 @@ class ChannelList
     channels.sort_by(:lowercase_title, order: 'ALPHA ASC')
   end
 
-  def get_by_slug_title slug_title
-    channels.find(slug_title: slug_title).first
-  end
-
   def containing_real_channel_ids_for_fact(fact)
     (channels & fact.channels).ids
   end
