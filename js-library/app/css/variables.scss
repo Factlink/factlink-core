@@ -1,0 +1,9 @@
+$z-index      : 2147483644; // max z-index supported: 2147483647
+$max-z-index  : 2147483647;
+$button-width : 130px;
+$button-height: 30px;
+$border-color : #1c5c90;
+$buttonBackground: rgba(32,32,32,0.6);
+
+$button_visibility_transition_time : 300ms; //keep in sync with buttons.coffee!
+$highlight_visibility_transition_time: 200ms;
