@@ -35,12 +35,6 @@ module.exports = (grunt) ->
           'build/js/jail_iframe/wrap/last.js'
         ]
         dest: 'build/jail_iframe.js'
-      loader_DEPRECATED:
-        src: [
-          'build/js/loader/loader_common.js'
-          'build/js/loader/loader_basic.js'
-        ]
-        dest: 'build/factlink.js'
       loader_basic:
         src: [
           'build/js/loader/loader_common.js'
@@ -89,7 +83,6 @@ module.exports = (grunt) ->
           'build/factlink.stop_annotating.min.js':    ['build/factlink.stop_annotating.js']
           'build/factlink.start_highlighting.min.js': ['build/factlink.start_highlighting.js']
           'build/factlink.stop_highlighting.min.js':  ['build/factlink.stop_highlighting.js']
-          'build/factlink.min.js':                    ['build/factlink.js']
           'build/factlink_loader_basic.min.js':       ['build/factlink_loader_basic.js']
           'build/factlink_loader_publishers.min.js':  ['build/factlink_loader_publishers.js']
           'build/factlink_loader_bookmarklet.min.js': ['build/factlink_loader_bookmarklet.js']
@@ -140,7 +133,6 @@ module.exports = (grunt) ->
       }
     ]
     targets = [
-      'build/factlink.js'
       'build/factlink_loader_basic.js'
       'build/factlink_loader_bookmarklet.js'
       'build/factlink_loader_publishers.js'
