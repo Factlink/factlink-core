@@ -1,3 +1,5 @@
+@import "variables.scss";
+
 html {
   overflow: hidden;
   width: 500px;
@@ -7,3 +9,45 @@ body {
   float:left; //shrink to fit
 }
 * { box-sizing: border-box; }
+
+
+
+.fl-loading:before { content: url("../images/loading-indicator.gif"); }
+
+.fl-loading-message { display: none; }
+
+.fl-loading .fl-loading-message { display: inline; }
+.fl-loading .fl-default-message { display: none; }
+
+
+.fl-button {
+  cursor:   pointer;
+  display: block;
+//  visibility: hidden;
+  height:   $button-height;
+  width:    $button-width;
+  text-align: center;
+
+  border-radius: 3px;
+  line-height: $button-height;
+  padding: 0 20px;
+  background-color: $buttonBackground;
+  color: white;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+
+  // This is done because of transitions crashes on iOS devices.
+  // For now we're disabling transitions on devices smaller than 1025 pixels
+  // Most PC have bigger screens so, this works perfect for PC's
+
+
+  &:before {
+    position: relative;
+    top: 5px;
+    margin-right: 4px;
+    content: url("../images/logo-white.png");
+  }
+
+  &:hover {
+    background-color: rgba(32,32,32,0.7);
+  }
+}
