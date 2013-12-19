@@ -1,21 +1,22 @@
 unsupported_browser = document.documentMode < 9
 
 window.FACTLINK = {}
+
 # Create proxy object that stores all calls
 # proxies calls from external content page to the js-library "jail" iframe's "FactlinkJailRoot"..
 methods = 'on,triggerClick,startHighlighting,highlightAdditionalFactlinks,startAnnotating,stopAnnotating,showLoadedNotification,scrollTo,openFactlinkModal,initializeFactlinkButton'.split(',')
 
 storedMethodCalls = []
 
+storedMethodFactory = (name) -> ->
+  storedMethodCalls.push(name: name, arguments: arguments) && undefined
+
 for name in methods
-  do (name) ->
-    window.FACTLINK[name] =
-      if unsupported_browser
-        ->
-      else
-        ->
-          storedMethodCalls.push {name: name, arguments: arguments}
-          return
+  window.FACTLINK[name] =
+    if unsupported_browser
+      ->
+    else
+      storedMethodFactory name
 
 window.FACTLINK_START_LOADER = ->
   return if unsupported_browser
