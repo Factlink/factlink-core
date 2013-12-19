@@ -14,8 +14,8 @@ LoadDsl.load do
 
   user "tomdev"
     fact "Oil is still detrimental to the environment,", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm"
-      believers "merijn","tomdev","jjoos"
-      disbelievers "remon","mark"
+      believers "merijn","tomdev","jjoos", "mark", "jens", "eamon", "luuk"
+      disbelievers "remon"
       doubters "martijn"
     fact "Molecules that are not accessible to microbes persist and could have toxic effects", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm"
       believers "merijn","tomdev"
