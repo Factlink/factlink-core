@@ -1,7 +1,22 @@
 @import "bootstrap/mixins";
 
-.add-opinion-or-evidence {
-  min-height: 200px; // prevent jumping when switching to annotations
+.opinion-help {
+  margin-top: @triangleSize + 4px;
+  margin-bottom: 30px;
+}
+
+.opinion-help-arrow {
+  .triangle-arrow-up();
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -@triangleSize/2;
+}
+
+.opinion-help-question {
+  font-size: @heading2FontSize;
+  font-weight: @headingsFontWeight;
+  color: @headingFontColor;
 }
 
 .add-evidence-form {

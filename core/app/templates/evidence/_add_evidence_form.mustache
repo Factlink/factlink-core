@@ -1,34 +1,38 @@
-<div class="add-evidence-form-question js-question-container">
-  <span class="js-question"></span>
-  <a class="js-change-type spec-change-type" href="javascript:void(0)">(change)</a>
+<div class="discussion-evidenceish-content">
+  <div class="add-evidence-form-question js-question-container">
+    <span class="js-question"></span>
+    <a class="js-change-type spec-change-type" href="javascript:void(0)">(change)</a>
+  </div>
+
+  <div class="add-evidence-form-type js-type-selector">
+    <label class="add-evidence-form-type-label">
+      <input class="add-evidence-form-type-radio" type="radio" name="argumentType" value="believes">
+
+      <div class="add-evidence-form-type-button add-evidence-form-type-button-believes spec-evidence-radio-believes">Supporting</div>
+    </label>
+
+    <label class="add-evidence-form-type-label">
+      <input class="add-evidence-form-type-radio" type="radio" name="argumentType" value="doubts">
+
+      <div class="add-evidence-form-type-button add-evidence-form-type-button-doubts spec-evidence-radio-doubts">Neutral</div>
+    </label>
+
+    <label class="add-evidence-form-type-label">
+      <input class="add-evidence-form-type-radio" type="radio" name="argumentType" value="disbelieves">
+
+      <div class="add-evidence-form-type-button add-evidence-form-type-button-disbelieves spec-evidence-radio-disbelieves">Weakening</div>
+    </label>
+  </div>
+
+  <div class="input-region clearfix"></div>
+
+  <div class="add-evidence-form-view-toggle">
+    <a href="javascript:void(0)" class="js-switch-to-factlink">Search
+      for {{global.t.factlinks}} (beta)</a>
+
+    <a href="javascript:void(0)" class="js-switch-to-comment">&larr; Return
+      to adding comment</a>
+  </div>
 </div>
 
-<div class="add-evidence-form-type js-type-selector">
-  <label class="add-evidence-form-type-label">
-    <input class="add-evidence-form-type-radio" type="radio" name="argumentType" value="believes">
-
-    <div class="add-evidence-form-type-button add-evidence-form-type-button-believes spec-evidence-radio-believes">Supporting</div>
-  </label>
-
-  <label class="add-evidence-form-type-label">
-    <input class="add-evidence-form-type-radio" type="radio" name="argumentType" value="doubts">
-
-    <div class="add-evidence-form-type-button add-evidence-form-type-button-doubts spec-evidence-radio-doubts">Neutral</div>
-  </label>
-
-  <label class="add-evidence-form-type-label">
-    <input class="add-evidence-form-type-radio" type="radio" name="argumentType" value="disbelieves">
-
-    <div class="add-evidence-form-type-button add-evidence-form-type-button-disbelieves spec-evidence-radio-disbelieves">Weakening</div>
-  </label>
-</div>
-
-<div class="input-region clearfix"></div>
-
-<div class="add-evidence-form-view-toggle">
-  <a href="javascript:void(0)" class="js-switch-to-factlink">Search
-    for {{global.t.factlinks}} (beta)</a>
-
-  <a href="javascript:void(0)" class="js-switch-to-comment">&larr; Return
-    to adding comment</a>
-</div>
+<div class="opinion-help-arrow"></div>
