@@ -8,8 +8,8 @@ methods = 'on,triggerClick,startHighlighting,highlightAdditionalFactlinks,startA
 
 storedMethodCalls = []
 
-storedMethodFactory = (name) -> ->
-  storedMethodCalls.push(name: name, arguments: arguments) && undefined
+storedMethodFactory = (name) ->
+  -> storedMethodCalls.push(name: name, arguments: arguments) && undefined
 
 for name in methods
   window.FACTLINK[name] =
