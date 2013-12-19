@@ -1,7 +1,4 @@
-FactlinkJailRoot.Views ||= {}
-FactlinkJailRoot.Views.Notifications ||= {}
-
-class FactlinkJailRoot.Views.Notification
+class Notification
   content: """
     <div class="fl-message">
       <div class="fl-message-icon"></div><span class="fl-message-content fl-js-message"></span>
@@ -35,7 +32,7 @@ class FactlinkJailRoot.Views.Notification
     setTimeout (=> @$el.remove()), 2000 # Should be larger than @notification_transition_time
 
 show = (options) ->
-  message = new FactlinkJailRoot.Views.Notification options
+  message = new Notification options
   message.render()
 
 FactlinkJailRoot.showShouldSelectTextNotification = ->
