@@ -38,20 +38,9 @@ class ChannelsController < ApplicationController
 
     if @channel.valid?
       @channel.save
-
-      respond_to do |format|
-        format.json do
-          @channel = interactor(:'channels/get', id: @channel.id)
-          render 'channels/show'
-        end
-      end
-
+      render 'channels/show', formats: [:json]
     else
-      respond_to do |format|
-        format.json do
-          render json: @channel.errors, status: :unprocessable_entity
-        end
-      end
+      render json: @channel.errors, status: :unprocessable_entity
     end
   end
 
