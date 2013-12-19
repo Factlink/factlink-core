@@ -25,7 +25,7 @@ FactlinkUI::Application.routes.draw do
   get '/client/*page' => 'client#show'
 
   resources :facts, only: [:create, :show, :destroy] do
-    resources :interactors, only: [:index, :show], controller: 'fact_interactors'
+    resources :opinionators, only: [:index]
 
     member do
       put     "/opinion"          => "facts#update_opinion",     as: "update_opinion"
