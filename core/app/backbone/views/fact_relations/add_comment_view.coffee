@@ -47,7 +47,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
   enableSubmit: ->
     @submitting = false
-    @ui.submit.prop('disabled',false).text(Factlink.Global.t.post_comment)
+    @ui.submit.prop('disabled',false).text(Factlink.Global.t.post_argument)
 
   disableSubmit: ->
     @submitting = true
@@ -59,4 +59,4 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   _textAreaView: ->
     @__textAreaView ?= new Backbone.Factlink.TextAreaView
       model: @_textModel()
-      placeholder: 'Comment...'
+      placeholder: 'What do you think?'
