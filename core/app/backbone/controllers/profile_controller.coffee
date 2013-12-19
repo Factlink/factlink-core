@@ -35,7 +35,7 @@ class window.ProfileController extends Backbone.Marionette.Controller
     @getUser username,
       onInit: (user) =>
         window.Channels.setUsernameAndRefreshIfNeeded user.get('username') # TODO: check if this can be removed
-        FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, null, user)
+        FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(user)
         @main.showTitle(options.title)
       onFetch: (user) =>
         @showSidebarProfile(user)
