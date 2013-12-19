@@ -1,7 +1,7 @@
 @import "bootstrap/mixins";
 
 // Layout variables
-@impactCircleDiameter: 30px;
+@voteButtonWidth: 30px;
 @impactColouredBorderWidth: 3px;
 @evidenceRelevanceTop: 10px;
 
@@ -24,7 +24,7 @@
 .evidence-vote {
   position: absolute;
   left: 0;
-  width:  @impactCircleDiameter;
+  width:  @voteButtonWidth;
 }
 
 .evidence-vote-relevance {
@@ -32,7 +32,7 @@
 
   .new-design-font();
   font-size: @heading1FontSize;
-  line-height: @impactCircleDiameter;
+  line-height: @voteButtonWidth;
   text-align: center;
 }
 
@@ -72,8 +72,8 @@
 }
 
 .evidence-vote-up {
-  height: @arrowHeight + @impactCircleDiameter;
-  background: asset-data-url('evidence-arrows/up-arrow-normal.png') center top 6px no-repeat #eeeff1;
+  height: @arrowHeight + @voteButtonWidth;
+  background: asset-data-url('evidence-arrows/up-arrow-normal.png') center top 6px no-repeat @grayLighter;
   border-top-left-radius: @baseBorderRadius;
   border-top-right-radius: @baseBorderRadius;
 
