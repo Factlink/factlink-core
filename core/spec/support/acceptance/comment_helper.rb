@@ -16,10 +16,12 @@ module Acceptance
         find('.spec-evidence-radio-' + type.to_s).click
       end
 
+      # Doubts the factlink if not already given opinion, which opens
+      # the comment box
       def open_add_comment_form
-        return if all('.add-opinion-or-evidence .js-comment').empty?
+        return if all('.add-opinion-or-evidence .js-doubts').empty?
 
-        find('.add-opinion-or-evidence .js-comment').click
+        find('.add-opinion-or-evidence .js-doubts').click
       end
 
       def add_comment type, comment
