@@ -1,6 +1,5 @@
 class window.ChannelList extends Backbone.Factlink.Collection
   model: Channel
-  _.extend @prototype, Backbone.Factlink.ActivatableCollectionMixin
 
   initialize: (models, options={})->
     @_username = options.username
