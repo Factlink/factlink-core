@@ -50,6 +50,8 @@ span.factlink {
   }
 
   > .factlink-control-frame {
+    @extend %fadable-control;
+
     border: none;
     z-index: $max-z-index;
     display: block;
@@ -60,6 +62,8 @@ span.factlink {
 
 
   > #factlink-modal-frame {
+    @extend %fadable-control;
+
     background: transparent;
     border: none;
     z-index: $max-z-index;
@@ -71,9 +75,5 @@ span.factlink {
     position: fixed;
     top: 0;
     left: 0;
-  }
-
-  > .factlink-control-frame, > #factlink-modal-frame {
-    @extend %fadable-control;
   }
 }
