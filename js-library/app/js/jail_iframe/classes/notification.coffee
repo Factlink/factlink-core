@@ -1,50 +1,42 @@
 FactlinkJailRoot.showShouldSelectTextNotification = ->
-  show
+  showNotification
     message: 'To create an annotation, select a statement and click the Factlink button.'
     type_classes: 'fl-message-icon-add'
-    in_screen_time: 3000
 
 FactlinkJailRoot.showLoadedNotification = ->
-  show
+  showNotification
     message: 'Factlink is loaded!'
     type_classes: 'fl-message-success fl-message-icon-time'
-    in_screen_time: 3000
 
+in_screen_time = 3000
+removal_delay = 1000 # Should be larger than notification_transition_time
+content = """
+  <div class="fl-message">
+    <div class="fl-message-icon"></div><span class="fl-message-content fl-js-message"></span>
+  </div>
+""".trim()
 
-show = (options) ->
-  message = new Notification options
-  message.render()
+showNotification = (options) ->
+  $el = $(content)
 
+  setMessage = -> $el.find('.fl-js-message').text(options.message)
 
-class Notification
-  content: """
-    <div class="fl-message">
-      <div class="fl-message-icon"></div><span class="fl-message-content fl-js-message"></span>
-    </div>
-  """
+  render = ->
+    $el.addClass(options.type_classes)
+    setMessage()
+    FactlinkJailRoot.$factlinkCoreContainer.append($el)
+    positionElement()
 
-  constructor: (@options={}) ->
-    @$el = $(@content)
-    @$el.addClass(@options.type_classes)
-    @setMessage(@options.message)
+    $el.addClass 'active'
+    setTimeout(remove, in_screen_time)
 
-  setMessage: (message) ->
-    @$el.find('.fl-js-message').text(message)
-
-  render: ->
-    FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
-    @positionElement()
-
-    @$el.addClass 'active'
-    @$el.addClass 'been-active'
-    setTimeout(@remove, @options.in_screen_time)
-
-  positionElement: ->
-    @$el.css
+  positionElement = ->
+    $el.css
       top: '65px',
       left: '50%',
-      marginLeft: "-#{@$el.width()/2}px"
+      marginLeft: "-#{$el.width()/2}px"
 
-  remove: =>
-    @$el.removeClass 'active'
-    setTimeout (=> @$el.remove()), 2000 # Should be larger than @notification_transition_time
+  remove = ->
+    $el.removeClass 'active'
+    setTimeout (-> $el.remove()), removal_delay
+  render()
