@@ -6,7 +6,7 @@ describe 'When a user signs in', type: :feature do
 
     sign_in_user(user)
 
-    page.should have_content "set up your account here"
+    page.should have_content "Please finish your account setup"
   end
 
   it 'he should be able to sign out' do

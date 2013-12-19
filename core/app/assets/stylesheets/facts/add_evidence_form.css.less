@@ -1,7 +1,22 @@
 @import "bootstrap/mixins";
 
-.add-opinion-or-evidence {
-  min-height: 200px; // prevent jumping when switching to annotations
+.opinion-help {
+  margin-top: @triangleSize + 4px;
+  margin-bottom: 30px;
+}
+
+.opinion-help-arrow {
+  .triangle-arrow-up();
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -@triangleSize/2;
+}
+
+.opinion-help-question {
+  font-size: @heading2FontSize;
+  font-weight: @headingsFontWeight;
+  color: @headingFontColor;
 }
 
 .add-evidence-form {
@@ -29,52 +44,57 @@
   }
 }
 
-.add-evidence-form-comment-type {
+.add-evidence-form-question {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.add-evidence-form-type {
   display: table;
   width: 300px;
   text-align: center;
   margin-bottom: 10px;
 }
 
-.add-evidence-form-label {
+.add-evidence-form-type-label {
   display: table-cell;
   cursor: pointer;
 }
 
-.add-evidence-form-button {
+.add-evidence-form-type-button {
   background: @buttonBackground;
   padding: 4px;
   color: @linkColor;
   &:hover{
     background: @buttonDarkBackground;
   }
-  &.add-evidence-form-button-believes {
+  &.add-evidence-form-type-button-believes {
     border-top-left-radius: @baseBorderRadius;
     border-bottom-left-radius: @baseBorderRadius;
   }
-  &.add-evidence-form-button-disbelieves {
+  &.add-evidence-form-type-button-disbelieves {
     border-top-right-radius: @baseBorderRadius;
     border-bottom-right-radius: @baseBorderRadius;
   }
 }
 
-input.add-evidence-form-radio {
+input.add-evidence-form-type-radio {
   display: none;
   margin-top: -3px;
 
-  &:checked + .add-evidence-form-button-believes,
-  &:checked + .add-evidence-form-button-doubts,
-  &:checked + .add-evidence-form-button-disbelieves {
+  &:checked + .add-evidence-form-type-button-believes,
+  &:checked + .add-evidence-form-type-button-doubts,
+  &:checked + .add-evidence-form-type-button-disbelieves {
     color: white;
   }
 
-  &:checked + .add-evidence-form-button-believes {
+  &:checked + .add-evidence-form-type-button-believes {
     background: @believesEvidenceImpactColor;
   }
-  &:checked + .add-evidence-form-button-doubts {
+  &:checked + .add-evidence-form-type-button-doubts {
     background: @doubtsEvidenceImpactColor;
   }
-  &:checked + .add-evidence-form-button-disbelieves {
+  &:checked + .add-evidence-form-type-button-disbelieves {
     background: @disbelievesEvidenceImpactColor;
   }
 }

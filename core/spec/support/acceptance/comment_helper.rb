@@ -13,15 +13,23 @@ module Acceptance
       end
 
       def select_add_type type
+        open_type_selector
         find('.spec-evidence-radio-' + type.to_s).click
       end
 
       # Doubts the factlink if not already given opinion, which opens
       # the comment box
       def open_add_comment_form
-        return if all('.add-opinion-or-evidence .js-doubts').empty?
+        return unless all('.add-evidence-form').empty?
 
-        find('.add-opinion-or-evidence .js-doubts').click
+        click_button 'Unsure'
+        find('.add-evidence-form')
+      end
+
+      def open_type_selector
+        return unless all('.spec-evidence-radio-believes').empty?
+
+        find('.spec-change-type').click
       end
 
       def add_comment type, comment
@@ -35,11 +43,11 @@ module Acceptance
 
           comment_input.click
           #ensure button is enabled, i.e. doesn't say "posting":
-          find('button', 'Post Comment')
+          find('button', 'Post')
           comment_input.set comment
           comment_input.value.should eq comment
           sleep 0.5 # To allow for the getting bigger CSS animation
-          click_button "Post comment"
+          click_button "Post"
         end
 
         wait_until_last_argument_has_one_vote
@@ -73,7 +81,7 @@ module Acceptance
         eventually_succeeds do
           if find('.spec-sub-comments-form .text_area_view').value != ''
             within '.spec-sub-comments-form' do
-              click_button 'Post comment'
+              click_button 'Reply'
               find('.spec-sub-comments-form .text_area_view').value.should eq ''
             end
           end
@@ -97,7 +105,7 @@ module Acceptance
 
       def wait_until_evidence_list_loaded
         # this only shows after the discussion list has fully loaded
-        find('.add-opinion-or-evidence')
+        find('.opinion-help')
       end
 
       def vote_comment direction, comment

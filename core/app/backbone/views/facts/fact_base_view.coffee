@@ -7,7 +7,7 @@ class window.FactBaseView extends Backbone.Marionette.Layout
     factBodyRegion: '.fact-body'
 
   onRender: ->
-    @factWheelRegion.show @wheelView()
+    @factWheelRegion.show @wheelView() unless Factlink.Global.can_haz.hide_factwheel
     @factBodyRegion.show @bodyView()
 
   wheelView: ->

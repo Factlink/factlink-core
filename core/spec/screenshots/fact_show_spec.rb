@@ -22,6 +22,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
     page.should have_content factlink.data.displaystring
 
     find('.js-switch-to-factlink').click
+    first('.js-sub-comments-link').click
 
     assume_unchanged_screenshot "fact_show"
   end
