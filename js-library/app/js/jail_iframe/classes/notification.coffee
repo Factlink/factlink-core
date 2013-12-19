@@ -9,7 +9,7 @@ FactlinkJailRoot.showLoadedNotification = ->
     type_classes: 'fl-message-icon-time fl-message-success'
 
 in_screen_time = 3000
-removal_delay = 1000 # Should be larger than notification_transition_time
+removal_delay = 350 # Should be larger than notification_transition_time
 content = """
   <div class="fl-message">
     <div class="fl-message-icon"></div><span class="fl-message-content fl-js-message"></span>
