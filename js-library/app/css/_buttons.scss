@@ -1,0 +1,36 @@
+.fl-button {
+  @extend %default-font;
+  cursor:   pointer;
+  display: block;
+  white-space: nowrap;
+  text-align: center;
+
+  border-radius: 3px;
+  padding: 5px 20px;
+  background-color: $buttonBackground;
+  color: white;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+
+  &:hover {
+    background-color: rgba(32,32,32,0.7);
+  }
+}
+
+.fl-button-default-content, .fl-button-loading-content {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.fl-button-loading-content, .fl-button-loading .fl-button-default-content { height: 0; }
+.fl-button-loading .fl-button-loading-content { height: auto; }
+
+.fl-button-loading-content:before { content: url("../images/loading-indicator.gif"); }
+.fl-button-default-content:before { content: url("../images/logo-white.png"); }
+.fl-button-default-content:before, .fl-button-loading-content:before {
+  display:inline-block;
+  vertical-align: middle;
+  width:20px;
+  height:20px;
+  margin: -1px 4px 1px 0;
+}

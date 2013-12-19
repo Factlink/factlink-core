@@ -11,39 +11,3 @@ body {
 }
 * { box-sizing: border-box; }
 
-.fl-default-message, .fl-loading-message{
-  display: block;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.fl-loading-message, .fl-loading .fl-default-message { height: 0; }
-.fl-loading .fl-loading-message { height: auto; }
-
-.fl-loading-message:before { content: url("../images/loading-indicator.gif"); }
-.fl-default-message:before { content: url("../images/logo-white.png"); }
-.fl-default-message:before, .fl-loading-message:before {
-  display:inline-block;
-  vertical-align: middle;
-  width:20px;
-  height:20px;
-  margin: -1px 4px 1px 0;
-}
-
-.fl-button {
-  @extend %default-font;
-  cursor:   pointer;
-  display: block;
-  white-space: nowrap;
-  text-align: center;
-
-  border-radius: 3px;
-  padding: 5px 20px;
-  background-color: $buttonBackground;
-  color: white;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
-
-  &:hover {
-    background-color: rgba(32,32,32,0.7);
-  }
-}

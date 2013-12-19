@@ -6,8 +6,8 @@ class Button
     for event, callback of dom_events
       @$el.on event, callback
 
-  startLoading: => @$el.addClass "fl-loading"
-  stopLoading:  => @$el.removeClass  "fl-loading"
+  startLoading: => @$el.addClass "fl-button-loading"
+  stopLoading:  => @$el.removeClass  "fl-button-loading"
 
   setCoordinates: (top, left) =>
     @_top = top
@@ -31,8 +31,8 @@ class Button
 class FactlinkJailRoot.ShowButton extends Button
   content: """
     <div class="fl-button">
-      <span class="fl-default-message">Show Annotation</span>
-      <span class="fl-loading-message">Loading...</span>
+      <span class="fl-button-default-content">Show Annotation</span>
+      <span class="fl-button-loading-content">Loading...</span>
     </div>
   """
 
@@ -40,7 +40,7 @@ class FactlinkJailRoot.ShowButton extends Button
 class FactlinkJailRoot.CreateButton extends Button
   content: """
     <div class="fl-button">
-      <span class="fl-default-message">Add Annotation</span>
-      <span class="fl-loading-message">Loading...</span>
+      <span class="fl-button-default-content">Add Annotation</span>
+      <span class="fl-button-loading-content">Loading...</span>
     </div>
   """
