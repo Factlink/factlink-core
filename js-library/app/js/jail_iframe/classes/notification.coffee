@@ -41,3 +41,4 @@ showNotification = (options) ->
     setTimeout (-> $el.remove()), removal_delay
 
   render()
+  return
