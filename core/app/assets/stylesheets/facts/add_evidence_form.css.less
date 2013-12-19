@@ -49,12 +49,12 @@
     background: @buttonDarkBackground;
   }
   &.add-evidence-form-button-believes {
-    border-top-right-radius: @baseBorderRadius;
-    border-bottom-right-radius: @baseBorderRadius;
-  }
-  &.add-evidence-form-button-disbelieves {
     border-top-left-radius: @baseBorderRadius;
     border-bottom-left-radius: @baseBorderRadius;
+  }
+  &.add-evidence-form-button-disbelieves {
+    border-top-right-radius: @baseBorderRadius;
+    border-bottom-right-radius: @baseBorderRadius;
   }
 }
 
@@ -69,13 +69,13 @@ input.add-evidence-form-radio {
   }
 
   &:checked + .add-evidence-form-button-believes {
-    background: @buttonSuccessBackground;
+    background: @believesEvidenceImpactColor;
   }
   &:checked + .add-evidence-form-button-doubts {
-    background: @buttonConfirmBackground;
+    background: @doubtsEvidenceImpactColor;
   }
   &:checked + .add-evidence-form-button-disbelieves {
-    background: @buttonDangerBackground;
+    background: @disbelievesEvidenceImpactColor;
   }
 }
 

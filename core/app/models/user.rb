@@ -126,7 +126,7 @@ class User
     # The value represents how it is stored in Mixpanel
     def mixpaneled_fields
       {
-        "full_name"      => "full_name",
+        "full_name"      => "name",
         "username"        => "username",
         "email"           => "email",
         "created_at"      => "created",

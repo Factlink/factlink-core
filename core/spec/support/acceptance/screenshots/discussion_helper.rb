@@ -13,23 +13,23 @@ module Screenshots
 
       supporting_factlink = backend_create_fact_with_long_text
       go_to_discussion_page_of supporting_factlink
-      click_wheel_part 0
+      click_agree supporting_factlink, @user
 
       go_to_discussion_page_of factlink
-      click_wheel_part 0
+      click_agree factlink, @user
 
       add_comment :doubts, comment_text
       add_existing_factlink :believes, supporting_factlink
 
       vote_comment :down, comment_text
 
-      within('.evidence-votable', text: comment_text, visible: false) do
+      within('.evidence-argument', text: comment_text, visible: false) do
         find('a', text: 'Comment').click
         add_sub_comment(sub_comment_text)
         assert_sub_comment_exists sub_comment_text_normalized
       end
 
-      within('.evidence-votable', text: supporting_factlink.data.displaystring, visible: false) do
+      within('.evidence-argument', text: supporting_factlink.data.displaystring, visible: false) do
         find('.js-down').click
         eventually_succeeds do
           find('a', text: 'Comment').click

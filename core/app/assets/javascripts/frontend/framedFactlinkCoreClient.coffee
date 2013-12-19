@@ -3,7 +3,7 @@ window.initClientCommunicator = ->
     showFactlink: (id) -> showUrl "/client/facts/#{id}"
 
     prepareNewFactlink: (displaystring, url, fact_title) ->
-      showUrl "/facts/new" +
+      showUrl "/client/facts/new" +
         "?displaystring=" + encodeURIComponent(displaystring) +
         "&url=" + encodeURIComponent(url) +
         "&fact_title=" + encodeURIComponent(fact_title)

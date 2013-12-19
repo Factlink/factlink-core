@@ -11,3 +11,4 @@
 --abc-exclude Activity::Listener#matches
 --abc-exclude Interactors::Facts::Create#execute
 --abc-exclude MigrateRemoveOldActivitiesForUserWorker.perform
+--abc-exclude UserObserverTask.handle_changes
