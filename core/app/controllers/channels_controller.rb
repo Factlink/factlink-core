@@ -20,14 +20,6 @@ class ChannelsController < ApplicationController
     @channels = interactor(:'channels/visible_of_user_for_user', user: @user)
   end
 
-  def show
-    authorize! :show, @channel
-
-    backbone_responder do
-      @channel = interactor(:'channels/get', id: @channel.id)
-    end
-  end
-
   # TODO: Move to topicscontroller, this searches for topics, not for channels
   def search
     # TODO: add access control
@@ -46,20 +38,9 @@ class ChannelsController < ApplicationController
 
     if @channel.valid?
       @channel.save
-
-      respond_to do |format|
-        format.json do
-          @channel = interactor(:'channels/get', id: @channel.id)
-          render 'channels/show'
-        end
-      end
-
+      render 'channels/show', formats: [:json]
     else
-      respond_to do |format|
-        format.json do
-          render json: @channel.errors, status: :unprocessable_entity
-        end
-      end
+      render json: @channel.errors, status: :unprocessable_entity
     end
   end
 

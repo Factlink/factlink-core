@@ -43,20 +43,6 @@ describe ChannelList do
     end
   end
 
-  describe 'get_by_topic_slug' do
-    it "returns nil if the list does not contain said channel" do
-      graph_user = create :graph_user
-      ch = ChannelList.new(graph_user).get_by_slug_title 'henk'
-      expect(ch).to be_nil
-    end
-    it "returns one channel by topic slug" do
-      graph_user = create :graph_user
-      channel1 = Channel.create created_by: graph_user, title: 'foo'
-      ch = ChannelList.new(graph_user).get_by_slug_title 'foo'
-      expect(ch).to eq channel1
-    end
-  end
-
   describe ".sorted_channels" do
     it "should return the channels" do
       gu1 = create :graph_user
