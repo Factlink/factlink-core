@@ -13,7 +13,6 @@ describe Users::SetupController do
       get :edit
 
       expect(response).to be_success
-      expect(response.body).to match 'Please finish your account setup'
     end
   end
 
