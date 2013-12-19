@@ -1,8 +1,8 @@
-@import "fadable_control.scss";
-@import "reset.scss";
-@import "notification.scss";
-@import "publisher_button.scss";
-
+@import "variables";
+@import "fadable_control";
+@import "reset";
+@import "notification";
+@import "publisher_button";
 
 #factlink-containment-wrapper {
   @extend %resetStyles;
