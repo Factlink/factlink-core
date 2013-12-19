@@ -17,28 +17,32 @@ content = """
 """.trim()
 
 showNotification = (options) ->
-  $el = $(content)
+  frame = null
 
-  setMessage = -> $el.find('.fl-js-message').text(options.message)
-
-  render = ->
-    $el.addClass(options.type_classes)
-    setMessage()
-    FactlinkJailRoot.$factlinkCoreContainer.append($el)
-    positionElement()
-
-    $el.addClass 'factlink-control-visible'
+  renderFrame = ->
+    frame = new FactlinkJailRoot.ControlIframe()
+    fillFrame()
+    positionFrame()
+    frame.$el.addClass 'factlink-control-visible'
     setTimeout(remove, in_screen_time)
 
-  positionElement = ->
-    $el.css
+  fillFrame = ->
+    frame.setContent($.parseHTML(content)[0])
+    $el = $(frame.doc.body.firstChild)
+    $el.find('.fl-js-message').text(options.message)
+    $el.addClass(options.type_classes)
+    frame.resizeFrame()
+
+  positionFrame = ->
+    frame.$el.css
       top: '65px',
       left: '50%',
-      marginLeft: "-#{$el.width()/2}px"
+      position: 'fixed',
+      marginLeft: "-#{frame.$el.width()/2}px"
 
   remove = ->
-    $el.removeClass 'factlink-control-visible'
-    setTimeout (-> $el.remove()), removal_delay
+    frame.$el.removeClass 'factlink-control-visible'
+    setTimeout (-> frame.destroy()), removal_delay
 
-  render()
+  renderFrame()
   return
