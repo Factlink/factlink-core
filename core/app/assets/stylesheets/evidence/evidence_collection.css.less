@@ -1,7 +1,7 @@
 @import "bootstrap/mixins";
 
 // Layout variables
-@impactCircleDiameter: 53px;
+@impactCircleDiameter: 30px;
 @impactColouredBorderWidth: 3px;
 @evidenceRelevanceTop: 10px;
 
@@ -23,16 +23,16 @@
 // Relevance circles on the left
 .evidence-vote {
   position: absolute;
-  top: @evidenceRelevanceTop + @arrowHeight + @arrowInnerSpacing;
   left: 0;
 
   .white-block-with-shadow();
   width:  @impactCircleDiameter;
-  height: @impactCircleDiameter;
-  border-radius: 1000px;
+  height: @impactCircleDiameter + @arrowHeight;
 }
 
 .evidence-vote-relevance {
+  padding-top: @arrowHeight;
+
   .new-design-font();
   font-size: @heading1FontSize;
   line-height: @impactCircleDiameter;
@@ -53,15 +53,12 @@
 
 // Voting arrows
 .evidence-vote-up, .evidence-vote-down {
-  width: @arrowWidth;
-  height: @arrowHeight;
-  position: absolute;
-  left: @impactCircleDiameter/2 - @arrowWidth/2 + 1px;
+  display: block;
 }
 
 .evidence-vote-up {
-  top: -@arrowHeight - @arrowInnerSpacing;
-  background: asset-data-url( 'evidence-arrows/up-arrow-unclicked.png');
+  height: @arrowHeight + @impactCircleDiameter;
+  background: asset-data-url('evidence-arrows/up-arrow-unclicked.png') center top 5px no-repeat;
   opacity: 0.7;
 
   &:hover {
@@ -69,13 +66,14 @@
   }
 
   &.active {
-    background: asset-data-url('evidence-arrows/up-arrow-clicked.png');
+    background: asset-data-url('evidence-arrows/up-arrow-clicked.png') center top 5px no-repeat;
   }
 }
 
 .evidence-vote-down {
-  bottom: -@arrowHeight - @arrowInnerSpacing;
-  background: asset-data-url('evidence-arrows/down-arrow-unclicked.png');
+  width: @impactCircleDiameter;
+  height: @arrowHeight + 10px;
+  background: asset-data-url('evidence-arrows/down-arrow-unclicked.png') center bottom 5px no-repeat;
   opacity: 0.7;
 
   &:hover {
@@ -83,13 +81,13 @@
   }
 
   &.active {
-    background: asset-data-url('evidence-arrows/down-arrow-clicked.png');
+    background: asset-data-url('evidence-arrows/down-arrow-clicked.png') center bottom 5px no-repeat;
   }
 }
 
 // Evidence box
 .evidence-box {
-  margin-left: 80px;
+  margin-left: 42px;
 }
 
 // Irrelevant (faded out)
