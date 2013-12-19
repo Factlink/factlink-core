@@ -39,35 +39,4 @@ describe ChannelsController do
       Approvals.verify(response.body, format: :json, name: 'channels.json should keep the same content')
     end
   end
-
-  describe "#show" do
-    it "a channel should be succesful" do
-      authenticate_user!(user)
-      should_check_can :show, ch_light
-      get :show, username: user.username, id: ch_light.id
-      response.should be_success
-    end
-
-    it "a channel as json should be succesful" do
-      authenticate_user!(user)
-      should_check_can :show, ch_heavy
-
-      ability.should_receive(:can?).with(:index, Channel).and_return true
-      get :show, username: user.username, id: ch_heavy.id, format: 'json'
-      response.should be_success
-    end
-
-    it "should escape html in fields" do
-      authenticate_user!(user)
-      ch = create(:channel)
-      ch.title = "baas<xss> of niet"
-      ch.created_by = user.graph_user
-      ch.save
-
-      should_check_can :show, ch
-      get :show, :id => ch.id, :username => user.username
-
-      response.body.should_not match(/<xss>/)
-    end
-  end
 end
