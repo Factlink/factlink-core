@@ -27,7 +27,8 @@ en:
   fact_remove_opinion_past_action: "removed opinion"
   fact_add_evidence_past_action: "added evidence"
 
-  post_comment: "Post comment"
+  post_argument: "Post"
+  post_subcomment: "Reply"
 
   channel: "channel"
   channels: "channels"

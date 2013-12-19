@@ -35,11 +35,11 @@ module Acceptance
 
           comment_input.click
           #ensure button is enabled, i.e. doesn't say "posting":
-          find('button', 'Post Comment')
+          find('button', 'Post')
           comment_input.set comment
           comment_input.value.should eq comment
           sleep 0.5 # To allow for the getting bigger CSS animation
-          click_button "Post comment"
+          click_button "Post"
         end
 
         wait_until_last_argument_has_one_vote
@@ -73,7 +73,7 @@ module Acceptance
         eventually_succeeds do
           if find('.spec-sub-comments-form .text_area_view').value != ''
             within '.spec-sub-comments-form' do
-              click_button 'Post comment'
+              click_button 'Reply'
               find('.spec-sub-comments-form .text_area_view').value.should eq ''
             end
           end

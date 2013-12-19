@@ -44,7 +44,7 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
 
   enableSubmit: ->
     @submitting = false
-    @ui.submit.prop('disabled',false).text(Factlink.Global.t.post_comment)
+    @ui.submit.prop('disabled',false).text(Factlink.Global.t.post_subcomment)
 
   disableSubmit: ->
     @submitting = true
