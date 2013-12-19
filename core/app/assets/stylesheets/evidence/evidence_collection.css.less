@@ -39,15 +39,15 @@
   text-align: center;
 }
 
-.evidence-believes .evidence-box {
+.evidence-believes .evidence-box > .discussion-evidenceish-box {
   border-left: @impactColouredBorderWidth solid @believesEvidenceImpactColor;
 }
 
-.evidence-disbelieves .evidence-box {
+.evidence-disbelieves .evidence-box > .discussion-evidenceish-box {
   border-left: @impactColouredBorderWidth solid @disbelievesEvidenceImpactColor;
 }
 
-.evidence-unsure .evidence-box {
+.evidence-unsure .evidence-box > .discussion-evidenceish-box {
   border-left: @impactColouredBorderWidth solid @doubtsEvidenceImpactColor;
 }
 
@@ -93,7 +93,7 @@
 }
 
 // Irrelevant (faded out)
-.evidence-irrelevant > .evidence-box {
+.evidence-irrelevant .evidence-box {
   opacity: 0.6;
   .transition(opacity 0.2s);
 
