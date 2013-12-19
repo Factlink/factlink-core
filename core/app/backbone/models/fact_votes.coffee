@@ -23,7 +23,7 @@ class window.FactVotes extends Backbone.Model
     @set newValue, @get(newValue)+1 if newValue != 'no_vote'
     @set 'current_user_opinion', newValue
 
-  saveCurrentUserOpinion: (opinion_type) ->
+  _saveCurrentUserOpinion: (opinion_type) ->
     @previous_opinion_type = @get('current_user_opinion')
 
     @_setCurrentUserOpinion opinion_type
@@ -33,5 +33,11 @@ class window.FactVotes extends Backbone.Model
       error: =>
         @_setCurrentUserOpinion @previous_opinion_type
         FactlinkApp.NotificationCenter.error "Something went wrong while setting your opinion on the Factlink, please try again."
+
+  clickCurrentUserOpinion: (opinion_type) ->
+    if @get('current_user_opinion') == opinion_type
+      @_saveCurrentUserOpinion 'no_vote'
+    else
+      @_saveCurrentUserOpinion opinion_type
 
   totalCount: -> @get('believes') + @get('disbelieves') + @get('doubts')

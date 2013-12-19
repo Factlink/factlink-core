@@ -4,6 +4,7 @@ feature "adding factlinks to a fact", type: :feature do
   include Acceptance
   include Acceptance::FactHelper
   include Acceptance::CommentHelper
+  include Acceptance::ClientPathHelper
 
   background do
     @user = sign_in_user create :full_user, :confirmed
@@ -18,7 +19,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     add_existing_factlink :believes, supporting_factlink
 
-    within ".evidence-votable", visible: false do
+    within ".evidence-argument", visible: false do
       page.should have_content supporting_factlink.to_s
     end
   end
@@ -30,9 +31,9 @@ feature "adding factlinks to a fact", type: :feature do
 
     add_existing_factlink :disbelieves, weakening_factlink
 
-    find('.evidence-relevance-text', text: "1") # wait until request has finished
+    find('.spec-evidence-relevance', text: "1") # wait until request has finished
 
-    find('.evidence-votable span', text: weakening_factlink.to_s).click
+    find('.evidence-argument span', text: weakening_factlink.to_s).click
 
     find('.top-fact-text', text: weakening_factlink.to_s)
   end
@@ -44,11 +45,11 @@ feature "adding factlinks to a fact", type: :feature do
 
     add_existing_factlink :doubts, neutral_factlink
 
-    find('.evidence-relevance-text', text: "1") # wait until request has finished
+    find('.spec-evidence-relevance', text: "1") # wait until request has finished
 
     go_to_fact_show_of factlink
 
-    find('.evidence-votable span', text: neutral_factlink.to_s).click
+    find('.evidence-argument span', text: neutral_factlink.to_s).click
 
     find('.top-fact-text', text: neutral_factlink.to_s)
   end

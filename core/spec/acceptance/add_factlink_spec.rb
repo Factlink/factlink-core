@@ -5,6 +5,7 @@ describe "creating a Factlink", type: :feature do
   include Acceptance::AddToChannelModalHelper
   include Acceptance::NavigationHelper
   include Acceptance::FactHelper
+  include Acceptance::ClientPathHelper
 
   before :each do
     @user = sign_in_user create :full_user, :confirmed

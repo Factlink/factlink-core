@@ -1,6 +1,7 @@
 require 'acceptance_helper'
 
 describe "searching", type: :feature do
+  include Acceptance::ClientPathHelper
 
   def create_channel(user)
     channel = create(:channel, created_by: user.graph_user)

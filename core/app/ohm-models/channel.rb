@@ -2,8 +2,6 @@ class Channel < OurOhm
   attribute :title
   index :title
 
-  attribute :lowercase_title
-
   attribute :slug_title
   index :slug_title
 
@@ -18,7 +16,6 @@ class Channel < OurOhm
   alias :old_set_title :title= unless method_defined?(:old_set_title)
   def title=(new_title)
     old_set_title new_title
-    self.lowercase_title = new_title.downcase
     self.slug_title = new_title.to_url
   end
 
@@ -31,20 +28,6 @@ class Channel < OurOhm
   index :created_by_id
 
   timestamped_set :sorted_internal_facts, Fact
-
-  def delete
-    Activity.for(self).each do |a|
-      a.delete
-    end
-    super
-  end
-
-  def channel_facts
-    ChannelFacts.new(self)
-  end
-  private :channel_facts
-  delegate :remove_fact, :include?,
-           :to => :channel_facts
 
   def validate
     assert_present :title

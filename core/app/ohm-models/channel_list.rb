@@ -10,7 +10,7 @@ class ChannelList
   end
 
   def sorted_channels
-    channels.sort_by(:lowercase_title, order: 'ALPHA ASC')
+    channels.sort_by(:slug_title, order: 'ALPHA ASC')
   end
 
   def containing_real_channel_ids_for_fact(fact)

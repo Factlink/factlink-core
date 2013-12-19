@@ -2,7 +2,6 @@
 #  queryparams patches router, so should be loaded before marionette,
 #     which subclasses the router
 #= require backbone.queryparams
-#= require backbone.paginator
 #= require backbone.marionette
 #= require_tree ../templates
 #= require_self

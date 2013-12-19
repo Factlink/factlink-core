@@ -76,9 +76,9 @@ class ChannelsController < ApplicationController
   def remove_fact
     authorize! :update, @channel
 
-    @fact = Fact[params[:fact_id]]
+    fact = Fact[params[:fact_id]]
 
-    @channel.remove_fact(@fact)
+    interactor(:'channels/remove_fact', fact: fact, channel: @channel)
 
     render json: {}
   end
