@@ -21,44 +21,41 @@ span.factlink {
   }
 }
 
-#factlink-containment-wrapper {
-  visibility: hidden;
+%frame-styles {
+  background: transparent;
+  border: none;
+  z-index: $max-z-index;
+  margin: 0;
+  padding: 0;
+  display: block;
   position: absolute;
-  top: 0;
   left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+}
+
+#factlink-containment-wrapper {
+  @extend %frame-styles;
+  visibility: hidden;
 
   > #factlink-iframe {
-    border: none;
-    height: 0px;
-    width: 0px;
+    @extend %frame-styles;
     display: none;
   }
 
   > .factlink-control-frame {
+    @extend %frame-styles;
     @extend %fadable-control;
-
-    border: none;
-    z-index: $max-z-index;
-    display: block;
-    height: 0;
-    width: 0;
-    position: absolute;
   }
 
 
   > #factlink-modal-frame {
+    @extend %frame-styles;
     @extend %fadable-control;
 
-    background: transparent;
-    border: none;
-    z-index: $max-z-index;
-    padding: 0;
-    display: block;
-    margin: 0;
+    position: fixed;
     width: 100%;
     height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
   }
 }
