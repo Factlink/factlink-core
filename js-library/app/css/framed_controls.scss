@@ -12,40 +12,38 @@ body {
 
 
 
-.fl-loading:before { content: url("../images/loading-indicator.gif"); }
+.fl-default-message, .fl-loading-message{
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+}
 
-.fl-loading-message { display: none; }
 
-.fl-loading .fl-loading-message { display: inline; }
-.fl-loading .fl-default-message { display: none; }
+.fl-loading-message, .fl-loading .fl-default-message { height: 0; }
+.fl-loading .fl-loading-message { height: auto; }
 
+.fl-loading-message:before { content: url("../images/loading-indicator.gif"); }
+.fl-default-message:before { content: url("../images/logo-white.png"); }
+.fl-default-message:before, .fl-loading-message:before {
+  display:inline-block;
+  vertical-align: middle;
+  width:20px;
+  height:20px;
+  margin: -1px 4px 1px 0;
+}
 
 .fl-button {
+  @extend %default-font;
   cursor:   pointer;
   display: block;
-//  visibility: hidden;
-  height:   $button-height;
-  width:    $button-width;
+  white-space: nowrap;
   text-align: center;
 
   border-radius: 3px;
-  line-height: $button-height;
-  padding: 0 20px;
+  padding: 5px 20px;
   background-color: $buttonBackground;
   color: white;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
-
-  // This is done because of transitions crashes on iOS devices.
-  // For now we're disabling transitions on devices smaller than 1025 pixels
-  // Most PC have bigger screens so, this works perfect for PC's
-
-
-  &:before {
-    position: relative;
-    top: 5px;
-    margin-right: 4px;
-    content: url("../images/logo-white.png");
-  }
 
   &:hover {
     background-color: rgba(32,32,32,0.7);
