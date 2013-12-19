@@ -6,7 +6,7 @@ FactlinkJailRoot.showShouldSelectTextNotification = ->
 FactlinkJailRoot.showLoadedNotification = ->
   showNotification
     message: 'Factlink is loaded!'
-    type_classes: 'fl-message-success fl-message-icon-time'
+    type_classes: 'fl-message-icon-time fl-message-success'
 
 in_screen_time = 3000
 removal_delay = 1000 # Should be larger than notification_transition_time
