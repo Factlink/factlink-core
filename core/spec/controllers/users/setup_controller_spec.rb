@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Users::SetupController do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, set_up: false) }
   render_views
 
   describe :edit do
@@ -11,13 +11,16 @@ describe Users::SetupController do
       should_check_can :set_up, user
 
       get :edit
-      response.should be_success
+
+      expect(response).to be_success
     end
   end
 
   describe :update do
     it 'updates full name' do
       sign_in user
+
+      expect(user.set_up).to be_false
 
       post :update, user: {full_name: 'full_name'}
 

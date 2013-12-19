@@ -1,5 +1,5 @@
 class window.AddEvidenceFormView extends Backbone.Marionette.Layout
-  className: 'add-evidence-form'
+  className: 'add-evidence-form evidence-box discussion-evidenceish discussion-evidenceish-box opinion-help'
   template: 'evidence/add_evidence_form'
 
   regions:
@@ -11,10 +11,14 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     'change input[name=argumentType]': '_updateArgumentType'
     'click .js-switch-to-factlink': '_switchToAddFactRelationView'
     'click .js-switch-to-comment': '_switchToAddCommentView'
+    'click .js-change-type': '_showTypeSelector'
 
   ui:
     switchToFactlink: '.js-switch-to-factlink'
     switchToComment: '.js-switch-to-comment'
+    question: '.js-question'
+    questionContainer: '.js-question-container'
+    typeSelector: '.js-type-selector'
 
   initialize: ->
     @_argumentTypeModel = new Backbone.Model
@@ -39,8 +43,17 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     @_setArgumentTypeToOpinion()
     @_switchToAddCommentView()
 
+  _showQuestion: ->
+    @ui.questionContainer.show()
+    @ui.typeSelector.hide()
+
+  _showTypeSelector: ->
+    @ui.typeSelector.show()
+    @ui.questionContainer.hide()
+
   _updateArgumentType: ->
     @_argumentTypeModel.set 'argument_type', @$('input[name=argumentType]:checked').val()
+    @_updateQuestion()
 
   _setArgumentTypeToOpinion: ->
     opinion = @_factVotes.get('current_user_opinion')
@@ -48,6 +61,18 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
 
     @$("input[name=argumentType][value=#{opinion}]").prop('checked', true)
     @_updateArgumentType()
+    @_showQuestion()
+
+  _updateQuestion: ->
+    @ui.question.text switch @_argumentTypeModel.get('argument_type')
+      when 'believes'
+        "Why do you #{Factlink.Global.t.fact_believe_opinion}?"
+      when 'disbelieves'
+        "Why do you #{Factlink.Global.t.fact_disbelieve_opinion}?"
+      when 'doubts'
+        "What do you think?"
+      else
+        ''
 
   _switchToAddCommentView: ->
     @ui.switchToFactlink.show()
