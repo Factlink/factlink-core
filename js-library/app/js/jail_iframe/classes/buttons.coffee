@@ -12,7 +12,6 @@ class Button
   setCoordinates: (top, left) =>
     @_top = top
     @_left = left
-#    return if @$el.hasClass 'active'
     console.log 'setting position'
 
   show: =>
