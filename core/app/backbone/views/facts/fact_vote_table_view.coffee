@@ -1,9 +1,22 @@
-class window.FactVoteTableView extends Backbone.Marionette.Layout
+class OpinionatorsAvatarView extends Backbone.Marionette.Layout
+  tagName: 'span'
+  className: 'opinionators-avatar'
+  template: 'opinionators/avatar'
+
+  templateHelpers: =>
+    user: @model.user().toJSON()
+
+  onRender: ->
+    UserPopoverContentView.makeTooltip @, @model
+
+
+class window.FactVoteTableView extends Backbone.Marionette.CompositeView
   tagName: 'table'
   className: 'fact-vote-table'
   template: 'facts/fact_vote_table'
+  itemView: OpinionatorsAvatarView
 
-  regions:
+  ui:
     avatarsBelievesRegion: '.js-avatars-believes-region'
     avatarsDoubtsRegion: '.js-avatars-doubts-region'
     avatarsDisbelievesRegion: '.js-avatars-disbelieves-region'
@@ -16,24 +29,21 @@ class window.FactVoteTableView extends Backbone.Marionette.Layout
   initialize: ->
     @_votes = @model.getFactVotes()
     @listenTo @_votes, 'change:current_user_opinion', @_updateActiveCell
-    @listenTo @_votes, 'sync', -> @_opinionatorsCollection.fetch()
+    @listenTo @_votes, 'sync', -> @collection.fetch()
 
-    @_opinionatorsCollection = new OpinionatorsCollection [
-      new OpinionatorsEvidence(type: 'believes')
-      new OpinionatorsEvidence(type: 'disbelieves')
-      new OpinionatorsEvidence(type: 'doubts')
-    ], fact_id: @model.id
-    @_opinionatorsCollection.fetch()
+    @collection = @model.getVotes()
+    @collection.fetch()
+
+  appendHtml: (collectionView, itemView, index) ->
+    if itemView.model.get('type') == 'believes'
+      @ui.avatarsBelievesRegion.append itemView.el
+    if itemView.model.get('type') == 'disbelieves'
+      @ui.avatarsDisbelievesRegion.append itemView.el
+    if itemView.model.get('type') == 'doubts'
+      @ui.avatarsDoubtsRegion.append itemView.el
 
   onRender: ->
     @_updateActiveCell()
-
-    @avatarsBelievesRegion.show new OpinionatorsAvatarsView
-      collection: @_opinionatorsCollection.get('believes').opinionators()
-    @avatarsDisbelievesRegion.show new OpinionatorsAvatarsView
-      collection: @_opinionatorsCollection.get('disbelieves').opinionators()
-    @avatarsDoubtsRegion.show new OpinionatorsAvatarsView
-      collection: @_opinionatorsCollection.get('doubts').opinionators()
 
   _updateActiveCell: ->
     opinion = @_votes.get('current_user_opinion')
