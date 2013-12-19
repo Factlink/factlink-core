@@ -17,6 +17,7 @@ GEM
       net-ssh (>= 2.6.5)
     rvm-capistrano (1.2.7)
       capistrano (>= 2.0.0)
+    sass (3.2.12)
 
 PLATFORMS
   ruby
@@ -25,3 +26,4 @@ DEPENDENCIES
   capistrano (= 2.14.2)
   highline (= 1.6.16)
   rvm-capistrano (= 1.2.7)
+  sass (~> 3.2)
