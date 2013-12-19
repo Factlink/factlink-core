@@ -1,9 +1,12 @@
+@import "variables.scss";
+@import "fadable_control.scss";
 $notification_transition_time: 300ms;
 $max-z-index  : 2147483647;
 
 #factlink-containment-wrapper {
   > .fl-message {  // Message after loading the Bookmarklet
     @extend %resetStyles;
+    @extend %fadable_control;
 
     position: fixed;
     z-index: $max-z-index - 100; // Place below are beloved modal
@@ -15,20 +18,6 @@ $max-z-index  : 2147483647;
     border-radius: 4px;
     max-width: 400px;
     overflow: hidden;
-    visibility: hidden;
-    opacity: 0;
-
-    &.been-active {
-      transition: opacity $notification_transition_time,
-                 visibility 0 $notification_transition_time;
-   }
-
-    &.active {
-      visibility: visible;
-      opacity: 1;
-      transition: opacity $notification_transition_time,
-                 visibility 0 0;
-    }
 
     > .fl-message-icon {
       @extend %resetStyles;

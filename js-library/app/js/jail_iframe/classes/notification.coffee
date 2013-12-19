@@ -27,7 +27,7 @@ showNotification = (options) ->
     FactlinkJailRoot.$factlinkCoreContainer.append($el)
     positionElement()
 
-    $el.addClass 'active'
+    $el.addClass 'factlink-control-visible'
     setTimeout(remove, in_screen_time)
 
   positionElement = ->
@@ -37,6 +37,6 @@ showNotification = (options) ->
       marginLeft: "-#{$el.width()/2}px"
 
   remove = ->
-    $el.removeClass 'active'
+    $el.removeClass 'factlink-control-visible'
     setTimeout (-> $el.remove()), removal_delay
   render()
