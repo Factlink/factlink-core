@@ -11,11 +11,14 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     'change input[name=argumentType]': '_updateArgumentType'
     'click .js-switch-to-factlink': '_switchToAddFactRelationView'
     'click .js-switch-to-comment': '_switchToAddCommentView'
+    'click .js-change-type': '_showTypeSelector'
 
   ui:
     switchToFactlink: '.js-switch-to-factlink'
     switchToComment: '.js-switch-to-comment'
     question: '.js-question'
+    questionContainer: '.js-question-container'
+    typeSelector: '.js-type-selector'
 
   initialize: ->
     @_argumentTypeModel = new Backbone.Model
@@ -39,6 +42,11 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   onRender: ->
     @_setArgumentTypeToOpinion()
     @_switchToAddCommentView()
+    @ui.typeSelector.hide()
+
+  _showTypeSelector: ->
+    @ui.typeSelector.show()
+    @ui.questionContainer.hide()
 
   _updateArgumentType: ->
     @_argumentTypeModel.set 'argument_type', @$('input[name=argumentType]:checked').val()
