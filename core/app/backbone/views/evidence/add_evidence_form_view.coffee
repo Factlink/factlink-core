@@ -15,6 +15,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   ui:
     switchToFactlink: '.js-switch-to-factlink'
     switchToComment: '.js-switch-to-comment'
+    question: '.js-question'
 
   initialize: ->
     @_argumentTypeModel = new Backbone.Model
@@ -41,6 +42,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
 
   _updateArgumentType: ->
     @_argumentTypeModel.set 'argument_type', @$('input[name=argumentType]:checked').val()
+    @_updateQuestion()
 
   _setArgumentTypeToOpinion: ->
     opinion = @_factVotes.get('current_user_opinion')
@@ -48,6 +50,17 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
 
     @$("input[name=argumentType][value=#{opinion}]").prop('checked', true)
     @_updateArgumentType()
+
+  _updateQuestion: ->
+    @ui.question.text switch @_argumentTypeModel.get('argument_type')
+      when 'believes'
+        "Why do you #{Factlink.Global.t.fact_believe_opinion}?"
+      when 'disbelieves'
+        "Why do you #{Factlink.Global.t.fact_disbelieve_opinion}?"
+      when 'doubts'
+        "What do you think?"
+      else
+        ''
 
   _switchToAddCommentView: ->
     @ui.switchToFactlink.show()
