@@ -12,7 +12,6 @@ class Button
   setCoordinates: (top, left) =>
     @_top = top
     @_left = left
-    console.log 'setting position'
 
   show: =>
     @stopLoading()
@@ -25,11 +24,9 @@ class Button
   hide: =>
     @$el.removeClass 'active'
     @frame.$el.removeClass 'factlink-control-visible'
-    console.log 'hiding frame'
 
   destroy: =>
     @frame.destroy()
-    console.log 'destroying frame'
 
 class FactlinkJailRoot.ShowButton extends Button
   content: """

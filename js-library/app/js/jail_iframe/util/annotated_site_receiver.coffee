@@ -8,7 +8,6 @@ FactlinkJailRoot.annotatedSiteReceiver =
     window.FACTLINK_ON_CORE_LOAD?()
 
   openModalOverlay: ->
-    console.log 'fadeIn', $("#factlink-modal-frame")[0]
     if modalCloseTimeoutHandle
       clearTimeout(modalCloseTimeoutHandle)
       modalCloseTimeoutHandle = null

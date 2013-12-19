@@ -1,7 +1,5 @@
-
 class FactlinkJailRoot.ControlIframe
   constructor: ->
-    console.log('creating frame')
     @el = document.createElement('iframe')
     @el.className = 'factlink-control-frame'
     #need to append to outer document before we can access frame document.
@@ -24,7 +22,6 @@ class FactlinkJailRoot.ControlIframe
     @resizeFrame()
 
   resizeFrame: ->
-    console.log('resizing frame')
     @el.style.width = @doc.body.clientWidth  + 'px'
     @el.style.height = @doc.body.clientHeight + 'px'
 
