@@ -1,6 +1,6 @@
 @import "variables";
+@import "reset"; // must be imported before fadable_control so it can be overridden.
 @import "fadable_control";
-@import "reset";
 @import "notification";
 @import "publisher_button";
 
