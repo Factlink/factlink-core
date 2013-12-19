@@ -160,6 +160,7 @@ class Ability
     skip_create_first_factlink
     memory_profiling
     suppress_double_scrollbar
+    hide_factwheel
   )
 
   def enabled_global_features
