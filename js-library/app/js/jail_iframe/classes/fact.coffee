@@ -78,7 +78,7 @@ class FactScrollPromotion
 
   constructor: (@fact) ->
     @highlighter = new Highlighter $(fact.elements), 'fl-scroll-highlight'
-    $(fact.elements).on 'inview', @onSomethingChanged
+    $(fact.elements).inview(@onSomethingChanged)
     FactlinkJailRoot.on 'fast_scrolling_changed', @onSomethingChanged
     @state = 'visible'
 

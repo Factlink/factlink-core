@@ -1,14 +1,34 @@
-mkEl = (name, id, content) ->
-  el = document.createElement(name)
-  id && el.id = id
-  content && el.appendChild(content)
-  el
+unsupported_browser = document.documentMode < 9
+
+window.FACTLINK = {}
+# Create proxy object that stores all calls
+# proxies calls from external content page to the js-library "jail" iframe's "FactlinkJailRoot"..
+methods = 'on,triggerClick,startHighlighting,highlightAdditionalFactlinks,startAnnotating,stopAnnotating,showLoadedNotification,scrollTo,openFactlinkModal,initializeFactlinkButton'.split(',')
+
+storedMethodCalls = []
+
+for name in methods
+  do (name) ->
+    window.FACTLINK[name] =
+      if unsupported_browser
+        ->
+      else
+        ->
+          storedMethodCalls.push {name: name, arguments: arguments}
+          return
 
 window.FACTLINK_START_LOADER = ->
+  return if unsupported_browser
   if window.FACTLINK_LOADED
     console.error 'FACTLINK already loaded!'
     return
   window.FACTLINK_LOADED = true
+
+  mkEl = (name, id, content) ->
+    el = document.createElement(name)
+    id && el.id = id
+    content && el.appendChild(content)
+    el
 
   # Add styles
   style_tag = mkEl 'style', null, document.createTextNode(style_code)
@@ -22,34 +42,18 @@ window.FACTLINK_START_LOADER = ->
 
   document.body.appendChild outerWrapperEl
 
-  # Create proxy object that stores all calls
-  # proxies calls from external content page to the js-library "jail" iframe's "FactlinkJailRoot"..
-  window.FACTLINK = {}
-
-  storedMethodCalls = []
-  proxy_method = (name) ->
-    window.FACTLINK[name] = ->
-      if window.FACTLINK_ON_CORE_LOAD
-        storedMethodCalls.push {name: name, arguments: arguments}
-      else
-        jail_window.FactlinkJailRoot[name](arguments...)
-      return # don't return the value, as we can't do that when storing calls
-
-  proxy_method 'on'
-  proxy_method 'triggerClick'
-  proxy_method 'startHighlighting'
-  proxy_method 'highlightAdditionalFactlinks'
-  proxy_method 'startAnnotating'
-  proxy_method 'stopAnnotating'
-  proxy_method 'showLoadedNotification'
-  proxy_method 'scrollTo'
-  proxy_method 'openFactlinkModal'
-  proxy_method 'initializeFactlinkButton'
-
   window.FACTLINK_ON_CORE_LOAD = ->
+    for name in methods
+      do (name) ->
+        # don't return the value, as we can't do that when storing calls
+        window.FACTLINK[name] = ->
+          jslib_jail_iframe.contentWindow.FactlinkJailRoot[name](arguments...)
+          return
+
     delete window.FACTLINK_ON_CORE_LOAD
+
     for methodCall in storedMethodCalls
-      jail_window.FactlinkJailRoot[methodCall.name](methodCall.arguments...)
+      window.FACTLINK[methodCall.name](methodCall.arguments...)
     storedMethodCalls = undefined
 
   jail_window = jslib_jail_iframe.contentWindow
