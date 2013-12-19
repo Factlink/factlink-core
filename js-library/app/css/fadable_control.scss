@@ -1,0 +1,22 @@
+%fadable-control {
+  visibility: hidden;
+  &.factlink-control-visible {
+    visibility: visible;
+  }
+
+  // This is done because of transitions crashes on iOS devices.
+  // For now we're disabling transitions on devices smaller than 1025 pixels
+  // Most PC have bigger screens so, this works perfect for PC's
+  @media only screen and (min-device-width: 1025px) {
+    transition: opacity $button_visibility_transition_time,
+    visibility 0 $button_visibility_transition_time;
+    opacity: 0;
+
+
+    &.factlink-control-visible {
+      opacity: 1;
+      transition: opacity $button_visibility_transition_time,
+      visibility 0 0;
+    }
+  }
+}
