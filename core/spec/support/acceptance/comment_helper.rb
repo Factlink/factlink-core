@@ -13,6 +13,7 @@ module Acceptance
       end
 
       def select_add_type type
+        open_type_selector
         find('.spec-evidence-radio-' + type.to_s).click
       end
 
@@ -23,6 +24,12 @@ module Acceptance
 
         click_button 'Unsure'
         find('.add-evidence-form')
+      end
+
+      def open_type_selector
+        return unless all('.spec-evidence-radio-believes').empty?
+
+        find('.spec-change-type').click
       end
 
       def add_comment type, comment
