@@ -1,7 +1,15 @@
 @import "bootstrap/mixins";
 
 .add-opinion-or-evidence {
-  margin-top: 30px;
+  margin-top: @triangleSize + 4px;
+}
+
+.add-opinion-or-evidence-arrow {
+  .triangle-arrow-up();
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -@triangleSize/2;
 }
 
 .add-evidence-form {
