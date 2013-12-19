@@ -11,7 +11,9 @@ describe Users::SetupController do
       should_check_can :set_up, user
 
       get :edit
-      response.should be_success
+
+      expect(response).to be_success
+      expect(response.body).to match 'Please finish your account setup'
     end
   end
 
