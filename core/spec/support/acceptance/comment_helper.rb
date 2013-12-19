@@ -19,9 +19,9 @@ module Acceptance
       # Doubts the factlink if not already given opinion, which opens
       # the comment box
       def open_add_comment_form
-        return if all('.add-opinion-or-evidence .js-doubts').empty?
+        return if all('.opinion-help .js-doubts').empty?
 
-        find('.add-opinion-or-evidence .js-doubts').click
+        find('.opinion-help .js-doubts').click
       end
 
       def add_comment type, comment
@@ -97,7 +97,7 @@ module Acceptance
 
       def wait_until_evidence_list_loaded
         # this only shows after the discussion list has fully loaded
-        find('.add-opinion-or-evidence')
+        find('.opinion-help')
       end
 
       def vote_comment direction, comment
