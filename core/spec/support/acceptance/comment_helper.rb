@@ -22,6 +22,7 @@ module Acceptance
         return unless all('.add-evidence-form').empty?
 
         click_button 'Unsure'
+        find('.add-evidence-form')
       end
 
       def add_comment type, comment
