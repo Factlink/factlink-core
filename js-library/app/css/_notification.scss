@@ -1,6 +1,3 @@
-$notification_transition_time: 300ms;
-$max-z-index  : 2147483647;
-
 #factlink-containment-wrapper {
   > .fl-message {  // Message after loading the Bookmarklet
     @extend %resetStyles;
