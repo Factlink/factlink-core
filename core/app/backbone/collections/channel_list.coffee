@@ -1,13 +1,11 @@
-class window.GenericChannelList extends Backbone.Factlink.Collection
+class window.ChannelList extends Backbone.Factlink.Collection
   model: Channel
-
-class window.ChannelList extends window.GenericChannelList
   _.extend @prototype, Backbone.Factlink.ActivatableCollectionMixin
 
-  url: -> "/#{@getUsername()}/channels"
+  initialize: (models, options={})->
+    @_username = options.username
 
-  getUsername: -> @_username
-  setUsername: (username) -> @_username = username
+  url: -> "/#{@_username}/channels"
 
   getBySlugTitle: (slug_title)->
     results = @filter (ch)-> ch.get('slug_title') == slug_title
