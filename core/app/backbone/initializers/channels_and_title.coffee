@@ -1,5 +1,4 @@
 FactlinkApp.addInitializer (options)->
-  window.Channels = new ChannelList()
   window.TitleManager = new WindowTitle()
 
   window.Global = {}
