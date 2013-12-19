@@ -12,7 +12,7 @@ FactlinkJailRoot.annotatedSiteReceiver =
     if modalCloseTimeoutHandle
       clearTimeout(modalCloseTimeoutHandle)
       modalCloseTimeoutHandle = null
-    $("#factlink-modal-frame").addClass 'factlink-frame-visible'
+    $("#factlink-modal-frame").addClass 'factlink-control-visible'
     FactlinkJailRoot.trigger 'modalOpened'
 
   highlightNewFactlink: (displaystring, id) ->
@@ -20,7 +20,7 @@ FactlinkJailRoot.annotatedSiteReceiver =
     FactlinkJailRoot.trigger 'factlinkAdded'
 
   closeModal_noAction: ->
-    $("#factlink-modal-frame").removeClass 'factlink-frame-visible'
+    $("#factlink-modal-frame").removeClass 'factlink-control-visible'
     modalCloseTimeoutHandle = setTimeout(-> FactlinkJailRoot.trigger 'modalClosed', 300)
 
   # For compatibility, please remove the next time you see this

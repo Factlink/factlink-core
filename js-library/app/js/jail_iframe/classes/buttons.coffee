@@ -25,13 +25,13 @@ class Button
     #TODO:what's this line do?
     #FactlinkJailRoot.$factlinkCoreContainer.find('div.fl-button').removeClass('active')
     @$el.addClass 'active'
-    @frame.$el.addClass 'factlink-frame-visible'
+    @frame.$el.addClass 'factlink-control-visible'
     console.log @el.className
 
 
   hide: =>
     @$el.removeClass 'active'
-    @frame.$el.removeClass 'factlink-frame-visible'
+    @frame.$el.removeClass 'factlink-control-visible'
     console.log 'hiding frame'
 
 
