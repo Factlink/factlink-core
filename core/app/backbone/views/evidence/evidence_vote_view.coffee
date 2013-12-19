@@ -27,9 +27,13 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
     @ui.relevance.text format_as_short_number(@model.relevance())
 
   _on_up_vote: ->
+    return unless Factlink.Global.signed_in
+
     mp_track "Factlink: Upvote evidence click"
     @model.clickCurrentUserOpinion 'believes'
 
   _on_down_vote: ->
+    return unless Factlink.Global.signed_in
+
     mp_track "Factlink: Downvote evidence click"
     @model.clickCurrentUserOpinion 'disbelieves'
