@@ -5,7 +5,6 @@ class window.DiscussionView extends Backbone.Marionette.Layout
 
   regions:
     factRegion: '.js-fact-region'
-    addArgumentRegion: '.js-add-argument-region'
     evidenceRegion: '.js-evidence-region'
 
   onRender: ->
@@ -15,9 +14,6 @@ class window.DiscussionView extends Backbone.Marionette.Layout
 
     evidence_collection = new EvidenceCollection null, fact: @model
     evidence_collection.fetch()
-
-    @addArgumentRegion.show new AddOpinionOrEvidenceView
-      collection: evidence_collection
 
     @evidenceRegion.show new EvidenceContainerView
       collection: evidence_collection
