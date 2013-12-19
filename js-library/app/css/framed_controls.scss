@@ -10,14 +10,11 @@ body {
 }
 * { box-sizing: border-box; }
 
-
-
 .fl-default-message, .fl-loading-message{
   display: block;
   overflow: hidden;
   white-space: nowrap;
 }
-
 
 .fl-loading-message, .fl-loading .fl-default-message { height: 0; }
 .fl-loading .fl-loading-message { height: auto; }
