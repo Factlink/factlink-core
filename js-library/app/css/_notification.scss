@@ -1,7 +1,7 @@
 #factlink-containment-wrapper {
   > .fl-message {  // Message after loading the Bookmarklet
     @extend %resetStyles;
-    @extend %fadable_control;
+    @extend %fadable-control;
 
     position: fixed;
     z-index: $max-z-index - 100; // Place below are beloved modal
