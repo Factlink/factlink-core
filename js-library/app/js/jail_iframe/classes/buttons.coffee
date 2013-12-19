@@ -22,7 +22,7 @@ class Button
     console.log @el.className
     #TODO:what's this line do?
     #FactlinkJailRoot.$factlinkCoreContainer.find('div.fl-button').removeClass('active')
-    @$el.addClass 'active been-active'
+    @$el.addClass 'active'
     @frame.$el.addClass 'factlink-frame-visible'
     console.log @el.className
 
