@@ -14,7 +14,7 @@ describe OpinionatorsController do
       fact = create :fact
 
       fact.add_opiniated :believes, (create :user).graph_user
-      5.times do
+      2.times do
         fact.add_opiniated :disbelieves, (create :user).graph_user
       end
 

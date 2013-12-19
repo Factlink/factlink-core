@@ -19,8 +19,8 @@
     ]
   },
   {
-    "total": 5,
-    "impact": 5,
+    "total": 2,
+    "impact": 2,
     "type": "disbelieves",
     "users": [
       {
@@ -40,42 +40,6 @@
         "name": "John3 Doe3",
         "username": "johndoe3",
         "gravatar_hash": "0c0b78bf3bb3107091bdb93c94ba73a3",
-        "statistics_created_fact_count": 0,
-        "statistics_follower_count": 0,
-        "statistics_following_count": 0,
-        "user_topics": [
-
-        ]
-      },
-      {
-        "id": "<id>",
-        "name": "John4 Doe4",
-        "username": "johndoe4",
-        "gravatar_hash": "4a44954117cfc0852a0cbd709a634789",
-        "statistics_created_fact_count": 0,
-        "statistics_follower_count": 0,
-        "statistics_following_count": 0,
-        "user_topics": [
-
-        ]
-      },
-      {
-        "id": "<id>",
-        "name": "John5 Doe5",
-        "username": "johndoe5",
-        "gravatar_hash": "34175a5e546d03f7bc3c2d42ddb4b9cc",
-        "statistics_created_fact_count": 0,
-        "statistics_follower_count": 0,
-        "statistics_following_count": 0,
-        "user_topics": [
-
-        ]
-      },
-      {
-        "id": "<id>",
-        "name": "John6 Doe6",
-        "username": "johndoe6",
-        "gravatar_hash": "9e1148767a56cb9971bb65c4a36b72e9",
         "statistics_created_fact_count": 0,
         "statistics_follower_count": 0,
         "statistics_following_count": 0,
