@@ -18,11 +18,7 @@ window.FACTLINK_START_LOADER = ->
   jslib_jail_iframe = mkEl 'iframe', 'factlink-iframe'
 
   # Wrappers for increased CSS specificity
-  outerWrapperEl =
-    mkEl 'div', 'fl-wrapper-1',
-      mkEl 'div', 'fl-wrapper-2',
-        mkEl 'div', 'fl-wrapper-3',
-          mkEl 'div', 'fl', jslib_jail_iframe
+  outerWrapperEl = mkEl 'div', 'factlink-containment-wrapper', jslib_jail_iframe
 
   document.body.appendChild outerWrapperEl
 

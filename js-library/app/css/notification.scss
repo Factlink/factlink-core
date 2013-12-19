@@ -1,8 +1,8 @@
 $notification_transition_time: 300ms;
 $max-z-index  : 2147483647;
 
-#fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3 > #fl {
-  .fl-message {  // Message after loading the Bookmarklet
+#factlink-containment-wrapper {
+  > .fl-message {  // Message after loading the Bookmarklet
     @extend %resetStyles;
 
     position: fixed;
