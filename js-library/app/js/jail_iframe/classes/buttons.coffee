@@ -1,12 +1,10 @@
 class Button
   constructor: (dom_events={}) ->
     @frame = new FactlinkJailRoot.ControlIframe()
-    @frame.doc.body.innerHTML = @content
-    el = @el=  @frame.doc.body.firstChild
+    @frame.setContent($.parseHTML(@content))
+    @$el =  $(@frame.doc.body.firstChild)
     for event, callback of dom_events
-      el.addEventListener event, callback
-    @frame.resizeFrame()
-    @$el = $(el)
+      @$el.on event, callback
 
   startLoading: => @$el.addClass "fl-loading"
   stopLoading:  => @$el.removeClass  "fl-loading"
