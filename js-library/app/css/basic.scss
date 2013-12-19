@@ -4,16 +4,6 @@
 @import "notification";
 @import "publisher_button";
 
-#factlink-containment-wrapper {
-  @extend %resetStyles;
-  // Keep in sync with loader_common.coffee
-  visibility: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-
 html[data-factlink-suppress-scrolling] {
   overflow: hidden !important;
 }
