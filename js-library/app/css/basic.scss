@@ -25,7 +25,6 @@ span.factlink {
 
 #factlink-containment-wrapper {
   @extend %resetStyles;
-  // Keep in sync with loader_common.coffee
   visibility: hidden;
   position: absolute;
   top: 0;
