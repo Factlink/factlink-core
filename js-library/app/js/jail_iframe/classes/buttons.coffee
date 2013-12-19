@@ -19,13 +19,11 @@ class Button
 
   show: =>
     @stopLoading()
-    console.log @el.className
     FactlinkJailRoot.set_position_of_element @_top, @_left, window, @frame.$el
     #TODO:what's this line do?
     #FactlinkJailRoot.$factlinkCoreContainer.find('div.fl-button').removeClass('active')
     @$el.addClass 'active'
     @frame.$el.addClass 'factlink-control-visible'
-    console.log @el.className
 
   hide: =>
     @$el.removeClass 'active'
