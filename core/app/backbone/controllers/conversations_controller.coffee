@@ -10,7 +10,6 @@ class window.ConversationsController extends Backbone.Marionette.Controller
     @main.contentRegion.show(
       new ConversationsView collection: @conversations, loading: true
     )
-    window.Channels.setUsernameAndRefreshIfNeeded currentUser.get('username')  # TODO: check if this can be removed
     FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(null)
     @conversations.fetch()
 
@@ -20,7 +19,6 @@ class window.ConversationsController extends Backbone.Marionette.Controller
     FactlinkApp.mainRegion.show(@main)
 
     @conversation = new Conversation(id: conversation_id)
-    window.Channels.setUsernameAndRefreshIfNeeded currentUser.get('username') # TODO: check if this can be removed
     FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(null)
     @conversation.fetch
       success: (model, response) =>
