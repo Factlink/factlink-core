@@ -1,3 +1,21 @@
+FactlinkJailRoot.showShouldSelectTextNotification = ->
+  show
+    message: 'To create an annotation, select a statement and click the Factlink button.'
+    type_classes: 'fl-message-icon-add'
+    in_screen_time: 3000
+
+FactlinkJailRoot.showLoadedNotification = ->
+  show
+    message: 'Factlink is loaded!'
+    type_classes: 'fl-message-success fl-message-icon-time'
+    in_screen_time: 3000
+
+
+show = (options) ->
+  message = new Notification options
+  message.render()
+
+
 class Notification
   content: """
     <div class="fl-message">
@@ -30,19 +48,3 @@ class Notification
   remove: =>
     @$el.removeClass 'active'
     setTimeout (=> @$el.remove()), 2000 # Should be larger than @notification_transition_time
-
-show = (options) ->
-  message = new Notification options
-  message.render()
-
-FactlinkJailRoot.showShouldSelectTextNotification = ->
-  show
-    message: 'To create an annotation, select a statement and click the Factlink button.'
-    type_classes: 'fl-message-icon-add'
-    in_screen_time: 3000
-
-FactlinkJailRoot.showLoadedNotification = ->
-  show
-    message: 'Factlink is loaded!'
-    type_classes: 'fl-message-success fl-message-icon-time'
-    in_screen_time: 3000
