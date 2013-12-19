@@ -33,7 +33,6 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
 
   regions:
     collectionRegion: '.js-collection-region'
-    addRegion: '.js-add-region'
     learnMoreRegion: '.js-learn-more-region'
 
   collectionEvents:
@@ -44,10 +43,7 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     loaded: '.js-evidence-loaded'
 
   onRender: ->
-    if Factlink.Global.signed_in
-      @addRegion.show new AddOpinionOrEvidenceView
-        collection: @collection
-    else
+    unless Factlink.Global.signed_in
       @learnMoreRegion.show new LearnMoreView
 
     @collectionRegion.show new EvidenceCollectionView collection: @collection
