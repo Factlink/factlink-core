@@ -13,13 +13,15 @@ class Button
   stopLoading:  => @$el.removeClass  "fl-loading"
 
   setCoordinates: (top, left) =>
+    @_top = top
+    @_left = left
 #    return if @$el.hasClass 'active'
     console.log 'setting position'
-    FactlinkJailRoot.set_position_of_element top, left, window, @frame.$el
 
   show: =>
     @stopLoading()
     console.log @el.className
+    FactlinkJailRoot.set_position_of_element @_top, @_left, window, @frame.$el
     #TODO:what's this line do?
     #FactlinkJailRoot.$factlinkCoreContainer.find('div.fl-button').removeClass('active')
     @$el.addClass 'active'
