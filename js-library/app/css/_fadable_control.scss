@@ -8,14 +8,13 @@
   // For now we're disabling transitions on devices smaller than 1025 pixels
   // Most PC have bigger screens so, this works perfect for PC's
   @media only screen and (min-device-width: 1025px) {
-    transition: opacity $button_visibility_transition_time,
-    visibility 0 $button_visibility_transition_time;
+    transition: opacity $control_visibility_transition_time,
+    visibility 0 $control_visibility_transition_time;
     opacity: 0;
-
 
     &.factlink-control-visible {
       opacity: 1;
-      transition: opacity $button_visibility_transition_time,
+      transition: opacity $control_visibility_transition_time,
       visibility 0 0;
     }
   }
