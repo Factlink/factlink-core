@@ -42,6 +42,9 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   onRender: ->
     @_setArgumentTypeToOpinion()
     @_switchToAddCommentView()
+
+  _showQuestion: ->
+    @ui.questionContainer.show()
     @ui.typeSelector.hide()
 
   _showTypeSelector: ->
@@ -58,6 +61,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
 
     @$("input[name=argumentType][value=#{opinion}]").prop('checked', true)
     @_updateArgumentType()
+    @_showQuestion()
 
   _updateQuestion: ->
     @ui.question.text switch @_argumentTypeModel.get('argument_type')
