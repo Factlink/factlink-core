@@ -36,6 +36,25 @@
   .cell-background(@doubtsEvidenceImpactColor);
 }
 
+.fact-vote-table-cell-text-believes,
+.fact-vote-table-cell-text-disbelieves,
+.fact-vote-table-cell-text-doubts {
+  line-height: @avatarLineHeight;
+  float: left;
+}
+
+.fact-vote-table-cell-text-believes {
+  color: darken(@believesEvidenceImpactColor, 10%);
+}
+
+.fact-vote-table-cell-text-disbelieves {
+  color: darken(@disbelievesEvidenceImpactColor, 10%);
+}
+
+.fact-vote-table-cell-text-doubts {
+  color: darken(@doubtsEvidenceImpactColor, 10%);
+}
+
 .fact-vote-table-cell-button {
   float: left;
   margin-top: 4px;
