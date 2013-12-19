@@ -11,6 +11,6 @@ class OpinionatorsController < ApplicationController
       interactor(:'facts/opinionators', fact_id: fact_id, type: 'doubts')
     ]
 
-    render 'fact_interactors/index', formats: ['json']
+    render :index, formats: ['json']
   end
 end
