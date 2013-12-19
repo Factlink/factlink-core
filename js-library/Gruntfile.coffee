@@ -55,6 +55,8 @@ module.exports = (grunt) ->
         dest: 'build/factlink_loader_bookmarklet.js'
     sass:
       build:
+        options:
+          bundleExec: true
         files:
           'build/css/basic_without_embeds.css': 'app/css/basic.scss'
           'build/css/framed_controls_without_embeds.css': 'app/css/framed_controls.scss'
