@@ -20,8 +20,8 @@ describe Queries::Facts::Opinionators do
 
       result = query.call
 
-      expect(result[:total]).to eq 1
-      expect(result[:users].first.id).to eq user.id
+      expect(result.length).to eq 1
+      expect(result[0].id).to eq user.id
     end
   end
 end

@@ -7,11 +7,7 @@ module Interactors
       arguments :fact_id, :type
 
       def execute
-        interacting_users = query(:'facts/opinionators',
-                                      fact_id: fact_id,
-                                      opinion: type)
-
-        interacting_users.merge(type: type)
+        query(:'facts/opinionators', fact_id: fact_id, opinion: type)
       end
 
       def authorized?

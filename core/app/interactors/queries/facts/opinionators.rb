@@ -10,14 +10,11 @@ module Queries
       private
 
       def execute
-        {
-          users: users.map { |u| KillObject.user u },
-          total: users.size
-        }
+        users.map { |u| KillObject.user u }
       end
 
       def users
-        @users ||= users_who(opinion).map(&:user)
+        users_who(opinion).map(&:user)
       end
 
       def users_who(type)

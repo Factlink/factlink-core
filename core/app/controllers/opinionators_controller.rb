@@ -6,9 +6,18 @@ class OpinionatorsController < ApplicationController
     fact_id = params[:fact_id].to_i
 
     @interactors = [
-      interactor(:'facts/opinionators', fact_id: fact_id, type: 'believes'),
-      interactor(:'facts/opinionators', fact_id: fact_id, type: 'disbelieves'),
-      interactor(:'facts/opinionators', fact_id: fact_id, type: 'doubts')
+      {
+        type: 'believes',
+        users: interactor(:'facts/opinionators', fact_id: fact_id, type: 'believes')
+      },
+      {
+        type: 'disbelieves',
+        users: interactor(:'facts/opinionators', fact_id: fact_id, type: 'disbelieves')
+      },
+      {
+        type: 'doubts',
+        users: interactor(:'facts/opinionators', fact_id: fact_id, type: 'doubts')
+      }
     ]
 
     render :index, formats: ['json']
