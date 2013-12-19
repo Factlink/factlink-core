@@ -7,7 +7,7 @@ describe Interactors::Users::Following do
   describe '#authorized?' do
     it 'throws when no current_user' do
       expect do
-        interactor = described_class.new(user_name: 'gerard', skip: 2, take: 7)
+        interactor = described_class.new(user_name: 'gerard')
         interactor.call
       end.to raise_error Pavlov::AccessDenied,'Unauthorized'
     end

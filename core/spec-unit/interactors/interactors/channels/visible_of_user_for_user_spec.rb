@@ -21,10 +21,10 @@ describe Interactors::Channels::VisibleOfUserForUser do
 
       Pavlov.stub(:query).with(:users_by_ids, user_ids: [user_id]).and_return([dead_user])
 
-      query.stub get_alive_channels: [channel1, channel2]
-      KillObject.stub(:channel).with(channel1, created_by_user: dead_user)
+      query.stub visible_channels: [channel1, channel2]
+      KillObject.stub(:channel).with(channel1)
         .and_return(dead_channel1)
-      KillObject.stub(:channel).with(channel2, created_by_user: dead_user)
+      KillObject.stub(:channel).with(channel2)
         .and_return(dead_channel2)
 
       expect(query.call).to eq [dead_channel1, dead_channel2]

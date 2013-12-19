@@ -18,7 +18,7 @@ describe 'user following' do
 
       it 'returns that the current user follows user2 and user3' do
         as(user1) do |pavlov|
-          result = pavlov.interactor(:'users/following', user_name: user1.username, skip: 0, take: 10)
+          result = pavlov.interactor(:'users/following', user_name: user1.username)
           expect(result.size).to eq 2
           expect(result.map(&:username))
             .to match_array [user2.username, user3.username]
@@ -27,7 +27,7 @@ describe 'user following' do
 
       it 'returns that the other user is not following users' do
         as(user1) do |pavlov|
-          result = pavlov.interactor(:'users/following', user_name: user2.username, skip: 0, take: 10)
+          result = pavlov.interactor(:'users/following', user_name: user2.username)
           expect(result.size).to eq 0
         end
       end
@@ -75,14 +75,14 @@ describe 'user following' do
     describe 'following' do
       it 'returns that the current user is not following users' do
         as(user1) do |pavlov|
-          result = pavlov.interactor(:'users/following', user_name: user1.username, skip: 0, take: 10)
+          result = pavlov.interactor(:'users/following', user_name: user1.username)
           expect(result.size).to eq 0
         end
       end
 
       it 'returns that the other user is not following users' do
         as(user1) do |pavlov|
-          result = pavlov.interactor(:'users/following', user_name: user2.username, skip: 0, take: 10)
+          result = pavlov.interactor(:'users/following', user_name: user2.username)
           expect(result.size).to eq 0
         end
       end
@@ -101,7 +101,7 @@ describe 'user following' do
     describe 'following' do
       it 'returns that the current user follow the other user' do
         as(user1) do |pavlov|
-          result = pavlov.interactor(:'users/following', user_name: user1.username, skip: 0, take: 10)
+          result = pavlov.interactor(:'users/following', user_name: user1.username)
           expect(result.size).to eq 1
           expect(result[0].username).to eq user2.username
         end
@@ -109,7 +109,7 @@ describe 'user following' do
 
       it 'returns that the other user is not following users' do
         as(user1) do |pavlov|
-          result = pavlov.interactor(:'users/following', user_name: user2.username, skip: 0, take: 10)
+          result = pavlov.interactor(:'users/following', user_name: user2.username)
           expect(result.size).to eq 0
         end
       end
@@ -132,7 +132,7 @@ describe 'user following' do
         rescue
         end
 
-        following = pavlov.interactor(:'users/following', user_name: user1.username, skip: 0, take: 10)
+        following = pavlov.interactor(:'users/following', user_name: user1.username)
         expect(following.size).to eq 0
       end
     end
@@ -153,7 +153,7 @@ describe 'user following' do
           pavlov.interactor(:'users/follow_user', user_name: user2.username, user_to_follow_user_name: user3.username)
         end.to raise_error
 
-        following = pavlov.interactor(:'users/following', user_name: user2.username, skip: 0, take: 10)
+        following = pavlov.interactor(:'users/following', user_name: user2.username)
         expect(following.size).to eq 0
       end
     end

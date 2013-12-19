@@ -25,7 +25,7 @@ FactlinkUI::Application.routes.draw do
   get '/client/*page' => 'client#show'
 
   resources :facts, only: [:create, :show, :destroy] do
-    resources :interactors, only: [:index, :show], controller: 'fact_interactors'
+    resources :opinionators, only: [:index]
 
     member do
       put     "/opinion"          => "facts#update_opinion",     as: "update_opinion"
@@ -122,7 +122,7 @@ FactlinkUI::Application.routes.draw do
       post "/mark_as_read" => "users#mark_activities_as_read", as: "mark_activities_as_read"
     end
 
-    resources :channels, except: [:new, :edit] do
+    resources :channels, except: [:new, :edit, :show] do
       collection do
         get "find" => "channels#search", as: "find"
       end
