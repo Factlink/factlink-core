@@ -24,10 +24,9 @@
 .evidence-vote {
   position: absolute;
   left: 0;
-
-  .white-block-with-shadow();
+  border-top-left-radius: @baseBorderRadius;
+  border-top-right-radius: @baseBorderRadius;
   width:  @impactCircleDiameter;
-  height: @impactCircleDiameter + @arrowHeight;
 }
 
 .evidence-vote-relevance {
@@ -58,30 +57,57 @@
 
 .evidence-vote-up {
   height: @arrowHeight + @impactCircleDiameter;
-  background: asset-data-url('evidence-arrows/up-arrow-unclicked.png') center top 5px no-repeat;
+  background: asset-data-url('evidence-arrows/up-arrow-normal.png') center top 6px no-repeat #eeeff1;
+  border: 1px solid rgba(0, 0, 0, 0.15);
   opacity: 0.7;
+  border-top-left-radius: @baseBorderRadius;
+  border-top-right-radius: @baseBorderRadius;
 
   &:hover {
     opacity: 1;
   }
 
+  &.inactive {
+    background: asset-data-url('evidence-arrows/up-arrow-normal.png') center top 6px no-repeat;
+    opacity: 0.3;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
   &.active {
-    background: asset-data-url('evidence-arrows/up-arrow-clicked.png') center top 5px no-repeat;
+    background: asset-data-url('evidence-arrows/up-arrow-active.png') center top 6px no-repeat #fff;
+    opacity: 1;
   }
 }
 
 .evidence-vote-down {
   width: @impactCircleDiameter;
   height: @arrowHeight + 10px;
-  background: asset-data-url('evidence-arrows/down-arrow-unclicked.png') center bottom 5px no-repeat;
+  background: asset-data-url('evidence-arrows/down-arrow-normal.png') center center no-repeat;
   opacity: 0.7;
+  margin-top: 2px;
+  border: 1px solid transparent;
 
   &:hover {
     opacity: 1;
   }
 
+  &.inactive {
+    background: asset-data-url('evidence-arrows/down-arrow-normal.png') center center no-repeat;
+    opacity: 0.3;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
   &.active {
-    background: asset-data-url('evidence-arrows/down-arrow-clicked.png') center bottom 5px no-repeat;
+    background: asset-data-url('evidence-arrows/down-arrow-active.png') center center no-repeat #fff;
+    border-radius: @baseBorderRadius;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    opacity: 1;
   }
 }
 

@@ -18,8 +18,12 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
     @_updateValues()
 
   _updateValues: ->
-    @ui.upButton.toggleClass 'active', @model.get('current_user_opinion') == 'believes'
+    @ui.upButton.toggleClass   'active', @model.get('current_user_opinion') == 'believes'
     @ui.downButton.toggleClass 'active', @model.get('current_user_opinion') == 'disbelieves'
+
+    @ui.downButton.toggleClass 'inactive', @model.get('current_user_opinion') == 'believes'
+    @ui.upButton.toggleClass   'inactive', @model.get('current_user_opinion') == 'disbelieves'
+
     @ui.relevance.text format_as_short_number(@model.relevance())
 
   _on_up_vote: ->
