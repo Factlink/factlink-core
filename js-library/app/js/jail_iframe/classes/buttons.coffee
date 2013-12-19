@@ -8,7 +8,6 @@ class Button
     @frame.resizeFrame()
     @$el = $(el)
 
-
   startLoading: => @$el.addClass "fl-loading"
   stopLoading:  => @$el.removeClass  "fl-loading"
 
@@ -28,17 +27,14 @@ class Button
     @frame.$el.addClass 'factlink-control-visible'
     console.log @el.className
 
-
   hide: =>
     @$el.removeClass 'active'
     @frame.$el.removeClass 'factlink-control-visible'
     console.log 'hiding frame'
 
-
   destroy: =>
     @frame.destroy()
     console.log 'destroying frame'
-
 
 class FactlinkJailRoot.ShowButton extends Button
   content: """

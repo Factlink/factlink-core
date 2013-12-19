@@ -39,4 +39,5 @@ showNotification = (options) ->
   remove = ->
     $el.removeClass 'factlink-control-visible'
     setTimeout (-> $el.remove()), removal_delay
+
   render()
