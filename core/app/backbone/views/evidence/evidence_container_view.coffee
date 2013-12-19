@@ -35,14 +35,12 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     collectionRegion: '.js-collection-region'
     addArgumentRegion: '.js-add-argument-region'
     formRegion: '.js-form-region'
-    learnMoreRegion: '.js-learn-more-region'
 
   collectionEvents:
     'request sync': '_updateLoading'
 
   ui:
     loading: '.js-evidence-loading'
-    loaded: '.js-evidence-loaded'
     addArgumentRegion: '.js-add-argument-region'
     formRegion: '.js-form-region'
 
@@ -51,9 +49,6 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     @listenTo @_factVotes, 'change:current_user_opinion', @_updateForm
 
   onRender: ->
-    unless Factlink.Global.signed_in
-      @learnMoreRegion.show new LearnMoreView
-
     @addArgumentRegion.show new AddOpinionOrEvidenceView collection: @collection
     @formRegion.show new AddEvidenceFormView collection: @collection
     @collectionRegion.show new EvidenceCollectionView collection: @collection
@@ -61,8 +56,7 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     @_updateForm()
 
   _updateLoading: ->
-    @ui.loading.toggle !!@collection.loading()
-    @ui.loaded.toggle !@collection.loading()
+    @ui.loading.toggle @collection.loading()
 
   _updateForm: ->
     showForm = @_factVotes.get('current_user_opinion') != 'no_vote'
