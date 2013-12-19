@@ -3,7 +3,7 @@ class Button
     @$el = $(@content)
     @$el.appendTo(FactlinkJailRoot.$factlinkCoreContainer)
     for event, callback of dom_events
-      @$el.bind event, callback
+      @$el.on event, callback
 
   startLoading: => @$el.addClass    "fl-loading"
   stopLoading:  => @$el.removeClass "fl-loading"

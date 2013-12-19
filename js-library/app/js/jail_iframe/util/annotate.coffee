@@ -19,7 +19,7 @@ FactlinkJailRoot.startAnnotating = ->
 
   console.info "FactlinkJailRoot:", "startAnnotating"
 
-  $("body").bind "mouseup.factlink", (event) ->
+  $("body").on "mouseup.factlink", (event) ->
     window.clearTimeout timeout
     FactlinkJailRoot.createButton.hide()
 
@@ -46,4 +46,4 @@ FactlinkJailRoot.stopAnnotating = ->
 
   console.info "FactlinkJailRoot:", "stopAnnotating"
   FactlinkJailRoot.createButton.hide()
-  $("body").unbind "mouseup.factlink"
+  $("body").off "mouseup.factlink"
