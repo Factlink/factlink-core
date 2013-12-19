@@ -24,8 +24,6 @@
 .evidence-vote {
   position: absolute;
   left: 0;
-  border-top-left-radius: @baseBorderRadius;
-  border-top-right-radius: @baseBorderRadius;
   width:  @impactCircleDiameter;
 }
 
@@ -51,63 +49,58 @@
 }
 
 // Voting arrows
-.evidence-vote-up, .evidence-vote-down {
+.evidence-vote-up,
+.evidence-vote-down {
   display: block;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.inactive {
+    opacity: 0.3;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &.active {
+    opacity: 1;
+  }
 }
 
 .evidence-vote-up {
   height: @arrowHeight + @impactCircleDiameter;
   background: asset-data-url('evidence-arrows/up-arrow-normal.png') center top 6px no-repeat #eeeff1;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  opacity: 0.7;
   border-top-left-radius: @baseBorderRadius;
   border-top-right-radius: @baseBorderRadius;
 
-  &:hover {
-    opacity: 1;
-  }
-
   &.inactive {
     background: asset-data-url('evidence-arrows/up-arrow-normal.png') center top 6px no-repeat;
-    opacity: 0.3;
-    &:hover {
-      opacity: 0.8;
-    }
   }
 
   &.active {
     background: asset-data-url('evidence-arrows/up-arrow-active.png') center top 6px no-repeat #fff;
-    opacity: 1;
   }
 }
 
 .evidence-vote-down {
-  width: @impactCircleDiameter;
   height: @arrowHeight + 10px;
-  background: asset-data-url('evidence-arrows/down-arrow-normal.png') center center no-repeat;
-  opacity: 0.7;
+  border-color: transparent;
   margin-top: 2px;
-  border: 1px solid transparent;
-
-  &:hover {
-    opacity: 1;
-  }
+  background: asset-data-url('evidence-arrows/down-arrow-normal.png') center center no-repeat;
 
   &.inactive {
     background: asset-data-url('evidence-arrows/down-arrow-normal.png') center center no-repeat;
-    opacity: 0.3;
-    &:hover {
-      opacity: 0.8;
-    }
   }
 
   &.active {
     background: asset-data-url('evidence-arrows/down-arrow-active.png') center center no-repeat #fff;
-    border-radius: @baseBorderRadius;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    opacity: 1;
+    border-bottom-right-radius: @baseBorderRadius;
+    border-bottom-left-radius: @baseBorderRadius;
+    border-color: rgba(0, 0, 0, 0.15);
   }
 }
 
