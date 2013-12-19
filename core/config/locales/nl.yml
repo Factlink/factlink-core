@@ -28,7 +28,8 @@ nl:
   fact_remove_opinion_past_action: "trok zijn mening terug"
   fact_add_evidence_past_action: "voegde argument toe"
 
-  post_comment: "Post bericht"
+  post_argument: "Post"
+  post_subcomment: "Reageer"
 
   channel: "kanaal"
   channels: "kanalen"
