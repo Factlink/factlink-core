@@ -11,13 +11,14 @@
 @media only screen and (min-device-width: 1025px) {
   %fadable-control {
     transition: opacity $control_visibility_transition_time,
-    visibility 0 $control_visibility_transition_time;
+    visibility 0s $control_visibility_transition_time;
+    //note the time unit is REQUIRED even for 0s!  FF won't accept 0.
     opacity: 0;
 
     &.factlink-control-visible {
       opacity: 1;
       transition: opacity $control_visibility_transition_time,
-      visibility 0 0;
+      visibility 0s 0s;
     }
   }
 }
