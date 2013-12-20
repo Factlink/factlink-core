@@ -1,5 +1,9 @@
 control_visibility_transition_time = 300+1000/60 #keep in sync with scss
 
+# future work: ideally, we'd help consumers of this class to load
+# complete dom fragments including event hooks into the frame,
+# thus avoiding then need for frame introspection.
+
 class FactlinkJailRoot.ControlIframe
   constructor: ->
     @el = document.createElement('iframe')
