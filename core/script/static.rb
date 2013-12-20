@@ -13,7 +13,7 @@ serverport = static_conf['port']
 
 #TODO save this in the static settings when we want to use this elsewhere
 paths = [
-  {:path => '/lib/dist',   :filepath => File.join(coredir, '../js-library/dist')},
+  {:path => '/lib/dist',   :filepath => File.join(coredir, '../js-library/output/dist')},
   {:path => '/proxy', :filepath => File.join(coredir, '../web-proxy/static')},
   {:path => '/chrome', :filepath => File.join(coredir, '../chrome-extension/build')},
   {:path => '/extension/firefox', :filepath => File.join(coredir, '../firefox-extension/build')}
@@ -28,7 +28,7 @@ app = Rack::Builder.new do
     end
   end
   map '/jslib' do
-    jslibdir = Rack::Directory.new('../js-library/dist')
+    jslibdir = Rack::Directory.new('../js-library/output/dist')
     lambda do |env|
       env['PATH_INFO'] = env['PATH_INFO'].gsub(/^\/[^\/]*/, '')
       jslibdir.call env
