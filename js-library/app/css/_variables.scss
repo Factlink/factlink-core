@@ -3,7 +3,7 @@ $z-index      : $max-z-index - 3; // max z-index supported: 2147483647
 $border-color : #1c5c90;
 $buttonBackground: rgba(32,32,32,0.6);
 
-$control_visibility_transition_time : 300ms; //keep in sync with buttons.coffee!
+$control_visibility_transition_time : 300ms; //keep in sync with coffeescript
 $highlight_visibility_transition_time: 200ms;
 
 %default-font {
