@@ -5,7 +5,7 @@ class OpinionatorsController < ApplicationController
     # TODO: Make an interactor that does this once we get rid of "show"
     fact_id = params[:fact_id].to_i
 
-    @interactors = interactor(:'facts/votes', fact_id: fact_id)
+    @votes = interactor(:'facts/votes', fact_id: fact_id)
     render :index, formats: ['json']
   end
 end
