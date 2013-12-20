@@ -29,7 +29,7 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
   initialize: ->
     @_tally = @model.getFactTally()
     @listenTo @_tally, 'change:current_user_opinion', @_updateActiveCell
-    @listenTo @_tally, 'sync', -> @_opinionatorsCollection.fetch()
+    @listenTo @_tally, 'sync', -> @collection.fetch()
 
     @collection = @model.getVotes()
     @collection.fetch()
