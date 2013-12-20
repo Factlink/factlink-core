@@ -5,7 +5,7 @@ module Queries
     class Opinionators
       include Pavlov::Query
 
-      arguments :fact_id, :opinion
+      arguments :fact_id, :type
 
       private
 
@@ -14,7 +14,7 @@ module Queries
       end
 
       def users
-        users_who(opinion).map(&:user)
+        users_who(type).map(&:user)
       end
 
       def users_who(type)
