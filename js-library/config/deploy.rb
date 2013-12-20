@@ -26,4 +26,4 @@ set :normalize_asset_timestamps, false
 
 #after "deploy", "deploy:build"
 
-#after 'deploy:update', 'deploy:cleanup'
+after 'deploy:update', 'deploy:cleanup'
