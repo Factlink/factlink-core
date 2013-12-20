@@ -161,6 +161,7 @@ class Ability
     memory_profiling
     suppress_double_scrollbar
     hide_factwheel
+    christmas_background
   )
 
   def enabled_global_features
