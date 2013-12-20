@@ -41,7 +41,7 @@ showNotification = (options) ->
   doTransition = ->
     frame
       .fadeIn()
-      .then(-> FactlinkJailRoot.Timer(in_screen_time))
+      .then(-> FactlinkJailRoot.delay(in_screen_time))
       .then(-> frame.fadeOut())
       .then(-> frame.destroy())
 

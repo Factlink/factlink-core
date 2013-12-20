@@ -1,4 +1,4 @@
-FactlinkJailRoot.Timer = (delay) ->
+FactlinkJailRoot.delay = (delay_timeout_milliseconds) ->
   deferred = $.Deferred()
-  setTimeout( (-> deferred.resolve()), delay)
+  setTimeout( (-> deferred.resolve()), delay_timeout_milliseconds)
   deferred.promise()
