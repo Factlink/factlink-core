@@ -8,8 +8,14 @@
       "following_count": 2
     },
     "top_user_topics": [
-      "stuff",
-      "other_stuff"
+      {
+        "slug_tite": "foo",
+        "title": "Foo"
+      },
+      {
+        "slug_tite": "bar",
+        "title": "Bar"
+      }
     ]
   }
 ]

@@ -13,7 +13,10 @@ describe Queries::UsersByIds do
   describe '#call' do
     it 'returns the good objects' do
       top_topics_limit = 10
-      top_user_topics = ['stuff', 'other_stuff']
+      top_user_topics = [
+        DeadUserTopic.new('foo', 'Foo'),
+        DeadUserTopic.new('bar', 'Bar')
+      ]
       graph_user = double(id: '10', sorted_created_facts: double(size: 14))
       user = double(graph_user: graph_user, id: 'a1')
       query = described_class.new(user_ids: [0], top_topics_limit: top_topics_limit)
