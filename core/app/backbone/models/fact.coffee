@@ -32,6 +32,9 @@ class window.Fact extends Backbone.Model
   getFactTally: ->
     @_fact_tally ?= new FactTally @get("tally"), fact: this
 
+  getVotes: ->
+    @_votes ?= new Votes [], fact: @
+
   clientLink: -> "/client/facts/#{@id}"
 
   user: -> new User(@get("created_by"))

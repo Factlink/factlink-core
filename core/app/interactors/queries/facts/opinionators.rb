@@ -5,19 +5,16 @@ module Queries
     class Opinionators
       include Pavlov::Query
 
-      arguments :fact_id, :opinion
+      arguments :fact_id, :type
 
       private
 
       def execute
-        {
-          users: users.map { |u| KillObject.user u },
-          total: users.size
-        }
+        users.map { |u| KillObject.user u }
       end
 
       def users
-        @users ||= users_who(opinion).map(&:user)
+        users_who(type).map(&:user)
       end
 
       def users_who(type)
