@@ -19,18 +19,18 @@ class FactlinkJailRoot.ControlIframe
     style = @doc.createElement('style')
     style.appendChild(@doc.createTextNode(FrameCss))
     @doc.head.appendChild(style)
+    @frameBody = @doc.body
 
   setContent: (contentNode) ->
     bodyEl = @doc.body
     while bodyEl.firstChild
       bodyEl.removeChild(bodyEl.firstChild)
     bodyEl.appendChild(contentNode)
-    @resizeFrame()
+    @sizeFrameToFitContent()
 
-
-  resizeFrame: ->
-    @el.style.width = @doc.body.clientWidth  + 'px'
-    @el.style.height = @doc.body.clientHeight + 'px'
+  sizeFrameToFitContent: ->
+    @el.style.width = @frameBody.clientWidth  + 'px'
+    @el.style.height = @frameBody.clientHeight + 'px'
 
   fadeIn: ->
     @$el.addClass 'factlink-control-visible'
