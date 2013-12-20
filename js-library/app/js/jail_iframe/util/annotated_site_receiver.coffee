@@ -1,6 +1,6 @@
 # Object which holds the methods that can be called from the factlink core iframe
 
-modalCloseTimeoutHandle = null
+modalOpen = false
 
 FactlinkJailRoot.annotatedSiteReceiver =
   modalFrameReady: (featureToggles) ->
@@ -8,10 +8,9 @@ FactlinkJailRoot.annotatedSiteReceiver =
     window.FACTLINK_ON_CORE_LOAD?()
 
   openModalOverlay: ->
-    if modalCloseTimeoutHandle
-      clearTimeout(modalCloseTimeoutHandle)
-      modalCloseTimeoutHandle = null
-    $("#factlink-modal-frame").addClass 'factlink-control-visible'
+    return if modalOpen
+    FactlinkJailRoot.$modalFrame.addClass 'factlink-control-visible'
+    modalOpen = true
     FactlinkJailRoot.trigger 'modalOpened'
 
   highlightNewFactlink: (displaystring, id) ->
@@ -19,8 +18,12 @@ FactlinkJailRoot.annotatedSiteReceiver =
     FactlinkJailRoot.trigger 'factlinkAdded'
 
   closeModal_noAction: ->
-    $("#factlink-modal-frame").removeClass 'factlink-control-visible'
-    modalCloseTimeoutHandle = setTimeout(-> FactlinkJailRoot.trigger 'modalClosed', 300)
+    FactlinkJailRoot.$modalFrame.removeClass 'factlink-control-visible'
+    setTimeout( ->
+      return unless modalOpen
+      modalOpen = true
+      FactlinkJailRoot.trigger 'modalClosed'
+    , 300)
 
   # For compatibility, please remove the next time you see this
   closeModal_highlightNewFactlink: (displaystring, id) ->

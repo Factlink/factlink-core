@@ -7,3 +7,5 @@ iframe.src = "#{FactlinkConfig.api}/client/blank"
 FactlinkJailRoot.factlinkCoreEnvoy = FactlinkJailRoot.createSenderEnvoy iframe.contentWindow
 
 FactlinkJailRoot.openFactlinkModal = (id) -> FactlinkJailRoot.factlinkCoreEnvoy 'showFactlink', id
+
+FactlinkJailRoot.$modalFrame = $(iframe)
