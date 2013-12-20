@@ -39,11 +39,11 @@ module Queries
     end
 
     def followers_count graph_user
-      UserFollowingUsers.new(graph_user.id).following_count
+      UserFollowingUsers.new(graph_user.id).followers_count
     end
 
     def following_count graph_user
-      UserFollowingUsers.new(graph_user.id).followers_count
+      UserFollowingUsers.new(graph_user.id).following_count
     end
 
     def top_user_topics user
