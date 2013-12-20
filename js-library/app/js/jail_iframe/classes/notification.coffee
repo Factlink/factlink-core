@@ -9,7 +9,6 @@ FactlinkJailRoot.showLoadedNotification = ->
     type_classes: 'fl-message-icon-time fl-message-success'
 
 in_screen_time = 3000
-removal_delay = 350 # Should be larger than notification_transition_time
 content = """
   <div class="fl-message">
     <div class="fl-message-icon"></div><span class="fl-message-content fl-js-message"></span>
@@ -23,8 +22,7 @@ showNotification = (options) ->
     frame = new FactlinkJailRoot.ControlIframe()
     fillFrame()
     positionFrame()
-    frame.$el.addClass 'factlink-control-visible'
-    setTimeout(remove, in_screen_time)
+    doTransition()
 
   fillFrame = ->
     frame.setContent($.parseHTML(content)[0])
@@ -40,9 +38,12 @@ showNotification = (options) ->
       position: 'fixed',
       marginLeft: "-#{frame.$el.width()/2}px"
 
-  remove = ->
-    frame.$el.removeClass 'factlink-control-visible'
-    setTimeout (-> frame.destroy()), removal_delay
+  doTransition = ->
+    frame
+      .fadeIn()
+      .then(-> FactlinkJailRoot.Timer(in_screen_time))
+      .then(-> frame.fadeOut())
+      .then(-> frame.destroy())
 
   renderFrame()
   return
