@@ -111,10 +111,8 @@ module.exports = (grunt) ->
           { src: ['*.js', '*.js.gz', 'robots.txt'], cwd: 'build', dest: 'dist', expand: true }
         ]
     watch:
-      files: ['app/**/*', 'test/**/*', 'Gruntfile.coffee']
-      tasks: ['compile'] # , 'test']
-    qunit:
-      all: ['test/*.html']
+      files: ['app/**/*', 'Gruntfile.coffee']
+      tasks: ['default']
 
   grunt.task.registerTask 'code_inliner', 'Inline code from one file into another',  ->
     min_filename = (filename) -> filename.replace(/\.\w+$/,'.min$&')
@@ -157,9 +155,8 @@ module.exports = (grunt) ->
     'concat', 'uglify', 'code_inliner',
     'shell:gzip_js_files', 'copy:dist'
   ]
-  grunt.registerTask 'test',    ['qunit']
 
-  grunt.registerTask 'default', ['compile'] #, 'test'
+  grunt.registerTask 'default', ['compile']
   grunt.registerTask 'server',  ['compile']
 
   grunt.loadNpmTasks 'grunt-contrib-sass'
@@ -167,7 +164,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-watch'
-  grunt.loadNpmTasks 'grunt-contrib-qunit'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
   grunt.loadNpmTasks 'grunt-contrib-clean'
