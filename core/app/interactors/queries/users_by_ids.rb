@@ -33,9 +33,17 @@ module Queries
     def statistics graph_user
       {
         created_fact_count: graph_user.sorted_created_facts.size,
-        follower_count: query(:'users/follower_count', graph_user_id: graph_user.id),
-        following_count: query(:'users/following_count', graph_user_id: graph_user.id)
+        follower_count: followers_count(graph_user),
+        following_count: following_count(graph_user)
       }
+    end
+
+    def followers_count graph_user
+      UserFollowingUsers.new(graph_user.id).following_count
+    end
+
+    def following_count graph_user
+      UserFollowingUsers.new(graph_user.id).followers_count
     end
 
     def top_user_topics user_id
