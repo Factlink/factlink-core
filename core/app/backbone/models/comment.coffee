@@ -20,6 +20,6 @@ class window.Comment extends Evidence
 
   urlRoot: -> @collection.commentsUrl()
 
-  argumentVotes: ->
-    @_argumentVotes ?= new ArgumentVotes @get('argument_votes'),
+  argumentTally: ->
+    @_argumentTally ?= new ArgumentTally @get('argument_votes'),
       argument: this

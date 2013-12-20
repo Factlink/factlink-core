@@ -1,4 +1,4 @@
-class window.ArgumentVotes extends Backbone.Model
+class window.ArgumentTally extends Backbone.Model
   defaults:
     believes: 0
     disbelieves: 0

@@ -39,7 +39,7 @@ class window.FactRelationOrCommentView extends Backbone.Marionette.Layout
   _factBaseView: ->
     view = new FactBaseView model: @model.getFact()
 
-    @listenTo @model.getFact().getFactVotes(), 'sync', ->
+    @listenTo @model.getFact().getFactTally(), 'sync', ->
       @model.fetch()
 
     view
