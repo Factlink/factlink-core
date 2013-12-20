@@ -20,7 +20,7 @@
   },
   "created_by_ago": "Posted 1 minute ago",
   "fact_title": "title",
-  "fact_votes": {
+  "tally": {
     "believes": 1,
     "disbelieves": 0,
     "doubts": 0,

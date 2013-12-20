@@ -22,8 +22,8 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
 
   initialize: ->
     @_argumentTypeModel = new Backbone.Model
-    @_factVotes = @collection.fact.getFactVotes()
-    @listenTo @_factVotes, 'change:current_user_opinion', @_setArgumentTypeToOpinion
+    @_factTally = @collection.fact.getFactTally()
+    @listenTo @_factTally, 'change:current_user_opinion', @_setArgumentTypeToOpinion
 
     @_searchView = new AutoCompleteFactRelationsView
       collection: @_filtered_facts()
@@ -56,7 +56,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     @_updateQuestion()
 
   _setArgumentTypeToOpinion: ->
-    opinion = @_factVotes.get('current_user_opinion')
+    opinion = @_factTally.get('current_user_opinion')
     opinion = 'doubts' if opinion == 'no_vote'
 
     @$("input[name=argumentType][value=#{opinion}]").prop('checked', true)

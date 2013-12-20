@@ -11,15 +11,15 @@ class window.FactBaseView extends Backbone.Marionette.Layout
     @factBodyRegion.show @bodyView()
 
   wheelView: ->
-    votes = @model.getFactVotes()
+    tally = @model.getFactTally()
 
     wheelView = new FactWheelView
       fact: @model.attributes
-      model: votes
+      model: tally
       respondsToMouse: Factlink.Global.signed_in
 
     @listenTo @model, 'change', ->
-      votes.set @model.get("fact_votes")
+      tally.set @model.get("tally")
       wheelView.render()
 
     wheelView

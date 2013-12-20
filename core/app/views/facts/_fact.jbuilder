@@ -25,7 +25,7 @@ end
 json.created_by_ago "Posted #{TimeFormatter.as_time_ago dead_fact.created_at} ago"
 
 json.fact_title dead_fact.title
-json.fact_votes do |j|
+json.tally do |j|
   j.partial! 'believable/votes', votes: dead_fact.votes
 end
 

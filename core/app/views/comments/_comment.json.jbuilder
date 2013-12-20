@@ -11,7 +11,7 @@ end
 
 json.time_ago TimeFormatter.as_time_ago(comment.created_at)
 
-json.argument_votes do |j|
+json.tally do |j|
   j.partial! 'believable/votes', votes: comment.votes
 end
 
