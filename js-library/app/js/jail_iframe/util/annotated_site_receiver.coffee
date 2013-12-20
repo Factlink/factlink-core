@@ -21,7 +21,7 @@ FactlinkJailRoot.annotatedSiteReceiver =
     FactlinkJailRoot.$modalFrame.removeClass 'factlink-control-visible'
     setTimeout( ->
       return unless modalOpen
-      modalOpen = true
+      modalOpen = false
       FactlinkJailRoot.trigger 'modalClosed'
     , 300)
 
