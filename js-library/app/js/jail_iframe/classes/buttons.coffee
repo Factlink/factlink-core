@@ -2,7 +2,7 @@ class Button
   constructor: (dom_events={}) ->
     @frame = new FactlinkJailRoot.ControlIframe()
     @frame.setContent($.parseHTML(@content.trim())[0])
-    @$el =  $(@frame.doc.body.firstChild)
+    @$el =  $(@frame.frameBody.firstChild)
     for event, callback of dom_events
       @$el.on event, callback
 

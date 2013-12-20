@@ -26,7 +26,7 @@ showNotification = (options) ->
 
   fillFrame = ->
     frame.setContent($.parseHTML(content)[0])
-    $el = $(frame.doc.body.firstChild)
+    $el = $(frame.frameBody.firstChild)
     $el.find('.fl-js-message').text(options.message)
     $el.addClass(options.type_classes)
     frame.sizeFrameToFitContent()
