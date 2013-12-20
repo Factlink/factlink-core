@@ -21,9 +21,8 @@ describe Queries::UserTopics::TopForUser do
       graph_user = double(sorted_created_facts: sorted_created_facts)
       user = double(id: 'a1', graph_user: graph_user)
 
-      query = described_class.new user_id: user.id, limit_topics: 1
+      query = described_class.new user: user, limit_topics: 1
 
-      User.stub(:find).with(user.id).and_return(user)
       Channel.stub(:[]).with(channel1.id).and_return(channel1)
       Channel.stub(:[]).with(channel2.id).and_return(channel2)
 
@@ -36,9 +35,7 @@ describe Queries::UserTopics::TopForUser do
       graph_user = double(sorted_created_facts: sorted_created_facts)
       user = double(id: 'a1', graph_user: graph_user)
 
-      query = described_class.new user_id: user.id, limit_topics: 1
-
-      User.stub(:find).with(user.id).and_return(user)
+      query = described_class.new user: user, limit_topics: 1
 
       expect(query.call).to eq []
     end
@@ -49,9 +46,8 @@ describe Queries::UserTopics::TopForUser do
       graph_user = double(sorted_created_facts: sorted_created_facts)
       user = double(id: 'a1', graph_user: graph_user)
 
-      query = described_class.new user_id: user.id, limit_topics: 1
+      query = described_class.new user: user, limit_topics: 1
 
-      User.stub(:find).with(user.id).and_return(user)
       Channel.stub(:[])
 
       expect(query.call).to eq []
@@ -62,9 +58,7 @@ describe Queries::UserTopics::TopForUser do
       graph_user = double(sorted_created_facts: sorted_created_facts)
       user = double(id: 'a1', graph_user: graph_user)
 
-      query = described_class.new user_id: user.id, limit_topics: 1
-
-      User.stub(:find).with(user.id).and_return(user)
+      query = described_class.new user: user, limit_topics: 1
 
       expect(query.call).to eq []
     end

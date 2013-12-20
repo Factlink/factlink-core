@@ -27,7 +27,7 @@ module Queries
       graph_user = user.graph_user
       KillObject.user user,
         statistics: statistics(graph_user),
-        top_user_topics: top_user_topics(user.id)
+        top_user_topics: top_user_topics(user)
     end
 
     def statistics graph_user
@@ -46,9 +46,9 @@ module Queries
       UserFollowingUsers.new(graph_user.id).followers_count
     end
 
-    def top_user_topics user_id
+    def top_user_topics user
       query(:'user_topics/top_for_user',
-            user_id: user_id.to_s, limit_topics: top_topics_limit)
+            user: user, limit_topics: top_topics_limit)
     end
   end
 end

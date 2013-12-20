@@ -15,32 +15,6 @@ describe 'top user topics per user' do
     end
   end
 
-  context 'after creating some topics' do
-    it 'has no last used topics' do
-      as(user) do |pavlov|
-        topic1 = pavlov.command(:'topics/create', title: 'Foo')
-        topic2 = pavlov.command(:'topics/create', title: 'Bar')
-
-        results = pavlov.query(:'user_topics/top_for_user',
-                                 user_id: user.id.to_s, limit_topics: 10)
-        expect(results).to eq []
-      end
-    end
-  end
-
-  context 'after creating some channels' do
-    it 'has no last used topics' do
-      as(user) do |pavlov|
-        topic1 = pavlov.command(:'channels/create', title: 'Foo')
-        topic2 = pavlov.command(:'channels/create', title: 'Bar')
-
-        results = pavlov.query(:'user_topics/top_for_user',
-                                 user_id: user.id.to_s, limit_topics: 10)
-        expect(results).to eq []
-      end
-    end
-  end
-
   context 'after posting to some channels' do
     it 'has those as last used topics' do
       as(user) do |pavlov|
