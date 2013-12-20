@@ -12,29 +12,29 @@ set :user, "deploy"
 set :use_sudo,    false
 
 # Repository
-set :scm, :git
-set :repository,  "git@github.com:Factlink/js-library.git"
+set :scm, :none
+set :repository,  "."
 
 set :deploy_to, "/applications/#{application}"
-set :deploy_via, :remote_cache    # only fetch changes since since last
+set :deploy_via, :copy    # only fetch changes since since last
 
 ssh_options[:forward_agent] = true
 
 # don't touch all static files:
 set :normalize_asset_timestamps, false
 
-namespace :deploy do
-  task :prepare do
-    run "cd #{current_path}; npm install;"
-  end
+#namespace :deploy do
+#  task :prepare do
+#    run "cd #{current_path}; npm install;"
+#  end
+#
+#  task :build do
+#    run "cd #{current_path}; grunt server;"
+#  end
+#end
 
-  task :build do
-    run "cd #{current_path}; grunt server;"
-  end
-end
+#before "deploy:build", "deploy:prepare"
 
-before "deploy:build", "deploy:prepare"
+#after "deploy", "deploy:build"
 
-after "deploy", "deploy:build"
-
-after 'deploy:update', 'deploy:cleanup'
+#after 'deploy:update', 'deploy:cleanup'
