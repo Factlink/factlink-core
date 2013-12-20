@@ -22,9 +22,7 @@ class FactlinkJailRoot.ControlIframe
     @frameBody = @doc.body
 
   setContent: (contentNode) ->
-    bodyEl = @doc.body
-    while bodyEl.firstChild
-      bodyEl.removeChild(bodyEl.firstChild)
+    @frameBody.innerHTML = '';
     @frameBody.appendChild(contentNode)
     @sizeFrameToFitContent()
 
