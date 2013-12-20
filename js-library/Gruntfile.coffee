@@ -109,7 +109,7 @@ module.exports = (grunt) ->
         ]
       dist:
         files: [
-          { src: ['*.js', '*.js.gz', 'robots.txt'], cwd: 'build', dest: 'dist', expand: true }
+          { src: ['*.js', '*.js.gz', 'robots.txt'], cwd: 'build', dest: 'output/dist', expand: true }
         ]
     watch:
       files: ['app/**/*', 'Gruntfile.coffee']

@@ -1,6 +1,7 @@
 .DS_Store
 build/
 dist/
+output/
 node_modules/
 dump.rdb
 tmp

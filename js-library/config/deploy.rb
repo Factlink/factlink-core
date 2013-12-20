@@ -13,7 +13,7 @@ set :use_sudo,    false
 
 # Repository
 set :scm, :none
-set :repository,  "."
+set :repository,  "./output"
 
 set :deploy_to, "/applications/#{application}"
 set :deploy_via, :copy    # only fetch changes since since last
