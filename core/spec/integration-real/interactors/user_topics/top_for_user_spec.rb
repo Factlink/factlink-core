@@ -9,7 +9,7 @@ describe 'top user topics per user' do
     it 'has no last used topics' do
       as(user) do |pavlov|
         results = pavlov.query(:'user_topics/top_for_user',
-                                 user_id: user.id.to_s, limit_topics: 10)
+                                 user: user, limit_topics: 10)
         expect(results).to eq []
       end
     end
@@ -27,7 +27,7 @@ describe 'top user topics per user' do
         pavlov.interactor(:'channels/add_fact', fact: factlink, channel: channel2)
 
         results = pavlov.query(:'user_topics/top_for_user',
-                                 user_id: user.id.to_s, limit_topics: 10)
+                                 user: user, limit_topics: 10)
 
         expect(results).to match_array [
           DeadUserTopic.new('foo', 'Foo'),
