@@ -21,5 +21,5 @@ class window.Comment extends Evidence
   urlRoot: -> @collection.commentsUrl()
 
   argumentTally: ->
-    @_argumentTally ?= new ArgumentTally @get('argument_votes'),
+    @_argumentTally ?= new ArgumentTally @get('tally'),
       argument: this

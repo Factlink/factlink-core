@@ -5,7 +5,7 @@ class window.FactRelation extends Evidence
     sub_comments_count: 0
 
   argumentTally: ->
-    @_argumentTally ?= new ArgumentTally @get('argument_votes'),
+    @_argumentTally ?= new ArgumentTally @get('tally'),
       argument: this
 
   getFact: ->
