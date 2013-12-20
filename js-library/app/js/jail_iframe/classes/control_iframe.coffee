@@ -38,8 +38,6 @@ class FactlinkJailRoot.ControlIframe
 
   fadeOut: ->
     @$el.removeClass 'factlink-control-visible'
-
-  #feature:should we communicate visibility to the control contents?
     FactlinkJailRoot.delay control_visibility_transition_time
 
   destroy: ->
