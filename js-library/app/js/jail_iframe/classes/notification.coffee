@@ -46,4 +46,3 @@ showNotification = (options) ->
       .then(-> frame.destroy())
 
   renderFrame()
-  return
