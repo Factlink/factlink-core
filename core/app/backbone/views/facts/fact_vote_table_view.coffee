@@ -35,12 +35,13 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
     @collection.fetch()
 
   appendHtml: (collectionView, itemView, index) ->
-    if itemView.model.get('type') == 'believes'
-      @ui.avatarsBelievesRegion.append itemView.el
-    if itemView.model.get('type') == 'disbelieves'
-      @ui.avatarsDisbelievesRegion.append itemView.el
-    if itemView.model.get('type') == 'doubts'
-      @ui.avatarsDoubtsRegion.append itemView.el
+    @typeRegionForVote(itemView.model).append itemView.el
+
+  typeRegionForVote:(model) ->
+    switch model.get('type')
+      when 'believes'    then @ui.avatarsBelievesRegion
+      when 'disbelieves' then @ui.avatarsDisbelievesRegion
+      when 'doubts'      then @ui.avatarsDoubtsRegion
 
   onRender: ->
     @_updateActiveCell()
