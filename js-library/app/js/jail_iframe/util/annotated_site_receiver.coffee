@@ -8,7 +8,9 @@ FactlinkJailRoot.annotatedSiteReceiver =
     window.FACTLINK_ON_CORE_LOAD?()
 
   openModalOverlay: ->
-    return if modalOpen
+    if modalOpen
+      console.error 'trying to open an already open modal: bug?'
+      return
     FactlinkJailRoot.$modalFrame.addClass 'factlink-control-visible'
     modalOpen = true
     FactlinkJailRoot.trigger 'modalOpened'
@@ -20,7 +22,9 @@ FactlinkJailRoot.annotatedSiteReceiver =
   closeModal_noAction: ->
     FactlinkJailRoot.$modalFrame.removeClass 'factlink-control-visible'
     setTimeout( ->
-      return unless modalOpen
+      if !modalOpen
+        console.error 'trying to close an already closed modal: bug?'
+        return
       modalOpen = false
       FactlinkJailRoot.trigger 'modalClosed'
     , 300)
