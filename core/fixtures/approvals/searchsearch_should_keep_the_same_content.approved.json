@@ -47,7 +47,7 @@
       },
       "created_by_ago": "Posted 1 minute ago",
       "fact_title": "Fact title 1",
-      "fact_votes": {
+      "tally": {
         "believes": 0,
         "disbelieves": 0,
         "doubts": 0,

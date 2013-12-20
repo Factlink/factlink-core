@@ -15,12 +15,12 @@ class EvidenceView extends Backbone.Marionette.Layout
   onRender: ->
     @$el.addClass @typeCss()
     @contentRegion.show new FactRelationOrCommentView model: @model
-    @listenTo @model.argumentVotes(), 'change', @_updateIrrelevance
+    @listenTo @model.argumentTally(), 'change', @_updateIrrelevance
     @_updateIrrelevance()
-    @voteRegion.show new EvidenceVoteView model: @model.argumentVotes()
+    @voteRegion.show new EvidenceVoteView model: @model.argumentTally()
 
   _updateIrrelevance: ->
-    relevant = @model.argumentVotes().relevance() >= 0
+    relevant = @model.argumentTally().relevance() >= 0
     @$el.toggleClass 'evidence-irrelevant', !relevant
 
 class EvidenceCollectionView extends Backbone.Marionette.CollectionView
@@ -45,7 +45,7 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     formRegion: '.js-form-region'
 
   initialize: ->
-    @_factVotes = @collection.fact.getFactVotes()
+    @_factVotes = @collection.fact.getFactTally()
     @listenTo @_factVotes, 'change:current_user_opinion', @_updateForm
 
   onRender: ->
