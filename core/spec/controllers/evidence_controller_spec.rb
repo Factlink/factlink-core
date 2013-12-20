@@ -52,11 +52,11 @@ describe EvidenceController do
 
         parsed_content = JSON.parse(response.body)
 
-        fact_votes = parsed_content["from_fact"]["fact_votes"]
+        tally = parsed_content["from_fact"]["tally"]
 
-        expect(fact_votes["believes"]).to eq 0
-        expect(fact_votes["doubts"]).to eq 0
-        expect(fact_votes["disbelieves"]).to eq 1
+        expect(tally["believes"]).to eq 0
+        expect(tally["doubts"]).to eq 0
+        expect(tally["disbelieves"]).to eq 1
       end
     end
   end

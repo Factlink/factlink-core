@@ -30,7 +30,7 @@ class window.Fact extends Backbone.Model
         opts.success?()
 
   getFactTally: ->
-    @_fact_tally ?= new FactTally @get("fact_votes"), fact: this
+    @_fact_tally ?= new FactTally @get("tally"), fact: this
 
   clientLink: -> "/client/facts/#{@id}"
 

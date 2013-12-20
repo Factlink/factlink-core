@@ -19,7 +19,7 @@ class window.FactBaseView extends Backbone.Marionette.Layout
       respondsToMouse: Factlink.Global.signed_in
 
     @listenTo @model, 'change', ->
-      tally.set @model.get("fact_votes")
+      tally.set @model.get("tally")
       wheelView.render()
 
     wheelView
