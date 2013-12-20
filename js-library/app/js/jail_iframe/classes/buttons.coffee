@@ -18,15 +18,11 @@ class Button
     FactlinkJailRoot.set_position_of_element @_top, @_left, window, @frame.$el
     #TODO:what's this line do?
     #FactlinkJailRoot.$factlinkCoreContainer.find('div.fl-button').removeClass('active')
-    @$el.addClass 'active'
-    @frame.$el.addClass 'factlink-control-visible'
+    @frame.fadeIn()
 
-  hide: =>
-    @$el.removeClass 'active'
-    @frame.$el.removeClass 'factlink-control-visible'
+  hide: => @frame.fadeOut()
 
-  destroy: =>
-    @frame.destroy()
+  destroy: => @frame.destroy()
 
 class FactlinkJailRoot.ShowButton extends Button
   content: """
