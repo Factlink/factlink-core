@@ -6,7 +6,7 @@ module Queries
       include Pavlov::Query
       include HashUtils
 
-      arguments :user_id, :limit_topics
+      arguments :user, :limit_topics
 
       private
 
@@ -28,10 +28,6 @@ module Queries
 
       def facts
         user.graph_user.sorted_created_facts.below '+inf', count: 3
-      end
-
-      def user
-        User.find(user_id)
       end
     end
   end

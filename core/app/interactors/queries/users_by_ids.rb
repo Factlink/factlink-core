@@ -27,20 +27,28 @@ module Queries
       graph_user = user.graph_user
       KillObject.user user,
         statistics: statistics(graph_user),
-        top_user_topics: top_user_topics(user.id)
+        top_user_topics: top_user_topics(user)
     end
 
     def statistics graph_user
       {
         created_fact_count: graph_user.sorted_created_facts.size,
-        follower_count: query(:'users/follower_count', graph_user_id: graph_user.id),
-        following_count: query(:'users/following_count', graph_user_id: graph_user.id)
+        follower_count: followers_count(graph_user),
+        following_count: following_count(graph_user)
       }
     end
 
-    def top_user_topics user_id
+    def followers_count graph_user
+      UserFollowingUsers.new(graph_user.id).followers_count
+    end
+
+    def following_count graph_user
+      UserFollowingUsers.new(graph_user.id).following_count
+    end
+
+    def top_user_topics user
       query(:'user_topics/top_for_user',
-            user_id: user_id.to_s, limit_topics: top_topics_limit)
+            user: user, limit_topics: top_topics_limit)
     end
   end
 end
