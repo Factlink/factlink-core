@@ -16,8 +16,6 @@ class Button
   show: =>
     @stopLoading()
     FactlinkJailRoot.set_position_of_element @_top, @_left, window, @frame.$el
-    #TODO:what's this line do?
-    #FactlinkJailRoot.$factlinkCoreContainer.find('div.fl-button').removeClass('active')
     @frame.fadeIn()
 
   hide: => @frame.fadeOut()
