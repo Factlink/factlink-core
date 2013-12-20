@@ -1,3 +1,5 @@
+control_visibility_transition_time = 300+1000/60 #keep in sync with scss
+
 class FactlinkJailRoot.ControlIframe
   constructor: ->
     @el = document.createElement('iframe')
@@ -21,12 +23,24 @@ class FactlinkJailRoot.ControlIframe
     bodyEl.appendChild(contentNode)
     @resizeFrame()
 
+
   resizeFrame: ->
     @el.style.width = @doc.body.clientWidth  + 'px'
     @el.style.height = @doc.body.clientHeight + 'px'
+
+  fadeIn: ->
+    @$el.addClass 'factlink-control-visible'
+    FactlinkJailRoot.Timer control_visibility_transition_time
+
+  fadeOut: ->
+    @$el.removeClass 'factlink-control-visible'
+    FactlinkJailRoot.Timer control_visibility_transition_time
+
+  #feature:should we communicate visibility to the control contents?
 
   destroy: ->
     return unless @el
     @doc = null
     @el.parentElement?.removeChild(@el)
     @$el = @el = null
+
