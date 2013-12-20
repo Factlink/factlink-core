@@ -27,10 +27,12 @@ body.discussion-modal-open {
 }
 
 .discussion {
-  width: @discussionModalWidth;
+  width: 90%;
+  min-width: @discussionModalMinWidth;
+  max-width: @discussionModalWidth;
   margin: 0 auto;
   cursor: auto;
   visibility: visible;
-  padding: 20px;
+  padding: 20px 0;
   box-sizing: content-box;
 }
