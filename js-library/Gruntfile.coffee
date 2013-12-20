@@ -57,6 +57,7 @@ module.exports = (grunt) ->
       build:
         options:
           bundleExec: true
+          noCache: true #workaround for https://github.com/gruntjs/grunt-contrib-sass/issues/63
         files:
           'build/css/basic_without_embeds.css': 'app/css/basic.scss'
           'build/css/framed_controls_without_embeds.css': 'app/css/framed_controls.scss'
