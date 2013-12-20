@@ -42,7 +42,6 @@ Inside of the Factlink JavaScript Library folder, you can run a few grunt tasks:
  * **concat** - Concatenate files.
  * **lint** - Validate files with JSHint.
  * **min** - Minify files with UglifyJS.
- * **qunit** - Run QUnit unit tests in a headless PhantomJS instance.
  * **server** - Start a static web server.
  * **watch** - Run predefined tasks whenever watched files change.
 
@@ -52,57 +51,3 @@ Run the commands inside the js-library directory with:
 $ grunt COMMAND
 ```
 
-## FAQ
-
-###Installing PhantomJS
-**Mac OS X**
-
-Install [Qt binary package](http://qt.nokia.com/downloads/qt-for-open-source-cpp-development-on-mac-os-x).
-
-Get the source:
-
-```bash
-$ git clone git://github.com/ariya/phantomjs.git && cd phantomjs && git checkout 1.4.1
-```
-
-Compile:
-
-```bash
-$ qmake -spec macx-g++ && make
-```
-
-For convenience, copy the executable bin/phantomjs to some directory in your PATH. (like /usr/bin)
-
-```bash
-$ sudo cp bin/phantomjs /usr/bin/phantomjs
-```
-
-## Documentation
-_(Coming soon)_
-
-## Examples
-After the Library is built, it's easy to include this library in any site.
-
-```html
-<html>
-  <head>
-    <title>Example page</title>
-    <script src="/path/to/factlink/library/dist/factlink_loader_publishers.js"></script>
-    <script>
-      function load() {
-        // Highlight all Factlinks on the current page
-        FactlinkJailRoot.startHighlighting();
-
-        // Enter annotation mode on the current page
-        FactlinkJailRoot.startAnnotating();
-      }
-    </script>
-  </head>
-  <body onload="load();">
-    <h1>Example page</h1>
-  </body>
-</html>
-```
-
-## License
-Copyright (c) 2012 Factlink
