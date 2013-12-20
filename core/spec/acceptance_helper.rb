@@ -55,6 +55,11 @@ RSpec.configure do |config|
   Capybara.javascript_driver = driver
   Capybara.default_driver = driver
 
+  Capybara.server do |app, port|
+    require 'rack/handler/thin'
+    Rack::Handler::Thin.run(app, :Port => port)
+  end
+
   Capybara.default_wait_time = 5
   Capybara.server_port = 3005
 
