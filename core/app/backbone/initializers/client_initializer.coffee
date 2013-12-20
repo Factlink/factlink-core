@@ -7,7 +7,6 @@ window.FactlinkAppMode.coreInClient = (app) ->
 
   new ClientRouter controller: new ClientController(annotatedSiteEnvoy)
 
-  FactlinkApp.clientCloseDiscussionModalInitializer annotatedSiteEnvoy
   app.vent.on 'close_discussion_modal', ->
     mp_track "Discussion Modal: Close (Button)"
     annotatedSiteEnvoy 'closeModal_noAction'

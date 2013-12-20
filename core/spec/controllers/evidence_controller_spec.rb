@@ -36,12 +36,12 @@ describe EvidenceController do
 
         parsed_content = JSON.parse(response.body)
 
-        argument_votes = parsed_content["argument_votes"]
+        tally = parsed_content["tally"]
 
-        expect(argument_votes["current_user_opinion"]).to eq 'believes'
-        expect(argument_votes["believes"]).to eq 1
-        expect(argument_votes["disbelieves"]).to eq 0
-        expect(argument_votes["doubts"]).to eq 0
+        expect(tally["current_user_opinion"]).to eq 'believes'
+        expect(tally["believes"]).to eq 1
+        expect(tally["disbelieves"]).to eq 0
+        expect(tally["doubts"]).to eq 0
       end
 
       it "should not set the user's opinion on the evidence to believe" do
@@ -52,11 +52,11 @@ describe EvidenceController do
 
         parsed_content = JSON.parse(response.body)
 
-        fact_votes = parsed_content["from_fact"]["fact_votes"]
+        tally = parsed_content["from_fact"]["tally"]
 
-        expect(fact_votes["believes"]).to eq 0
-        expect(fact_votes["doubts"]).to eq 0
-        expect(fact_votes["disbelieves"]).to eq 1
+        expect(tally["believes"]).to eq 0
+        expect(tally["doubts"]).to eq 0
+        expect(tally["disbelieves"]).to eq 1
       end
     end
   end

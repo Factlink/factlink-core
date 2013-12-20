@@ -1,13 +1,8 @@
 @import "bootstrap/mixins";
 
 // Layout variables
-@impactCircleDiameter: 53px;
+@voteButtonWidth: 30px;
 @impactColouredBorderWidth: 3px;
-@evidenceRelevanceTop: 10px;
-
-// Arrows:
-@arrowInnerSpacing: 8px;
-@arrowWidth: 21px;
 @arrowHeight: 12px;
 
 .evidence-container {
@@ -23,19 +18,16 @@
 // Relevance circles on the left
 .evidence-vote {
   position: absolute;
-  top: @evidenceRelevanceTop + @arrowHeight + @arrowInnerSpacing;
   left: 0;
-
-  .white-block-with-shadow();
-  width:  @impactCircleDiameter;
-  height: @impactCircleDiameter;
-  border-radius: 1000px;
+  width:  @voteButtonWidth;
 }
 
 .evidence-vote-relevance {
+  padding-top: @arrowHeight;
+
   .new-design-font();
   font-size: @heading1FontSize;
-  line-height: @impactCircleDiameter;
+  line-height: @voteButtonWidth;
   text-align: center;
 }
 
@@ -52,44 +44,66 @@
 }
 
 // Voting arrows
-.evidence-vote-up, .evidence-vote-down {
-  width: @arrowWidth;
-  height: @arrowHeight;
-  position: absolute;
-  left: @impactCircleDiameter/2 - @arrowWidth/2 + 1px;
-}
-
-.evidence-vote-up {
-  top: -@arrowHeight - @arrowInnerSpacing;
-  background: asset-data-url( 'evidence-arrows/up-arrow-unclicked.png');
+.evidence-vote-up,
+.evidence-vote-down {
+  display: block;
+  border: 1px solid rgba(0, 0, 0, 0.15);
   opacity: 0.7;
 
   &:hover {
     opacity: 1;
   }
+}
 
-  &.active {
-    background: asset-data-url('evidence-arrows/up-arrow-clicked.png');
+.evidence-vote-inactive {
+  opacity: 0.3;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.evidence-vote-active {
+  opacity: 1;
+}
+
+.evidence-vote-up {
+  height: @arrowHeight + @voteButtonWidth;
+  background: asset-data-url('evidence-arrows/up-arrow-normal.png') center top 6px no-repeat @grayLighter;
+  border-top-left-radius: @baseBorderRadius;
+  border-top-right-radius: @baseBorderRadius;
+
+  &.evidence-vote-inactive {
+    background: asset-data-url('evidence-arrows/up-arrow-normal.png') center top 6px no-repeat;
+  }
+
+  &.evidence-vote-active {
+    color: black;
+    background: asset-data-url('evidence-arrows/up-arrow-active.png') center top 6px no-repeat #fff;
   }
 }
 
 .evidence-vote-down {
-  bottom: -@arrowHeight - @arrowInnerSpacing;
-  background: asset-data-url('evidence-arrows/down-arrow-unclicked.png');
-  opacity: 0.7;
+  height: @arrowHeight + 10px;
+  border-color: transparent;
+  margin-top: 2px;
+  background: asset-data-url('evidence-arrows/down-arrow-normal.png') center center no-repeat;
 
-  &:hover {
-    opacity: 1;
+  &.evidence-vote-inactive {
+    background: asset-data-url('evidence-arrows/down-arrow-normal.png') center center no-repeat;
   }
 
-  &.active {
-    background: asset-data-url('evidence-arrows/down-arrow-clicked.png');
+  &.evidence-vote-active {
+    background: asset-data-url('evidence-arrows/down-arrow-active.png') center center no-repeat #fff;
+    border-bottom-right-radius: @baseBorderRadius;
+    border-bottom-left-radius: @baseBorderRadius;
+    border-color: rgba(0, 0, 0, 0.15);
   }
 }
 
 // Evidence box
 .evidence-box {
-  margin-left: 80px;
+  margin-left: 42px;
 }
 
 // Irrelevant (faded out)

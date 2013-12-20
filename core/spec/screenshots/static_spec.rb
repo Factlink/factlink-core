@@ -2,11 +2,6 @@ require 'screenshot_helper'
 
 describe "Static pages:", type: :feature, driver: :poltergeist_slow do
   describe "Homepage" do
-    it "normally" do
-      visit "/"
-      assume_unchanged_screenshot "static_homepage"
-    end
-
     it "with open feedback as expected" do
       visit "/"
 
@@ -51,13 +46,6 @@ describe "Static pages:", type: :feature, driver: :poltergeist_slow do
     it "renders correctly" do
       visit "/p/privacy"
       assume_unchanged_screenshot "static_privacy"
-    end
-  end
-
-  describe "TOS page" do
-    it "renders correctly" do
-      visit "/p/terms-of-service"
-      assume_unchanged_screenshot "static_tos"
     end
   end
 

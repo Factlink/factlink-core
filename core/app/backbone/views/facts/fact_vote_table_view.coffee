@@ -22,14 +22,14 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
     avatarsDisbelievesRegion: '.js-avatars-disbelieves-region'
 
   events:
-    'click .js-button-believes': -> @_votes.clickCurrentUserOpinion 'believes'
-    'click .js-button-doubts': -> @_votes.clickCurrentUserOpinion 'doubts'
-    'click .js-button-disbelieves': -> @_votes.clickCurrentUserOpinion 'disbelieves'
+    'click .js-button-believes': -> @_tally.clickCurrentUserOpinion 'believes'
+    'click .js-button-doubts': -> @_tally.clickCurrentUserOpinion 'doubts'
+    'click .js-button-disbelieves': -> @_tally.clickCurrentUserOpinion 'disbelieves'
 
   initialize: ->
-    @_votes = @model.getFactVotes()
-    @listenTo @_votes, 'change:current_user_opinion', @_updateActiveCell
-    @listenTo @_votes, 'sync', -> @collection.fetch()
+    @_tally = @model.getFactTally()
+    @listenTo @_tally, 'change:current_user_opinion', @_updateActiveCell
+    @listenTo @_tally, 'sync', -> @_opinionatorsCollection.fetch()
 
     @collection = @model.getVotes()
     @collection.fetch()
@@ -47,6 +47,6 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
     @_updateActiveCell()
 
   _updateActiveCell: ->
-    opinion = @_votes.get('current_user_opinion')
+    opinion = @_tally.get('current_user_opinion')
     @$('.fact-vote-table-cell-active').removeClass 'fact-vote-table-cell-active'
     @$(".js-cell-#{opinion}").addClass 'fact-vote-table-cell-active'
