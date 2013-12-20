@@ -1,0 +1,40 @@
+.feature_christmas_background {
+  @keyframes snow {
+      0% { background-position: 0px 0px, 0px 0px, 0px 0px }
+      100% { background-position: 500px 1000px, 400px 400px, 300px 300px }
+  }
+
+  @-moz-keyframes snow {
+      0% { background-position: 0px 0px, 0px 0px, 0px 0px }
+      100% { background-position: 500px 1000px, 400px 400px, 300px 300px }
+  }
+
+  @-webkit-keyframes snow {
+      0% { background-position: 0px 0px, 0px 0px, 0px 0px }
+
+      50% { background-color: #b4cfe0 }
+
+      100% {
+          background-position: 500px 1000px, 400px 400px, 300px 300px;
+          background-color: #6b92b9;
+      }
+  }
+
+  @-ms-keyframes snow {
+      0% { background-position: 0px 0px, 0px 0px, 0px 0px }
+      100% { background-position: 500px 1000px, 400px 400px, 300px 300px }
+  }
+
+  body {
+      background-color: #6b92b9;
+      background-image: url('http://img138.imageshack.us/img138/5230/snowh.png'), url('http://img594.imageshack.us/img594/9146/snow3q.png'), url('http://img196.imageshack.us/img196/5065/snow2l.png');
+      -webkit-animation: snow 20s linear infinite;
+      -moz-animation: snow 20s linear infinite;
+      -ms-animation: snow 20s linear infinite;
+      animation: snow 20s linear infinite;
+  }
+
+  .discussion-modal-container {
+    background: transparent;
+  }
+}
