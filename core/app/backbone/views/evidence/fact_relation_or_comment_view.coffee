@@ -4,7 +4,7 @@ class CommentView extends Backbone.Marionette.ItemView
 
 
 class window.FactRelationOrCommentView extends Backbone.Marionette.Layout
-  className: 'evidence-argument discussion-evidenceish'
+  className: 'evidence-argument'
   template: 'evidence/fact_relation_or_comment'
 
   regions:
