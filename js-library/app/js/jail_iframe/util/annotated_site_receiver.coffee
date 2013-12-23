@@ -19,6 +19,10 @@ FactlinkJailRoot.annotatedSiteReceiver =
     FactlinkJailRoot.selectRanges(FactlinkJailRoot.search(displaystring), id)
     FactlinkJailRoot.trigger 'factlinkAdded'
 
+  deleteFactlink: (id) ->
+    $("span.factlink[data-factid=#{id}]").each (i, val) ->
+      $(val).contents().unwrap()
+
   closeModal_noAction: ->
     FactlinkJailRoot.$modalFrame.removeClass 'factlink-control-visible'
     setTimeout( ->
@@ -34,7 +38,7 @@ FactlinkJailRoot.annotatedSiteReceiver =
     @highlightNewFactlink(displaystring, id)
     @closeModal_noAction()
 
+  # For compatibility, please remove the next time you see this
   closeModal_deleteFactlink: (id) ->
-    $("span.factlink[data-factid=#{id}]").each (i, val) ->
-      $(val).contents().unwrap()
+    @deleteFactlink(id)
     @closeModal_noAction()
