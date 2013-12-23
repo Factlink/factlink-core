@@ -105,7 +105,7 @@ module Acceptance
 
       def wait_until_evidence_list_loaded
         # this only shows after the discussion list has fully loaded
-        find('.opinion-help')
+        find('.opinion-help, .add-evidence-form')
       end
 
       def vote_comment direction, comment
