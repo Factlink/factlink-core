@@ -1,7 +1,3 @@
-timestamp ||= 0
-# TODO: set timestamp to nil, but this always defaulted to 0
-# so check that nothing depends on it.
-
 dead_fact = query(:'facts/get_dead', id: fact.id.to_s)
 dead_fact_creator = query(:'users_by_ids', user_ids: [fact.created_by_id], by: :graph_user_id).first
 dead_fact_creator_graph_user = Struct.new(:id).new(fact.created_by_id)
@@ -34,7 +30,5 @@ if dead_fact.site_url
   json.fact_url dead_fact.site_url
   json.proxy_scroll_url dead_fact.url.proxy_scroll_url
 end
-
-json.timestamp timestamp
 
 json.is_deletable dead_fact.deletable?
