@@ -14,10 +14,14 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
   regions:
     textareaRegion: '.js-region-textarea'
 
-  onRender: ->
-    @textareaRegion.show new Backbone.Factlink.TextAreaView
+  initialize: ->
+    @_textAreaView = new Backbone.Factlink.TextAreaView
       model: @textModel()
       placeholder: 'Comment...'
+    @listenTo @_textAreaView, 'return', @submit
+
+  onRender: ->
+    @textareaRegion.show @_textAreaView
 
   submit: ->
     return if @submitting

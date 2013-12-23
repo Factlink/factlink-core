@@ -14,10 +14,12 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     inputRegion: '.js-input-region'
 
   initialize: ->
-    @on 'region:focus', -> @_textAreaView().focusInput()
+    @_textAreaView = new Backbone.Factlink.TextAreaView model: @_textModel()
+    @listenTo @_textAreaView, 'return', @addComment
+    @on 'region:focus', -> @_textAreaView.focusInput()
 
   onRender: ->
-    @inputRegion.show @_textAreaView()
+    @inputRegion.show @_textAreaView
 
   addComment: ->
     return if @submitting
@@ -58,7 +60,3 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
   _textModel: -> @__textModel ?= new Backbone.Factlink.SemiPersistentTextModel {},
     key: "add_comment_to_fact_#{@options.addToCollection.fact.id}"
-
-  _textAreaView: ->
-    @__textAreaView ?= new Backbone.Factlink.TextAreaView
-      model: @_textModel()
