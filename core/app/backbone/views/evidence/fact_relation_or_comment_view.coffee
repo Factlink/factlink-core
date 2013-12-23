@@ -58,4 +58,3 @@ class window.FactRelationOrCommentView extends Backbone.Marionette.Layout
   _updateIrrelevance: ->
     relevant = @model.argumentTally().relevance() >= 0
     @$el.toggleClass 'evidence-irrelevant', !relevant
-
