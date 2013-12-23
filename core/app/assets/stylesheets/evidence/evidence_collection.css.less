@@ -26,6 +26,18 @@
   }
 }
 
+.evidence-believes > .discussion-evidenceish-box {
+  border-left: @impactColouredBorderWidth solid @believesEvidenceImpactColor;
+}
+
+.evidence-disbelieves > .discussion-evidenceish-box {
+  border-left: @impactColouredBorderWidth solid @disbelievesEvidenceImpactColor;
+}
+
+.evidence-unsure > .discussion-evidenceish-box {
+  border-left: @impactColouredBorderWidth solid @doubtsEvidenceImpactColor;
+}
+
 // Voting boxes on the left
 .evidence-vote {
   position: absolute;
@@ -40,19 +52,6 @@
   text-align: center;
 }
 
-.evidence-believes > .discussion-evidenceish-box {
-  border-left: @impactColouredBorderWidth solid @believesEvidenceImpactColor;
-}
-
-.evidence-disbelieves > .discussion-evidenceish-box {
-  border-left: @impactColouredBorderWidth solid @disbelievesEvidenceImpactColor;
-}
-
-.evidence-unsure > .discussion-evidenceish-box {
-  border-left: @impactColouredBorderWidth solid @doubtsEvidenceImpactColor;
-}
-
-// Voting arrows
 .evidence-vote-up,
 .evidence-vote-down {
   display: block;
