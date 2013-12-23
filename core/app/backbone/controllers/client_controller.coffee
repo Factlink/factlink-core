@@ -13,8 +13,7 @@ class window.ClientController
       fact.save {},
         success: =>
           @annotatedSiteEnvoy 'highlightNewFactlink', params.displaystring, fact.id
-          FactlinkApp.NotificationCenter.success "Added #{Factlink.Global.t.factlink}.",
-            'Undo', -> fact.destroy()
+          FactlinkApp.NotificationCenter.success "Created #{Factlink.Global.t.factlink}."
 
           @_renderDiscussion fact
           Backbone.history.navigate "/client/facts/#{fact.id}", trigger: false
