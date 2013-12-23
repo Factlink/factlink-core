@@ -45,4 +45,3 @@ FactlinkJailRoot.annotatedSiteReceiver =
   # For compatibility, please remove the next time you see this
   closeModal_deleteFactlink: (id) ->
     @deleteFactlink(id)
-    @closeModal()
