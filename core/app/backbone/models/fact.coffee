@@ -49,6 +49,12 @@ class window.Fact extends Backbone.Model
 
     new Backbone.Factlink.Url(fact_url).host()
 
+  justCreated: ->
+    milliseconds_ago = Date.now() - new Date(@get('created_by_time'))
+    minutes_ago = milliseconds_ago/1000/60
+
+    minutes_ago < 5
+
   share: (provider_name, options={}) ->
     fact_sharing_options = {}
     fact_sharing_options[provider_name] = true
