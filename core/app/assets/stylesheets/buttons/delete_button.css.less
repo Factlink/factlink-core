@@ -38,14 +38,14 @@
 }
 
 .delete-button-open .delete-button-first {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .delete-button-second-container {
   position: absolute;
   display: inline-block;
-  left: 2.5em;
+  right: 2.5em;
   top: 0px;
   height: @baseButtonHeight + 3px;
   line-height: @baseButtonHeight;
@@ -59,25 +59,25 @@
 
 .delete-button-second {
   // hack because .button is too specific.. :-(
-  border-top-left-radius: 0 !important;
-  border-bottom-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
   vertical-align: top !important;
   position: relative;
-  left: -100%;
+  right: -100%;
 }
 
 @arrowSize: 5px;
 .delete-button-arrow {
   position: absolute;
   border: @arrowSize solid transparent;
-  border-right: none;
-  border-left-color: @buttonBackground;
+  border-left: none;
+  border-right-color: @buttonBackground;
   margin-top: -@arrowSize - 2px;
   top: 50%;
-  left: -@arrowSize;
+  right: -@arrowSize;
 }
 
 .delete-button-open .delete-button-second,
 .delete-button-open .delete-button-arrow {
-  left: 0;
+  right: 0;
 }
