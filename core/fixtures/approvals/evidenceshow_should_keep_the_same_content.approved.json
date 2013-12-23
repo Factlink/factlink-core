@@ -30,7 +30,7 @@
       ]
     },
     "created_by_ago": "Posted 1 minute ago",
-    "created_by_time": "<created_by_time>",
+    "created_at": "<created_at>",
     "fact_title": "Fact title 2",
     "tally": {
       "believes": 1,

@@ -50,7 +50,7 @@ class window.Fact extends Backbone.Model
     new Backbone.Factlink.Url(fact_url).host()
 
   justCreated: ->
-    milliseconds_ago = Date.now() - new Date(@get('created_by_time'))
+    milliseconds_ago = Date.now() - new Date(@get('created_at'))
     minutes_ago = milliseconds_ago/1000/60
 
     minutes_ago < 5
