@@ -23,7 +23,7 @@ FactlinkJailRoot.annotatedSiteReceiver =
     $("span.factlink[data-factid=#{id}]").each (i, val) ->
       $(val).contents().unwrap()
 
-  closeModal_noAction: ->
+  closeModal: ->
     FactlinkJailRoot.$modalFrame.removeClass 'factlink-control-visible'
     setTimeout( ->
       if !modalOpen
@@ -34,11 +34,15 @@ FactlinkJailRoot.annotatedSiteReceiver =
     , 300)
 
   # For compatibility, please remove the next time you see this
+  closeModal_noAction: ->
+    @closeModal()
+
+  # For compatibility, please remove the next time you see this
   closeModal_highlightNewFactlink: (displaystring, id) ->
     @highlightNewFactlink(displaystring, id)
-    @closeModal_noAction()
+    @closeModal()
 
   # For compatibility, please remove the next time you see this
   closeModal_deleteFactlink: (id) ->
     @deleteFactlink(id)
-    @closeModal_noAction()
+    @closeModal()
