@@ -13,6 +13,17 @@
   position: relative;
   margin-bottom: 20px;
   padding-top: @evidenceishHeadingOverhang;
+  padding-left: 42px;
+}
+
+// Irrelevant (faded out)
+.evidence-irrelevant .evidence-argument {
+  opacity: 0.6;
+  .transition(opacity 0.2s);
+
+  &:hover {
+    opacity: 0.9;
+  }
 }
 
 // Relevance circles on the left
@@ -31,15 +42,15 @@
   text-align: center;
 }
 
-.evidence-believes .evidence-box > .discussion-evidenceish-box {
+.evidence-believes > .discussion-evidenceish-box {
   border-left: @impactColouredBorderWidth solid @believesEvidenceImpactColor;
 }
 
-.evidence-disbelieves .evidence-box > .discussion-evidenceish-box {
+.evidence-disbelieves > .discussion-evidenceish-box {
   border-left: @impactColouredBorderWidth solid @disbelievesEvidenceImpactColor;
 }
 
-.evidence-unsure .evidence-box > .discussion-evidenceish-box {
+.evidence-unsure > .discussion-evidenceish-box {
   border-left: @impactColouredBorderWidth solid @doubtsEvidenceImpactColor;
 }
 
@@ -98,20 +109,5 @@
     border-bottom-right-radius: @baseBorderRadius;
     border-bottom-left-radius: @baseBorderRadius;
     border-color: rgba(0, 0, 0, 0.15);
-  }
-}
-
-// Evidence box
-.evidence-box {
-  margin-left: 42px;
-}
-
-// Irrelevant (faded out)
-.evidence-irrelevant .evidence-box {
-  opacity: 0.6;
-  .transition(opacity 0.2s);
-
-  &:hover {
-    opacity: 0.9;
   }
 }
