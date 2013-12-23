@@ -27,6 +27,12 @@ class EvidenceCollectionView extends Backbone.Marionette.CollectionView
   itemView: EvidenceView
   className: 'evidence-listing'
 
+  # Add new evidence at the top of the list
+  appendHtml: (collectionView, itemView, index) ->
+    return super if collectionView.isBuffering
+
+    collectionView.$el.prepend itemView.el
+
 class window.EvidenceContainerView extends Backbone.Marionette.Layout
   className: 'evidence-container'
   template: 'evidence/evidence_container'
