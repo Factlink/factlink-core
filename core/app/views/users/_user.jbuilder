@@ -21,6 +21,7 @@ if is_current_user
   json.receives_mailed_notifications user.receives_mailed_notifications
   json.receives_digest user.receives_digest
   json.confirmed user.confirmed?
+  json.created_at user.created_at
 
   json.services do |json|
     if can?(:share_to, user.social_account('twitter'))

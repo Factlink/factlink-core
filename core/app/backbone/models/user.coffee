@@ -75,3 +75,9 @@ class window.User extends Backbone.Model
 
   user_topics: ->
     new UserTopics @get('user_topics')
+
+  justCreated: ->
+    milliseconds_ago = Date.now() - new Date(@get('created_at'))
+    minutes_ago = milliseconds_ago/1000/60
+
+    minutes_ago < 10
