@@ -1,30 +1,7 @@
-class EvidenceView extends Backbone.Marionette.Layout
-  className: 'evidence-argument'
-  template: 'evidence/evidence_layout'
-
-  regions:
-    contentRegion: '.js-content-region'
-    voteRegion: '.js-vote-region'
-
-  typeCss: ->
-    switch @model.get('type')
-      when 'believes' then 'evidence-believes'
-      when 'disbelieves' then 'evidence-disbelieves'
-      when 'doubts' then 'evidence-unsure'
-
-  onRender: ->
-    @$el.addClass @typeCss()
-    @contentRegion.show new FactRelationOrCommentView model: @model
-    @listenTo @model.argumentTally(), 'change', @_updateIrrelevance
-    @_updateIrrelevance()
-    @voteRegion.show new EvidenceVoteView model: @model.argumentTally()
-
-  _updateIrrelevance: ->
-    relevant = @model.argumentTally().relevance() >= 0
-    @$el.toggleClass 'evidence-irrelevant', !relevant
+#= require ./fact_relation_or_comment_view
 
 class EvidenceCollectionView extends Backbone.Marionette.CollectionView
-  itemView: EvidenceView
+  itemView: FactRelationOrCommentView
 
 class window.EvidenceContainerView extends Backbone.Marionette.Layout
   className: 'evidence-container'

@@ -4,16 +4,21 @@ class CommentView extends Backbone.Marionette.ItemView
 
 
 class window.FactRelationOrCommentView extends Backbone.Marionette.Layout
-  className: 'discussion-evidenceish evidence-box'
+  className: 'evidence-argument discussion-evidenceish evidence-box'
   template: 'evidence/fact_relation_or_comment'
 
   regions:
+    voteRegion: '.js-vote-region'
     contentRegion: '.js-content-region'
     bottomRegion: '.js-bottom-region'
     headingRegion: '.js-heading-region'
     subCommentsRegion: '.js-sub-comments-region'
 
   onRender: ->
+    @$el.addClass @_typeCss()
+    @listenTo @model.argumentTally(), 'change', @_updateIrrelevance
+    @_updateIrrelevance()
+    @voteRegion.show new EvidenceVoteView model: @model.argumentTally()
     @headingRegion.show new EvidenceishHeadingView model: @model.creator()
 
     if @model instanceof Comment
@@ -43,3 +48,14 @@ class window.FactRelationOrCommentView extends Backbone.Marionette.Layout
       @model.fetch()
 
     view
+
+  _typeCss: ->
+    switch @model.get('type')
+      when 'believes' then 'evidence-believes'
+      when 'disbelieves' then 'evidence-disbelieves'
+      when 'doubts' then 'evidence-unsure'
+
+  _updateIrrelevance: ->
+    relevant = @model.argumentTally().relevance() >= 0
+    @$el.toggleClass 'evidence-irrelevant', !relevant
+
