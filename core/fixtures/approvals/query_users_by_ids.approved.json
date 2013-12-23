@@ -1,21 +1,23 @@
 [
   {
-    "dead_object_name": "user",
-    "id": "a1",
-    "statistics": {
-      "created_fact_count": 14,
-      "follower_count": 2,
-      "following_count": 3
-    },
-    "top_user_topics": [
-      {
-        "slug_tite": "foo",
-        "title": "Foo"
+    "table": {
+      "dead_object_name": "user",
+      "id": "<id>",
+      "statistics": {
+        "created_fact_count": 14,
+        "follower_count": 2,
+        "following_count": 3
       },
-      {
-        "slug_tite": "bar",
-        "title": "Bar"
-      }
-    ]
+      "top_user_topics": [
+        {
+          "slug_title": "foo",
+          "title": "Foo"
+        },
+        {
+          "slug_title": "bar",
+          "title": "Bar"
+        }
+      ]
+    }
   }
 ]

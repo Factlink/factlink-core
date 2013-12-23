@@ -44,7 +44,8 @@ end
 Approvals.configure do |c|
   c.excluded_json_keys = {
     id: /\Aid\z/,
-    timestamp: /\Atimestamp\z/
+    timestamp: /\Atimestamp\z/,
+    created_by_time: /\Acreated_by_time\z/
   }
 end
 

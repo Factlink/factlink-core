@@ -23,6 +23,7 @@ json.created_by do |j|
 end
 
 json.created_by_ago "Posted #{TimeFormatter.as_time_ago dead_fact.created_at} ago"
+json.created_by_time dead_fact.created_at
 
 json.fact_title dead_fact.title
 json.tally do |j|
