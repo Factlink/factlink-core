@@ -13,6 +13,9 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   regions:
     inputRegion: '.js-input-region'
 
+  initialize: ->
+    @on 'region:focus', -> @_textAreaView().focusInput()
+
   onRender: ->
     @inputRegion.show @_textAreaView()
 

@@ -26,6 +26,8 @@ class Factlink.DetachableViewsRegion extends Backbone.Marionette.Region
     else
       @show view
 
+    view.trigger 'region:focus'
+
   _onClose: ->
     for name, view of @cache_views
       view.close()
