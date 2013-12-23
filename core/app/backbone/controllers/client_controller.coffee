@@ -27,7 +27,7 @@ class window.ClientController
       clientModal.mainRegion.show view
 
   _renderDiscussion: (fact) ->
-    fact.on 'destroy', => @annotatedSiteEnvoy 'closeModal_deleteFactlink', fact.id
+    fact.on 'destroy', => @annotatedSiteEnvoy 'deleteFactlink', fact.id
 
     fact.fetch
       success: =>
