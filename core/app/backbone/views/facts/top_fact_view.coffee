@@ -5,6 +5,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
 
   events:
     'click .js-repost': 'showRepost'
+    'click .js-undo': -> @model.destroy()
 
   regions:
     userHeadingRegion: '.js-user-heading-region'
@@ -36,9 +37,12 @@ class window.TopFactView extends Backbone.Marionette.Layout
       @shareRegion.show new TopFactShareButtonsView model: @model
 
   _deleteButtonView: ->
-    deleteButtonView = new DeleteButtonView model: @model
+    deleteButtonView = new DeleteButtonView
+      model: @model, opened: @model.justCreated()
+
     @listenTo deleteButtonView, 'delete', ->
       @model.destroy
         wait: true
         success: -> mp_track "Factlink: Destroy"
+
     deleteButtonView

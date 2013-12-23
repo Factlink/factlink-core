@@ -30,6 +30,7 @@
       ]
     },
     "created_by_ago": "Posted 1 minute ago",
+    "created_at": "<created_at>",
     "fact_title": "Fact title 2",
     "tally": {
       "believes": 1,
@@ -39,7 +40,6 @@
     },
     "fact_url": "http://example.org/2.html",
     "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&scrollto=2",
-    "timestamp": "<timestamp>",
     "is_deletable": false
   },
   "time_ago": "1 minute",
