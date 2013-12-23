@@ -22,6 +22,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       placeholder: 'Search...'
 
     @listenTo @model, 'change', @queryChanges
+    @on 'region:focus', -> @_text_input_view.focusInput()
 
   onRender: ->
     _.defer => @_text_input_view.focusInput()
