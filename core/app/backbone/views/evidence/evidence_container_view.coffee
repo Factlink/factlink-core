@@ -25,7 +25,6 @@ class EvidenceView extends Backbone.Marionette.Layout
 
 class EvidenceCollectionView extends Backbone.Marionette.CollectionView
   itemView: EvidenceView
-  className: 'evidence-listing'
 
 class window.EvidenceContainerView extends Backbone.Marionette.Layout
   className: 'evidence-container'

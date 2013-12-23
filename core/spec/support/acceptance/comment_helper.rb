@@ -100,7 +100,7 @@ module Acceptance
 
       def within_evidence_list &block
         wait_until_evidence_list_loaded
-        within '.evidence-listing', visible: false, &block
+        within '.evidence-container', visible: false, &block
       end
 
       def wait_until_evidence_list_loaded
