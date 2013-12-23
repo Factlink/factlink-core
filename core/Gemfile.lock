@@ -225,7 +225,7 @@ GEM
       skinny
       sqlite3 (~> 1.3)
       thin
-    marionette-rails (1.0.4)
+    marionette-rails (1.4.1)
       rails (>= 3.1.0)
     method_source (0.8.2)
     mime-types (1.25.1)
@@ -526,7 +526,7 @@ DEPENDENCIES
   less-rails (~> 2.3.3)
   lograge (~> 0)
   mailcatcher (~> 0)
-  marionette-rails (= 1.0.4)
+  marionette-rails (= 1.4.1)
   mixpanel!
   mongoid (~> 3.1.6)
   mongoid_rails_migrations (= 1.0.1)

@@ -11,6 +11,7 @@ FactlinkApp.module "NonConfirmedEmailWarning", (NonConfirmedEmailWarning, Factli
     return if inTour()
     return unless currentUser?
     return if currentUser.get('confirmed')
+    return if currentUser.justCreated()
 
     FactlinkApp.NotificationCenter.error """
       Your email address has not yet been confirmed, please check your email inbox.

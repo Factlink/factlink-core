@@ -7,7 +7,7 @@ class OpinionatorsAvatarView extends Backbone.Marionette.Layout
     user: @model.user().toJSON()
 
   onRender: ->
-    UserPopoverContentView.makeTooltip @, @model
+    UserPopoverContentView.makeTooltip @, @model.user()
 
 
 class window.FactVoteTableView extends Backbone.Marionette.CompositeView

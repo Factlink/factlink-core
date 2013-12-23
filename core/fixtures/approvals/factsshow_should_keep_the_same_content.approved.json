@@ -19,6 +19,7 @@
     ]
   },
   "created_by_ago": "Posted 1 minute ago",
+  "created_at": "<created_at>",
   "fact_title": "title",
   "tally": {
     "believes": 1,
@@ -28,6 +29,5 @@
   },
   "fact_url": "url",
   "proxy_scroll_url": "http://localhost:8080/?url=url&scrollto=1",
-  "timestamp": "<timestamp>",
   "is_deletable": true
 }

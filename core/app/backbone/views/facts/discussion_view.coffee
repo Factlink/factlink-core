@@ -13,7 +13,7 @@ class window.DiscussionView extends Backbone.Marionette.Layout
     @factRegion.show new TopFactView model: @model
 
     evidence_collection = new EvidenceCollection null, fact: @model
-    evidence_collection.fetch()
+    evidence_collection.fetch(reset: true)
 
     @evidenceRegion.show new EvidenceContainerView
       collection: evidence_collection
