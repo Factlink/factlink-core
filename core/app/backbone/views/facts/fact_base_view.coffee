@@ -46,4 +46,4 @@ class FactBodyView extends Backbone.Marionette.ItemView
     else if FactlinkApp.onClientApp
       Backbone.history.navigate @model.clientLink(), true
     else
-      FactlinkApp.DiscussionModalOnFrontend.openDiscussion @model.clone(), e
+      FactlinkApp.DiscussionModalOnFrontend.openDiscussion @model, e
