@@ -3,9 +3,6 @@ class window.PreviewShareFactView extends Backbone.Marionette.Layout
 
   template: 'share/preview_share_fact'
 
-  regions:
-    shareButtonsRegion: '.js-share-buttons-region'
-
   events:
     'click .js-share': '_share'
 
