@@ -25,7 +25,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     @on 'region:focus', -> @_text_input_view.focusInput()
 
   onRender: ->
-    _.defer => @_text_input_view.focusInput()
+    @_text_input_view.focusInput()
 
   addCurrent: ->
     selected_fact_attributes = @_search_list_view.currentActiveModel().attributes
