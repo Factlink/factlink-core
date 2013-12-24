@@ -84,3 +84,8 @@ class window.User extends Backbone.Model
 
   serviceConnected: (provider_name) ->
     @get('services')[provider_name]
+
+  setServiceConnected: (provider_name) ->
+    services = _.clone @get('services')
+    services[provider_name] = true
+    @set 'services', services

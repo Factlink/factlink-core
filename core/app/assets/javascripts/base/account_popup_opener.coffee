@@ -15,8 +15,9 @@ $('html').on 'click', '.js-accounts-popup-link', (e) ->
 $(document).on 'signed_in', ->
   window.location.reload(true)
 
-$(document).on 'authorized', ->
-  window.location.reload(true)
+$(document).on 'authorized', (e) ->
+  provider_name = e.originalEvent.detail
+  currentUser?.setServiceConnected provider_name
 
 $(document).on 'account_error', (e) ->
   if typeof FactlinkApp == 'object'

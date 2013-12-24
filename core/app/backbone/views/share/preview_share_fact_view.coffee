@@ -11,6 +11,9 @@ class window.PreviewShareFactView extends Backbone.Marionette.ItemView
     nice_provider_name: @_niceProviderName()
     connected: currentUser.serviceConnected(@options.provider_name)
 
+  initialize: ->
+    @listenTo currentUser, 'change:services', @render
+
   _share: ->
     @model.share @options.provider_name,
       success: =>
