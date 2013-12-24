@@ -96,14 +96,19 @@ function getServer(config) {
   function injectFactlinkJs(original_html, site, scroll_to, open_id, successFn) {
     "use strict";
 
-    if (/factlink_loader_publishers.min.js/.test(original_html) && config.ENV !== "development" && config.ENV !== "testserver") {
-      // Redirect to publishers' sites
-      // Circumvent blacklist as we assume we don't want to blacklist publishers for now, and it's faster
-      // to not check.
-      var redirect_url = publisherUrl(site, scroll_to, open_id);
+    if (/factlink_loader_publishers.min.js/.test(original_html)) {
+      if (config.ENV === "development" || config.ENV === "testserver") {
+        // Disable publisher's script in development/testserver
+        original_html = original_html.replace(/factlink_loader_publishers.min.js/g, 'factlink_loader_publishers_DEACTIVATED.min.js');
+      } else {
+        // Redirect to publishers' sites
+        // Circumvent blacklist as we assume we don't want to blacklist publishers for now, and it's faster
+        // to not check.
+        var redirect_url = publisherUrl(site, scroll_to, open_id);
 
-      successFn('<script>window.parent.location = ' + JSON.stringify(redirect_url) + ';</script>');
-      return;
+        successFn('<script>window.parent.location = ' + JSON.stringify(redirect_url) + ';</script>');
+        return;
+      }
     }
 
     blacklist.if_allowed(site,function() {
