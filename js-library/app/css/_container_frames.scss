@@ -1,11 +1,17 @@
 %frame-styles {
-  background: transparent;
-  border: none;
-  z-index: $max-z-index;
-  margin: 0;
-  padding: 0;
-  display: block;
-  position: absolute;
+  background: transparent !important;
+  border: none !important;
+  z-index: $max-z-index !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: absolute !important;
+  max-width: none !important;
+  max-height: none !important;
+  float: none !important;
+
+  // options below are overridden elsewhere
+  display: none;
+  visibility: hidden;
   left: 0;
   top: 0;
   width: 0;
@@ -14,11 +20,10 @@
 
 #factlink-containment-wrapper {
   @extend %frame-styles;
-  visibility: hidden;
+  display: block;
 
   > #factlink-iframe {
     @extend %frame-styles;
-    display: none;
   }
 
   > .factlink-control-frame {
@@ -26,13 +31,12 @@
     @extend %fadable-control;
   }
 
-
   > #factlink-modal-frame {
     @extend %frame-styles;
     @extend %fadable-control;
 
-    position: fixed;
-    width: 100%;
-    height: 100%;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
   }
 }

@@ -1,6 +1,11 @@
 %fadable-control {
+  // Only use visibility:hidden instead of display:none on non-mobile,
+  // as iOS Safari seems to have trouble with visibility:hidden iframe.
+  display: none;
   visibility: hidden;
+
   &.factlink-control-visible {
+    display: block;
     visibility: visible;
   }
 }
@@ -10,13 +15,18 @@
 // Most PC have bigger screens so, this works perfect for PC's
 @media only screen and (min-device-width: 1025px) {
   %fadable-control {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+
     transition: opacity $control_visibility_transition_time,
     visibility 0s $control_visibility_transition_time;
     //note the time unit is REQUIRED even for 0s!  FF won't accept 0.
-    opacity: 0;
 
     &.factlink-control-visible {
       opacity: 1;
+      visibility: visible;
+
       transition: opacity $control_visibility_transition_time,
       visibility 0s 0s;
     }
