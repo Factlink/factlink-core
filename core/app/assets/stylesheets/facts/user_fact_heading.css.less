@@ -57,8 +57,14 @@
 
 .top-fact-heading-text {
   display: inline-block;
-  .ellipsis(550px);
+  .ellipsis(300px);
   vertical-align: middle;
+}
+
+@media only screen and (min-width: @fullDiscussionModalWidth) {
+  .top-fact-heading-text {
+    .ellipsis(550px);
+  }
 }
 
 .fact-url-icon {
