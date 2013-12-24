@@ -26,10 +26,10 @@ class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
   initialize: ->
     @listenTo @model, 'change', @updateDom
 
-  onRender: ->
-    _.defer => @focusInput()
+  onRender: -> @focusInput()
 
-  focusInput: -> @ui.inputField.focus()
+  focusInput: ->
+    _.defer => @ui.inputField.focus()
 
   updateModel: ->
     @model.set text: @ui.inputField.val()

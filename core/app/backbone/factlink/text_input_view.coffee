@@ -18,7 +18,8 @@ class Backbone.Factlink.TextInputView extends Backbone.Marionette.ItemView
   initialize: ->
     @listenTo @model, 'change', @updateHtml
 
-  focusInput: -> @$inputField().focus()
+  focusInput: ->
+    _.defer => @$inputField().focus()
 
   parseKeyDown: (e) ->
     eventHandled = false
