@@ -1,11 +1,14 @@
 %fadable-control {
-  // Only use visibility:hidden instead of display:none on non-mobile,
-  // as iOS Safari seems to have trouble with visibility:hidden iframe.
-  display: none;
   visibility: hidden;
 
+  // iOS Safari seems to have trouble with visibility:hidden iframe, so
+  // also position it out of sight
+  margin-top: -100000px;
+  margin-left: -100000px;
+
   &.factlink-control-visible {
-    display: block;
+    margin: 0;
+
     visibility: visible;
   }
 }
@@ -15,7 +18,8 @@
 // Most PC have bigger screens so, this works perfect for PC's
 @media only screen and (min-device-width: 1025px) {
   %fadable-control {
-    display: block;
+    margin: 0;
+
     opacity: 0;
     visibility: hidden;
 

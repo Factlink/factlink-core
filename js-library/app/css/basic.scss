@@ -1,5 +1,6 @@
 @import "variables";
-@import "fadable_control";
+@import "frame_styles";
+@import "fadable_control"; // should be after frame_styles as it overrides frame_styles
 @import "publisher_button";
 @import "container_frames";
 
