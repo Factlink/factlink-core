@@ -81,3 +81,6 @@ class window.User extends Backbone.Model
     minutes_ago = milliseconds_ago/1000/60
 
     minutes_ago < 10
+
+  serviceConnected: (provider_name) ->
+    @get('services')[provider_name]

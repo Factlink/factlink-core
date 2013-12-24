@@ -10,7 +10,9 @@ class window.PreviewShareFactView extends Backbone.Marionette.Layout
     'click .js-share': '_share'
 
   templateHelpers: =>
-    provider_name: @_niceProviderName()
+    provider_name: @options.provider_name
+    nice_provider_name: @_niceProviderName()
+    connected: currentUser.serviceConnected(@options.provider_name)
 
   _share: ->
     @model.share @options.provider_name,
