@@ -1,13 +1,19 @@
 %frame-styles {
   background: transparent !important;
   border: none !important;
-  z-index: $max-z-index !important;
   margin: 0 !important;
   padding: 0 !important;
   position: absolute !important;
   max-width: none !important;
   max-height: none !important;
   float: none !important;
+
+  // For some reason, setting important here causes quirky
+  // behaviour in Chrome. Reproduce by going to
+  // http://martijnrusschen.nl/youre-the-product/ in the proxy
+  // and trying to create an annotation -- the button doesn't show
+  // if !important is given here..
+  z-index: $max-z-index;
 
   // options below are overridden elsewhere
   display: none;
