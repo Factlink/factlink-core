@@ -43,6 +43,9 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     @_setArgumentTypeToOpinion()
     @_switchToAddCommentView()
 
+  focus: ->
+    @_switchToAddCommentView()
+
   _showQuestion: ->
     @ui.questionContainer.show()
     @ui.typeSelector.hide()

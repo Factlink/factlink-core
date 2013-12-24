@@ -31,8 +31,9 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     @listenTo @_factVotes, 'change:current_user_opinion', @_updateForm
 
   onRender: ->
+    @_addEvidenceFormView = new AddEvidenceFormView collection: @collection
+    @formRegion.show @_addEvidenceFormView
     @opinionHelpRegion.show new OpinionHelpView collection: @collection
-    @formRegion.show new AddEvidenceFormView collection: @collection
     @collectionRegion.show new EvidenceCollectionView collection: @collection
     @_updateLoading()
     @_updateForm()
@@ -45,3 +46,4 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
 
     @ui.opinionHelpRegion.toggle !showForm
     @ui.formRegion.toggle showForm
+    @_addEvidenceFormView.focus()
