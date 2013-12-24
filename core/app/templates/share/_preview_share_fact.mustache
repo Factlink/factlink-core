@@ -8,5 +8,5 @@
   <button class="button button-confirm js-share pull-right" data-disable-with="Sharing...">Share to {{nice_provider_name}}</button>
 {{/connected}}
 {{^connected}}
-  <a href="/auth/{{provider_name}}?use_authorize=true&x_auth_access_type=write" class="button button-{{provider_name}} js-accounts-popup-link" data-disable-with="Connecting...">Connect with {{nice_provider_name}}</a>
+  <a href="/auth/{{provider_name}}?use_authorize=true&x_auth_access_type=write" class="button {{connectButtonClass}} js-accounts-popup-link" data-disable-with="Connecting...">Connect with {{nice_provider_name}}</a>
 {{/connected}}

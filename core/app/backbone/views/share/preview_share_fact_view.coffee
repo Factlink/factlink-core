@@ -10,6 +10,7 @@ class window.PreviewShareFactView extends Backbone.Marionette.ItemView
     provider_name: @options.provider_name
     nice_provider_name: @_niceProviderName()
     connected: currentUser.serviceConnected(@options.provider_name)
+    connectButtonClass: @_connectButtonClass()
 
   initialize: ->
     @listenTo currentUser, 'change:services', @render
@@ -23,3 +24,8 @@ class window.PreviewShareFactView extends Backbone.Marionette.ItemView
         FactlinkApp.NotificationCenter.error "Error when sharing to #{@_niceProviderName()}"
 
   _niceProviderName: -> @options.provider_name.capitalize()
+
+  _connectButtonClass: ->
+    switch @options.provider_name
+      when 'twitter' then 'button-twitter'
+      when 'facebook' then 'button-facebook'
