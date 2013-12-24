@@ -15,6 +15,9 @@ $('html').on 'click', '.js-accounts-popup-link', (e) ->
 $(document).on 'signed_in', ->
   window.location.reload(true)
 
+$(document).on 'authorized', ->
+  window.location.reload(true)
+
 $(document).on 'account_error', (e) ->
   if typeof FactlinkApp == 'object'
     FactlinkApp.NotificationCenter.error(e.originalEvent.detail)
