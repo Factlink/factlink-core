@@ -31,7 +31,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       fact_id: @collection.fact.id
       argumentTypeModel: @_argumentTypeModel
 
-    @_addCommentView ?= new AddCommentView
+    @_addCommentView = new AddCommentView
       addToCollection: @collection
       argumentTypeModel: @_argumentTypeModel
 
