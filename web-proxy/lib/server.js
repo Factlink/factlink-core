@@ -96,7 +96,7 @@ function getServer(config) {
   function injectFactlinkJs(original_html, site, scroll_to, open_id, successFn) {
     "use strict";
 
-    if (/factlink_loader_publishers.min.js/.test(original_html)) {
+    if (/factlink_loader_publishers.min.js/.test(original_html) && config.ENV !== "development" && config.ENV === "testserver") {
       // Redirect to publishers' sites
       // Circumvent blacklist as we assume we don't want to blacklist publishers for now, and it's faster
       // to not check.
