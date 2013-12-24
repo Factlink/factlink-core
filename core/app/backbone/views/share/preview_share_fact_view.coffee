@@ -1,4 +1,4 @@
-class window.PreviewShareFactView extends Backbone.Marionette.Layout
+class window.PreviewShareFactView extends Backbone.Marionette.ItemView
   className: 'preview-share-fact'
 
   template: 'share/preview_share_fact'
