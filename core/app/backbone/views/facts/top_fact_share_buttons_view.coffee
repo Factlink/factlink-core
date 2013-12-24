@@ -2,9 +2,6 @@ class window.TopFactShareButtonsView extends Backbone.Marionette.Layout
   className: 'top-fact-share-buttons'
   template: 'facts/top_fact_share_buttons'
 
-  templateHelpers: ->
-    current_user: currentUser.toJSON()
-
   onRender: ->
     @_renderPopover '.js-start-conversation', =>
       mp_track 'Factlink: Open conversation popover'
