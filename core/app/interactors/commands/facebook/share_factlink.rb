@@ -3,12 +3,12 @@ module Commands
     class ShareFactlink
       include Pavlov::Command
 
-      arguments :fact_id, :text
+      arguments :fact_id, :message
 
       private
 
       def execute
-        client.put_wall_post text || '',
+        client.put_wall_post message || '',
           name: fact.trimmed_quote(100),
           link: url,
           caption: caption,

@@ -3,19 +3,19 @@ module Commands
     class ShareFactlink
       include Pavlov::Command
 
-      arguments :fact_id, :text
+      arguments :fact_id, :message
 
       private
 
       def execute
-        quote_with_url = text_or_quote + ' ' + url
+        quote_with_url = message_or_quote + ' ' + url
 
         command(:'twitter/post', message: quote_with_url)
       end
 
-      def text_or_quote
-        if text
-          TrimmedString.new(text).trimmed(maximum_quote_length)
+      def message_or_quote
+        if message
+          TrimmedString.new(message).trimmed(maximum_quote_length)
         else
           fact.trimmed_quote(maximum_quote_length)
         end
