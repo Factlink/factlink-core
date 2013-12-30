@@ -5,14 +5,14 @@ class TrimmedString
   end
 
   def trimmed max_length
-    long_quote = @string.strip
+    long_string = @string.strip
 
-    if long_quote.length > max_length
+    if long_string.length > max_length
       ellipsis = "\u2026"
 
-      long_quote[0...max_length-1].strip + ellipsis
+      long_string[0...max_length-1].strip + ellipsis
     else
-      long_quote
+      long_string
     end
   end
 
