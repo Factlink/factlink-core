@@ -3,7 +3,9 @@ FactlinkJailRoot.createFactFromSelection = ->
     FactlinkJailRoot.createButton.hide()
     FactlinkJailRoot.off 'modalOpened', success
 
-  selInfo = FactlinkJailRoot.getSelectionInfo()
+  selInfo =
+    text: window.document.getSelection().toString()
+    title: window.document.title
 
   text = selInfo.text
   siteUrl = FactlinkJailRoot.siteUrl()
@@ -12,8 +14,5 @@ FactlinkJailRoot.createFactFromSelection = ->
   FactlinkJailRoot.on 'modalOpened', success
   FactlinkJailRoot.factlinkCoreEnvoy 'prepareNewFactlink', text, siteUrl, siteTitle
 
-# We make this a global function so it can be used for direct adding of facts
-# (Right click with chrome-extension)
-FactlinkJailRoot.getSelectionInfo = ->
-  text: window.document.getSelection().toString()
-  title: window.document.title
+FactlinkJailRoot.textSelected = ->
+  !!window.document.getSelection().toString()

@@ -6,9 +6,6 @@ rightClick = (event=window.event) ->
   else
     false
 
-FactlinkJailRoot.textSelected = (e) ->
-  FactlinkJailRoot.getSelectionInfo().text?.length > 1
-
 timeout = null
 
 annotating = false
