@@ -1,4 +1,16 @@
 <div class="add-comment-container">
   <div class="js-input-region"></div>
 </div>
+
 <button class="button button-confirm button-small post-comment-button js-post">{{global.t.post_argument}}</button>
+
+{{#global.can_haz.share_comment}}
+  <label class="add-comment-share-label">
+    <input type="checkbox">
+    <span class="share-button share-button-facebook js-facebook">Facebook</span>
+  </label>
+  <label class="add-comment-share-label">
+    <input type="checkbox">
+    <span class="share-button share-button-twitter js-twitter">Twitter</span>
+  </label>
+{{/global.can_haz.share_comment}}
