@@ -34,13 +34,6 @@ module Commands
 
         tweet_length - short_url_length_https - space_before_url
       end
-
-      def validate
-        # HACK! Fix this through pavlov serialization (ask @markijbema or @janpaul123)
-        if pavlov_options.has_key? 'serialize_id'
-          self.pavlov_options = Util::PavlovContextSerialization.deserialize_pavlov_context(pavlov_options)
-        end
-      end
     end
   end
 end

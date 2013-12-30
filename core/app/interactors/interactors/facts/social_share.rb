@@ -10,13 +10,11 @@ module Interactors
 
       def execute
         if provider_names[:twitter]
-          Resque.enqueue(Commands::Twitter::ShareFactlink, { fact_id: fact_id, message: message,
-            pavlov_options: Util::PavlovContextSerialization.serialize_pavlov_context(pavlov_options) })
+          command :'twitter/share_factlink', fact_id: fact_id, message: message
         end
 
         if provider_names[:facebook]
-          Resque.enqueue(Commands::Facebook::ShareFactlink, { fact_id: fact_id, message: message,
-            pavlov_options: Util::PavlovContextSerialization.serialize_pavlov_context(pavlov_options) })
+          command :'facebook/share_factlink', fact_id: fact_id, message: message
         end
       end
 
