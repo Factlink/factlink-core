@@ -4,16 +4,7 @@ class TrimmedString
     @string = string
   end
 
-  def trimmed_quote max_length
-    left_quotation_mark = "\u201c"
-    right_quotation_mark = "\u201d"
-
-    left_quotation_mark + inner_quote(max_length-2) + right_quotation_mark
-  end
-
-  private
-
-  def inner_quote max_length
+  def trimmed max_length
     long_quote = @string.strip
 
     if long_quote.length > max_length
@@ -23,6 +14,13 @@ class TrimmedString
     else
       long_quote
     end
+  end
+
+  def trimmed_quote max_length
+    left_quotation_mark = "\u201c"
+    right_quotation_mark = "\u201d"
+
+    left_quotation_mark + trimmed(max_length-2) + right_quotation_mark
   end
 
 end
