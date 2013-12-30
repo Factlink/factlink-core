@@ -1,4 +1,4 @@
-module Commands
+module Interactors
   module Facts
     class SocialShare
       include Pavlov::Command

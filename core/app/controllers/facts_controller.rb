@@ -91,8 +91,7 @@ class FactsController < ApplicationController
   def share
     authorize! :share, @fact
 
-    # TODO: WRAP IN INTERACTOR
-    command :'facts/social_share', fact_id: @fact.id,
+    interactor :'facts/social_share', fact_id: @fact.id,
       message: params[:message], provider_names: params[:provider_names]
 
     render json: {}
