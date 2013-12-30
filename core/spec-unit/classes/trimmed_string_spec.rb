@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../app/classes/quotes.rb'
+require_relative '../../app/classes/trimmed_string.rb'
 
-describe Quotes do
+describe TrimmedString do
   include PavlovSupport
 
   describe '#trimmed_quote' do

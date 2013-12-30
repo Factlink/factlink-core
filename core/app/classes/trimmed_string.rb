@@ -1,4 +1,4 @@
-class Quotes
+class TrimmedString
 
   def initialize string
     @string = string

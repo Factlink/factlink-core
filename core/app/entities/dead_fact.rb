@@ -16,7 +16,7 @@ DeadFact = Struct.new(
   end
 
   def trimmed_quote max_length
-    Quotes.new(displaystring).trimmed_quote(max_length)
+    TrimmedString.new(displaystring).trimmed_quote(max_length)
   end
 
   def host # Move to site when we have a reference to DeadSite or so
