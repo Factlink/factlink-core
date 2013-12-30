@@ -55,7 +55,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   _shareFactlink: (model) ->
     return unless Factlink.Global.can_haz.share_comment && Factlink.Global.signed_in
 
-    @options.addToCollection.fact.share @_shareCommentView().selectedProviderNames(), model.get('content')
+    @_shareCommentView().submit model.get('content')
 
   addModelError: ->
     @enableSubmit()
@@ -74,3 +74,4 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
   _shareCommentView: ->
     @___shareCommentView ?= new ShareCommentView
+      model: @options.addToCollection.fact
