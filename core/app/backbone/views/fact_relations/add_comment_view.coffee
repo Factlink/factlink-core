@@ -12,6 +12,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
   regions:
     inputRegion: '.js-input-region'
+    shareCommentRegion: '.js-share-comment-region'
 
   initialize: ->
     @_textAreaView = new Backbone.Factlink.TextAreaView model: @_textModel()
@@ -20,6 +21,9 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
   onRender: ->
     @inputRegion.show @_textAreaView
+
+    if Factlink.Global.can_haz.share_comment
+      @shareCommentRegion.show new ShareCommentView
 
   addComment: ->
     return if @submitting
