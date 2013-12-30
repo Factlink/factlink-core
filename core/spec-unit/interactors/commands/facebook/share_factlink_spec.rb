@@ -1,6 +1,5 @@
 require 'pavlov_helper'
 require_relative '../../../../app/interactors/commands/facebook/share_factlink.rb'
-require_relative '../../../../app/classes/quotes.rb'
 
 describe Commands::Facebook::ShareFactlink do
   include PavlovSupport

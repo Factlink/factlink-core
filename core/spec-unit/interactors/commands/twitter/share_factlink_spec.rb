@@ -1,6 +1,5 @@
 require 'pavlov_helper'
 require_relative '../../../../app/interactors/commands/twitter/share_factlink.rb'
-require_relative '../../../../app/classes/quotes.rb'
 
 describe Commands::Twitter::ShareFactlink do
   include PavlovSupport
