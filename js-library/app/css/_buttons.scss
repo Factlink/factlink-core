@@ -1,9 +1,14 @@
+$arrowSize: 6px;
+$buttonBackground: rgba(32,32,32,0.6);
+$buttonHoverBackground: rgba(32,32,32,0.7);
+
 .fl-button {
   @extend %default-font;
   cursor:   pointer;
   display: block;
   white-space: nowrap;
   text-align: center;
+  position: relative;
 
   border-radius: 3px;
   padding: 5px 20px;
@@ -11,8 +16,26 @@
   color: white;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
 
+  margin-bottom: $arrowSize;
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -$arrowSize;
+    left: 50%;
+    margin-left: -$arrowSize / 2;
+
+    border: $arrowSize solid transparent;
+    border-top-color: $buttonBackground;
+    border-bottom-width: 0;
+  }
+
   &:hover {
-    background-color: rgba(32,32,32,0.7);
+    background-color: $buttonHoverBackground;
+  }
+
+  &:hover:after {
+    border-top-color: $buttonHoverBackground;
   }
 }
 
