@@ -19,7 +19,7 @@ class window.PreviewShareFactView extends Backbone.Marionette.ItemView
     provider_names = {}
     provider_names[@options.provider_name] = true
 
-    @model.share provider_names,
+    @model.share provider_names, null,
       success: =>
         FactlinkApp.NotificationCenter.success "Sharing to #{@_niceProviderName()}."
         @trigger 'success'

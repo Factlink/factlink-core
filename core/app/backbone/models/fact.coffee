@@ -55,11 +55,11 @@ class window.Fact extends Backbone.Model
 
     minutes_ago < 5
 
-  share: (provider_names, options={}) ->
+  share: (provider_names, text=null, options={}) ->
     Backbone.ajax _.extend {}, options,
       type: 'post'
       url: "#{@url()}/share"
-      data: {provider_names}
+      data: {provider_names, text}
 
   toJSON: ->
     _.extend super(),
