@@ -15,6 +15,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     shareCommentRegion: '.js-share-comment-region'
 
   initialize: ->
+    @_shareCommentView = new ShareCommentView
     @_textAreaView = new Backbone.Factlink.TextAreaView model: @_textModel()
     @listenTo @_textAreaView, 'return', @addComment
     @on 'region:focus', -> @_textAreaView.focusInput()
@@ -23,7 +24,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @inputRegion.show @_textAreaView
 
     if Factlink.Global.can_haz.share_comment
-      @shareCommentRegion.show new ShareCommentView
+      @shareCommentRegion.show @_shareCommentView
 
   addComment: ->
     return if @submitting
@@ -49,6 +50,14 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     mp_track "Factlink: Added comment",
       factlink_id: @options.addToCollection.fact.id
       type: @options.argumentTypeModel.get 'argument_type'
+
+    @_shareFactlink()
+
+  _shareFactlink: ->
+    if @_shareCommentView.isSelected 'twitter'
+      @options.addToCollection.fact.share 'twitter'
+    if @_shareCommentView.isSelected 'facebook'
+      @options.addToCollection.fact.share 'facebook'
 
   addModelError: ->
     @enableSubmit()
