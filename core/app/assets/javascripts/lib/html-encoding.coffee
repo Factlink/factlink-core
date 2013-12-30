@@ -5,8 +5,6 @@ window.htmlEscape = (str)->
                 replace(/</g, '&lt;').
                 replace(/>/g, '&gt;')
 
-window.nlToBr = (str)-> str.replace(/\n/g, '<br />');
-
 window.highlightTextInTextAsHtml = (highlight, text)->
   if highlight.length <= 0
     htmlEscape(text)
