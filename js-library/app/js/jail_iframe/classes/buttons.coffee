@@ -44,3 +44,9 @@ class FactlinkJailRoot.CreateButton extends Button
       <span class="fl-button-loading-content">Loading...</span>
     </div>
   """
+
+  placeNearSelection: (mouseX=null) ->
+    selectionBox = window.document.getSelection().getRangeAt(0).getBoundingClientRect()
+    left = mouseX ? (selectionBox.left + selectionBox.width/2)
+
+    @setCoordinates selectionBox.top, left

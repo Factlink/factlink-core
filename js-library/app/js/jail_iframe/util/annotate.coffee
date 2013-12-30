@@ -35,7 +35,7 @@ FactlinkJailRoot.startAnnotating = ->
 
       # Check if the selected text is long enough to be added
       if FactlinkJailRoot.textSelected() && !$(event.target).is(":input")
-        FactlinkJailRoot.createButton.setCoordinates event.pageY, event.pageX
+        FactlinkJailRoot.createButton.placeNearSelection event.pageX
         FactlinkJailRoot.createButton.show()
         FactlinkJailRoot.trigger "textSelected"
     , 200)
