@@ -8,9 +8,7 @@ module Commands
       private
 
       def execute
-        quote_with_url = message_or_quote + ' ' + url
-
-        command(:'twitter/post', message: quote_with_url)
+        command :'twitter/post', message: message_or_quote + ' ' + url
       end
 
       def message_or_quote
