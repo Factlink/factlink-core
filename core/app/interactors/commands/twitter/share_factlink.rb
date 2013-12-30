@@ -8,13 +8,17 @@ module Commands
       private
 
       def execute
-        quote_with_url = quote + ' ' + url
+        quote_with_url = text_or_quote + ' ' + url
 
         command(:'twitter/post', message: quote_with_url)
       end
 
-      def quote
-        fact.trimmed_quote(maximum_quote_length)
+      def text_or_quote
+        if text
+          TrimmedString.new(text).trimmed(maximum_quote_length)
+        else
+          fact.trimmed_quote(maximum_quote_length)
+        end
       end
 
       def url
