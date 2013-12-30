@@ -8,7 +8,7 @@ module Commands
       private
 
       def execute
-        client.put_wall_post '',
+        client.put_wall_post text || '',
           name: fact.trimmed_quote(100),
           link: url,
           caption: caption,

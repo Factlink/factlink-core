@@ -18,6 +18,7 @@ describe Commands::Facebook::ShareFactlink do
       fact_url  = double sharing_url: 'sharing_url'
       user      = double
       facebook_account = double token: token
+      text = 'text'
 
       user.stub(:social_account).with('facebook').and_return(facebook_account)
 
@@ -38,19 +39,20 @@ describe Commands::Facebook::ShareFactlink do
 
       fact.stub(:trimmed_quote).with(100).and_return('quote')
 
-      client.should_receive(:put_wall_post).with '',
+      client.should_receive(:put_wall_post).with text,
         name: 'quote',
         link: 'sharing_url',
         caption: "example.org \u2014 title",
         description: 'Read more',
         picture: 'http://cdn.factlink.com/1/facebook-factwheel-logo.png'
 
-      command = described_class.new fact_id: fact.id, pavlov_options: pavlov_options
+      command = described_class.new fact_id: fact.id, text: text,
+                                    pavlov_options: pavlov_options
 
       command.call
     end
 
-    it 'works without a host' do
+    it 'works without a host and without text' do
       fact      = double id: '1', title: 'title', has_site?: false
       token     = double
       client    = double
@@ -85,7 +87,8 @@ describe Commands::Facebook::ShareFactlink do
         description: 'Read more',
         picture: 'http://cdn.factlink.com/1/facebook-factwheel-logo.png'
 
-      command = described_class.new fact_id: fact.id, pavlov_options: pavlov_options
+      command = described_class.new fact_id: fact.id, text: nil,
+                                    pavlov_options: pavlov_options
 
       command.call
     end
