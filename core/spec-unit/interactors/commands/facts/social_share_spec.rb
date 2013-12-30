@@ -46,27 +46,30 @@ describe Commands::Facts::SocialShare do
       current_user = double(id: '123asdf', social_account: double)
 
       pavlov_options = {current_user: current_user, ability: ability}
-      command = described_class.new fact_id: fact_id,
+      command = described_class.new fact_id: fact_id, text: nil,
                                     provider_names: provider_names, pavlov_options: pavlov_options
 
       Resque.should_receive(:enqueue)
-            .with(Commands::Twitter::ShareFactlink, fact_id: fact_id, pavlov_options: { 'serialize_id' => current_user.id })
+            .with(Commands::Twitter::ShareFactlink, fact_id: fact_id, text: nil,
+              pavlov_options: { 'serialize_id' => current_user.id })
 
       command.call
     end
 
     it 'posts to facebook if specified' do
       fact_id = '1'
+      text = 'text'
       provider_names = {twitter: false, facebook: true}
       ability = double(can?: true)
       current_user = double(id: '123asdf', social_account: double)
 
       pavlov_options = {current_user: current_user, ability: ability}
-      command = described_class.new fact_id: fact_id,
+      command = described_class.new fact_id: fact_id, text: text,
                                     provider_names: provider_names, pavlov_options: pavlov_options
 
       Resque.should_receive(:enqueue)
-            .with(Commands::Facebook::ShareFactlink, fact_id: fact_id, pavlov_options: { 'serialize_id' => current_user.id })
+            .with(Commands::Facebook::ShareFactlink, fact_id: fact_id, text: text,
+              pavlov_options: { 'serialize_id' => current_user.id })
 
       command.call
     end
