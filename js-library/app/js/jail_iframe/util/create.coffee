@@ -15,4 +15,5 @@ FactlinkJailRoot.createFactFromSelection = ->
   FactlinkJailRoot.factlinkCoreEnvoy 'prepareNewFactlink', text, siteUrl, siteTitle
 
 FactlinkJailRoot.textSelected = ->
-  !!window.document.getSelection().toString()
+  # At least 4 words of at least 2 characters
+  /(\w{2,}[\s-_&\/#%]+){4}/.test window.document.getSelection().toString()
