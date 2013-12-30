@@ -1,6 +1,6 @@
 $arrowSize: 6px;
-$buttonBackground: rgba(32,32,32,0.6);
-$buttonHoverBackground: rgba(32,32,32,0.7);
+$buttonBackground: #444;
+$buttonHoverBackground: #222;
 
 .fl-button {
   @extend %default-font;
