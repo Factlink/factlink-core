@@ -49,6 +49,8 @@ class window.ShareCommentView extends Backbone.Marionette.Layout
     # TODO: storing provider names in a model, so we don't necessarily
     # have to execute in this order
     provider_names = @_selectedProviderNames()
+    return unless provider_names.twitter || provider_names.facebook
+
     @_submitting = true
     @render()
 
