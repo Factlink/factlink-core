@@ -15,8 +15,14 @@ class Button
 
   show: =>
     @stopLoading()
-    FactlinkJailRoot.set_position_of_element @_top, @_left, window, @frame.$el
     @frame.fadeIn()
+
+    left = @_left - @frame.$el.outerWidth(true)/2
+    top = @_top - @frame.$el.outerHeight(true)
+
+    @frame.$el.css
+      left: left + "px"
+      top: top + "px"
 
   hide: => @frame.fadeOut()
 
