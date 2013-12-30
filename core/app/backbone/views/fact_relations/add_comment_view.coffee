@@ -37,6 +37,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
     @disableSubmit()
     @addDefaultModel()
+    @_shareFactlink(@model)
 
   setFormContent: (content) -> @_textModel().set 'text', content
 
@@ -49,8 +50,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     mp_track "Factlink: Added comment",
       factlink_id: @options.addToCollection.fact.id
       type: @options.argumentTypeModel.get 'argument_type'
-
-    @_shareFactlink(model)
 
   _shareFactlink: (model) ->
     return unless Factlink.Global.can_haz.share_comment && Factlink.Global.signed_in
