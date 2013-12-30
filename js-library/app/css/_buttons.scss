@@ -11,7 +11,7 @@ $buttonHoverBackground: #222;
   position: relative;
 
   border-radius: 3px;
-  padding: 5px 20px;
+  line-height: 30px;
   background-color: $buttonBackground;
   color: white;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
@@ -42,17 +42,45 @@ $buttonHoverBackground: #222;
 .fl-button-default-content, .fl-button-loading-content {
   overflow: hidden;
   white-space: nowrap;
+  padding: 0 20px;
 }
 
 .fl-button-loading-content, .fl-button-loading .fl-button-default-content { height: 0; }
 .fl-button-loading .fl-button-loading-content { height: auto; }
 
-.fl-button-loading-content:before { content: url("../images/loading-indicator.gif"); }
-.fl-button-default-content:before { content: url("../images/logo-white.png"); }
-.fl-button-default-content:before, .fl-button-loading-content:before {
+.fl-button-default-content:before {
+  content: url("../images/logo-white.png");
   display:inline-block;
   vertical-align: middle;
-  width:20px;
-  height:20px;
-  margin: -1px 4px 1px 0;
+  width: 20px;
+  height: 24px;
+  margin-right: 5px;
+}
+
+// keep in sync with core .striped
+@mixin striped($angle: 45deg, $stripeColor: rgba(255,255,255,.15)) {
+  background-image: -webkit-linear-gradient($angle, $stripeColor 25%, transparent 25%, transparent 50%, $stripeColor 50%, $stripeColor 75%, transparent 75%, transparent);
+  background-image: linear-gradient($angle, $stripeColor 25%, transparent 25%, transparent 50%, $stripeColor 50%, $stripeColor 75%, transparent 75%, transparent);
+}
+
+@mixin loading-stripes-keyframes {
+  from  { background-position: 40px 0; }
+  to    { background-position: 0 0; }
+}
+
+@-webkit-keyframes loading-stripes { @include loading-stripes-keyframes; }
+// IE9
+@-ms-keyframes loading-stripes { @include loading-stripes-keyframes; }
+// Spec
+@keyframes loading-stripes { @include loading-stripes-keyframes; }
+
+@mixin animate-stripes($seconds: 1.5s) {
+  -webkit-animation:  loading-stripes $seconds linear infinite;
+  animation:          loading-stripes $seconds linear infinite;
+}
+
+.fl-button-loading-content {
+  background-size: 40px 40px;
+  @include striped;
+  @include animate-stripes;
 }
