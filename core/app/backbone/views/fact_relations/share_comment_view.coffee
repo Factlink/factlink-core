@@ -9,6 +9,7 @@ class window.ShareCommentView extends Backbone.Marionette.Layout
   templateHelpers: ->
     connected_twitter: currentUser.serviceConnected 'twitter'
     connected_facebook: currentUser.serviceConnected 'facebook'
+    submitting: @_submitting
 
   initialize: ->
     @listenTo currentUser, 'change:services', @render
@@ -45,7 +46,16 @@ class window.ShareCommentView extends Backbone.Marionette.Layout
       tooltipViewFactory: => new TextView text: 'Share to Facebook'
 
   submit: (message) ->
-    @model.share @_selectedProviderNames(), message
+    # TODO: storing provider names in a model, so we don't necessarily
+    # have to execute in this order
+    provider_names = @_selectedProviderNames()
+    @_submitting = true
+    @render()
+
+    @model.share provider_names, message,
+      complete: => @_submitting = false; @render()
+      error: =>
+        FactlinkApp.NotificationCenter.error "Error when sharing"
 
   _selectedProviderNames: ->
     twitter: @ui.twitterCheckbox.prop('checked') || false
