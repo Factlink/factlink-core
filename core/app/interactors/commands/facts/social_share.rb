@@ -4,17 +4,17 @@ module Commands
       include Pavlov::Command
       include Util::CanCan
 
-      arguments :fact_id, :sharing_options
+      arguments :fact_id, :provider_names
 
       private
 
       def execute
-        if sharing_options[:twitter]
+        if provider_names[:twitter]
           Resque.enqueue(Commands::Twitter::ShareFactlink, { fact_id: fact_id,
             pavlov_options: Util::PavlovContextSerialization.serialize_pavlov_context(pavlov_options) })
         end
 
-        if sharing_options[:facebook]
+        if provider_names[:facebook]
           Resque.enqueue(Commands::Facebook::ShareFactlink, { fact_id: fact_id,
             pavlov_options: Util::PavlovContextSerialization.serialize_pavlov_context(pavlov_options) })
         end
@@ -27,8 +27,8 @@ module Commands
       end
 
       def validate
-        validate_connected :twitter if sharing_options[:twitter]
-        validate_connected :facebook if sharing_options[:facebook]
+        validate_connected :twitter if provider_names[:twitter]
+        validate_connected :facebook if provider_names[:facebook]
       end
     end
   end

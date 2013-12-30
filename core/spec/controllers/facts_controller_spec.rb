@@ -141,7 +141,7 @@ describe FactsController do
       Twitter::Client.any_instance.should_receive(:update)
       Twitter.stub configuration: double(short_url_length_https: 20)
 
-      post :share, id: fact.id, fact_sharing_options: {twitter: true}
+      post :share, id: fact.id, provider_names: {twitter: true}
     end
 
     it 'should work for facebook' do
@@ -157,7 +157,7 @@ describe FactsController do
 
       Koala::Facebook::API.any_instance.should_receive(:put_wall_post)
 
-      post :share, id: fact.id, fact_sharing_options: {facebook: true}
+      post :share, id: fact.id, provider_names: {facebook: true}
     end
   end
 end
