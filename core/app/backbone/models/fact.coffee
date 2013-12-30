@@ -55,10 +55,7 @@ class window.Fact extends Backbone.Model
 
     minutes_ago < 5
 
-  share: (provider_name, options={}) ->
-    provider_names = {}
-    provider_names[provider_name] = true
-
+  share: (provider_names, options={}) ->
     Backbone.ajax _.extend {}, options,
       type: 'post'
       url: "#{@url()}/share"

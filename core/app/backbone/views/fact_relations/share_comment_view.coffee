@@ -44,7 +44,6 @@ class window.ShareCommentView extends Backbone.Marionette.Layout
       selector: '.js-share-facebook'
       tooltipViewFactory: => new TextView text: 'Share to Facebook'
 
-  isSelected: (provider_name) ->
-    switch provider_name
-      when 'twitter' then @ui.twitterCheckbox.prop('checked') || false
-      when 'facebook' then @ui.facebookCheckbox.prop('checked') || false
+  selectedProviderNames: ->
+    twitter: @ui.twitterCheckbox.prop('checked') || false
+    facebook: @ui.facebookCheckbox.prop('checked') || false

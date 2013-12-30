@@ -55,10 +55,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   _shareFactlink: ->
     return unless Factlink.Global.can_haz.share_comment && Factlink.Global.signed_in
 
-    if @_shareCommentView().isSelected 'twitter'
-      @options.addToCollection.fact.share 'twitter'
-    if @_shareCommentView().isSelected 'facebook'
-      @options.addToCollection.fact.share 'facebook'
+    @options.addToCollection.fact.share @_shareCommentView().selectedProviderNames()
 
   addModelError: ->
     @enableSubmit()
