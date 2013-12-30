@@ -2,10 +2,10 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  add_fact: "add annotation" # when updating, update jslib template
+  add_fact: "create discussion" # when updating, update jslib template
 
-  factlink: "annotation"
-  factlinks: "annotations"
+  factlink: "discussion"
+  factlinks: "discussions"
 
   fact_believe_action: "agree"
   fact_doubt_action: "neutral"
