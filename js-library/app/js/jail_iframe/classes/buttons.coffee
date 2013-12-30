@@ -47,7 +47,14 @@ class FactlinkJailRoot.CreateButton extends Button
 
   placeNearSelection: (mouseX=null) ->
     selectionBox = window.document.getSelection().getRangeAt(0).getBoundingClientRect()
-    top = selectionBox.top + $(window).scrollTop() - 2
-    left = mouseX ? ($(window).scrollLeft() + selectionBox.left + selectionBox.width/2)
+    selectionLeft = selectionBox.left + $(window).scrollLeft()
+    selectionTop = selectionBox.top + $(window).scrollTop()
+    buttonWidth = @frame.$el.outerWidth(true)
 
-    @setCoordinates top, left
+    if mouseX
+      left = Math.min Math.max(mouseX, selectionLeft+buttonWidth/2),
+        selectionLeft+selectionBox.width-buttonWidth/2
+    else
+      left = selectionLeft + selectionBox.width/2
+
+    @setCoordinates selectionTop-2, left
