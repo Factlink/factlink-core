@@ -27,7 +27,7 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
     position: absolute;
     bottom: -$arrowSize;
     left: $buttonSmallWidth / 2;
-    margin-left: -$arrowSize / 2;
+    margin-left: -$arrowSize;
 
     border: $arrowSize solid transparent;
     border-top-color: $buttonBackground;
