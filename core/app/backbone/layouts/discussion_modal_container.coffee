@@ -20,11 +20,11 @@ class window.DiscussionModalContainer extends Backbone.Marionette.Layout
   onRender: ->
     @$el.preventScrollPropagation()
     _.defer => @$el.addClass 'discussion-modal-container-visible'
-    $('body').addClass 'discussion-modal-open' if Factlink.Global.can_haz.suppress_double_scrollbar
+    $('body').addClass 'discussion-modal-open'
 
     mp_track 'Discussion Modal: Open'
 
   fadeOut: (callback) ->
     @$el.removeClass 'discussion-modal-container-visible'
-    $('body').removeClass 'discussion-modal-open' if Factlink.Global.can_haz.suppress_double_scrollbar
+    $('body').removeClass 'discussion-modal-open'
     _.delay callback, 100 # keep in sync with CSS
