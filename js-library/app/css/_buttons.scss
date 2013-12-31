@@ -39,14 +39,14 @@ $buttonHoverBackground: #222;
   }
 }
 
-.fl-button-default-content, .fl-button-loading-content {
+.fl-button-content-default, .fl-button-content-loading {
   overflow: hidden;
   white-space: nowrap;
   padding: 0 20px;
 }
 
-.fl-button-loading-content, .fl-button-loading .fl-button-default-content { height: 0; }
-.fl-button-loading .fl-button-loading-content { height: auto; }
+.fl-button-content-loading, .fl-button-state-loading .fl-button-content-default { height: 0; }
+.fl-button-state-loading .fl-button-content-loading { height: auto; }
 
 .fl-button-icon:before {
   content: url("../images/logo-white.png");
@@ -79,7 +79,7 @@ $buttonHoverBackground: #222;
   animation:          loading-stripes $seconds linear infinite;
 }
 
-.fl-button-loading-content {
+.fl-button-content-loading {
   background-size: 40px 40px;
   @include striped;
   @include animate-stripes;
