@@ -30,7 +30,7 @@ var walkTheDOM = function walk(node, func) {
   };
 
 // Create a "fact"-span with the right attributes
-var createFactSpan = function(text, id, first) {
+var createFactSpan = function(text, id) {
     var span = $(document.createElement('span'))
       .addClass('factlink')
       .attr('data-factid', id);
@@ -42,7 +42,7 @@ var createFactSpan = function(text, id, first) {
   // This is where the actual magic will take place
   // A Span will be inserted around the startOffset/endOffset
   // in the startNode/endNode
-  insertFactSpan = function(startOffset, endOffset, node, id, isFirst) {
+  insertFactSpan = function(startOffset, endOffset, node, id) {
     // Value of the startNode, represented in an array
     var startNodeValue = node.nodeValue.split(''),
         // The selected text
@@ -60,7 +60,7 @@ var createFactSpan = function(text, id, first) {
       node.parentNode.insertBefore(document.createTextNode(after), node.nextSibling);
     }
     // Create a reference to the actual "fact"-span
-    var span = createFactSpan(selTextStart.join(''), id, isFirst);
+    var span = createFactSpan(selTextStart.join(''), id);
 
     // Remove the last part of the nodeValue
     node.nodeValue = startNodeValue.join('');
@@ -116,11 +116,7 @@ FactlinkJailRoot.selectRanges = function(ranges, id) {
       res.startOffset,
       res.endOffset,
       res.node,
-      id,
-      // Only select the first range of every matched string
-      // Needed for when one displayString is matched mutliple times on
-      // one page
-      res.first));
+      id));
   }
 
   for ( var matchId in elements ) {
@@ -138,7 +134,6 @@ FactlinkJailRoot.parseFactNodes = function(range, results, matchId) {
   // Only parse the nodes if the startNode is already found,
   // this boolean is used for tracking
   var foundStart = false;
-  var first = true;
 
   // Walk the DOM in the right order and call the function for every
   // node it passes
@@ -163,11 +158,8 @@ FactlinkJailRoot.parseFactNodes = function(range, results, matchId) {
           startOffset: rStartOffset,
           endOffset: rEndOffset,
           node: node,
-          matchId: matchId,
-          first: first
+          matchId: matchId
         });
-
-        first = false;
       }
 
       if (foundStart && node === range.endContainer) {
