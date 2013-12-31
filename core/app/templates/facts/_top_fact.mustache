@@ -24,4 +24,8 @@
 <div class="js-fact-vote-table-region"></div>
 
 {{! at the end for rendering of sharing popovers on top of the rest !}}
-<div class="js-share-region"></div>
+<div class="top-fact-top-controls">
+  {{#global.signed_in}}
+    <a href="javascript:void(0)" class="js-share">Share</a>
+  {{/global.signed_in}}
+</div>
