@@ -3,9 +3,11 @@
 module Acceptance
   module AddToChannelModalHelper
     def open_repost_modal &block
-       # cannot use open_modal because that assumes we click a link, not a button
-      click_button 'Topics'
-      within_modal &block
+      click_link 'Topics'
+
+      within(:css, ".add-to-channel") do
+        yield
+      end
     end
 
     def add_to_channel name
