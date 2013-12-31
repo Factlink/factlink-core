@@ -70,6 +70,15 @@ class FactlinkJailRoot.CreateButton extends Button
     </div>
   """
 
+  constructor: ->
+    super
+    @$el.on 'mousedown', (event) -> event.preventDefault() # To prevent de-selecting text
+    @$el.on 'click', @_onClick
+
+  _onClick: (event) =>
+    @startLoading()
+    FactlinkJailRoot.createFactFromSelection()
+
   placeNearSelection: (mouseX=null) ->
     selectionBox = window.document.getSelection().getRangeAt(0).getBoundingClientRect()
     selectionLeft = selectionBox.left + $(window).scrollLeft()
