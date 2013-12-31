@@ -1,8 +1,8 @@
 # coding: utf-8
 
 module Acceptance
-  module AddToChannelModalHelper
-    def open_repost_modal &block
+  module AddToChannelHelper
+    def open_channel_repost &block
       click_link 'Topics'
 
       within(:css, ".add-to-channel") do
