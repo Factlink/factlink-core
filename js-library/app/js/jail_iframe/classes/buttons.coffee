@@ -31,6 +31,10 @@ class Button
     left = @_left - @frame.$el.outerWidth(true)/2
     top = @_top - @frame.$el.outerHeight(true)
 
+    bodyOffset = FactlinkJailRoot.$factlinkCoreContainer.offset()
+    left -= bodyOffset.left
+    top -= bodyOffset.top
+
     @frame.$el.css
       left: left + "px"
       top: top + "px"
