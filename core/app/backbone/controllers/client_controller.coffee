@@ -12,6 +12,9 @@ class window.ClientController
     if Factlink.Global.signed_in
       fact.save {},
         success: =>
+          if params.current_user_opinion
+            fact.getFactTally().clickCurrentUserOpinion params.current_user_opinion
+
           @annotatedSiteEnvoy 'highlightNewFactlink', params.displaystring, fact.id
           FactlinkApp.NotificationCenter.success "Created #{Factlink.Global.t.factlink}."
 
