@@ -13,44 +13,30 @@
 .top-fact-text {
   font-size: @topFactFontSize;
   line-height: @topFactFontSize * 1.5;
-  margin-bottom: 25px;
   word-break: break-word;
 }
 
 .top-fact-controls {
-  position: relative;
-  color: @mutedFontColor;
-
-  // These two rules are for creating a block formatting context,
-  // as we cannot use overflow: hidden because of delete button
-  display: inline-block;
-  width: 100%;
+  position: absolute;
+  top: -29px;
+  right: 4px;
 }
 
-.top-fact-poster-controls {
-  float: right;
-  margin-top: 2px;
-  color: @mutedFontColor;
-  .ellipsis(300px);
-
-  // extra space for delete button
-  padding-left: 70px;
-  padding-top: 1px;
-}
-
-.top-fact-delete {
-  display: inline-block;
-  margin-top: 2px;
-
+.top-fact-control {
   &:after {
     content: "·";
-    margin-right: 10px;
-    margin-left: 4px;
+    margin: 0 5px;
+  }
+  &:last-child:after {
+    content: "";
+    margin: 0;
   }
 }
 
-.top-fact-top-controls {
-  position: absolute;
-  top: -@baseButtonHeight - 4px;
-  right: 4px;
+.top-fact-delete {
+  margin-top: 2px;
+
+  &:after {
+    margin-left: 0;
+  }
 }
