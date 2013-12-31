@@ -6,13 +6,9 @@ FactlinkJailRoot.scrollTo = (fact_id) ->
     return if $("span[data-factid=#{fact_id}]").length <= 0
     scrolled = true
 
-    $('body')
-      ._scrollable()
-      .scrollTo "span[data-factid=#{fact_id}]", 800,
-        offset:
-          top: -100
-          axis: 'y'
-
+    scrollTop = $("span[data-factid=#{fact_id}]").offset().top
+    scrollTop -= $(window).height()/2 - 100
+    $('html, body').animate {scrollTop}, 800
 
   scroll()
   FactlinkJailRoot.on 'factlink.factsLoaded', scroll
