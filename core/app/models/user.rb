@@ -110,8 +110,6 @@ class User
     field :confirmed_at,         :type => Time
     field :confirmation_sent_at, :type => Time
 
-  has_and_belongs_to_many :conversations, inverse_of: :recipients
-  has_many :sent_messages, class_name: 'Message', inverse_of: :sender
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
   has_many :social_accounts
 
