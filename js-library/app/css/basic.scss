@@ -16,10 +16,6 @@ span.factlink {
     background: rgba(255,255,0, 0.4) !important;
   }
 
-  &.fl-first::before {
-    padding: 0 3px 0 0;
-    content: '\2713';
-  }
   transition: all $highlight_visibility_transition_time;
 }
 
