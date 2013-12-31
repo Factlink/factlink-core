@@ -4,7 +4,6 @@ class window.TopFactView extends Backbone.Marionette.Layout
   template: 'facts/top_fact'
 
   events:
-    'click .js-repost': 'showRepost'
     'click .js-undo': -> @model.destroy()
 
   regions:
@@ -16,9 +15,6 @@ class window.TopFactView extends Backbone.Marionette.Layout
 
   templateHelpers: =>
     showDelete: @model.can_destroy()
-
-  showRepost: ->
-    FactlinkApp.ModalWindowContainer.show new AddToChannelModalWindowView(model: @model)
 
   onRender: ->
     if @model.get("proxy_scroll_url")
@@ -40,6 +36,12 @@ class window.TopFactView extends Backbone.Marionette.Layout
       selector: '.js-share'
       tooltipViewFactory: => new ShareFactView model: @model
 
+    Backbone.Factlink.makeTooltipForView @,
+      stayWhenHoveringTooltip: true
+      hoverIntent: true
+      positioning: {align: 'right', side: 'bottom'}
+      selector: '.js-topics'
+      tooltipViewFactory: => new AddToChannelView model: @model
 
   _deleteButtonView: ->
     deleteButtonView = new DeleteButtonView

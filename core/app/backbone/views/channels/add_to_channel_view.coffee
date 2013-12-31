@@ -1,17 +1,12 @@
 #= require ./filtered_suggested_topics_view
 
-class window.AddToChannelModalWindowView extends Backbone.Marionette.Layout
-
-  className: 'modal-window'
-
-  template: 'channels/add_to_channel_modal_window'
+class window.AddToChannelView extends Backbone.Marionette.Layout
+  className: 'add-to-channel'
+  template: 'channels/add_to_channel'
 
   regions:
     addToChannelRegion: ".add-to-channel-form"
     suggestedChannelsRegion: ".add-to-channel-suggested-topics-region"
-
-  events:
-    'click .js-close': -> FactlinkApp.ModalWindowContainer.close()
 
   initialize: ->
     @collection = @model.getOwnContainingChannels(this)

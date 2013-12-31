@@ -16,7 +16,6 @@
     </div>
 
     {{#global.signed_in}}
-      <button class="button button-small button-confirm js-repost">Topics</button>
     {{/global.signed_in}}
   </div>
 </div>
@@ -26,6 +25,7 @@
 {{! at the end for rendering of sharing popovers on top of the rest !}}
 <div class="top-fact-top-controls">
   {{#global.signed_in}}
+    <a href="javascript:void(0)" class="js-topics">Topics</a>
     <a href="javascript:void(0)" class="js-share">Share</a>
   {{/global.signed_in}}
 </div>
