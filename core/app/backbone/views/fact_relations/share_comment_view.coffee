@@ -49,7 +49,7 @@ class window.ShareCommentView extends Backbone.Marionette.Layout
     # TODO: storing provider names in a model, so we don't necessarily
     # have to execute in this order
     provider_names = @_selectedProviderNames()
-    return unless provider_names.twitter || provider_names.facebook
+    return if provider_names.length == 0
 
     @_submitting = true
     @render()
@@ -60,5 +60,7 @@ class window.ShareCommentView extends Backbone.Marionette.Layout
         FactlinkApp.NotificationCenter.error "Error when sharing"
 
   _selectedProviderNames: ->
-    twitter: @ui.twitterCheckbox.prop('checked') || false
-    facebook: @ui.facebookCheckbox.prop('checked') || false
+    names = []
+    names.push 'twitter' if @ui.twitterCheckbox.prop('checked')
+    names.push 'facebook' if @ui.facebookCheckbox.prop('checked')
+    names
