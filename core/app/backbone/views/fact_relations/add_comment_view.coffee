@@ -12,7 +12,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
   regions:
     inputRegion: '.js-input-region'
-    shareCommentRegion: '.js-share-comment-region'
+    shareFactSelectionRegion: '.js-share-fact-selection-region'
 
   initialize: ->
     @_textAreaView = new Backbone.Factlink.TextAreaView model: @_textModel()
@@ -23,7 +23,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @inputRegion.show @_textAreaView
 
     if Factlink.Global.can_haz.share_comment && Factlink.Global.signed_in
-      @shareCommentRegion.show @_shareCommentView()
+      @shareFactSelectionRegion.show @_shareFactSelectionView()
 
   addComment: ->
     return if @submitting
@@ -54,7 +54,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   _shareFactlink: (model) ->
     return unless Factlink.Global.can_haz.share_comment && Factlink.Global.signed_in
 
-    @_shareCommentView().submit model.get('content')
+    @_shareFactSelectionView().submit model.get('content')
 
   addModelError: ->
     @enableSubmit()
@@ -71,6 +71,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   _textModel: -> @__textModel ?= new Backbone.Factlink.SemiPersistentTextModel {},
     key: "add_comment_to_fact_#{@options.addToCollection.fact.id}"
 
-  _shareCommentView: ->
-    @___shareCommentView ?= new ShareCommentView
+  _shareFactSelectionView: ->
+    @___shareFactSelectionView ?= new ShareFactSelectionView
       model: @options.addToCollection.fact

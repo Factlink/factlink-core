@@ -1,6 +1,6 @@
-class window.ShareCommentView extends Backbone.Marionette.Layout
-  className: 'share-comment'
-  template: 'comments/share_comment'
+class window.ShareFactSelectionView extends Backbone.Marionette.Layout
+  className: 'share-fact-selection'
+  template: 'comments/share_fact_selection'
 
   ui:
     twitterCheckbox: '.js-share-twitter input'

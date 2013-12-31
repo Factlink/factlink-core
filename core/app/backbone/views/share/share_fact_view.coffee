@@ -17,8 +17,8 @@ class window.ShareFactView extends Backbone.Marionette.Layout
       placeholder: 'Message (optional)'
     @textareaRegion.show @_textAreaView
 
-    @_shareCommentView = new ShareCommentView model: @model
-    @shareCommentRegion.show @_shareCommentView
+    @_shareFactSelection = new ShareFactSelectionView model: @model
+    @shareCommentRegion.show @_shareFactSelection
 
   _share: ->
-    @_shareCommentView.submit @_textModel.get('text')
+    @_shareFactSelection.submit @_textModel.get('text')
