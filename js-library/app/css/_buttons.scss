@@ -1,3 +1,4 @@
+$borderRadius: 3px;
 $arrowSize: 6px;
 $buttonHeight: 30px;
 $buttonBackground: #444;
@@ -15,7 +16,7 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   position: relative;
   min-width: $buttonSmallWidth;
 
-  border-radius: 3px;
+  border-radius: $borderRadius;
   line-height: $buttonHeight;
   background-color: $buttonBackground;
   color: white;
@@ -56,8 +57,8 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   }
   &:last-child {
     margin-right: -$buttonPadding;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
+    border-top-right-radius: $borderRadius;
+    border-bottom-right-radius: $borderRadius;
   }
 }
 
