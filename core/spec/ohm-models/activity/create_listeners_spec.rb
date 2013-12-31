@@ -107,46 +107,6 @@ describe 'activity queries' do
     end
   end
 
-  describe :messages do
-    context "creating a conversation" do
-      it "creates a notification for the receiver" do
-        f  = create(:fact)
-        u1 = create(:full_user)
-        u2 = create(:full_user)
-
-        interactor = Interactors::CreateConversationWithMessage.new(fact_id: f.id.to_s,
-                                                                    recipient_usernames: [u1.username, u2.username], sender_id: u1.id.to_s,
-                                                                    content: 'this is a message', pavlov_options: { current_user: u1 })
-        interactor.stub(track_mixpanel: nil)
-        conversation = interactor.call
-
-        u1.graph_user.notifications.map(&:to_hash_without_time).should == []
-        u2.graph_user.notifications.map(&:to_hash_without_time).should == [
-          {user: u1.graph_user, action: :created_conversation, subject: Conversation.find(conversation.id) }
-        ]
-      end
-    end
-
-    context "replying to a conversation" do
-      it "creates a notification for the receiver" do
-        c = create(:conversation_with_messages)
-        u1 = c.recipients[0]
-        u2 = c.recipients[1]
-
-        interactor = Interactors::ReplyToConversation.new(conversation_id: c.id.to_s,
-                                                          sender_id: u1.id.to_s, content: 'this is a message', pavlov_options: { current_user: u1 })
-        interactor.stub(track_mixpanel: nil)
-        message = interactor.call
-
-        u1.graph_user.notifications.map(&:to_hash_without_time).should == []
-        u2.graph_user.notifications.map(&:to_hash_without_time).should == [
-          {user: u1.graph_user, action: :replied_message, subject: Message.find(message.id) }
-        ]
-      end
-    end
-
-  end
-
   describe :comments do
     context "creating a comment" do
       it "creates a notification for the interacting users" do
