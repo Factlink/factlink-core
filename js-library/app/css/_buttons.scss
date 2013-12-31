@@ -1,4 +1,6 @@
+$borderRadius: 3px;
 $arrowSize: 6px;
+$buttonHeight: 30px;
 $buttonBackground: #444;
 $buttonHoverBackground: #222;
 $buttonPadding: 6px;
@@ -14,8 +16,8 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   position: relative;
   min-width: $buttonSmallWidth;
 
-  border-radius: 3px;
-  line-height: 30px;
+  border-radius: $borderRadius;
+  line-height: $buttonHeight;
   background-color: $buttonBackground;
   color: white;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
@@ -40,6 +42,23 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
 
   &:hover:after {
     border-top-color: $buttonHoverBackground;
+  }
+}
+
+.fl-button-sub-button {
+  display: inline-block;
+  height: $buttonHeight;
+  padding: 0 $buttonPadding;
+  border-left: 1px solid #666;
+  background-color: $buttonBackground;
+
+  &:hover {
+    background-color: $buttonHoverBackground;
+  }
+  &:last-child {
+    margin-right: -$buttonPadding;
+    border-top-right-radius: $borderRadius;
+    border-bottom-right-radius: $borderRadius;
   }
 }
 

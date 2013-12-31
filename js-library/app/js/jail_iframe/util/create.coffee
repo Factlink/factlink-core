@@ -1,4 +1,4 @@
-FactlinkJailRoot.createFactFromSelection = ->
+FactlinkJailRoot.createFactFromSelection = (current_user_opinion) ->
   success = ->
     FactlinkJailRoot.createButton.hide()
     FactlinkJailRoot.off 'modalOpened', success
@@ -12,7 +12,8 @@ FactlinkJailRoot.createFactFromSelection = ->
   siteTitle = selInfo.title
 
   FactlinkJailRoot.on 'modalOpened', success
-  FactlinkJailRoot.factlinkCoreEnvoy 'prepareNewFactlink', text, siteUrl, siteTitle
+  FactlinkJailRoot.factlinkCoreEnvoy 'prepareNewFactlink',
+    text, siteUrl, siteTitle, current_user_opinion
 
 FactlinkJailRoot.textSelected = ->
   # At least 4 words of at least 2 characters
