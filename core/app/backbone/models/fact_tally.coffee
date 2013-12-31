@@ -25,6 +25,7 @@ class window.FactTally extends Backbone.Model
 
   _saveCurrentUserOpinion: (opinion_type) ->
     @previous_opinion_type = @get('current_user_opinion')
+    return if @previous_opinion_type == opinion_type
 
     @_setCurrentUserOpinion opinion_type
     @save {},
