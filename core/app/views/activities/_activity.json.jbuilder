@@ -42,22 +42,6 @@ json.activity do
   when "believes", "doubts", "disbelieves"
     json.fact { json.partial! 'facts/fact', fact: subject}
 
-  # notifications
-  when "created_conversation"
-    json.target_url conversation_path(subject)
-
-    json.message do
-      json.content truncate("#{subject.messages.first.content}", length: 85, separator: ' ')
-    end
-
-  # notifications
-  when "replied_message"
-    json.target_url conversation_message_path(subject.conversation, subject)
-
-    json.message do
-      json.content truncate("#{subject.content}", length: 85, separator: ' ')
-    end
-
   # notifications, stream_activities
   when "followed_user"
     json.target_url user_profile_path(user.username)

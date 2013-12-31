@@ -9,7 +9,7 @@ module ActivityMailerHelper
     case action_string
     when "created_fact_relation", "created_comment"
       "added_argument"
-    when "created_conversation", "replied_message", "created_sub_comment", "followed_user"
+    when "created_sub_comment", "followed_user"
       action_string
     else
       fail 'Unknown action in ActivityMailer: ' + action_string
