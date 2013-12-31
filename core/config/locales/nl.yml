@@ -3,10 +3,10 @@
 #  - Sponsored by Kabisa ICT - http://kabisa.nl
 # Rails 3 update by Floris Huetink <floris@avocado.nl> (github: florish)
 nl:
-  add_fact: "annotatie toevoegen"
+  add_fact: "discussie toevoegen"
 
-  factlink: "annotatie"
-  factlinks: "annotaties"
+  factlink: "discussie"
+  factlinks: "discussies"
 
   fact_believe_action: "stem in met"
   fact_doubt_action: "stem neutraal op"

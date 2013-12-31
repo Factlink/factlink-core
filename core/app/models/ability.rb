@@ -162,6 +162,7 @@ class Ability
     suppress_double_scrollbar
     hide_factwheel
     christmas_background
+    share_comment
   )
 
   def enabled_global_features
