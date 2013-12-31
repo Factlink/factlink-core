@@ -49,9 +49,9 @@ describe Interactors::Facts::SocialShare do
       command = described_class.new fact_id: fact_id, message: nil,
                                     provider_names: provider_names, pavlov_options: pavlov_options
 
-      Resque.should_receive(:enqueue)
-            .with(Commands::Twitter::ShareFactlink, fact_id: fact_id, message: nil,
-              pavlov_options: { 'serialize_id' => current_user.id })
+      Pavlov.should_receive(:command)
+            .with(:'twitter/share_factlink', fact_id: fact_id, message: nil,
+              pavlov_options: pavlov_options)
 
       command.call
     end
@@ -67,9 +67,9 @@ describe Interactors::Facts::SocialShare do
       command = described_class.new fact_id: fact_id, message: message,
                                     provider_names: provider_names, pavlov_options: pavlov_options
 
-      Resque.should_receive(:enqueue)
-            .with(Commands::Facebook::ShareFactlink, fact_id: fact_id, message: message,
-              pavlov_options: { 'serialize_id' => current_user.id })
+      Pavlov.should_receive(:command)
+            .with(:'facebook/share_factlink', fact_id: fact_id, message: message,
+              pavlov_options: pavlov_options)
 
       command.call
     end
