@@ -16,10 +16,15 @@ class Button
     @frame.sizeFrameToFitContent()
 
   setCoordinates: (top, left) =>
+    return if @_visible
+
     @_top = top
     @_left = left
 
   show: =>
+    return if @_visible
+
+    @_visible = true
     @setStateClass ''
     @frame.fadeIn()
 
@@ -30,7 +35,9 @@ class Button
       left: left + "px"
       top: top + "px"
 
-  hide: => @frame.fadeOut()
+  hide: =>
+    @frame.fadeOut()
+    @_visible = false
 
   destroy: => @frame.destroy()
 
