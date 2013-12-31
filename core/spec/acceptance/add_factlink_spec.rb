@@ -2,7 +2,6 @@ require 'acceptance_helper'
 
 describe "creating a Factlink", type: :feature do
   include Acceptance::ProfileHelper
-  include Acceptance::AddToChannelModalHelper
   include Acceptance::NavigationHelper
   include Acceptance::FactHelper
   include Acceptance::ClientPathHelper
