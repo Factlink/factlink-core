@@ -65,12 +65,16 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   height: auto;
 }
 
-.fl-button-icon:before {
+.fl-button-icon:before, .fl-button-icon-add:before {
   content: url("../images/logo-white.png");
   display: inline-block;
   vertical-align: middle;
   width: $iconWidth;
   height: 24px;
+}
+
+.fl-button-icon-add:before {
+  content: url("../images/logo-white-add.png");
 }
 
 // keep in sync with core .striped

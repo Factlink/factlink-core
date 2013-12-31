@@ -60,10 +60,10 @@ class FactlinkJailRoot.CreateButton extends Button
   content: """
     <div class="fl-button">
       <div class="fl-button-content-default">
-        <span class="fl-button-icon"></span>
+        <span class="fl-button-icon-add"></span>
       </div>
       <div class="fl-button-content-hovered">
-        <span class="fl-button-icon"></span>
+        <span class="fl-button-icon-add"></span>
         Create Discussion
       </div>
       <div class="fl-button-content-loading">Loading...</div>
