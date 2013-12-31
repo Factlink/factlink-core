@@ -89,7 +89,6 @@ describe Accounts::SocialRegistrationsController do
     context 'account does not exist' do
       it 'creates a new account to which the social account gets connected' do
         email = 'email@example.org'
-        password = '123hoi'
         name = 'Jan Paul Posma'
 
         omniauth_obj = {'provider' => 'twitter', 'uid' => 'some_twitter_uid',
@@ -98,7 +97,7 @@ describe Accounts::SocialRegistrationsController do
         twitter_account.save!
 
         session[:register_social_account_id] = twitter_account.id
-        post :create, user: {email: email, password: password}
+        post :create, user: {email: email}
 
         expect(response.body).to match 'eventName = "signed_in"'
 
@@ -107,18 +106,20 @@ describe Accounts::SocialRegistrationsController do
         expect(created_user.social_account(:twitter).uid).to eq twitter_account.uid
         expect(created_user).to be_set_up
       end
-
-      it 'shows an error when some field is left open' do
-        twitter_account = create :social_account, :twitter
-
-        session[:register_social_account_id] = twitter_account.id
-        post :create, user: {email: 'email@example.org'}
-
-        expect(response.body).to match 'be blank'
-      end
     end
 
     context 'account already exists' do
+      it 'shows an error if the password is not given' do
+        email = 'email@example.org'
+        user = create :full_user, email: email
+        twitter_account = create :social_account, :twitter
+
+        session[:register_social_account_id] = twitter_account.id
+        post :create, user: {email: email}
+
+        expect(response.body).to match 'enter password for existing account'
+      end
+
       it 'connects the social account and signs in' do
         email = 'email@example.org'
         password = '123hoi'
@@ -143,7 +144,7 @@ describe Accounts::SocialRegistrationsController do
         session[:register_social_account_id] = twitter_account.id
         post :create, user: {email: email, password: 'wrong'}
 
-        expect(response.body).to match 'incorrect password for existing account'
+        expect(response.body).to match 'enter password for existing account'
       end
     end
   end

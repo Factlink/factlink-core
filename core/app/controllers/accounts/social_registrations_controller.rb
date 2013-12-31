@@ -31,7 +31,7 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
     fail AccountError if @social_account.user
 
     email = params[:user][:email]
-    password = params[:user][:password]
+    password = params[:user][:password] || SecureRandom.base64
 
     @user = sign_in_and_connect_existing_user(email, password) ||
       sign_up_new_user(email, password, @social_account.name)
@@ -42,6 +42,7 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
 
       render_trigger_event 'signed_in', ''
     else
+      @show_password = true
       render :'accounts/social_registrations/new'
     end
   end
@@ -59,7 +60,7 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
   def user_with_wrong_password email
     user = User.new
     user.email = email
-    user.errors.add(:password, 'incorrect password for existing account')
+    user.errors.add(:password, 'enter password for existing account')
     user
   end
 
