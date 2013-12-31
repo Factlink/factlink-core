@@ -1,6 +1,9 @@
 $arrowSize: 6px;
 $buttonBackground: #444;
 $buttonHoverBackground: #222;
+$buttonPadding: 6px;
+$iconWidth: 20px;
+$buttonSmallWidth: $iconWidth + $buttonPadding * 2;
 
 .fl-button {
   @extend %default-font;
@@ -9,6 +12,7 @@ $buttonHoverBackground: #222;
   white-space: nowrap;
   text-align: center;
   position: relative;
+  min-width: $buttonSmallWidth;
 
   border-radius: 3px;
   line-height: 30px;
@@ -22,7 +26,7 @@ $buttonHoverBackground: #222;
     content: '';
     position: absolute;
     bottom: -$arrowSize;
-    left: 50%;
+    left: $buttonSmallWidth / 2;
     margin-left: -$arrowSize / 2;
 
     border: $arrowSize solid transparent;
@@ -39,22 +43,34 @@ $buttonHoverBackground: #222;
   }
 }
 
-.fl-button-content-default, .fl-button-content-loading {
+.fl-button-content-hovered, .fl-button-content-loading {
+  display: none;
+  height: 0;
   overflow: hidden;
   white-space: nowrap;
-  padding: 0 20px;
+  padding: 0 $buttonPadding;
 }
 
-.fl-button-content-loading, .fl-button-state-loading .fl-button-content-default { height: 0; }
-.fl-button-state-loading .fl-button-content-loading { height: auto; }
+.fl-button-state-hovered, .fl-button-state-loading {
+  .fl-button-content-default {
+    display: none;
+  }
+  .fl-button-content-hovered, .fl-button-content-loading {
+    display: block;
+  }
+}
+
+.fl-button-state-hovered .fl-button-content-hovered,
+.fl-button-state-loading .fl-button-content-loading {
+  height: auto;
+}
 
 .fl-button-icon:before {
   content: url("../images/logo-white.png");
-  display:inline-block;
+  display: inline-block;
   vertical-align: middle;
-  width: 20px;
+  width: $iconWidth;
   height: 24px;
-  margin-right: 5px;
 }
 
 // keep in sync with core .striped

@@ -2,15 +2,16 @@ class Button
   constructor: (dom_events={}) ->
     @frame = new FactlinkJailRoot.ControlIframe()
     @frame.setContent($.parseHTML(@content.trim())[0])
-    @$el =  $(@frame.frameBody.firstChild)
+    @$el = $(@frame.frameBody.firstChild)
+    @$el.on 'mouseenter', => @setStateClass 'fl-button-state-hovered'
+
     for event, callback of dom_events
       @$el.on event, callback
 
   startLoading: => @setStateClass 'fl-button-state-loading'
-  stopLoading: => @setStateClass ''
 
   setStateClass: (stateClass) =>
-    @$el.removeClass "fl-button-state-loading"
+    @$el.removeClass "fl-button-state-loading fl-button-state-hovered"
     @$el.addClass stateClass
     @frame.sizeFrameToFitContent()
 
@@ -19,7 +20,7 @@ class Button
     @_left = left
 
   show: =>
-    @stopLoading()
+    @setStateClass ''
     @frame.fadeIn()
 
     left = @_left - @frame.$el.outerWidth(true)/2
@@ -38,6 +39,9 @@ class FactlinkJailRoot.ShowButton extends Button
     <div class="fl-button">
       <div class="fl-button-content-default">
         <span class="fl-button-icon"></span>
+      </div>
+      <div class="fl-button-content-hovered">
+        <span class="fl-button-icon"></span>
         Show Discussion
       </div>
       <div class="fl-button-content-loading">Loading...</div>
@@ -49,6 +53,9 @@ class FactlinkJailRoot.CreateButton extends Button
   content: """
     <div class="fl-button">
       <div class="fl-button-content-default">
+        <span class="fl-button-icon"></span>
+      </div>
+      <div class="fl-button-content-hovered">
         <span class="fl-button-icon"></span>
         Create Discussion
       </div>
