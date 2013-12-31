@@ -33,28 +33,31 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
     email = params[:user][:email]
     password = params[:user][:password] || SecureRandom.base64
 
-    @user = sign_in_and_connect_existing_user(email, password) ||
+    sign_in_and_connect_existing_user(email, password) ||
       sign_up_new_user(email, password, @social_account.name)
-
-    if @user.errors.empty?
-      @user.social_accounts.push @social_account
-      remembered_sign_in(@user)
-
-      render_trigger_event 'signed_in', ''
-    else
-      @show_password = true
-      render :'accounts/social_registrations/new'
-    end
   end
 
   private
+
+  def finish_connecting
+    @user.social_accounts.push @social_account
+    remembered_sign_in(@user)
+
+    render_trigger_event 'signed_in', ''
+  end
 
   def sign_in_and_connect_existing_user email, password
     return if email.blank?
     return unless User.find_by(email: email)
 
-    user_authenticated_with_warden(email, password) ||
+    @user = user_authenticated_with_warden(email, password) ||
       user_with_wrong_password(email)
+
+    if @user.errors.empty?
+      finish_connecting
+    else
+      render :'accounts/social_registrations/existing'
+    end
   end
 
   def user_with_wrong_password email
@@ -83,17 +86,21 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
   end
 
   def sign_up_new_user email, password, full_name
-    user = User.new password: password,
+    @user = User.new password: password,
                     password_confirmation: password,
                     full_name: full_name
 
     # Protected from mass-assignment
-    user.email = email
-    user.set_up = true
-    user.generate_username!
+    @user.email = email
+    @user.set_up = true
+    @user.generate_username!
 
-    user.save
+    @user.save
 
-    user
+    if @user.errors.empty?
+      finish_connecting
+    else
+      render :'accounts/social_registrations/new'
+    end
   end
 end

@@ -1,5 +1,5 @@
 <% content_for :account_popup_content do %>
-  <h1 class="accounts-popup-heading">Create your Factlink account</h1>
+  <h1 class="accounts-popup-heading">Connect with your existing Factlink account</h1>
 
   <%= form_for(@user, as: :user, url: social_accounts_new_path, html: { class: "form-horizontal" }) do |f| %>
     <div class="accounts-popup-form">
@@ -12,7 +12,14 @@
         </div>
       </div>
 
-      <p>We need your email address to give you a password if Twitter or Facebook does not work. By creating an account you accept our <%= link_to 'terms', pages_path('terms-of-service'), target: '_blank' %>.</p>
+      <div class="control-group">
+        <%= f.label :password, "Password", class: "control-label" %>
+
+        <div class="controls">
+          <%= f.password_field :password %>
+          <%= possible_error_for_field(@user, :password) %>
+        </div>
+      </div>
     </div>
 
     <div class="accounts-popup-button-wrapper">
