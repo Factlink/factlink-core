@@ -37,7 +37,6 @@ class window.User extends Backbone.Model
       change_password_path: "/#{username}/password/edit"
       notifications_settings_path: "/#{username}/notification-settings"
       link: @link()
-      avatar_url_20: @avatar_url(20)
       avatar_url_24: @avatar_url(24)
       avatar_url_32: @avatar_url(32)
       avatar_url_48: @avatar_url(48)

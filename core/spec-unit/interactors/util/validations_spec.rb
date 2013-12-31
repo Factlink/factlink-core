@@ -29,22 +29,4 @@ describe Util::Validations do
       subject.validate_string_length(:some_var, 'aaa', 2)
     end
   end
-
-  describe '#validate_non_empty_list' do
-    it 'does not raise for a nonempty list' do
-      subject.validate_non_empty_list :list, [1]
-    end
-    it 'raises for nil' do
-      expect(errors).to receive(:add).with(:list, 'should be a list')
-      subject.validate_non_empty_list(:list, nil)
-    end
-    it 'raises for a string' do
-      expect(errors).to receive(:add).with(:list, 'should be a list')
-      subject.validate_non_empty_list(:list, 'foo')
-    end
-    it 'raises for an empty list' do
-      expect(errors).to receive(:add).with(:list, 'should not be empty')
-      subject.validate_non_empty_list(:list, [])
-    end
-  end
 end

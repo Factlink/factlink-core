@@ -18,6 +18,5 @@ declareSiteRoutes = ->
   new ChannelsRouter
     controller: new ChannelsController
       showProfile: (username) -> profileController.showProfile username
-  new ConversationsRouter controller: new ConversationsController
   new TourRouter controller: new TourController
 

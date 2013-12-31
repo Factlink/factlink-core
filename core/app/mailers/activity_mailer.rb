@@ -35,10 +35,6 @@ class ActivityMailer < ActionMailer::Base
     when 'created_fact_relation', 'created_comment', 'created_sub_comment'
       factlink = activity.object.data.displaystring.strip.truncate(50)
       "Discussion on \"#{factlink}\""
-    when 'created_conversation'
-      "#{user} has sent you a message"
-    when 'replied_message'
-      "#{user} has replied to a message"
     when 'followed_user'
       "#{user} is now following you on Factlink"
     else

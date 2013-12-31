@@ -1,10 +1,7 @@
-require_relative '../../../classes/hash_utils'
-
 module Queries
   module UserTopics
     class TopForUser
       include Pavlov::Query
-      include HashUtils
 
       arguments :user, :limit_topics
 
