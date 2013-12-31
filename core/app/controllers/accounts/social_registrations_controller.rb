@@ -31,13 +31,17 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
     fail AccountError if @social_account.user
 
     email = params[:user][:email]
-    password = params[:user][:password] || SecureRandom.base64
+    password = params[:user][:password] || random_password
 
     sign_in_and_connect_existing_user(email, password) ||
       sign_up_new_user(email, password, @social_account.name)
   end
 
   private
+
+  def random_password
+    SecureRandom.base64(22) # Largest password accepted by Devise
+  end
 
   def finish_connecting
     @user.social_accounts.push @social_account
