@@ -48,7 +48,7 @@ $buttonHoverBackground: #222;
 .fl-button-loading-content, .fl-button-loading .fl-button-default-content { height: 0; }
 .fl-button-loading .fl-button-loading-content { height: auto; }
 
-.fl-button-default-content:before {
+.fl-button-icon:before {
   content: url("../images/logo-white.png");
   display:inline-block;
   vertical-align: middle;

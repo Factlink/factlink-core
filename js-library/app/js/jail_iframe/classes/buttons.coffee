@@ -31,7 +31,10 @@ class Button
 class FactlinkJailRoot.ShowButton extends Button
   content: """
     <div class="fl-button">
-      <div class="fl-button-default-content">Show Discussion</div>
+      <div class="fl-button-default-content">
+        <span class="fl-button-icon"></span>
+        Show Discussion
+      </div>
       <div class="fl-button-loading-content">Loading...</div>
     </div>
   """
@@ -40,7 +43,10 @@ class FactlinkJailRoot.ShowButton extends Button
 class FactlinkJailRoot.CreateButton extends Button
   content: """
     <div class="fl-button">
-      <div class="fl-button-default-content">Create Discussion</div>
+      <div class="fl-button-default-content">
+        <span class="fl-button-icon"></span>
+        Create Discussion
+      </div>
       <div class="fl-button-loading-content">Loading...</div>
     </div>
   """
