@@ -1,11 +1,6 @@
 class RemoveOldActivitiesAgain < Mongoid::Migration
   def self.up
-    Activity.all.ids.each do |id|
-      a = Activity[id]
-      unless a.still_valid?
-        a.delete
-      end
-    end
+    Resque.enqueue CleanupActivitiesWorker
 
     GraphUser.all.ids.each do |graph_user_id|
       Resque.enqueue MigrateRemoveOldActivitiesForUserWorker, graph_user_id
