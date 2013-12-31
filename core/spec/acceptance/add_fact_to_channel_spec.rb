@@ -17,8 +17,6 @@ feature "adding a fact to a channel" do
     go_to_discussion_page_of factlink
 
     open_repost_modal do
-      page.should have_content('Repost this to one or more topics:')
-
       add_as_new_channel new_channel_name
       added_channels_should_contain new_channel_name
     end
