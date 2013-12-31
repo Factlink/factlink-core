@@ -16,4 +16,4 @@ FactlinkJailRoot.createFactFromSelection = ->
 
 FactlinkJailRoot.textSelected = ->
   # At least 4 words of at least 2 characters
-  /(\w{2,}[\s-_&\/#%]+){4}/.test window.document.getSelection().toString()
+  /(\w{2,}[\s-_&\/#%.,;:!()]+){4}/.test window.document.getSelection().toString()
