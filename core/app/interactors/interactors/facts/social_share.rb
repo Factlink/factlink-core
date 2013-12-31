@@ -9,11 +9,11 @@ module Interactors
       private
 
       def execute
-        if provider_names[:twitter]
+        if provider_names.include? 'twitter'
           command :'twitter/share_factlink', fact_id: fact_id, message: message
         end
 
-        if provider_names[:facebook]
+        if provider_names.include? 'facebook'
           command :'facebook/share_factlink', fact_id: fact_id, message: message
         end
       end
@@ -25,8 +25,8 @@ module Interactors
       end
 
       def validate
-        validate_connected :twitter if provider_names[:twitter]
-        validate_connected :facebook if provider_names[:facebook]
+        validate_connected :twitter if provider_names.include? 'twitter'
+        validate_connected :facebook if provider_names.include? 'facebook'
       end
     end
   end
