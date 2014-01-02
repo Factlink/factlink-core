@@ -14,42 +14,23 @@ class Highlighter
 
 class FactInteraction
   constructor: (elements, @id, @options) ->
-    @highlight_attention = new FactlinkJailRoot.AttentionSpan
-      onAttentionLost:   => @highlighter.dehighlight()
-      onAttentionGained: => @highlighter.highlight()
-      wait_for_attention:  delay_before_mouseover_detected
-      wait_for_neglection: delay_before_mouseout_detected
-
     @highlighter = new Highlighter $(elements), 'fl-active'
 
     @show_button = new FactlinkJailRoot.ShowButton
-      mouseenter: => @onHover()
-      mouseleave: => @onUnhover()
+      mouseenter: => @highlighter.highlight()
+      mouseleave: => @highlighter.dehighlight()
       click:      => @onClick()
     @show_button.placeNearElement elements[0]
 
-    $(elements).on
-      mouseenter: (e) => @onHover()
-      mouseleave: => @onUnhover()
-      click: => @onClick()
-
   onClick: (options={}) =>
-    @highlight_attention.gainAttentionNow()
     @show_button.startLoading() # must be called after show
     FactlinkJailRoot.on 'modalOpened', @_onModalOpened, @
     FactlinkJailRoot.openFactlinkModal @id
 
   _onModalOpened: ->
-    @highlight_attention.loseAttentionNow()
     FactlinkJailRoot.off 'modalOpened', @_onModalOpened, @
 
-  onHover: ->
-    @highlight_attention.gainAttention()
-  onUnhover:  ->
-    @highlight_attention.loseAttention()
-
   destroy: ->
-    @highlight_attention.loseAttentionNow()
     @show_button.destroy()
 
 class FactLoadPromotion
