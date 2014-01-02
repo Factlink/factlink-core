@@ -16,7 +16,7 @@ FactlinkJailRoot.annotatedSiteReceiver =
     FactlinkJailRoot.trigger 'modalOpened'
 
   highlightNewFactlink: (displaystring, id) ->
-    FactlinkJailRoot.selectRanges(FactlinkJailRoot.search(displaystring), id)
+    FactlinkJailRoot.highlightFact(displaystring, id)
     FactlinkJailRoot.trigger 'factlinkAdded'
 
   deleteFactlink: (id) ->
