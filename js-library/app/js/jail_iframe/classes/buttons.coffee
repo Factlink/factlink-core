@@ -21,7 +21,7 @@ class Button
     @_top = top
     @_left = left
 
-  show: =>
+  _show: =>
     return if @_visible
 
     @_visible = true
@@ -62,7 +62,7 @@ class FactlinkJailRoot.ShowButton extends Button
   placeNearElement: (el) ->
     offset = $(el).offset()
     @_setCoordinates offset.top, offset.left
-    @show()
+    @_show()
 
 
 class FactlinkJailRoot.CreateButton extends Button
@@ -102,4 +102,4 @@ class FactlinkJailRoot.CreateButton extends Button
       left = selectionLeft + selectionBox.width/2
 
     @_setCoordinates selectionTop-2, left
-    @show()
+    @_show()
