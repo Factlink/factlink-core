@@ -15,6 +15,10 @@ class Button
     @$el.addClass stateClass
     @frame.sizeFrameToFitContent()
 
+  _removeStateClass: (stateClass) =>
+    @$el.removeClass stateClass
+    @frame.sizeFrameToFitContent()
+
   _showAtCoordinates: (top, left) =>
     return if @_visible
 
@@ -49,6 +53,10 @@ class FactlinkJailRoot.ShowButton extends Button
       <div class="fl-button-content-loading">Loading...</div>
     </div>
   """
+
+  constructor: ->
+    super
+    @$el.on 'mouseleave', => @_removeStateClass 'fl-button-state-hovered'
 
   _textContainer: ($el) ->
     for el in $el.parents()
