@@ -4,7 +4,6 @@ feature "favouriting a topic", type: :feature do
   include Acceptance::TopicHelper
   include Acceptance::ChannelHelper
   include Acceptance::ProfileHelper
-  include Acceptance::AddToChannelModalHelper
 
   scenario "When I favourite a topic I should be able to navigate to it in my sidebar" do
     @user = create :full_user, :confirmed

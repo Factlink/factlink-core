@@ -6,7 +6,6 @@ FactlinkApp.module "ModalWindowContainer", (ModalWindowContainer, FactlinkApp, B
 
     events:
       "click .js-layer": "fadeOut"
-      "click .js-modal-window-cross": "fadeOut"
       "click": "stopPropagation"
 
     regions:
