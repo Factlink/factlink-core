@@ -19,6 +19,10 @@
           <%= f.password_field :password %>
           <%= possible_error_for_field(@user, :password) %>
         </div>
+
+        <div class="controls">
+          <%= link_to "Forgot your password?", new_password_path('user'), target: '_blank' %>
+        </div>
       </div>
     </div>
 
