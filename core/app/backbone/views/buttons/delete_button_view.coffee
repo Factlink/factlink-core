@@ -11,6 +11,9 @@ class window.DeleteButtonView extends Backbone.Marionette.ItemView
   triggers:
     'click .js-second': 'delete'
 
+  templateHelpers: =>
+    caption: @options.caption || 'Delete'
+
   onRender: ->
     if @options.opened
       @$el.addClass 'delete-button-open'

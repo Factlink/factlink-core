@@ -38,7 +38,9 @@ class window.TopFactView extends Backbone.Marionette.Layout
 
   _deleteButtonView: ->
     deleteButtonView = new DeleteButtonView
-      model: @model, opened: @model.justCreated()
+      model: @model
+      opened: @model.justCreated()
+      caption: if @model.justCreated() then 'Undo'
 
     @listenTo deleteButtonView, 'delete', ->
       @model.destroy
