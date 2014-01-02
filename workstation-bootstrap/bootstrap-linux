@@ -146,7 +146,7 @@ else
 fi
 popd
 
-RUBY_VERSION=2.0.0-p353
+RUBY_VERSION=2.1.0
 
 echo "Checking for ruby ${RUBY_VERSION}"
 rbenv rehash || :
