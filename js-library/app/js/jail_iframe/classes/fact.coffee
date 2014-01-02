@@ -26,7 +26,7 @@ class FactInteraction
       mouseenter: => @onHover()
       mouseleave: => @onUnhover()
       click:      => @onClick()
-    @show_button.placeNearElement(elements[0])
+    @show_button.placeNearElement elements[0]
 
     $(elements).on
       mouseenter: (e) => @onHover()

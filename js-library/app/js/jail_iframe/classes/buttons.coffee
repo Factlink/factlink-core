@@ -22,9 +22,6 @@ class Button
     @setStateClass ''
     @frame.fadeIn()
 
-    left = @_left - @frame.$el.outerWidth(true)/2
-    top = @_top - @frame.$el.outerHeight(true)
-
     containerOffset = FactlinkJailRoot.$factlinkCoreContainer.offset()
     left -= containerOffset.left
     top -= containerOffset.top
@@ -53,14 +50,30 @@ class FactlinkJailRoot.ShowButton extends Button
     </div>
   """
 
+  _textContainer: ($el) ->
+    for el in $el.parents()
+      return el if $(el).css('display') == 'block'
+
   placeNearElement: (el) ->
-    offset = $(el).offset()
-    @_showAtCoordinates offset.top, offset.left
+    $el = $(el)
+    top = $el.offset().top + $el.outerHeight()/2 - @frame.$el.outerHeight()/2
+
+    textContainer = @_textContainer($el)
+    range = document.createRange()
+    range.setStartBefore textContainer
+    range.setEndAfter textContainer
+    selectionBox = range.getBoundingClientRect()
+    selectionLeft = selectionBox.left + $(window).scrollLeft()
+
+    left = selectionLeft + selectionBox.width
+
+    @_showAtCoordinates top, left
 
 
 class FactlinkJailRoot.CreateButton extends Button
   content: """
     <div class="fl-button">
+      <div class="fl-button-arrow-down"></div>
       <div class="fl-button-content-default">
         <span class="fl-button-icon-add"></span>
       </div>
@@ -86,7 +99,7 @@ class FactlinkJailRoot.CreateButton extends Button
     selectionBox = window.document.getSelection().getRangeAt(0).getBoundingClientRect()
     selectionLeft = selectionBox.left + $(window).scrollLeft()
     selectionTop = selectionBox.top + $(window).scrollTop()
-    buttonWidth = @frame.$el.outerWidth(true)
+    buttonWidth = @frame.$el.outerWidth()
 
     if mouseX
       left = Math.min Math.max(mouseX, selectionLeft+buttonWidth/2),
@@ -94,4 +107,7 @@ class FactlinkJailRoot.CreateButton extends Button
     else
       left = selectionLeft + selectionBox.width/2
 
-    @_showAtCoordinates selectionTop-2, left
+    left -= buttonWidth/2
+    top = selectionTop-2-@frame.$el.outerHeight()
+
+    @_showAtCoordinates top, left

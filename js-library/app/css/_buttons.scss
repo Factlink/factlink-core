@@ -7,6 +7,22 @@ $buttonPadding: 6px;
 $iconWidth: 20px;
 $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
 
+
+.fl-button-arrow-down {
+  position: absolute;
+  bottom: -$arrowSize;
+  left: $buttonSmallWidth / 2;
+  margin-left: -$arrowSize;
+
+  border: $arrowSize solid transparent;
+  border-top-color: $buttonBackground;
+  border-bottom-width: 0;
+}
+
+.fl-button:hover .fl-button-arrow-down {
+  border-top-color: $buttonHoverBackground;
+}
+
 .fl-button {
   @extend %default-font;
   cursor:   pointer;
@@ -24,24 +40,8 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
 
   margin-bottom: $arrowSize;
 
-  &:after {
-    content: '';
-    position: absolute;
-    bottom: -$arrowSize;
-    left: $buttonSmallWidth / 2;
-    margin-left: -$arrowSize;
-
-    border: $arrowSize solid transparent;
-    border-top-color: $buttonBackground;
-    border-bottom-width: 0;
-  }
-
   &:hover {
     background-color: $buttonHoverBackground;
-  }
-
-  &:hover:after {
-    border-top-color: $buttonHoverBackground;
   }
 }
 
