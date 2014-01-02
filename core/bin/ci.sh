@@ -17,12 +17,6 @@ rm -f TEST_FAILURE
 ./script/set-status.sh "$GIT_COMMIT" pending "$BUILD_URL" "$BUILD_TAG" > github_pending_response.json
 
 
-export RUBY_HEAP_MIN_SLOTS=1000000
-export RUBY_HEAP_SLOTS_INCREMENT=1000000
-export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
-export RUBY_GC_MALLOC_LIMIT=100000000
-export RUBY_HEAP_FREE_MIN=500000
-
 if [ "$DEPLOY_SERVER" == "production" ] ; then
   export SUPPRESS_TESTING=1
   export SUPPRESS_METRICS=1
