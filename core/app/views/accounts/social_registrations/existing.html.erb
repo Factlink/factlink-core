@@ -23,6 +23,12 @@
         <div class="controls">
           <%= link_to "Forgot your password?", new_password_path('user'), target: '_blank' %>
         </div>
+
+        <% if @alternative_provider_name %>
+          <div class="controls">
+            <%= link_to "Or sign in to your existing account with #{@alternative_provider_name.capitalize}.", "/auth/#{@alternative_provider_name}" %>
+          </div>
+        <% end %>
       </div>
     </div>
 

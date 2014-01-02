@@ -60,8 +60,18 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
     if @user.errors.empty?
       finish_connecting
     else
+      @alternative_provider_name = alternative_provider_name_for User.find_by(email: email)
+
       render :'accounts/social_registrations/existing'
     end
+  end
+
+  def alternative_provider_name_for user
+    other_social_account = user.social_accounts.first
+    return nil unless other_social_account
+    return nil if other_social_account.provider_name == @social_account.provider_name
+
+    other_social_account.provider_name
   end
 
   def user_with_wrong_password email

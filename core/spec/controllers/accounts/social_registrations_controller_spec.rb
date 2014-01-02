@@ -120,6 +120,20 @@ describe Accounts::SocialRegistrationsController do
         expect(response.body).to match 'enter password for existing account'
       end
 
+      it 'shows an alternative social sign in when available' do
+        email = 'email@example.org'
+        user = create :full_user, email: email
+        twitter_account = create :social_account, :twitter
+        other_omniauth_obj = {'provider' => 'facebook', 'uid' => '10'}
+
+        user.social_account('facebook').update_attributes!(omniauth_obj: other_omniauth_obj)
+
+        session[:register_social_account_id] = twitter_account.id
+        post :create, user: {email: email}
+
+        expect(response.body).to match 'Facebook.</a>'
+      end
+
       it 'connects the social account and signs in' do
         email = 'email@example.org'
         password = '123hoi'
