@@ -15,7 +15,7 @@ class Button
     @$el.addClass stateClass
     @frame.sizeFrameToFitContent()
 
-  setCoordinates: (top, left) =>
+  _setCoordinates: (top, left) =>
     return if @_visible
 
     @_top = top
@@ -61,7 +61,7 @@ class FactlinkJailRoot.ShowButton extends Button
 
   placeNearElement: (el) ->
     offset = $(el).offset()
-    @setCoordinates offset.top, offset.left
+    @_setCoordinates offset.top, offset.left
     @show()
 
 
@@ -101,4 +101,4 @@ class FactlinkJailRoot.CreateButton extends Button
     else
       left = selectionLeft + selectionBox.width/2
 
-    @setCoordinates selectionTop-2, left
+    @_setCoordinates selectionTop-2, left
