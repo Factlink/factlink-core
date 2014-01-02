@@ -165,7 +165,7 @@ gem install bundle foreman git-up
 rbenv rehash || :
 
 ### Check http://www.elasticsearch.org/download/ for latest version of ElasticSearch and replace version below
-ES_VERSION=0.90.7
+ES_VERSION=0.90.9
 [ ! -f /tmp/elasticsearch-${ES_VERSION}.deb ] && curl https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${ES_VERSION}.deb -o /tmp/elasticsearch-${ES_VERSION}.deb
 sudo dpkg -i /tmp/elasticsearch-${ES_VERSION}.deb
 sudo service elasticsearch stop
