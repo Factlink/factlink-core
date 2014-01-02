@@ -7,41 +7,48 @@ $buttonPadding: 6px;
 $iconWidth: 20px;
 $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
 
-
-.fl-button-arrow-down {
-  position: absolute;
-  bottom: -$arrowSize;
-  left: $buttonSmallWidth / 2;
-  margin-left: -$arrowSize;
-
-  border: $arrowSize solid transparent;
-  border-top-color: $buttonBackground;
-  border-bottom-width: 0;
-}
-
-.fl-button:hover .fl-button-arrow-down {
-  border-top-color: $buttonHoverBackground;
-}
-
 .fl-button {
   @extend %default-font;
-  cursor:   pointer;
+  cursor: pointer;
   display: block;
   white-space: nowrap;
   text-align: center;
   position: relative;
   min-width: $buttonSmallWidth;
+  opacity: 0.7;
 
   border-radius: $borderRadius;
   line-height: $buttonHeight;
+}
+
+.fl-button-black, .fl-button-state-hovered, .fl-button-state-loading {
   background-color: $buttonBackground;
   color: white;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
-
-  margin-bottom: $arrowSize;
+  opacity: 1;
 
   &:hover {
     background-color: $buttonHoverBackground;
+  }
+}
+
+.fl-button-with-arrow-down {
+  margin-bottom: $arrowSize;
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -$arrowSize;
+    left: $buttonSmallWidth / 2;
+    margin-left: -$arrowSize;
+
+    border: $arrowSize solid transparent;
+    border-top-color: $buttonBackground;
+    border-bottom-width: 0;
+  }
+
+  &:hover:after {
+    border-top-color: $buttonHoverBackground;
   }
 }
 
@@ -84,12 +91,18 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   height: auto;
 }
 
-.fl-button-icon:before, .fl-button-icon-add:before {
-  content: url("../images/logo-white.png");
+.fl-button-icon:before,
+.fl-button-icon-white:before,
+.fl-button-icon-add:before {
+  content: url("../images/icon-black.png");
   display: inline-block;
   vertical-align: middle;
   width: $iconWidth;
   height: 24px;
+}
+
+.fl-button-icon-white:before {
+  content: url("../images/logo-white.png");
 }
 
 .fl-button-icon-add:before {
