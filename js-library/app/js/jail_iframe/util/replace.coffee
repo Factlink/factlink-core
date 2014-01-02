@@ -66,57 +66,9 @@ insertFactSpan = (startOffset, endOffset, node, id) ->
 
   spans
 
-# Function to select the found ranges
-FactlinkJailRoot.selectRanges = (ranges, id) ->
-  # Loop through ranges (backwards)
-  matches = []
-  results = []
-  uniqueMatchId = 0
-
-  i = 0
-  while i < ranges.length
-    # Check if the given factlink is not already selected
-    # (fixes multiple check marks when editing a factlink)
-    re = /(^|\s)factlink(\s|$)/
-    if re.test(ranges[i].startContainer.parentNode.className)
-      matches.push {} # Dirty hack: we should still skip one
-      continue
-
-    # Helper for posible extra matches within the current startNode
-    matches = findRangesStartingInContainer(ranges, i, ranges[i].startContainer)
-
-    #process all matches starting in ranges[i].startContainer
-    # Walk backwards over the matches to make sure the node references will stay intact
-    k = matches.length - 1
-
-    while k >= 0
-      @parseFactNodes matches[k], results, uniqueMatchId++
-      k--
-
-    i += matches.length
-
-  # This is where the actual parsing takes place
-  # this.results holds all the textNodes containing the facts
-  elements = {}
-  ret = []
-  i = 0
-  len = results.length
-
-  while i < len
-    res = results[i]
-    elements[res.matchId] = elements[res.matchId] or []
-
-    # Insert the fact-span
-    elements[res.matchId] = elements[res.matchId].concat(insertFactSpan(res.startOffset, res.endOffset, res.node, id))
-    i++
-
-  for matchId of elements when elements.hasOwnProperty(matchId)
-    ret.push new FactlinkJailRoot.Fact(id, elements[matchId])
-
-  ret
 
 # Function that tracks the DOM for nodes containing the fact
-FactlinkJailRoot.parseFactNodes = (range, results, matchId) ->
+parseFactNodes = (range, results, matchId) ->
   # Only parse the nodes if the startNode is already found,
   # this boolean is used for tracking
   foundStart = false
@@ -148,3 +100,53 @@ FactlinkJailRoot.parseFactNodes = (range, results, matchId) ->
       # need to walk the DOM anymore
       if foundStart && node == range.endContainer
         return false
+
+
+# Function to select the found ranges
+FactlinkJailRoot.selectRanges = (ranges, id) ->
+  # Loop through ranges (backwards)
+  matches = []
+  results = []
+  uniqueMatchId = 0
+
+  i = 0
+  while i < ranges.length
+    # Check if the given factlink is not already selected
+    # (fixes multiple check marks when editing a factlink)
+    re = /(^|\s)factlink(\s|$)/
+    if re.test(ranges[i].startContainer.parentNode.className)
+      matches.push {} # Dirty hack: we should still skip one
+      continue
+
+    # Helper for posible extra matches within the current startNode
+    matches = findRangesStartingInContainer(ranges, i, ranges[i].startContainer)
+
+    #process all matches starting in ranges[i].startContainer
+    # Walk backwards over the matches to make sure the node references will stay intact
+    k = matches.length - 1
+
+    while k >= 0
+      parseFactNodes matches[k], results, uniqueMatchId++
+      k--
+
+    i += matches.length
+
+  # This is where the actual parsing takes place
+  # this.results holds all the textNodes containing the facts
+  elements = {}
+  ret = []
+  i = 0
+  len = results.length
+
+  while i < len
+    res = results[i]
+    elements[res.matchId] = elements[res.matchId] or []
+
+    # Insert the fact-span
+    elements[res.matchId] = elements[res.matchId].concat(insertFactSpan(res.startOffset, res.endOffset, res.node, id))
+    i++
+
+  for matchId of elements when elements.hasOwnProperty(matchId)
+    ret.push new FactlinkJailRoot.Fact(id, elements[matchId])
+
+  ret
