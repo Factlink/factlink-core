@@ -1,9 +1,7 @@
 highlightFacts = (facts_data) ->
   # If there are multiple matches on the page, loop through them all
   for fact_data in facts_data
-    # Select the ranges (results)
-    ranges = FactlinkJailRoot.search(fact_data.displaystring)
-    FactlinkJailRoot.selectRanges(ranges, fact_data.id)
+    FactlinkJailRoot.highlightFact(fact_data.displaystring, fact_data.id)
 
   FactlinkJailRoot.trigger "factlink.factsLoaded", facts_data
 

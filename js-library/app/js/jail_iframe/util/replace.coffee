@@ -24,7 +24,9 @@ highlightRange = (normalizedRange, id) ->
   elements
 
 # Function to select the found ranges
-FactlinkJailRoot.selectRanges = (ranges, id) ->
+FactlinkJailRoot.highlightFact = (text, id) ->
+  ranges = FactlinkJailRoot.search text
+
   facts = []
   for range in ranges
     normalizedRange = new FactlinkJailRoot.Range.BrowserRange(range).normalize()
