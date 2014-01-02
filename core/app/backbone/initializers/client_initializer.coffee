@@ -12,8 +12,3 @@ window.FactlinkAppMode.coreInClient = (app) ->
     annotatedSiteEnvoy 'closeModal'
 
   annotatedSiteEnvoy 'modalFrameReady', Factlink.Global.can_haz
-
-  if Factlink.Global.can_haz.christmas_background
-    $('html').addClass 'feature_christmas_background'
-
-
