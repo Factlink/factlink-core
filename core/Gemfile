@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
-ruby '2.0.0'
+#TODO: reenable this check once we've updated the servers.
+#ruby '2.1.0'
 
 gem 'rails', '3.2.16' # this is too important to update automaticly
 gem 'rake', '~> 10.1.0', require: false

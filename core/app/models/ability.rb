@@ -160,7 +160,6 @@ class Ability
     skip_create_first_factlink
     memory_profiling
     hide_factwheel
-    christmas_background
     share_comment
   )
 
