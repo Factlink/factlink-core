@@ -37,10 +37,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
       @shareRegion.show new TopFactShareButtonsView model: @model
 
   _deleteButtonView: ->
-    deleteButtonView = new DeleteButtonView
-      model: @model
-      opened: @model.justCreated()
-      caption: if @model.justCreated() then 'Undo'
+    deleteButtonView = new DeleteButtonView model: @model, undo: @model.justCreated()
 
     @listenTo deleteButtonView, 'delete', ->
       @model.destroy
