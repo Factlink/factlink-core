@@ -2,7 +2,6 @@ highlight_time_on_load_and_creation = 2000
 highlight_time_on_in_view = 1500
 
 delay_before_mouseover_detected = 75
-delay_between_highlight_and_show_button_open = 1000
 
 delay_before_mouseout_detected = 300
 
@@ -15,12 +14,6 @@ class Highlighter
 
 class FactInteraction
   constructor: (elements, @id, @options) ->
-    @button_attention = new FactlinkJailRoot.AttentionSpan
-      onAttentionLost:   => @show_button.hide()
-      onAttentionGained: => @show_button.show()
-      wait_for_attention:  delay_before_mouseover_detected + delay_between_highlight_and_show_button_open
-      wait_for_neglection: delay_before_mouseout_detected
-
     @highlight_attention = new FactlinkJailRoot.AttentionSpan
       onAttentionLost:   => @highlighter.dehighlight()
       onAttentionGained: => @highlighter.highlight()
@@ -33,35 +26,29 @@ class FactInteraction
       mouseenter: => @onHover()
       mouseleave: => @onUnhover()
       click:      => @onClick()
+    @show_button.placeNearElement(elements[0])
 
     $(elements).on
-      mouseenter: (e) =>
-        @onHover()
-        @show_button.setCoordinates($(e.target).offset().top, e.pageX)
+      mouseenter: (e) => @onHover()
       mouseleave: => @onUnhover()
       click: => @onClick()
 
   onClick: (options={}) =>
-    @button_attention.gainAttentionNow()
     @highlight_attention.gainAttentionNow()
     @show_button.startLoading() # must be called after show
     FactlinkJailRoot.on 'modalOpened', @_onModalOpened, @
     FactlinkJailRoot.openFactlinkModal @id
 
   _onModalOpened: ->
-    @button_attention.loseAttentionNow()
     @highlight_attention.loseAttentionNow()
     FactlinkJailRoot.off 'modalOpened', @_onModalOpened, @
 
   onHover: ->
-    @button_attention.gainAttention()
     @highlight_attention.gainAttention()
   onUnhover:  ->
-    @button_attention.loseAttention()
     @highlight_attention.loseAttention()
 
   destroy: ->
-    @button_attention.loseAttentionNow()
     @highlight_attention.loseAttentionNow()
     @show_button.destroy()
 

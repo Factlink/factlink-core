@@ -59,6 +59,11 @@ class FactlinkJailRoot.ShowButton extends Button
     </div>
   """
 
+  placeNearElement: (el) ->
+    offset = $(el).offset()
+    @setCoordinates offset.top, offset.left
+    @show()
+
 
 class FactlinkJailRoot.CreateButton extends Button
   content: """
