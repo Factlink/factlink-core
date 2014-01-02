@@ -102,3 +102,4 @@ class FactlinkJailRoot.CreateButton extends Button
       left = selectionLeft + selectionBox.width/2
 
     @_setCoordinates selectionTop-2, left
+    @show()
