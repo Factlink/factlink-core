@@ -157,7 +157,6 @@ class Ability
 
   FEATURES = %w(
     pink_feedback_button
-    skip_create_first_factlink
     memory_profiling
     hide_factwheel
   )
