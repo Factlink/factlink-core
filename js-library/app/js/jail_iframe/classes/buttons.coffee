@@ -11,10 +11,12 @@ class Button
   _addClass: (classes) =>
     @$el.addClass classes
     @frame.sizeFrameToFitContent()
+    @_updatePosition()
 
   _removeClass: (classes) =>
     @$el.removeClass classes
     @frame.sizeFrameToFitContent()
+    @_updatePosition()
 
   _fadeIn: ->
     return if @_visible
@@ -63,14 +65,6 @@ class FactlinkJailRoot.ShowButton extends Button
   destroy: ->
     super
     $(document).off 'mousemove', @_onMouseLeave
-
-  _addClass: ->
-    super
-    @_updatePosition()
-
-  _removeClass: ->
-    super
-    @_updatePosition()
 
   _onMouseLeave: =>
     @_removeClass 'fl-button-state-hovered'
@@ -127,6 +121,8 @@ class FactlinkJailRoot.CreateButton extends Button
     @startLoading()
     current_user_opinion = $(event.target).data('opinion')
     FactlinkJailRoot.createFactFromSelection(current_user_opinion)
+
+  _updatePosition: ->
 
   placeNearSelection: (mouseX=null) ->
     return if @_visible
