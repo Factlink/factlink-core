@@ -1,4 +1,4 @@
-unless user.respond_to?(:statistics) && user.respond_to?(:top_user_topics) then
+unless user.respond_to?(:statistics) then
   user = Queries::UsersByIds.new(user_ids: [user.id]).call.first
 end
 
@@ -12,7 +12,4 @@ json.statistics_following_count    user.statistics[:following_count]
 
 json.deleted true if user.deleted
 
-json.user_topics user.top_user_topics do |user_topic|
-  json.title      user_topic.title
-  json.slug_title user_topic.slug_title
-end
+json.user_topics []
