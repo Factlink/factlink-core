@@ -22,7 +22,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   onRender: ->
     @inputRegion.show @_textAreaView
 
-    if Factlink.Global.can_haz.share_comment && Factlink.Global.signed_in
+    if Factlink.Global.signed_in
       @shareFactSelectionRegion.show @_shareFactSelectionView()
 
   addComment: ->
@@ -52,7 +52,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
       type: @options.argumentTypeModel.get 'argument_type'
 
   _shareFactlink: (model) ->
-    return unless Factlink.Global.can_haz.share_comment && Factlink.Global.signed_in
+    return unless Factlink.Global.signed_in
 
     @_shareFactSelectionView().submit model.get('content')
 
