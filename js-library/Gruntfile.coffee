@@ -1,7 +1,7 @@
 # global config:true, file:true, task:true, module: true
 
 banner_template = """
-/*!
+/*@license
 * <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage ? " * " + pkg.homepage : "" %>
 * Date: <%= grunt.template.today("m/d/yyyy") %>
 * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>
@@ -51,7 +51,6 @@ banner_template = """
 * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*
 */
 """
 
@@ -69,8 +68,6 @@ module.exports = (grunt) ->
         ]
     concat:
       jail_iframe:
-        options:
-          banner: banner_template
         src: [
           'build/js/jail_iframe/libs/*'
           'build/js/jail_iframe/core.js'
@@ -83,18 +80,24 @@ module.exports = (grunt) ->
         ]
         dest: 'build/jail_iframe.js'
       loader_basic:
+        options:
+          banner: banner_template
         src: [
           'build/js/loader/loader_common.js'
           'build/js/loader/loader_basic.js'
         ]
         dest: 'build/factlink_loader_basic.js'
       loader_publishers:
+        options:
+          banner: banner_template
         src: [
           'build/js/loader/loader_common.js'
           'build/js/loader/loader_publishers.js'
         ]
         dest: 'build/factlink_loader_publishers.js'
       loader_bookmarklet:
+        options:
+          banner: banner_template
         src: [
           'build/js/loader/loader_common.js'
           'build/js/loader/loader_bookmarklet.js'
@@ -121,9 +124,8 @@ module.exports = (grunt) ->
         src: '*.css'
         ext: '.min.css'
     uglify:
-      options: {
-        banner: banner_template
-      },
+      options:
+        preserveComments: (node, comment) -> !comment.value.lastIndexOf('@license', 0)
       jail_iframe:
         files:
           'build/jail_iframe.min.js':                        ['build/jail_iframe.js']
