@@ -21,7 +21,13 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   line-height: $buttonHeight;
 }
 
+// remove when removing client_buttons feature toggle
+.fl-button-hide-default {
+  display: none;
+}
+
 .fl-button-black, .fl-button-state-hovered, .fl-button-state-loading {
+  display: block; // remove when removing client_buttons feature toggle
   background-color: $buttonBackground;
   color: white;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);

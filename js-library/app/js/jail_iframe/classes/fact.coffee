@@ -17,6 +17,10 @@ class FactInteraction
     @highlighter = new Highlighter $(elements), 'fl-active'
     $(elements).on 'click', => @onClick()
 
+    # remove when removing client_buttons feature toggle
+    unless FactlinkJailRoot.can_haz.client_buttons
+      $(elements).addClass 'fl-always-highlight'
+
     @show_button = new FactlinkJailRoot.ShowButton
       mouseenter: => @highlighter.highlight()
       mouseleave: => @highlighter.dehighlight()

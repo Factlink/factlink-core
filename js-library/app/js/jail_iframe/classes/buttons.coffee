@@ -62,6 +62,10 @@ class FactlinkJailRoot.ShowButton extends Button
     @$el.on 'mouseleave', @_onMouseLeave
     $(document).on 'mousemove', @_onMouseLeave
 
+    # remove when removing client_buttons feature toggle
+    unless FactlinkJailRoot.can_haz.client_buttons
+      @$el.addClass 'fl-button-hide-default'
+
   destroy: ->
     super
     $(document).off 'mousemove', @_onMouseLeave
