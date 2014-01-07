@@ -1,7 +1,5 @@
 class Users::SetupController < ApplicationController
 
-  before_filter :setup_step_in_process
-
   layout "one_column"
 
   def edit
