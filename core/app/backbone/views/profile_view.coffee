@@ -13,9 +13,5 @@ class window.ProfileView extends Backbone.Marionette.Layout
   onRender: ->
     @profileInformationRegion.show  new ProfileInformationView(model: @model)
     @factRegion.show                @options.created_facts_view
-    @_showTopTopicsView()
-
-  _showTopTopicsView: ->
-    @topTopicsRegion.show new TopTopicsView
-      collection: @collection
-      user: @model
+    @topTopicsRegion.show new SidebarProfileView
+      model: @model
