@@ -1,9 +1,6 @@
 class TourController < ApplicationController
   before_filter :common_tour
 
-  # first step is account, and this is in other controllers
-  # search for @step_in_signup_process = :account
-
   def install_extension
     render layout: "tour"
     mp_track "Tour: Loaded install extension"
