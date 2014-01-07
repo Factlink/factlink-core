@@ -5,21 +5,15 @@ class window.ChannelsController extends Backbone.Marionette.Controller
     topic.fetch success: (model) -> callback(model)
     topic
 
-  showSidebarForTopic: (topic) ->
-    if Factlink.Global.signed_in
-      FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic)
-
   showTopicFacts: (slug_title) ->
     FactlinkApp.mainRegion.close()
 
     @loadTopic slug_title, (topic) =>
-      @showSidebarForTopic(topic)
       FactlinkApp.mainRegion.show new TopicView model: topic
 
   showStream: ->
     FactlinkApp.mainRegion.close()
 
-    @showSidebarForTopic(null)
     FactlinkApp.Sidebar.activate('stream')
     activities = new FeedActivities
     FactlinkApp.mainRegion.show new FeedActivitiesView(collection: activities)

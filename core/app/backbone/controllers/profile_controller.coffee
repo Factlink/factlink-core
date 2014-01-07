@@ -35,7 +35,6 @@ class window.ProfileController extends Backbone.Marionette.Controller
     FactlinkApp.mainRegion.show(@main)
     @getUser username,
       onInit: (user) =>
-        FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(user)
         @main.showTitle(options.title)
       onFetch: (user) =>
         @main.tabsRegion.show(@getUserTabs(user, options.active_tab))
