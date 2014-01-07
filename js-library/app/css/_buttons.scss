@@ -69,12 +69,19 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   }
 }
 
-.fl-button-content-hovered, .fl-button-content-loading {
+.fl-button-content-default,
+.fl-button-content-hovered,
+.fl-button-content-loading {
   display: none;
   height: 0;
   overflow: hidden;
   white-space: nowrap;
   padding: 0 $buttonPadding;
+}
+
+.fl-button-content-default {
+  display: block;
+  height: auto;
 }
 
 .fl-button-state-hovered {
