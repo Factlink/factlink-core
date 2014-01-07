@@ -159,6 +159,7 @@ class Ability
     pink_feedback_button
     memory_profiling
     hide_factwheel
+    client_buttons
   )
 
   def enabled_global_features
