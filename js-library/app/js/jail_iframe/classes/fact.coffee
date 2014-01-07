@@ -28,6 +28,7 @@ class FactInteraction
     FactlinkJailRoot.openFactlinkModal @id
 
   _onModalOpened: ->
+    @show_button.stopLoading()
     FactlinkJailRoot.off 'modalOpened', @_onModalOpened, @
 
   destroy: ->
