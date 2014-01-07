@@ -9,7 +9,9 @@ html[data-factlink-suppress-scrolling] {
 }
 
 span.factlink {
-  &.fl-active {
+  cursor: pointer;
+
+  &:hover, &.fl-active {
     background: rgba(255,255,0, 0.6) !important;
   }
 

@@ -15,6 +15,7 @@ class Highlighter
 class FactInteraction
   constructor: (elements, @id, @options) ->
     @highlighter = new Highlighter $(elements), 'fl-active'
+    $(elements).on 'click', => @onClick()
 
     @show_button = new FactlinkJailRoot.ShowButton
       mouseenter: => @highlighter.highlight()
