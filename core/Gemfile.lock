@@ -84,7 +84,7 @@ GEM
     cancan (1.6.10)
     cane (2.6.1)
       parallel
-    capistrano (2.15.4)
+    capistrano (2.15.5)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -503,7 +503,7 @@ DEPENDENCIES
   browser (~> 0.3.2)
   cancan (~> 1.6.10)
   cane (~> 2)
-  capistrano (= 2.15.4)
+  capistrano (~> 2.15)
   capistrano-ext (~> 1.2.1)
   capybara (~> 2.1)
   capybara-email (~> 2.0)
