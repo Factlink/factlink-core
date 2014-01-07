@@ -23,12 +23,7 @@ module Interactors
 
       def execute
         command :'topics/favourite', graph_user_id: user.graph_user_id, topic_id: topic.id.to_s
-        track_mixpanel
         nil
-      end
-
-      def track_mixpanel
-        mp_track 'Topic: Favourited', slug_title: slug_title
       end
 
       def validate
