@@ -26,8 +26,10 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
   submit: ->
     return if @submitting
 
+    content = $.trim(@text())
     @model = new SubComment
-      content: $.trim(@text())
+      content: content
+      formatted_comment_content: content
       created_by: currentUser.toJSON()
 
     return @addModelError() unless @model.isValid()
