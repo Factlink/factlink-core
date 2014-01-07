@@ -8,21 +8,6 @@ class AutoCompleteSearchFactRelationView extends Backbone.Factlink.StepView
   ui:
     factWheel: '.js-fact-wheel'
 
-  onRender: ->
-    @ui.factWheel.html @wheelView().render().el unless Factlink.Global.can_haz.hide_factwheel
-
-  onClose: ->
-    @wheelView().close() unless Factlink.Global.can_haz.hide_factwheel
-
-  wheelView: ->
-    @_wheelView ?= new FactWheelView
-      fact: @model.get("from_fact")
-      model: @model.getFactTally()
-      respondsToMouse: false
-      showsTooltips: false
-      radius: 6
-      defaultStrokeOpacity: 0.4
-
   templateHelpers: ->
     query = @options.query
 
