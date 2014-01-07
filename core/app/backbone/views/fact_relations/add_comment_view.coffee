@@ -28,10 +28,8 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   addComment: ->
     return if @submitting
 
-    content = $.trim(@_textModel().get('text'))
     @model = new Comment
-      content: content
-      formatted_comment_content: content
+      content: $.trim(@_textModel().get('text'))
       created_by: currentUser.toJSON()
       type: @options.argumentTypeModel.get 'argument_type'
 

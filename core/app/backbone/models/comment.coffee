@@ -23,3 +23,8 @@ class window.Comment extends Evidence
   argumentTally: ->
     @_argumentTally ?= new ArgumentTally @get('tally'),
       argument: this
+
+  toJSON: ->
+    json = super
+
+    _.extend {formatted_comment_content: json.content}, json
