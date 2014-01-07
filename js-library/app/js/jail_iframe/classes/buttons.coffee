@@ -1,12 +1,9 @@
 class Button
-  constructor: (dom_events={}) ->
+  constructor: ->
     @frame = new FactlinkJailRoot.ControlIframe()
     @frame.setContent($.parseHTML(@content.trim())[0])
     @$el = $(@frame.frameBody.firstChild)
     @$el.on 'mouseenter', => @_addClass 'fl-button-state-hovered'
-
-    for event, callback of dom_events
-      @$el.on event, callback
 
   startLoading: => @_addClass 'fl-button-state-loading'
   stopLoading: => @_removeClass 'fl-button-state-loading fl-button-state-hovered'
@@ -54,10 +51,13 @@ class FactlinkJailRoot.ShowButton extends Button
     </div>
   """
 
-  constructor: ->
+  constructor: (dom_events={}) ->
     super
     @$el.on 'mouseleave', => @_removeClass 'fl-button-state-hovered'
     $(document).on 'mousemove', => @_removeClass 'fl-button-state-hovered'
+
+    for event, callback of dom_events
+      @$el.on event, callback
 
   _textContainer: ($el) ->
     for el in $el.parents()
