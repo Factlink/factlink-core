@@ -3,15 +3,11 @@ FactlinkApp.startSiteRegions = ->
     mainRegion:          '#main-wrapper'
     notificationsRegion: '#notifications'
 
-    leftTopRegion:       '#left-column .js-left-top-region'
-    leftBottomRegion:    '#left-column .js-left-bottom-region'
-    leftMiddleRegion:    '#left-column .js-left-middle-region'
-
     discussionModalRegion: '.js-discussion-modal-region'
     facebookRenewalRegion: '#js-facebook-renewal-region'
 
   FactlinkApp.closeAllContentRegions = ->
-    for region in ['leftTopRegion', 'leftBottomRegion', 'leftMiddleRegion', 'mainRegion']
+    for region in ['mainRegion']
       FactlinkApp[region].close()
 
 FactlinkApp.startClientRegions = ->

@@ -31,7 +31,6 @@ class window.ProfileController extends Backbone.Marionette.Controller
   showPage: (username, options) ->
     $(window).scrollTop(0)
 
-    FactlinkApp.leftBottomRegion.close()
     @main = new TabbedMainRegionLayout();
     FactlinkApp.mainRegion.show(@main)
     @getUser username,
@@ -39,7 +38,6 @@ class window.ProfileController extends Backbone.Marionette.Controller
         FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(user)
         @main.showTitle(options.title)
       onFetch: (user) =>
-        @showSidebarProfile(user)
         @main.tabsRegion.show(@getUserTabs(user, options.active_tab))
         options.render(@main.contentRegion, user)
 
@@ -66,9 +64,3 @@ class window.ProfileController extends Backbone.Marionette.Controller
     new FactsView
       collection: new CreatedFacts([], user: user)
       empty_view: new EmptyProfileFactsView()
-
-  showSidebarProfile: (user) ->
-    return if user.get('deleted')
-
-    sidebarProfileView = new SidebarProfileView(model: user)
-    FactlinkApp.leftTopRegion.show(sidebarProfileView)

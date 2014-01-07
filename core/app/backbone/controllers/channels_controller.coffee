@@ -6,13 +6,8 @@ class window.ChannelsController extends Backbone.Marionette.Controller
     topic
 
   showSidebarForTopic: (topic) ->
-    FactlinkApp.leftBottomRegion.close()
-
     if Factlink.Global.signed_in
-      @showUserProfile currentUser
       FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic)
-    else
-      @hideUserProfile()
 
   showTopicFacts: (slug_title) ->
     FactlinkApp.mainRegion.close()
@@ -21,18 +16,7 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       @showSidebarForTopic(topic)
       FactlinkApp.mainRegion.show new TopicView model: topic
 
-  showUserProfile: (user)->
-    if user.is_current_user()
-      @hideUserProfile()
-    else
-      userView = new UserView(model: user)
-      FactlinkApp.leftTopRegion.show(userView)
-
-  hideUserProfile: ->
-    FactlinkApp.leftTopRegion.close()
-
   showStream: ->
-    FactlinkApp.leftTopRegion.close()
     FactlinkApp.mainRegion.close()
 
     @showSidebarForTopic(null)
