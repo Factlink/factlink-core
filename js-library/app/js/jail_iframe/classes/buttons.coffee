@@ -64,6 +64,14 @@ class FactlinkJailRoot.ShowButton extends Button
     super
     $(document).off 'mousemove', @_onMouseLeave
 
+  _addClass: ->
+    super
+    @_updatePosition()
+
+  _removeClass: ->
+    super
+    @_updatePosition()
+
   _onMouseLeave: =>
     @_removeClass 'fl-button-state-hovered'
     @_callbacks.mouseleave()
@@ -74,8 +82,8 @@ class FactlinkJailRoot.ShowButton extends Button
 
   placeNearElement: (el) ->
     @$nearEl = $(el)
-    @_updatePosition()
     @_fadeIn()
+    @_updatePosition()
 
     $(window).on 'resize', => @_updatePosition()
     setInterval (=> @_updatePosition()), 1000
@@ -91,6 +99,7 @@ class FactlinkJailRoot.ShowButton extends Button
     selectionLeft = selectionBox.left + $(window).scrollLeft()
 
     left = selectionLeft + selectionBox.width
+    left = Math.min left, $(window).width() - @frame.$el.outerWidth()
 
     @_showAtCoordinates top, left
 
@@ -136,5 +145,5 @@ class FactlinkJailRoot.CreateButton extends Button
     left -= buttonWidth/2
     top = selectionTop-2-@frame.$el.outerHeight()
 
-    @_showAtCoordinates top, left
     @_fadeIn()
+    @_showAtCoordinates top, left
