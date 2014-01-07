@@ -5,3 +5,8 @@ class window.SubComment extends Backbone.Model
 
   validate: (attributes) ->
     'Content should not be empty' unless /\S/.test(attributes.content)
+
+  toJSON: ->
+    json = super
+
+    _.extend {formatted_comment_content: json.content}, json

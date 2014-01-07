@@ -29,7 +29,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     return if @submitting
 
     @model = new Comment
-      content: @_textModel().get('text')
+      content: $.trim(@_textModel().get('text'))
       created_by: currentUser.toJSON()
       type: @options.argumentTypeModel.get 'argument_type'
 
@@ -44,8 +44,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   addModelSuccess: (model) ->
     @enableSubmit()
     @setFormContent ''
-
-    model.trigger 'change'
 
     mp_track "Factlink: Added comment",
       factlink_id: @options.addToCollection.fact.id
