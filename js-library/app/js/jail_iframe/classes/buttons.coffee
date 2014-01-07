@@ -9,7 +9,7 @@ class Button
       @$el.on event, callback
 
   startLoading: => @_addClass 'fl-button-state-loading'
-  stopLoading: => @_removeClass 'fl-button-state-loading'
+  stopLoading: => @_removeClass 'fl-button-state-loading fl-button-state-hovered'
 
   _addClass: (classes) =>
     @$el.addClass classes

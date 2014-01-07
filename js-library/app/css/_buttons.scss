@@ -77,18 +77,28 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   padding: 0 $buttonPadding;
 }
 
-.fl-button-state-hovered, .fl-button-state-loading {
-  .fl-button-content-default {
-    display: none;
-  }
-  .fl-button-content-hovered, .fl-button-content-loading {
+.fl-button-state-hovered {
+  .fl-button-content-default,
+  .fl-button-content-hovered,
+  .fl-button-content-loading {
     display: block;
+    height: 0;
+  }
+  .fl-button-content-hovered {
+    height: auto;
   }
 }
 
-.fl-button-state-hovered .fl-button-content-hovered,
-.fl-button-state-loading .fl-button-content-loading {
-  height: auto;
+.fl-button-state-loading {
+  .fl-button-content-default,
+  .fl-button-content-hovered,
+  .fl-button-content-loading {
+    display: block;
+    height: 0;
+  }
+  .fl-button-content-loading {
+    height: auto;
+  }
 }
 
 .fl-button-icon:before,
