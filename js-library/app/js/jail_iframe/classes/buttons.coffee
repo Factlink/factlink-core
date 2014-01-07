@@ -57,7 +57,7 @@ class FactlinkJailRoot.ShowButton extends Button
   constructor: ->
     super
     @$el.on 'mouseleave', => @_removeClass 'fl-button-state-hovered'
-    $(document).on 'mouseenter', => @_removeClass 'fl-button-state-hovered'
+    $(document).on 'mousemove', => @_removeClass 'fl-button-state-hovered'
 
   _textContainer: ($el) ->
     for el in $el.parents()
