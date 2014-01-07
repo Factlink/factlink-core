@@ -1,9 +1,4 @@
 class Users::SessionsController < Devise::SessionsController
-  before_filter :track_sign_out, only: :destroy
-
-  def track_sign_out
-    mp_track "User: Sign out"
-  end
 
   def new
     flash.keep
