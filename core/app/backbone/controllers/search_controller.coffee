@@ -10,7 +10,7 @@ class window.SearchController extends Backbone.Marionette.Controller
     $('.js-navbar-search-box').val(query)
     results = new SearchResults [], search: query
 
-    FactlinkApp.closeAllContentRegions()
+    FactlinkApp.mainRegion.close()
     FactlinkApp.mainRegion.show new SearchResultView
       collection: results
 
