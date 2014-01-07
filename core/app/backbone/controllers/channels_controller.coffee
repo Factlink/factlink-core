@@ -14,7 +14,6 @@ class window.ChannelsController extends Backbone.Marionette.Controller
   showStream: ->
     FactlinkApp.mainRegion.close()
 
-    FactlinkApp.Sidebar.activate('stream')
     activities = new FeedActivities
     FactlinkApp.mainRegion.show new FeedActivitiesView(collection: activities)
 
