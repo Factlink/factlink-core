@@ -127,7 +127,7 @@ group :test do
 
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'guard', '~> 2.0', require: false
-  gem 'guard-rspec', '~> 3.0', require: false
+  gem 'guard-rspec', '~> 4.0', require: false
   gem 'terminal-notifier-guard', '~> 1.5', require: false
 
   gem 'approvals', '~> 0' # not locked, since test will break if something goes wrong here
