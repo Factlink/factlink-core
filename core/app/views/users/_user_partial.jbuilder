@@ -11,5 +11,3 @@ json.statistics_follower_count     user.statistics[:follower_count]
 json.statistics_following_count    user.statistics[:following_count]
 
 json.deleted true if user.deleted
-
-json.user_topics []
