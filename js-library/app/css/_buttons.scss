@@ -15,7 +15,7 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   text-align: center;
   position: relative;
   min-width: $buttonSmallWidth;
-  opacity: 0.7;
+  opacity: 0.4;
 
   border-radius: $borderRadius;
   line-height: $buttonHeight;
@@ -94,7 +94,7 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
 .fl-button-icon:before,
 .fl-button-icon-white:before,
 .fl-button-icon-add:before {
-  content: url("../images/icon-black.png");
+  content: url("../images/comment-black.png");
   display: inline-block;
   vertical-align: middle;
   width: $iconWidth;
@@ -102,11 +102,11 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
 }
 
 .fl-button-icon-white:before {
-  content: url("../images/logo-white.png");
+  content: url("../images/comment-white.png");
 }
 
 .fl-button-icon-add:before {
-  content: url("../images/logo-white-add.png");
+  content: url("../images/comment-white.png"); // TODO: special add button
 }
 
 // keep in sync with core .striped
