@@ -16,7 +16,6 @@ class window.ClientController
             fact.getFactTally().clickCurrentUserOpinion params.current_user_opinion
 
           @annotatedSiteEnvoy 'highlightNewFactlink', params.displaystring, fact.id
-          FactlinkApp.NotificationCenter.success "Created #{Factlink.Global.t.factlink}."
 
           @_renderDiscussion fact
           Backbone.history.navigate "/client/facts/#{fact.id}", trigger: false
