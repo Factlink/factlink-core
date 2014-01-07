@@ -92,8 +92,8 @@ group :assets do
   gem "marionette-rails", '= 1.4.1' # we want a specific version of the js library
 
   # Rails 4 pipline
-  gem 'sprockets', '2.2.2.backport2'
-  gem 'sprockets-rails', '2.0.0.backport1'
+  gem 'sprockets', '2.2.2.backport2' #upgrade awaiting rails 4
+  gem 'sprockets-rails', '2.0.0.backport1'  #upgrade awaiting rails 4
 end
 
 group :development do
@@ -150,7 +150,7 @@ group :test, :development do # TODO why is there a :development here?
 end
 
 group :development do
-  gem 'brakeman', '~> 2.0.0', require: false # upgrade awaiting https://github.com/presidentbeef/brakeman/issues/372
+  gem 'brakeman', '~> 2.0.0', require: false # upgrade awaiting sprockets upgrade awaiting rails 4
   gem 'cane', '~> 2', require: false
   gem 'rails_best_practices', '~> 1', require: false
   gem 'rubocop', require: false
