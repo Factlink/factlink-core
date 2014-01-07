@@ -3,7 +3,6 @@ class window.FactBaseView extends Backbone.Marionette.Layout
   className: "fact-base"
 
   regions:
-    factWheelRegion: '.fact-wheel'
     factBodyRegion: '.fact-body'
 
   onRender: ->
