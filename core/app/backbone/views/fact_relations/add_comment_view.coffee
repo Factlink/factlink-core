@@ -47,8 +47,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @enableSubmit()
     @setFormContent ''
 
-    model.trigger 'change'
-
     mp_track "Factlink: Added comment",
       factlink_id: @options.addToCollection.fact.id
       type: @options.argumentTypeModel.get 'argument_type'
