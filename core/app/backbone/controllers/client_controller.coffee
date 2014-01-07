@@ -20,6 +20,7 @@ class window.ClientController
 
           @_renderDiscussion fact
           Backbone.history.navigate "/client/facts/#{fact.id}", trigger: false
+          mp_track 'Factlink: Created'
     else
       view = new NewFactLoginView model: fact
       view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
