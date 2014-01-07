@@ -42,12 +42,7 @@ class window.FactRelationOrCommentView extends Backbone.Marionette.Layout
         collection: new SubComments([], parentModel: @model)
 
   _factBaseView: ->
-    view = new FactBaseView model: @model.getFact()
-
-    @listenTo @model.getFact().getFactTally(), 'sync', ->
-      @model.fetch()
-
-    view
+    new FactBaseView model: @model.getFact()
 
   _typeCss: ->
     switch @model.get('type')
