@@ -77,7 +77,6 @@ feature "follow_users_in_tour", type: :feature do
     first(:button, 'Follow user').click
 
     click_on 'Finish tour'
-    click_topic_in_sidebar 'toy'
   end
 
   scenario "The user should be able to unfollow users from the tour" do
