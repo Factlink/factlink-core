@@ -21,10 +21,8 @@ class window.FollowUserButtonView extends ActionButtonView
 
   userFollow: ->
     @options.user.follow()
-    mp_track 'User: Followed',
-      followed: following_username
+    mp_track 'User: Followed'
 
   userUnfollow: ->
     @options.user.unfollow()
-    mp_track 'User: Unfollowed',
-      unfollowed: following_username
+    mp_track 'User: Unfollowed'
