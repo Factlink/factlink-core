@@ -19,12 +19,13 @@ class Button
     @$el.removeClass classes
     @frame.sizeFrameToFitContent()
 
-  _showAtCoordinates: (top, left) =>
+  _fadeIn: ->
     return if @_visible
 
     @_visible = true
     @frame.fadeIn()
 
+  _showAtCoordinates: (top, left) =>
     containerOffset = FactlinkJailRoot.$factlinkCoreContainer.offset()
     left -= containerOffset.left
     top -= containerOffset.top
@@ -56,16 +57,24 @@ class FactlinkJailRoot.ShowButton extends Button
   constructor: ->
     super
     @$el.on 'mouseleave', => @_removeClass 'fl-button-state-hovered'
+    $(document).on 'mouseenter', => @_removeClass 'fl-button-state-hovered'
 
   _textContainer: ($el) ->
     for el in $el.parents()
       return el if $(el).css('display') == 'block'
 
   placeNearElement: (el) ->
-    $el = $(el)
-    top = $el.offset().top + $el.outerHeight()/2 - @frame.$el.outerHeight()/2
+    @$nearEl = $(el)
+    @_updatePosition()
+    @_fadeIn()
 
-    textContainer = @_textContainer($el)
+    $(window).on 'resize', => @_updatePosition()
+    setInterval (=> @_updatePosition()), 1000
+
+  _updatePosition: ->
+    top = @$nearEl.offset().top + @$nearEl.outerHeight()/2 - @frame.$el.outerHeight()/2
+
+    textContainer = @_textContainer(@$nearEl)
     range = document.createRange()
     range.setStartBefore textContainer
     range.setEndAfter textContainer
@@ -102,6 +111,8 @@ class FactlinkJailRoot.CreateButton extends Button
     FactlinkJailRoot.createFactFromSelection(current_user_opinion)
 
   placeNearSelection: (mouseX=null) ->
+    return if @_visible
+
     selectionBox = window.document.getSelection().getRangeAt(0).getBoundingClientRect()
     selectionLeft = selectionBox.left + $(window).scrollLeft()
     selectionTop = selectionBox.top + $(window).scrollTop()
@@ -117,3 +128,4 @@ class FactlinkJailRoot.CreateButton extends Button
     top = selectionTop-2-@frame.$el.outerHeight()
 
     @_showAtCoordinates top, left
+    @_fadeIn()
