@@ -51,13 +51,22 @@ class FactlinkJailRoot.ShowButton extends Button
     </div>
   """
 
-  constructor: (dom_events={}) ->
+  constructor: (callbacks) ->
     super
-    @$el.on 'mouseleave', => @_removeClass 'fl-button-state-hovered'
-    $(document).on 'mousemove', => @_removeClass 'fl-button-state-hovered'
 
-    for event, callback of dom_events
-      @$el.on event, callback
+    @_callbacks = callbacks
+    @$el.on 'mouseenter', @_callbacks.mouseenter
+    @$el.on 'click', @_callbacks.click
+    @$el.on 'mouseleave', @_onMouseLeave
+    $(document).on 'mousemove', @_onMouseLeave
+
+  destroy: ->
+    super
+    $(document).off 'mousemove', @_onMouseLeave
+
+  _onMouseLeave: =>
+    @_removeClass 'fl-button-state-hovered'
+    @_callbacks.mouseleave()
 
   _textContainer: ($el) ->
     for el in $el.parents()
