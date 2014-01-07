@@ -48,7 +48,7 @@ gem 'twitter', '~> 4.7.0'
 # social sharing
 gem 'koala', '~> 1.8.0rc1'
 
-gem 'httparty', '~> 0.11.0'
+gem 'httparty', '~> 0.12.0'
 
 #browser detection
 gem 'browser', '~> 0.3.2'
