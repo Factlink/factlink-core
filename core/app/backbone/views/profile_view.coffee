@@ -1,4 +1,4 @@
-class window.ProfileInformationView extends Backbone.Marionette.ItemView
+class window.ProfileBioView extends Backbone.Marionette.ItemView
   template: "users/profile/information"
 
 class window.ProfileView extends Backbone.Marionette.Layout
@@ -11,7 +11,7 @@ class window.ProfileView extends Backbone.Marionette.Layout
     factRegion:               '.fact-region'
 
   onRender: ->
-    @profileInformationRegion.show  new ProfileInformationView(model: @model)
+    @profileInformationRegion.show  new ProfileBioView(model: @model)
     @factRegion.show                @options.created_facts_view
-    @topTopicsRegion.show new SidebarProfileView
+    @topTopicsRegion.show new ProfileInformationView
       model: @model

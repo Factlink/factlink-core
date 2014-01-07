@@ -8,8 +8,8 @@ class SocialStatisticsView extends Backbone.Marionette.ItemView
   templateHelpers: =>
     plural_followers: @model.get('statistics_follower_count') != 1
 
-class window.SidebarProfileView extends Backbone.Marionette.Layout
-  template: 'users/profile/sidebar_profile'
+class window.ProfileInformationView extends Backbone.Marionette.Layout
+  template: 'users/profile/profile_information'
 
   regions:
     profilePictureRegion:   '.js-region-user-large-profile-picture'
