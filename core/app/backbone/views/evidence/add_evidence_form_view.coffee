@@ -81,7 +81,6 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     @ui.switchToFactlink.show()
     @ui.switchToComment.hide()
     @inputRegion.switchTo 'add_comment_view'
-    mp_track "Evidence: Switching to comment"
 
   _switchToAddFactRelationView: ->
     @ui.switchToFactlink.hide()
