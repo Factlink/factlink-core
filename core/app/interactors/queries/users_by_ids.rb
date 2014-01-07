@@ -47,8 +47,7 @@ module Queries
     end
 
     def top_user_topics user
-      query(:'user_topics/top_for_user',
-            user: user, limit_topics: top_topics_limit)
+      []
     end
   end
 end
