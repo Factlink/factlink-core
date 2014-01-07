@@ -1,6 +1,6 @@
 class SocialStatisticsView extends Backbone.Marionette.ItemView
   template: "users/profile/social_statistics"
-  className: "user-social-statistics"
+  className: "profile-user-social-statistics"
 
   initialize: ->
     @listenTo @model, 'change', @render
