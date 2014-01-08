@@ -20,10 +20,8 @@ class ChannelsController < ApplicationController
     @channels = interactor(:'channels/visible_of_user_for_user', user: @user)
   end
 
-  # TODO: Move to topicscontroller, this searches for topics, not for channels
   def search
-    # TODO: add access control
-    @topics = interactor(:'search_channel', keywords: params[:s])
+    @topics = []
     render 'topics/index', formats: [:json]
   end
 
