@@ -1,12 +1,31 @@
+# Buttons in iframes sometimes don't trigger mouseleave, hence check
+# document for mousemove to be sure.
+class RobustHover
+  constructor: (@$el, @_callbacks) ->
+    @$el.on 'mouseenter', @_onMouseEnter
+    @$el.on 'mouseleave', @_onMouseLeave
+
+  destroy: ->
+    @$el.off 'mouseenter', @_onMouseEnter
+    @$el.off 'mouseleave', @_onMouseLeave
+    $(document).off 'mousemove', @_onMouseLeave
+
+  _onMouseEnter: =>
+    $(document).on 'mousemove', @_onMouseLeave
+    @_callbacks.mouseenter?()
+
+  _onMouseLeave: =>
+    $(document).off 'mousemove', @_onMouseLeave
+    @_callbacks.mouseleave?()
+
 class Button
   constructor: (callbacks={}) ->
     @frame = new FactlinkJailRoot.ControlIframe()
     @frame.setContent($.parseHTML(@content.trim())[0])
     @$el = $(@frame.frameBody.firstChild)
 
-    @$el.on 'mouseenter', -> callbacks.mouseenter?()
-    @$el.on 'mouseleave', -> callbacks.mouseleave?()
-    @$el.on 'click',      -> callbacks.click?()
+    @_robustHover = new RobustHover @$el, callbacks
+    @$el.on 'click', -> callbacks.click?()
 
   startLoading: => @_addClass 'fl-button-state-loading'
   stopLoading: => @_removeClass 'fl-button-state-loading fl-button-state-hovered'
@@ -45,6 +64,7 @@ class Button
 
   destroy: =>
     @frame.destroy()
+    @_robustHover.destroy()
 
 class FactlinkJailRoot.ShowButton extends Button
   content: """
