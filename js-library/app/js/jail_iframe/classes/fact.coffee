@@ -118,7 +118,6 @@ class FactlinkJailRoot.Fact
 
   destroy: ->
     for el in @elements
-      $el = $(el)
-      $el.remove()
+      $(el).contents().unwrap()
 
     @fact_interaction.destroy()
