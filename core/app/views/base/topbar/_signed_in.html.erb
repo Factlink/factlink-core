@@ -5,12 +5,6 @@
 
   <li class="topbar-divider"></li>
 
-  <li class="topbar-menu-item">
-    <%= link_to(image_tag('conversations/conversations.png'), conversations_path, alt: '', class: 'js-potential-backbone topbar-menu-link') %>
-  </li>
-
-  <li class="topbar-divider"></li>
-
   <li class="dropdown topbar-menu-item topbar-menu-link" id="notifications">
 
   <% if can? :access, Ability::FactlinkWebapp %>

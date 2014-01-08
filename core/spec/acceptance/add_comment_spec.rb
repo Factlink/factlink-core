@@ -5,7 +5,6 @@ feature "adding comments to a fact", type: :feature do
   include Acceptance
   include Acceptance::FactHelper
   include Acceptance::CommentHelper
-  include Acceptance::AddToChannelModalHelper
 
   background do
     @user = sign_in_user create :full_user, :confirmed

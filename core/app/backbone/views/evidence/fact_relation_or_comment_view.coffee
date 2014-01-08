@@ -14,6 +14,9 @@ class window.FactRelationOrCommentView extends Backbone.Marionette.Layout
     headingRegion: '.js-heading-region'
     subCommentsRegion: '.js-sub-comments-region'
 
+  initialize: ->
+    @listenTo @model, 'change:formatted_comment_content', @render
+
   onRender: ->
     @$el.addClass @_typeCss()
     @listenTo @model.argumentTally(), 'change', @_updateIrrelevance
@@ -42,12 +45,7 @@ class window.FactRelationOrCommentView extends Backbone.Marionette.Layout
         collection: new SubComments([], parentModel: @model)
 
   _factBaseView: ->
-    view = new FactBaseView model: @model.getFact()
-
-    @listenTo @model.getFact().getFactTally(), 'sync', ->
-      @model.fetch()
-
-    view
+    new FactBaseView model: @model.getFact()
 
   _typeCss: ->
     switch @model.get('type')

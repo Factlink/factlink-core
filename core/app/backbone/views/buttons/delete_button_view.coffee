@@ -6,17 +6,22 @@ class window.DeleteButtonView extends Backbone.Marionette.ItemView
 
   events:
     'click .js-first': '_toggleButton'
-    'mouseleave': '_closeButton'
+    'mouseleave': '_closeButtonOnMouseLeave'
 
   triggers:
     'click .js-second': 'delete'
 
+  templateHelpers: =>
+    caption: if @options.undo then 'Undo' else 'Delete'
+
   onRender: ->
-    if @options.opened
+    if @options.undo
       @$el.addClass 'delete-button-open'
 
   _toggleButton: ->
     @$el.toggleClass 'delete-button-open'
 
-  _closeButton: ->
+  _closeButtonOnMouseLeave: ->
+    return if @options.undo
+
     @$el.removeClass 'delete-button-open'

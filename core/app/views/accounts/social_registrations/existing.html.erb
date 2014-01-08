@@ -1,0 +1,39 @@
+<% content_for :account_popup_content do %>
+  <h1 class="accounts-popup-heading">Connect with your existing Factlink account</h1>
+
+  <%= form_for(@user, as: :user, url: social_accounts_new_path, html: { class: "form-horizontal" }) do |f| %>
+    <div class="accounts-popup-form">
+      <div class="control-group">
+        <%= f.label :email, "Email address", class: "control-label" %>
+
+        <div class="controls">
+          <%= f.text_field :email %>
+          <%= possible_error_for_field(@user, :email) %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :password, "Password", class: "control-label" %>
+
+        <div class="controls">
+          <%= f.password_field :password %>
+          <%= possible_error_for_field(@user, :password) %>
+        </div>
+
+        <div class="controls">
+          <%= link_to "Forgot your password?", new_password_path('user'), target: '_blank' %>
+        </div>
+
+        <% if @alternative_provider_name %>
+          <div class="controls">
+            <%= link_to "Or sign in to your existing account with #{@alternative_provider_name.capitalize}.", "/auth/#{@alternative_provider_name}" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="accounts-popup-button-wrapper">
+      <button type="submit" class="button button-confirm accounts-popup-button" data-disable-with="Submitting...">Continue</button>
+    </div>
+  <% end %>
+<% end %>

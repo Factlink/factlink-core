@@ -6,6 +6,7 @@ if defined?(NewRelic)
   Ability.class_eval do
     include NewRelic::Agent::MethodTracer
     add_method_tracer :initialize
+    add_method_tracer :define_feature_toggles
     add_method_tracer :can?
     add_method_tracer :cannot?
   end

@@ -18,7 +18,6 @@ json.created_by do |j|
   json.partial! 'users/user_partial', user: dead_fact_creator
 end
 
-json.created_by_ago "Posted #{TimeFormatter.as_time_ago dead_fact.created_at} ago"
 json.created_at dead_fact.created_at
 
 json.fact_title dead_fact.title

@@ -20,13 +20,12 @@ class Activity < OurOhm
   index     :action
 
   def self.valid_actions_in_notifications
-    %w(created_fact_relation created_comment created_sub_comment
-        created_conversation replied_message followed_user)
+    %w(created_fact_relation created_comment created_sub_comment followed_user)
   end
 
   def self.valid_actions_in_stream_activities
-     %w(created_fact_relation created_comment created_sub_comment
-        added_fact_to_channel believes doubts disbelieves followed_user)
+     %w(created_fact_relation created_comment created_sub_comment followed_user
+        added_fact_to_channel believes doubts disbelieves)
   end
 
   def self.valid_actions

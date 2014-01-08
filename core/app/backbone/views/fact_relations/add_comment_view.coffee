@@ -12,7 +12,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
   regions:
     inputRegion: '.js-input-region'
-    shareCommentRegion: '.js-share-comment-region'
+    shareFactSelectionRegion: '.js-share-fact-selection-region'
 
   initialize: ->
     @_textAreaView = new Backbone.Factlink.TextAreaView model: @_textModel()
@@ -22,14 +22,14 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   onRender: ->
     @inputRegion.show @_textAreaView
 
-    if Factlink.Global.can_haz.share_comment && Factlink.Global.signed_in
-      @shareCommentRegion.show @_shareCommentView()
+    if Factlink.Global.signed_in
+      @shareFactSelectionRegion.show @_shareFactSelectionView()
 
   addComment: ->
     return if @submitting
 
     @model = new Comment
-      content: @_textModel().get('text')
+      content: $.trim(@_textModel().get('text'))
       created_by: currentUser.toJSON()
       type: @options.argumentTypeModel.get 'argument_type'
 
@@ -45,16 +45,14 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @enableSubmit()
     @setFormContent ''
 
-    model.trigger 'change'
-
     mp_track "Factlink: Added comment",
       factlink_id: @options.addToCollection.fact.id
       type: @options.argumentTypeModel.get 'argument_type'
 
   _shareFactlink: (model) ->
-    return unless Factlink.Global.can_haz.share_comment && Factlink.Global.signed_in
+    return unless Factlink.Global.signed_in
 
-    @_shareCommentView().submit model.get('content')
+    @_shareFactSelectionView().submit model.get('content')
 
   addModelError: ->
     @enableSubmit()
@@ -71,6 +69,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   _textModel: -> @__textModel ?= new Backbone.Factlink.SemiPersistentTextModel {},
     key: "add_comment_to_fact_#{@options.addToCollection.fact.id}"
 
-  _shareCommentView: ->
-    @___shareCommentView ?= new ShareCommentView
+  _shareFactSelectionView: ->
+    @___shareFactSelectionView ?= new ShareFactSelectionView
       model: @options.addToCollection.fact

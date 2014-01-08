@@ -2,11 +2,12 @@ window.initClientCommunicator = ->
   local =
     showFactlink: (id) -> showUrl "/client/facts/#{id}"
 
-    prepareNewFactlink: (displaystring, url, fact_title) ->
+    prepareNewFactlink: (displaystring, url, fact_title, current_user_opinion='no_vote') ->
       showUrl "/client/facts/new" +
         "?displaystring=" + encodeURIComponent(displaystring) +
         "&url=" + encodeURIComponent(url) +
-        "&fact_title=" + encodeURIComponent(fact_title)
+        "&fact_title=" + encodeURIComponent(fact_title) +
+        "&current_user_opinion=" + encodeURIComponent(current_user_opinion)
 
   showUrl = (url) ->
     # Force (re)loading the url, even if already showing that url

@@ -60,24 +60,6 @@ class Activity < OurOhm
     end
 
     # notifications
-    def forGraphUser_someone_send_you_a_message
-      {
-        subject_class: "Conversation",
-        action: [:created_conversation],
-        write_ids: ->(a) { reject_self(followers_for_conversation(a.subject),a) }
-      }
-    end
-
-    # notifications
-    def forGraphUser_someone_send_you_a_reply
-      {
-        subject_class: "Message",
-        action: [:replied_message],
-        write_ids: ->(a) { reject_self(followers_for_conversation(a.subject.conversation),a) }
-      }
-    end
-
-    # notifications
     def forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation
       {
         subject_class: "SubComment",
@@ -146,8 +128,6 @@ class Activity < OurOhm
       # NOTE: Please update the tags above and in _activity.json.jbuilder when changing this!!
       notification_activities = [
         forGraphUser_fact_relation_was_added_to_a_fact_you_follow,
-        forGraphUser_someone_send_you_a_message,
-        forGraphUser_someone_send_you_a_reply,
         forGraphUser_comment_was_added_to_a_fact_you_follow,
         forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation,
         forGraphUser_someone_followed_you
