@@ -87,9 +87,9 @@ group :assets do
   # This gem is https://github.com/aflatter/backbone-rails
   # Not the one you might typically find with Google
   # Very clear, no?
-  gem "backbone-rails", '= 1.0.0.1' # we want a specific version of the js library
+  gem "backbone-rails", '~> 1.0'
 
-  gem "marionette-rails", '= 1.4.1' # we want a specific version of the js library
+  gem "marionette-rails", '~> 1.4' 
 
   # Rails 4 pipline
   gem 'sprockets', '2.2.2.backport2' #upgrade awaiting rails 4
