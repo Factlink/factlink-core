@@ -4,14 +4,13 @@
   position: fixed;
   left: 0;
   right: 0;
-  top: 15px; // Above the discussion modal, just low enough so you can see something of the bar behind it on the site
+  top: 0;
   z-index: 1060; // Highest found was 1050, modal window
   visibility: hidden;
 }
 
 .notification-center-alert-container {
   text-align: center;
-  padding: 0 20px; //leave space for scrollbars to the right;
   height: 40px;
 }
 
@@ -24,9 +23,8 @@
 .notification-center-alert {
   display: inline-block;
   padding: 6px 16px;
-
-  border: 1px solid transparent;
-  border-radius: 4px;
+  width: 100%;
+  border-bottom: 1px solid transparent;
   box-shadow: 0 1px 4px rgba(0,0,1,.15);
   visibility: visible;
 }

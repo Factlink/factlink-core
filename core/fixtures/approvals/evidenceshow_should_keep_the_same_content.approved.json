@@ -21,10 +21,7 @@
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "statistics_created_fact_count": 2,
       "statistics_follower_count": 0,
-      "statistics_following_count": 0,
-      "user_topics": [
-
-      ]
+      "statistics_following_count": 0
     },
     "created_at": "<created_at>",
     "fact_title": "Fact title 2",
@@ -46,10 +43,7 @@
     "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
     "statistics_created_fact_count": 2,
     "statistics_follower_count": 0,
-    "statistics_following_count": 0,
-    "user_topics": [
-
-    ]
+    "statistics_following_count": 0
   },
   "sub_comments_count": 0
 }

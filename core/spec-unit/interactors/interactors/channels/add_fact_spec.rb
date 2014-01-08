@@ -7,7 +7,7 @@ describe Interactors::Channels::AddFact do
 
   describe '#call' do
     it 'correctly' do
-      fact = double(id: 1, site: double(id: 10))
+      fact = double(id: 1)
       topic = double(id: '1e', slug_title: double)
 
       user = double :user, graph_user_id: 26
@@ -22,8 +22,6 @@ describe Interactors::Channels::AddFact do
 
       Pavlov.should_receive(:command)
             .with(:"channels/add_fact", fact: fact, channel: channel, pavlov_options: pavlov_options)
-      Pavlov.should_receive(:command)
-            .with(:"site/add_top_topic", site_id: fact.site.id, topic_slug: channel.topic.slug_title, pavlov_options: pavlov_options)
       Pavlov.should_receive(:command)
             .with(:"create_activity", graph_user: user, action: :added_fact_to_channel, subject: fact, object: channel, pavlov_options: pavlov_options)
       Pavlov.should_receive(:command)

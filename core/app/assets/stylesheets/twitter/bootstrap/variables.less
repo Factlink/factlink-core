@@ -14,7 +14,7 @@
 
 // Colors
 // -------------------------
-@green:                 #46a546;
+@green:                 #98d100;
 @orange:                #f89406;
 
 @whiteDarker:           #F5F5F5;
@@ -83,7 +83,7 @@
 @buttonDangerDarkBackground:  darken(@buttonDangerBackground, 5);
 @buttonDangerDarkBorder:      darken(@buttonDangerBorder, 5);
 
-@buttonSuccessBackground:     #17ab75;
+@buttonSuccessBackground:     @green;
 @buttonSuccessBorder:         #1c845e;
 @buttonSuccessTextShadow:     rgba(0,0,0,0.35);
 @buttonSuccessDarkBackground: darken(@buttonSuccessBackground, 5);
@@ -182,7 +182,7 @@
 @errorBorder:             #dbb0b6;
 
 @successText:             #598246;
-@successBackground:       #e3edd9;
+@successBackground:       #eff7d8;
 @successBorder:           #c2d3a5;
 
 @infoText:                #3a87ad;
@@ -224,7 +224,7 @@
 @factlinkInactiveColor:     lighten(@factlinkActiveColor, 10%);
 
 // Discussion page half-circles
-@believesEvidenceImpactColor:    #98d100;
+@believesEvidenceImpactColor:    @green;
 @disbelievesEvidenceImpactColor: #e94e1b;
 @doubtsEvidenceImpactColor:      #36a9e1;
 
@@ -235,8 +235,7 @@
 @discussionModalPadding:    20px;
 @fullDiscussionModalWidth:  @discussionModalWidth+2*@discussionModalPadding;
 
-@leftColumnWidth:           175px;
-@mainColumnWidth:           @siteWidth - @leftColumnWidth;
+@mainColumnWidth:           @siteWidth;
 
 @mainLeftPadding:           20px;
 @mainRightPadding:          20px;
