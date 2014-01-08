@@ -1,5 +1,6 @@
 FactlinkJailRoot.createFactFromSelection = (current_user_opinion) ->
   success = ->
+    window.document.getSelection().removeAllRanges()
     FactlinkJailRoot.createButton.hide()
     FactlinkJailRoot.off 'modalOpened', success
 

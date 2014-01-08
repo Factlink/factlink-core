@@ -9,19 +9,36 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
 
 .fl-button {
   @extend %default-font;
-  cursor:   pointer;
+  cursor: pointer;
   display: block;
   white-space: nowrap;
   text-align: center;
   position: relative;
   min-width: $buttonSmallWidth;
+  opacity: 0.4;
 
   border-radius: $borderRadius;
   line-height: $buttonHeight;
+}
+
+// remove when removing client_buttons feature toggle
+.fl-button-hide-default {
+  display: none;
+}
+
+.fl-button-black, .fl-button-state-hovered, .fl-button-state-loading {
+  display: block; // remove when removing client_buttons feature toggle
   background-color: $buttonBackground;
   color: white;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+  opacity: 1;
 
+  &:hover {
+    background-color: $buttonHoverBackground;
+  }
+}
+
+.fl-button-with-arrow-down {
   margin-bottom: $arrowSize;
 
   &:after {
@@ -34,10 +51,6 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
     border: $arrowSize solid transparent;
     border-top-color: $buttonBackground;
     border-bottom-width: 0;
-  }
-
-  &:hover {
-    background-color: $buttonHoverBackground;
   }
 
   &:hover:after {
@@ -62,7 +75,9 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   }
 }
 
-.fl-button-content-hovered, .fl-button-content-loading {
+.fl-button-content-default,
+.fl-button-content-hovered,
+.fl-button-content-loading {
   display: none;
   height: 0;
   overflow: hidden;
@@ -70,30 +85,51 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   padding: 0 $buttonPadding;
 }
 
-.fl-button-state-hovered, .fl-button-state-loading {
-  .fl-button-content-default {
-    display: none;
-  }
-  .fl-button-content-hovered, .fl-button-content-loading {
-    display: block;
-  }
-}
-
-.fl-button-state-hovered .fl-button-content-hovered,
-.fl-button-state-loading .fl-button-content-loading {
+.fl-button-content-default {
+  display: block;
   height: auto;
 }
 
-.fl-button-icon:before, .fl-button-icon-add:before {
-  content: url("../images/logo-white.png");
+.fl-button-state-hovered {
+  .fl-button-content-default,
+  .fl-button-content-hovered,
+  .fl-button-content-loading {
+    display: block;
+    height: 0;
+  }
+  .fl-button-content-hovered {
+    height: auto;
+  }
+}
+
+.fl-button-state-loading {
+  .fl-button-content-default,
+  .fl-button-content-hovered,
+  .fl-button-content-loading {
+    display: block;
+    height: 0;
+  }
+  .fl-button-content-loading {
+    height: auto;
+  }
+}
+
+.fl-button-icon:before,
+.fl-button-icon-white:before,
+.fl-button-icon-add:before {
+  content: url("../images/comment-black.png");
   display: inline-block;
   vertical-align: middle;
   width: $iconWidth;
   height: 24px;
 }
 
+.fl-button-icon-white:before {
+  content: url("../images/comment-white.png");
+}
+
 .fl-button-icon-add:before {
-  content: url("../images/logo-white-add.png");
+  content: url("../images/comment-white.png"); // TODO: special add button
 }
 
 // keep in sync with core .striped

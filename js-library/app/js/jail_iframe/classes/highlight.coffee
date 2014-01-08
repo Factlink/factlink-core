@@ -2,7 +2,11 @@ highlight_time_on_load_and_creation = 2000
 highlight_time_on_in_view = 1500
 
 delay_before_mouseover_detected = 75
-delay_between_highlight_and_show_button_open = 1000
+
+if FactlinkJailRoot.can_haz.client_buttons
+  delay_between_highlight_and_show_button_open = 1000
+else
+  delay_between_highlight_and_show_button_open = 0
 
 delay_before_mouseout_detected = 300
 
@@ -15,9 +19,27 @@ class Highlighter
 
 class HighlightInteraction
   constructor: (elements, @id, @options) ->
+    $elements = $(elements)
+
+    # remove when removing client_buttons feature toggle
+    unless FactlinkJailRoot.can_haz.client_buttons
+      $elements.addClass 'fl-always-highlight'
+
+    @highlighter = new Highlighter $elements, 'fl-active'
+
+    @show_button = new FactlinkJailRoot.ShowButton
+      mouseenter: @_onHover
+      mouseleave: @_onUnhover
+      click:      @_onClick
+    @show_button.placeNearElement elements[0]
+
+    $elements.on 'click', @_onClick
+    $elements.on 'mouseenter', @_onHover
+    $elements.on 'mouseleave', @_onUnhover
+
     @button_attention = new FactlinkJailRoot.AttentionSpan
-      onAttentionLost:   => @show_button.hide()
-      onAttentionGained: => @show_button.show()
+      onAttentionLost:   => @show_button.stopHovering()
+      onAttentionGained: => @show_button.startHovering()
       wait_for_attention:  delay_before_mouseover_detected + delay_between_highlight_and_show_button_open
       wait_for_neglection: delay_before_mouseout_detected
 
@@ -27,42 +49,24 @@ class HighlightInteraction
       wait_for_attention:  delay_before_mouseover_detected
       wait_for_neglection: delay_before_mouseout_detected
 
-    @highlighter = new Highlighter $(elements), 'fl-active'
-
-    @show_button = new FactlinkJailRoot.ShowButton
-      mouseenter: => @onHover()
-      mouseleave: => @onUnhover()
-      click:      => @onClick()
-
-    $(elements).on
-      mouseenter: (e) =>
-        @onHover()
-        @show_button.setCoordinates($(e.target).offset().top, e.pageX)
-      mouseleave: => @onUnhover()
-      click: => @onClick()
-
-  onClick: (options={}) =>
-    @button_attention.gainAttentionNow()
-    @highlight_attention.gainAttentionNow()
+  _onClick: =>
     @show_button.startLoading() # must be called after show
     FactlinkJailRoot.on 'modalOpened', @_onModalOpened, @
     FactlinkJailRoot.openFactlinkModal @id
 
   _onModalOpened: ->
-    @button_attention.loseAttentionNow()
-    @highlight_attention.loseAttentionNow()
+    @show_button.stopLoading()
     FactlinkJailRoot.off 'modalOpened', @_onModalOpened, @
 
-  onHover: ->
+  _onHover: =>
     @button_attention.gainAttention()
     @highlight_attention.gainAttention()
-  onUnhover:  ->
+
+  _onUnhover: =>
     @button_attention.loseAttention()
     @highlight_attention.loseAttention()
 
   destroy: ->
-    @button_attention.loseAttentionNow()
-    @highlight_attention.loseAttentionNow()
     @show_button.destroy()
 
 class HighlightLoadPromotion
