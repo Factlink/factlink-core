@@ -1,17 +1,6 @@
 class window.Fact extends Backbone.Model
-  defaults:
-    containing_channel_ids: []
-
   getOwnContainingChannels: (eventAggregator) ->
-    containing_channel_ids = @get("containing_channel_ids") ? []
-
-    col = new ChannelList currentUser.channels.channelArrayForIds(containing_channel_ids),
-                username: currentUser.get('username')
-
-    eventAggregator.listenTo currentUser.channels, 'reset', ->
-      col.reset currentUser.channels.channelArrayForIds(containing_channel_ids)
-
-    col
+    new ChannelList [], username: currentUser.get('username')
 
   urlRoot: "/facts"
 
