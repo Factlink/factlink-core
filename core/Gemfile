@@ -22,7 +22,7 @@ gem 'multi_json', '~> 1.7'
 gem 'resque', '= 1.23.0', require: 'resque/server'
 gem 'resque_mailer', '~> 2.2.6'
 
-gem 'stringex', '~> 1.5.1' #breaks }{ normalization.
+gem 'stringex', '~> 1.5.1' #2.0 breaks }{ normalization.
 
 gem 'mixpanel', github: 'Factlink/mixpanel'
 
@@ -75,13 +75,13 @@ group :assets do
   gem 'less-rails', '~> 2.3'
   gem 'uglifier', '~> 2.0'
   gem "yui-compressor", '~> 0.12.0'
-  gem 'hogan_assets', '~> 1.1.0'
+  gem 'hogan_assets', '~> 1.1.0' #1.2 or later include hogan 3.0 and somehow only generate empty templates.
 
   gem 'therubyracer', '~> 0.12.0'
 
   gem "coffee-script", '~> 2.2'
 
-  gem 'jquery-rails', '~> 3.0'
+  gem 'jquery-rails', '~> 3.0' #this is 1.10.2; not jquery 2.0 yet.  jquery-migrate claims 2.0 would be safe.
   gem 'jquery-rails-cdn', '~> 1.0.1'
 
   # This gem is https://github.com/aflatter/backbone-rails
