@@ -101,7 +101,7 @@ GEM
     capybara-email (2.2.1)
       capybara (~> 2.2.0)
       mail
-    capybara-screenshot (0.3.14)
+    capybara-screenshot (0.3.16)
       capybara (>= 1.0, < 3)
       launchy
     celluloid (0.15.2)
