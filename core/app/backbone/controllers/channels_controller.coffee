@@ -12,10 +12,8 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       FactlinkApp.mainRegion.show new TopicView model: topic
 
   showStream: ->
-    FactlinkApp.mainRegion.close()
-
-    activities = new FeedActivities
-    FactlinkApp.mainRegion.show new FeedActivitiesView(collection: activities)
+    FactlinkApp.mainRegion.show new FeedActivitiesView
+      collection: new FeedActivities
 
 
   showFact: (slug, fact_id, params={})->
