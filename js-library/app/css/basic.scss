@@ -11,6 +11,10 @@ html[data-factlink-suppress-scrolling] {
 span.factlink {
   cursor: pointer;
 
+  // elementary reset
+  background: transparent !important;
+  font: inherit !important;
+
   // remove fl-always-highlight when removing client_buttons feature toggle
   &.fl-scroll-highlight, &.fl-load-highlight, &.fl-always-highlight {
     background: rgba(255,255,0, 0.3) !important;
