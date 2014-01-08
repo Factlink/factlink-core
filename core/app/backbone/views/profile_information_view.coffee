@@ -17,7 +17,7 @@ class window.ProfileInformationView extends Backbone.Marionette.Layout
     followUserButtonRegion: '.js-region-user-follow-user'
 
   onRender: ->
-    @profilePictureRegion.show   new UserLargeView(model: @model)
+    @profilePictureRegion.show   new UserView(model: @model)
     @socialStatisticsRegion.show new SocialStatisticsView(model: @model)
 
     @_showFollowUserButton()
