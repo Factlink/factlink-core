@@ -22,14 +22,14 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   onRender: ->
     @inputRegion.show @_textAreaView
 
-    if Factlink.Global.can_haz.share_comment && Factlink.Global.signed_in
+    if Factlink.Global.signed_in
       @shareFactSelectionRegion.show @_shareFactSelectionView()
 
   addComment: ->
     return if @submitting
 
     @model = new Comment
-      content: @_textModel().get('text')
+      content: $.trim(@_textModel().get('text'))
       created_by: currentUser.toJSON()
       type: @options.argumentTypeModel.get 'argument_type'
 
@@ -45,14 +45,12 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @enableSubmit()
     @setFormContent ''
 
-    model.trigger 'change'
-
     mp_track "Factlink: Added comment",
       factlink_id: @options.addToCollection.fact.id
       type: @options.argumentTypeModel.get 'argument_type'
 
   _shareFactlink: (model) ->
-    return unless Factlink.Global.can_haz.share_comment && Factlink.Global.signed_in
+    return unless Factlink.Global.signed_in
 
     @_shareFactSelectionView().submit model.get('content')
 

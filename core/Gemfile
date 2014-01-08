@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 ruby '2.1.0'
 
-gem 'rails', '3.2.16' # this is too important to update automaticly
+gem 'rails', '3.2.16' # this is too important to update automatically
 gem 'rake', '~> 10.1.0', require: false
 
 # Mongo
