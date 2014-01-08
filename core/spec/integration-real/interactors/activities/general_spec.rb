@@ -10,13 +10,11 @@ describe Interactors::Topics::Facts do
       fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
       channel = pavlov.command :'channels/create', title: 'something'
 
-      a1 = pavlov.command :'create_activity', graph_user: channel.created_by,
-                                              action: :added_fact_to_channel, subject: fact, object: channel
       a2 = pavlov.command :'create_activity', graph_user: channel.created_by,
                                               action: :followed_user, subject: nil, object: nil
 
       all_activity_ids = Activity.all.ids
-      just_created_ids = [a1, a2].map(&:id)
+      just_created_ids = [a2].map(&:id)
 
       expect(all_activity_ids).to include(*just_created_ids)
     end

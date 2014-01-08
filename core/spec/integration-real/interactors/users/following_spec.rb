@@ -44,9 +44,6 @@ describe 'user following' do
           a1 = Activity.create user: user2.graph_user,
             action: :believes, subject: fact
 
-          a2 = Activity.create user: user2.graph_user,
-            action: :added_fact_to_channel, subject: fact, object: channel
-
           a3 = Activity.create user: user2.graph_user,
             action: :disbelieves, subject: fact
 
@@ -59,7 +56,7 @@ describe 'user following' do
         end
 
         expect(user1.graph_user.stream_activities.ids)
-          .to match_array [a2.id, a4.id]
+          .to match_array [a4.id]
       end
     end
   end

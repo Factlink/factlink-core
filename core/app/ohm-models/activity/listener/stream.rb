@@ -10,7 +10,6 @@ class Activity < OurOhm
       include Followers
       def initialize
         stream_activities_because_you_follow_someone = [
-          added_a_fact_to_a_channel,
           followed_someone_else
         ]
         super do
@@ -18,15 +17,6 @@ class Activity < OurOhm
           named :stream_activities
           stream_activities_because_you_follow_someone.each { |a| activity a }
         end
-      end
-
-      def added_a_fact_to_a_channel
-        # If you follow someone, you receive all reposts they do
-        {
-          subject_class: 'Fact',
-          action: :added_fact_to_channel,
-          write_ids: ->(a) { followers_for_graph_user(a.user_id) }
-        }
       end
 
       def followed_someone_else

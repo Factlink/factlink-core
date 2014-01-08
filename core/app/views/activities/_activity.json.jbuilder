@@ -32,13 +32,6 @@ json.activity do
     end
 
   # stream_activities
-  when "added_fact_to_channel" # TODO: rename actual activity to added_fact_to_topic
-    json.partial! 'activities/added_fact_to_topic_activity',
-        subject: subject,
-        object: object,
-        user: user
-
-  # stream_activities
   when "believes", "doubts", "disbelieves"
     json.fact { json.partial! 'facts/fact', fact: subject}
 

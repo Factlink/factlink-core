@@ -96,18 +96,6 @@ class Activity < OurOhm
       }
     end
 
-    # stream_activities
-    def forGraphUser_someone_added_a_fact_you_created_to_his_channel
-      {
-        subject_class: "Fact",
-        action: :added_fact_to_channel,
-        extra_condition: ->(a) do
-          (a.subject.created_by_id != a.user_id)
-        end,
-        write_ids: ->(a) { [a.subject.created_by_id] }
-      }
-    end
-
     # notifications
     def forGraphUser_someone_followed_you
       {
@@ -155,7 +143,6 @@ class Activity < OurOhm
         forGraphUser_comment_was_added_to_a_fact_you_follow,
         forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow,
         forGraphUser_someone_opinionated_a_fact_you_created,
-        forGraphUser_someone_added_a_fact_you_created_to_his_channel,
         forGraphUser_follower_created_fact_relation,
         forGraphUser_follower_created_comment,
         forGraphUser_follower_created_sub_comment,

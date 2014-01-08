@@ -73,7 +73,7 @@ feature 'the profile page', type: :feature do
     fact = nil
     as(followed_user) do |backend|
       fact = backend.interactor(:'facts/create', displaystring: displaystring, url: '', title: 'title')
-      backend.interactor(:'channels/add_fact', fact: fact, channel: channel)
+      backend.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'believes', content: "so true")
     end
 
     visit feed_path(following_user.username)
