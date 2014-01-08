@@ -19,10 +19,8 @@ class ChannelsController < ApplicationController
   def index
   end
 
-  # TODO: Move to topicscontroller, this searches for topics, not for channels
   def search
-    # TODO: add access control
-    @topics = interactor(:'search_channel', keywords: params[:s])
+    @topics = []
     render 'topics/index', formats: [:json]
   end
 
@@ -51,17 +49,6 @@ class ChannelsController < ApplicationController
   end
 
   def destroy
-    authorize! :destroy, @channel
-
-    @channel.delete
-
-    respond_to do |format|
-      format.html do
-        redirect_to feed_path(@user.username),
-                    notice: "#{t(:topic)} successfully deleted"
-      end
-      format.json  { render :json => {}, :status => :ok }
-    end
   end
 
   def add_fact

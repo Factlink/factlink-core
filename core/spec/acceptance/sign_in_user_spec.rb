@@ -6,6 +6,8 @@ describe 'When a user signs in', type: :feature do
 
     sign_in_user(user)
 
+    visit root_path
+
     page.should have_content "Please finish your account setup"
   end
 
