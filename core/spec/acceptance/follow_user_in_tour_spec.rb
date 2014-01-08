@@ -11,23 +11,6 @@ feature "follow_users_in_tour", type: :feature do
     @user2 = create :full_user
     Pavlov.command(:'users/add_handpicked_user', user_id: @user1.id.to_s)
     Pavlov.command(:'users/add_handpicked_user', user_id: @user2.id.to_s)
-
-    as(@user1) do |pavlov|
-      @user1_channel1 = pavlov.command(:'channels/create', title: 'toy')
-      @user1_channel2 = pavlov.command(:'channels/create', title: 'story')
-
-      factlink = create :fact, created_by: @user1.graph_user
-      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: @user1_channel1)
-      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: @user1_channel2)
-    end
-    as(@user2) do |pavlov|
-      @user2_channel1 = pavlov.command(:'channels/create', title: 'war')
-      @user2_channel2 = pavlov.command(:'channels/create', title: 'games')
-
-      factlink = create :fact, created_by: @user2.graph_user
-      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: @user2_channel1)
-      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: @user2_channel2)
-    end
   end
 
   scenario "The handpicked users should show up" do
@@ -36,11 +19,6 @@ feature "follow_users_in_tour", type: :feature do
 
     page.should have_content("#{@user1.full_name}")
     page.should have_content("#{@user2.full_name}")
-
-    page.should have_content(@user1_channel1.title)
-    page.should have_content(@user1_channel2.title)
-    page.should have_content(@user2_channel1.title)
-    page.should have_content(@user2_channel2.title)
   end
 
   scenario "Text should switch to 'Finish tour' when successfully following someone" do
@@ -65,17 +43,6 @@ feature "follow_users_in_tour", type: :feature do
 
     go_to_profile_page_of @user
     check_follower_following_count 1, 0
-  end
-
-  scenario "When following a user, we also follow her topics" do
-    sign_in_user @user
-    visit interests_path
-
-    page.should have_content('Follow user')
-    first(:button, 'Follow user').click
-    first(:button, 'Follow user').click
-
-    click_on 'Finish tour'
   end
 
   scenario "The user should be able to unfollow users from the tour" do

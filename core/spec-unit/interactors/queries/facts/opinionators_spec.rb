@@ -10,13 +10,19 @@ describe Queries::Facts::Opinionators do
 
   describe '#call' do
     it 'returns a user who believes the fact' do
-      user = double(id: 2, username: 'my_username', name: 'Joop Bouwhuis' )
-      graph_user = double(user: user, id: 13)
+      user = double(id: 2, graph_user_id: 3, username: 'my_username', name: 'Joop Bouwhuis' )
+      opinionator_ids = [user.graph_user_id]
       fact = double(id: 1)
       query = described_class.new(fact_id: fact.id, type: 'believes')
 
       Fact.stub(:[]).with(fact.id).and_return(fact)
-      fact.stub(:opiniated).with('believes').and_return([graph_user])
+      fact.stub(:opiniated)
+          .with('believes')
+          .and_return double(ids: opinionator_ids)
+
+      Pavlov.stub(:query)
+            .with(:users_by_ids, user_ids: opinionator_ids, by: :graph_user_id)
+            .and_return [user]
 
       result = query.call
 

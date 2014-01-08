@@ -158,6 +158,7 @@ class Ability
   FEATURES = %w(
     pink_feedback_button
     memory_profiling
+    client_buttons
   )
 
   def enabled_global_features

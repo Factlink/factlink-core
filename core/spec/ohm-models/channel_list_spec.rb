@@ -43,20 +43,6 @@ describe ChannelList do
     end
   end
 
-  describe ".sorted_channels" do
-    it "should return the channels" do
-      gu1 = create :graph_user
-      ch1 = create :channel, created_by: gu1, title: 'a'
-      ch2 = create :channel, created_by: gu1, title: 'b'
-      ch3 = create :channel, created_by: gu1, title: 'c'
-
-      list = ChannelList.new(gu1)
-
-      expect(list.sorted_channels.map(&:title)).
-        to eq ['a', 'b', 'c']
-    end
-  end
-
   describe '.containing_real_channel_ids_for_fact' do
     let(:current_user) { create :user }
 

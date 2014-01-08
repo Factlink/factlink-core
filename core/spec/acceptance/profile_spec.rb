@@ -5,14 +5,6 @@ feature 'the profile page', type: :feature do
   include Acceptance::FactHelper
   include PavlovSupport
 
-  scenario "the users top topics should render" do
-    user = sign_in_user create :full_user, :confirmed
-    channel = create :channel, created_by: user.graph_user
-
-    go_to_profile_page_of user
-    find('.profile-social-statistic-block', text: 'following')
-  end
-
   scenario 'follow a user and unfollow a user' do
     following_user = sign_in_user create :full_user, :confirmed
     followed_user = create :full_user, :confirmed
