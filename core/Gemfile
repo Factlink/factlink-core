@@ -87,7 +87,7 @@ group :assets do
   # This gem is https://github.com/aflatter/backbone-rails
   # Not the one you might typically find with Google
   # Very clear, no?
-  gem "backbone-rails", '~> 1.0'
+  gem "backbone-rails", '~> 1.0.0' #beware, backbone does not use semver!
 
   gem "marionette-rails", '~> 1.4'
 
