@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Interactors::Topics::Facts do
+describe 'general' do
   include PavlovSupport
 
   let(:user) { create :full_user }

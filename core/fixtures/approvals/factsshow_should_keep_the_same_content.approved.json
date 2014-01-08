@@ -1,9 +1,6 @@
 {
   "displaystring": "displaystring",
   "id": "<id>",
-  "containing_channel_ids": [
-
-  ],
   "url": "/displaystring/f/1",
   "sharing_url": "http://localhost:8080/?url=url&open_id=1",
   "created_by": {

@@ -25,9 +25,6 @@
     "the_object": {
       "displaystring": "Baron",
       "id": "<id>",
-      "containing_channel_ids": [
-
-      ],
       "url": "/baron/f/1",
       "sharing_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&open_id=1",
       "created_by": {
