@@ -17,7 +17,6 @@ class ChannelsController < ApplicationController
   respond_to :json, :html
 
   def index
-    @channels = interactor(:'channels/visible_of_user_for_user', user: @user)
   end
 
   # TODO: Move to topicscontroller, this searches for topics, not for channels
