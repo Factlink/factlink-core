@@ -3,26 +3,10 @@ class window.FactBaseView extends Backbone.Marionette.Layout
   className: "fact-base"
 
   regions:
-    factWheelRegion: '.fact-wheel'
     factBodyRegion: '.fact-body'
 
   onRender: ->
-    @factWheelRegion.show @wheelView() unless Factlink.Global.can_haz.hide_factwheel
     @factBodyRegion.show @bodyView()
-
-  wheelView: ->
-    tally = @model.getFactTally()
-
-    wheelView = new FactWheelView
-      fact: @model.attributes
-      model: tally
-      respondsToMouse: Factlink.Global.signed_in
-
-    @listenTo @model, 'change', ->
-      tally.set @model.get("tally")
-      wheelView.render()
-
-    wheelView
 
   bodyView: ->
     @_bodyView ?= new FactBodyView
