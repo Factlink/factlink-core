@@ -14,6 +14,8 @@ span.factlink {
   // elementary reset
   background: transparent !important;
   font: inherit !important;
+  color: inherit !important;
+  text-decoration: inherit !important;
 
   // remove fl-always-highlight when removing client_buttons feature toggle
   &.fl-scroll-highlight, &.fl-load-highlight, &.fl-always-highlight {
