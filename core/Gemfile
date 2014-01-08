@@ -79,7 +79,7 @@ group :assets do
 
   gem 'therubyracer', '~> 0.12.0'
 
-  gem "coffee-script", '~> 2.2.0'
+  gem "coffee-script", '~> 2.2'
 
   gem 'jquery-rails', '~> 3.0' # we want a specific version of the js library
   gem 'jquery-rails-cdn', '~> 1.0.1'

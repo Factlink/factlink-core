@@ -509,7 +509,7 @@ DEPENDENCIES
   capybara (~> 2.1)
   capybara-email (~> 2.0)
   capybara-screenshot (~> 0.3)
-  coffee-script (~> 2.2.0)
+  coffee-script (~> 2.2)
   database_cleaner (~> 1.0)
   devise (~> 2.2.3)
   factory_girl_rails (~> 4.2)
