@@ -1,0 +1,42 @@
+@import "bootstrap/mixins";
+
+.profile-user-social-statistics {
+  .clearfix();
+  margin: 0 0 10px;
+  border-bottom: 1px solid @baseBorderColor;
+}
+
+.profile-social-statistic-block {
+  float: left;
+  padding: 10px 0 3px;
+  text-align: center;
+  width: 50%;
+
+  border-left:  1px solid @baseBorderColor;
+  border-right: 0px;
+
+  .fading-border(@baseBorderColor);
+
+  &:first-child {
+    border-left: 0px solid transparent;
+  }
+
+  h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 22px;
+    font-weight: @baseFontBoldWeight;
+    font-family: @sansFontFamily;
+  }
+}
+
+.avatar-container--large-avatar {
+  border-radius: 3px;
+  margin: 0;
+}
+
+.avatar-container--large-name {
+  font-size: @heading1FontSize;
+  word-wrap: break-word;
+  margin-bottom: 7px;
+}

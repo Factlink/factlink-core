@@ -1,5 +1,4 @@
 require 'pavlov_helper'
-require_relative '../../../app/interactors/queries/elastic_search_channel.rb'
 
 describe Queries::ElasticSearch do
   include PavlovSupport
