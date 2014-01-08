@@ -30,7 +30,7 @@ gem "sentry-raven", '= 0.4.6' # Upgrading to 0.4.8 breaks error reporting from t
 gem "resque-sentry", '~> 0.1.0'
 
 # Everyone loves JSON
-gem 'json', '~> 1.8.0'
+gem 'json', '~> 1.8'
 gem 'jbuilder', '~> 2.0'
 
 # Needed for migrations to be compatible when no sql backend is available
