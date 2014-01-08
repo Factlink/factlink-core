@@ -7,13 +7,11 @@ class TourUserView extends Backbone.Marionette.Layout
 
   regions:
     buttonRegion: '.js-region-button'
-
-  initialize: ->
-    @listenTo @cloned_user(), 'followed', ->
-      @model.user_topics().invoke 'favourite'
+    contentRegion: '.js-content-region'
 
   onRender: ->
     @buttonRegion.show @followUserButton()
+    @contentRegion.show new UserStatisticsView(model: @model)
 
   followUserButton: ->
     unless @_followUserButton?
