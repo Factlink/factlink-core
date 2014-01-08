@@ -30,46 +30,52 @@ window.FACTLINK_START_LOADER = ->
     content && el.appendChild(content)
     el
 
-  # Add styles
-  style_tag = mkEl 'style', null, document.createTextNode(style_code)
-  document.getElementsByTagName('head')[0].appendChild style_tag
+  onReady = ->
+    # Add styles
+    style_tag = mkEl 'style', null, document.createTextNode(style_code)
+    document.getElementsByTagName('head')[0].appendChild style_tag
 
-  #### Create iframe so jslib's namespace (window) doesn't collide with any content window.
-  jslib_jail_iframe = mkEl 'iframe', 'factlink-iframe'
+    #### Create iframe so jslib's namespace (window) doesn't collide with any content window.
+    jslib_jail_iframe = mkEl 'iframe', 'factlink-iframe'
 
-  # Wrapper for increased CSS specificity
-  outerWrapperEl = mkEl 'div', 'factlink-containment-wrapper', jslib_jail_iframe
+    # Wrapper for increased CSS specificity
+    outerWrapperEl = mkEl 'div', 'factlink-containment-wrapper', jslib_jail_iframe
 
-  document.body.appendChild outerWrapperEl
+    document.body.appendChild outerWrapperEl
 
-  window.FACTLINK_ON_CORE_LOAD = ->
-    for name in methods
-      do (name) ->
-        # don't return the value, as we can't do that when storing calls
-        window.FACTLINK[name] = ->
-          jslib_jail_iframe.contentWindow.FactlinkJailRoot[name](arguments...)
-          return
+    window.FACTLINK_ON_CORE_LOAD = -> #called from jail-iframe when core iframe is ready.
+      for name in methods
+        do (name) ->
+          # don't return the value, as we can't do that when storing calls
+          window.FACTLINK[name] = ->
+            jslib_jail_iframe.contentWindow.FactlinkJailRoot[name](arguments...)
+            return
 
-    delete window.FACTLINK_ON_CORE_LOAD
+      delete window.FACTLINK_ON_CORE_LOAD
 
-    for methodCall in storedMethodCalls
-      window.FACTLINK[methodCall.name](methodCall.arguments...)
-    storedMethodCalls = undefined
+      for methodCall in storedMethodCalls
+        window.FACTLINK[methodCall.name](methodCall.arguments...)
+      storedMethodCalls = undefined
 
-  jail_window = jslib_jail_iframe.contentWindow
-  jail_window.FactlinkConfig = window.FactlinkConfig
-  jail_window.FrameCss = frame_style_code
+    jail_window = jslib_jail_iframe.contentWindow
+    jail_window.FactlinkConfig = window.FactlinkConfig
+    jail_window.FrameCss = frame_style_code
 
-  #### Load iframe with script tag
-  jslib_jail_doc = jail_window.document
+    #### Load iframe with script tag
+    jslib_jail_doc = jail_window.document
 
-  jslib_jail_doc.open()
-  jslib_jail_doc.write '<!DOCTYPE html><title></title>'
-  jslib_jail_doc.close()
+    jslib_jail_doc.open()
+    jslib_jail_doc.write '<!DOCTYPE html><title></title>'
+    jslib_jail_doc.close()
 
-  script_tag = jslib_jail_doc.createElement 'script'
-  script_tag.appendChild(jslib_jail_doc.createTextNode(jslib_jail_code))
-  jslib_jail_doc.documentElement.appendChild(script_tag)
+    script_tag = jslib_jail_doc.createElement 'script'
+    script_tag.appendChild(jslib_jail_doc.createTextNode(jslib_jail_code))
+    jslib_jail_doc.documentElement.appendChild(script_tag)
+
+  if /^(interactive|complete)$/.test(document.readyState)
+    onReady()
+  else
+    document.addEventListener('DOMContentLoaded',onReady);
 
 
 jslib_jail_code = __INLINE_JS_PLACEHOLDER__
