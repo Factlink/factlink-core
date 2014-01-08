@@ -54,7 +54,7 @@ class SitesController < ApplicationController
   end
 
   def top_topics
-    @topics = interactor(:'site/top_topics', url: params[:url], nr: 3)
+    @topics = []
     render 'topics/index', formats: [:json]
   end
 
