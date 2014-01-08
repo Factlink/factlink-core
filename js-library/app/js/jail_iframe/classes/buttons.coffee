@@ -1,12 +1,18 @@
 class Button
-  constructor: ->
+  constructor: (callbacks={}) ->
     @frame = new FactlinkJailRoot.ControlIframe()
     @frame.setContent($.parseHTML(@content.trim())[0])
     @$el = $(@frame.frameBody.firstChild)
-    @$el.on 'mouseenter', => @_addClass 'fl-button-state-hovered'
+
+    @$el.on 'mouseenter', -> callbacks.mouseenter?()
+    @$el.on 'mouseleave', -> callbacks.mouseleave?()
+    @$el.on 'click',      -> callbacks.click?()
 
   startLoading: => @_addClass 'fl-button-state-loading'
   stopLoading: => @_removeClass 'fl-button-state-loading fl-button-state-hovered'
+
+  startHovering: => @_addClass 'fl-button-state-hovered'
+  stopHovering: => @_removeClass 'fl-button-state-hovered'
 
   _addClass: (classes) =>
     @$el.addClass classes
@@ -37,7 +43,8 @@ class Button
     @frame.fadeOut()
     @_visible = false
 
-  destroy: => @frame.destroy()
+  destroy: =>
+    @frame.destroy()
 
 class FactlinkJailRoot.ShowButton extends Button
   content: """
@@ -56,23 +63,10 @@ class FactlinkJailRoot.ShowButton extends Button
   constructor: (callbacks) ->
     super
 
-    @_callbacks = callbacks
-    @$el.on 'mouseenter', @_callbacks.mouseenter
-    @$el.on 'click', @_callbacks.click
-    @$el.on 'mouseleave', @_onMouseLeave
-    $(document).on 'mousemove', @_onMouseLeave
-
     # remove when removing client_buttons feature toggle
     unless FactlinkJailRoot.can_haz.client_buttons
       @$el.addClass 'fl-button-hide-default'
 
-  destroy: ->
-    super
-    $(document).off 'mousemove', @_onMouseLeave
-
-  _onMouseLeave: =>
-    @_removeClass 'fl-button-state-hovered'
-    @_callbacks.mouseleave()
 
   _textContainer: ($el) ->
     for el in $el.parents()

@@ -3,6 +3,11 @@ highlight_time_on_in_view = 1500
 
 delay_before_mouseover_detected = 75
 
+if FactlinkJailRoot.can_haz.client_buttons
+  delay_between_highlight_and_show_button_open = 1000
+else
+  delay_between_highlight_and_show_button_open = 0
+
 delay_before_mouseout_detected = 300
 
 class Highlighter
@@ -14,20 +19,37 @@ class Highlighter
 
 class FactInteraction
   constructor: (elements, @id, @options) ->
-    @highlighter = new Highlighter $(elements), 'fl-active'
-    $(elements).on 'click', => @onClick()
+    $elements = $(elements)
 
     # remove when removing client_buttons feature toggle
     unless FactlinkJailRoot.can_haz.client_buttons
-      $(elements).addClass 'fl-always-highlight'
+      $elements.addClass 'fl-always-highlight'
+
+    @highlighter = new Highlighter $elements, 'fl-active'
 
     @show_button = new FactlinkJailRoot.ShowButton
-      mouseenter: => @highlighter.highlight()
-      mouseleave: => @highlighter.dehighlight()
-      click:      => @onClick()
+      mouseenter: @_onHover
+      mouseleave: @_onUnhover
+      click:      @_onClick
     @show_button.placeNearElement elements[0]
 
-  onClick: (options={}) =>
+    $elements.on 'click', @_onClick
+    $elements.on 'mouseenter', @_onHover
+    $elements.on 'mouseleave', @_onUnhover
+
+    @button_attention = new FactlinkJailRoot.AttentionSpan
+      onAttentionLost:   => @show_button.stopHovering()
+      onAttentionGained: => @show_button.startHovering()
+      wait_for_attention:  delay_before_mouseover_detected + delay_between_highlight_and_show_button_open
+      wait_for_neglection: delay_before_mouseout_detected
+
+    @highlight_attention = new FactlinkJailRoot.AttentionSpan
+      onAttentionLost:   => @highlighter.dehighlight()
+      onAttentionGained: => @highlighter.highlight()
+      wait_for_attention:  delay_before_mouseover_detected
+      wait_for_neglection: delay_before_mouseout_detected
+
+  _onClick: =>
     @show_button.startLoading() # must be called after show
     FactlinkJailRoot.on 'modalOpened', @_onModalOpened, @
     FactlinkJailRoot.openFactlinkModal @id
@@ -35,6 +57,14 @@ class FactInteraction
   _onModalOpened: ->
     @show_button.stopLoading()
     FactlinkJailRoot.off 'modalOpened', @_onModalOpened, @
+
+  _onHover: =>
+    @button_attention.gainAttention()
+    @highlight_attention.gainAttention()
+
+  _onUnhover: =>
+    @button_attention.loseAttention()
+    @highlight_attention.loseAttention()
 
   destroy: ->
     @show_button.destroy()
