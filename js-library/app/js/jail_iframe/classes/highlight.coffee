@@ -13,7 +13,7 @@ class Highlighter
   highlight:   -> @$elements.addClass(@class)
   dehighlight: -> @$elements.removeClass(@class)
 
-class FactInteraction
+class HighlightInteraction
   constructor: (elements, @id, @options) ->
     @button_attention = new FactlinkJailRoot.AttentionSpan
       onAttentionLost:   => @show_button.hide()
@@ -65,7 +65,7 @@ class FactInteraction
     @highlight_attention.loseAttentionNow()
     @show_button.destroy()
 
-class FactLoadPromotion
+class HighlightLoadPromotion
   constructor: (elements) ->
     @highlighter = new Highlighter $(elements), 'fl-load-highlight'
     @highlighter.highlight()
@@ -73,7 +73,7 @@ class FactLoadPromotion
       @highlighter.dehighlight()
     , highlight_time_on_load_and_creation
 
-class FactScrollPromotion
+class HighlightScrollPromotion
   # states: invisible, just_visible, visible
 
   constructor: (@fact) ->
@@ -105,11 +105,11 @@ class FactScrollPromotion
     @state = to_state
 
 
-class FactlinkJailRoot.Fact
+class FactlinkJailRoot.Highlight
   constructor: (@id, @elements) ->
-    @fact_interaction = new FactInteraction @elements, @id
-    @fact_promotion = new FactScrollPromotion(this)
-    @fact_load_promotion = new FactLoadPromotion(@elements)
+    @fact_interaction = new HighlightInteraction @elements, @id
+    @fact_promotion = new HighlightScrollPromotion(this)
+    @fact_load_promotion = new HighlightLoadPromotion(@elements)
 
   isInView: ->
     for element in $(@elements)
