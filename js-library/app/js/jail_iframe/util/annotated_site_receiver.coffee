@@ -20,9 +20,9 @@ FactlinkJailRoot.annotatedSiteReceiver =
     FactlinkJailRoot.trigger 'factlinkAdded'
 
   deleteFactlink: (id) ->
-    for fact in FactlinkJailRoot.factsByIds[id]
+    for fact in FactlinkJailRoot.highlightsByFactIds[id]
       fact.destroy()
-    delete FactlinkJailRoot.factsByIds[id]
+    delete FactlinkJailRoot.highlightsByFactIds[id]
 
   closeModal: ->
     FactlinkJailRoot.$modalFrame.removeClass 'factlink-control-visible'

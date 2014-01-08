@@ -61,18 +61,18 @@ highlightRange = (normalizedRange, id) ->
     elements.push element if element?
   elements
 
-FactlinkJailRoot.factsByIds = {}
+FactlinkJailRoot.highlightsByFactIds = {}
 
 # Function to select the found ranges
 FactlinkJailRoot.highlightFact = (text, id) ->
   ranges = search(text)
 
-  FactlinkJailRoot.factsByIds[id] ?= []
+  FactlinkJailRoot.highlightsByFactIds[id] ?= []
 
   for range in ranges
     normalizedRange = new FactlinkJailRoot.Range.BrowserRange(range).normalize()
     elements = highlightRange(normalizedRange, id)
-    FactlinkJailRoot.factsByIds[id].push new FactlinkJailRoot.Highlight(id, elements)
+    FactlinkJailRoot.highlightsByFactIds[id].push new FactlinkJailRoot.Highlight(id, elements)
 
 highlightFacts = (facts_data) ->
   # If there are multiple matches on the page, loop through them all
