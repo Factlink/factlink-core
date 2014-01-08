@@ -1,4 +1,7 @@
 class window.Fact extends Backbone.Model
+  defaults:
+    containing_channel_ids: []
+
   getOwnContainingChannels: (eventAggregator) ->
     containing_channel_ids = @get("containing_channel_ids") ? []
 

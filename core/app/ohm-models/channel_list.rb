@@ -12,8 +12,4 @@ class ChannelList
   def sorted_channels
     channels.sort_by(:slug_title, order: 'ALPHA ASC')
   end
-
-  def containing_real_channel_ids_for_fact(fact)
-    (channels & fact.channels).ids
-  end
 end
