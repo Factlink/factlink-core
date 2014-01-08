@@ -89,7 +89,7 @@ group :assets do
   # Very clear, no?
   gem "backbone-rails", '~> 1.0'
 
-  gem "marionette-rails", '~> 1.4' 
+  gem "marionette-rails", '~> 1.4'
 
   # Rails 4 pipline
   gem 'sprockets', '2.2.2.backport2' #upgrade awaiting rails 4
