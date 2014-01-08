@@ -414,10 +414,9 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0.4)
-    sentry-raven (0.4.6)
+    sentry-raven (0.7.1)
       faraday (>= 0.7.6)
-      hashie
-      multi_json (~> 1.0)
+      hashie (>= 1.1.0)
       uuidtools
     sexp_processor (4.4.1)
     sextant (0.2.4)
@@ -562,7 +561,7 @@ DEPENDENCIES
   rubocop
   selenium
   selenium-webdriver
-  sentry-raven (= 0.4.6)
+  sentry-raven (~> 0.7.1)
   sextant (~> 0)
   sinon-chai-rails (~> 1.0)
   sinon-rails (~> 1.4)
