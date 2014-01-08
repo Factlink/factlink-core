@@ -14,7 +14,7 @@ gem 'pavlov', '= 0.1.9.0'
 gem 'redis', '~> 2.2.1'
 gem 'ohm', github: 'Factlink/ohm' # we need the tribalvibes fork (0.1.4), for polymorphism
 gem 'redis-objects', '~> 0.5.3' # cannot be upgraded to 0.6 until we update redis to 3.0 or bigger
-gem 'multi_json', '~> 1.7.3'
+gem 'multi_json', '~> 1.7'
 
 # We should upgrade this to at least the latest 1.* version,
 # but 1.23.1 has a breaking change, and 1.24+ requires a redis-namespace

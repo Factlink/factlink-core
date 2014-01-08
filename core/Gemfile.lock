@@ -243,7 +243,7 @@ GEM
       rails (>= 3.2.0)
       railties (>= 3.2.0)
     moped (1.5.1)
-    multi_json (1.7.9)
+    multi_json (1.8.2)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
     nest (1.1.2)
@@ -532,7 +532,7 @@ DEPENDENCIES
   mixpanel!
   mongoid (~> 3.1.6)
   mongoid_rails_migrations (= 1.0.1)
-  multi_json (~> 1.7.3)
+  multi_json (~> 1.7)
   newrelic-redis (~> 1.4.0)
   newrelic_moped (~> 0.0.6)
   newrelic_rpm (~> 3.6.2)
