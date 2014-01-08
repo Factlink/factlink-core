@@ -1,5 +1,11 @@
 @import "bootstrap/mixins";
 
+@user-width: 200px;
+@user-height: 135px;
+@user-block-padding-horizontal: 15px;
+@user-block-padding-vertical: 20px;
+
+
 .tour-interesting-users {
   position: relative;
   padding-top: 30px;
@@ -8,7 +14,7 @@
     position: relative;
     overflow: hidden;
     width: 100%;
-    height: 430px;
+    height: 80px + 2*@user-height;
 
     .tour-interesting-users-scrolling-inner {
       position: absolute;
@@ -37,7 +43,7 @@
 
 .tour-interesting-users-arrow-left,
 .tour-interesting-users-arrow-right {
-  top: 290px;
+  top: 120px + @user-height;
   font-size: 30px;
   opacity: 0;
   position: absolute;
@@ -69,11 +75,6 @@
   text-align: center;
   margin-top: 200px;
 }
-
-@user-width: 200px;
-@user-height: 170px;
-@user-block-padding-horizontal: 15px;
-@user-block-padding-vertical: 20px;
 
 .tour-interesting-user {
   margin: 20px;
@@ -129,22 +130,6 @@
 
 .tour-follow-topic-heading {
   color: @mutedFontColor;
-}
-
-.tour-user-topic {
-  position: relative;
-  padding: 0 7px;
-  border-radius: 5px;
-  border: 2px solid @tableBorder;
-  display: inline-block;
-  background: white;
-
-  display: inline-block;
-  .ellipsis(@user-width - 2*@user-block-padding-horizontal - 2px);
-}
-
-.tour-user-topic-title {
-  font-weight: bold;
 }
 
 .tour-user-button-region > button {

@@ -13,10 +13,6 @@ describe Queries::UsersByIds do
   describe '#call' do
     it 'returns the good objects' do
       top_topics_limit = 10
-      top_user_topics = [
-        DeadUserTopic.new('foo', 'Foo'),
-        DeadUserTopic.new('bar', 'Bar')
-      ]
       graph_user = double(id: '10', sorted_created_facts: double(size: 14))
       user = double(graph_user: graph_user, id: 'a1')
       query = described_class.new(user_ids: [0], top_topics_limit: top_topics_limit)
@@ -28,12 +24,6 @@ describe Queries::UsersByIds do
         .stub(:new)
         .with(graph_user.id)
         .and_return(following_info)
-
-      Pavlov.stub(:query)
-        .with(:'user_topics/top_for_user',
-                  user: user, limit_topics: top_topics_limit)
-        .and_return(top_user_topics)
-
 
       result = query.call
 

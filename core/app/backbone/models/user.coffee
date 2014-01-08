@@ -43,7 +43,6 @@ class window.User extends Backbone.Model
       avatar_url_80: @avatar_url(80)
       avatar_url_160: @avatar_url(160)
       stream_path: @streamLink()
-      user_topics: @user_topics().toJSON()
 
   is_following_users: ->
     !@following.isEmpty()
@@ -71,9 +70,6 @@ class window.User extends Backbone.Model
   followed_by_me: ->
     currentUser.following.some (model) =>
       model.get('username') == @get('username')
-
-  user_topics: ->
-    new UserTopics @get('user_topics')
 
   justCreated: ->
     milliseconds_ago = Date.now() - new Date(@get('created_at'))

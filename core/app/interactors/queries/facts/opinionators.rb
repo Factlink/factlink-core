@@ -1,5 +1,3 @@
-require_relative '../../kill_object'
-
 module Queries
   module Facts
     class Opinionators
@@ -10,15 +8,8 @@ module Queries
       private
 
       def execute
-        users.map { |u| KillObject.user u }
-      end
-
-      def users
-        users_who(type).map(&:user)
-      end
-
-      def users_who(type)
-        Fact[fact_id].opiniated(type).to_a
+        opinionator_ids = Fact[fact_id].opiniated(type).ids
+        query :users_by_ids, user_ids: opinionator_ids, by: :graph_user_id
       end
     end
   end
