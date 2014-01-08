@@ -21,9 +21,8 @@ describe ChannelsController do
 
   describe "#index" do
     it "as json should be successful" do
-      ch_light
       authenticate_user!(user)
-      ability.should_receive(:can?).with(:index, Channel).and_return(true)
+      ability.stub(:can?).with(:index, Channel).and_return(true)
       get :index, username: user.username, format: 'json'
       response.should be_success
     end
@@ -32,7 +31,7 @@ describe ChannelsController do
       FactoryGirl.reload
       ch_heavy
       authenticate_user!(user)
-      ability.should_receive(:can?).with(:index, Channel).and_return(true)
+      ability.stub(:can?).with(:index, Channel).and_return(true)
 
       get :index, username: user.username, format: 'json'
 
