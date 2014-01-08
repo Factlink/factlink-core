@@ -4,7 +4,6 @@ FactlinkJailRoot.triggerClick = ->
 
   if FactlinkJailRoot.textSelected()
     FactlinkJailRoot.createButton.placeNearSelection()
-    FactlinkJailRoot.createButton.show()
     FactlinkJailRoot.createButton.startLoading()
 
     FactlinkJailRoot.createFactFromSelection()

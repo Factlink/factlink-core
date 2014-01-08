@@ -10,10 +10,14 @@ html[data-factlink-suppress-scrolling] {
 
 span.factlink {
   cursor: pointer;
-  background: rgba(255,255,0, 0.2) !important;
 
-  &.fl-active, &.fl-scroll-highlight, &.fl-load-highlight {
-    background: rgba(255,255,0, 0.4) !important;
+  // remove fl-always-highlight when removing client_buttons feature toggle
+  &.fl-scroll-highlight, &.fl-load-highlight, &.fl-always-highlight {
+    background: rgba(255,255,0, 0.3) !important;
+  }
+
+  &:hover, &.fl-active {
+    background: rgba(255,255,0, 0.6) !important;
   }
 
   transition: all $highlight_visibility_transition_time;
