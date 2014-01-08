@@ -112,6 +112,9 @@ class FactlinkJailRoot.CreateButton extends Button
 
   constructor: ->
     super
+      mouseenter: => @startHovering()
+      mouseleave: => @stopHovering()
+
     @$el.on 'mousedown', (event) -> event.preventDefault() # To prevent de-selecting text
     @$el.on 'click', @_onClick
 
