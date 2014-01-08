@@ -49,17 +49,6 @@ class ChannelsController < ApplicationController
   end
 
   def destroy
-    authorize! :destroy, @channel
-
-    @channel.delete
-
-    respond_to do |format|
-      format.html do
-        redirect_to feed_path(@user.username),
-                    notice: "#{t(:topic)} successfully deleted"
-      end
-      format.json  { render :json => {}, :status => :ok }
-    end
   end
 
   def add_fact
