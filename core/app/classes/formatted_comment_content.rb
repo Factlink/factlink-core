@@ -29,7 +29,7 @@ class FormattedCommentContent
       fact_id = Regexp.last_match[1]
       dead_fact = Pavlov.query :'facts/get_dead', id: fact_id
 
-      '>' + dead_fact.displaystring + '</a>'
+      ' class="formatted-comment-content-factlink">' + dead_fact.displaystring + '</a>'
     end
   end
 end
