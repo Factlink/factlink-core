@@ -1,6 +1,6 @@
 class SitesController < ApplicationController
   # TODO: make sure this is executed whenever possible
-  before_filter :register_client_version_numbers, only: :facts_count_for_url
+  before_filter only: :facts_count_for_url
 
   # this action is called so many times, and is so fast
   # it totally distorts our newrelic stats, therefore
@@ -70,12 +70,5 @@ class SitesController < ApplicationController
 
   def is_blacklisted
     Blacklist.default.matches? params[:url]
-  end
-
-  def register_client_version_numbers
-    extension_version = request.headers["extensionVersion"]
-    user_agent        = request.headers["userAgent"]
-
-    mp_track_people_event user_agent: user_agent, extension_version: extension_version
   end
 end

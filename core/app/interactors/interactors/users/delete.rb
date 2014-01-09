@@ -33,12 +33,6 @@ module Interactors
       def execute
         command :'users/mark_as_deleted', user: user
         command :'users/anonymize_user_model', user_id: user_id
-        track_user_delete
-      end
-
-      def track_user_delete
-        mp_track "User: deleted",
-          user_id: user.id
       end
     end
   end

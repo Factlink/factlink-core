@@ -37,8 +37,6 @@ class FactsController < ApplicationController
                            title: params[:fact_title].to_s)
     @site = @fact.site
 
-    mp_track_people_event last_factlink_created: DateTime.now
-
     render 'facts/show', formats: [:json]
   end
 
