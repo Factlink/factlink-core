@@ -23,13 +23,13 @@ class FormattedCommentContent
     end
   end
 
-  FACTLINKS_IN_A_TAGS = %r{>#{FactlinkUI::Application.config.core_url}/[a-z0-9\-_]+/f/([0-9]+)</a>}i
+  FACTLINKS_IN_A_TAGS = %r{ target="_blank">#{FactlinkUI::Application.config.core_url}/[a-z0-9\-_]+/f/([0-9]+)</a>}i
   def displaystring_in_factlinks text
     text.gsub(FACTLINKS_IN_A_TAGS) do |href|
       fact_id = Regexp.last_match[1]
       dead_fact = Pavlov.query :'facts/get_dead', id: fact_id
 
-      ' class="formatted-comment-content-factlink">' + dead_fact.displaystring + '</a>'
+      ' rel="backbone" class="formatted-comment-content-factlink">' + dead_fact.displaystring + '</a>'
     end
   end
 end
