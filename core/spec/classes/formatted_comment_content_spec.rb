@@ -26,7 +26,7 @@ describe FormattedCommentContent do
       displaystring = fact.data.displaystring
 
       formatted_comment = described_class.new friendly_fact_url
-      expected_html = "<a href=\"#{friendly_fact_url}\" rel=\"backbone\" class=\"formatted-comment-content-factlink\">#{displaystring}</a>"
+      expected_html = "<a class=\"formatted-comment-content-factlink\" href=\"http://localhost:3000/fact-1/f/1\" rel=\"backbone\">Fact 1</a>"
 
       expect(formatted_comment.html).to eq expected_html
     end
