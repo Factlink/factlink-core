@@ -3,17 +3,17 @@
 
 var validator = require('validator');
 
+var protocol_regex = /^(?=.*:\/\/)/;
+var http_regex = /^(?=http(s?):\/\/)/i;
+
 function add_protocol(site){
-  var protocol_regex = new RegExp("^(?=.*://)");
-  var http_regex = new RegExp("^(?=http(s?)://)", "i");
-  if (http_regex.test(site) === false) {
-    if (protocol_regex.test(site) === false) {
-      site = "http://" + site;
-    } else {
-      return undefined;
-    }
+  if (http_regex.test(site)){
+    return site;
+  } else if (!protocol_regex.test(site)) {
+    return "http://" + site;
+  } else {
+    return undefined;
   }
-  return site;
 }
 
 function check_validity(url) {
