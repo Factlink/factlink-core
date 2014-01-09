@@ -1,3 +1,5 @@
+//when editing this file: remember to change the cache-busting token in the uri refering to it within server.js
+
 /*!
   * $script.js v1.3
   * https://github.com/ded/script.js
