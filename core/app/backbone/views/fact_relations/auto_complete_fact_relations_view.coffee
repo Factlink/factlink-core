@@ -1,5 +1,5 @@
 class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
-  className: "auto-complete auto-complete-fact-relations"
+  className: "auto-complete"
 
   regions:
     'search_list': 'div.auto-complete-search-list-container'
