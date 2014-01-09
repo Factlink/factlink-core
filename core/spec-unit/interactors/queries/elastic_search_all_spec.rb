@@ -33,14 +33,13 @@ describe Queries::ElasticSearchAll do
 
         case type
         when 'user'
-          user_double_id = double
-          mongoid_user = double(id: user_double_id)
-          User.should_receive(:find).
-            with(1).
-            and_return(mongoid_user)
-          KillObject.should_receive(:user)
-            .with(mongoid_user)
-            .and_return(return_object)
+          # Cannot stub Pavlov.query because this query uses another query
+          users_by_ids = double call: [return_object]
+          stub_classes 'Queries::UsersByIds'
+          Queries::UsersByIds
+            .stub(:new)
+            .with(user_ids: [1])
+            .and_return(users_by_ids)
         when 'topic'
           fail 'We test topics in elastic_search_channel_spec'
         when 'factdata'

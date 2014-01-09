@@ -20,6 +20,8 @@ json.from_fact { |j| j.partial! 'facts/fact', fact: fact_relation.from_fact }
 json.time_ago TimeFormatter.as_time_ago(fact_relation.created_at.to_time)
 
 json.created_by do |json|
-  json.partial! 'users/user_partial', user: fact_relation.created_by.user
+  user_id = fact_relation.created_by.user_id
+  user = Queries::UsersByIds.new(user_ids: [user_id]).call.first
+  json.partial! 'users/user_partial', user: user
 end
 json.sub_comments_count fact_relation.sub_comments_count || 0
