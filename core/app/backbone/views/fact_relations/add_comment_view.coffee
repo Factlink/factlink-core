@@ -20,6 +20,9 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
   focus: -> @_textAreaView.focusInput()
 
+  insert: (text) ->
+    @_textAreaView.insert text
+
   onRender: ->
     @inputRegion.show @_textAreaView
 

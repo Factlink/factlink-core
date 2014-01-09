@@ -68,18 +68,11 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   _openSearchFacts: ->
     @ui.openSearchFacts.hide()
 
-    @searchFactsRegion.show new AutoCompleteFactsView
-      collection: @_filtered_facts()
-      addToCollection: @collection
+    auto_complete_facts_view = new AutoCompleteFactsView
+      collection: new Backbone.Collection
       fact_id: @collection.fact.id
       argumentTypeModel: @_argumentTypeModel
 
-  _filtered_facts: ->
-    fact_relations_masquerading_as_facts = @_collectionUtils().map new Backbone.Collection,
-      @collection, (model) -> new Fact model.get('from_fact')
+    @listenTo auto_complete_facts_view, 'insert', (text) -> @_addCommentView.insert text
 
-    @_collectionUtils().union new Backbone.Collection, fact_relations_masquerading_as_facts,
-      new Backbone.Collection [@collection.fact.clone()]
-
-  _collectionUtils: ->
-    @_____collectionUtils ?= new CollectionUtils this
+    @searchFactsRegion.show auto_complete_facts_view

@@ -51,3 +51,13 @@ class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
       @trigger 'return'
       e.preventDefault()
       e.stopPropagation()
+
+  insert: (text) ->
+    cursorPos = @ui.inputField.prop('selectionStart')
+    currentText = @model.get('text')
+    textBefore = currentText.substring(0, cursorPos)
+    textAfter = currentText.substring(cursorPos, currentText.length)
+
+    @_initAutosize()
+    @model.set 'text', textBefore + text + textAfter
+    @focusInput()
