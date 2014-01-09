@@ -17,7 +17,8 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   initialize: ->
     @_textAreaView = new Backbone.Factlink.TextAreaView model: @_textModel()
     @listenTo @_textAreaView, 'return', @addComment
-    @on 'region:focus', -> @_textAreaView.focusInput()
+
+  focus: -> @_textAreaView.focusInput()
 
   onRender: ->
     @inputRegion.show @_textAreaView

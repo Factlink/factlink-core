@@ -22,15 +22,17 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     @_factTally = @collection.fact.getFactTally()
     @listenTo @_factTally, 'change:current_user_opinion', @_setArgumentTypeToOpinion
 
-  onRender: ->
-    @addCommentRegion.show new AddCommentView
+    @_addCommentView = new AddCommentView
       addToCollection: @collection
       argumentTypeModel: @_argumentTypeModel
+
+  onRender: ->
+    @addCommentRegion.show @_addCommentView
 
     @_setArgumentTypeToOpinion()
 
   focus: ->
-    # TODO: remove
+    @_addCommentView.focus()
 
   _showQuestion: ->
     @ui.questionContainer.show()
