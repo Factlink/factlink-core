@@ -19,5 +19,16 @@ describe FormattedCommentContent do
 
       expect(formatted_comment.html).to eq '<a href="http://www.example.org" target="_blank">www.example.org</a>'
     end
+
+    it 'turns factlink urls into special links' do
+      fact = create :fact
+      friendly_fact_url = FactUrl.new(fact).friendly_fact_url
+      displaystring = fact.data.displaystring
+
+      formatted_comment = described_class.new friendly_fact_url
+      expected_html = "<a class=\"formatted-comment-content-factlink\" href=\"http://localhost:3000/fact-1/f/1\" rel=\"backbone\">Fact 1</a>"
+
+      expect(formatted_comment.html).to eq expected_html
+    end
   end
 end
