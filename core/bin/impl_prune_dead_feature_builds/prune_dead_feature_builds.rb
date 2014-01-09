@@ -52,7 +52,7 @@ BuildInfo = Struct.new(:uri, :branch, :origin)
 def get_build_info(build_uri)
   config_uri = build_uri + "config.xml"
   build_config_xml = get_jenkins_xml(config_uri)
-  branch = extract_build_branch(build_config_xml)
+  branch = extract_build_branch(build_config_xml).sub(/^origin\//,'')
   build_origin = extract_remote_origin(build_config_xml)
   BuildInfo.new(build_uri, branch, build_origin)
 end
