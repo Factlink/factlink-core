@@ -22,7 +22,6 @@ describe Queries::ElasticSearchUser do
         '_id' => 1,
         '_type' => 'user'
       }
-      mongoid_user = double
       results = double code: 200, parsed_response: { 'hits' => { 'hits' => [ hit ] } }
 
       user = double
@@ -30,8 +29,14 @@ describe Queries::ElasticSearchUser do
       HTTParty.should_receive(:get).
         with("http://#{base_url}/user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
-      User.should_receive(:find).with(1).and_return(mongoid_user)
-      KillObject.should_receive(:user).with(mongoid_user).and_return(user)
+
+      # Cannot stub Pavlov.query because this query uses another query
+      users_by_ids = double call: [user]
+      stub_classes 'Queries::UsersByIds'
+      Queries::UsersByIds
+        .stub(:new)
+        .with(user_ids: [1])
+        .and_return(users_by_ids)
 
       expect(query.call).to eq [user]
     end
@@ -68,14 +73,19 @@ describe Queries::ElasticSearchUser do
         '_type' => 'user'
       }
       results = double code: 200, parsed_response: { 'hits' => { 'hits' => [ hit ] } }
-      mongoid_user = double
       user = double
 
       HTTParty.should_receive(:get).
         with("http://#{base_url}/user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
-      User.should_receive(:find).with(1).and_return(mongoid_user)
-      KillObject.should_receive(:user).with(mongoid_user).and_return(user)
+
+      # Cannot stub Pavlov.query because this query uses another query
+      users_by_ids = double call: [user]
+      stub_classes 'Queries::UsersByIds'
+      Queries::UsersByIds
+        .stub(:new)
+        .with(user_ids: [1])
+        .and_return(users_by_ids)
 
       expect(query.call).to eq [user]
     end
