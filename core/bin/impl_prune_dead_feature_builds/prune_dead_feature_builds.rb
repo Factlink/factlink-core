@@ -72,7 +72,7 @@ end
 `git fetch`
 origin_url = `git config --get remote.origin.url`.strip
 
-remote_branches = `git branch -r`.scan /origin\/feature\/.+(?=$)/
+remote_branches = `git branch -r`.scan /(?<=origin\/)feature\/.+(?=$)/
 
 puts "Git remote #{origin_url} has the following branches:
 " + remote_branches.join("\n")
