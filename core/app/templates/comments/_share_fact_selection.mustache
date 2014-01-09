@@ -3,22 +3,22 @@
 {{/submitting}}
 {{^submitting}}
   {{^connected_facebook}}
-    <a href="/auth/facebook?use_authorize=true&x_auth_access_type=write" class="share-button share-button-facebook share-button-disabled js-connect-facebook pull-right js-accounts-popup-link">Facebook</a>
+    <a href="/auth/facebook?use_authorize=true&x_auth_access_type=write" class="share-button share-button-facebook js-connect-facebook pull-right js-accounts-popup-link">Facebook</a>
   {{/connected_facebook}}
 
   {{^connected_twitter}}
-    <a href="/auth/twitter?use_authorize=true&x_auth_access_type=write" class="share-button share-button-twitter share-button-disabled js-connect-twitter pull-right js-accounts-popup-link">Twitter</a>
+    <a href="/auth/twitter?use_authorize=true&x_auth_access_type=write" class="share-button share-button-twitter js-connect-twitter pull-right js-accounts-popup-link">Twitter</a>
   {{/connected_twitter}}
 
   {{#connected_facebook}}
-    <label class="pull-right js-share-facebook">
+    <label class="pull-right js-share-facebook share-button-container">
       <input type="checkbox">
       <span class="share-button share-button-facebook">Facebook</span>
     </label>
   {{/connected_facebook}}
 
   {{#connected_twitter}}
-    <label class="pull-right js-share-twitter">
+    <label class="pull-right js-share-twitter share-button-container">
       <input type="checkbox">
       <span class="share-button share-button-twitter">Twitter</span>
     </label>

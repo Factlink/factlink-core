@@ -5,14 +5,6 @@ feature 'the profile page', type: :feature do
   include Acceptance::FactHelper
   include PavlovSupport
 
-  scenario "the users top topics should render" do
-    user = sign_in_user create :full_user, :confirmed
-    channel = create :channel, created_by: user.graph_user
-
-    go_to_profile_page_of user
-    find('.top-topics a', text: channel.title)
-  end
-
   scenario 'follow a user and unfollow a user' do
     following_user = sign_in_user create :full_user, :confirmed
     followed_user = create :full_user, :confirmed
@@ -81,7 +73,7 @@ feature 'the profile page', type: :feature do
     fact = nil
     as(followed_user) do |backend|
       fact = backend.interactor(:'facts/create', displaystring: displaystring, url: '', title: 'title')
-      backend.interactor(:'channels/add_fact', fact: fact, channel: channel)
+      backend.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'believes', content: "so true")
     end
 
     visit feed_path(following_user.username)

@@ -158,7 +158,8 @@ class Ability
   FEATURES = %w(
     pink_feedback_button
     memory_profiling
-    hide_factwheel
+    client_buttons
+    obsolete_topics
   )
 
   def enabled_global_features

@@ -32,20 +32,6 @@ describe 'activity queries' do
       ]
     end
 
-    it "should return activity when a user adds a Fact to your channel" do
-      f = create :fact, created_by: gu1
-      f.created_by.stream_activities.key.del # delete other activities
-
-      ch = create :channel, created_by: gu2
-      Pavlov.interactor :'channels/add_fact',
-                  fact: f, channel: ch,
-                  pavlov_options: { current_user: ch.created_by.user }
-
-      notification = gu1.stream_activities.map(&:to_hash_without_time).should == [
-        {:user => gu2, :action => :added_fact_to_channel, :subject => f, :object => ch}
-      ]
-    end
-
     it "should return activity when a users adds supporting evidence to a fact that you created" do
       f1 = create :fact
       f2 = create :fact
@@ -466,22 +452,4 @@ describe 'activity queries' do
       ]
     end
   end
-
-  describe "following a person" do
-      it "creates a activity when a user you follow adds a factlink to a channel" do
-        gu3 =create(:full_user).graph_user
-        UserFollowingUsers.new(gu2.id).follow gu1.id
-
-        f1 = create :fact, created_by: gu3
-
-        ch1 = create :channel, created_by: gu1
-        Pavlov.interactor :'channels/add_fact',
-                          fact: f1, channel: ch1,
-                          pavlov_options: { current_user: ch1.created_by.user }
-
-        gu2.stream_activities.map(&:to_hash_without_time).should == [
-          {user: gu1, action: :added_fact_to_channel, subject: f1, object: ch1}
-        ]
-      end
-    end
 end

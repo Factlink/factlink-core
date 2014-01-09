@@ -74,7 +74,7 @@ class UserActivitiesGroupView extends ActivitiesGroupView
 class UserFactActivitiesGroupView extends UserActivitiesGroupView
   template: 'activities/user_fact_activities_group'
 
-  @actions: ["added_fact_to_channel", "created_comment", "created_sub_comment", "created_fact_relation", "believes", "doubts", "disbelieves"]
+  @actions: ["created_comment", "created_sub_comment", "created_fact_relation", "believes", "doubts", "disbelieves"]
   actions: -> UserFactActivitiesGroupView.actions
 
   onRender: ->

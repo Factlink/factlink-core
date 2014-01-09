@@ -4,7 +4,9 @@ json.created_by do |json|
   json.partial! 'users/user_partial', user: comment.created_by
 end
 json.type         comment.type #rename: "type"
-json.content      comment.content
+
+json.formatted_comment_content FormattedCommentContent.new(comment.content).html
+
 json.fact_data do |json|
   json.partial! 'facts/fact_data_partial', fact_data: comment.fact_data
 end

@@ -35,8 +35,8 @@ class window.SearchResultView extends Backbone.Marionette.CompositeView
         new FactView(model: new Fact(options.model.get("the_object")))
       when "FactlinkUser"
         new UserSearchView(model: new User(options.model.get("the_object")))
-      when "Topic"
+      when "Topic" and Factlink.Global.can_haz.obsolete_topics
         new TopicSearchView(model: new Topic(options.model.get("the_object")))
       else
         console.info "Unknown class of searchresult: ", options.model.get("the_class")
-        `undefined`
+        new Backbone.View

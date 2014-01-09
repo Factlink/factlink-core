@@ -25,19 +25,16 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     @_factTally = @collection.fact.getFactTally()
     @listenTo @_factTally, 'change:current_user_opinion', @_setArgumentTypeToOpinion
 
-    @_searchView = new AutoCompleteFactRelationsView
-      collection: @_filtered_facts()
-      addToCollection: @collection
-      fact_id: @collection.fact.id
-      argumentTypeModel: @_argumentTypeModel
-
-    @_addCommentView = new AddCommentView
-      addToCollection: @collection
-      argumentTypeModel: @_argumentTypeModel
-
     @inputRegion.defineViews
-      search_view: => @_searchView
-      add_comment_view: => @_addCommentView
+      search_view: => new AutoCompleteFactRelationsView
+        collection: @_filtered_facts()
+        addToCollection: @collection
+        fact_id: @collection.fact.id
+        argumentTypeModel: @_argumentTypeModel
+      add_comment_view: => new AddCommentView
+        addToCollection: @collection
+        argumentTypeModel: @_argumentTypeModel
+
 
   onRender: ->
     @_setArgumentTypeToOpinion()

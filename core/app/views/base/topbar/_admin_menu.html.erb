@@ -4,6 +4,7 @@
       <li><%= link_to("Users", admin_users_path) %></li>
       <li><%= link_to("Feature Toggles", admin_global_feature_toggles_path) %></li>
       <li><%= link_to("Info", admin_info_path) %></li>
+      <li><%= link_to("Cause Error", admin_cause_error_path) %></li>
       <li><%= link_to("Resque", '/a/resque') %></li>
       <% if can_haz :memory_profiling %>
         <li><a onclick="FactlinkApp.MemoryProfiler.showModal()">Memory</a></li>

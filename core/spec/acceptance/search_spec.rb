@@ -13,6 +13,8 @@ describe "searching", type: :feature do
   end
 
   it "cannot find a something that does not exist" do
+    visit root_path
+
     search_text = "searching for nothing and results for free"
     fill_in "factlink_search", with: search_text
     page.execute_script("$('#factlink_search').parent().submit()")

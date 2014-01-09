@@ -2,9 +2,6 @@
   {
     "displaystring": "Fact 3",
     "id": "<id>",
-    "containing_channel_ids": [
-      "1"
-    ],
     "url": "/fact-3/f/3",
     "sharing_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&open_id=3",
     "created_by": {
@@ -14,15 +11,8 @@
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "statistics_created_fact_count": 3,
       "statistics_follower_count": 0,
-      "statistics_following_count": 0,
-      "user_topics": [
-        {
-          "title": "Channel title 1",
-          "slug_title": "channel-title-1"
-        }
-      ]
+      "statistics_following_count": 0
     },
-    "created_by_ago": "Posted 1 minute ago",
     "created_at": "<created_at>",
     "fact_title": "Fact title 3",
     "tally": {
@@ -38,9 +28,6 @@
   {
     "displaystring": "Fact 2",
     "id": "<id>",
-    "containing_channel_ids": [
-      "1"
-    ],
     "url": "/fact-2/f/2",
     "sharing_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&open_id=2",
     "created_by": {
@@ -50,15 +37,8 @@
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "statistics_created_fact_count": 3,
       "statistics_follower_count": 0,
-      "statistics_following_count": 0,
-      "user_topics": [
-        {
-          "title": "Channel title 1",
-          "slug_title": "channel-title-1"
-        }
-      ]
+      "statistics_following_count": 0
     },
-    "created_by_ago": "Posted 1 minute ago",
     "created_at": "<created_at>",
     "fact_title": "Fact title 2",
     "tally": {
@@ -74,9 +54,6 @@
   {
     "displaystring": "Fact 1",
     "id": "<id>",
-    "containing_channel_ids": [
-      "1"
-    ],
     "url": "/fact-1/f/1",
     "sharing_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&open_id=1",
     "created_by": {
@@ -86,15 +63,8 @@
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "statistics_created_fact_count": 3,
       "statistics_follower_count": 0,
-      "statistics_following_count": 0,
-      "user_topics": [
-        {
-          "title": "Channel title 1",
-          "slug_title": "channel-title-1"
-        }
-      ]
+      "statistics_following_count": 0
     },
-    "created_by_ago": "Posted 1 minute ago",
     "created_at": "<created_at>",
     "fact_title": "Fact title 1",
     "tally": {

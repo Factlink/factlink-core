@@ -12,9 +12,6 @@
   "from_fact": {
     "displaystring": "Fact 2",
     "id": "<id>",
-    "containing_channel_ids": [
-
-    ],
     "url": "/fact-2/f/2",
     "sharing_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&open_id=2",
     "created_by": {
@@ -24,12 +21,8 @@
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "statistics_created_fact_count": 2,
       "statistics_follower_count": 0,
-      "statistics_following_count": 0,
-      "user_topics": [
-
-      ]
+      "statistics_following_count": 0
     },
-    "created_by_ago": "Posted 1 minute ago",
     "created_at": "<created_at>",
     "fact_title": "Fact title 2",
     "tally": {
@@ -50,10 +43,7 @@
     "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
     "statistics_created_fact_count": 2,
     "statistics_follower_count": 0,
-    "statistics_following_count": 0,
-    "user_topics": [
-
-    ]
+    "statistics_following_count": 0
   },
   "sub_comments_count": 0
 }

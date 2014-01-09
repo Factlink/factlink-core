@@ -5,14 +5,6 @@
 
 <% content_for :main do %>
     <div id="container" class="container fixed">
-      <section id="left-column">
-        <% if content_for?(:left_column) %>
-          <%= yield(:left_column) %>
-        <% else %>
-          &nbsp;
-        <% end %>
-      </section>
-
       <section id="main-column">
         <%= render 'flash/notification_center', notice: notice, alert: alert %>
 
@@ -37,8 +29,6 @@
     Factlink.setSignedIn(<%= current_ability.signed_in?.to_json.html_safe %>);
 
     FactlinkApp.start({factlinkAppMode: FactlinkAppMode.coreInSite});
-
-
   </script>
 
   <%= yield :javascript %>
