@@ -15,6 +15,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     question: '.js-question'
     questionContainer: '.js-question-container'
     typeSelector: '.js-type-selector'
+    openSearchFacts: '.js-open-search-facts'
 
   initialize: ->
     @_argumentTypeModel = new Backbone.Model
@@ -63,7 +64,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
         ''
 
   _openSearchFacts: ->
-    return if @searchFactsRegion.currentView?
+    @ui.openSearchFacts.hide()
 
     @searchFactsRegion.show new AutoCompleteFactRelationsView
       collection: @_filtered_facts()
