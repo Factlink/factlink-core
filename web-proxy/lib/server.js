@@ -127,11 +127,10 @@ function getServer(config) {
         url: site
       };
       var factlink_config_script = 'window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + ';\n';
+      var factlink_proxy_url_script = 'window.FactlinkProxyUrl = ' + JSON.stringify(config.PROXY_URL) + ';\n';
 
-
-      var header_content = new_base_tag + '\n<script>' + framebuster_script + factlink_config_script+'</script>\n\n';
-
-      output_html = inject_html_in_head(output_html, header_content);
+      var inline_setup_script_tag = '<script>' + framebuster_script +
+        factlink_config_script + factlink_proxy_url_script + '</script>';
 
       var actions = [];
 
@@ -152,13 +151,12 @@ function getServer(config) {
       // Inject Factlink library at the end of the file
       var loader_filename = (config.ENV === "development" ? "/factlink_loader_basic.js" : "/factlink_loader_basic.min.js");
 
-      var inject_string = '<!-- this comment is to accommodate for pages that end in an open comment! -->' +
-          '<script src="' + config.LIB_URL + loader_filename + '"></script>' +
-          '<script>' + actions.join('') + '</script>' +
-          '<script>window.FactlinkProxyUrl = ' + JSON.stringify(config.PROXY_URL) + '</script>' +
-          '<script src="' + config.PROXY_URL + '/static/scripts/proxy.js?' + Number(new Date()) + '"></script>';
+      var loader_tag = '<script async defer src="' + config.LIB_URL + loader_filename + '" onload="'+actions.join('')+ '"></script>';
+      var proxy_script_tag = '<script async defer src="' + config.PROXY_URL + '/static/scripts/proxy.js?1"></script>';
 
-      output_html += inject_string;
+      var header_content = new_base_tag + inline_setup_script_tag + loader_tag + proxy_script_tag;
+
+      output_html = inject_html_in_head(output_html, header_content);
       successFn(output_html);
     },function(){
       successFn(original_html);
