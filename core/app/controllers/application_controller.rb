@@ -102,30 +102,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def mp_track(event, opts={})
-    user = opts.fetch(:current_user) { current_user }
-    opts.delete :current_user
-
-    new_opts = if user
-                 opts.update mp_name_tag: user.username,
-                             distinct_id: user.id
-               else
-                 opts
-               end
-
-    new_opts[:time] = Time.now.utc.to_i
-
-    req_env = MixpanelRequestPresenter.new(request).to_hash
-
-    Resque.enqueue(Mixpanel::TrackEventJob, event, new_opts, req_env)
-  end
-
-  def mp_track_people_event(opts={})
-    return unless user_signed_in?
-
-    req_env = MixpanelRequestPresenter.new(request).to_hash
-    Resque.enqueue(Mixpanel::TrackPeopleEventJob, current_user.id, opts, req_env)
-  end
 
   before_filter :initialize_mixpanel
   def initialize_mixpanel
@@ -136,16 +112,6 @@ class ApplicationController < ActionController::Base
     # the following two commands set data in the frontend using js
     mixpanel.append_api('name_tag', current_user.username)
     mixpanel.append_identify(current_user.id.to_s)
-  end
-
-  before_filter :set_last_interaction_for_user
-  def set_last_interaction_for_user
-    return unless user_signed_in? and request.format == "text/html"
-
-    mp_track_people_event last_interaction_at: DateTime.now
-    mp_track_people_event last_browser_name: view_context.browser.name
-    mp_track_people_event last_browser_version: view_context.browser.version
-    Resque.enqueue(SetLastInteractionForUser, current_user.id, DateTime.now.to_i)
   end
 
   private

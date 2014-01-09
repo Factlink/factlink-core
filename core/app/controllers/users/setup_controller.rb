@@ -4,9 +4,7 @@ class Users::SetupController < ApplicationController
 
   def edit
     authorize! :set_up, current_user
-
     @user = current_user
-    mp_track "Tour: Started account setup", current_user: current_user
   end
 
   def update
