@@ -22,6 +22,7 @@ class ChannelActivitiesController < ApplicationController
 
       @activities = sanitize retrieved_activities, activities.key
       render 'channels/activities'
+      mp_track 'Viewed feed'
     end
   end
 
