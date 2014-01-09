@@ -1,7 +1,7 @@
 json.id           comment.id
 json.created_at   comment.created_at
 json.created_by do |json|
-  user = user = Queries::UsersByIds.new(user_ids: [comment.created_by_id]).call.first
+  user = Queries::UsersByIds.new(user_ids: [comment.created_by_id]).call.first
   json.partial! 'users/user_partial', user: user
 end
 json.type         comment.type #rename: "type"
