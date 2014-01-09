@@ -1,9 +1,9 @@
 #= require ../auto_complete/search_list_view
 
-class AutoCompleteSearchFactRelationView extends Backbone.Factlink.StepView
+class AutoCompleteSearchFactView extends Backbone.Factlink.StepView
   tagName: "li"
 
-  template: "fact_relations/auto_complete_search_fact_relation"
+  template: "facts/auto_complete_search_fact"
 
   templateHelpers: ->
     query = @options.query
@@ -12,10 +12,10 @@ class AutoCompleteSearchFactRelationView extends Backbone.Factlink.StepView
 
   scrollIntoView: -> scrollIntoViewWithinContainer @$el, @$el.parents('.auto-complete-search-list')
 
-class window.AutoCompleteSearchFactRelationsView extends AutoCompleteSearchListView
-  itemView: AutoCompleteSearchFactRelationView
+class window.AutoCompleteSearchFactsView extends AutoCompleteSearchListView
+  itemView: AutoCompleteSearchFactView
 
-  template: "fact_relations/auto_complete_search_fact_relations"
+  template: "facts/auto_complete_search_facts"
 
   ui:
     recent_list: '.js-list-recent'

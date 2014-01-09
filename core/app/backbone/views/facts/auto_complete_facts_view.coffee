@@ -1,11 +1,11 @@
-class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
+class window.AutoCompleteFactsView extends AutoCompleteSearchView
   className: "auto-complete"
 
   regions:
     'search_list': 'div.auto-complete-search-list-container'
     'text_input': 'div.js-auto-complete-input-view-container'
 
-  template: 'fact_relations/auto_complete'
+  template: 'facts/auto_complete_facts'
 
   initialize: ->
     @_recent_collection = new RecentlyViewedFacts
@@ -13,12 +13,12 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
     @initializeChildViews
       filter_on: 'id'
-      search_list_view: (options) => new AutoCompleteSearchFactRelationsView _.extend {}, options,
+      search_list_view: (options) => new AutoCompleteSearchFactsView _.extend {}, options,
         recent_collection: @_recent_collection
-      search_collection: new FactRelationSearchResults [],
+      search_collection: new FactSearchResults [],
         fact_id: @options.fact_id
         recent_collection: @_recent_collection
-      filtered_search_collection: new FilteredFactRelationSearchResults
+      filtered_search_collection: new FilteredFactSearchResults
       placeholder: 'Search...'
 
     @listenTo @model, 'change', @queryChanges

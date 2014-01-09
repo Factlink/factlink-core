@@ -66,7 +66,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   _openSearchFacts: ->
     @ui.openSearchFacts.hide()
 
-    @searchFactsRegion.show new AutoCompleteFactRelationsView
+    @searchFactsRegion.show new AutoCompleteFactsView
       collection: @_filtered_facts()
       addToCollection: @collection
       fact_id: @collection.fact.id
