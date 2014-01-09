@@ -18,12 +18,7 @@ function add_protocol(site){
 
 function check_validity(url) {
   url = url.replace(/%[a-fA-F0-9]{2}/g, function(str){return str.toLowerCase();});
-  try {
-    validator.check(url, 'invalid url').isUrl();
-    return url;
-  } catch (e) {
-    return undefined;
-  }
+  return validator.isURL(url) ? url: undefined;
 }
 
 function clean_url(url){
