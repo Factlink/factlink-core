@@ -3,19 +3,15 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   template: 'evidence/add_evidence_form'
 
   regions:
-    inputRegion:
-      selector: '.input-region'
-      regionType: Factlink.DetachableViewsRegion
+    addCommentRegion: '.js-add-comment-region'
+    searchFactsRegion: '.js-search-facts-region'
 
   events:
     'change input[name=argumentType]': '_updateArgumentType'
-    'click .js-switch-to-factlink': '_switchToAddFactRelationView'
-    'click .js-switch-to-comment': '_switchToAddCommentView'
+    'click .js-open-search-facts': '_openSearchFacts'
     'click .js-change-type': '_showTypeSelector'
 
   ui:
-    switchToFactlink: '.js-switch-to-factlink'
-    switchToComment: '.js-switch-to-comment'
     question: '.js-question'
     questionContainer: '.js-question-container'
     typeSelector: '.js-type-selector'
@@ -25,23 +21,15 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     @_factTally = @collection.fact.getFactTally()
     @listenTo @_factTally, 'change:current_user_opinion', @_setArgumentTypeToOpinion
 
-    @inputRegion.defineViews
-      search_view: => new AutoCompleteFactRelationsView
-        collection: @_filtered_facts()
-        addToCollection: @collection
-        fact_id: @collection.fact.id
-        argumentTypeModel: @_argumentTypeModel
-      add_comment_view: => new AddCommentView
-        addToCollection: @collection
-        argumentTypeModel: @_argumentTypeModel
-
-
   onRender: ->
+    @addCommentRegion.show new AddCommentView
+      addToCollection: @collection
+      argumentTypeModel: @_argumentTypeModel
+
     @_setArgumentTypeToOpinion()
-    @_switchToAddCommentView()
 
   focus: ->
-    @_switchToAddCommentView()
+    # TODO: remove
 
   _showQuestion: ->
     @ui.questionContainer.show()
@@ -74,17 +62,14 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       else
         ''
 
-  _switchToAddCommentView: ->
-    @ui.switchToFactlink.show()
-    @ui.switchToComment.hide()
-    @inputRegion.switchTo 'add_comment_view'
-    mp_track "Evidence: Switching to comment"
+  _openSearchFacts: ->
+    return if @searchFactsRegion.currentView?
 
-  _switchToAddFactRelationView: ->
-    @ui.switchToFactlink.hide()
-    @ui.switchToComment.show()
-    @inputRegion.switchTo 'search_view'
-    mp_track "Evidence: Switching to FactRelation"
+    @searchFactsRegion.show new AutoCompleteFactRelationsView
+      collection: @_filtered_facts()
+      addToCollection: @collection
+      fact_id: @collection.fact.id
+      argumentTypeModel: @_argumentTypeModel
 
   _filtered_facts: ->
     fact_relations_masquerading_as_facts = @_collectionUtils().map new Backbone.Collection,
