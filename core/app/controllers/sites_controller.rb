@@ -1,7 +1,4 @@
 class SitesController < ApplicationController
-  # TODO: make sure this is executed whenever possible
-  before_filter only: :facts_count_for_url
-
   # this action is called so many times, and is so fast
   # it totally distorts our newrelic stats, therefore
   # not counted in apdex
