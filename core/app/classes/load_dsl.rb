@@ -92,6 +92,7 @@ class LoadDsl
     u.email = email
     u.confirmed_at = DateTime.now
     u.set_up = true
+    u.admin = true
     u.seen_tour_step = 'tour_done'
     u.save
 

@@ -14,7 +14,7 @@ gem 'pavlov', '= 0.1.9.0'
 gem 'redis', '~> 2.2.1'
 gem 'ohm', github: 'Factlink/ohm' # we need the tribalvibes fork (0.1.4), for polymorphism
 gem 'redis-objects', '~> 0.5.3' # cannot be upgraded to 0.6 until we update redis to 3.0 or bigger
-gem 'multi_json', '~> 1.7.3'
+gem 'multi_json', '~> 1.7'
 
 # We should upgrade this to at least the latest 1.* version,
 # but 1.23.1 has a breaking change, and 1.24+ requires a redis-namespace
@@ -22,16 +22,16 @@ gem 'multi_json', '~> 1.7.3'
 gem 'resque', '= 1.23.0', require: 'resque/server'
 gem 'resque_mailer', '~> 2.2.6'
 
-gem 'stringex', '~> 1.5.1'
+gem 'stringex', '~> 1.5.1' #2.0 breaks }{ normalization.
 
 gem 'mixpanel', github: 'Factlink/mixpanel'
 
-gem "sentry-raven", '= 0.4.6' # Upgrading to 0.4.8 breaks error reporting from the web-app
+gem "sentry-raven", '~> 0.7.1'
 gem "resque-sentry", '~> 0.1.0'
 
 # Everyone loves JSON
-gem 'json', '~> 1.8.0'
-gem 'jbuilder', '~> 1.5.0'
+gem 'json', '~> 1.8'
+gem 'jbuilder', '~> 2.0'
 
 # Needed for migrations to be compatible when no sql backend is available
 gem 'mongoid_rails_migrations', '1.0.1' # TODO look if this needs to be pinned
@@ -48,7 +48,7 @@ gem 'twitter', '~> 4.7.0'
 # social sharing
 gem 'koala', '~> 1.8.0rc1'
 
-gem 'httparty', '~> 0.11.0'
+gem 'httparty', '~> 0.12.0'
 
 #browser detection
 gem 'browser', '~> 0.3.2'
@@ -56,7 +56,7 @@ gem 'browser', '~> 0.3.2'
 # one of our own gems, to normalize urls
 gem 'url_normalizer', github: 'Factlink/url_normalizer'
 
-gem 'capistrano', '= 2.15.4', require: false # locked down, was auto-upgraded to 2.15.5, which doesn't exist according to capistrano's githubs tags, nor according to their changelog
+gem 'capistrano', '~> 2.15', require: false
 gem 'capistrano-ext', '~> 1.2.1',  require: false
 
 gem 'roadie', '~> 2.3.4'
@@ -72,28 +72,28 @@ group :production do
 end
 
 group :assets do
-  gem 'less-rails', '~> 2.3.3'
-  gem 'uglifier', '~> 1.3.0'
+  gem 'less-rails', '~> 2.3'
+  gem 'uglifier', '~> 2.0'
   gem "yui-compressor", '~> 0.12.0'
-  gem 'hogan_assets', '~> 1.0.3'
+  gem 'hogan_assets', '~> 1.1.0' #1.2 or later include hogan 3.0 and somehow only generate empty templates.
 
   gem 'therubyracer', '~> 0.12.0'
 
-  gem "coffee-script", '~> 2.2.0'
+  gem "coffee-script", '~> 2.2'
 
-  gem 'jquery-rails', '= 2.2.1' # we want a specific version of the js library
+  gem 'jquery-rails', '~> 3.0' #this is 1.10.2; not jquery 2.0 yet.  jquery-migrate claims 2.0 would be safe.
   gem 'jquery-rails-cdn', '~> 1.0.1'
 
   # This gem is https://github.com/aflatter/backbone-rails
   # Not the one you might typically find with Google
   # Very clear, no?
-  gem "backbone-rails", '= 1.0.0.1' # we want a specific version of the js library
+  gem "backbone-rails", '~> 1.0.0' #beware, backbone does not use semver!
 
-  gem "marionette-rails", '= 1.4.1' # we want a specific version of the js library
+  gem "marionette-rails", '~> 1.4'
 
   # Rails 4 pipline
-  gem 'sprockets', '2.2.2.backport2'
-  gem 'sprockets-rails', '2.0.0.backport1'
+  gem 'sprockets', '2.2.2.backport2' #upgrade awaiting rails 4
+  gem 'sprockets-rails', '2.0.0.backport1'  #upgrade awaiting rails 4
 end
 
 group :development do
@@ -121,13 +121,13 @@ group :test do
   gem 'rspec-rails', '~> 2.13'
   gem 'webmock'
   gem 'factory_girl_rails', '~> 4.2'
-  gem 'database_cleaner', '~> 0.9'
+  gem 'database_cleaner', '~> 1.0'
 
   gem 'oily_png', '~> 1.1'
 
   gem 'rb-fsevent', '~> 0.9.1'
-  gem 'guard', '~> 1.8', require: false
-  gem 'guard-rspec', '~> 3.0', require: false
+  gem 'guard', '~> 2.0', require: false
+  gem 'guard-rspec', '~> 4.0', require: false
   gem 'terminal-notifier-guard', '~> 1.5', require: false
 
   gem 'approvals', '~> 0' # not locked, since test will break if something goes wrong here
@@ -150,7 +150,7 @@ group :test, :development do # TODO why is there a :development here?
 end
 
 group :development do
-  gem 'brakeman', '~> 2.0.0', require: false # upgrade awaiting https://github.com/presidentbeef/brakeman/issues/372
+  gem 'brakeman', '~> 2.0.0', require: false # upgrade awaiting sprockets upgrade awaiting rails 4
   gem 'cane', '~> 2', require: false
   gem 'rails_best_practices', '~> 1', require: false
   gem 'rubocop', require: false
