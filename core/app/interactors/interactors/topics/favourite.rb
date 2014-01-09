@@ -1,11 +1,8 @@
-require_relative '../../util/mixpanel'
-
 module Interactors
   module Topics
     class Favourite
       include Pavlov::Interactor
       include Util::CanCan
-      include Util::Mixpanel
 
       arguments :user_name, :slug_title
 

@@ -1,11 +1,8 @@
-require_relative '../../util/mixpanel'
-
 module Interactors
   module Users
     class Delete
       include Pavlov::Interactor
       include Util::CanCan
-      include Util::Mixpanel
 
       attribute :user_id, String
       attribute :current_user_password, String
