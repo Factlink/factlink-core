@@ -15,15 +15,18 @@ class FormattedCommentContent
   FACTLINK_PRETTY_URL = %r{#{FactlinkUI::Application.config.core_url}/[a-z0-9\-_]+/f/(?<id>[0-9]+)}i
 
   def urls_to_link_tags text
-    text.gsub(AUTO_LINK_RE) do |href|
-      link_text = href
-      href = 'http://' + href unless Regexp.last_match[:scheme]
+    text.gsub(AUTO_LINK_RE) do |given_url|
+      if Regexp.last_match[:scheme]
+        url = given_url
+      else
+        url = 'http://' + given_url
+      end
 
-      case href
+      case url
       when FACTLINK_PRETTY_URL
         factlink_link_tag Regexp.last_match[:id]
       else
-        content_tag :a, link_text, href: href, target: '_blank'
+        content_tag :a, given_url, href: url, target: '_blank'
       end
     end
   end
