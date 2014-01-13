@@ -28,7 +28,6 @@ FactlinkUI::Application.routes.draw do
     resources :opinionators, only: [:index, :create, :destroy, :update]
 
     member do
-      put     "/opinion"          => "facts#update_opinion",     as: "update_opinion"
       get     "/evidence_search"  => "facts#evidence_search"
       post    "/share"            => "facts#share"
 

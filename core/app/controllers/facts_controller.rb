@@ -11,7 +11,6 @@ class FactsController < ApplicationController
       :update,
       :opinion,
       :evidence_search,
-      :update_opinion,
       :share
       ]
 
@@ -49,20 +48,6 @@ class FactsController < ApplicationController
     authorize! :destroy, @fact
 
     interactor :'facts/destroy', fact_id: @fact.id
-
-    render json: {}
-  end
-
-  def update_opinion
-    authorize! :opinionate, @fact
-
-    if params[:current_user_opinion] == 'no_vote'
-      @fact.remove_opinions(current_user.graph_user)
-    else
-      type = params[:current_user_opinion]
-      @fact.add_opinion(type, current_user.graph_user)
-      Activity.create user: current_user.graph_user, action: type, subject: @fact
-    end
 
     render json: {}
   end
