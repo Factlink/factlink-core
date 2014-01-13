@@ -7,6 +7,7 @@ require 'webmock/rspec'
 require 'rubygems'
 require 'database_cleaner'
 require 'pavlov_helper'
+require 'webmock'
 
 I_AM_SPEC_HELPER = true
 
