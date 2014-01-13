@@ -1,4 +1,5 @@
 if Rails.env == 'development' || Rails.env == 'test'
+  puts "using konacha hack!"
   require 'rspec'
   require 'konacha'
   Konacha.configure do |config|
