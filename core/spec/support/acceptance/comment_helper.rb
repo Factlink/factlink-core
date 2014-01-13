@@ -1,15 +1,9 @@
 module Acceptance
   module CommentHelper
-      def toggle_to_comment
-        return if all('.add-evidence-form .js-switch-to-comment').empty?
+      def open_search_factlink
+        return if all('.js-open-search-facts').empty?
 
-        page.find('.add-evidence-form .js-switch-to-comment').click
-      end
-
-      def toggle_to_factlink
-        return if all('.add-evidence-form .js-switch-to-factlink').empty?
-
-        page.find('.add-evidence-form .js-switch-to-factlink').click
+        page.find('.js-open-search-facts').click
       end
 
       def select_add_type type
@@ -34,7 +28,6 @@ module Acceptance
 
       def add_comment type, comment
         open_add_comment_form
-        toggle_to_comment
 
         within '.add-evidence-form' do
           select_add_type type
@@ -55,15 +48,21 @@ module Acceptance
 
       def add_existing_factlink type, evidence_factlink
         open_add_comment_form
-        toggle_to_factlink
+        open_search_factlink
 
         within '.add-evidence-form' do
           select_add_type type
+
+          #ensure button is enabled, i.e. doesn't say "posting":
+          find('button', 'Post')
 
           text = evidence_factlink.to_s
           page.find("input[type=text]").click
           page.find("input[type=text]").set(text)
           page.find("li", text: text).click
+
+          sleep 0.5 # To allow for the getting bigger CSS animation
+          click_button "Post"
         end
 
         wait_until_last_argument_has_one_vote
