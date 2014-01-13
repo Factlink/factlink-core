@@ -2,8 +2,8 @@ class window.FollowUserButtonView extends ActionButtonView
   className: 'user-follow-user-button'
 
   initialize: ->
-    @listenTo @model, 'click:unchecked', -> @options.user.follow()
-    @listenTo @model, 'click:checked', -> @options.user.unfollow()
+    @listenTo @model, 'click:unchecked', @userFollow
+    @listenTo @model, 'click:checked', @userUnfollow
 
     @listenTo currentUser, 'follow_action', @updateStateModel
     @updateStateModel()
@@ -18,3 +18,11 @@ class window.FollowUserButtonView extends ActionButtonView
 
   updateStateModel: ->
     @model.set 'checked', @options.user.followed_by_me()
+
+  userFollow: ->
+    @options.user.follow()
+    mp_track 'User: Followed'
+
+  userUnfollow: ->
+    @options.user.unfollow()
+    mp_track 'User: Unfollowed'

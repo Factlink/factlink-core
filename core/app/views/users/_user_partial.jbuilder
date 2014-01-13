@@ -1,5 +1,5 @@
 unless user.respond_to?(:statistics) then
-  user = Queries::UsersByIds.new(user_ids: [user.id]).call.first
+  fail "User partial received live user, please put in user as returned by users_by_ids"
 end
 
 json.id                            user.id.to_s

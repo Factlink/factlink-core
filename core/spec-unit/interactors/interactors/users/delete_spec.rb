@@ -155,8 +155,6 @@ describe Interactors::Users::Delete do
                                        current_user_password: '',
                                        pavlov_options: pavlov_options
 
-      expect(interactor).to receive(:mp_track)
-
       Pavlov.should_receive(:command)
         .with(:'users/mark_as_deleted', user: user, pavlov_options: pavlov_options)
         .ordered

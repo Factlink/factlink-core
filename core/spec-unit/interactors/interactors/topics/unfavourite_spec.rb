@@ -61,9 +61,6 @@ describe Interactors::Topics::Unfavourite do
       Pavlov.should_receive(:command)
         .with(:'topics/unfavourite', graph_user_id: user.graph_user_id, topic_id: topic.id.to_s, pavlov_options: pavlov_options)
 
-      interactor.should_receive(:mp_track)
-        .with('Topic: Unfavourited', slug_title: slug_title)
-
       expect(interactor.call).to eq nil
     end
   end
