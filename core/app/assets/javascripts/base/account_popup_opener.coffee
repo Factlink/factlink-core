@@ -14,6 +14,7 @@ $('html').on 'click', '.js-accounts-popup-link', (e) ->
 
 $(document).on 'signed_in', ->
   window.location.reload(true)
+  mp_track 'User: Sign in'
 
 $(document).on 'authorized', (e) ->
   provider_name = e.originalEvent.detail

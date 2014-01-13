@@ -8,7 +8,9 @@
 user ||= @user
 graph_user = user.graph_user
 
-json.partial! 'users/user_partial', user: user
+
+dead_user = Queries::UsersByIds.new(user_ids: [user.id]).call.first
+json.partial! 'users/user_partial', user: dead_user
 
 json.graph_id graph_user.id
 

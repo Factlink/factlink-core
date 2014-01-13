@@ -63,8 +63,6 @@ describe Interactors::Topics::Favourite do
 
       Pavlov.should_receive(:command)
         .with(:'topics/favourite', graph_user_id: user.graph_user_id, topic_id: topic.id.to_s, pavlov_options: pavlov_options)
-      interactor.should_receive(:mp_track)
-        .with('Topic: Favourited', slug_title: slug_title)
 
       expect(interactor.call).to eq nil
     end

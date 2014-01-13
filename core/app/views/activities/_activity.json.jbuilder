@@ -4,7 +4,8 @@ action = activity.action
 created_at = activity.created_at
 user =  activity.user.user
 
-json.user {json.partial! 'users/user_partial', user: user }
+dead_user = Queries::UsersByIds.new(user_ids: [user.id]).call.first
+json.user {json.partial! 'users/user_partial', user: dead_user }
 
 json.action action
 
@@ -39,7 +40,8 @@ json.activity do
   when "followed_user"
     json.target_url user_profile_path(user.username)
     json.followed_user do
-      json.partial! 'users/user_partial', user: subject.user
+      subject_user = Queries::UsersByIds.new(user_ids: [subject.user_id]).call.first
+      json.partial! 'users/user_partial', user: subject_user
     end
   end
 end

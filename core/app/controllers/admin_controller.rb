@@ -13,6 +13,11 @@ class AdminController < ApplicationController
     @info = Rails::Info.to_html
   end
 
+  # GET /a/cause_error
+  def cause_error
+    raise 'This is an intentional error'
+  end
+
   before_filter :set_cache_buster
   def set_cache_buster
      response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"

@@ -11,7 +11,7 @@ require 'capybara/email/rspec'
 require 'capybara-screenshot'
 require 'test_request_syncer'
 require 'poltergeist_style_overrides'
-
+require 'webmock'
 require 'capybara-screenshot/rspec'
 require 'database_cleaner'
 
@@ -62,6 +62,10 @@ RSpec.configure do |config|
 
   Capybara.default_wait_time = 5
   Capybara.server_port = 3005
+
+  if ENV["CIRCLE_ARTIFACTS"]
+    Capybara.save_and_open_page_path = "#{ENV["CIRCLE_ARTIFACTS"]}/capybara_output"
+  end
 
   config.mock_with :rspec
 

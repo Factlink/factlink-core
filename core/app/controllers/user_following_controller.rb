@@ -12,8 +12,6 @@ class UserFollowingController < ApplicationController
     interactor :'users/follow_user',
                user_name: user_name,
                user_to_follow_user_name: following_username
-    mp_track 'User: Followed',
-      followed: following_username
     render json: {}
   end
 
@@ -23,8 +21,6 @@ class UserFollowingController < ApplicationController
     interactor :'users/unfollow_user',
                user_name: user_name,
                user_to_unfollow_user_name: following_username
-    mp_track 'User: Unfollowed',
-      unfollowed: following_username
     render json: {}
   end
 end

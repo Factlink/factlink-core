@@ -16,10 +16,10 @@ class window.ClientController
             fact.getVotes().clickCurrentUserOpinion params.current_user_opinion
 
           @annotatedSiteEnvoy 'highlightNewFactlink', params.displaystring, fact.id
-          FactlinkApp.NotificationCenter.success "Created #{Factlink.Global.t.factlink}."
 
           @_renderDiscussion fact
           Backbone.history.navigate "/client/facts/#{fact.id}", trigger: false
+          mp_track 'Factlink: Created'
     else
       view = new NewFactLoginView model: fact
       view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'

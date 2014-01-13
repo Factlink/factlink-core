@@ -16,7 +16,6 @@ class window.Topic extends Backbone.Model
     else
       ch = @newChannelForUser(user)
       user.channels.add(ch)
-      console.info "saving channel #{ch.get 'title'} to #{ch.url()}"
       ch.save {},
         success: (m,r)-> options.success?(m,r)
         error:   (m,r)->

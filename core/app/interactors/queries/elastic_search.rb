@@ -75,8 +75,7 @@ module Queries
       when 'topic'
         query :'topics/by_id_with_statistics', id: id
       when 'user'
-        mongoid_user = User.find(id)
-        KillObject.user mongoid_user
+        query(:'users_by_ids', user_ids: [id]).first
       when 'test_class'
         TestClass.new(id)
       else
