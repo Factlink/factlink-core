@@ -100,6 +100,7 @@ class FactlinkJailRoot.ShowButton extends Button
   _textContainer: ($el) ->
     for el in $el.parents()
       return el if $(el).css('display') == 'block'
+    console.error 'FactlinkJailRoot: No text container found for ', $el
 
   _updatePosition: ->
     top = @$nearEl.offset().top + @$nearEl.outerHeight()/2 - @frame.$el.outerHeight()/2
