@@ -19,7 +19,7 @@ class window.AutoCompleteFactsView extends AutoCompleteSearchView
         fact_id: @options.fact_id
         recent_collection: @_recent_collection
       filtered_search_collection: new FilteredFactSearchResults
-      placeholder: 'Search...'
+      placeholder: 'Search discussion link to insert...'
 
     @listenTo @model, 'change', @queryChanges
 
