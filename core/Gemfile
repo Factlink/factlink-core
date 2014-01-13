@@ -119,7 +119,7 @@ end
 group :test do
   # we allow tests to upgrade everything but major
   gem 'rspec-rails', '~> 2.13'
-  gem 'webmock'
+  gem 'webmock', require:false
   gem 'factory_girl_rails', '~> 4.2'
   gem 'database_cleaner', '~> 1.0'
 
