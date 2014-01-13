@@ -59,8 +59,11 @@ class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
     textBefore = currentText.substring(0, cursorPos)
     textAfter = currentText.substring(cursorPos, currentText.length)
 
+    spaceBefore = if /\S$/.test(textBefore) then ' ' else ''
+    spaceAfter = if /^\S/.test(textAfter) then ' ' else ''
+
     @_initAutosize()
-    @model.set 'text', textBefore + text + textAfter
+    @model.set 'text', textBefore + spaceBefore + text + spaceAfter + textAfter
     @focusInput()
 
   _onClick: ->
