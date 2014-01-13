@@ -216,6 +216,8 @@ module ScreenshotTest
   end
 
   def assume_unchanged_screenshot(title)
+    puts "save-path: #{Capybara.save_and_open_page_path}"
+    puts "artifact-path: #{ENV["CIRCLE_ARTIFACTS"]}"
     shot = Screenshot.new page, title
     shot.take
     t0 = Time.now
