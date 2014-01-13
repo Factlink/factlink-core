@@ -18,19 +18,12 @@ module Interactors
 
       def reindex
         seed_fact_data
-        seed_topics
         seed_users
       end
 
       def seed_fact_data
         FactData.all.each do |fact_data|
           Resque.enqueue(CreateSearchIndexForFactData, fact_data.id)
-        end
-      end
-
-      def seed_topics
-        Topic.all.each do |topic|
-          Resque.enqueue(CreateSearchIndexForTopics, topic.id)
         end
       end
 

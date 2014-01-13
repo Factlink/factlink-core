@@ -1,4 +1,6 @@
 #!/bin/bash
+exit 0 #temporarily disable this during the CircleCI transition
+
 
 if [ $# -ne 4 ]; then
   echo 'Set the github build status for a commit (this includes the commit'\''s pull request)'.
