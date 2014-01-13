@@ -42,4 +42,9 @@ FactlinkUI::Application.configure do
   config.assets.debug = false
 
   config.roadie.enabled = false
+
+  if ENV["CIRCLE_ARTIFACTS"]
+    Capybara.save_and_open_page_path = "#{ENV["CIRCLE_ARTIFACTS"]}/capybara_output"
+  end
+
 end
