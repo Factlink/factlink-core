@@ -3,6 +3,7 @@
     "displaystring": "Fact 3",
     "id": "<id>",
     "url": "/fact-3/f/3",
+    "friendly_fact_url": "http://localhost:3000/fact-3/f/3",
     "sharing_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&open_id=3",
     "created_by": {
       "id": "<id>",
@@ -29,6 +30,7 @@
     "displaystring": "Fact 2",
     "id": "<id>",
     "url": "/fact-2/f/2",
+    "friendly_fact_url": "http://localhost:3000/fact-2/f/2",
     "sharing_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&open_id=2",
     "created_by": {
       "id": "<id>",
@@ -55,6 +57,7 @@
     "displaystring": "Fact 1",
     "id": "<id>",
     "url": "/fact-1/f/1",
+    "friendly_fact_url": "http://localhost:3000/fact-1/f/1",
     "sharing_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&open_id=1",
     "created_by": {
       "id": "<id>",
