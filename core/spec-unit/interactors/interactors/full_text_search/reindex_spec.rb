@@ -61,24 +61,6 @@ describe Interactors::FullTextSearch::Reindex do
       interactor.seed_fact_data
     end
 
-    it '.seed_channels' do
-      stub_classes 'Topic'
-      stub_classes 'CreateSearchIndexForTopics'
-
-      topic1 = double(id: '33cc')
-      topic2 = double(id: '44dd')
-      topics = [topic1, topic2]
-
-      Topic.should_receive(:all).and_return(topics)
-
-      topics.each do |topic|
-        Resque.should_receive(:enqueue).with(CreateSearchIndexForTopics, topic.id)
-      end
-
-      interactor = Interactors::FullTextSearch::Reindex.new
-      interactor.seed_topics
-    end
-
     it '.seed_users' do
       stub_classes 'User'
       stub_classes 'CreateSearchIndexForUser'
