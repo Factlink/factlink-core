@@ -28,10 +28,11 @@ class HighlightInteraction
     @highlighter = new Highlighter $elements, 'fl-active'
 
     @show_button = new FactlinkJailRoot.ShowButton
-      mouseenter: @_onHover
-      mouseleave: @_onUnhover
-      click:      @_onClick
-    @show_button.placeNearElement elements[0]
+      el: elements[0]
+      callbacks:
+        mouseenter: @_onHover
+        mouseleave: @_onUnhover
+        click:      @_onClick
 
     $elements.on 'click', @_onClick
     $elements.on 'mouseenter', @_onHover

@@ -19,11 +19,12 @@ class RobustHover
     @_callbacks.mouseleave?()
 
 class Button
-  constructor: (callbacks={}) ->
+  constructor: ->
     @frame = new FactlinkJailRoot.ControlIframe()
     @frame.setContent($.parseHTML(@content.trim())[0])
     @$el = $(@frame.frameBody.firstChild)
 
+  _bindCallbacks: (callbacks={}) ->
     @_robustHover = new RobustHover @$el, callbacks
     @$el.on 'click', -> callbacks.click?()
 
@@ -80,25 +81,25 @@ class FactlinkJailRoot.ShowButton extends Button
     </div>
   """
 
-  constructor: (callbacks) ->
+  constructor: (options) ->
     super
 
-    # remove when removing client_buttons feature toggle
-    unless FactlinkJailRoot.can_haz.client_buttons
-      @$el.addClass 'fl-button-hide-default'
+    @_bindCallbacks options.callbacks
 
-
-  _textContainer: ($el) ->
-    for el in $el.parents()
-      return el if $(el).css('display') == 'block'
-
-  placeNearElement: (el) ->
-    @$nearEl = $(el)
+    @$nearEl = $(options.el)
     @_fadeIn()
     @_updatePosition()
 
     $(window).on 'resize', => @_updatePosition()
     setInterval (=> @_updatePosition()), 1000
+
+    # remove when removing client_buttons feature toggle
+    unless FactlinkJailRoot.can_haz.client_buttons
+      @$el.addClass 'fl-button-hide-default'
+
+  _textContainer: ($el) ->
+    for el in $el.parents()
+      return el if $(el).css('display') == 'block'
 
   _updatePosition: ->
     top = @$nearEl.offset().top + @$nearEl.outerHeight()/2 - @frame.$el.outerHeight()/2
@@ -132,6 +133,8 @@ class FactlinkJailRoot.CreateButton extends Button
 
   constructor: ->
     super
+
+    @_bindCallbacks
       mouseenter: => @startHovering()
       mouseleave: => @stopHovering()
 
