@@ -63,6 +63,12 @@ RSpec.configure do |config|
   Capybara.default_wait_time = 5
   Capybara.server_port = 3005
 
+  if ENV["CIRCLE_ARTIFACTS"]
+    Capybara.save_and_open_page_path = "#{ENV["CIRCLE_ARTIFACTS"]}/capybara_output"
+  end
+  puts "!!!save-path: #{Capybara.save_and_open_page_path}"
+  puts "!!!artifact-path: #{ENV["CIRCLE_ARTIFACTS"]}"
+
   config.mock_with :rspec
 
   config.include Acceptance
