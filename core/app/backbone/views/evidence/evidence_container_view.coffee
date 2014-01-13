@@ -27,8 +27,8 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     formRegion: '.js-form-region'
 
   initialize: ->
-    @_factVotes = @collection.fact.getFactTally()
-    @listenTo @_factVotes, 'change:current_user_opinion', @_updateForm
+    @_factVotes = @collection.fact.getVotes()
+    @listenTo @_factVotes, 'change reset add remove', @_updateForm
 
   onRender: ->
     @_addEvidenceFormView = new AddEvidenceFormView collection: @collection
@@ -42,7 +42,7 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     @ui.loading.toggle @collection.loading()
 
   _updateForm: ->
-    showForm = @_factVotes.get('current_user_opinion') != 'no_vote'
+    showForm = @_factVotes.opinion_for(currentUser) != 'no_vote'
 
     @ui.opinionHelpRegion.toggle !showForm
     @ui.formRegion.toggle showForm
