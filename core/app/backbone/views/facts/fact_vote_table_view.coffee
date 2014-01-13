@@ -28,11 +28,12 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
 
   initialize: ->
     @_tally = @model.getFactTally()
-    @listenTo @_tally, 'change:current_user_opinion', @_updateActiveCell
     @listenTo @_tally, 'sync', -> @collection.fetch()
 
     @collection = @model.getVotes()
     @collection.fetch()
+    @listenTo @collection, 'reset add remove change', @_updateActiveCell, @
+
 
   appendHtml: (collectionView, itemView, index) ->
     @typeRegionForVote(itemView.model).append itemView.el
@@ -47,6 +48,6 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
     @_updateActiveCell()
 
   _updateActiveCell: ->
-    opinion = @_tally.get('current_user_opinion')
+    opinion = @collection.opinion_for(currentUser)
     @$('.fact-vote-table-cell-active').removeClass 'fact-vote-table-cell-active'
     @$(".js-cell-#{opinion}").addClass 'fact-vote-table-cell-active'

@@ -1,5 +1,6 @@
 [
   {
+    "username": "johndoe1",
     "user": {
       "id": "<id>",
       "name": "John1 Doe1",
@@ -12,6 +13,7 @@
     "type": "believes"
   },
   {
+    "username": "johndoe2",
     "user": {
       "id": "<id>",
       "name": "John2 Doe2",
@@ -24,6 +26,7 @@
     "type": "disbelieves"
   },
   {
+    "username": "johndoe3",
     "user": {
       "id": "<id>",
       "name": "John3 Doe3",
