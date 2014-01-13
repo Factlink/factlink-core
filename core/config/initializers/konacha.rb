@@ -1,4 +1,4 @@
-puts "DEBUG line for CircleCI testing"
+puts "DEBUG line for CircleCI: #{Rails.env}"
 if defined?(Konacha)
   require 'rspec'
   Konacha.configure do |config|
