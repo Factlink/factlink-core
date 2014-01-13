@@ -1,5 +1,4 @@
 if Rails.env == 'development' || Rails.env == 'test'
-  puts "using konacha hack!"
   require 'rspec'
   require 'konacha'
   Konacha.configure do |config|
@@ -13,7 +12,6 @@ if Rails.env == 'development' || Rails.env == 'test'
     class Runner
       thin_runner = Module.new do
         def run
-          puts 'running konacha server'
           Capybara.server do |app, port|
             require 'rack/handler/thin'
             puts "@@@@@@@@@@@@@@@@@@@@@@@ MANUAL WORKAROUND FOR"
