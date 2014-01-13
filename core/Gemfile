@@ -65,7 +65,7 @@ gem 'roadie', '~> 2.3.4'
 gem 'rack-xframe-options', github: 'Factlink/rack-xframe-options'
 gem 'rack-rewrite', '~> 1.3.3'
 
-group :production do
+group :production, :development do
   gem 'newrelic_moped', '~> 0.0.6'
   gem 'newrelic-redis', '~> 1.4.0'
   gem 'newrelic_rpm', '~> 3.6.2'
@@ -119,7 +119,7 @@ end
 group :test do
   # we allow tests to upgrade everything but major
   gem 'rspec-rails', '~> 2.13'
-  gem 'webmock'
+  gem 'webmock', require:false
   gem 'factory_girl_rails', '~> 4.2'
   gem 'database_cleaner', '~> 1.0'
 
