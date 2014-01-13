@@ -16,9 +16,6 @@ end
 json.created_at dead_fact.created_at
 
 json.fact_title dead_fact.title
-json.tally do |j|
-  j.partial! 'believable/votes', votes: dead_fact.votes
-end
 
 if dead_fact.site_url
   json.fact_url dead_fact.site_url
