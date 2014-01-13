@@ -29,7 +29,6 @@ describe Interactors::FullTextSearch::Reindex do
     interactor = Interactors::FullTextSearch::Reindex.new
 
     interactor.should_receive(:seed_fact_data)
-    interactor.should_receive(:seed_topics)
     interactor.should_receive(:seed_users)
 
     interactor.reindex
