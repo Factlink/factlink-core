@@ -8,17 +8,17 @@ class window.Votes extends Backbone.Factlink.Collection
     "/facts/#{@_fact_id}/opinionators"
 
   opinion_for: (user) ->
-    vote = @vote_for(user)
+    vote = @_vote_for(user)
     if vote
       vote.get('type')
     else
       'no_vote'
 
-  vote_for: (user) ->
+  _vote_for: (user) ->
     @find((vote) -> vote.get('username') == user.get('username'))
 
   clickCurrentUserOpinion: (type) ->
-    current_vote = @vote_for(currentUser)
+    current_vote = @_vote_for(currentUser)
     if current_vote
       if current_vote.get('type') == type
         current_vote.destroy()
