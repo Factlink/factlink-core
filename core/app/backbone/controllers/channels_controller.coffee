@@ -15,6 +15,7 @@ class window.ChannelsController extends Backbone.Marionette.Controller
     FactlinkApp.mainRegion.show new FeedActivitiesView
       collection: new FeedActivities
 
+    mp_track 'Viewed feed'
 
   showFact: (slug, fact_id, params={})->
     fact = new Fact id: fact_id
