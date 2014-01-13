@@ -97,16 +97,9 @@ class FactlinkJailRoot.ShowButton extends Button
     unless FactlinkJailRoot.can_haz.client_buttons
       @$el.addClass 'fl-button-hide-default'
 
-  _isDisplayBlock: (el) ->
-    # For some reason jQuery in FF sometimes returns "undefined"
-    # Seems to be this one: https://stackoverflow.com/questions/14466604/jquery-returning-undefined-css-display
-    displayValue = $(el).css('display') || window.getComputedStyle(el).display
-
-    displayValue == 'block'
-
   _textContainer: ($el) ->
     for el in $el.parents()
-      return el if @_isDisplayBlock(el)
+      return el if window.getComputedStyle(el).display == 'block'
     console.error 'FactlinkJailRoot: No text container found for ', $el
 
   _updatePosition: ->
