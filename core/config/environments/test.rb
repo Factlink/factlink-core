@@ -42,5 +42,4 @@ FactlinkUI::Application.configure do
   config.assets.debug = false
 
   config.roadie.enabled = false
-
 end
