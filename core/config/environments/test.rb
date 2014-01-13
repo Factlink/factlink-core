@@ -46,5 +46,7 @@ FactlinkUI::Application.configure do
   if ENV["CIRCLE_ARTIFACTS"]
     Capybara.save_and_open_page_path = "#{ENV["CIRCLE_ARTIFACTS"]}/capybara_output"
   end
+  puts "save-path: #{Capybara.save_and_open_page_path}"
+  puts "artifact-path: #{ENV["CIRCLE_ARTIFACTS"]}"
 
 end
