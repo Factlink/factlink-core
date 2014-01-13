@@ -1,6 +1,6 @@
-puts "DEBUG line for CircleCI: #{Rails.env}"
-if defined?(Konacha)
+if Rails.env == 'development' || Rails.env == 'test'
   require 'rspec'
+  require 'konacha'
   Konacha.configure do |config|
     config.spec_dir     = "spec/javascripts"
     config.spec_matcher = /_spec\./
