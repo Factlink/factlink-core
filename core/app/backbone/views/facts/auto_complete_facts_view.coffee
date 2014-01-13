@@ -30,7 +30,7 @@ class window.AutoCompleteFactsView extends AutoCompleteSearchView
     selected_fact = @_search_list_view.currentActiveModel()
     return unless selected_fact?
 
-    @trigger 'insert', selected_fact.get('url')
+    @trigger 'insert', selected_fact.get('friendly_fact_url')
 
   reset: ->
     @model.set text: ''

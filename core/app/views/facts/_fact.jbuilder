@@ -5,9 +5,9 @@ dead_fact_creator_graph_user = Struct.new(:id).new(fact.created_by_id)
 json.displaystring dead_fact.displaystring
 json.id dead_fact.id
 
-json.url friendly_fact_path(dead_fact)
-
-json.sharing_url ::FactUrl.new(dead_fact).sharing_url
+json.url dead_fact.url.friendly_fact_path
+json.friendly_fact_url dead_fact.url.friendly_fact_url
+json.sharing_url dead_fact.url.sharing_url
 
 json.created_by do |j|
   json.partial! 'users/user_partial', user: dead_fact_creator
