@@ -24,7 +24,7 @@ class Button
     @frame.setContent($.parseHTML(@content.trim())[0])
     @$el = $(@frame.frameBody.firstChild)
 
-  _bindCallbacks: (callbacks={}) ->
+  _bindCallbacks: (callbacks) ->
     @_robustHover = new RobustHover @$el, callbacks
     @$el.on 'click', -> callbacks.click?()
 
