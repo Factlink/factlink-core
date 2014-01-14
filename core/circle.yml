@@ -3,7 +3,7 @@ machine:
     - elasticsearch
 test:
   override:
-    - bundle exec rspec spec-unit --profile
+    - rspec spec-unit --profile
     - bundle exec rspec spec --profile
     - bundle exec rake konacha:load_poltergeist konacha:run
     - bundle exec rspec spec/acceptance --profile
