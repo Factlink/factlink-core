@@ -6,8 +6,9 @@ development:
 
 test:
     core:
-        hostname: localhost
-        port: 3000
+        # Match urls used by Rails/Capybara
+        hostname: 127.0.0.1
+        port: 3005
         protocol: http://
 
 testserver:

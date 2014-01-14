@@ -90,9 +90,6 @@ feature "adding comments to a fact", type: :feature do
     add_existing_factlink :believes, factlink2
     add_comment :doubts, comment3
 
-    # make sure sorting is done:
-    sleep 1
-
     vote_comment :down, comment1
     vote_comment :up  , comment3
 

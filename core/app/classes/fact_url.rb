@@ -1,6 +1,3 @@
-require 'pavlov'
-require 'cgi'
-
 class FactUrl
 
   def initialize fact
@@ -12,7 +9,7 @@ class FactUrl
   end
 
   def friendly_fact_path
-    "/#{slug}/f/#{@fact.id}"
+    "/f/#{@fact.id}"
   end
 
   def friendly_fact_url
@@ -36,7 +33,7 @@ class FactUrl
   def sharing_url
     # Return example.org if testing sharing locally, as Facebook doesn't like our
     # url with port number and such
-    return "http://example.org/#{slug}" if ENV['RAILS_ENV'] == 'development'
+    return "http://example.org" if ENV['RAILS_ENV'] == 'development'
 
     proxy_open_url || friendly_fact_url
   end
@@ -53,11 +50,6 @@ class FactUrl
 
   def proxy_url
     FactlinkUI::Application.config.proxy_url
-  end
-
-  def slug
-    max_slug_length = 1024
-    @fact.to_s.parameterize[0, max_slug_length]
   end
 
 end

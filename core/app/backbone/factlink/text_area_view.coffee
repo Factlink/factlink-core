@@ -12,6 +12,7 @@ class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
     'keydown textarea': '_parseKeyDown'
     'keyup textarea': 'updateModel'
     'input textarea': 'updateModel'
+    'click textarea': '_onClick'
 
   triggers:
     'focus textarea': 'focus'
@@ -51,3 +52,21 @@ class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
       @trigger 'return'
       e.preventDefault()
       e.stopPropagation()
+
+  insert: (text) ->
+    cursorPos = @ui.inputField.prop('selectionStart')
+    currentText = @model.get('text')
+    textBefore = currentText.substring(0, cursorPos)
+    textAfter = currentText.substring(cursorPos, currentText.length)
+
+    if /\S$/.test(textBefore)
+      text = ' ' + text
+    if /^\S/.test(textAfter)
+      text += ' '
+
+    @_initAutosize()
+    @model.set 'text', textBefore + text + textAfter
+    @focusInput()
+
+  _onClick: ->
+    @_initAutosize() if @model.get('text')

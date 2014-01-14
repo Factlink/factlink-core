@@ -1,15 +1,9 @@
 module Acceptance
   module CommentHelper
-      def toggle_to_comment
-        return if all('.add-evidence-form .js-switch-to-comment').empty?
+      def open_search_factlink
+        return if all('.js-open-search-facts-link').empty?
 
-        page.find('.add-evidence-form .js-switch-to-comment').click
-      end
-
-      def toggle_to_factlink
-        return if all('.add-evidence-form .js-switch-to-factlink').empty?
-
-        page.find('.add-evidence-form .js-switch-to-factlink').click
+        page.find('.js-open-search-facts-link').click
       end
 
       def select_add_type type
@@ -34,45 +28,49 @@ module Acceptance
 
       def add_comment type, comment
         open_add_comment_form
-        toggle_to_comment
 
         within '.add-evidence-form' do
           select_add_type type
 
-          comment_input = find('.text_area_view')
-
-          comment_input.click
           #ensure button is enabled, i.e. doesn't say "posting":
           find('button', 'Post')
+
+          comment_input = find('.text_area_view')
+          comment_input.value.should eq ''
+          comment_input.click
           comment_input.set comment
           comment_input.value.should eq comment
-          sleep 0.5 # To allow for the getting bigger CSS animation
+
           click_button "Post"
         end
 
-        wait_until_last_argument_has_one_vote
+        wait_until_argument_has_one_vote comment
       end
 
       def add_existing_factlink type, evidence_factlink
         open_add_comment_form
-        toggle_to_factlink
+        open_search_factlink
+
+        text = evidence_factlink.to_s
 
         within '.add-evidence-form' do
           select_add_type type
 
-          text = evidence_factlink.to_s
+          #ensure button is enabled, i.e. doesn't say "posting":
+          find('button', 'Post')
+
           page.find("input[type=text]").click
           page.find("input[type=text]").set(text)
           page.find("li", text: text).click
+
+          click_button "Post"
         end
 
-        wait_until_last_argument_has_one_vote
+        wait_until_argument_has_one_vote text
       end
 
-      def wait_until_last_argument_has_one_vote
-        within '.evidence-argument:last-child' do
-          page.find('.spec-evidence-relevance', text: 1)
-        end
+      def wait_until_argument_has_one_vote text
+        page.find('.evidence-argument', text: text).find('.spec-evidence-relevance', text: 1)
       end
 
       def add_sub_comment(comment)

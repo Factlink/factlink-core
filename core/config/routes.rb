@@ -64,7 +64,8 @@ FactlinkUI::Application.routes.draw do
 
   resources :feedback # TODO: RESTRICT
 
-  get "/:fact_slug/f/:id" => "facts#discussion_page"
+  get "/:fact_slug/f/:id" => "facts#discussion_page_redirect"
+  get "/f/:id" => "facts#discussion_page"
 
   # Search
   get "/search" => "search#search", as: "search"
@@ -134,8 +135,6 @@ FactlinkUI::Application.routes.draw do
 
           scope "/:fact_id" do
             delete "/" => "channels#remove_fact",  as: "remove_fact_from"
-
-            get "/evidence_search" => "facts#evidence_search"
           end
         end
       end

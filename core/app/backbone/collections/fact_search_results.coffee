@@ -1,6 +1,6 @@
 #= require ./search_collection
 
-class window.FactRelationSearchResults extends SearchCollection
+class window.FactSearchResults extends SearchCollection
   model: Fact
 
   initialize: (model, options) ->
@@ -12,5 +12,5 @@ class window.FactRelationSearchResults extends SearchCollection
 
   emptyState: -> @recent_collection.models
 
-class window.FilteredFactRelationSearchResults extends Backbone.Collection
+class window.FilteredFactSearchResults extends Backbone.Collection
   model: Fact

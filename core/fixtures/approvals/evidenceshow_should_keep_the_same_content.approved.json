@@ -5,14 +5,14 @@
     "doubts": 0,
     "current_user_opinion": "believes"
   },
-  "url": "/fact-2/f/2",
+  "url": "/f/2",
   "is_deletable": true,
   "id": "<id>",
   "type": "believes",
   "from_fact": {
     "displaystring": "Fact 2",
     "id": "<id>",
-    "url": "/fact-2/f/2",
+    "url": "/f/2",
     "sharing_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&open_id=2",
     "created_by": {
       "id": "<id>",

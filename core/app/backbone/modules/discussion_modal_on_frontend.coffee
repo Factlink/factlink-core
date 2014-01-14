@@ -16,7 +16,7 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, Fact
   discussionModalContainer = null
 
   # keep url in sync with ChannelsRouter
-  showFactRegex = Backbone.Router::_routeToRegExp ':slug/f/:fact_id'
+  showFactRegex = Backbone.Router::_routeToRegExp 'f/:fact_id'
 
   openingModalPage = (fragment) ->
     showFactRegex.test(fragment)
