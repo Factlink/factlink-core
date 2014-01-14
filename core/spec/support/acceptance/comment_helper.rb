@@ -41,17 +41,17 @@ module Acceptance
           comment_input.set comment
           comment_input.value.should eq comment
 
-          sleep 0.5 # To allow for the getting bigger CSS animation
           click_button "Post"
         end
 
-        wait_until_last_argument_has_one_vote
-        sleep 0.5 # To allow for the getting smaller CSS animation
+        wait_until_argument_has_one_vote comment
       end
 
       def add_existing_factlink type, evidence_factlink
         open_add_comment_form
         open_search_factlink
+
+        text = evidence_factlink.to_s
 
         within '.add-evidence-form' do
           select_add_type type
@@ -59,23 +59,21 @@ module Acceptance
           #ensure button is enabled, i.e. doesn't say "posting":
           find('button', 'Post')
 
-          text = evidence_factlink.to_s
           page.find("input[type=text]").click
           page.find("input[type=text]").set(text)
           page.find("li", text: text).click
 
-          sleep 0.5 # To allow for the getting bigger CSS animation
+          fact_url = FactUrl.new(evidence_factlink)
+          find('.text_area_view').value.should eq fact_url.friendly_fact_url
+
           click_button "Post"
         end
 
-        wait_until_last_argument_has_one_vote
-        sleep 0.5 # To allow for the getting smaller CSS animation
+        wait_until_argument_has_one_vote text
       end
 
-      def wait_until_last_argument_has_one_vote
-        within '.evidence-argument:last-child' do
-          page.find('.spec-evidence-relevance', text: 1)
-        end
+      def wait_until_argument_has_one_vote text
+        page.find('.evidence-argument', text: text).find('.spec-evidence-relevance', text: 1)
       end
 
       def add_sub_comment(comment)
