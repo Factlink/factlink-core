@@ -20,7 +20,7 @@ class ScreenshotUpdater
 
   def circle_token_query
     "?circle-token=#{circle_token}"
-   end
+  end
 
   def circle_token
     @circle_token ||= begin
@@ -36,7 +36,7 @@ class ScreenshotUpdater
 
   def current_git_branch
     `git symbolic-ref HEAD`.sub(/^refs\/heads\//,'').strip
-   end
+  end
 
   # HTTP helpers:
   def get_json(uri)
