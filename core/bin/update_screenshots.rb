@@ -17,6 +17,14 @@ class ScreenshotUpdater
     local_repo_path + '/spec/screenshots/screenshots/'
   end
 
+  def get_latest_build_num
+    recent_builds = get_recent_builds
+    raise "No branch #{current_git_branch} found." unless recent_builds && recent_builds[0]
+    build_info = recent_builds[0]
+    raise "No recent build for branch #{current_git_branch}." unless build_info
+    build_info['build_num']
+  end
+
   def get_recent_builds
     get_json(ci_current_branch_builds_uri)
   end
