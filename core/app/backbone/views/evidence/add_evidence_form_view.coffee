@@ -65,8 +65,8 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       else
         ''
 
-  _openSearchFactsLink: ->
-    @ui.openSearchFacts.hide()
+  _openSearchFacts: ->
+    @ui.openSearchFactsLink.hide()
 
     auto_complete_facts_view = new AutoCompleteFactsView
       collection: new Backbone.Collection
