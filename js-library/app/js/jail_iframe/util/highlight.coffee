@@ -77,7 +77,11 @@ FactlinkJailRoot.highlightFact = (text, id) ->
   for range in ranges
     normalizedRange = new FactlinkJailRoot.Range.BrowserRange(range).normalize()
     elements = highlightRange(normalizedRange, id)
-    FactlinkJailRoot.highlightsByFactIds[id].push new FactlinkJailRoot.Highlight(id, elements)
+
+    if elements.length > 0
+      FactlinkJailRoot.highlightsByFactIds[id].push new FactlinkJailRoot.Highlight(id, elements)
+    else
+      console.error "Could not highlight, empty factlink or complete overlap? Text: <#{text}>"
 
 highlightFacts = (facts_data) ->
   # If there are multiple matches on the page, loop through them all
