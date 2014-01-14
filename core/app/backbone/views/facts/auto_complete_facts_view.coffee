@@ -38,4 +38,4 @@ class window.AutoCompleteFactsView extends AutoCompleteSearchView
   queryChanges: ->
     unless @query_has_changed
       @query_has_changed = true
-      mp_track "Evidence: Started searching"
+      mp_track "Evidence: Started searching for insertable discussion"
