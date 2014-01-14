@@ -7,6 +7,12 @@ class ScreenshotUpdater
   #Uses https://circleci.com/docs/api
   CIRCLE_BASE_URI = "https://circleci.com/api/v1/project/Factlink/core/"
 
+  def run
+    system "cd #{local_screenshot_path}"
+    get_lastest_screenshot_uris.each do |screenshot_uri|
+      system "curl -O #{screenshot_uri}"
+    end
+  end
 
   def local_screenshot_path
     local_repo_path + '/spec/screenshots/screenshots/'
@@ -90,3 +96,5 @@ class ScreenshotUpdater
   end
 end
 
+
+ScreenshotUpdater.new.run
