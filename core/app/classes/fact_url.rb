@@ -1,6 +1,3 @@
-require 'pavlov'
-require 'cgi'
-
 class FactUrl
 
   def initialize fact

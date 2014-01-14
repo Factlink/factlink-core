@@ -1,4 +1,6 @@
 require_relative '../../app/classes/fact_url'
+require 'cgi'
+require 'uri'
 
 describe FactUrl do
 
