@@ -18,6 +18,10 @@ class ScreenshotUpdater
   end
 
 
+  def ci_current_branch_builds_uri
+    URI.parse("#{CIRCLE_BASE_URI}tree/#{URI.escape(current_git_branch)}#{circle_token_query}")
+  end
+
   def circle_token_query
     "?circle-token=#{circle_token}"
   end
