@@ -35,5 +35,21 @@ class ScreenshotUpdater
 
   #URI.parse('https://circleci.com/api/v1/project/:username/:project/:build_num/artifacts?circle-token=:token
 
+  def make_http_request(uri, requestClass)
+    while true
+      request = requestClass.new uri
+      response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
+        http.request request
+      end
+      if %w(301 302).include? response.code
+        uri = URI.parse(response['location'])
+      elsif response.code == '200'
+        break
+      else
+        raise "Failed to request #{uri}; response code #{response.code}"
+      end
+    end
+    response.body
+  end
 end
 
