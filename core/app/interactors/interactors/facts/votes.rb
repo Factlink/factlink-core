@@ -13,8 +13,12 @@ module Interactors
       end
 
       def votes_for type
-        query(:'facts/opinionators', fact_id: fact_id, type: type)
+        query(:'facts/opinionators', fact: fact, type: type)
           .map { |user| { user: user, type: type } }
+      end
+
+      def fact
+        @fact ||= query(:'facts/get', id: fact_id.to_s)
       end
 
       def authorized?
