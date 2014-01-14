@@ -33,7 +33,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     find('.spec-evidence-relevance', text: "1") # wait until request has finished
 
-    find('.evidence-argument span', text: weakening_factlink.to_s).click
+    find('.evidence-argument a', text: weakening_factlink.to_s).click
 
     find('.top-fact-text', text: weakening_factlink.to_s)
   end
@@ -49,7 +49,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     go_to_fact_show_of factlink
 
-    find('.evidence-argument span', text: neutral_factlink.to_s).click
+    find('.evidence-argument a', text: neutral_factlink.to_s).click
 
     find('.top-fact-text', text: neutral_factlink.to_s)
   end
