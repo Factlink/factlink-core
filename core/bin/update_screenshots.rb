@@ -29,8 +29,8 @@ class ScreenshotUpdater
     end
   end
 
-  def ci_projects_uri
-    @ci_projects_uri ||= URI.parse("https://circleci.com/api/v1/projects?circle-token=#{ci_token}")
+  def circle_token_query
+    "?circle-token=#{circle_token}"
   end
 
   #https://circleci.com/docs/api#build-artifacts
