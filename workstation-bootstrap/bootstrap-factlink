@@ -17,14 +17,12 @@ fi
 function cloneRepo {
   if [ ! -d "$1/.git" ]; then
     echo "cloning factlink $1 repo"
-      git clone "git@github.com:Factlink/$1.git"
+    git clone "git@github.com:Factlink/$1.git"
   else
-    echo "$1 repo already present"
+    echo "$1 repo already present; only fetching"
   fi
   pushd $1
-  git checkout master
-  #ignore failing to checkout develop - not all repos have that branch.
-  git checkout develop || :
+    git feetch
   popd
 }
 
@@ -65,67 +63,33 @@ fi
 
 rbenv shell "${RUBY_VERSION}"
 
-
 gem install bundler foreman git-up
 rbenv rehash || :
 rbenv shell --unset
 
-echo 'Setting up web-proxy...'
-cd web-proxy
-  git flow init -d
-  npm install
-cd ..
+pushd web-proxy
+  bin/bootstrap
+popd
 
-echo 'Setting up chrome-extension...'
-cd chrome-extension
-  #TODO: npm install should be in package.json
-  npm install yaml
-  git flow init -d
-  bin/release_repo 1
-cd ..
+pushd chrome-extension
+  bin/bootstrap
+popd
 
-echo 'Setting up firefox-extension...'
-cd firefox-extension
-  git flow init -d
-cd ..
+pushd firefox-extension
+  bin/bootstrap
+popd
 
-echo 'Setting up js-library...'
-cd js-library
-  git flow init -d
-  npm install
-  grunt
-cd ..
+pushd js-library
+  bin/bootstrap
+popd
 
-echo 'Setting up chef-repo...'
-cd chef-repo
+# pushd chef-repo
 # RSO broke the chef-repo bootstrap script, so this is currently disabled.
 #  ./script/bootstrap
-cd ..
+# popd
 
-
-echo 'Setting up core...'
-cd core
-  git flow init -d
-  bundle install
-  mkdir -p log
-  cd log
-    touch development.log
-    touch production.log
-    touch testserver.log
-  cd ..
-
-  foreman start -f ProcfileServers &
-  FOREMAN_PID=$!
-  sleep 3
-  bundle exec rake db:truncate
-  bundle exec rake db:init
-  kill ${FOREMAN_PID}
-  wait
-
-  # Bootstrap script should be run with current working directory in core
-  #note that core's bootstrap script essentially just verifies that things that
-  #setup_env.sh should do were done, so calling it from here only really
-  #checkts that there's no mistakes in this script.
+pushd core
   bin/bootstrap
-cd ..
+popd
+
 echo "Your factlink development environment is done.  Happy hacking!"
