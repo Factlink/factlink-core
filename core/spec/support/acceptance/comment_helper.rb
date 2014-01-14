@@ -63,9 +63,6 @@ module Acceptance
           page.find("input[type=text]").set(text)
           page.find("li", text: text).click
 
-          fact_url = FactUrl.new(evidence_factlink)
-          find('.text_area_view').value.should eq fact_url.friendly_fact_url
-
           click_button "Post"
         end
 
