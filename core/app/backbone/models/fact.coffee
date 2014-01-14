@@ -21,9 +21,6 @@ class window.Fact extends Backbone.Model
         @get("containing_channel_ids").push channel.id
         opts.success?()
 
-  getFactTally: ->
-    @_fact_tally ?= new FactTally @get("tally"), fact: this
-
   getVotes: ->
     @_votes ?= new Votes [], fact: @
 

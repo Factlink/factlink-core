@@ -25,12 +25,6 @@
     },
     "created_at": "<created_at>",
     "fact_title": "Fact title 2",
-    "tally": {
-      "believes": 1,
-      "disbelieves": 0,
-      "doubts": 0,
-      "current_user_opinion": "believes"
-    },
     "fact_url": "http://example.org/2.html",
     "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&scrollto=2",
     "is_deletable": false
