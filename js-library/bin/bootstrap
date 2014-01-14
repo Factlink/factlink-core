@@ -1,0 +1,5 @@
+#!/bin/bash
+echo 'Setting up js-library...'
+bundle install
+npm install
+grunt
