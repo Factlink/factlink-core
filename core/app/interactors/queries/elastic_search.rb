@@ -73,7 +73,7 @@ module Queries
       when'factdata'
         FactData.find(id)
       when 'topic'
-        query :'topics/by_id_with_statistics', id: id
+        nil # Remove when migrated away topic search index
       when 'user'
         query(:'users_by_ids', user_ids: [id]).first
       when 'test_class'
