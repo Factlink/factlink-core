@@ -33,7 +33,6 @@ class ScreenshotUpdater
     "?circle-token=#{circle_token}"
   end
 
-  #https://circleci.com/docs/api#build-artifacts
   #URI.parse('https://circleci.com/api/v1/project/:username/:project/:build_num/artifacts?circle-token=:token
 
 end
