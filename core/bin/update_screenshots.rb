@@ -5,6 +5,8 @@ require 'json'
 
 class ScreenshotUpdater
   #Uses https://circleci.com/docs/api
+  CIRCLE_BASE_URI = "https://circleci.com/api/v1/project/Factlink/core/"
+
   def local_repo_path
     @local_repo_path ||= begin
       File.dirname(__FILE__) + '/..'
