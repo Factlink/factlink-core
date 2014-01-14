@@ -1,9 +1,9 @@
 module Acceptance
   module CommentHelper
       def open_search_factlink
-        return if all('.js-open-search-facts').empty?
+        return if all('.js-open-search-facts-link').empty?
 
-        page.find('.js-open-search-facts').click
+        page.find('.js-open-search-facts-link').click
       end
 
       def select_add_type type

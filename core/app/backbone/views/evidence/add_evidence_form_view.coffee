@@ -8,14 +8,14 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
 
   events:
     'change input[name=argumentType]': '_updateArgumentType'
-    'click .js-open-search-facts': '_openSearchFacts'
+    'click .js-open-search-facts-link': '_openSearchFacts'
     'click .js-change-type': '_showTypeSelector'
 
   ui:
     question: '.js-question'
     questionContainer: '.js-question-container'
     typeSelector: '.js-type-selector'
-    openSearchFacts: '.js-open-search-facts'
+    openSearchFactsLink: '.js-open-search-facts-link'
 
   initialize: ->
     @_argumentTypeModel = new Backbone.Model
@@ -65,7 +65,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       else
         ''
 
-  _openSearchFacts: ->
+  _openSearchFactsLink: ->
     @ui.openSearchFacts.hide()
 
     auto_complete_facts_view = new AutoCompleteFactsView
