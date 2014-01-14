@@ -53,6 +53,9 @@ class window.Fact extends Backbone.Model
       url: "#{@url()}/share"
       data: {provider_names, message}
 
+  friendly_fact_url: ->
+    Factlink.Global.core_url + '/f/' + @id
+
   toJSON: ->
     _.extend super(),
       can_destroy: @can_destroy()

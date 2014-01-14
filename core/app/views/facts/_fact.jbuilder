@@ -6,7 +6,6 @@ json.displaystring dead_fact.displaystring
 json.id dead_fact.id
 
 json.url dead_fact.url.friendly_fact_path
-json.friendly_fact_url dead_fact.url.friendly_fact_url
 json.sharing_url dead_fact.url.sharing_url
 
 json.created_by do |j|
