@@ -42,7 +42,7 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     @ui.loading.toggle @collection.loading()
 
   _updateForm: ->
-    showForm = @_factVotes.opinion_for(currentUser) != 'no_vote'
+    showForm = @_factVotes.opinion_for_current_user() != 'no_vote'
 
     @ui.opinionHelpRegion.toggle !showForm
     @ui.formRegion.toggle showForm

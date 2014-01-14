@@ -49,6 +49,6 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
     @_updateActiveCell()
 
   _updateActiveCell: ->
-    opinion = @collection.opinion_for(currentUser)
+    opinion = @collection.opinion_for_current_user()
     @$('.fact-vote-table-cell-active').removeClass 'fact-vote-table-cell-active'
     @$(".js-cell-#{opinion}").addClass 'fact-vote-table-cell-active'
