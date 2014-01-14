@@ -17,6 +17,9 @@ class ScreenshotUpdater
     local_repo_path + '/spec/screenshots/screenshots/'
   end
 
+  def ci_artifacts_uri(build_num)
+    URI.parse("#{CIRCLE_BASE_URI}#{build_num}/artifacts#{circle_token_query}")
+  end
 
   def ci_current_branch_builds_uri
     URI.parse("#{CIRCLE_BASE_URI}tree/#{URI.escape(current_git_branch)}#{circle_token_query}")
