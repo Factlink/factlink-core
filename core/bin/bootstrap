@@ -1,3 +1,16 @@
 #!/bin/bash
+echo 'Setting up core...'
+
+bundle install
+
+foreman start -f ProcfileServers &
+FOREMAN_PID=$!
+sleep 1
+bundle exec rake db:migrate || (
+    bundle exec rake db:truncate
+    bundle exec rake db:init
+)
+kill ${FOREMAN_PID}
+wait
+
 bin/check_dependencies.sh || exit 1
-echo "At this point I could do all kinds of bootstrapping, but I don't, currently"
