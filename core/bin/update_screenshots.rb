@@ -4,6 +4,16 @@ require 'json'
 
 
 class ScreenshotUpdater
+  def local_repo_path
+    @local_repo_path ||= begin
+      File.dirname(__FILE__) + '/..'
+    end
+  end
+
+  def local_screenshot_path
+    local_repo_path + '/spec/screenshots/screenshots/'
+  end
+
   def ci_token
     @ci_token ||= begin
       ENV['CIRCLE_CI_TOKEN'] or
