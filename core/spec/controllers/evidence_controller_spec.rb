@@ -43,21 +43,6 @@ describe EvidenceController do
         expect(tally["disbelieves"]).to eq 0
         expect(tally["doubts"]).to eq 0
       end
-
-      it "should not set the user's opinion on the evidence to believe" do
-        f2.add_opinion(:disbelieves, user.graph_user)
-
-        post 'create', fact_id: f1.id, evidence_id: f2.id, type: 'believes', format: :json
-        response.should be_success
-
-        parsed_content = JSON.parse(response.body)
-
-        tally = parsed_content["from_fact"]["tally"]
-
-        expect(tally["believes"]).to eq 0
-        expect(tally["doubts"]).to eq 0
-        expect(tally["disbelieves"]).to eq 1
-      end
     end
   end
 
