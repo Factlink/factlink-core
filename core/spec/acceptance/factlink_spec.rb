@@ -34,7 +34,7 @@ describe "factlink", type: :feature do
       go_to_discussion_page_of @factlink
       page.should have_content(@factlink.data.title)
 
-      add_existing_factlink :believes, displaystring
+      add_existing_factlink :believes, @factlink_evidence
     end
   end
 
