@@ -1,4 +1,5 @@
 require 'pavlov_helper'
+require_relative '../../../app/interactors/queries/elastic_search.rb'
 
 describe Queries::ElasticSearch do
   include PavlovSupport
@@ -6,7 +7,7 @@ describe Queries::ElasticSearch do
   let(:base_url) { base_url = '1.0.0.0:4000/index' }
 
   before do
-    stub_classes 'Topic', 'HTTParty', 'FactlinkUI::Application'
+    stub_classes 'HTTParty', 'FactlinkUI::Application'
 
     FactlinkUI::Application.stub(config: double(elasticsearch_url: base_url))
   end
@@ -16,7 +17,7 @@ describe Queries::ElasticSearch do
       keywords = 'searching for this channel'
       wildcard_keywords = '(searching*+OR+searching)+AND+(for*+OR+for)+AND+(this*+OR+this)+AND+(channel*+OR+channel)'
       query = described_class.new keywords: keywords, page: 1,
-                                  row_count: 20, types: [:topic]
+                                  row_count: 20, types: [:user]
       hit = double
       results = double(parsed_response: { 'hits' => { 'hits' => [ hit ] } },
                        code: 200)
@@ -24,14 +25,14 @@ describe Queries::ElasticSearch do
       return_object = double
 
       hit.should_receive(:[]).with('_id').and_return(1)
-      hit.should_receive(:[]).with('_type').and_return('topic')
+      hit.should_receive(:[]).with('_type').and_return('user')
       HTTParty.should_receive(:get).
-        with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
+        with("http://#{base_url}/user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
 
       Pavlov.stub(:query)
-            .with(:'topics/by_id_with_statistics', id: 1)
-            .and_return(return_object)
+            .with(:'users_by_ids', user_ids: [1])
+            .and_return([return_object])
 
       query.call.should eq [return_object]
     end
@@ -40,7 +41,7 @@ describe Queries::ElasticSearch do
       keywords = 'searching for this channel'
       results = double(response: 'error has happened server side',
                        code: 501)
-      query = described_class.new keywords: keywords, page: 1, row_count: 20, types: [:topic]
+      query = described_class.new keywords: keywords, page: 1, row_count: 20, types: [:user]
 
       HTTParty.should_receive(:get).and_return(results)
       error_message = "Server error, status code: 501, response: '#{results.response}'."
@@ -51,17 +52,17 @@ describe Queries::ElasticSearch do
     it 'url encodes correctly' do
       keywords = '$+,:; @=?&=/'
       wildcard_keywords = '($%5C+,%5C:;*+OR+$%5C+,%5C:;)+AND+(@=%5C?&=/*+OR+@=%5C?&=/)'
-      query = described_class.new keywords: keywords, page: 1, row_count: 20, types: [:topic]
-      hit = {'_id' => 1, '_type' => 'topic' }
+      query = described_class.new keywords: keywords, page: 1, row_count: 20, types: [:user]
+      hit = {'_id' => 1, '_type' => 'user' }
       response = { 'hits' => { 'hits' => [ hit ] } }
       results = double(parsed_response: response, code: 200)
 
       Pavlov.stub(:query)
-            .with(:'topics/by_id_with_statistics', id: 1)
-            .and_return nil
+            .with(:'users_by_ids', user_ids: [1])
+            .and_return []
 
       HTTParty.should_receive(:get).
-        with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
+        with("http://#{base_url}/user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
 
       query.call

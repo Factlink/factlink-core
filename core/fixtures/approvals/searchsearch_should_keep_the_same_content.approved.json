@@ -1,14 +1,5 @@
 [
   {
-    "the_class": "Topic",
-    "the_object": {
-      "title": "Baron",
-      "slug_title": "baron",
-      "facts_count": 0,
-      "favouritours_count": 0
-    }
-  },
-  {
     "the_class": "FactlinkUser",
     "the_object": {
       "id": "<id>",
