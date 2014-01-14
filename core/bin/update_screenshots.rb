@@ -17,6 +17,11 @@ class ScreenshotUpdater
     local_repo_path + '/spec/screenshots/screenshots/'
   end
 
+
+  def circle_token_query
+    "?circle-token=#{circle_token}"
+   end
+
   def circle_token
     @circle_token ||= begin
       ENV['CIRCLE_CI_TOKEN'] or
@@ -29,9 +34,6 @@ class ScreenshotUpdater
     end
   end
 
-  def circle_token_query
-    "?circle-token=#{circle_token}"
-  end
   def current_git_branch
     `git symbolic-ref HEAD`.sub(/^refs\/heads\//,'').strip
    end
