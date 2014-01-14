@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'net/http'
 require 'json'
-
+require 'cgi'
 
 class ScreenshotUpdater
   #Uses https://circleci.com/docs/api
@@ -50,7 +50,7 @@ class ScreenshotUpdater
   end
 
   def ci_current_branch_builds_uri
-    URI.parse("#{CIRCLE_BASE_URI}tree/#{URI.escape(current_git_branch)}#{circle_token_query}")
+    URI.parse("#{CIRCLE_BASE_URI}tree/#{CGI.escape(current_git_branch)}#{circle_token_query}")
   end
 
   def circle_token_query
