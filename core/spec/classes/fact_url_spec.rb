@@ -24,23 +24,23 @@ describe FactUrl do
 
   describe '.friendly_fact_path' do
     it 'returns the correct path' do
-      fact = double id: '2', to_s: 'THIS IS A FRIENDLY FACT'
+      fact = double id: '2'
 
       fact_url = FactUrl.new fact
 
       expect(fact_url.friendly_fact_path)
-        .to eq "/this-is-a-friendly-fact/f/2"
+        .to eq "/f/2"
     end
   end
 
   describe '.friendly_fact_url' do
     it 'returns the correct url' do
-      fact = double id: '2', to_s: 'THIS IS A FRIENDLY FACT'
+      fact = double id: '2'
 
       fact_url = FactUrl.new fact
 
       expect(fact_url.friendly_fact_url)
-        .to eq "https://site.com/this-is-a-friendly-fact/f/2"
+        .to eq "https://site.com/f/2"
     end
   end
 
@@ -93,12 +93,12 @@ describe FactUrl do
     end
 
     it 'returns friendly_fact_url when fact has no site_url' do
-      fact = double id: '2', site_url: nil, to_s: 'THIS IS A FRIENDLY FACT'
+      fact = double id: '2', site_url: nil
 
       fact_url = FactUrl.new fact
 
       expect(fact_url.sharing_url)
-        .to eq "https://site.com/this-is-a-friendly-fact/f/2"
+        .to eq "https://site.com/f/2"
     end
   end
 
