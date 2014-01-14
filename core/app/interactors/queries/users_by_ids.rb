@@ -19,30 +19,18 @@ module Queries
     end
 
     def execute
-      users = User.any_in(by => user_ids)
-      users.map { |user| kill user }
+      User.any_in(by => user_ids).map do |user|
+        KillObject.user user,
+          statistics: statistics(user.graph_user_id)
+      end
     end
 
-    def kill user
-      graph_user = user.graph_user
-      KillObject.user user,
-        statistics: statistics(graph_user)
-    end
-
-    def statistics graph_user
+    def statistics graph_user_id
       {
-        created_fact_count: graph_user.sorted_created_facts.size,
-        follower_count: followers_count(graph_user),
-        following_count: following_count(graph_user)
+        created_fact_count: GraphUser.key[graph_user_id][:sorted_created_facts].zcard,
+        follower_count: UserFollowingUsers.new(graph_user_id).followers_count,
+        following_count: UserFollowingUsers.new(graph_user_id).following_count
       }
-    end
-
-    def followers_count graph_user
-      UserFollowingUsers.new(graph_user.id).followers_count
-    end
-
-    def following_count graph_user
-      UserFollowingUsers.new(graph_user.id).following_count
     end
   end
 end

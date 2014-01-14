@@ -10,8 +10,14 @@ class ScreenshotUpdater
   def run
     system "cd #{local_screenshot_path}"
     get_lastest_screenshot_uris.each do |screenshot_uri|
-      system "curl -O #{screenshot_uri}"
+      filename = local_filename_from_uri(screenshot_uri)
+
+      system "curl -o #{filename} #{screenshot_uri}"
     end
+  end
+
+  def local_filename_from_uri uri
+    File.basename(URI.parse(uri).path)
   end
 
   def local_screenshot_path
@@ -28,7 +34,7 @@ class ScreenshotUpdater
     build_num = get_latest_build_num
     screenshot_infos =
         get_json(ci_artifacts_uri(build_num))
-        .select{|artifact| artifact['pretty_path'].match(/^$CIRCLE_ARTIFACTS\/capybara_output\//)}
+        .select{|artifact| artifact['pretty_path'].match(/^\$CIRCLE_ARTIFACTS\/capybara_output\//)}
     screenshot_infos
       .map{|artifact| artifact['url'] + circle_token_query}
   end

@@ -13,9 +13,8 @@ describe Queries::Facts::Opinionators do
       user = double(id: 2, graph_user_id: 3, username: 'my_username', name: 'Joop Bouwhuis' )
       opinionator_ids = [user.graph_user_id]
       fact = double(id: 1)
-      query = described_class.new(fact_id: fact.id, type: 'believes')
+      query = described_class.new(fact: fact, type: 'believes')
 
-      Fact.stub(:[]).with(fact.id).and_return(fact)
       fact.stub(:opiniated)
           .with('believes')
           .and_return double(ids: opinionator_ids)
