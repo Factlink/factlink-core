@@ -5,7 +5,7 @@ require 'json'
 
 class ScreenshotUpdater
   #Uses https://circleci.com/docs/api
-  CIRCLE_BASE_URI = "https://circleci.com/api/v1/project/Factlink/core/"
+  CIRCLE_BASE_URI = 'https://circleci.com/api/v1/project/Factlink/core/'
 
   def run
     system "cd #{local_screenshot_path}"
