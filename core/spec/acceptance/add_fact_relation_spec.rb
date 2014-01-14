@@ -37,20 +37,4 @@ feature "adding factlinks to a fact", type: :feature do
 
     find('.top-fact-text', text: weakening_factlink.to_s)
   end
-
-  scenario "we can click on evidence to go to the page of that factlink in the client" do
-    go_to_discussion_page_of factlink
-
-    neutral_factlink = backend_create_fact
-
-    add_existing_factlink :doubts, neutral_factlink
-
-    find('.spec-evidence-relevance', text: "1") # wait until request has finished
-
-    go_to_fact_show_of factlink
-
-    find('.evidence-argument a', text: neutral_factlink.to_s).click
-
-    find('.top-fact-text', text: neutral_factlink.to_s)
-  end
 end
