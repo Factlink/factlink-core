@@ -4,6 +4,7 @@ require 'json'
 
 
 class ScreenshotUpdater
+  #Uses https://circleci.com/docs/api
   def local_repo_path
     @local_repo_path ||= begin
       File.dirname(__FILE__) + '/..'
