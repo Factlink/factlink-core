@@ -10,8 +10,14 @@ class ScreenshotUpdater
   def run
     system "cd #{local_screenshot_path}"
     get_lastest_screenshot_uris.each do |screenshot_uri|
-      system "curl -O #{screenshot_uri}"
+      filename = local_filename_from_uri(screenshot_uri)
+
+      system "curl -o #{filename} #{screenshot_uri}"
     end
+  end
+
+  def local_filename_from_uri uri
+    File.basename(URI.parse(uri).path)
   end
 
   def local_screenshot_path
