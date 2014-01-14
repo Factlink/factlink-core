@@ -22,7 +22,7 @@ function cloneRepo {
     echo "$1 repo already present; only fetching"
   fi
   pushd $1
-    git feetch
+    git fetch
   popd
 }
 
