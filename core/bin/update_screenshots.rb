@@ -33,6 +33,10 @@ class ScreenshotUpdater
     "?circle-token=#{circle_token}"
   end
 
+  # HTTP helpers:
+  def get_json(uri)
+    JSON.parse(make_http_request(uri, Net::HTTP::Get))
+  end
 
   def make_http_request(uri, requestClass)
     while true
