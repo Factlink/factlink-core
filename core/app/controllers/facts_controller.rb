@@ -7,6 +7,7 @@ class FactsController < ApplicationController
     only: [
       :show,
       :discussion_page,
+      :discussion_page_redirect,
       :destroy,
       :update,
       :opinion,
@@ -25,6 +26,12 @@ class FactsController < ApplicationController
     authorize! :show, @fact
 
     backbone_responder
+  end
+
+  def discussion_page_redirect
+    authorize! :show, @fact
+
+    redirect_to FactUrl.new(@fact).friendly_fact_path, status: :moved_permanently
   end
 
   def create

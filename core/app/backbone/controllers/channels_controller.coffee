@@ -17,7 +17,7 @@ class window.ChannelsController extends Backbone.Marionette.Controller
 
     mp_track 'Viewed feed'
 
-  showFact: (slug, fact_id, params={})->
+  showFact: (fact_id, params={})->
     fact = new Fact id: fact_id
 
     fact.fetch

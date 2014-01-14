@@ -12,7 +12,7 @@ class FormattedCommentContent
   private
 
   AUTO_LINK_RE = %r{(?:(?<scheme>http|https)://|www\.)[^\s<\u00A0]+}i
-  FACTLINK_PRETTY_URL = %r{#{FactlinkUI::Application.config.core_url}/[a-z0-9\-_]+/f/(?<id>[0-9]+)}i
+  FACTLINK_PRETTY_URL = %r{#{FactlinkUI::Application.config.core_url}/f/(?<id>[0-9]+)}i
 
   def urls_to_link_tags text
     text.gsub(AUTO_LINK_RE) do |given_url|

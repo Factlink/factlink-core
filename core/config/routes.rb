@@ -65,7 +65,8 @@ FactlinkUI::Application.routes.draw do
 
   resources :feedback # TODO: RESTRICT
 
-  get "/:fact_slug/f/:id" => "facts#discussion_page"
+  get "/:fact_slug/f/:id" => "facts#discussion_page_redirect"
+  get "/f/:id" => "facts#discussion_page"
 
   # Search
   get "/search" => "search#search", as: "search"
