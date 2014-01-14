@@ -8,9 +8,8 @@ class ScreenshotUpdater
   CIRCLE_BASE_URI = 'https://circleci.com/api/v1/project/Factlink/core/'
 
   def run
-    system "cd #{local_screenshot_path}"
     get_lastest_screenshot_uris.each do |screenshot_uri|
-      filename = local_filename_from_uri(screenshot_uri)
+      filename = local_screenshot_path + local_filename_from_uri(screenshot_uri)
 
       system "curl -o #{filename} #{screenshot_uri}"
     end
