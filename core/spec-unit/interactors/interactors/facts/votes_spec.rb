@@ -29,28 +29,34 @@ describe Interactors::Facts::Votes do
 
   describe '#call' do
     it 'correctly' do
-      fact_id = 1
+      fact = mock id: 1
       u1, u2, u3 = double, double, double
 
       pavlov_options = { ability: double(can?: true)}
 
       Pavlov.stub(:query)
+            .with(:'facts/get',
+                      id: fact.id.to_s,
+                      pavlov_options: pavlov_options)
+            .and_return(fact)
+
+      Pavlov.stub(:query)
             .with(:'facts/opinionators',
-                      fact_id: fact_id, type: 'believes',
+                      fact: fact, type: 'believes',
                       pavlov_options: pavlov_options)
             .and_return([u1])
       Pavlov.stub(:query)
             .with(:'facts/opinionators',
-                      fact_id: fact_id, type: 'disbelieves',
+                      fact: fact, type: 'disbelieves',
                       pavlov_options: pavlov_options)
             .and_return([u2])
       Pavlov.stub(:query)
             .with(:'facts/opinionators',
-                      fact_id: fact_id, type: 'doubts',
+                      fact: fact, type: 'doubts',
                       pavlov_options: pavlov_options)
             .and_return([u3])
 
-      interactor = described_class.new fact_id: fact_id, pavlov_options: pavlov_options
+      interactor = described_class.new fact_id: fact.id, pavlov_options: pavlov_options
       results = interactor.call
 
       expect(results).to eq [
