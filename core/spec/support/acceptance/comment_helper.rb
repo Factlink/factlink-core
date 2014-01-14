@@ -32,18 +32,21 @@ module Acceptance
         within '.add-evidence-form' do
           select_add_type type
 
-          comment_input = find('.text_area_view')
-
-          comment_input.click
           #ensure button is enabled, i.e. doesn't say "posting":
           find('button', 'Post')
+
+          comment_input = find('.text_area_view')
+          comment_input.value.should eq ''
+          comment_input.click
           comment_input.set comment
           comment_input.value.should eq comment
+
           sleep 0.5 # To allow for the getting bigger CSS animation
           click_button "Post"
         end
 
         wait_until_last_argument_has_one_vote
+        sleep 0.5 # To allow for the getting smaller CSS animation
       end
 
       def add_existing_factlink type, evidence_factlink
@@ -66,6 +69,7 @@ module Acceptance
         end
 
         wait_until_last_argument_has_one_vote
+        sleep 0.5 # To allow for the getting smaller CSS animation
       end
 
       def wait_until_last_argument_has_one_vote
