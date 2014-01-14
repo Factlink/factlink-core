@@ -17,8 +17,8 @@ class ScreenshotUpdater
     local_repo_path + '/spec/screenshots/screenshots/'
   end
 
-  def ci_token
-    @ci_token ||= begin
+  def circle_token
+    @circle_token ||= begin
       ENV['CIRCLE_CI_TOKEN'] or
         fail '''
           ENV variable CIRCLE_CI_TOKEN is missing.
