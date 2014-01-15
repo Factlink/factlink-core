@@ -134,11 +134,13 @@ module FactlinkUI
 
   end
 end
-
-version_file = File.new('version.txt','r')
-FactlinkUI::Application.config.version_number = version_file.gets.chomp
-version_file.close
-
+begin
+  version_file = File.new('REVISION','r')
+  FactlinkUI::Application.config.version_number = version_file.gets.chomp
+  version_file.close
+rescue
+  FactlinkUI::Application.config.version_number = 'unknown'
+end
 
 # Securityfix:
 ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)
