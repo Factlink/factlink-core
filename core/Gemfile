@@ -112,8 +112,6 @@ group :development do
 
   gem 'lograge', '~> 0'
   gem 'sextant', '~> 0'
-
-  gem 'foreman', '~> 0', require: false
 end
 
 group :test do
