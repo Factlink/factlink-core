@@ -1,30 +1,16 @@
-modalIframeTemplate = _.template '''
-  <div class="modal-layer" id="modal-layer"><div class="modal-window">
-    <iframe class="sign_in_or_up_iframe" src="<%- options.target %>"></iframe>
-  </div>
-  <div class="modal-layer-close-background"></div></div>
-  '''.trim(), null, variable: 'options'
-
-singleton_modal_container = do ->
-  el = null
-  remove = -> el && el.parentNode && document.body.removeChild(el)
-  create = ->
-    remove()
-    el = document.body.appendChild document.createElement 'div'
-  { create: create, remove: remove }
-
 showPopup = (url) ->
-  $modalEl = $($.parseHTML(modalIframeTemplate(target:url)))
-  $modalEl.find('iframe').on('load', -> $modalEl.fadeIn('fast'))
-  $modalEl.appendTo(document.body)
-  $modalEl.find('.modal-layer-close-background').on 'click', ->
-    $modalEl.fadeOut 'fast', ->
-      $modalEl.remove()
+  width  = 640
+  height = 400
+  left   = (screen.width/2)-(width/2)
+  top    = (screen.height/2)-(height/2)
+  popup_window = window.open url, "authPopup",
+    "menubar=no,toolbar=no,status=no,width=#{width},height=#{height},left=#{left},top=#{top}"
+  popup_window.focus()
 
 $('html').on 'click', '.js-accounts-popup-link', (e) ->
+  showPopup($(e.target).attr("href"))
   e.stopPropagation()
   e.preventDefault()
-  showPopup($(e.target).attr("href"))
 
 $(document).on 'signed_in', ->
   window.location.reload(true)
