@@ -1,5 +1,4 @@
 class window.Evidence extends Backbone.Model
-  positiveImpact: -> @get('impact') >= 0
 
   toJSON: ->
     _.extend super(),
