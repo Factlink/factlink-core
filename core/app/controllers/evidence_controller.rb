@@ -1,3 +1,5 @@
+# DON'T FORGET TO ALSO REMOVE THE SPEC!!!
+
 class EvidenceController < ApplicationController
 
   before_filter :authenticate_user!, except: [:index]

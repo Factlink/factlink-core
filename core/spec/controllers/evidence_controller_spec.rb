@@ -22,7 +22,7 @@ describe EvidenceController do
     end
 
     context "adding a new fact as evidence to a fact" do
-      it "should return the existing fact as new evidence" do
+      pending "should return the existing fact as new evidence" do
         post 'create', fact_id: f1.id, evidence_id: f2.id, type: 'believes', format: :json
 
         parsed_content = JSON.parse(response.body)
@@ -31,7 +31,7 @@ describe EvidenceController do
         response.should be_success
       end
 
-      it "should initially believe the fact relation" do
+      pending "should initially believe the fact relation" do
         post 'create', fact_id: f1.id, evidence_id: f2.id, type: 'believes', format: :json
 
         parsed_content = JSON.parse(response.body)
@@ -49,7 +49,7 @@ describe EvidenceController do
   describe :show do
     render_views
 
-    it "should render json succesfully" do
+    pending "should render json succesfully" do
       FactoryGirl.reload
 
       fr = f1.add_evidence :believes, f2, user
@@ -79,7 +79,7 @@ describe EvidenceController do
   end
 
   describe :update_opinion do
-    it "should be able to set an opinion" do
+    pending "should be able to set an opinion" do
       fr = f1.add_evidence :believes, f2, user
 
       authenticate_user!(user)
