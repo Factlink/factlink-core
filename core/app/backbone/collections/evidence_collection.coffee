@@ -7,4 +7,3 @@ class window.EvidenceCollection extends Backbone.Factlink.Collection
   url: -> "/facts/#{@fact.id}/evidence"
 
   commentsUrl: -> "#{@fact.url()}/comments"
-  factRelationsUrl: -> @url()
