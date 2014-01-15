@@ -6,12 +6,11 @@ class window.ProfileView extends Backbone.Marionette.Layout
   className: 'profile'
 
   regions:
-    topTopicsRegion:        '.js-top-topics-region'
-    profileInformationRegion: '.profile-information'
-    factRegion:               '.fact-region'
+    profileInformationRegion: '.js-profile-information-region'
+    profileBioRegion: '.js-bio-region'
+    factRegion: '.fact-region'
 
   onRender: ->
-    @profileInformationRegion.show  new ProfileBioView(model: @model)
-    @factRegion.show                @options.created_facts_view
-    @topTopicsRegion.show new ProfileInformationView
-      model: @model
+    @factRegion.show @options.created_facts_view
+    @profileInformationRegion.show new ProfileInformationView model: @model
+    @profileBioRegion.show  new ProfileBioView model: @model

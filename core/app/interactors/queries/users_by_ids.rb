@@ -9,7 +9,6 @@ module Queries
     include Pavlov::Query
 
     attribute :user_ids, Array
-    attribute :top_topics_limit, Integer, default: 1
     attribute :by, Symbol, default: :_id
 
     private

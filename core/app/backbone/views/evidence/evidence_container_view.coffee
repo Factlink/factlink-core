@@ -1,7 +1,5 @@
-#= require ./fact_relation_or_comment_view
-
 class EvidenceCollectionView extends Backbone.Marionette.CollectionView
-  itemView: FactRelationOrCommentView
+  itemView: CommentView
 
   # Add new evidence at the top of the list
   appendHtml: (collectionView, itemView, index) ->
