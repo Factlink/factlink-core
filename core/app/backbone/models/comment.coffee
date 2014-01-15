@@ -1,9 +1,6 @@
-#= require './evidence'
-
-class window.Comment extends Evidence
+class window.Comment extends Backbone.Model
 
   defaults:
-    evidence_type: 'Comment'
     sub_comments_count: 0
 
   validate: (attributes) ->
@@ -26,5 +23,8 @@ class window.Comment extends Evidence
 
   toJSON: ->
     json = super
+    defaults = {formatted_comment_content: json.content}
 
-    _.extend {formatted_comment_content: json.content}, json
+    _.extend defaults, json,
+      formatted_impact: format_as_short_number(@get('impact'))
+

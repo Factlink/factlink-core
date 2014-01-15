@@ -116,24 +116,6 @@ describe UsersController do
         FactoryGirl.reload
       end
 
-      it "shows weakening evidence in activities" do
-        current_user = create(:full_user)
-        channel = create :channel, created_by: current_user.graph_user
-        f1 = create :fact, created_by: current_user.graph_user
-        f2 = create :fact
-        Interactors::Channels::AddFact.new(fact: f1, channel: channel,
-                                           pavlov_options: { current_user: current_user }).call
-        f1.add_evidence :disbelieves, f2, user.graph_user
-
-        authenticate_user!(current_user)
-
-        should_check_can :see_activities, current_user
-
-        get :activities, username: current_user.username, format: :json
-
-        Approvals.verify(response.body, format: :json, name: "users#activities should keep the same added weakening evidence activity")
-      end
-
       it 'created comment' do
         current_user = create(:full_user)
         fact = create(:fact)

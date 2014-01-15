@@ -7,7 +7,7 @@ module ActivityMailerHelper
     action_string = action.to_s
 
     case action_string
-    when "created_fact_relation", "created_comment"
+    when "created_comment"
       "added_argument"
     when "created_sub_comment", "followed_user"
       action_string

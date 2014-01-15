@@ -24,24 +24,6 @@ class Activity < OurOhm
     end
 
     # notifications, stream_activities
-    def forGraphUser_fact_relation_was_added_to_a_fact_you_follow
-      {
-        subject_class: "FactRelation",
-        action: :created_fact_relation,
-        write_ids: people_who_follow_a_fact_which_is_object
-      }
-    end
-
-    # stream_activities
-    def forGraphUser_follower_created_fact_relation
-      {
-        subject_class: "FactRelation",
-        action: :created_fact_relation,
-        write_ids: people_who_follow_user_of_activity
-      }
-    end
-
-    # notifications, stream_activities
     def forGraphUser_comment_was_added_to_a_fact_you_follow
       {
         subject_class: "Comment",
@@ -60,7 +42,7 @@ class Activity < OurOhm
     end
 
     # notifications
-    def forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation
+    def forGraphUser_someone_added_a_subcomment_to_your_comment
       {
         subject_class: "SubComment",
         action: :created_sub_comment,
@@ -115,9 +97,8 @@ class Activity < OurOhm
     def create_notification_activities
       # NOTE: Please update the tags above and in _activity.json.jbuilder when changing this!!
       notification_activities = [
-        forGraphUser_fact_relation_was_added_to_a_fact_you_follow,
         forGraphUser_comment_was_added_to_a_fact_you_follow,
-        forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation,
+        forGraphUser_someone_added_a_subcomment_to_your_comment,
         forGraphUser_someone_followed_you
       ]
 
@@ -139,11 +120,9 @@ class Activity < OurOhm
 
       # NOTE: Please update the tags above and in _activity.json.jbuilder when changing this!!
       stream_activities = [
-        forGraphUser_fact_relation_was_added_to_a_fact_you_follow,
         forGraphUser_comment_was_added_to_a_fact_you_follow,
         forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow,
         forGraphUser_someone_opinionated_a_fact_you_created,
-        forGraphUser_follower_created_fact_relation,
         forGraphUser_follower_created_comment,
         forGraphUser_follower_created_sub_comment,
       ]
