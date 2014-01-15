@@ -23,16 +23,3 @@ class window.SearchCollection extends Backbone.Collection
       @jqxhr = @fetch(reset: true)
 
   encodedQuery: -> encodeURIComponent @query
-
-  addNewItem: (compare_field) ->
-    return unless @shouldShowNewItem(compare_field)
-
-    @add @getNewItem()
-    @trigger 'sync'
-
-  shouldShowNewItem: (compare_field) ->
-    @query != '' and not (@query.toLowerCase() in @newItemFields(compare_field))
-
-  newItemFields: (compare_field) -> _.map @pluck(compare_field), (field)-> field.toLowerCase()
-
-  getNewItem: -> console.error "'getNewItem' was not implemented"
