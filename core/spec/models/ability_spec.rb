@@ -136,29 +136,6 @@ describe Ability do
     end
   end
 
-  describe "to manage FactRelations" do
-    let(:fr1) { create :fact_relation, created_by: user.graph_user }
-    let(:fr2) { create :fact_relation, created_by: other_user.graph_user }
-
-    describe "of my own" do
-      it { subject.should be_able_to :read, fr1 }
-      it { subject.should be_able_to :opinionate, fr1 }
-      it { subject.should be_able_to :destroy, fr1 }
-    end
-
-    describe "of someone else" do
-      it { subject.should      be_able_to :read, fr2 }
-      it { subject.should      be_able_to :opinionate, fr2 }
-      it { subject.should_not  be_able_to :destroy, fr2 }
-    end
-
-    describe "without logging in" do
-      it { anonymous.should      be_able_to :read, fr1 }
-      it { anonymous.should_not  be_able_to :opinionate, fr1 }
-      it { anonymous.should_not  be_able_to :destroy, fr1 }
-    end
-  end
-
   describe "to manage Comments" do
     let(:c1) { create :comment, created_by: user }
     let(:c2) { create :comment, created_by: other_user }
