@@ -11,6 +11,3 @@ class window.FactSearchResults extends SearchCollection
   url: -> "/facts/#{@fact_id}/evidence_search.json?s=#{@encodedQuery()}"
 
   emptyState: -> @recent_collection.models
-
-class window.FilteredFactSearchResults extends Backbone.Collection
-  model: Fact

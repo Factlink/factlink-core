@@ -4,7 +4,6 @@ class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
 
     @initSearchModel()
     @initTextInputView opts.placeholder
-    @initFilteredSearchCollection opts.filtered_search_collection, opts.filter_on
     @initSearchListView opts.search_list_view
 
     @bindTextViewToSteppableViewAndSelf(@_text_input_view, @_search_list_view)
@@ -25,14 +24,10 @@ class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
       model: @model
       placeholder: placeholder ? ''
 
-  initFilteredSearchCollection: (filtered_search_collection, filter_on) ->
-    @filtered_search_collection = collectionDifference(filtered_search_collection,
-      filter_on, @search_collection, @collection)
-
   initSearchListView: (search_list_view) ->
     @_search_list_view = search_list_view
       model: @model
-      collection: @filtered_search_collection
+      collection: @search_collection
 
   setLoading: ->
     @$el.addClass 'auto-complete-loading'
