@@ -4,6 +4,9 @@ typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var
 b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
 
 mixpanel.init("<%= FactlinkUI::Application.config.mixpanel_token %>");
-mixpanel.name_tag("<%= current_user.username %>");
-mixpanel.identify("<%= current_user.id.to_s %>");
+
+<% if current_user %>
+  mixpanel.name_tag("<%= current_user.username %>");
+  mixpanel.identify("<%= current_user.id.to_s %>");
+<% end %>
 </script>
