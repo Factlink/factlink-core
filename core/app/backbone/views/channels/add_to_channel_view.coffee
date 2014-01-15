@@ -1,5 +1,3 @@
-#= require ./filtered_suggested_topics_view
-
 class window.AddToChannelView extends Backbone.Marionette.Layout
   className: 'add-to-channel'
   template: 'channels/add_to_channel'
