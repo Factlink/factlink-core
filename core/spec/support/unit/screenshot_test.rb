@@ -196,9 +196,7 @@ module ScreenshotTest
 
     def self.use_fuzzy_matching?
       if @use_fuzzy == nil
-        if ENV["IMAGE_DIFF_MODE"] == nil
-          @use_fuzzy = ENV["JENKINS_SERVER_COOKIE"] == nil && ENV["CI"] == nil
-        elsif ENV["IMAGE_DIFF_MODE"] == "exact"
+        if ENV["IMAGE_DIFF_MODE"] == nil || ENV["IMAGE_DIFF_MODE"] == "exact"
           @use_fuzzy = false
         elsif ENV["IMAGE_DIFF_MODE"] == "fuzzy"
           @use_fuzzy = true
