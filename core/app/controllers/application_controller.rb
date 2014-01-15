@@ -102,18 +102,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
-  before_filter :initialize_mixpanel
-  def initialize_mixpanel
-    return unless user_signed_in? and request.format == "text/html"
-
-    mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
-
-    # the following two commands set data in the frontend using js
-    mixpanel.append_api('name_tag', current_user.username)
-    mixpanel.append_identify(current_user.id.to_s)
-  end
-
   private
 
   def can_haz feature
