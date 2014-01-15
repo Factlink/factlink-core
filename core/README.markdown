@@ -21,11 +21,11 @@ Now run the script:
 sh setup_env.sh
 ```
 
-Now run the factlinkapps by running foreman
+Now run the factlinkapps by starting the db's and the webservers
 
 ```
-foreman start -f ProcfileServers
-foreman start
+./start-db.sh
+./start-web.sh
 ```
 
 Now open your browser and surf to http://localhost:3000
