@@ -32,7 +32,7 @@ class ActivityMailer < ActionMailer::Base
     user = activity.user.user
 
     case activity.action
-    when 'created_fact_relation', 'created_comment', 'created_sub_comment'
+    when 'created_comment', 'created_sub_comment'
       factlink = activity.object.data.displaystring.strip.truncate(50)
       "Discussion on \"#{factlink}\""
     when 'followed_user'
