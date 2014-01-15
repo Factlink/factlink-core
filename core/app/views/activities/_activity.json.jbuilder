@@ -22,7 +22,7 @@ json.activity do
   # Try to keep 'em in sync
 
   # notifications, stream_activities
-  when "created_fact_relation", "created_comment", "created_sub_comment"
+  when "created_comment", "created_sub_comment"
     json.target_url         friendly_fact_path(object)
     json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
 

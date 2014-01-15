@@ -34,9 +34,9 @@ class FormattedCommentContent
 
   def factlink_link_tag fact_id
     dead_fact = Pavlov.query :'facts/get_dead', id: fact_id
-    url = FactUrl.new(dead_fact).friendly_fact_url
+    friendly_fact_path = FactUrl.new(dead_fact).friendly_fact_path
 
-    content_tag :a, dead_fact.displaystring, href: url, rel: 'backbone',
+    content_tag :a, dead_fact.displaystring, href: friendly_fact_path, rel: 'backbone',
       class: 'formatted-comment-content-factlink'
   end
 end

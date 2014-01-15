@@ -33,7 +33,6 @@ class Ability
 
     define_channel_abilities
     define_fact_abilities
-    define_fact_relation_abilities
     define_comment_abilities
     define_sub_comment_abilities
     define_user_abilities
@@ -70,21 +69,10 @@ class Ability
     can :index, Fact
     can :read, Fact
     can :opinionate, Fact
-    can :add_evidence, Fact
     can :manage, Fact do |f|
       f.created_by_id == user.graph_user_id
     end
     cannot :update, Fact
-  end
-
-  def define_fact_relation_abilities
-    return unless signed_in?
-
-    can :read, FactRelation
-    can :opinionate, FactRelation
-    can :destroy, FactRelation do |fr|
-      fr.created_by_id == user.graph_user_id && fr.deletable?
-    end
   end
 
   def define_comment_abilities
