@@ -11,7 +11,7 @@ describe Queries::SubComments::Index do
 
     it 'no subcomments' do
       parent_id = 1
-      parent_class = 'FactRelation'
+      parent_class = 'Comment'
       sub_comment_finder1, sub_comment_finder2 = double, double
       query = described_class.new parent_ids_in: parent_id,
                                   parent_class: parent_class
@@ -20,7 +20,7 @@ describe Queries::SubComments::Index do
         .with(parent_class: parent_class)
         .and_return(sub_comment_finder1)
       sub_comment_finder1.stub(:any_in)
-        .with(parent_id: [parent_id.to_s])
+        .with(parent_id: [parent_id])
         .and_return(sub_comment_finder2)
       sub_comment_finder2.stub(:asc)
         .with(:created_at).and_return([])
