@@ -63,7 +63,7 @@ fi
 
 rbenv shell "${RUBY_VERSION}"
 
-gem install bundler foreman git-up
+gem install bundler git-up
 rbenv rehash || :
 rbenv shell --unset
 

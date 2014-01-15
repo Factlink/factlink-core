@@ -160,7 +160,7 @@ else
 fi
 rbenv global ${RUBY_VERSION}
 
-gem install bundle foreman git-up
+gem install bundle git-up
 
 rbenv rehash || :
 

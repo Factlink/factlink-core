@@ -84,7 +84,6 @@ fi
 rbenv shell $RUBY_VERSION
 
 ensureGem bundler
-ensureGem foreman
 ensureGem git-up
 rbenv rehash
 rbenv shell --unset
