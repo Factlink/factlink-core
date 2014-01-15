@@ -10,7 +10,6 @@ class AutoCompleteResultsChannelView extends Backbone.Marionette.ItemView
 class window.AutoCompleteResultsChannelsView extends Backbone.Marionette.CollectionView
   itemView:  AutoCompleteResultsChannelView
   tagName: 'ul'
-  className: 'auto-complete-results'
 
   initialize: ->
     @on "itemview:remove", (childView, msg) => @collection.remove childView.model

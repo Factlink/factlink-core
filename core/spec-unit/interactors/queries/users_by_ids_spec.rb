@@ -12,14 +12,13 @@ describe Queries::UsersByIds do
 
   describe '#call' do
     it 'returns the good objects' do
-      top_topics_limit = 10
       stub_classes 'GraphUser'
       GraphUser.stub key: {
         '10' => { sorted_created_facts: double(zcard: 14)},
       }
 
       user = double(id: 'a1', graph_user_id: '10')
-      query = described_class.new(user_ids: [0], top_topics_limit: top_topics_limit)
+      query = described_class.new(user_ids: [0])
 
       User.stub(:any_in).with(_id: [0]).and_return([user])
 
