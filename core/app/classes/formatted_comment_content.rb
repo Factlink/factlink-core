@@ -11,11 +11,12 @@ class FormattedCommentContent
 
   private
 
-  AUTO_LINK_RE = %r{(?:(?<scheme>http|https)://|www\.)[^\s<\u00A0]+}i
-  FACTLINK_PRETTY_URL = %r{#{FactlinkUI::Application.config.core_url}/f/(?<id>[0-9]+)}i
-
   def urls_to_link_tags text
-    text.gsub(AUTO_LINK_RE) do |given_url|
+    auto_link_re = %r{(?:(?<scheme>http|https)://|www\.)[^\s<\u00A0]+}i
+    application_url = URI.join(FactlinkUI::Application.config.core_url, 'f').to_s
+    factlink_pretty_url_re = %r{#{application_url}/(?<id>[0-9]+)}i
+
+    text.gsub(auto_link_re) do |given_url|
       if Regexp.last_match[:scheme]
         url = given_url
       else
@@ -23,7 +24,7 @@ class FormattedCommentContent
       end
 
       case url
-      when FACTLINK_PRETTY_URL
+      when factlink_pretty_url_re
         factlink_link_tag Regexp.last_match[:id]
       else
         content_tag :a, given_url, href: url, target: '_blank'

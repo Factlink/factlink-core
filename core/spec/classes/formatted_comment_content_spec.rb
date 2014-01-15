@@ -20,7 +20,9 @@ describe FormattedCommentContent do
       expect(formatted_comment.html).to eq '<a href="http://www.example.org" target="_blank">www.example.org</a>'
     end
 
-    it 'turns factlink urls into special links' do
+    it 'turns factlink urls into special links (even with port in core_url)' do
+      FactlinkUI::Application.config.stub(core_url: 'http://factlink.com:80')
+
       fact = create :fact
       friendly_fact_url = FactUrl.new(fact).friendly_fact_url
       displaystring = fact.data.displaystring
