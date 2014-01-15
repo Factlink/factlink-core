@@ -50,11 +50,6 @@ class SitesController < ApplicationController
     render_jsonp is_blacklisted ? { blacklisted: 'This site is not supported' } : {}
   end
 
-  def top_topics
-    @topics = []
-    render 'topics/index', formats: [:json]
-  end
-
   private
 
   def render_jsonp json_able
