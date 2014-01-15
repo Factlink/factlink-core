@@ -1,1 +1,0 @@
-DeadFactRelation = Struct.new(:id)
