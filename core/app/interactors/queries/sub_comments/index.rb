@@ -5,11 +5,9 @@ module Queries
       arguments :parent_ids_in, :parent_class
 
       def execute
-        sub_comments.map(&method(:kill))
-      end
-
-      def kill sub_comment
-        KillObject.sub_comment sub_comment
+        sub_comments.map do |sub_comment|
+          KillObject.sub_comment sub_comment
+        end
       end
 
       def sub_comments
@@ -20,11 +18,6 @@ module Queries
 
       def parent_ids
         ids = Array(parent_ids_in)
-        if parent_class == 'FactRelation'
-          ids.map(&:to_s)
-        else
-          ids
-        end
       end
     end
   end

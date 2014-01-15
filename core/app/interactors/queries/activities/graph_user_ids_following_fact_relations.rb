@@ -35,8 +35,7 @@ module Queries
       end
 
       def sub_comments
-        query(:'sub_comments/index',
-                  parent_ids_in: fact_relation_ids, parent_class: 'FactRelation')
+        []
       end
     end
   end

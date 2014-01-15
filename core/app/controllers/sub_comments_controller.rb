@@ -1,10 +1,6 @@
 class SubCommentsController < ApplicationController
   def index
-    if parent_is_comment
-      @sub_comments = interactor(:'sub_comments/index_for_comment', comment_id: parent_id)
-    else
-      @sub_comments = interactor(:'sub_comments/index_for_fact_relation', fact_relation_id: parent_id.to_i)
-    end
+    @sub_comments = interactor(:'sub_comments/index_for_comment', comment_id: parent_id)
     render 'sub_comments/index', formats: [:json]
   end
 

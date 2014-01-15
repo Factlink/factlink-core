@@ -38,8 +38,7 @@ module Queries
       end
 
       def sub_comments
-        query(:'sub_comments/index',
-                  parent_ids_in: comment_ids, parent_class: 'Comment')
+        query(:'sub_comments/index', parent_ids_in: comment_ids)
       end
     end
   end
