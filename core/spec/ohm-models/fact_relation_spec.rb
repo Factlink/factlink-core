@@ -86,13 +86,6 @@ describe FactRelation do
       fr.add_opiniated(:doubts, gu2)
       fr.deletable?.should be_true
     end
-    it "should be false after someone comments on it" do
-      as(fr.created_by.user) do |pavlov|
-        pavlov.interactor(:'sub_comments/create_for_fact_relation', fact_relation_id: fr.id.to_i, content: 'hoi')
-      end
-
-      fr.deletable?.should be_false
-    end
   end
 
   describe "people believes redis keys" do
