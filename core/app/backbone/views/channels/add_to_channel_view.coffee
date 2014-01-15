@@ -6,7 +6,6 @@ class window.AddToChannelView extends Backbone.Marionette.Layout
 
   regions:
     addToChannelRegion: ".add-to-channel-form"
-    suggestedChannelsRegion: ".add-to-channel-suggested-topics-region"
 
   initialize: ->
     @collection = @model.getOwnContainingChannels(this)
@@ -24,16 +23,3 @@ class window.AddToChannelView extends Backbone.Marionette.Layout
       @addToChannelRegion.show @addToChannelView
       @listenTo @addToChannelView, 'error', ->
         FactlinkApp.NotificationCenter.error "The new #{Factlink.Global.t.topic} could not be created, please try again."
-
-      @renderSuggestedChannels()
-
-  renderSuggestedChannels: ->
-    suggested_topics = new SuggestedSiteTopics([], site_url: @model.get('fact_url'))
-    suggested_topics.fetch()
-
-    suggestions = new FilteredSuggestedTopicsView
-                        collection: suggested_topics
-                        addToCollection: @collection
-
-    @suggestedChannelsRegion.show suggestions
-
