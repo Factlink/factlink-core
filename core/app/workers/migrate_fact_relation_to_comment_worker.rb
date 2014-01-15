@@ -20,7 +20,7 @@ class MigrateFactRelationToCommentWorker
     comment.type = fact_relation.type
 
     from_fact = fact_relation.from_fact
-    if from_fact.site_id.nil?
+    if from_fact.site.nil?
       comment.content = from_fact.data.displaystring
     else
       fact_url = FactUrl.new(from_fact)
