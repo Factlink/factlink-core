@@ -3,7 +3,13 @@
   <tbody>
     <tr>
       <td class="name">Version</td>
-      <td class="value"><%= FactlinkUI::Application.config.version_number %></td>
+      <td class="value">
+        <%= FactlinkUI::Application.config.version_number %> (
+        <a href="https://github.com/Factlink/core/compare/<%= FactlinkUI::Application.config.version_number %>...master">
+          changes since this release
+        </a>
+        )
+      </td>
     </tr>
   </tbody>
 </table>
