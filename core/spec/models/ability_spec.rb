@@ -119,7 +119,6 @@ describe Ability do
       it { subject.should_not  be_able_to :update, f2 }
       it { subject.should      be_able_to :read, f2 }
       it { subject.should      be_able_to :opinionate, f2 }
-      it { subject.should      be_able_to :add_evidence, f2 }
       it { subject.should_not  be_able_to :create, f2 }
       it { subject.should      be_able_to :share, f2 }
     end
