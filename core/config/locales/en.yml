@@ -44,7 +44,6 @@ en:
   stream: "feed"
 
   topic:  "topic"
-  topics: "topics"
   topic_name: "topic name"
   favourites: "followed topics"
   favourite: "follow"
