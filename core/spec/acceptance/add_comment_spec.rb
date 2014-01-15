@@ -79,7 +79,7 @@ feature "adding comments to a fact", type: :feature do
     assert_comment_exists comment2
   end
 
-  scenario 'comments and facts should be sorted on relevance' do
+  scenario 'comments and comments with links to annotations should be sorted on relevance' do
     go_to_discussion_page_of factlink
 
     comment1 = 'Buffels zijn niet klein te krijgen joh'
