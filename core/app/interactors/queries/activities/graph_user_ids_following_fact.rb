@@ -14,7 +14,7 @@ module Queries
       def follower_ids
         creator_ids +
           opinionated_users_ids +
-          evidence_followers_ids
+          comments_followers_ids
       end
 
       def creator_ids
@@ -23,19 +23,6 @@ module Queries
 
       def opinionated_users_ids
         fact.opinionated_users_ids
-      end
-
-      def evidence_followers_ids
-        fact_relations_followers_ids + comments_followers_ids
-      end
-
-      def fact_relations_followers_ids
-        query(:'activities/graph_user_ids_following_fact_relations',
-                  fact_relations: fact_relations)
-      end
-
-      def fact_relations
-        FactRelation.find(fact_id: fact.id).all
       end
 
       def comments_followers_ids
