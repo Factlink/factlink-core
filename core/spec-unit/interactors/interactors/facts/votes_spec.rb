@@ -29,7 +29,7 @@ describe Interactors::Facts::Votes do
 
   describe '#call' do
     it 'correctly' do
-      fact = mock id: 1
+      fact = double id: 1
       u1, u2, u3 = double, double, double
 
       pavlov_options = { ability: double(can?: true)}
