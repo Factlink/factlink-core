@@ -1,1 +1,0 @@
-class window.FactRelationSearchResult extends Backbone.Model
