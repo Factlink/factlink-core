@@ -21,6 +21,8 @@ class EvidenceController < ApplicationController
 
   # TODO move to a fact_relation resource
   def create
+    raise 'FactRelations do not exist anymore!'
+
     fact = Fact[params[:fact_id]]
 
     authorize! :add_evidence, fact
@@ -35,6 +37,8 @@ class EvidenceController < ApplicationController
   end
 
   def update_opinion
+    raise 'FactRelations do not exist anymore!'
+
     @fact_relation = FactRelation[params[:id]]
     authorize! :opinionate, @fact_relation
 
@@ -51,6 +55,8 @@ class EvidenceController < ApplicationController
 
   # TODO move to a fact_relation resource
   def destroy
+    raise 'FactRelations do not exist anymore!'
+
     fact_relation = FactRelation[params[:id]]
 
     authorize! :destroy, fact_relation
