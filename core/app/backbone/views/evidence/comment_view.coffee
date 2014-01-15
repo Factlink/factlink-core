@@ -1,6 +1,6 @@
-class window.FactRelationOrCommentView extends Backbone.Marionette.Layout
+class window.CommentView extends Backbone.Marionette.Layout
   className: 'evidence-argument'
-  template: 'evidence/fact_relation_or_comment'
+  template: 'evidence/comment'
 
   regions:
     voteRegion: '.js-vote-region'
