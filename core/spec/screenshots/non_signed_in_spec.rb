@@ -2,7 +2,7 @@ require 'screenshot_helper'
 
 describe "Non signed in pages:", type: :feature, driver: :poltergeist_slow do
   include Acceptance::ChannelHelper
-  include Screenshots::DiscussionHelper
+  include Acceptance::FactHelper
 
   describe "Profile page page" do
     it "renders correctly" do
