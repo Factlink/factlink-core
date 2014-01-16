@@ -24,7 +24,6 @@ class Fact < OurOhm
   end
 
   reference :created_by, GraphUser
-  set :channels, Channel
 
   def has_site?
     site and site.url and not site.url.blank?

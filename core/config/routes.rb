@@ -118,27 +118,6 @@ FactlinkUI::Application.routes.draw do
       post "/mark_as_read" => "users#mark_activities_as_read", as: "mark_activities_as_read"
     end
 
-    resources :channels, except: [:new, :edit, :show] do
-      collection do
-        get "find" => "channels#search", as: "find"
-      end
-
-      member do
-        post "toggle/fact/:fact_id/" => "channels#toggle_fact"
-
-        post "add/:fact_id"     => "channels#add_fact"
-        post "remove/:fact_id"  => "channels#remove_fact"
-
-        scope "/facts" do
-          get "/" => "channels#facts", as: "get_facts_for"
-
-          scope "/:fact_id" do
-            delete "/" => "channels#remove_fact",  as: "remove_fact_from"
-          end
-        end
-      end
-    end
-
     resources :following, only: [:destroy, :update, :index], controller: 'user_following'
   end
 
