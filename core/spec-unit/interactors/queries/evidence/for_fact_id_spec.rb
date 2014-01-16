@@ -12,9 +12,6 @@ describe Queries::Evidence::ForFactId do
     it 'interleaves and sorts the comments and factrelation it retrieves' do
       fact = double id: '1'
 
-      fact_relation1 = double :fact_relation1, votes: {believes: 0, disbelieves: 1}
-      fact_relation2 = double :fact_relation2, votes: {believes: 3, disbelieves: 1}
-
       comment1 = double :comment1, votes: {believes: 2, disbelieves: 1}
       comment2 = double :comment2, votes: {believes: 4, disbelieves: 0}
 
@@ -27,17 +24,13 @@ describe Queries::Evidence::ForFactId do
           .with(fact.id)
           .and_return(fact)
       Pavlov.stub(:query)
-            .with(:'fact_relations/for_fact',
-                      fact: fact, pavlov_options: pavlov_options)
-            .and_return [fact_relation1, fact_relation2]
-      Pavlov.stub(:query)
             .with(:'comments/for_fact',
                       fact: fact, pavlov_options: pavlov_options)
             .and_return [comment1, comment2]
 
       result = interactor.call
 
-      expect(result).to eq [comment2, fact_relation2, comment1, fact_relation1]
+      expect(result).to eq [comment2, comment1]
     end
   end
 end

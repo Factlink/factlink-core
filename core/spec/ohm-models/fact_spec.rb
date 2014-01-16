@@ -38,23 +38,6 @@ describe Fact do
     expect(parent.opiniated(:believes).to_a).to match_array [graph_user]
   end
 
-  context "initially" do
-    it "should have no evidence" do
-      fact_relations = Pavlov.query(:'fact_relations/for_fact', fact: fact)
-
-      expect(fact_relations.count).to eq 0
-    end
-  end
-
-  describe ".add_evidence" do
-    it 'saves the evidence' do
-      fact.add_evidence('disbelieves', factlink, graph_user)
-      fact_relations = Pavlov.query(:'fact_relations/for_fact', fact: fact)
-
-      expect(fact_relations.first.type).to eq 'disbelieves'
-    end
-  end
-
   describe "Mongoid properties: " do
     context "after setting a displaystring to 'hiephoi'" do
       it "the facts to_s is 'hiephoi'" do

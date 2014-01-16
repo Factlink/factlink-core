@@ -12,7 +12,7 @@ module Queries
       end
 
       def fact_relations
-        query(:'fact_relations/for_fact', fact: fact)
+        []
       end
 
       def comments
