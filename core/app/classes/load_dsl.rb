@@ -19,12 +19,8 @@ class LoadDsl
     u.graph_user
   end
 
-  attr_writer :state_user, :state_channel
+  attr_writer :state_user
   attr_accessor :state_fact
-
-  def state_channel
-    @state_channel || load_channel(state_graph_user,"Main channel")
-  end
 
   def load_site(url)
     Site.find(:url => url).first || Site.create(:url => url)
@@ -58,13 +54,6 @@ class LoadDsl
   def fact(fact_string,url="http://example.org/", opts={})
     f = load_fact(fact_string,url, opts)
     self.state_fact = f
-  end
-
-  def fact_relation(fact1,relation,fact2)
-    f1 = fact(fact1)
-    f2 = fact(fact2)
-    fr = f2.add_evidence(relation,f1,state_graph_user)
-    self.state_fact = fr
   end
 
   def raise_undefined_user_error
@@ -124,23 +113,6 @@ class LoadDsl
       gu = load_user(username).graph_user
       f.add_opinion opinion_type, gu
     end
-  end
-
-  def load_channel(graph_user, title, opts={})
-    ch = ChannelList.new(graph_user).channels.find(:title => title).first
-
-    ch || Channel.create(:created_by => graph_user, :title => title)
-  end
-
-  def channel(title, opts={})
-    ch = load_channel(state_graph_user, title, opts)
-    self.state_channel = ch
-  end
-
-  def add_fact(fact_string)
-    fact = load_fact(fact_string)
-
-    interactor :'channels/add_fact', fact: fact, channel: state_channel
   end
 
   def run(&block)
