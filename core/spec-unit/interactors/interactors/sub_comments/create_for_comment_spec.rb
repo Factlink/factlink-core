@@ -59,7 +59,7 @@ describe Interactors::SubComments::CreateForComment do
 
       Pavlov.should_receive(:command)
             .with(:'sub_comments/create_xxx',
-                      parent_id: comment.id, parent_class: 'Comment',
+                      parent_id: comment.id,
                       content: content, user: user, pavlov_options: pavlov_options)
             .and_return(sub_comment)
       interactor.should_receive(:create_activity).with(sub_comment)

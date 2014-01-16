@@ -43,7 +43,7 @@ describe Interactors::SubComments::IndexForComment do
              .and_return(double)
       Pavlov.should_receive(:query)
             .with(:'sub_comments/index',
-                      parent_ids_in: comment_id, parent_class: 'Comment',
+                      parent_ids_in: comment_id,
                       pavlov_options: options)
             .and_return(dead_sub_comments)
 
