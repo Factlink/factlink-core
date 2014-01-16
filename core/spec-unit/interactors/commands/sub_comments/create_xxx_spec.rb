@@ -12,19 +12,18 @@ describe Commands::SubComments::CreateXxx do
       parent_id = 1
       content = 'message'
       user = double
-      parent_class = 'FactRelation'
 
       pavlov_options = { current_user: user }
       command = described_class.new(parent_id: parent_id,
-                                    parent_class: parent_class, content: content, user: user,
+                                    content: content, user: user,
                                     pavlov_options: pavlov_options)
       comment = double(:comment, id: 10)
 
       comment.should_receive(:parent_id=).with(parent_id.to_s)
+      comment.should_receive(:parent_class=).with('Comment')
       SubComment.should_receive(:new).and_return(comment)
       comment.should_receive(:created_by=).with(user)
       comment.should_receive(:content=).with(content)
-      comment.should_receive(:parent_class=).with(parent_class)
       comment.should_receive(:save!)
 
       expect( command.call ).to eq comment
