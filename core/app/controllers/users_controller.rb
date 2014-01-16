@@ -1,5 +1,3 @@
-require_relative '../interactors/interactors/channels'
-
 class UsersController < ApplicationController
   layout "frontend"
 
