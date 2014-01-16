@@ -8,7 +8,6 @@ class ChannelsController < ApplicationController
       :destroy,
       :facts,
       :create_fact,
-      :remove_fact,
     ]
   before_filter :get_user
   before_filter :authenticate_user!, except: ['index', 'show']
@@ -41,16 +40,6 @@ class ChannelsController < ApplicationController
   end
 
   def destroy
-  end
-
-  def remove_fact
-    authorize! :update, @channel
-
-    fact = Fact[params[:fact_id]]
-
-    interactor(:'channels/remove_fact', fact: fact, channel: @channel)
-
-    render json: {}
   end
 
   private
