@@ -28,6 +28,7 @@ describe 'AutoCompleteSearchView', ->
       )
       expect(window.AutoCompleteSearchListView).to.have.been.calledWith(
         model: view.model
+        collection: view.search_collection
       )
 
   describe 'searchCollection', ->
