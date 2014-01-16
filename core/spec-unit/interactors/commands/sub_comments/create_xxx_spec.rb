@@ -25,7 +25,7 @@ describe Commands::SubComments::CreateXxx do
       comment.should_receive(:created_by=).with(user)
       comment.should_receive(:content=).with(content)
       comment.should_receive(:parent_class=).with(parent_class)
-      comment.should_receive(:save)
+      comment.should_receive(:save!)
 
       expect( command.call ).to eq comment
     end

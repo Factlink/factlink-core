@@ -11,7 +11,7 @@ module Commands
         sub_comment.parent_class = @parent_class
         sub_comment.created_by = @user
         sub_comment.content = @content
-        sub_comment.save
+        sub_comment.save!
 
         sub_comment
       end
