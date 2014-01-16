@@ -43,8 +43,6 @@ nl:
 
   stream: "overzicht"
 
-  topic: "onderwerp"
-  topic_name: "naam van onderwerp"
   favourites: "gevolgde topics"
   favourite: "volgen"
   unfavourite: "ontvolgen"

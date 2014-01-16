@@ -13,7 +13,7 @@ class window.FactsView extends AutoloadingCompositeView
     @collection.on "stopLoading", @loadingIndicatorOff, this
 
   emptyViewOn: ->
-    @someEmptyView = @options.empty_view || new EmptyTopicView
+    @someEmptyView = @options.empty_view
     @$("div.no_facts").html @someEmptyView.render().el
 
   emptyViewOff: ->

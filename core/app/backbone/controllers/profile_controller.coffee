@@ -62,4 +62,4 @@ class window.ProfileController extends Backbone.Marionette.Controller
   getFactsView: (user) ->
     new FactsView
       collection: new CreatedFacts([], user: user)
-      empty_view: new EmptyProfileFactsView()
+      empty_view: new EmptyProfileFactsView

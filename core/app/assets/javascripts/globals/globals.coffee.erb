@@ -1,5 +1,5 @@
 # ensure we update this file when we update the locales
-# SHASUM of locales: f584b896433cfee00b11590152f3a56a4c4bf103
+# SHASUM of locales: 45ba05d89a0627109b56b9fe7a96fda56a1c2d39
 
 window.Factlink ||= {}
 
@@ -9,13 +9,9 @@ Factlink.Global =
   icon_empty_channel_chrome: '<%= image_path("icon-client-chrome.png") %>'
   icon_empty_channel_firefox: '<%= image_path("icon-client-firefox.png") %>'
   browser_icons_chrome_16x16: '<%= image_path("browser-icons/chrome-16x16.png") %>'
-  browser_icons_firefox_16x16: '<%= image_path("browser-icons/firefox-16x16.png") %>'
   warning_sign_image: '<%= image_path("warning-sign.png") %>'
 
   core_url: "<%= FactlinkUI::Application.config.core_url %>"
-  firefox_extension_url: "<%= FactlinkUI::Application.config.static_url + '/extension/firefox/factlink-latest.xpi' %>"
-  chrome_extension_url: "<%= FactlinkUI::Application.config.static_url + '/chrome/factlink-latest.crx' %>"
-  use_chrome_webstore: <%= FactlinkUI::Application.config.use_chrome_webstore %>
   t: {}
   can_haz: {}
   signed_in: false
@@ -32,8 +28,6 @@ Factlink.Global =
     :followers,
     :unfollow,
     :is_now_following_you,
-    :topic,
-    :topic_name,
     :favourites,
     :favourite,
     :unfavourite,
@@ -59,11 +53,6 @@ Factlink.Global =
 
 Factlink.Global.t.<%= translation.to_s %> = "<%= I18n.t(translation) %>"
 
-<% end %>
-
-
-<% if FactlinkUI::Application.config.chrome_extension_id %>
-Factlink.Global.chrome_extension_id = "<%= FactlinkUI::Application.config.chrome_extension_id %>"
 <% end %>
 
 Factlink.Timeout =
