@@ -16,9 +16,6 @@ class NotificationView extends Backbone.Marionette.Layout
 
   markAsRead: -> @$el.removeClass "unread"
 
-class NotificationAddedArgumentView extends NotificationView
-  template: "notifications/added_argument"
-
 class NotificationUserFollowedUser extends NotificationView
   template: "notifications/user_followed_user"
 
@@ -30,15 +27,18 @@ class NotificationUserFollowedUser extends NotificationView
     user = new User(@model.get('user'))
     @addBackRegion.show new FollowUserButtonView(user: user, mini: true)
 
+class NotificationCreatedCommentView extends NotificationView
+  template: "notifications/created_comment"
+
 class NotificationCreatedSubCommentView extends NotificationView
-  template: "notifications/_created_sub_comment"
+  template: "notifications/created_sub_comment"
 
 window.NotificationView = (opts) ->
   switch opts.model.get("action")
     when "created_sub_comment"
       new NotificationCreatedSubCommentView(opts)
     when "created_comment"
-      new NotificationAddedArgumentView(opts)
+      new NotificationCreatedCommentView(opts)
     when "followed_user"
       new NotificationUserFollowedUser(opts)
     else
