@@ -1,6 +1,5 @@
 class Channel < OurOhm;end # needed because of removed const_missing from ohm
 class Site < OurOhm; end # needed because of removed const_missing from ohm
-class FactRelation < OurOhm;end # needed because of removed const_missing from ohm
 
 class Fact < OurOhm
   include Pavlov::Helpers
@@ -50,10 +49,6 @@ class Fact < OurOhm
     self.data = localdata
   end
 
-  def add_evidence(type, evidence, user)
-    FactRelation.get_or_create(evidence,type,self,user)
-  end
-
   def believable
     @believable ||= Believable.new(key)
   end
@@ -82,9 +77,7 @@ class Fact < OurOhm
   end
 
   def deletable?
-    opinionated_users_ids - [created_by_id] == [] &&
-      FactRelation.find(fact_id: id).count == 0 &&
-      FactRelation.find(from_fact_id: id).count == 0
+    opinionated_users_ids - [created_by_id] == []
   end
 
   private

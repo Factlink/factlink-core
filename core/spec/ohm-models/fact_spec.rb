@@ -134,24 +134,5 @@ describe Fact do
         fact.delete
       end.to raise_error
     end
-
-    it "is false when the fact has evidence" do
-      supported_fact  = Fact.create created_by: graph_user
-      supporting_fact = Fact.create created_by: graph_user
-
-      supported_fact.add_evidence(:believes, supporting_fact, graph_user)
-
-      expect(supported_fact.deletable?).to be_false
-    end
-
-    it "is false when the fact is used as evidence" do
-      supported_fact  = Fact.create created_by: graph_user
-      supporting_fact = Fact.create created_by: graph_user
-
-      supported_fact.add_evidence(:believes, supporting_fact, graph_user)
-
-      expect(supported_fact.deletable?).to be_false
-    end
-
   end
 end

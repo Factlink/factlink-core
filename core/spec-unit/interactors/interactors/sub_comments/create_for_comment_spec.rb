@@ -71,7 +71,7 @@ describe Interactors::SubComments::CreateForComment do
       expect(result).to eq dead_sub_comment
     end
 
-    it 'throws an error when the fact relation does not exist' do
+    it 'throws an error when the comment does not exist' do
       Comment.stub find: nil
       ability = double can?: true
 
