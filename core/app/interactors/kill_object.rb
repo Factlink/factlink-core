@@ -13,8 +13,6 @@ module KillObject
      :gravatar_hash, :email, :receives_mailed_notifications,
      :receives_digest, :graph_user_id, :statistics,
      :deleted, :hidden?, :confirmed?]
-  dead_object :channel,
-    [:type, :title, :id, :slug_title, :created_by_id]
   dead_object :comment,
     [:id, :created_by, :created_at, :content, :type,
      :fact_data, :sub_comment_count, :created_by_id]
