@@ -22,7 +22,7 @@ describe Queries::Comments::ForFact do
              .and_return [comment]
       Pavlov.should_receive(:query)
             .with(:'sub_comments/count',
-                      parent_id: comment.id, parent_class: comment.class,
+                      parent_id: comment.id,
                       pavlov_options: pavlov_options)
             .and_return(sub_comments_count)
       Pavlov.should_receive(:query)

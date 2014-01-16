@@ -2,7 +2,7 @@ module Queries
   module SubComments
     class Index
       include Pavlov::Query
-      arguments :parent_ids_in, :parent_class
+      arguments :parent_ids_in
 
       def execute
         sub_comments.map do |sub_comment|
