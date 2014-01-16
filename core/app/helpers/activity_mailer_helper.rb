@@ -7,9 +7,7 @@ module ActivityMailerHelper
     action_string = action.to_s
 
     case action_string
-    when "created_comment"
-      "added_argument"
-    when "created_sub_comment", "followed_user"
+    when "created_comment", "created_sub_comment", "followed_user"
       action_string
     else
       fail 'Unknown action in ActivityMailer: ' + action_string
