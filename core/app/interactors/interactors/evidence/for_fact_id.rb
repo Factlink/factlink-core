@@ -15,7 +15,17 @@ module Interactors
       end
 
       def execute
-        query :'evidence/for_fact_id', fact_id: fact_id
+        comments.sort do |a,b|
+          relevance_of(b) <=> relevance_of(a)
+        end
+      end
+
+      def comments
+        query(:'comments/for_fact', fact: Fact[fact_id])
+      end
+
+      def relevance_of evidence
+        evidence.votes[:believes] - evidence.votes[:disbelieves]
       end
     end
   end
