@@ -11,6 +11,8 @@ class window.ProfileView extends Backbone.Marionette.Layout
     factRegion: '.fact-region'
 
   onRender: ->
-    @factRegion.show @options.created_facts_view
+    @factRegion.show new FactsView
+      collection: new CreatedFacts([], user: @model)
+      empty_view: new EmptyProfileFactsView
     @profileInformationRegion.show new ProfileInformationView model: @model
     @profileBioRegion.show  new ProfileBioView model: @model
