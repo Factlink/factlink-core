@@ -98,14 +98,6 @@ describe UsersController do
     render_views
     include PavlovSupport
 
-    def backend_create_viewable_channel_for user
-      channel = create :channel, {created_by: user.graph_user}
-      fact = create :fact, created_by: user.graph_user
-      Pavlov.interactor :'channels/add_fact', fact: fact, channel: channel,
-                                              pavlov_options: { current_user: user }
-      channel
-    end
-
     describe :activity_approval do
       before do
         # Don't send a mail for these activity tests
