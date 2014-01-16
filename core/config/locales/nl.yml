@@ -33,9 +33,7 @@ nl:
   channel: "kanaal"
   channels: "kanalen"
 
-  follow: "volgen"
   follow_user: "gebruiker volgen"
-  follow_topic: "topic volgen"
   followed: "volgt"
   following: "volgt"
   followers: "volgers"
@@ -43,13 +41,6 @@ nl:
   is_now_following_you: "volgt je nu"
 
   stream: "overzicht"
-
-  topic: "onderwerp"
-  topic_name: "naam van onderwerp"
-  favourites: "gevolgde topics"
-  favourite: "volgen"
-  unfavourite: "ontvolgen"
-  favourited: "volgend"
 
   ago: "geleden"
   show: "toon"

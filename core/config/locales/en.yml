@@ -32,9 +32,7 @@ en:
   channel: "channel"
   channels: "channels"
 
-  follow: "follow"
   follow_user: "follow user"
-  follow_topic: "follow topic"
   followed: "followed"
   following: "following"
   followers: "followers"
@@ -42,13 +40,6 @@ en:
   is_now_following_you: "is now following you"
 
   stream: "feed"
-
-  topic:  "topic"
-  topic_name: "topic name"
-  favourites: "followed topics"
-  favourite: "follow"
-  unfavourite: "unfollow"
-  favourited: "followed"
 
   ago: "ago"
   show: "show" # when updating, update jslib template
