@@ -17,11 +17,6 @@ class ChannelsController < ApplicationController
   def index
   end
 
-  def search
-    @topics = []
-    render 'topics/index', formats: [:json]
-  end
-
   def create
     authorize! :update, @user
 

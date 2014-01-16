@@ -119,10 +119,6 @@ FactlinkUI::Application.routes.draw do
     end
 
     resources :channels, except: [:new, :edit, :show] do
-      collection do
-        get "find" => "channels#search", as: "find"
-      end
-
       member do
         post "toggle/fact/:fact_id/" => "channels#toggle_fact"
 
