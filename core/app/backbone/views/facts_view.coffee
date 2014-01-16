@@ -5,7 +5,7 @@ class window.FactsView extends AutoloadingCompositeView
   itemViewContainer: ".facts"
   itemView: FactView
 
-  template: "channels/facts"
+  template: "facts/facts"
 
   initialize: (options) ->
     @addShowHideToggle "loadingIndicator", "div.loading"

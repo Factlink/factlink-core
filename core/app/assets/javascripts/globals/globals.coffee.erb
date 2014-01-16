@@ -1,13 +1,10 @@
 # ensure we update this file when we update the locales
-# SHASUM of locales: d864c8645ef3e494f4f2bb73f2eca3582e416cdb
+# SHASUM of locales: bda376b9d95dcf9312d4c2f3100e1b23e4956eeb
 
 window.Factlink ||= {}
 
 Factlink.Global =
   ajax_loader_image: '<%= image_path("ajax-loader.gif") %>'
-  icon_empty_channel: '<%= image_path("icon-empty-channel.png") %>'
-  icon_empty_channel_chrome: '<%= image_path("icon-client-chrome.png") %>'
-  icon_empty_channel_firefox: '<%= image_path("icon-client-firefox.png") %>'
   browser_icons_chrome_16x16: '<%= image_path("browser-icons/chrome-16x16.png") %>'
   warning_sign_image: '<%= image_path("warning-sign.png") %>'
 
@@ -19,8 +16,6 @@ Factlink.Global =
 <%
   [
     :stream,
-    :channel,
-    :channels,
     :follow_user,
     :followed,
     :following,

@@ -29,9 +29,6 @@ en:
   post_argument: "Post"
   post_subcomment: "Reply"
 
-  channel: "channel"
-  channels: "channels"
-
   follow_user: "follow user"
   followed: "followed"
   following: "following"

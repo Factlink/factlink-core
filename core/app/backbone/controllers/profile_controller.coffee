@@ -15,12 +15,7 @@ class window.ProfileController extends Backbone.Marionette.Controller
       if user.get('deleted')
         main_region.show new TextView text: 'This profile has been deleted.'
       else
-        channels = new ChannelList([], username: user.get('username'))
-        channels.fetch()
-        main_region.show new ProfileView
-          model: user
-          collection: channels
-          created_facts_view: @getFactsView user
+        main_region.show new ProfileView model: user
 
   notification_options: (username)->
     title: 'Notification Settings'
@@ -58,8 +53,3 @@ class window.ProfileController extends Backbone.Marionette.Controller
     options.onInit(user)
     user.fetch
       success: -> options.onFetch(user)
-
-  getFactsView: (user) ->
-    new FactsView
-      collection: new CreatedFacts([], user: user)
-      empty_view: new EmptyProfileFactsView
