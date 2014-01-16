@@ -1,9 +1,5 @@
 <%
-  if @activity.subject.parent.class == FactRelation
-    subject_parent_user = @activity.subject.parent.created_by.user
-  else # Comment
-    subject_parent_user = @activity.subject.parent.created_by
-  end
+  subject_parent_user = @activity.subject.parent.created_by
 %>
 
 <% content_for :email_header do %>
