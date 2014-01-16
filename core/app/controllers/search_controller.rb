@@ -1,7 +1,4 @@
 class SearchController < ApplicationController
-
-  layout "channels"
-
   # Search
   # Not using the same search for the client popup, since we probably want
   # to use a more advanced search on the Factlink website.
