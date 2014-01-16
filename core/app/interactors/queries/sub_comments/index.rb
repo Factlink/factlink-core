@@ -11,8 +11,7 @@ module Queries
       end
 
       def sub_comments
-        SubComment.where(parent_class: parent_class)
-                  .any_in(parent_id: parent_ids)
+        SubComment.any_in(parent_id: parent_ids)
                   .asc(:created_at)
       end
 
