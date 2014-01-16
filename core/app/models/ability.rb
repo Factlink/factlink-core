@@ -45,7 +45,6 @@ class Ability
     can :new, Fact
     can :index, Fact
     can :read, Fact
-    can :read, FactRelation
     can :read, Comment
     can :read, Channel
     can :read, Topic
