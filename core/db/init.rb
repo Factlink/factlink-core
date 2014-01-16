@@ -12,7 +12,7 @@ LoadDsl.load do
   user "eamon", "eamon@factlink.com", "123hoi", "Eamon Nerbonne"
   user "luuk", "luuk@factlink.com", "123hoi", "Luuk Hartsema"
 
-  user "tomdev"
+  as_user "tomdev"
     fact "Oil is still detrimental to the environment,", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm" do
       believers "merijn","tomdev","jjoos", "mark", "jens", "eamon", "luuk"
       disbelievers "remon"
@@ -48,7 +48,7 @@ LoadDsl.load do
       believers "tomdev","jjoos"
     end
 
-  user "jjoos"
+  as_user "jjoos"
     fact "The plant Arabidopsis thaliana is found throughout the entire northern hemisphere", "http://www.sciencedaily.com/" do
       believers "jjoos"
     end

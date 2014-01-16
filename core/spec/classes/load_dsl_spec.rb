@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe LoadDsl do
   it "should error when a user is made without password" do
-      expect { subject.user "merijn" }.to raise_error(LoadDsl::UndefinedUserError)
-  end
-
-  it "should error when a user is made without password" do
       expect { subject.fact "hoi" }.to raise_error(LoadDsl::UndefinedUserError)
   end
 
@@ -15,10 +11,11 @@ describe LoadDsl do
       user "tomdev", "tom@factlink.com", "123hoi", "Tom de Vries"
       user "mark", "mark@example.com", "123hoi"
 
-      user "mark"
-        fact "something is true", "http://example.org/"
+      as_user "mark"
+        fact "something is true", "http://example.org/" do
           believers "merijn","tomdev"
           disbelievers "mark"
+        end
     end # shouldn't raise
   end
 

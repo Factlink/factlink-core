@@ -25,19 +25,7 @@ class LoadDsl
     Site.find(:url => url).first || Site.create(:url => url)
   end
 
-  def by_display_string(displaystring)
-    fd = FactData.where(displaystring: displaystring)
-    if fd.count > 0
-      fd.first.fact
-    else
-      nil
-    end
-  end
-
   def load_fact(fact_string,url="http://example.org/", opts={})
-    f = by_display_string(fact_string)
-    return f if f
-
     f = Fact.create(
       :site => load_site(url),
       :created_by => state_graph_user
@@ -67,9 +55,7 @@ class LoadDsl
     fail err_msg
   end
 
-  def load_user(username, email=nil, password=nil, full_name=nil)
-    u = User.where(:username => username).first
-    return u if u
+  def user(username, email=nil, password=nil, full_name=nil)
     raise_undefined_user_error unless email and password
 
     u = User.new(
@@ -90,10 +76,8 @@ class LoadDsl
     u
   end
 
-  def user(username, email=nil, password=nil, full_name=nil)
-    self.state_user = load_user(username, email, password, full_name)
-  end
-
+  def as_user(username)
+    self.state_user = User.where(:username => username).first
   end
 
   def run(&block)
