@@ -1,8 +1,6 @@
 class FactRelationsToComments < Mongoid::Migration
   def self.up
-    FactRelation.all.ids.each do |fact_relation_id|
-      Resque.enqueue MigrateFactRelationToCommentWorker, fact_relation_id
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

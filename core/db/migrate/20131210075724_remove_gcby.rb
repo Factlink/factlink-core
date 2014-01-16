@@ -1,8 +1,6 @@
 class RemoveGcby < Mongoid::Migration
   def self.up
-    Redis.current.keys('FactRelation:gcby:*').each do |key|
-      Redis.current.del key
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down
