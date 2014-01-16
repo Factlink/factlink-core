@@ -25,8 +25,7 @@ describe Queries::FactRelations::ByIds do
                   .and_return(fact_relation)
 
       Pavlov.stub(:query)
-            .with(:'sub_comments/count',
-                      parent_id: fact_relation.id, parent_class: fact_relation.class)
+            .with(:'sub_comments/count', parent_id: fact_relation.id)
             .and_return(sub_comments_count)
       Pavlov.stub(:query)
             .with(:'believable/votes', believable: believable)

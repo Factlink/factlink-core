@@ -20,9 +20,7 @@ module Queries
       end
 
       def dead_fact_relation_for fact_relation
-        fact_relation.sub_comments_count = query(:'sub_comments/count',
-                                                    parent_id: fact_relation.id.to_s,
-                                                    parent_class: fact_relation.class.to_s)
+        fact_relation.sub_comments_count = query(:'sub_comments/count', parent_id: fact_relation.id.to_s)
 
         KillObject.fact_relation fact_relation,
           votes: query(:'believable/votes', believable: fact_relation.believable),

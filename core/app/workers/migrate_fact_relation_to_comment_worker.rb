@@ -46,7 +46,7 @@ class MigrateFactRelationToCommentWorker
   end
 
   def self.move_subcomments fact_relation, comment
-    SubComment.where(parent_id: fact_relation.id, parent_class: 'FactRelation')
-              .update_all(parent_id: comment.id.to_s, parent_class: 'Comment')
+    SubComment.where(parent_id: fact_relation.id)
+              .update_all(parent_id: comment.id.to_s)
   end
 end
