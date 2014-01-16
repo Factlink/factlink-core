@@ -57,7 +57,6 @@ class window.ActivitiesView extends AutoloadingView
     @$(".js-activities-list").append childView.render().el
 
   newChildView: (model) ->
-    ch = @collection.channel
     ActivitiesGroupView.new
       model: model
 
