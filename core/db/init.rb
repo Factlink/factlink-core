@@ -12,7 +12,7 @@ LoadDsl.load do
   user "eamon", "eamon@factlink.com", "123hoi", "Eamon Nerbonne"
   user "luuk", "luuk@factlink.com", "123hoi", "Luuk Hartsema"
 
-  as_user "tomdev"
+  as_user "tomdev" do
     fact "Oil is still detrimental to the environment,", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm" do
       believers "merijn","tomdev","jjoos", "mark", "jens", "eamon", "luuk"
       disbelievers "remon"
@@ -47,8 +47,9 @@ LoadDsl.load do
     fact "Most bacterial infections can be treated with antibiotics such as penicillin, discovered decades ago. However, such drugs are useless against viral infections", "http://www.sciencedaily.com/" do
       believers "tomdev","jjoos"
     end
+  end
 
-  as_user "jjoos"
+  as_user "jjoos" do
     fact "The plant Arabidopsis thaliana is found throughout the entire northern hemisphere", "http://www.sciencedaily.com/" do
       believers "jjoos"
     end
@@ -79,4 +80,5 @@ LoadDsl.load do
     fact "\"On earth, nuclear reactors are under attack because of concerns over damage caused by natural disasters. In space, however, nuclear technology may get a new lease on life.", "http://slashdot.org/" do
       believers "jjoos"
     end
+  end
 end
