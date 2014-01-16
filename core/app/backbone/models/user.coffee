@@ -1,10 +1,7 @@
 class window.User extends Backbone.Model
   initialize: ->
     @following = new Following([], user: @)
-
     @following.on 'all', => @trigger 'follow_action'
-
-  setChannels: (channels) ->
 
   url: ->
     # We do this because we cannot (yet) set the idAttribute to "username"
