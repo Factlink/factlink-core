@@ -54,15 +54,6 @@ describe UsersController do
       Pavlov.command(:'users/add_handpicked_user', user_id: user1.id.to_s)
       Pavlov.command(:'users/add_handpicked_user', user_id: user2.id.to_s)
 
-      as(user1) do |pavlov|
-        ch1 = pavlov.command(:'channels/create', title: 'toy')
-        ch2 = pavlov.command(:'channels/create', title: 'story')
-      end
-      as(user2) do |pavlov|
-        ch1 = pavlov.command(:'channels/create', title: 'war')
-        ch2 = pavlov.command(:'channels/create', title: 'games')
-      end
-
       authenticate_user!(user)
       ability.stub(:can?).with(:access, Ability::FactlinkWebapp)
              .and_return(true)
