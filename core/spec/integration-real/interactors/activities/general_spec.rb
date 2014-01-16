@@ -4,13 +4,13 @@ describe 'general' do
   include PavlovSupport
 
   let(:user) { create :full_user }
+  let(:other_user) { create :full_user }
 
   it 'after adding activities they exist' do
     as(user) do |pavlov|
       fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
-      channel = pavlov.command :'channels/create', title: 'something'
 
-      a2 = pavlov.command :'create_activity', graph_user: channel.created_by,
+      a2 = pavlov.command :'create_activity', graph_user: other_user.graph_user,
                                               action: :followed_user, subject: nil, object: nil
 
       all_activity_ids = Activity.all.ids
@@ -22,23 +22,19 @@ describe 'general' do
   context 'after cleanup' do
     it 'invalid activities are removed from a list' do
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
-        fact2 = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
-        fact3 = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
-        channel = pavlov.command :'channels/create', title: 'something'
-        channel2 = pavlov.command :'channels/create', title: 'something else'
+        fact_that_will_be_deleted = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
+        valid_fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
 
-        valid = pavlov.command :'create_activity', graph_user: channel.created_by,
-                                                   action: :followed_user, subject: fact3, object: channel2
-        with_invalid_subject = pavlov.command :'create_activity', graph_user: channel.created_by,
-                                                                  action: :followed_user, subject: fact, object: nil
-        with_invalid_object = pavlov.command :'create_activity', graph_user: channel.created_by,
-                                                                 action: :followed_user, subject: fact2, object: channel
-        valid_with_nils = pavlov.command :'create_activity', graph_user: channel.created_by,
+        valid = pavlov.command :'create_activity', graph_user: other_user.graph_user,
+                                                   action: :followed_user, subject: valid_fact, object: valid_fact
+        with_invalid_subject = pavlov.command :'create_activity', graph_user: other_user.graph_user,
+                                                                  action: :followed_user, subject: fact_that_will_be_deleted, object: nil
+        with_invalid_object = pavlov.command :'create_activity', graph_user: other_user.graph_user,
+                                                                 action: :followed_user, subject: valid_fact, object: fact_that_will_be_deleted
+        valid_with_nils = pavlov.command :'create_activity', graph_user: other_user.graph_user,
                                                              action: :followed_user, subject: nil, object: nil
 
-        fact.delete
-        channel.delete
+        fact_that_will_be_deleted.delete
 
         list = Nest.new(:a_list)
         list.zadd 145, valid.id
@@ -46,7 +42,6 @@ describe 'general' do
         list.zadd 15, with_invalid_object.id
         list.zadd 1276, valid_with_nils.id
         list.zadd 26, '678678678678678677868'
-
 
         pavlov.command :'activities/clean_list', list_key: list.to_s
 
