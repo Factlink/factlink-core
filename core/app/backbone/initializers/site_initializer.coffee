@@ -9,11 +9,11 @@ window.FactlinkAppMode.coreInSite = (app) ->
   declareSiteRoutes()
 
 declareSiteRoutes = ->
-  profileController = new ProfileController # For use in ChannelsController
+  profileController = new ProfileController # For use in FactsController
   new ProfileRouter controller: profileController # first, as then it doesn't match index pages such as "/m" using "/:username"
   new SearchRouter controller: new SearchController
-  new ChannelsRouter
-    controller: new ChannelsController
+  new FactsRouter
+    controller: new FactsController
       showProfile: (username) -> profileController.showProfile username
   new TourRouter controller: new TourController
 

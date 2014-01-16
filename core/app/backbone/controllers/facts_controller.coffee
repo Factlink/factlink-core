@@ -1,4 +1,4 @@
-class window.ChannelsController extends Backbone.Marionette.Controller
+class window.FactsController extends Backbone.Marionette.Controller
   constructor: (@options) ->
 
   showStream: ->
