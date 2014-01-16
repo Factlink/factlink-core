@@ -56,8 +56,4 @@ class ChannelActivitiesController < ApplicationController
   def get_user
     @user ||= User.find_by(username: params[:username]) || raise_404
   end
-
-  def channel_id
-    params[:channel_id] || params[:id]
-  end
 end
