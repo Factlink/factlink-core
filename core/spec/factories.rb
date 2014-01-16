@@ -94,13 +94,6 @@ FactoryGirl.define do
     url
   end
 
-  factory :fact_relation do
-    association :fact
-    association :from_fact, factory: :fact
-    association :created_by, :factory => :graph_user
-    type :believes
-  end
-
   factory :comment do
   end
 
