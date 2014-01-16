@@ -121,18 +121,6 @@ FactlinkUI::Application.routes.draw do
     resources :following, only: [:destroy, :update, :index], controller: 'user_following'
   end
 
-  resources :topics, path: 't', only: [:show] do
-    collection do
-      get :top
-    end
-
-    member do
-      scope "/facts" do
-        get "/" => "topics#facts", as: "topic_facts"
-      end
-    end
-  end
-
   scope "/p/tour" do
     get 'setup-account' => 'users/setup#edit', as: 'setup_account'
     put 'setup-account' => 'users/setup#update'
