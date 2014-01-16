@@ -4,7 +4,7 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
   @classForModel: (model) ->
     switch model.get("action")
       when "created_comment"
-        CreatedFactRelationView
+        CreatedCommentView
       when "created_sub_comment"
         CreatedSubCommentView
       when "believes", "doubts", "disbelieves"
@@ -15,8 +15,8 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
         throw new Error 'Unknown activity action: ' + model.get("action")
 
 
-class CreatedFactRelationView extends ActivityItemView
-  template: "activities/created_fact_relation"
+class CreatedCommentView extends ActivityItemView
+  template: "activities/created_comment"
 
 class CreatedSubCommentView extends ActivityItemView
   template: "activities/created_sub_comment"
