@@ -3,7 +3,7 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
 
   @classForModel: (model) ->
     switch model.get("action")
-      when "created_comment", "created_fact_relation"
+      when "created_comment"
         CreatedFactRelationView
       when "created_sub_comment"
         CreatedSubCommentView

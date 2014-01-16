@@ -37,7 +37,7 @@ window.NotificationView = (opts) ->
   switch opts.model.get("action")
     when "created_sub_comment"
       new NotificationCreatedSubCommentView(opts)
-    when "created_comment", "created_fact_relation"
+    when "created_comment"
       new NotificationAddedArgumentView(opts)
     when "followed_user"
       new NotificationUserFollowedUser(opts)

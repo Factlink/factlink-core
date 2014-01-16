@@ -74,7 +74,7 @@ class UserActivitiesGroupView extends ActivitiesGroupView
 class UserFactActivitiesGroupView extends UserActivitiesGroupView
   template: 'activities/user_fact_activities_group'
 
-  @actions: ["created_comment", "created_sub_comment", "created_fact_relation", "believes", "doubts", "disbelieves"]
+  @actions: ["created_comment", "created_sub_comment", "believes", "doubts", "disbelieves"]
   actions: -> UserFactActivitiesGroupView.actions
 
   onRender: ->
@@ -95,7 +95,7 @@ class UserFactActivitiesGroupView extends UserActivitiesGroupView
     activity.get('action') in ['believes', 'disbelieves', 'doubts']
 
   isAddedArgument: (activity) ->
-    activity.get('action') in ["created_comment", "created_fact_relation"]
+    activity.get('action') == "created_comment"
 
   activityMadeRedundantBy: (newActivity, oldActivity) ->
     @isOpinion(oldActivity) && @isOpinion(newActivity) ||
