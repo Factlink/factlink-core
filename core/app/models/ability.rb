@@ -36,7 +36,6 @@ class Ability
     define_comment_abilities
     define_sub_comment_abilities
     define_user_abilities
-    define_user_favourites_abilities
     define_user_activities_abilities
     define_sharing_abilities
   end
@@ -112,13 +111,6 @@ class Ability
       can :edit_settings, user
       can :destroy, user
     end
-  end
-
-  def define_user_favourites_abilities
-    return unless signed_in?
-
-    can :show_favourites, user
-    can :edit_favourites, user
   end
 
   def define_user_activities_abilities
