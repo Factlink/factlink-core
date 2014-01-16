@@ -20,7 +20,6 @@ describe Commands::SubComments::CreateXxx do
       comment = double(:comment, id: 10)
 
       comment.should_receive(:parent_id=).with(parent_id.to_s)
-      comment.should_receive(:parent_class=).with('Comment')
       SubComment.should_receive(:new).and_return(comment)
       comment.should_receive(:created_by=).with(user)
       comment.should_receive(:content=).with(content)

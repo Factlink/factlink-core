@@ -44,11 +44,22 @@ describe Interactors::Evidence::ForFactId do
       interactor = described_class.new fact_id: fact.id, type: type,
                                        pavlov_options: pavlov_options
 
-      Pavlov.stub(:query)
-              .with(:'evidence/for_fact_id', fact_id: fact.id, pavlov_options: pavlov_options)
-              .and_return(fact)
+      comment1 = double :comment1, votes: {believes: 2, disbelieves: 1}
+      comment2 = double :comment2, votes: {believes: 4, disbelieves: 0}
 
-      expect(interactor.call).to eq fact
+      type = :disbelieves
+
+      Fact.stub(:[])
+          .with(fact.id)
+          .and_return(fact)
+      Pavlov.stub(:query)
+            .with(:'comments/for_fact',
+                      fact: fact, pavlov_options: pavlov_options)
+            .and_return [comment1, comment2]
+
+      result = interactor.call
+
+      expect(result).to eq [comment2, comment1]
     end
   end
 end

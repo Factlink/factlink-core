@@ -11,7 +11,6 @@ describe Queries::SubComments::Index do
 
     it 'no subcomments' do
       parent_id = 1
-      parent_class = 'Comment'
       sub_comment_finder1, sub_comment_finder2 = double, double
       query = described_class.new parent_ids_in: parent_id
 
@@ -26,7 +25,6 @@ describe Queries::SubComments::Index do
 
     it 'two subcomments' do
       parent_id = '2a'
-      parent_class = 'Comment'
       sub_comments = [double, double]
       dead_sub_comments = [double, double]
       sub_comment_finder1, sub_comment_finder2 = double, double
@@ -49,7 +47,6 @@ describe Queries::SubComments::Index do
 
     it 'retrieves subcomments for multiple comments' do
       parent_ids = ['2a', '2b']
-      parent_class = 'Comment'
       sub_comments = [double, double]
       dead_sub_comments = [double, double]
       sub_comment_finder1, sub_comment_finder2 = double, double

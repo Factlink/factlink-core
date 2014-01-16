@@ -1,6 +1,6 @@
 class GoodbyeSupportingWeakening < Mongoid::Migration
   def self.up
-    Resque.enqueue MigrateSupportingWeakeningFactRelationWorker
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

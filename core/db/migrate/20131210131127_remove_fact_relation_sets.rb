@@ -1,6 +1,6 @@
 class RemoveFactRelationSets < Mongoid::Migration
   def self.up
-    Resque.enqueue MigrateRemoveFactRelationSetsWorker
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down
