@@ -20,7 +20,6 @@ class LoadDsl
   end
 
   attr_writer :state_user
-  attr_accessor :state_fact
 
   def load_site(url)
     Site.find(:url => url).first || Site.create(:url => url)
@@ -51,9 +50,9 @@ class LoadDsl
     f
   end
 
-  def fact(fact_string,url="http://example.org/", opts={})
+  def fact(fact_string,url="http://example.org/", opts={}, &block)
     f = load_fact(fact_string,url, opts)
-    self.state_fact = f
+    FactDsl.new(f).instance_eval(&block) if block_given?
   end
 
   def raise_undefined_user_error
@@ -95,23 +94,25 @@ class LoadDsl
     self.state_user = load_user(username, email, password, full_name)
   end
 
-  def believers(*l)
-    set_opinion(:believes, *l)
-  end
+  FactDsl = Struct.new(:fact) do
+    def believers(*l)
+      set_opinion(:believes, *l)
+    end
 
-  def disbelievers(*l)
-    set_opinion(:disbelieves, *l)
-  end
+    def disbelievers(*l)
+      set_opinion(:disbelieves, *l)
+    end
 
-  def doubters(*l)
-    set_opinion(:doubts, *l)
-  end
+    def doubters(*l)
+      set_opinion(:doubts, *l)
+    end
 
-  def set_opinion(opinion_type, *users)
-    f = state_fact
-    users.each do |username|
-      gu = load_user(username).graph_user
-      f.add_opinion opinion_type, gu
+    def set_opinion(opinion_type, *users)
+      users.each do |username|
+        gu = User.where(username: username).first.graph_user
+        puts gu.user.username
+        fact.add_opinion opinion_type, gu
+      end
     end
   end
 
