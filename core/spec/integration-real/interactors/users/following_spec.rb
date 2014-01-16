@@ -39,7 +39,6 @@ describe 'user following' do
 
         as(user2) do |pavlov|
           fact = pavlov.interactor(:'facts/create', displaystring: 'test', url: '', title: '')
-          channel = pavlov.command(:'channels/create', title: 'henk')
 
           a1 = Activity.create user: user2.graph_user,
             action: :believes, subject: fact
