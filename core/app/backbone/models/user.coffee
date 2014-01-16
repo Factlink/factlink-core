@@ -2,7 +2,6 @@ class window.User extends Backbone.Model
   initialize: ->
     @channels = []
     @following = new Following([], user: @)
-    @favourite_topics = new FavouriteTopics([], user: @)
 
     @following.on 'all', => @trigger 'follow_action'
 
