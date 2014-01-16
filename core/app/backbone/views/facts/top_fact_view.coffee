@@ -36,14 +36,6 @@ class window.TopFactView extends Backbone.Marionette.Layout
       selector: '.js-share'
       tooltipViewFactory: => new ShareFactView model: @model
 
-    if Factlink.Global.can_haz.obsolete_topics
-      Backbone.Factlink.makeTooltipForView @,
-        stayWhenHoveringTooltip: true
-        hoverIntent: true
-        positioning: {align: 'right', side: 'bottom'}
-        selector: '.js-topics'
-        tooltipViewFactory: => new AddToChannelView model: @model
-
   _deleteButtonView: ->
     deleteButtonView = new DeleteButtonView model: @model, undo: @model.justCreated()
 

@@ -1,25 +1,5 @@
 class window.Fact extends Backbone.Model
-  getOwnContainingChannels: (eventAggregator) ->
-    new ChannelList [], username: currentUser.get('username')
-
   urlRoot: "/facts"
-
-  removeFromChannel: (channel, opts={}) ->
-    Backbone.ajax _.extend {}, opts,
-      type: "post"
-      url: channel.url() + "/remove/" + @get("id") + ".json"
-      success: =>
-        indexOf = @get("containing_channel_ids").indexOf(channel.id)
-        @get("containing_channel_ids").splice indexOf, 1  if indexOf
-        opts.success?()
-
-  addToChannel: (channel, opts={}) ->
-    Backbone.ajax _.extend {}, opts,
-      type: "post"
-      url: channel.url() + "/add/" + @get("id") + ".json"
-      success: =>
-        @get("containing_channel_ids").push channel.id
-        opts.success?()
 
   getVotes: ->
     @_votes ?= new Votes [], fact: @

@@ -4,27 +4,6 @@ class window.Topic extends Backbone.Model
 
   isActive: -> @collection.isActive(@)
 
-  newChannelForUser: (user) ->
-    new Channel
-      title: @get 'title'
-      slug_title: @get 'slug_title'
-      username: user.get 'username'
-
-  withCurrentOrCreatedChannelFor: (user, options)->
-    if ch = @existingChannelFor(user)
-      options.success?(ch)
-    else
-      ch = @newChannelForUser(user)
-      user.channels.add(ch)
-      ch.save {},
-        success: (m,r)-> options.success?(m,r)
-        error:   (m,r)->
-          user.channels.remove(ch)
-          options.error?(m,r)
-
-  existingChannelFor: (user)->
-    user.channels.getBySlugTitle(@get 'slug_title')
-
   facts: -> new TopicFacts([], topic: @)
 
   urlRoot: ->
