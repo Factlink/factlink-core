@@ -30,9 +30,6 @@ nl:
   post_argument: "Post"
   post_subcomment: "Reageer"
 
-  channel: "kanaal"
-  channels: "kanalen"
-
   follow_user: "gebruiker volgen"
   followed: "volgt"
   following: "volgt"
