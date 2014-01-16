@@ -14,7 +14,7 @@ describe Queries::Topics::DeadTopicWithStatisticsByTopic do
 
     it 'returns the topic' do
       facts_count = 100
-      favouritours_count = 300
+      favouritours_count = 0
       current_user = double(graph_user: double)
       dead_topic = double
       pavlov_options = {current_user: current_user}
@@ -23,11 +23,6 @@ describe Queries::Topics::DeadTopicWithStatisticsByTopic do
             .with(:'topics/facts_count',
                       slug_title: topic.slug_title, pavlov_options: pavlov_options)
             .and_return(facts_count)
-
-      Pavlov.stub(:query)
-            .with(:'topics/favouritours_count',
-                      topic_id: topic.id, pavlov_options: pavlov_options)
-            .and_return(favouritours_count)
 
       DeadTopic.stub(:new)
         .with(topic.slug_title, topic.title, facts_count, favouritours_count)
@@ -40,18 +35,13 @@ describe Queries::Topics::DeadTopicWithStatisticsByTopic do
 
     it 'works without a current_user' do
       facts_count = 100
-      favouritours_count = 300
+      favouritours_count = 0
       dead_topic = double
 
       Pavlov.stub(:query)
             .with(:'topics/facts_count',
                       slug_title: topic.slug_title)
             .and_return(facts_count)
-
-      Pavlov.stub(:query)
-            .with(:'topics/favouritours_count',
-                      topic_id: topic.id)
-            .and_return(favouritours_count)
 
       DeadTopic.stub(:new)
         .with(topic.slug_title, topic.title, facts_count, favouritours_count)
