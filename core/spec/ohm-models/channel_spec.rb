@@ -61,13 +61,6 @@ describe Channel do
         ch1.delete
         Channel[id].should be_nil
       end
-
-      it "should be removed from the graph_users active channels for" do
-        channel
-        ChannelList.new(u1).channels.should include(channel)
-        channel.delete
-        ChannelList.new(u1).channels.should_not include(channel)
-      end
     end
 
     describe :title= do
