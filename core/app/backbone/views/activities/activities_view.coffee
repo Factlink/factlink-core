@@ -3,7 +3,7 @@ AutoloadingView = extendWithAutoloading(Backbone.Marionette.Layout);
 class FeedEmptyView extends Backbone.Marionette.ItemView
   className: 'empty_stream_content'
   template:
-    text: "Currently there are no activities in your #{Factlink.Global.t.stream} yet. Please use the search in the top bar to find interesting users and topics to follow."
+    text: "Currently there are no activities in your #{Factlink.Global.t.stream} yet. Please use the search in the top bar to find interesting users and #{Factlink.Global.t.factlinks}."
 
 class window.ActivitiesView extends AutoloadingView
   _.extend @prototype, ToggleMixin
