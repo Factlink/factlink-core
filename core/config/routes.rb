@@ -126,7 +126,6 @@ FactlinkUI::Application.routes.draw do
       member do
         post "toggle/fact/:fact_id/" => "channels#toggle_fact"
 
-        post "add/:fact_id"     => "channels#add_fact"
         post "remove/:fact_id"  => "channels#remove_fact"
 
         scope "/facts" do

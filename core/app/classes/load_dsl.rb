@@ -140,7 +140,7 @@ class LoadDsl
   def add_fact(fact_string)
     fact = load_fact(fact_string)
 
-    interactor :'channels/add_fact', fact: fact, channel: state_channel
+    # interactor :'channels/add_fact', fact: fact, channel: state_channel
   end
 
   def run(&block)

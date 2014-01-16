@@ -9,7 +9,6 @@ class ChannelsController < ApplicationController
       :facts,
       :create_fact,
       :remove_fact,
-      :add_fact
     ]
   before_filter :get_user
   before_filter :authenticate_user!, except: ['index', 'show']
@@ -42,14 +41,6 @@ class ChannelsController < ApplicationController
   end
 
   def destroy
-  end
-
-  def add_fact
-    fact = Fact[params[:fact_id]]
-
-    interactor(:'channels/add_fact', fact: fact, channel: @channel)
-
-    render nothing: true, status: :no_content
   end
 
   def remove_fact
