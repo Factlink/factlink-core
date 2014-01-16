@@ -27,6 +27,7 @@ class Channel < OurOhm
   reference :created_by, GraphUser
   index :created_by_id
 
+  # Unused, remove soon
   timestamped_set :sorted_internal_facts, Fact
 
   def validate
