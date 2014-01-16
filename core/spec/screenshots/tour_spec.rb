@@ -18,16 +18,6 @@ describe "Check the tour", type: :feature, driver: :poltergeist_slow do
     user = create :user
     Pavlov.command(:'users/add_handpicked_user', user_id: user.id.to_s)
 
-    as(user) do |pavlov|
-      channel1 = pavlov.command(:'channels/create', title: 'toy')
-      channel2 = pavlov.command(:'channels/create', title: 'story')
-
-      factlink = create :fact, created_by: user.graph_user
-
-      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: channel1)
-      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: channel2)
-    end
-
     visit interests_path
 
     assume_unchanged_screenshot 'interests'
