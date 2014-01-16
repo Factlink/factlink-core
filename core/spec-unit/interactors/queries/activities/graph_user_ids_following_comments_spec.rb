@@ -10,13 +10,13 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
 
   describe '#call' do
     it 'returns unique follower ids' do
-      comments = [        double(id: '1',
-                                 created_by: double(graph_user_id: 1),
-                                 believable: double(opinionated_users_ids: 2)
-          ),        double(id: '2',
-                           created_by: double(graph_user_id: 2),
-                           believable: double(opinionated_users_ids: 3)
-          )
+      comments = [
+        double(id: '1',
+               created_by: double(graph_user_id: 1),
+               believable: double(opinionated_users_ids: 2)),
+        double(id: '2',
+               created_by: double(graph_user_id: 2),
+               believable: double(opinionated_users_ids: 3))
       ]
       sub_comments = [
         double( created_by: double( graph_user_id: 3 )),
@@ -24,7 +24,8 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
       ]
       query = described_class.new comments: comments
 
-      Pavlov.stub(:query).with(:'sub_comments/index', parent_ids_in: comments.map(&:id), parent_class: 'Comment')
+      Pavlov.stub(:query)
+            .with(:'sub_comments/index', parent_ids_in: comments.map(&:id))
             .and_return(sub_comments)
 
       expect(query.call).to eq [1, 2, 3, 4]

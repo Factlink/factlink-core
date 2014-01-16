@@ -1,6 +1,6 @@
 class FactRelationActivities < Mongoid::Migration
   def self.up
-    Resque.enqueue MigrateFactRelationActivitiesWorker
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

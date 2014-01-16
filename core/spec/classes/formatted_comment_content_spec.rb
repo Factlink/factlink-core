@@ -24,11 +24,13 @@ describe FormattedCommentContent do
       FactlinkUI::Application.config.stub(core_url: 'http://factlink.com:80')
 
       fact = create :fact
-      friendly_fact_url = FactUrl.new(fact).friendly_fact_url
+      fact_url = FactUrl.new(fact)
+      friendly_fact_url = fact_url.friendly_fact_url
+      friendly_fact_path = fact_url.friendly_fact_path
       displaystring = fact.data.displaystring
 
       formatted_comment = described_class.new friendly_fact_url
-      expected_html = "<a class=\"formatted-comment-content-factlink\" href=\"#{friendly_fact_url}\" rel=\"backbone\">Fact 1</a>"
+      expected_html = "<a class=\"formatted-comment-content-factlink\" href=\"#{friendly_fact_path}\" rel=\"backbone\">Fact 1</a>"
 
       expect(formatted_comment.html).to eq expected_html
     end

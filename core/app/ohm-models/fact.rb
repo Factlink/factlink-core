@@ -52,10 +52,7 @@ class Fact < OurOhm
   end
 
   def add_evidence(type, evidence, user)
-    fr = FactRelation.get_or_create(evidence,type,self,user)
-    Activity.create user: user.graph_user, action: :created_fact_relation,
-      subject: fr, object: self
-    fr
+    FactRelation.get_or_create(evidence,type,self,user)
   end
 
   def believable

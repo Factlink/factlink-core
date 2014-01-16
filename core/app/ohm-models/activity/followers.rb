@@ -7,19 +7,11 @@ class Activity < OurOhm
     end
 
     def followers_for_sub_comment sub_comment
-        if sub_comment.parent_class == 'Comment'
-          followers_for_comment sub_comment.parent
-        else
-          followers_for_fact_relation sub_comment.parent
-        end
+      followers_for_comment sub_comment.parent
     end
 
     def followers_for_comment comment
       query(:'activities/graph_user_ids_following_comments', comments: [comment])
-    end
-
-    def followers_for_fact_relation fact_relation
-      query(:'activities/graph_user_ids_following_fact_relations', fact_relations: [fact_relation])
     end
 
     def followers_for_graph_user graph_user_id

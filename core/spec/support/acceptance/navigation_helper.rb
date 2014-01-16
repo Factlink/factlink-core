@@ -12,7 +12,7 @@ module Acceptance
     end
 
     def close_modal
-      find("#modal_region .js-layer").click
+      find("#modal_region .js-modal-window-close").click
     end
   end
 end

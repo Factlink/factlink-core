@@ -17,8 +17,7 @@ module Interactors
       def execute
         fail Pavlov::ValidationError, "comment does not exist any more" unless comment
 
-        query(:'sub_comments/index',
-                          parent_ids_in: comment_id, parent_class: 'Comment')
+        query(:'sub_comments/index', parent_ids_in: comment_id)
       end
 
       def comment
