@@ -37,10 +37,6 @@ class Topic
     by_slug(ch.slug_title) || create_by_title(ch.title)
   end
 
-  def channels
-    Channel.find(slug_title: slug_title)
-  end
-
   def to_param
     slug_title
   end
