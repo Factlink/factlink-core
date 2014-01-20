@@ -1,6 +1,6 @@
 showPopup = (url) ->
   width  = 640
-  height = 400
+  height = 445
   left   = (screen.width/2)-(width/2)
   top    = (screen.height/2)-(height/2)
   popup_window = window.open url, "authPopup",
