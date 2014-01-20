@@ -45,7 +45,7 @@ describe FactUrl do
   end
 
   describe '.proxy_scroll_url' do
-    it 'returns the correct url when fact has a site_url' do
+    it 'returns the correct url' do
       fact = double id: '3', site_url: 'http://sciencedaily.com'
 
       fact_url = FactUrl.new fact
@@ -53,52 +53,27 @@ describe FactUrl do
       expect(fact_url.proxy_scroll_url)
         .to eq 'http://proxy.com/?url=http%3A%2F%2Fsciencedaily.com&scrollto=3'
     end
-
-    it 'returns nil when fact has no site_url' do
-      fact = double id: '4', site_url: nil
-
-      fact_url = FactUrl.new fact
-      expect(fact_url.proxy_scroll_url)
-        .to eq nil
-    end
   end
 
   describe '.proxy_open_url' do
-    it 'returns the correct url when fact has a site_url' do
+    it 'returns the correct url' do
       fact = double id: '3', site_url: 'http://sciencedaily.com'
 
       fact_url = FactUrl.new fact
 
       expect(fact_url.proxy_open_url)
         .to eq 'http://proxy.com/?url=http%3A%2F%2Fsciencedaily.com&open_id=3'
-    end
-
-    it 'returns nil when fact has no site_url' do
-      fact = double id: '4', site_url: nil
-
-      fact_url = FactUrl.new fact
-      expect(fact_url.proxy_open_url)
-        .to eq nil
     end
   end
 
   describe '.sharing_url' do
-    it 'returns the proxy_open_url when fact has a site_url' do
+    it 'returns the proxy_open_url' do
       fact = double id: '3', site_url: 'http://sciencedaily.com'
 
       fact_url = FactUrl.new fact
 
       expect(fact_url.sharing_url)
         .to eq 'http://proxy.com/?url=http%3A%2F%2Fsciencedaily.com&open_id=3'
-    end
-
-    it 'returns friendly_fact_url when fact has no site_url' do
-      fact = double id: '2', site_url: nil
-
-      fact_url = FactUrl.new fact
-
-      expect(fact_url.sharing_url)
-        .to eq "https://site.com/f/2"
     end
   end
 

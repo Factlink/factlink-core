@@ -15,8 +15,6 @@ class window.FactView extends Backbone.Marionette.Layout
 
   onRender: ->
     @factBaseRegion.show new FactBaseView(model: @model)
-
-    if @model.get('proxy_scroll_url')
-      @linkRegion.show new FactProxyLinkView model: @model
+    @linkRegion.show new FactProxyLinkView model: @model
 
   remove: -> @$el.fadeOut "fast", -> $(this).remove()

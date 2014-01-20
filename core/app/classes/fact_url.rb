@@ -17,15 +17,11 @@ class FactUrl
   end
 
   def proxy_scroll_url
-    return unless @fact.site_url
-
     proxy_url + "/?url=" + CGI.escape(@fact.site_url) +
       "&scrollto=" + URI.escape(@fact.id)
   end
 
   def proxy_open_url
-    return unless @fact.site_url
-
     proxy_url + "/?url=" + CGI.escape(@fact.site_url) +
       "&open_id=" + URI.escape(@fact.id)
   end
@@ -35,7 +31,7 @@ class FactUrl
     # url with port number and such
     return "http://example.org" if ENV['RAILS_ENV'] == 'development'
 
-    proxy_open_url || friendly_fact_url
+    proxy_open_url
   end
 
   private
