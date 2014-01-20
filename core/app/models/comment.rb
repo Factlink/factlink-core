@@ -10,6 +10,8 @@ class Comment
   field :content,           type: String
   belongs_to :created_by, class_name: 'User', inverse_of: :comments
 
+  has_many :sub_comments, inverse_of: :parent
+
   index({ fact_data: 1, opinion: 1, created_at: 1})
 
   def believable
