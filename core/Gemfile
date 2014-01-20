@@ -22,8 +22,6 @@ gem 'multi_json', '~> 1.7'
 gem 'resque', '= 1.23.0', require: 'resque/server'
 gem 'resque_mailer', '~> 2.2.6'
 
-gem 'stringex', '~> 1.5.1' #2.0 breaks }{ normalization.
-
 gem 'mixpanel', github: 'Factlink/mixpanel'
 
 gem "sentry-raven", '~> 0.7.1'
