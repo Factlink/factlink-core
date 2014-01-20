@@ -150,7 +150,7 @@ class User
 
     def valid_username?(username)
       validators = self.validators.select { |v| v.attributes == [:username] && v.options[:with].class == Regexp }.map { |v| v.options[:with] }
-      case_insensitive_regexp = /^#{Regexp.escape(username)}$/i
+      case_insensitive_regexp = /\A#{Regexp.escape(username)}\z/i
 
       not find_by(username: case_insensitive_regexp) and validators.all? { |regex| regex.match(username) }
     end
