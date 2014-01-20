@@ -78,24 +78,5 @@ describe Interactors::Facts::Create do
 
       expect(interactor.call).to eq fact
     end
-    it 'fails for blacklisted url' do
-      url = 'www.fmf.nl'
-      displaystring = 'this is the annotated text'
-      title = 'this is the title'
-      fact_data = double(persisted?: true)
-      fact = double(id: '1', errors: [], data: fact_data)
-      user = double(id: '123abc')
-      Blacklist.stub default: double
-      Blacklist.default.stub(:matches?).with(url).and_return true
-
-      pavlov_options = { current_user: user, ability: double(can?: true) }
-      interactor = described_class.new displaystring: displaystring, url: url,
-                                       title: title,
-                                       pavlov_options: pavlov_options
-
-      expect do
-        interactor.call
-      end.to raise_error 'Blacklisted site given'
-    end
   end
 end

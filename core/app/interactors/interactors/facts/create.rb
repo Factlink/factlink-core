@@ -28,7 +28,6 @@ module Interactors
 
       def site
         fail 'No site given' if url.blank?
-        fail 'Blacklisted site given' if Blacklist.default.matches? url
 
         site = query(:'sites/for_url', url: url)
 
