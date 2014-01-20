@@ -1,0 +1,26 @@
+#factlink-containment-wrapper {
+  @extend %frame-styles;
+  visibility: hidden;
+
+  > #factlink-iframe {
+    @extend %frame-styles;
+    display: none;
+    visibility: hidden;
+  }
+
+  > .factlink-control-frame {
+    @extend %frame-styles;
+    @extend %fadable-control;
+    z-index: $max-z-index - 1;
+  }
+
+  > #factlink-modal-frame {
+    @extend %frame-styles;
+    @extend %fadable-control;
+
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: $max-z-index;
+  }
+}

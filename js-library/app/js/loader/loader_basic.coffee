@@ -1,0 +1,1 @@
+window.FACTLINK_START_LOADER()

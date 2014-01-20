@@ -1,0 +1,31 @@
+@import "variables";
+@import "frame_styles";
+@import "fadable_control"; // should be after frame_styles as it overrides frame_styles
+@import "publisher_button";
+@import "container_frames";
+
+html[data-factlink-suppress-scrolling] {
+  overflow: hidden !important;
+}
+
+span.factlink {
+  cursor: pointer;
+
+  // elementary reset
+  background: transparent !important;
+  font: inherit !important;
+  color: inherit !important;
+  text-decoration: inherit !important;
+
+  // remove fl-always-highlight when removing client_buttons feature toggle
+  &.fl-scroll-highlight, &.fl-load-highlight, &.fl-always-highlight {
+    background: rgba(255,255,0, 0.3) !important;
+  }
+
+  &:hover, &.fl-active {
+    background: rgba(255,255,0, 0.6) !important;
+  }
+
+  transition: all $highlight_visibility_transition_time;
+}
+

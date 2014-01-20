@@ -1,0 +1,1 @@
+Made the delays on hover/unhover more explicit. Don't light up when someone only moves over factlinked text, but doesn't hover over it.

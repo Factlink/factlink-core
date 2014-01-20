@@ -1,0 +1,27 @@
+{
+  "author": "Factlink Team",
+  "name": "js-library",
+  "title": "Factlink JavaScript library",
+  "description": "javascript library",
+  "version": "0.0.19",
+  "homepage": "https://factlink.com",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Factlink/js-library.git"
+  },
+  "#######COMMENT": "The below exact match for uglify-js 2.4.4 is because 2.4.5 isn't present on npm's servers; (eamon 2013-11-25)",
+  "dependencies": {
+    "uglify-js": "=2.4.4", 
+    "grunt": "~0.4.2",
+    "grunt-contrib-sass": "~0.6.0",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-cssmin": "~0.7.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-css-url-embed": "~0.1.2",
+    "grunt-shell": "~0.6.1"
+  }
+}
