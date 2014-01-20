@@ -78,7 +78,7 @@ describe Interactors::Facts::Create do
 
       expect(interactor.call).to eq fact
     end
-    it 'creates nor retrieves a site for a blacklisted url' do
+    it 'fails for blacklisted url' do
       url = 'www.fmf.nl'
       displaystring = 'this is the annotated text'
       title = 'this is the title'
@@ -93,18 +93,9 @@ describe Interactors::Facts::Create do
                                        title: title,
                                        pavlov_options: pavlov_options
 
-      Pavlov.should_receive(:command)
-            .with(:'facts/create',
-                      displaystring: displaystring, title: title, creator: user,
-                      site: nil, pavlov_options: pavlov_options)
-            .and_return(fact)
-
-      Pavlov.should_receive(:command)
-            .with(:'facts/add_to_recently_viewed',
-                      fact_id: fact.id.to_i, user_id: user.id.to_s,
-                      pavlov_options: pavlov_options)
-
-      expect(interactor.call).to eq fact
+      expect do
+        interactor.call
+      end.to raise_error 'Blacklisted site given'
     end
   end
 end
