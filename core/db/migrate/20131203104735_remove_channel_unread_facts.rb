@@ -1,9 +1,6 @@
 class RemoveChannelUnreadFacts < Mongoid::Migration
   def self.up
-    Channel.all.ids.each do |ch_id|
-      channel = Channel[ch_id]
-      channel.key[:unread_facts].del
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

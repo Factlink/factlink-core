@@ -1,8 +1,6 @@
 class RemoveFavouritedTopics < Mongoid::Migration
   def self.up
-    Redis.current.keys('user:favourited_topics:*').each do |key|
-      Redis.current.del key
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down
