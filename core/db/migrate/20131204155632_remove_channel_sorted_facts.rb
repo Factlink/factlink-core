@@ -1,9 +1,6 @@
 class RemoveChannelSortedFacts < Mongoid::Migration
   def self.up
-    Channel.all.ids.each do |id|
-      Channel.key[id][:sorted_cached_facts].del
-      Channel.key[id][:sorted_delete_facts].del
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

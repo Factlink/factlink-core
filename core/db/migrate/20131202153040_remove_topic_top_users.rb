@@ -1,8 +1,6 @@
 class RemoveTopicTopUsers < Mongoid::Migration
   def self.up
-    Topic.all.each do |topic|
-      topic.redis[topic.id][:top_users].del
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

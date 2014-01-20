@@ -1,8 +1,6 @@
 class RemoveLowercaseTitle < Mongoid::Migration
   def self.up
-    Channel.all.ids.each do |channel_id|
-      Channel.key[channel_id].hdel(:lowercase_title)
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

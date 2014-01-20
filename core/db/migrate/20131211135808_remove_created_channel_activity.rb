@@ -1,6 +1,6 @@
 class RemoveCreatedChannelActivity < Mongoid::Migration
   def self.up
-    Resque.enqueue MigrateThrowAwayActivities
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

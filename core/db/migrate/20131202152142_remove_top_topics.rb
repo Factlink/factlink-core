@@ -1,8 +1,6 @@
 class RemoveTopTopics < Mongoid::Migration
   def self.up
-    User.all.each do |user|
-      Nest.new(:user)[:topics_by_authority][user.id].del
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down
