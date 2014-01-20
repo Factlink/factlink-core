@@ -5,7 +5,7 @@ require 'cgi'
 
 class ScreenshotUpdater
   #Uses https://circleci.com/docs/api
-  CIRCLE_BASE_URI = 'https://circleci.com/api/v1/project/Factlink/core/'
+  CIRCLE_BASE_URI = 'https://circleci.com/api/v1/project/Factlink/factlink/'
 
   def run
     get_lastest_screenshot_uris.each do |screenshot_uri|
