@@ -85,7 +85,7 @@ describe Backend::SubComments do
     end
   end
 
-  describe '#destroy' do
+  describe '#destroy!' do
     it "should remove the comment" do
       sub_comment = double id: '1a'
       SubComment.should_receive(:find).with(sub_comment.id)
@@ -95,6 +95,25 @@ describe Backend::SubComments do
 
       Backend::SubComments.destroy!(id: sub_comment.id)
     end
+  end
 
+  describe '#create!' do
+    it "should create a sub_comment" do
+      parent_id = 1
+      content = 'message'
+      user = double
+
+      comment = double(:comment, id: 10)
+
+      comment.should_receive(:parent_id=).with(parent_id.to_s)
+      SubComment.should_receive(:new).and_return(comment)
+      comment.should_receive(:created_by=).with(user)
+      comment.should_receive(:content=).with(content)
+      comment.should_receive(:save!)
+
+      result = Backend::SubComments.create!(parent_id: parent_id, content: content, user: user)
+
+      expect(result).to eq comment
+    end
   end
 end

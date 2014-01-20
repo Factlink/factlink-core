@@ -15,5 +15,15 @@ module Backend
     def self.destroy!(id:)
       SubComment.find(id).delete
     end
+
+    def self.create!(parent_id:, content:, user:)
+      sub_comment = SubComment.new
+      sub_comment.parent_id = parent_id.to_s
+      sub_comment.created_by = user
+      sub_comment.content = content
+      sub_comment.save!
+
+      sub_comment
+    end
   end
 end

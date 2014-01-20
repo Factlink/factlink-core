@@ -57,11 +57,10 @@ describe Interactors::SubComments::CreateForComment do
       interactor = described_class.new comment_id: comment.id, content: content,
                                        pavlov_options: pavlov_options
 
-      Pavlov.should_receive(:command)
-            .with(:'sub_comments/create_xxx',
-                      parent_id: comment.id,
-                      content: content, user: user, pavlov_options: pavlov_options)
-            .and_return(sub_comment)
+      Backend::SubComments
+        .should_receive(:create!)
+        .with(parent_id: comment.id, content: content, user: user)
+        .and_return(sub_comment)
       interactor.should_receive(:create_activity).with(sub_comment)
       KillObject.should_receive(:sub_comment).with(sub_comment).
         and_return(dead_sub_comment)
