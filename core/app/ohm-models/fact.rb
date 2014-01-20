@@ -9,6 +9,7 @@ class Fact < OurOhm
 
   def validate
     assert_present :created_by
+    assert_present :site
   end
 
   def create
