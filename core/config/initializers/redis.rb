@@ -3,8 +3,6 @@ connection_hash = case Rails.env.to_sym
     {host: 'localhost', port: 6381}
   when :test
     {host: 'localhost', port: 6379}
-  when :testserver
-    {host: '172.18.64.5', port: 6379}
   when :staging
     {host: '172.18.64.14', port: 6379}
   when :production

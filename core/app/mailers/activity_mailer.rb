@@ -21,7 +21,7 @@ class ActivityMailer < ActionMailer::Base
   private
 
   def from
-    if ['development', 'testserver', 'staging'].include? Rails.env
+    if ['development', 'staging'].include? Rails.env
       "\"Factlink #{Rails.env}\" <support@factlink.com>"
     else
       "\"Factlink\" <support@factlink.com>"

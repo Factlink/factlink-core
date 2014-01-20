@@ -1,7 +1,6 @@
 webform_id = case Rails.env.to_sym
   when :development then 91
   when :test        then 1
-  when :testserver  then 93
   when :staging     then 94
   when :production  then 95
   end

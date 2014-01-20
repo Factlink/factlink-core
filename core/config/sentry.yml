@@ -1,13 +1,3 @@
-testserver:
-  sentry:
-    public: "e6d01cd56949440eba7f9d33b9f73487"
-    secret: "68686e9b022942ee8d4b7444d9f98ecd"
-    project_id: "2"
-
-  ravenjs:
-    public: "5b0ecf715fe24af789b7b45974167aae"
-    project_id: "9"
-
 staging:
   sentry:
     public: "e8ddc908931b4fb1aec8d521c0eafe7a"
