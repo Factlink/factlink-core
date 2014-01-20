@@ -8,3 +8,6 @@ test:
     - bundle exec rake konacha:load_poltergeist konacha:run
     - bundle exec rspec spec/acceptance --profile
     - bundle exec rspec spec/screenshots --profile
+    - bin/ci/103_security.sh
+    - bin/ci/105_check_assets_updated.sh
+    - bundle exec rails_best_practices --silent
