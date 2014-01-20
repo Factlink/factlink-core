@@ -65,7 +65,7 @@ class Fact < OurOhm
   end
 
   def delete
-    data.delete
+    data.destroy
     believable.delete
     remove_from_created_facts
     super
