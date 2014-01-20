@@ -21,4 +21,8 @@ class Comment
   def to_s
     content
   end
+
+  after_destroy do |comment|
+    SubComment.delete_all(parent_id: comment.id.to_s)
+  end
 end

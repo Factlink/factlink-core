@@ -44,6 +44,10 @@ class FactData
 
   after_destroy do |fact_data|
     Pavlov.command(:'text_search/delete_fact_data', object: fact_data)
+
+    fact_data.comments.each do |comment|
+      comment.destroy
+    end
   end
 
 end
