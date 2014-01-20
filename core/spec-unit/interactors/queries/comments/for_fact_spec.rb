@@ -30,7 +30,6 @@ describe Queries::Comments::ForFact do
                       comment: comment, pavlov_options: pavlov_options)
             .and_return(dead_comment)
 
-      dead_comment.should_receive(:evidence_class=).with('Comment')
       comment.should_receive(:sub_comments_count=).with(sub_comments_count)
 
       expect(query.call).to eq [dead_comment]
