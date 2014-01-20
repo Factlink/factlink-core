@@ -17,11 +17,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
     showDelete: @model.can_destroy()
 
   onRender: ->
-    if @model.get("proxy_scroll_url")
-      @userHeadingRegion.show new TopFactHeadingLinkView model: @model
-    else
-      @userHeadingRegion.show new TopFactHeadingUserView model: @model.user()
-
+    @userHeadingRegion.show new TopFactHeadingLinkView model: @model
     @userRegion.show new UserInTopFactView
         model: @model.user()
         $offsetParent: @$el
