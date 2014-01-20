@@ -8,7 +8,7 @@ describe 'fact' do
     user = create :full_user
 
     as(user) do |pavlov|
-      fact = pavlov.interactor(:'facts/create', displaystring: displaystring, url: '', title: '')
+      fact = pavlov.interactor(:'facts/create', displaystring: displaystring, url: 'http://example.org', title: '')
 
       result = pavlov.interactor(:'facts/get', id: fact.id)
 
