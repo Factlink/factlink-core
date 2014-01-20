@@ -97,8 +97,8 @@ function getServer(config) {
     "use strict";
 
     if (/factlink_loader_publishers.min.js/.test(original_html)) {
-      if (config.ENV === "development" || config.ENV === "testserver") {
-        // Disable publisher's script in development/testserver
+      if (config.ENV === "development" {
+        // Disable publisher's script in development mode
         original_html = original_html.replace(/factlink_loader_publishers.min.js/g, 'factlink_loader_publishers_DEACTIVATED.min.js');
       } else {
         // Redirect to publishers' sites

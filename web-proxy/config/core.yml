@@ -10,15 +10,6 @@ test:
         port: 3000
         protocol: http://
 
-testserver:
-    core:
-        hostname: factlink-testserver.inverselink.com
-        port: 443
-        protocol: https://
-        htpasswd:
-          username: proxyuser
-          password: "f;Y5irI:Is{[,[([Hx:4-JoWP#&usx-"
-
 staging:
     core:
         hostname: factlink-staging.inverselink.com
