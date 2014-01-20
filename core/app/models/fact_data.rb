@@ -8,6 +8,8 @@ class FactData
   field :displaystring,   type: String
   field :fact_id,         type: String
 
+  has_many :comments
+
   validates_format_of :displaystring, allow_nil: true, with: /\S/
 
   def to_s
