@@ -20,7 +20,6 @@ describe Queries::Facts::GetDead do
     let(:live_fact) do
       double :fact,
         id: '1',
-        has_site?: false,
         data: fact_data,
         deletable?: false,
         believable: believable
@@ -36,7 +35,6 @@ describe Queries::Facts::GetDead do
     let(:live_fact_with_site) do
       double :fact,
         id: '2',
-        has_site?: true,
         site: site,
         data: fact_data,
         deletable?: false,

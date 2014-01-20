@@ -25,10 +25,6 @@ class Fact < OurOhm
 
   reference :created_by, GraphUser
 
-  def has_site?
-    site and site.url and not site.url.blank?
-  end
-
   def to_s
     data.displaystring || ""
   end
