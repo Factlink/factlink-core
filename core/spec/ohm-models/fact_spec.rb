@@ -47,7 +47,7 @@ describe Fact do
     end
 
     it "should not give a give a document not found for Factdata" do
-      f = Fact.create created_by: graph_user
+      f = create :fact, created_by: graph_user
       f.data.displaystring = "This is a fact"
       f.data.save
       f.save
@@ -66,14 +66,14 @@ describe Fact do
   end
 
   it 'creating a fact adds to graph_users sorted_created_facts' do
-    fact = Fact.create created_by: graph_user
+    fact = create :fact, created_by: graph_user
 
     expect(graph_user.sorted_created_facts.to_a).to match_array [fact]
   end
 
   describe "people believes redis keys" do
     it "should be cleaned up after delete" do
-      fact = Fact.create created_by: graph_user
+      fact = create :fact, created_by: graph_user
       key = fact.key['people_believes'].to_s
       fact.add_opinion(:believes, graph_user)
       redis = Redis.current
@@ -90,12 +90,12 @@ describe Fact do
     let(:other_graph_user) { create :graph_user }
 
     it "is true when a fact is just created" do
-      fact = Fact.create created_by: graph_user
+      fact = create :fact, created_by: graph_user
       expect(fact.deletable?).to be_true
     end
 
     it "is false when people have given their opinion on the fact" do
-      fact = Fact.create created_by: graph_user
+      fact = create :fact, created_by: graph_user
 
       fact.add_opiniated :believes, other_graph_user
 
@@ -103,21 +103,11 @@ describe Fact do
     end
 
     it "is true when only the creator has given his opinion" do
-      fact = Fact.create created_by: graph_user
+      fact = create :fact, created_by: graph_user
 
       fact.add_opiniated :believes, graph_user
 
       expect(fact.deletable?).to be_true
-    end
-
-    it "lets delete raise when it is false" do
-      fact = Fact.create created_by: graph_user
-
-      fact.add_opiniated :believes, other_graph_user
-
-      expect do
-        fact.delete
-      end.to raise_error
     end
   end
 end
