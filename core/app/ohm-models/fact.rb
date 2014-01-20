@@ -65,8 +65,6 @@ class Fact < OurOhm
   end
 
   def delete
-    fail "Cannot be deleted" unless deletable?
-
     data.delete
     believable.delete
     remove_from_created_facts
