@@ -1,5 +1,3 @@
-require 'stringex'
-
 class Topic
   include Mongoid::Document
 
@@ -19,7 +17,7 @@ class Topic
   alias :old_set_title :title= unless method_defined?(:old_set_title)
   def title=(new_title)
     old_set_title new_title
-    self.slug_title = new_title.to_url
+    self.slug_title = new_title.gsub(/\W/,'-').downcase
   end
 
   def self.create_by_title(title)

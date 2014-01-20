@@ -14,14 +14,6 @@ describe Topic do
     end
   end
 
-  describe 'by_slug' do
-    ['foo'].each do |title|
-      it "should return the object by its slug" do
-         t1 = Topic.create title: title
-         Topic.by_slug(title.to_url).should == t1
-      end
-    end
-  end
   describe 'by_channel' do
     it "should not crash when channel.slug_title is nil" do
       ch = double(Channel)
