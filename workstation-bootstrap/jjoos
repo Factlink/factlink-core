@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+echo "#!/usr/bin/env bash" > ~/backup
+echo "" >> ~/backup
+echo "rsync --archive --progress --human-readable --delete --exclude '.cache' --exclude 'SyncDrive' --exclude 'Dropbox' --exclude '*/tmp' --exclude 'Downloads' --exclude '.rbenv' ~ /media/jjoos/jjoos\ home/" >> ~/backup
+
+sudo chmod +x ~/backup
+
+# syncdrive
+sudo apt-add-repository -y ppa:noobslab/pear-apps
+
+#http://www.winehq.org/download/ubuntu
+sudo apt-add-repository -y ppa:ubuntu-wine/ppa
+
+#dropbox
+sudo apt-key -y adv --keyserver pgp.mit.edu --recv-keys 5044912E
+sudo apt-add-repository "deb http://linux.dropbox.com/ubuntu raring main"
+
+sudo apt-key -y adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59
+sudo apt-add-repository "deb http://repository.spotify.com stable non-free"
+
+sudo apt-get -y -qq update
+
+sudo apt-get -y install syncdrive \
+           zsh \
+           synergy \
+           gitk \
+           gitg \
+           dropbox \
+           unar \
+           wine1.7 \
+           compizconfig-settings-manager \
+           compiz-plugins-extra \
+           spotify-client
+
+
+curl -L https://github.com/jjoos/oh-my-zsh/raw/master/tools/install.sh | sh
+
+# If you want themes for gkrellm
+cd .gkrellm2
+  cd themes
+    wget http://muhri.net/gkrellm/GKrellM-Skins.tar.gz
+    tar -zxvf GKrellM-Skins.tar.gz
+    echo *.tar.gz | xargs -n 1 tar -zxvf
+    echo *.tgz | xargs -n 1 tar -zxvf
+  rm *.tar.gz
+  rm *.tgz
+  cd ..
+cd ..
+
+# if we ever want a more recent version
+#http://stackoverflow.com/questions/7214474/how-to-keep-up-with-the-latest-versions-of-nodejs-in-ubuntu-ppa-compiling
+#sudo apt-add-repository -y ppa:chris-lea/node.js
+# sudo apt-add-repository -y "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib"
+# wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
+# apt-get install virtualbox-4.2
