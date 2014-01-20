@@ -7,34 +7,7 @@ set -e
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BASE_DIR="$( cd "${DIR}"&& cd ../.. && pwd )"
 
-if [ ! -d "$BASE_DIR/core/.git" ]; then
-  echo "No core repo detected, installing all repo's in $BASE_DIR."
-  read -p "Proceed? (y/N)" resp && echo $resp | egrep "^[yY]"
-fi
-
-#below are a few idempotent installer helper functions for git, brew and gem.
-#npm install is already idempotent, it needs no helper function.
-function cloneRepo {
-  if [ ! -d "$1/.git" ]; then
-    echo "cloning factlink $1 repo"
-    git clone "git@github.com:Factlink/$1.git"
-  else
-    echo "$1 repo already present; only fetching"
-  fi
-  pushd $1
-    git fetch
-  popd
-}
-
 cd "$BASE_DIR"
-
-cloneRepo server-management
-cloneRepo core
-cloneRepo chrome-extension
-cloneRepo firefox-extension
-cloneRepo js-library
-cloneRepo web-proxy
-cloneRepo chef-repo
 
 RUBY_VERSION=`cat core/.ruby-version`
 
@@ -67,29 +40,9 @@ gem install bundler git-up
 rbenv rehash || :
 rbenv shell --unset
 
-pushd web-proxy
-  bin/bootstrap
-popd
+web-proxy/bin/bootstrap
 
-pushd chrome-extension
-  bin/bootstrap
-popd
-
-pushd firefox-extension
-  bin/bootstrap
-popd
-
-pushd js-library
-  bin/bootstrap
-popd
-
-# pushd chef-repo
-# RSO broke the chef-repo bootstrap script, so this is currently disabled.
-#  ./script/bootstrap
-# popd
-
-pushd core
-  bin/bootstrap
-popd
+js-library/bin/bootstrap
+core/bin/bootstrap
 
 echo "Your factlink development environment is done.  Happy hacking!"
