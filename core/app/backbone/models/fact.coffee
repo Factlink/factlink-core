@@ -31,7 +31,7 @@ class window.Fact extends Backbone.Model
       data: {provider_names, message}
 
   friendly_fact_url: ->
-    new URL('/f/' + @id, Factlink.Global.core_url).toString()
+    Factlink.Global.core_url + '/f/' + @id
 
   toJSON: ->
     _.extend super(),
