@@ -24,9 +24,9 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
       ]
       query = described_class.new comments: comments
 
-      Pavlov.stub(:query)
-            .with(:'sub_comments/index', parent_ids_in: comments.map(&:id))
-            .and_return(sub_comments)
+      Backend::SubComments.stub(:index)
+                          .with(parent_ids_in: comments.map(&:id))
+                          .and_return(sub_comments)
 
       expect(query.call).to eq [1, 2, 3, 4]
     end
