@@ -1,0 +1,52 @@
+body {
+  font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+  text-shadow: 0px 1px 1px #fff;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  line-height: 18px;
+  color: #303030;
+  background: #f4f4f4;
+}
+a, a:visited, a:active {
+  color: #3D75A3;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+#error {
+	max-width: 940px;
+	margin: 0 auto;
+	padding: 10px;
+	z-index: 1;
+}
+
+h1 {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 22px;
+  margin-bottom: 13px;
+  text-rendering: optimizelegibility;
+  text-shadow: 0px 1px 1px #fff;
+}
+
+img {
+	float: right;
+	padding-left: 24px;
+}
+
+
+.bubble {
+  min-height: 220px;
+  padding: 15px;
+  background-color: white;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #EEE;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-shadow: 0px 1px 1px #fff;
+}

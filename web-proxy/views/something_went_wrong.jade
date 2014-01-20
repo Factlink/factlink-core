@@ -1,0 +1,19 @@
+!!! 5
+html(lang="en")
+  head
+    title Factlink - Something went wrong
+    link(rel="stylesheet", type="text/css", href= proxy_url + "/static/styles/error.css")
+  body
+    div#error
+      h1 Factlink Browser: Something went wrong
+
+      div.bubble
+        p An error has occured which could not be automatically corrected.
+        p You tried to visit: #{site}
+        p
+          |Please check the URL or do a&nbsp;
+          a(href="javascript:parent.location.href='#{proxy_url}/?url=http://search.yahoo.com'") web search
+          |&nbsp;to continue.
+
+    script(type='text/javascript')
+      top.document.title = document.title

@@ -1,0 +1,34 @@
+development:
+  proxy:
+    hostname: localhost
+    port: 8080
+    internal_port: 8080
+    protocol: http://
+
+test:
+  proxy:
+    hostname: localhost
+    port: 8080
+    internal_port: 8080
+    protocol: http://
+
+testserver:
+  proxy:
+    hostname: testserver.fct.li
+    port: 80
+    internal_port: 8080
+    protocol: http://
+
+staging:
+  proxy:
+    hostname: staging.fct.li
+    port: 80
+    internal_port: 8080
+    protocol: http://
+
+production:
+  proxy:
+    hostname: fct.li
+    port: 80
+    internal_port: 8080
+    protocol: http://
