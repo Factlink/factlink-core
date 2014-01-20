@@ -5,7 +5,7 @@ set :keep_releases, 10
 
 ########
 # Stages
-set :stages, %w(vagrant testserver staging production)
+set :stages, %w(staging production)
 require 'capistrano/ext/multistage'
 
 set :user, "deploy"
