@@ -6,6 +6,7 @@ describe Queries::Comments::ForFact do
 
   before do
     stub_classes 'Comment', 'KillObject', 'Fact', 'OpinionType'
+    stub_const 'Backend::SubComments', Module.new
   end
 
   describe '#call' do
@@ -20,11 +21,9 @@ describe Queries::Comments::ForFact do
       Comment.should_receive(:where)
              .with(fact_data_id: fact.data_id)
              .and_return [comment]
-      Pavlov.should_receive(:query)
-            .with(:'sub_comments/count',
-                      parent_id: comment.id,
-                      pavlov_options: pavlov_options)
-            .and_return(sub_comments_count)
+      Backend::SubComments.should_receive(:count)
+                          .with(parent_id: comment.id)
+                          .and_return(sub_comments_count)
       Pavlov.should_receive(:query)
             .with(:'comments/add_votes_and_deletable',
                       comment: comment, pavlov_options: pavlov_options)
