@@ -8,6 +8,6 @@ test:
     - bundle exec rake konacha:load_poltergeist konacha:run
     - bundle exec rspec spec/acceptance --profile
     - bundle exec rspec spec/screenshots --profile
-    - bundle exec brakeman -q -z
+    - bundle exec brakeman --except SessionSettings -q -z
     - bin/ci/105_check_assets_updated.sh
     - bundle exec rails_best_practices --silent
