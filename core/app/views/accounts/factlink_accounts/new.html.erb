@@ -5,9 +5,11 @@
 
       <h1 class="accounts-popup-half-form-heading">Sign in to Factlink</h1>
 
-      <%= f.text_field :login, placeholder: "Email or username" %>
+      <label for="login">Email address</label>
+      <%= f.text_field :login, placeholder: 'john@smith.com' %>
       <%= possible_error_for_field(@user_new_session, :login) %>
-      <%= f.password_field :password, placeholder: "Password" %>
+      <label for="password">Password</label>
+      <%= f.password_field :password %>
 
       <%= link_to "Forgot your password?", new_password_path('user'), target: '_blank', class: 'accounts-popup-forgot-password' %>
 
@@ -23,13 +25,17 @@
 
       <h1 class="accounts-popup-half-form-heading">Create a Factlink account</h1>
 
-      <%= f.text_field :full_name, placeholder: "Full name" %>
+      <label>Full name</label>
+      <%= f.text_field :full_name, placeholder: 'John Smith' %>
       <%= possible_error_for_field(@user_new_account, :full_name) %>
-      <%= f.text_field :email, placeholder: "Email address" %>
+      <label>Email address</label>
+      <%= f.text_field :email, placeholder: 'john@smith.com' %>
       <%= possible_error_for_field(@user_new_account, :email) %>
-      <%= f.password_field :password, placeholder: "Password" %>
+      <label>Password</label>
+      <%= f.password_field :password %>
       <%= possible_error_for_field(@user_new_account, :password) %>
-      <%= f.password_field :password_confirmation, placeholder: "Password confirmation" %>
+      <label>Password confirmation</label>
+      <%= f.password_field :password_confirmation %>
       <%= possible_error_for_field(@user_new_account, :password_confirmation) %>
 
       <p>By creating an account you accept our <%= link_to 'terms', pages_path('terms-of-service'), target: '_blank' %>.</p>
