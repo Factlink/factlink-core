@@ -1,6 +1,9 @@
 machine:
   services:
     - elasticsearch
+database:
+  override:
+  - cp config/mongoid.yml.ci config/mongoid.yml
 test:
   override:
     - rspec spec-unit --profile
