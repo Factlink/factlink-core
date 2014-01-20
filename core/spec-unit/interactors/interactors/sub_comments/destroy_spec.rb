@@ -39,13 +39,11 @@ describe Interactors::SubComments::Destroy do
       id = '1'
       ability = double can?: true
       pavlov_options = { current_user: double, ability: ability }
-      interactor = described_class.new(id: id,
-                                       pavlov_options: pavlov_options)
+      interactor = described_class.new(id: id, pavlov_options: pavlov_options)
 
       SubComment.stub :find
-      Pavlov.should_receive(:command)
-            .with(:'sub_comments/destroy',
-                      id: id, pavlov_options: pavlov_options)
+      Backend::SubComments.should_receive(:destroy!)
+                          .with(id: id)
       interactor.stub i_own_sub_comment: true
 
       interactor.call

@@ -84,4 +84,17 @@ describe Backend::SubComments do
       expect(result).to eq dead_sub_comments
     end
   end
+
+  describe '#destroy' do
+    it "should remove the comment" do
+      sub_comment = double id: '1a'
+      SubComment.should_receive(:find).with(sub_comment.id)
+                .and_return(sub_comment)
+
+      sub_comment.should_receive(:delete)
+
+      Backend::SubComments.destroy!(id: sub_comment.id)
+    end
+
+  end
 end

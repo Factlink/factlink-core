@@ -11,5 +11,9 @@ module Backend
         KillObject.sub_comment sub_comment
       end
     end
+
+    def self.destroy!(id:)
+      SubComment.find(id).delete
+    end
   end
 end
