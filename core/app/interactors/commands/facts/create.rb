@@ -6,9 +6,7 @@ module Commands
       arguments :displaystring, :title, :creator, :site
 
       def execute
-        fact_params = {created_by: creator.graph_user}
-        fact_params[:site] = site if site
-        fact = Fact.new fact_params
+        fact = Fact.new created_by: creator.graph_user, site: site
         fact.data = create_fact_data
         fact.save
         fact.data.fact_id = fact.id

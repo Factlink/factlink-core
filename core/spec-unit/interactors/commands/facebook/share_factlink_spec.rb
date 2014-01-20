@@ -10,7 +10,7 @@ describe Commands::Facebook::ShareFactlink do
 
   describe '#call' do
     it 'should share a Factlink to Facebook' do
-      fact      = double id: '1', title: 'title', host: 'example.org', has_site?: true
+      fact      = double id: '1', title: 'title', host: 'example.org'
       token     = double
       client    = double
       namespace = 'namespace'
@@ -51,8 +51,8 @@ describe Commands::Facebook::ShareFactlink do
       command.call
     end
 
-    it 'works without a host and without message' do
-      fact      = double id: '1', title: 'title', has_site?: false
+    it 'works without message' do
+      fact      = double id: '1', title: 'title', host: 'example.org'
       token     = double
       client    = double
       namespace = 'namespace'
@@ -82,7 +82,7 @@ describe Commands::Facebook::ShareFactlink do
       client.should_receive(:put_wall_post).with '',
         name: 'quote',
         link: 'sharing_url',
-        caption: '',
+        caption: "example.org \u2014 title",
         description: 'Read more',
         picture: 'http://cdn.factlink.com/1/facebook-factwheel-logo.png'
 

@@ -8,6 +8,8 @@ class FactData
   field :displaystring,   type: String
   field :fact_id,         type: String
 
+  has_many :comments
+
   validates_format_of :displaystring, allow_nil: true, with: /\S/
 
   def to_s
@@ -42,6 +44,10 @@ class FactData
 
   after_destroy do |fact_data|
     Pavlov.command(:'text_search/delete_fact_data', object: fact_data)
+
+    fact_data.comments.each do |comment|
+      comment.destroy
+    end
   end
 
 end

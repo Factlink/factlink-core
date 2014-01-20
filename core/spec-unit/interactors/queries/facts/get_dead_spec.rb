@@ -17,15 +17,6 @@ describe Queries::Facts::GetDead do
         title: 'title'
     end
 
-    let(:live_fact) do
-      double :fact,
-        id: '1',
-        has_site?: false,
-        data: fact_data,
-        deletable?: false,
-        believable: believable
-    end
-
     let(:votes) { double }
     let(:believable) { double }
 
@@ -33,10 +24,9 @@ describe Queries::Facts::GetDead do
       double :site, url: 'http://example.org/'
     end
 
-    let(:live_fact_with_site) do
+    let(:live_fact) do
       double :fact,
         id: '2',
-        has_site?: true,
         site: site,
         data: fact_data,
         deletable?: false,
@@ -47,9 +37,6 @@ describe Queries::Facts::GetDead do
       Fact.stub(:[])
           .with(live_fact.id)
           .and_return(live_fact)
-      Fact.stub(:[])
-          .with(live_fact_with_site.id)
-          .and_return(live_fact_with_site)
       Pavlov.stub(:query)
             .with(:'believable/votes', believable: believable)
             .and_return(votes)
@@ -66,21 +53,6 @@ describe Queries::Facts::GetDead do
       expect(dead_fact.title).to eq live_fact.data.title
       expect(dead_fact.votes).to eq votes
       expect(dead_fact.deletable?).to eq live_fact.deletable?
-    end
-
-    it 'returns a fact which has no site or proxy_scroll_url without site_url' do
-      query = Queries::Facts::GetDead.new id: live_fact.id
-
-      dead_fact = query.call
-
-      expect(dead_fact.site_url).to be_nil
-    end
-
-    it 'returns a fact which has a site with site_url' do
-      query = Queries::Facts::GetDead.new id: live_fact_with_site.id
-
-      dead_fact = query.call
-
       expect(dead_fact.site_url).to eq site.url
     end
   end

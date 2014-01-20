@@ -8,7 +8,7 @@ describe 'general' do
 
   it 'after adding activities they exist' do
     as(user) do |pavlov|
-      fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
+      fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', title: ''
 
       a2 = pavlov.command :'create_activity', graph_user: other_user.graph_user,
                                               action: :followed_user, subject: nil, object: nil
@@ -22,8 +22,8 @@ describe 'general' do
   context 'after cleanup' do
     it 'invalid activities are removed from a list' do
       as(user) do |pavlov|
-        fact_that_will_be_deleted = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
-        valid_fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
+        fact_that_will_be_deleted = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', title: ''
+        valid_fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', title: ''
 
         valid = pavlov.command :'create_activity', graph_user: other_user.graph_user,
                                                    action: :followed_user, subject: valid_fact, object: valid_fact

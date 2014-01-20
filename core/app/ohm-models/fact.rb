@@ -9,6 +9,7 @@ class Fact < OurOhm
 
   def validate
     assert_present :created_by
+    assert_present :site
   end
 
   def create
@@ -23,10 +24,6 @@ class Fact < OurOhm
   end
 
   reference :created_by, GraphUser
-
-  def has_site?
-    site and site.url and not site.url.blank?
-  end
 
   def to_s
     data.displaystring || ""
@@ -68,9 +65,7 @@ class Fact < OurOhm
   end
 
   def delete
-    fail "Cannot be deleted" unless deletable?
-
-    data.delete
+    data.destroy
     believable.delete
     remove_from_created_facts
     super

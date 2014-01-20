@@ -72,7 +72,7 @@ feature 'the profile page', type: :feature do
 
     fact = nil
     as(followed_user) do |backend|
-      fact = backend.interactor(:'facts/create', displaystring: displaystring, url: '', title: 'title')
+      fact = backend.interactor(:'facts/create', displaystring: displaystring, url: 'http://example.org', title: 'title')
       backend.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'believes', content: "so true")
     end
 

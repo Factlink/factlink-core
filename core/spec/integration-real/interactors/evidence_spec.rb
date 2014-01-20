@@ -12,7 +12,7 @@ describe 'evidence' do
   describe 'initially' do
     it 'a fact has no evidence' do
       as(current_user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
+        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', title: ''
 
         evidence = pavlov.interactor :'evidence/for_fact_id', fact_id: fact.id.to_s, type: :believes
 
@@ -24,7 +24,7 @@ describe 'evidence' do
   describe 'adding a few comments' do
     it 'the fact should get the comments we add' do
       as(current_user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: ''
+        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', title: ''
 
         pavlov.interactor :'comments/create', fact_id: fact.id.to_i, type: 'believes', content: 'Gekke Gerrit'
         pavlov.interactor :'comments/create', fact_id: fact.id.to_i, type: 'believes', content: 'Handige Harrie'

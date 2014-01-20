@@ -22,8 +22,6 @@ module Queries
       end
 
       def site_url
-        return nil unless fact.has_site?
-
         fact.site.url
       end
 
