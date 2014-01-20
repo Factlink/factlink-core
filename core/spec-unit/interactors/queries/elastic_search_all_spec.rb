@@ -26,7 +26,7 @@ describe Queries::ElasticSearchAll do
 
 
         HTTParty.should_receive(:get).
-          with("http://#{base_url}/factdata,topic,user/_search?q=(searching*+OR+searching)+AND+(for*+OR+for)+AND+(this*+OR+this)+AND+(channel*+OR+channel)&from=0&size=20&analyze_wildcard=true").
+          with("http://#{base_url}/factdata,user/_search?q=(searching*+OR+searching)+AND+(for*+OR+for)+AND+(this*+OR+this)+AND+(channel*+OR+channel)&from=0&size=20&analyze_wildcard=true").
           and_return(results)
 
         return_object = double
@@ -72,7 +72,7 @@ describe Queries::ElasticSearchAll do
       query = described_class.new(keywords: keywords, page: 1, row_count: 20)
 
       HTTParty.should_receive(:get)
-        .with("http://#{base_url}/factdata,topic,user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true")
+        .with("http://#{base_url}/factdata,user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true")
         .and_return(results)
 
       expect(query.call).to eq []

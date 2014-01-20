@@ -13,7 +13,7 @@ module Queries
         keywords: keywords,
         page: page,
         row_count: row_count,
-        types: [:factdata, :topic, :user]
+        types: [:factdata, :user]
     end
   end
 end

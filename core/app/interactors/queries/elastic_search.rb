@@ -72,8 +72,6 @@ module Queries
       case type
       when'factdata'
         FactData.find(id)
-      when 'topic'
-        nil # Remove when migrated away topic search index
       when 'user'
         query(:'users_by_ids', user_ids: [id]).first
       when 'test_class'
