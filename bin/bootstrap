@@ -1,0 +1,45 @@
+#!/bin/bash
+eval "$(rbenv init -)"
+
+#abort this script on any error:
+set -e
+
+cd "$( dirname "${BASH_SOURCE[0]}" )"/..
+
+RUBY_VERSION=`cat core/.ruby-version`
+
+echo "Checking for ruby ${RUBY_VERSION}"
+
+rbenv rehash || :
+if bash -c "rbenv global ${RUBY_VERSION}" ; then
+  #NOTE: we need to run the rbenv global TEST in a separate bash instance
+  #because rbenv installs a bash function and due to set -e interaction in can fail.
+  echo "Ruby ${RUBY_VERSION} already installed."
+else
+    echo "Installing ruby ${RUBY_VERSION}..."
+    rbenv install ${RUBY_VERSION}
+    rbenv rehash || :
+fi
+
+if ! type grunt 2>&1 >/dev/null; then
+  #/usr/local/share/npm/bin isn't yet in path
+  export PATH=$PATH:/usr/local/share/npm/bin
+  if ! type grunt 2>&1 >/dev/null; then
+    echo "ERROR: Cannot find grunt in path nor in /usr/local/share/npm/bin; exiting."
+    exit 1
+  fi
+  echo 'export PATH=$PATH:/usr/local/share/npm/bin' >> ~/.bash_profile
+fi
+
+rbenv shell "${RUBY_VERSION}"
+
+gem install bundler git-up
+rbenv rehash || :
+rbenv shell --unset
+
+web-proxy/bin/bootstrap
+
+js-library/bin/bootstrap
+core/bin/bootstrap
+
+echo "Your factlink development environment is done.  Happy hacking!"
