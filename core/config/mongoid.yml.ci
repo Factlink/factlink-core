@@ -1,0 +1,13 @@
+test:
+  sessions:
+    default:
+      options:
+        retry_interval: 0
+        max_retries: 1
+        consistency: :strong
+      database: circle_test
+      hosts:
+      - localhost:27017
+  options:
+    raise_not_found_error: false
+

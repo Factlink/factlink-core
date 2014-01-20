@@ -1,6 +1,9 @@
 machine:
   services:
     - elasticsearch
+database:
+  override:
+  - cp config/mongoid.yml.ci config/mongoid.yml
 test:
   override:
     - rspec spec-unit --profile
@@ -8,3 +11,6 @@ test:
     - bundle exec rake konacha:load_poltergeist konacha:run
     - bundle exec rspec spec/acceptance --profile
     - bundle exec rspec spec/screenshots --profile
+    - bundle exec brakeman --except SessionSettings -q -z
+    - bin/check_assets_updated.sh
+    - bundle exec rails_best_practices --silent
