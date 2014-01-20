@@ -1,11 +1,11 @@
 class RemoveFactsWithoutSite < Mongoid::Migration
   def self.up
-    Fact.all.to_a
-      .keep_if{|f| !f.site || !f.site.url || f.site.url.blank?)}
-      .each do |fact|
+    Fact.all.ids.each do |fact_id|
+      fact = Fact[fact_id]
 
-        Resque.enqueue ReallyRemoveFact, fact.id
-
+      unless f.site and f.site.url and not f.site.url.blank?
+        Resque.enqueue ReallyRemoveFact, fact_id
+      end
     end
   end
 
