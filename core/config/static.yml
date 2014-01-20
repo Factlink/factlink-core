@@ -10,12 +10,6 @@ test:
     port: 8000
     protocol: http://
 
-testserver:
-  static:
-    hostname: factlink-static-testserver.inverselink.com
-    port: 443
-    protocol: https://
-
 staging:
   static:
     hostname: factlink-static-staging.inverselink.com

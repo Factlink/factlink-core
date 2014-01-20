@@ -22,19 +22,6 @@ test:
   options:
     raise_not_found_error: false
 
-testserver:
-  sessions:
-    default:
-      database: factlink_testserver
-      hosts:
-       - 172.18.64.8:27017
-       - 172.18.64.9:27017
-       - 172.18.64.10:27017
-      options:
-        consistency: :strong
-  options:
-    raise_not_found_error: false
-
 staging:
   sessions:
     default:

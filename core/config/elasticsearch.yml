@@ -8,11 +8,6 @@ test:
     hostname: localhost
     port: 9200
 
-testserver:
-  elasticsearch:
-    hostname: 172.18.64.2
-    port: 9200
-
 staging:
   elasticsearch:
     hostname: 172.18.64.11

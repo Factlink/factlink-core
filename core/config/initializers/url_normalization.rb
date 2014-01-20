@@ -1,7 +1,6 @@
-# Monkey patch to also rewrite urls for our staging and testserver
+# Monkey patch to also rewrite urls for our staging server
 class UrlNormalizer
   class Proxy < UrlNormalizer
-    normalize_for 'testserver.fct.li'
     normalize_for 'staging.fct.li'
   end
 end

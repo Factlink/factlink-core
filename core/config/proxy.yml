@@ -12,13 +12,6 @@ test:
     internal_port: 8080
     protocol: http://
 
-testserver:
-  proxy:
-    hostname: testserver.fct.li
-    port: 80
-    internal_port: 8080
-    protocol: http://
-
 staging:
   proxy:
     hostname: staging.fct.li

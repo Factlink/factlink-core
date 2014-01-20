@@ -6,10 +6,6 @@ development:
   chrome:
     id: kkihgbnaciigoekfgfgjpjggojlobigh
 
-testserver:
-  chrome:
-    id: bmekjogijonolmphikpeppogdmcclkfc
-
 staging:
   chrome:
     id: fkhpmbcgikfdnnobmembneidakkifjgp

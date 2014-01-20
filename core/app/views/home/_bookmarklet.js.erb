@@ -10,7 +10,7 @@
       lib: lib_url,
       srcPath: "/factlink.core.js"
     };
-  <% elsif ['testserver', 'staging'].include?(Rails.env) %>
+  <% elsif ['staging'].include?(Rails.env) %>
     var loader_filename = "/factlink_loader_bookmarklet.min.js";
 
     window.FactlinkConfig = {
