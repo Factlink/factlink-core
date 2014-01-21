@@ -3,7 +3,7 @@ class RemoveFactsWithoutSite < Mongoid::Migration
     Fact.all.ids.each do |fact_id|
       fact = Fact[fact_id]
 
-      unless f.site and f.site.url and not f.site.url.blank?
+      unless fact.site and fact.site.url and not fact.site.url.blank?
         Resque.enqueue ReallyRemoveFact, fact_id
       end
     end
