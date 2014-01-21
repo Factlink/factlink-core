@@ -32,6 +32,7 @@ FactlinkUI::Application.routes.draw do
 
       scope '/comments' do
         post "/" => 'comments#create'
+        get "/" => 'comments#index'
         delete "/:id" => 'comments#destroy'
         put "/:id/opinion" => 'comments#update_opinion'
 
@@ -47,17 +48,6 @@ FactlinkUI::Application.routes.draw do
 
     collection do
       get 'recently_viewed' => "facts#recently_viewed"
-    end
-
-    resources :evidence, only: [:show, :create, :destroy, :index] do
-      member do
-        put "opinion" => "evidence#update_opinion", as: "update_opinion"
-        scope '/sub_comments' do
-          get '' => 'sub_comments#index'
-          post '' => 'sub_comments#create'
-          delete "/:sub_comment_id" => 'sub_comments#destroy'
-        end
-      end
     end
   end
 

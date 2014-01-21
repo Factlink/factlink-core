@@ -1,6 +1,11 @@
-require_relative 'application_controller'
-
 class CommentsController < ApplicationController
+  def index
+    fact_id = params[:id]
+    @evidence = interactor(:'comments/for_fact_id', fact_id: fact_id)
+
+    render 'evidence/index', formats: [:json]
+  end
+
   def create
     fact_id = Integer(params[:id])
     type = params[:type]

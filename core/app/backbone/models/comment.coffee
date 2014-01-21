@@ -12,8 +12,6 @@ class window.Comment extends Backbone.Model
 
   can_destroy: -> @_is_mine() && @get('is_deletable')
 
-  urlRoot: -> @collection.commentsUrl()
-
   argumentTally: ->
     @_argumentTally ?= new ArgumentTally @get('tally'),
       argument: this
