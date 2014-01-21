@@ -9,10 +9,10 @@
   box-shadow: 0 1px 3px rgba(0,0,0,.055);
   transition: all .2s ease-in-out;
   margin-bottom:18px;
+
+  &:hover {
+    border-color: @linkColor;
+    box-shadow: 0 1px 4px rgba(0,105,214,.25);
+  }
 }
 
-// Add a hover state for linked versions only
-.video-framed.thumbnail:hover {
-  border-color: @linkColor;
-  box-shadow: 0 1px 4px rgba(0,105,214,.25);
-}
