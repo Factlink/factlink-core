@@ -108,8 +108,8 @@ FactlinkUI::Application.routes.draw do
 
     resources :created_facts, only: [:index]
 
-    get '/feed' => "channel_activities#index", as: 'feed'
-    get '/feed/count' => "channel_activities#count", as: 'feed_count'
+    get '/feed' => "feed#index", as: 'feed'
+    get '/feed/count' => "feed#count", as: 'feed_count'
 
     get 'notification-settings' => "users#notification_settings", as: "user_notification_settings"
 

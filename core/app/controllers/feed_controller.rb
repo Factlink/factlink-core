@@ -1,10 +1,5 @@
 # This class returns the feed activities
-#
-# previously each channel had activities, so this is a
-# legacy name, but channels don't have activities anymore
-# (at least not ones that are used)
-#
-class ChannelActivitiesController < ApplicationController
+class FeedController < ApplicationController
   before_filter :get_user
 
   def index
