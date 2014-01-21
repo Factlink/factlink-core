@@ -5,7 +5,7 @@ class EvidenceController < ApplicationController
   respond_to :json
 
   def index
-    @evidence = interactor(:'evidence/for_fact_id', fact_id: params[:fact_id])
+    @evidence = interactor(:'comments/for_fact_id', fact_id: params[:fact_id])
 
     render 'evidence/index', formats: [:json]
   end
