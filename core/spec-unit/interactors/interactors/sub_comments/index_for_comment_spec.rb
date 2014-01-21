@@ -41,11 +41,9 @@ describe Interactors::SubComments::IndexForComment do
 
       Comment.stub(:find).with(comment_id)
              .and_return(double)
-      Pavlov.should_receive(:query)
-            .with(:'sub_comments/index',
-                      parent_ids_in: comment_id,
-                      pavlov_options: options)
-            .and_return(dead_sub_comments)
+      Backend::SubComments.should_receive(:index)
+                          .with(parent_ids_in: comment_id)
+                          .and_return(dead_sub_comments)
 
       expect( interactor.call ).to eq dead_sub_comments
     end

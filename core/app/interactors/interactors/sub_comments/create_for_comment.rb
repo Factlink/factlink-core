@@ -35,9 +35,9 @@ module Interactors
       end
 
       def create_sub_comment
-        command(:'sub_comments/create_xxx',
-                    parent_id: comment_id,
-                    content: content, user: pavlov_options[:current_user])
+        Backend::SubComments.create!(parent_id: comment_id,
+                                     content: content,
+                                     user: pavlov_options[:current_user])
       end
 
       def top_fact

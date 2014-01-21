@@ -26,7 +26,7 @@ class EvidenceDeletable
   end
 
   def sub_comment_count
-    Queries::SubComments::Count.new(parent_id: evidence.id.to_s).call
+    Backend::SubComments.count(parent_id: evidence.id.to_s)
   end
 
   def has_no_sub_comments

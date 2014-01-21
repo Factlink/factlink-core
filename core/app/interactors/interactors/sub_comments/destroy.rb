@@ -17,9 +17,8 @@ module Interactors
       end
 
       def execute
-        command(:'sub_comments/destroy', id: id)
+        Backend::SubComments.destroy! id: id
       end
-
     end
   end
 end
