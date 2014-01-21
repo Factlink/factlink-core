@@ -6,9 +6,6 @@ class window.Comment extends Backbone.Model
   validate: (attributes) ->
     'Content should not be empty' unless /^.*\S.*$/m.test(attributes.content)
 
-  templateHelpers: =>
-    creator: @creator
-
   creator: -> new User(@get('created_by'))
 
   _is_mine: -> @creator().is_current_user()
