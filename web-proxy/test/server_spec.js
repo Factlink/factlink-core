@@ -3,10 +3,6 @@ var server = require('../lib/server').getServer(config);
 
 config_path = './config/';
 
-testserver_env = {};
-testserver_env.CONFIG_PATH = config_path;
-testserver_env.NODE_ENV = 'testserver';
-
 development_env = {};
 development_env.CONFIG_PATH = config_path;
 development_env.NODE_ENV = 'development';
@@ -15,17 +11,12 @@ production_env = {};
 production_env.CONFIG_PATH = config_path;
 production_env.NODE_ENV = 'production';
 
-
-var testserver_config   = require('../lib/config').get(testserver_env);
 var development_config  = require('../lib/config').get(development_env);
 var production_config   = require('../lib/config').get(production_env);
 
 /** Config */
 exports['htpasswd should NOT be set on development env'] = function(beforeExit, assert){
   assert.isUndefined(development_config.core.htpasswd);
-};
-exports['htpasswd should be set on testserver env'] = function(beforeExit, assert){
-  assert.eql(testserver_config.core.htpasswd.username, "proxyuser");
 };
 exports['htpasswd should be set on production env'] = function(beforeExit, assert){
   assert.eql(production_config.core.htpasswd.username, "proxyuser");

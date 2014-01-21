@@ -12,13 +12,6 @@ test:
     protocol: http://
     salt: 'tJx,RiGj:\(HPunB0.FX'
 
-testserver:
-  static:
-    hostname: factlink-static-testserver.inverselink.com
-    port: 443
-    protocol: https://
-    salt: 'tJx,RiGj:\(HPunB0.FX'
-
 staging:
   static:
     hostname: factlink-static-staging.inverselink.com
