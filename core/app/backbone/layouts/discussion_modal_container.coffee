@@ -27,4 +27,4 @@ class window.DiscussionModalContainer extends Backbone.Marionette.Layout
   fadeOut: (callback) ->
     @$el.removeClass 'discussion-modal-container-visible'
     $('body').removeClass 'discussion-modal-open'
-    _.delay callback, 100 # keep in sync with CSS
+    _.delay callback, 400 # keep in sync with CSS
