@@ -110,6 +110,13 @@ group :development do
 
   gem 'lograge', '~> 0'
   gem 'sextant', '~> 0'
+
+  gem 'brakeman', '~> 2.0.0', require: false # upgrade awaiting sprockets upgrade awaiting rails 4
+  gem 'rails_best_practices', '~> 1', require: false
+  gem 'rubocop', require: false
+  gem 'hub', '~> 1', require: false
+  gem 'selenium', require: false
+  gem 'selenium-webdriver', require: false
 end
 
 group :test do
@@ -143,13 +150,4 @@ group :test, :development do # TODO why is there a :development here?
   gem 'yarjuf', '~> 1.0', require: false #formatter for rspec
   gem 'rspec_junit_formatter', require:false  #formatter for konacha since yarjuf doesn't work.
   #rspec_junit_formatter has no version.
-end
-
-group :development do
-  gem 'brakeman', '~> 2.0.0', require: false # upgrade awaiting sprockets upgrade awaiting rails 4
-  gem 'rails_best_practices', '~> 1', require: false
-  gem 'rubocop', require: false
-  gem 'hub', '~> 1', require: false
-  gem 'selenium', require: false
-  gem 'selenium-webdriver', require: false
 end
