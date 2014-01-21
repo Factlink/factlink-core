@@ -11,7 +11,6 @@ describe CreatedFactsController do
     FactoryGirl.reload
 
     facts = create_list :fact, 3, created_by: user.graph_user
-    channel = create :channel, created_by: user.graph_user
 
     authenticate_user!(user)
 

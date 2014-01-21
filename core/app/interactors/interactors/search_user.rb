@@ -27,7 +27,7 @@ module Interactors
     end
 
     def authorized?
-      can? :index, Topic
+      true
     end
   end
 end
