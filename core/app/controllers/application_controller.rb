@@ -96,7 +96,7 @@ class ApplicationController < ActionController::Base
   def backbone_responder &block
     respond_to do |format|
       format.html do
-        render inline: '', layout: 'channels'
+        render inline: '', layout: 'frontend_with_backbone'
       end
       format.json { yield } if block_given?
     end
