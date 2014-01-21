@@ -13,7 +13,6 @@ module Queries
                      fact.data.displaystring,
                      fact.data.created_at,
                      fact.data.title,
-                     votes,
                      fact.deletable?
       end
 
@@ -23,10 +22,6 @@ module Queries
 
       def site_url
         fact.site.url
-      end
-
-      def votes
-        query(:'believable/votes', believable: fact.believable)
       end
     end
   end

@@ -37,9 +37,6 @@ describe Queries::Facts::GetDead do
       Fact.stub(:[])
           .with(live_fact.id)
           .and_return(live_fact)
-      Pavlov.stub(:query)
-            .with(:'believable/votes', believable: believable)
-            .and_return(votes)
     end
 
     it 'returns a fact' do
@@ -51,7 +48,6 @@ describe Queries::Facts::GetDead do
       expect(dead_fact.displaystring).to eq live_fact.data.displaystring
       expect(dead_fact.created_at).to eq live_fact.data.created_at
       expect(dead_fact.title).to eq live_fact.data.title
-      expect(dead_fact.votes).to eq votes
       expect(dead_fact.deletable?).to eq live_fact.deletable?
       expect(dead_fact.site_url).to eq site.url
     end
