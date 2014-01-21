@@ -7,7 +7,7 @@ describe Interactors::SearchUser do
   let(:relaxed_ability) { double(:ability, can?: true) }
 
   before do
-    stub_classes 'Topic', 'Queries::ElasticSearchUser',
+    stub_classes 'Queries::ElasticSearchUser',
                  'Fact','Ability::FactlinkWebapp'
   end
 
@@ -23,19 +23,6 @@ describe Interactors::SearchUser do
       .to raise_error(RuntimeError, 'Keywords must not be empty.')
   end
 
-  describe '#authorized?' do
-    it 'raises when executed without any permission' do
-      keywords = "searching for this user"
-      ability = double
-      ability.stub can?: false
-
-      interactor = described_class.new keywords: keywords,
-                                       pavlov_options: { ability: ability }
-
-      expect { interactor.call }
-        .to raise_error(Pavlov::AccessDenied)
-    end
-  end
   describe '#call' do
     it 'correctly' do
       keywords = 'searching for this user'

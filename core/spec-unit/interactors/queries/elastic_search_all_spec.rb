@@ -40,8 +40,6 @@ describe Queries::ElasticSearchAll do
             .stub(:new)
             .with(user_ids: [1])
             .and_return(users_by_ids)
-        when 'topic'
-          fail 'We test topics in elastic_search_channel_spec'
         when 'factdata'
           FactData.should_receive(:find).
             with(1).

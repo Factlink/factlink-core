@@ -44,7 +44,3 @@ nl:
   loading: "laden"
 
   you: "jij"
-
-  facts:
-    new:
-      add_to_channels: "voeg een of meerdere kanaalnamen toe"
