@@ -30,19 +30,4 @@ class CommentsController < ApplicationController
 
     render json: {}
   end
-
-  def sub_comments_index
-    @sub_comments = interactor(:'sub_comments/index_for_comment',
-                                   comment_id: params[:id].to_str)
-
-    render 'sub_comments/index', formats: [:json]
-  end
-
-  def sub_comments_create
-    @sub_comment = interactor(:'sub_comments/create_for_comment',
-                                  comment_id: params[:id].to_str,
-                                  content: params[:content])
-
-    render 'sub_comments/show', formats: [:json]
-  end
 end
