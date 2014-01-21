@@ -1,5 +1,5 @@
 module Interactors
-  module Evidence
+  module Comments
     class ForFactId
       include Pavlov::Interactor
       include Util::CanCan

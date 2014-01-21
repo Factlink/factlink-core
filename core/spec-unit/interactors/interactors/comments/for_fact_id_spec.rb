@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/interactors/evidence/for_fact_id.rb'
+require_relative '../../../../app/interactors/interactors/comments/for_fact_id.rb'
 
-describe Interactors::Evidence::ForFactId do
+describe Interactors::Comments::ForFactId do
   include PavlovSupport
 
   before do

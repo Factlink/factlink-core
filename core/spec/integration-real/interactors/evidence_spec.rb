@@ -14,7 +14,7 @@ describe 'evidence' do
       as(current_user) do |pavlov|
         fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', title: ''
 
-        evidence = pavlov.interactor :'evidence/for_fact_id', fact_id: fact.id.to_s, type: :believes
+        evidence = pavlov.interactor :'comments/for_fact_id', fact_id: fact.id.to_s, type: :believes
 
         expect(evidence).to eq []
       end
@@ -29,7 +29,7 @@ describe 'evidence' do
         pavlov.interactor :'comments/create', fact_id: fact.id.to_i, type: 'believes', content: 'Gekke Gerrit'
         pavlov.interactor :'comments/create', fact_id: fact.id.to_i, type: 'believes', content: 'Handige Harrie'
 
-        evidence = pavlov.interactor :'evidence/for_fact_id', fact_id: fact.id.to_s, type: :believes
+        evidence = pavlov.interactor :'comments/for_fact_id', fact_id: fact.id.to_s, type: :believes
 
         expect(evidence.map(&:content)).to eq ['Gekke Gerrit', 'Handige Harrie']
       end

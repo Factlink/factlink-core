@@ -4,6 +4,4 @@ class window.EvidenceCollection extends Backbone.Factlink.Collection
   initialize: (models, options) ->
     @fact = options.fact
 
-  url: -> "/facts/#{@fact.id}/evidence"
-
-  commentsUrl: -> "#{@fact.url()}/comments"
+  url: -> "/facts/#{@fact.id}/comments"
