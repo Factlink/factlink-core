@@ -62,7 +62,7 @@ class UsersController < ApplicationController
     @activities.select! { |a| a[:item] && a[:item].still_valid? }
     @showing_notifications = true
     respond_to do |format|
-      format.json { render 'channels/activities' }
+      format.json { render 'feed/index' }
     end
   end
 

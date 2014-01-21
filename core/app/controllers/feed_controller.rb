@@ -16,7 +16,7 @@ class FeedController < ApplicationController
                                               withscores: true)
 
       @activities = sanitize retrieved_activities, activities.key
-      render 'channels/activities'
+      render 'feed/index'
     end
   end
 
