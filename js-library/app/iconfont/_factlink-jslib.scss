@@ -39,5 +39,5 @@
   /* you can be more comfortable with increased icons size */
   font-size: 120%;
 
-  //  vertical-align: -5%;
+  -webkit-font-smoothing: antialiased; // OS X makes fonts bolder than normal. This looks weird with those icons.
 }
