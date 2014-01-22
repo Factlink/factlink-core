@@ -11,7 +11,7 @@ FactlinkJailRoot.annotatedSiteReceiver =
     if modalOpen
       console.error 'trying to open an already open modal: bug?'
       return
-    FactlinkJailRoot.$modalFrame.addClass 'factlink-control-visible'
+    FactlinkJailRoot.$sidebarFrame.addClass 'factlink-sidebar-frame-visible'
     modalOpen = true
     FactlinkJailRoot.trigger 'modalOpened'
 
@@ -25,14 +25,13 @@ FactlinkJailRoot.annotatedSiteReceiver =
     delete FactlinkJailRoot.highlightsByFactIds[id]
 
   closeModal: ->
-    FactlinkJailRoot.$modalFrame.removeClass 'factlink-control-visible'
-    setTimeout( ->
-      if !modalOpen
-        console.error 'trying to close an already closed modal: bug?'
-        return
-      modalOpen = false
-      FactlinkJailRoot.trigger 'modalClosed'
-    , 300)
+    if !modalOpen
+      console.error 'trying to close an already closed modal: bug?'
+      return
+    modalOpen = false
+
+    FactlinkJailRoot.trigger 'modalClosed'
+    FactlinkJailRoot.$sidebarFrame.removeClass 'factlink-sidebar-frame-visible'
 
   # For compatibility, please remove the next time you see this
   closeModal_noAction: ->

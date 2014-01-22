@@ -24,17 +24,13 @@ class window.ClientController
       view = new NewFactLoginView model: fact
       view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
 
-      clientModal = new DiscussionModalContainer
-      FactlinkApp.discussionModalRegion.show clientModal
-      clientModal.mainRegion.show view
+      FactlinkApp.discussionSidebarContainer.slideIn view
 
   _renderDiscussion: (fact) ->
     fact.on 'destroy', => @annotatedSiteEnvoy 'deleteFactlink', fact.id
 
     fact.fetch
       success: =>
-        newClientModal = new DiscussionModalContainer
-        FactlinkApp.discussionModalRegion.show newClientModal
         view = new DiscussionView model: fact
         view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
-        newClientModal.mainRegion.show view
+        FactlinkApp.discussionSidebarContainer.slideIn view
