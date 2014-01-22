@@ -1,5 +1,6 @@
 @import "bootstrap/mixins";
 
+@discussionModalMaxWidth: 500px;
 @discussionModalShadow: rgba(50, 50, 50, 0.3);
 // keep time in sync with DiscussionModalContainer
 @discussionModalTransitionTime: 0.4s;
@@ -25,13 +26,14 @@ body.discussion-modal-open {
 .discussion-modal {
   position: absolute;
   width: 95%; // leaves enough room on the left side on 320px width screens
-  max-width: 500px;
+  max-width: @discussionModalMaxWidth;
   .new-design-font();
   cursor: auto;
   min-height: 100%;
   background-color: fade(@semiTransparentLayerColor, 100%);
 
-  right: -700px;
+  // slide out a bit further than necessary for a more natural animation
+  right: -@discussionModalMaxWidth - 100px;
   transition: right @discussionModalTransitionTime;
 }
 
