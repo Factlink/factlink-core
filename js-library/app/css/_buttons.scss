@@ -114,22 +114,12 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   }
 }
 
-.fl-button-icon:before,
-.fl-button-icon-white:before,
 .fl-button-icon-add:before {
-  content: url("../images/comment-black.png");
+  content: url("../images/comment-white.png"); // TODO: special add button
   display: inline-block;
   vertical-align: middle;
   width: $iconWidth;
   height: 24px;
-}
-
-.fl-button-icon-white:before {
-  content: url("../images/comment-white.png");
-}
-
-.fl-button-icon-add:before {
-  content: url("../images/comment-white.png"); // TODO: special add button
 }
 
 // keep in sync with core .striped

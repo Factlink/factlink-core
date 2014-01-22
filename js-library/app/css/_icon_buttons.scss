@@ -1,0 +1,18 @@
+.fl-icon-button {
+  @extend %default-font;
+  cursor: pointer;
+  display: block;
+  opacity: 0.4;
+
+  &:before {
+    content: url("../images/comment-black.png");
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+  }
+
+  &.hovered {
+    opacity: 1;
+  }
+}
