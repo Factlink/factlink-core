@@ -3,10 +3,10 @@ FactlinkApp.startSiteRegions = ->
     mainRegion:          '#main-wrapper'
     notificationsRegion: '#notifications'
 
-    discussionModalRegion: '.js-discussion-modal-region'
+    discussionSidebarRegion: '.js-discussion-sidebar-region'
     facebookRenewalRegion: '#js-facebook-renewal-region'
 
 FactlinkApp.startClientRegions = ->
   FactlinkApp.addRegions
-    discussionModalRegion: '.js-discussion-modal-region'
+    discussionSidebarRegion: '.js-discussion-sidebar-region'
     facebookRenewalRegion: '#js-facebook-renewal-region'

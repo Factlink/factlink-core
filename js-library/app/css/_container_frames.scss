@@ -14,7 +14,7 @@
     z-index: $max-z-index - 1;
   }
 
-  > #factlink-modal-frame {
+  > #factlink-sidebar-frame {
     @extend %frame-styles;
 
     position: fixed;
@@ -22,7 +22,7 @@
     height: 100%;
     z-index: $max-z-index;
 
-    &.factlink-modal-frame-visible {
+    &.factlink-sidebar-frame-visible {
       visibility: visible;
     }
   }
