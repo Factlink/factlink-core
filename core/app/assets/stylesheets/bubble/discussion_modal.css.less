@@ -1,5 +1,10 @@
 @import "bootstrap/mixins";
 
+@discussionModalMaxWidth: 500px;
+@discussionModalShadow: rgba(50, 50, 50, 0.3);
+// keep time in sync with DiscussionModalContainer
+@discussionModalTransitionTime: 0.4s;
+
 body.discussion-modal-open {
   overflow: hidden;
 }
@@ -7,32 +12,74 @@ body.discussion-modal-open {
 .discussion-modal-container {
   position: fixed;
   top: 0; right: 0; bottom: 0; left: 0;
+  overflow-x: hidden;
   overflow-y: scroll;
   z-index: 1030; // below modal-window and feedback_button
-  background-color: fade(@semiTransparentLayerColor, 90%);
-  .zoom-out-cursor();
+  cursor: pointer;
 
-  opacity: 0;
-  transition: opacity 0.1s; // keep time in sync with DiscussionModalContainer
-}
-
-.discussion-modal-container-visible {
-  opacity: 1;
+  background: transparent;
+  visibility: hidden;
+  transition: background-color @discussionModalTransitionTime,
+              visibility 0s @discussionModalTransitionTime;
 }
 
 .discussion-modal {
-  padding-top: 30px;
-  visibility: hidden;
+  position: absolute;
+  width: 95%; // leaves enough room on the left side on 320px width screens
+  max-width: @discussionModalMaxWidth;
   .new-design-font();
+  cursor: auto;
+  min-height: 100%;
+  background-color: fade(@semiTransparentLayerColor, 100%);
+
+  // slide out a bit further than necessary for a more natural animation
+  right: -@discussionModalMaxWidth - 100px;
+  transition: right @discussionModalTransitionTime;
+}
+
+.discussion-modal-container-visible {
+  background-color: fade(@semiTransparentLayerColor, 20%);
+  visibility: visible;
+  transition: background-color @discussionModalTransitionTime;
+
+  .discussion-modal {
+    right: 0;
+  }
+}
+
+.discussion-modal-shadow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 20px;
+  box-shadow: -1px 0 10px @discussionModalShadow;
+  z-index: -2;
+}
+
+.discussion-modal-close {
+  position: fixed;
+  margin-left: -17px;
+  top: 50px;
+  font-size: 12px;
+  line-height: 30px;
+  height: 30px;
+  width: 20px;
+  text-align: center;
+  background: fade(@semiTransparentLayerColor, 100%);
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  box-shadow: -1px 0 5px @discussionModalShadow;
+  z-index: -1;
+
+  > i {
+    vertical-align: middle;
+  }
 }
 
 .discussion {
-  width: 90%;
-  min-width: @discussionModalMinWidth;
-  max-width: @discussionModalWidth;
-  margin: 0 auto;
-  cursor: auto;
-  visibility: visible;
-  padding: @discussionModalPadding 0;
+  padding: 20px;
   box-sizing: content-box;
+  position: relative;
+  z-index: 0; // new stacking context
 }

@@ -22,13 +22,16 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, Fact
     showFactRegex.test(fragment)
 
   modalCurrentlyOpened = ->
-    discussionModalContainer?
+    discussionModalContainer.opened
 
   setBackgroundPageUrl = (fragment) ->
     background_page_url = Backbone.history.getFragment(fragment)
 
   DiscussionModalOnFrontend.addInitializer ->
     return if FactlinkApp.onClientApp
+
+    discussionModalContainer = new DiscussionModalContainer
+    FactlinkApp.discussionModalRegion.show discussionModalContainer
 
     FactlinkApp.vent.on 'close_discussion_modal', ->
       throw new Error 'background_page_url is null' unless background_page_url?
@@ -60,19 +63,9 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, Fact
     fragment == background_page_url
 
   DiscussionModalOnFrontend.openDiscussion = (fact) ->
+    discussionModalContainer.slideIn new DiscussionView model: fact
     Backbone.history.navigate fact.get('url'), false
 
-    unless discussionModalContainer
-      discussionModalContainer = new DiscussionModalContainer
-      FactlinkApp.discussionModalRegion.show discussionModalContainer
-
-    discussionModalContainer.mainRegion.show new DiscussionView model: fact
-
   DiscussionModalOnFrontend.closeDiscussion = ->
-    discussionModalContainer.fadeOut ->
-      FactlinkApp.discussionModalRegion.close()
-
-    discussionModalContainer = null
-
+    discussionModalContainer.slideOut()
     FactlinkApp.ModalWindowContainer.close()
-
