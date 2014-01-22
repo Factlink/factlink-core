@@ -3,6 +3,8 @@
 class RobustHover
   constructor: (@$el, @_callbacks) ->
     @_hovered = false
+
+    # Use mousemove instead of mouseenter since it is more reliable
     @$el.on 'mousemove', @_onMouseEnter
     @$el.on 'mouseleave', @_onMouseLeave
 
@@ -14,15 +16,17 @@ class RobustHover
   _onMouseEnter: =>
     return if @_hovered
 
-    @_hovered = true
+    # Mouse leaves when *external* document registers mousemove
     $(document).on 'mousemove', @_onMouseLeave
+
+    @_hovered = true
     @_callbacks.mouseenter?()
 
   _onMouseLeave: =>
     return unless @_hovered
 
-    @_hovered = false
     $(document).off 'mousemove', @_onMouseLeave
+    @_hovered = false
     @_callbacks.mouseleave?()
 
 class Button
