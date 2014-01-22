@@ -1,5 +1,5 @@
-class window.DiscussionModalContainer extends Backbone.Marionette.Layout
-  className: 'discussion-modal-container'
+class window.DiscussionSidebarContainer extends Backbone.Marionette.Layout
+  className: 'discussion-sidebar-container'
   template: 'layouts/discussion_modal_container'
 
   regions:
@@ -14,22 +14,22 @@ class window.DiscussionModalContainer extends Backbone.Marionette.Layout
   _closeModal: (event) ->
     return unless @$el.is(event.target) || @ui.close.is(event.target)
 
-    FactlinkApp.vent.trigger 'close_discussion_modal'
+    FactlinkApp.vent.trigger 'close_discussion_sidebar'
 
   onRender: ->
     @$el.preventScrollPropagation()
 
   slideIn: (view) ->
     @mainRegion.show view
-    _.defer => @$el.addClass 'discussion-modal-container-visible'
-    $('body').addClass 'discussion-modal-open'
+    _.defer => @$el.addClass 'discussion-sidebar-container-visible'
+    $('body').addClass 'discussion-sidebar-open'
 
     @opened = true
     mp_track 'Discussion Modal: Open'
 
   slideOut: (callback=->) ->
-    @$el.removeClass 'discussion-modal-container-visible'
-    $('body').removeClass 'discussion-modal-open'
+    @$el.removeClass 'discussion-sidebar-container-visible'
+    $('body').removeClass 'discussion-sidebar-open'
     _.delay callback, 400 # keep in sync with CSS
 
     @opened = false

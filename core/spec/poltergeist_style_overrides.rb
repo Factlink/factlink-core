@@ -7,7 +7,7 @@ module PoltergeistStyleOverrides
         * { font-family:"DejaVu Sans Mono" !important; letter-spacing:-1px; }
         html.phantom_js body { -webkit-transform: rotate(0.00001deg); }
         html.phantom_js body.client { overflow: auto; }
-        html.phantom_js .discussion-modal-container { position: absolute; min-height:100%; overflow-y: auto; bottom: auto; }
+        html.phantom_js .discussion-sidebar-container { position: absolute; min-height:100%; overflow-y: auto; bottom: auto; }
         img[src*='gravatar'], img.proxy-link-favicon {
           content: '';/*invalid css, but works in phantomjs!*/
           display: inline-block;

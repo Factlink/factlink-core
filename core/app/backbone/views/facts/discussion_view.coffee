@@ -8,7 +8,7 @@ class window.DiscussionView extends Backbone.Marionette.Layout
     evidenceRegion: '.js-evidence-region'
 
   onRender: ->
-    @listenTo @model, 'destroy', -> FactlinkApp.vent.trigger 'close_discussion_modal'
+    @listenTo @model, 'destroy', -> FactlinkApp.vent.trigger 'close_discussion_sidebar'
 
     @factRegion.show new TopFactView model: @model
 

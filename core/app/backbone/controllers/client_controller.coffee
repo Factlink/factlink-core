@@ -24,7 +24,7 @@ class window.ClientController
       view = new NewFactLoginView model: fact
       view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
 
-      FactlinkApp.discussionModalContainer.slideIn view
+      FactlinkApp.discussionSidebarContainer.slideIn view
 
   _renderDiscussion: (fact) ->
     fact.on 'destroy', => @annotatedSiteEnvoy 'deleteFactlink', fact.id
@@ -33,4 +33,4 @@ class window.ClientController
       success: =>
         view = new DiscussionView model: fact
         view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
-        FactlinkApp.discussionModalContainer.slideIn view
+        FactlinkApp.discussionSidebarContainer.slideIn view

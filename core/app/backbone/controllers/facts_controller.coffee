@@ -12,7 +12,7 @@ class window.FactsController extends Backbone.Marionette.Controller
 
     fact.fetch
       success: =>
-        FactlinkApp.DiscussionModalOnFrontend.openDiscussion fact
+        FactlinkApp.DiscussionSidebarOnFrontend.openDiscussion fact
         @_showBackgroundForFact fact
 
   _showBackgroundForFact: (fact) ->
@@ -26,4 +26,4 @@ class window.FactsController extends Backbone.Marionette.Controller
       @options.showProfile user.get('username')
       url = user.link()
 
-    FactlinkApp.DiscussionModalOnFrontend.setBackgroundPageUrlFromShowFact url
+    FactlinkApp.DiscussionSidebarOnFrontend.setBackgroundPageUrlFromShowFact url

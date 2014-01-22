@@ -7,13 +7,13 @@ window.FactlinkAppMode.coreInClient = (app) ->
 
   new ClientRouter controller: new ClientController(annotatedSiteEnvoy)
 
-  FactlinkApp.discussionModalContainer = new DiscussionModalContainer
-  FactlinkApp.discussionModalRegion.show FactlinkApp.discussionModalContainer
+  FactlinkApp.discussionSidebarContainer = new DiscussionSidebarContainer
+  FactlinkApp.discussionSidebarRegion.show FactlinkApp.discussionSidebarContainer
 
-  app.vent.on 'close_discussion_modal', ->
+  app.vent.on 'close_discussion_sidebar', ->
     mp_track "Discussion Modal: Close (Button)"
 
-    FactlinkApp.discussionModalContainer.slideOut ->
+    FactlinkApp.discussionSidebarContainer.slideOut ->
       annotatedSiteEnvoy 'closeModal'
 
   annotatedSiteEnvoy 'modalFrameReady', Factlink.Global.can_haz
