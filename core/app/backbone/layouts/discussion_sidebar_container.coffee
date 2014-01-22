@@ -1,6 +1,6 @@
 class window.DiscussionSidebarContainer extends Backbone.Marionette.Layout
   className: 'discussion-sidebar-container'
-  template: 'layouts/discussion_modal_container'
+  template: 'layouts/discussion_sidebar_container'
 
   regions:
     mainRegion: '.js-modal-content'
