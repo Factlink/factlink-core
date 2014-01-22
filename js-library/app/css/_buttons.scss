@@ -115,8 +115,7 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
 }
 
 .fl-button-icon:before,
-.fl-button-icon-white:before,
-.fl-button-icon-add:before {
+.fl-button-icon-white:before {
   content: url("../images/comment-black.png");
   display: inline-block;
   vertical-align: middle;
@@ -126,10 +125,6 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
 
 .fl-button-icon-white:before {
   content: url("../images/comment-white.png");
-}
-
-.fl-button-icon-add:before {
-  content: url("../images/comment-white.png"); // TODO: special add button
 }
 
 // keep in sync with core .striped
