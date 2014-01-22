@@ -2,19 +2,26 @@
 # document for mousemove to be sure.
 class RobustHover
   constructor: (@$el, @_callbacks) ->
-    @$el.on 'mouseenter', @_onMouseEnter
+    @_hovered = false
+    @$el.on 'mousemove', @_onMouseEnter
     @$el.on 'mouseleave', @_onMouseLeave
 
   destroy: ->
-    @$el.off 'mouseenter', @_onMouseEnter
+    @$el.off 'mousemove', @_onMouseEnter
     @$el.off 'mouseleave', @_onMouseLeave
     $(document).off 'mousemove', @_onMouseLeave
 
   _onMouseEnter: =>
+    return if @_hovered
+
+    @_hovered = true
     $(document).on 'mousemove', @_onMouseLeave
     @_callbacks.mouseenter?()
 
   _onMouseLeave: =>
+    return unless @_hovered
+
+    @_hovered = false
     $(document).off 'mousemove', @_onMouseLeave
     @_callbacks.mouseleave?()
 
