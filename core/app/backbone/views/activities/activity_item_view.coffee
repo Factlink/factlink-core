@@ -21,19 +21,15 @@ class CreatedCommentView extends ActivityItemView
 class CreatedSubCommentView extends ActivityItemView
   template: "activities/created_sub_comment"
 
+actionToIcon =
+  believes: 'icon-smile'
+  disbelieves: 'icon-frown'
+  doubts: 'icon-meh'
+
 class AddedOpinionView extends ActivityItemView
   template: "activities/added_opinion"
   templateHelpers: =>
-    translated_action: @_translatedAction()
-
-  _translatedAction: ->
-    switch @model.get('action')
-      when "believes"
-        Factlink.Global.t.fact_believe_past_singular_action_about
-      when "disbelieves"
-        Factlink.Global.t.fact_disbelieve_past_singular_action_about
-      when "doubts"
-        Factlink.Global.t.fact_doubt_past_singular_action_about
+    action_icon_class: actionToIcon[@model.get('action')]
 
 class FollowedUserView extends ActivityItemView
   tagName: 'span'

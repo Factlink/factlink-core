@@ -8,22 +8,6 @@ nl:
   factlink: "discussie"
   factlinks: "discussies"
 
-  fact_believe_action: "stem in met"
-  fact_doubt_action: "stem neutraal op"
-  fact_disbelieve_action: "ontken"
-
-  fact_believes_action: "stemt in met"
-  fact_doubts_action: "is onzeker over"
-  fact_disbelieves_action: "ontkent"
-
-  fact_believe_opinion: "eens"
-  fact_disbelieve_opinion: "oneens"
-  fact_doubt_opinion: "onzeker"
-
-  fact_believe_past_singular_action_about: "stemde in met"
-  fact_doubt_past_singular_action_about: "was onzeker over"
-  fact_disbelieve_past_singular_action_about: "ontkende"
-
   fact_remove_opinion_past_action: "trok zijn mening terug"
   fact_add_evidence_past_action: "voegde argument toe"
 
