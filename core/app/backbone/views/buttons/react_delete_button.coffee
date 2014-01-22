@@ -20,9 +20,9 @@ window.ReactDeleteButton = React.createBackboneClass
         R.i className: "icon-trash"
 
     around_element_klass = [
-        'delete-button'
-        'delete-button-open' if @state.opened
-      ].join(' ')
+      'delete-button'
+      'delete-button-open' if @state.opened
+    ].join(' ')
 
     R.span className: around_element_klass, onMouseLeave: @slideButtonIn,
       second_button

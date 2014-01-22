@@ -2,12 +2,12 @@ window.ReactSubComment = React.createBackboneClass
   render: ->
     R.div {},
       R.div className: "discussion-evidenceish-content discussion-evidenceish-text js-content-region",
-        @getModel().get('formatted_comment_content')
+        @model().get('formatted_comment_content')
       R.div className: "comment-bottom",
         R.ul className: "comment-bottom-actions",
           R.li className: "comment-bottom-action comment-bottom-action-time",
             R.i className: "icon-time"
-            @getModel().get('time_ago')
+            @model().get('time_ago')
             ' '
             Factlink.Global.t.ago
           if @model().can_destroy()
