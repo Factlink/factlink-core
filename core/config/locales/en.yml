@@ -7,14 +7,6 @@ en:
   factlink: "discussion"
   factlinks: "discussions"
 
-  fact_believe_action: "agree"
-  fact_doubt_action: "neutral"
-  fact_disbelieve_action: "disagree"
-
-  fact_believes_action: "agrees with"
-  fact_doubts_action: "is unsure about"
-  fact_disbelieves_action: "disagrees with"
-
   fact_remove_opinion_past_action: "removed opinion"
   fact_add_evidence_past_action: "added evidence"
 
