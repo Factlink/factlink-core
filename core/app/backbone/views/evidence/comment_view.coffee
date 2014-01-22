@@ -1,9 +1,7 @@
 class CommentReplyView extends Backbone.Marionette.ItemView
   tagName: 'span'
   template:
-    text: """
-      ({{sub_comments_count}}) Reply
-    """
+    text: "({{sub_comments_count}}) Reply"
 
   initialize: ->
     @listenTo @model, 'change:sub_comments_count', @render
