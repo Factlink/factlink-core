@@ -1,57 +1,28 @@
-class CommentBottomView extends Backbone.Marionette.Layout
-  className: 'discussion-evidenceish-bottom'
-  template: 'evidence/comment_bottom'
-
-  triggers:
-    'click .js-sub-comments-link': 'toggleSubCommentsList'
-
-  ui:
-    subCommentsLink:          '.js-sub-comments-link'
-    subCommentsLinkContainer: '.js-sub-comments-link-container'
-
-  regions:
-    deleteRegion: '.js-delete-region'
-
-  templateHelpers: =>
-    showDelete: @model.can_destroy()
+class CommentReplyView extends Backbone.Marionette.ItemView
+  tagName: 'span'
+  template:
+    text: "({{sub_comments_count}}) Reply"
 
   initialize: ->
-    @listenTo @model, 'change', @render
-
-  onRender: ->
-    @updateSubCommentsLink()
-
-    if @model.can_destroy()
-      @_deleteButtonView = new DeleteButtonView model: @model
-      @listenTo @_deleteButtonView, 'delete', -> @model.destroy wait: true
-      @deleteRegion.show @_deleteButtonView
-
-  updateSubCommentsLink: ->
-    count = @model.get('sub_comments_count')
-    countText = switch count
-      when 0 then "Comment"
-      when 1 then "1 comment"
-      else "#{count} comments"
-    @ui.subCommentsLink.text countText
-
-    if Factlink.Global.signed_in or count > 0
-      @showSubCommentsLink()
-    else
-      @hideSubCommentsLink()
-
-  showSubCommentsLink: -> @ui.subCommentsLinkContainer.show()
-  hideSubCommentsLink: -> @ui.subCommentsLinkContainer.hide()
+    @listenTo @model, 'change:sub_comments_count', @render
 
 
 class window.CommentView extends Backbone.Marionette.Layout
   className: 'evidence-argument'
   template: 'evidence/comment'
 
+  events:
+    'click .js-sub-comments-link': 'toggleSubCommentsView'
+
+  templateHelpers: =>
+    showDelete: @model.can_destroy()
+
   regions:
     voteRegion: '.js-vote-region'
-    bottomRegion: '.js-bottom-region'
     headingRegion: '.js-heading-region'
     subCommentsRegion: '.js-sub-comments-region'
+    deleteRegion: '.js-delete-region'
+    subCommentsLinkRegion: '.js-sub-comments-link-region'
 
   initialize: ->
     @listenTo @model, 'change:formatted_comment_content', @render
@@ -63,9 +34,12 @@ class window.CommentView extends Backbone.Marionette.Layout
     @voteRegion.show new EvidenceVoteView model: @model.argumentTally()
     @headingRegion.show new EvidenceishHeadingView model: @model.creator()
 
-    bottomView = new CommentBottomView model: @model
-    @listenTo bottomView, 'toggleSubCommentsList', @toggleSubCommentsView
-    @bottomRegion.show bottomView
+    if @model.can_destroy()
+      @_deleteButtonView = new DeleteButtonView model: @model
+      @listenTo @_deleteButtonView, 'delete', -> @model.destroy wait: true
+      @deleteRegion.show @_deleteButtonView
+
+    @subCommentsLinkRegion.show new CommentReplyView model: @model
 
   toggleSubCommentsView: ->
     if @subCommentsOpen
