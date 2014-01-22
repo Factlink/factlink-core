@@ -7,5 +7,9 @@
     <li class="discussion-evidenceish-bottom-action discussion-evidenceish-bottom-action-delete js-delete-region"></li>
   {{/showDelete}}
 
-  <li class="js-sub-comments-link-container discussion-evidenceish-bottom-action"><a class="js-sub-comments-link" href="javascript:void()"></a></li>
+  {{#global.signed_in}}
+    <li class="js-sub-comments-link-container discussion-evidenceish-bottom-action"><a class="js-sub-comments-link" href="javascript:void()">
+      ({{sub_comments_count}}) Reply
+    </a></li>
+  {{/global.signed_in}}
 </ul>
