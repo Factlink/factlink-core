@@ -28,11 +28,11 @@ class Button
     @_robustHover = new RobustHover @$el, callbacks
     @$el.on 'click', -> callbacks.click?()
 
-  startLoading: => @_addClass 'fl-button-state-loading'
-  stopLoading: => @_removeClass 'fl-button-state-loading fl-button-state-hovered'
+  startLoading: => @_addClass 'loading'
+  stopLoading: => @_removeClass 'loading hovered'
 
-  startHovering: => @_addClass 'fl-button-state-hovered'
-  stopHovering: => @_removeClass 'fl-button-state-hovered'
+  startHovering: => @_addClass 'hovered'
+  stopHovering: => @_removeClass 'hovered'
 
   _addClass: (classes) =>
     @$el.addClass classes
