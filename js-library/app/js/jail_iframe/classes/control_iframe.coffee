@@ -27,8 +27,6 @@ class FactlinkJailRoot.ControlIframe
     @sizeFrameToFitContent()
 
   sizeFrameToFitContent: ->
-    @frameBody.parentElement.style.width = 'auto'
-
     @el.style.width = @frameBody.clientWidth  + 'px'
     @el.style.height = @frameBody.clientHeight + 'px'
 
