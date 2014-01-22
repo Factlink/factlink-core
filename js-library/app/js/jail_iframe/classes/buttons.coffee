@@ -68,7 +68,7 @@ class Button
     @_robustHover.destroy()
 
 class FactlinkJailRoot.ShowButton extends Button
-  content: '<div class="fl-icon-button"></div>'
+  content: '<div class="fl-icon-button"><span class="icon-comment"></span></div>'
 
   constructor: (options) ->
     super
@@ -111,11 +111,11 @@ class FactlinkJailRoot.CreateButton extends Button
   content: """
     <div class="fl-button fl-button-black fl-button-with-arrow-down">
       <div class="fl-button-content-default">
-        <span class="fl-button-icon-add"></span>
+        <span class="icon-comment"></span>
       </div>
       <div class="fl-button-content-hovered">
-        <span class="fl-button-icon-add"></span>
-        <span class="fl-button-sub-button" data-opinion="believes">Agree</span><span class="fl-button-sub-button" data-opinion="doubts">Unsure</span><span class="fl-button-sub-button" data-opinion="disbelieves">Disagree</span>
+        <span class="icon-comment"></span>
+        <span class="fl-button-sub-button" data-opinion="believes"><span class="icon-smile"></span></span><span class="fl-button-sub-button" data-opinion="doubts"><span class="icon-meh"></span></span><span class="fl-button-sub-button" data-opinion="disbelieves"><span class="icon-frown"></span></span>
       </div>
       <div class="fl-button-content-loading">Loading...</div>
     </div>

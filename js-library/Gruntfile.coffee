@@ -146,7 +146,7 @@ module.exports = (grunt) ->
     copy:
       build:
         files: [
-          { src: ['**/*.js', '**/*.png', '**/*.gif', 'robots.txt'], cwd: 'app', dest: 'build', expand: true }
+          { src: ['**/*.js', '**/*.png', '**/*.gif', '**/*.woff', 'robots.txt'], cwd: 'app', dest: 'build', expand: true }
         ]
       extension_events:
         files: [
