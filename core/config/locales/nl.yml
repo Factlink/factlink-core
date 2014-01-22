@@ -20,10 +20,6 @@ nl:
   fact_disbelieve_opinion: "oneens"
   fact_doubt_opinion: "onzeker"
 
-  fact_believe_past_singular_action_about: "stemde in met"
-  fact_doubt_past_singular_action_about: "was onzeker over"
-  fact_disbelieve_past_singular_action_about: "ontkende"
-
   fact_remove_opinion_past_action: "trok zijn mening terug"
   fact_add_evidence_past_action: "voegde argument toe"
 
