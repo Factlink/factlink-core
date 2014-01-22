@@ -114,19 +114,6 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   }
 }
 
-.fl-button-icon:before,
-.fl-button-icon-white:before {
-  content: url("../images/comment-black.png");
-  display: inline-block;
-  vertical-align: middle;
-  width: $iconWidth;
-  height: 24px;
-}
-
-.fl-button-icon-white:before {
-  content: url("../images/comment-white.png");
-}
-
 // keep in sync with core .striped
 @mixin striped($angle: 45deg, $stripeColor: rgba(255,255,255,.15)) {
   background-image: -webkit-linear-gradient($angle, $stripeColor 25%, transparent 25%, transparent 50%, $stripeColor 50%, $stripeColor 75%, transparent 75%, transparent);

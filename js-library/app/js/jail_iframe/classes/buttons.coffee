@@ -71,10 +71,10 @@ class FactlinkJailRoot.ShowButton extends Button
   content: """
     <div class="fl-button">
       <div class="fl-button-content-default">
-        <span class="fl-button-icon"></span>
+        <span class="icon-comment"></span>
       </div>
       <div class="fl-button-content-hovered">
-        <span class="fl-button-icon-white"></span>
+        <span class="icon-comment"></span>
         Show Discussion
       </div>
       <div class="fl-button-content-loading">Loading...</div>
