@@ -1,0 +1,10 @@
+.fl-icon-button {
+  @extend %default-font;
+  cursor: pointer;
+  display: block;
+  opacity: 0.4;
+
+  &.hovered {
+    opacity: 1;
+  }
+}

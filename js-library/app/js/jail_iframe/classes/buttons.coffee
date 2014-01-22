@@ -28,11 +28,11 @@ class Button
     @_robustHover = new RobustHover @$el, callbacks
     @$el.on 'click', -> callbacks.click?()
 
-  startLoading: => @_addClass 'fl-button-state-loading'
-  stopLoading: => @_removeClass 'fl-button-state-loading fl-button-state-hovered'
+  startLoading: => @_addClass 'loading'
+  stopLoading: => @_removeClass 'loading hovered'
 
-  startHovering: => @_addClass 'fl-button-state-hovered'
-  stopHovering: => @_removeClass 'fl-button-state-hovered'
+  startHovering: => @_addClass 'hovered'
+  stopHovering: => @_removeClass 'hovered'
 
   _addClass: (classes) =>
     @$el.addClass classes
@@ -68,18 +68,7 @@ class Button
     @_robustHover.destroy()
 
 class FactlinkJailRoot.ShowButton extends Button
-  content: """
-    <div class="fl-button">
-      <div class="fl-button-content-default">
-        <span class="icon-comment"></span>
-      </div>
-      <div class="fl-button-content-hovered">
-        <span class="icon-comment"></span>
-        Show Discussion
-      </div>
-      <div class="fl-button-content-loading">Loading...</div>
-    </div>
-  """
+  content: '<div class="fl-icon-button"><span class="icon-comment"></span></div>'
 
   constructor: (options) ->
     super
