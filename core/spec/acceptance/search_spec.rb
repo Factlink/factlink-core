@@ -3,11 +3,6 @@ require 'acceptance_helper'
 describe "searching", type: :feature do
   include Acceptance::ClientPathHelper
 
-  def create_channel(user)
-    channel = create(:channel, created_by: user.graph_user)
-    channel
-  end
-
   before :each do
     @user = sign_in_user create :full_user, :confirmed
   end

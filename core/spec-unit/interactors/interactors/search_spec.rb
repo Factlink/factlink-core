@@ -9,7 +9,7 @@ describe Interactors::Search do
 
   before do
     stub_classes 'Fact', 'Queries::ElasticSearchAll', 'FactData',
-                 'User', 'Ability::FactlinkWebapp', 'Topic'
+                 'User', 'Ability::FactlinkWebapp'
   end
 
   it 'raises when initialized with keywords that is not a string' do

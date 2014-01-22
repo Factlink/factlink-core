@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout "frontend"
 
-  before_filter :load_user, except: [:search, :tour_users, :seen_messages]
+  before_filter :load_user, except: [:tour_users, :seen_messages]
 
   def show
     authorize! :show, @user
@@ -71,12 +71,6 @@ class UsersController < ApplicationController
     authorize! :access, Ability::FactlinkWebapp
 
     backbone_responder
-  end
-
-  def search
-    authorize! :index, User
-    @users = interactor(:'search_user', keywords: params[:s])
-    render :index, formats: [:json]
   end
 
   def mark_activities_as_read

@@ -1,4 +1,3 @@
-class Channel < OurOhm;end # needed because of removed const_missing from ohm
 class Site < OurOhm; end # needed because of removed const_missing from ohm
 
 class Fact < OurOhm

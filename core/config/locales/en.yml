@@ -43,7 +43,3 @@ en:
   loading: "loading" # when updating, update jslib template
 
   you: "you"
-
-  facts:
-      new:
-        add_to_channels: "add one or more channel names"
