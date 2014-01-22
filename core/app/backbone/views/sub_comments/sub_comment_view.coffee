@@ -1,14 +1,6 @@
-class ReactView extends Backbone.View
-  render: ->
-    React.renderComponent(@options.component, @el)
-
-reactShow = (region, component) ->
-  region.show new ReactView(component: component)
-
-r = React.DOM
 ReactSubComment = React.createBackboneClass
   render: ->
-    r.span {},
+    R.span {},
       @getModel().get('formatted_comment_content')
 
 class window.SubCommentView extends Backbone.Marionette.Layout
@@ -26,8 +18,8 @@ class window.SubCommentView extends Backbone.Marionette.Layout
 
   onRender: ->
     if @model.can_destroy()
-      @_deleteButtonView = new DeleteButtonView model: @model
-      @listenTo @_deleteButtonView, 'delete', -> @model.destroy wait: true
-      @deleteRegion.show @_deleteButtonView
+      reactShow @deleteRegion, ReactDeleteButton
+        model: @model
+        onDelete: -> @model.destroy wait: true
 
     reactShow @contentRegion, ReactSubComment(model: @model)
