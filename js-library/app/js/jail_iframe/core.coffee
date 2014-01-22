@@ -5,6 +5,8 @@ jQuery.noConflict()
 window.$ = (selector, context) ->
   new jQuery.fn.init(selector, context || window.parent.document)
 
+window.parent.FACTLINK_JQUERY = window.$
+
 $.fn = $.prototype = jQuery.fn
 jQuery.extend $, jQuery
 

@@ -109,10 +109,9 @@ class FactlinkJailRoot.ShowButton extends Button
     range = document.createRange()
     range.setStartBefore textContainer
     range.setEndAfter textContainer
-    selectionBox = range.getBoundingClientRect()
-    selectionLeft = selectionBox.left + $(window).scrollLeft()
+    rangeBox = FactlinkJailRoot.rangeBox(range)
 
-    left = selectionLeft + selectionBox.width
+    left = rangeBox.left + rangeBox.width
     left = Math.min left, $(window).width() - @frame.$el.outerWidth()
 
     @_showAtCoordinates top, left
