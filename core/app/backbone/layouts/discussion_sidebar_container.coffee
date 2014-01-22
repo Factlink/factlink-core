@@ -25,7 +25,7 @@ class window.DiscussionSidebarContainer extends Backbone.Marionette.Layout
     $('body').addClass 'discussion-sidebar-open'
 
     @opened = true
-    mp_track 'Discussion Modal: Open'
+    mp_track 'Discussion Sidebar: Open'
 
   slideOut: (callback=->) ->
     @$el.removeClass 'discussion-sidebar-container-visible'
@@ -33,4 +33,4 @@ class window.DiscussionSidebarContainer extends Backbone.Marionette.Layout
     _.delay callback, 400 # keep in sync with CSS
 
     @opened = false
-    mp_track 'Discussion Modal: Close'
+    mp_track 'Discussion Sidebar: Close'

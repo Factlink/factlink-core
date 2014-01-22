@@ -55,8 +55,6 @@ feature 'the profile page', type: :feature do
     following_user = sign_in_user create :full_user, :confirmed
     followed_user = create :full_user, :confirmed
 
-    channel = create :channel, created_by: followed_user.graph_user
-
     visit user_path(followed_user)
 
     # initial state check of other user profile

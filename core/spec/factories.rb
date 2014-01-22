@@ -100,16 +100,7 @@ FactoryGirl.define do
   factory :sub_comment do
   end
 
-  factory :channel do
-    association :created_by, :factory => :graph_user
-    sequence(:title) { |n| "Channel title #{n}" }
-  end
-
   factory :job do
-  end
-
-  factory :topic do
-    title
   end
 
   sequence :title do |n|

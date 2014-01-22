@@ -70,35 +70,6 @@ describe Ability do
     end
   end
 
-  describe "to manage channels" do
-
-    let(:ch1) { create :channel, created_by: user.graph_user }
-    let(:ch2) { create :channel, created_by: other_user.graph_user }
-
-    it { subject.should be_able_to :index, Channel }
-    it { subject.should be_able_to :create, Channel }
-
-    describe "of my own" do
-      it { subject.should be_able_to :update, ch1 }
-      it { subject.should be_able_to :read, ch1 }
-      it { subject.should be_able_to :create, ch1 }
-    end
-
-    describe "of someone else" do
-      it { subject.should_not  be_able_to :update, ch2 }
-      it { subject.should      be_able_to :read, ch2 }
-      it { subject.should_not  be_able_to :create, ch2 }
-    end
-
-    describe "without logging in" do
-      it { anonymous.should     be_able_to :index, Channel }
-      it { anonymous.should     be_able_to :read, ch1 }
-      it { anonymous.should_not be_able_to :create, Channel }
-      it { anonymous.should_not be_able_to :update, ch1 }
-      it { anonymous.should_not be_able_to :create, ch1 }
-    end
-  end
-
   describe "to manage facts" do
     let(:f1) { create :fact, created_by: user.graph_user }
     let(:f2) { create :fact, created_by: other_user.graph_user }
@@ -181,14 +152,6 @@ describe Ability do
     it "should not be able to see and modify other people their notifications" do
       subject.should_not be_able_to :see_activities, other_user
       subject.should_not be_able_to :mark_activities_as_read, other_user
-    end
-  end
-
-  describe "topics" do
-    let(:topic) { create :topic }
-    it "should be able to view a topic" do
-      subject.should be_able_to :show, topic
-      anonymous.should be_able_to :show, topic
     end
   end
 

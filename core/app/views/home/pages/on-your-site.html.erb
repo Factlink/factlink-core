@@ -6,6 +6,10 @@
   Factlink &mdash; On your site
 <% end %>
 
+<% content_for :left_column do %>
+  <%= render "home/static_pages_menu", active: :site %>
+<% end %>
+
 <% content_for :content do %>
   <%= image_tag('static/add-factlink.png', class: 'on-your-site-image') %>
   <h1>Empower your visitors</h1>

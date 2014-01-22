@@ -20,7 +20,7 @@ feature "sub_comments", type: :feature do
 
     go_to_discussion_page_of @factlink_user_a
 
-    click_link 'Comment'
+    click_link '(0) Reply'
 
     add_sub_comment(sub_comment_text)
     assert_sub_comment_exists sub_comment_text
@@ -29,7 +29,7 @@ feature "sub_comments", type: :feature do
 
     go_to_discussion_page_of @factlink_user_a
 
-    click_link '1 comment'
+    click_link '(1) Reply'
     assert_sub_comment_exists sub_comment_text
   end
 

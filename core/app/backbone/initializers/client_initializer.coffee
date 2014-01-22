@@ -11,7 +11,7 @@ window.FactlinkAppMode.coreInClient = (app) ->
   FactlinkApp.discussionSidebarRegion.show FactlinkApp.discussionSidebarContainer
 
   app.vent.on 'close_discussion_sidebar', ->
-    mp_track "Discussion Modal: Close (Button)"
+    mp_track "Discussion Sidebar: Close (Button)"
 
     FactlinkApp.discussionSidebarContainer.slideOut ->
       annotatedSiteEnvoy 'closeModal'

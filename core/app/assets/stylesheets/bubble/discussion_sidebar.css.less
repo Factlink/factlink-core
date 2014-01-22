@@ -1,5 +1,6 @@
 @import "bootstrap/mixins";
 
+@discussionSidebarMaxWidth: 500px;
 @discussionSidebarShadow: rgba(50, 50, 50, 0.3);
 // keep time in sync with DiscussionSidebarContainer
 @discussionSidebarTransitionTime: 0.4s;
@@ -25,13 +26,14 @@ body.discussion-sidebar-open {
 .discussion-sidebar {
   position: absolute;
   width: 95%; // leaves enough room on the left side on 320px width screens
-  max-width: 500px;
+  max-width: @discussionSidebarMaxWidth;
   .new-design-font();
   cursor: auto;
   min-height: 100%;
   background-color: fade(@semiTransparentLayerColor, 100%);
 
-  right: -700px;
+  // slide out a bit further than necessary for a more natural animation
+  right: -@discussionSidebarMaxWidth - 100px;
   transition: right @discussionSidebarTransitionTime;
 }
 
@@ -78,4 +80,6 @@ body.discussion-sidebar-open {
 .discussion {
   padding: 20px;
   box-sizing: content-box;
+  position: relative;
+  z-index: 0; // new stacking context
 }
