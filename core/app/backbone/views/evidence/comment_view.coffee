@@ -1,34 +1,30 @@
-class CommentBottomView extends Backbone.Marionette.Layout
-  className: 'discussion-evidenceish-bottom'
-  template: 'evidence/comment_bottom'
-
-  triggers:
-    'click .js-sub-comments-link': 'toggleSubCommentsList'
-
-  regions:
-    deleteRegion: '.js-delete-region'
-
-  templateHelpers: =>
-    showDelete: @model.can_destroy()
+class CommentReplyView extends Backbone.Marionette.ItemView
+  tagName: 'span'
+  template:
+    text: """
+      ({{sub_comments_count}}) Reply
+    """
 
   initialize: ->
-    @listenTo @model, 'change', @render
+    @listenTo @model, 'change:sub_comments_count', @render
 
-  onRender: ->
-    if @model.can_destroy()
-      @_deleteButtonView = new DeleteButtonView model: @model
-      @listenTo @_deleteButtonView, 'delete', -> @model.destroy wait: true
-      @deleteRegion.show @_deleteButtonView
 
 class window.CommentView extends Backbone.Marionette.Layout
   className: 'evidence-argument'
   template: 'evidence/comment'
 
+  events:
+    'click .js-sub-comments-link': 'toggleSubCommentsView'
+
+  templateHelpers: =>
+    showDelete: @model.can_destroy()
+
   regions:
     voteRegion: '.js-vote-region'
-    bottomRegion: '.js-bottom-region'
     headingRegion: '.js-heading-region'
     subCommentsRegion: '.js-sub-comments-region'
+    deleteRegion: '.js-delete-region'
+    subCommentsLinkRegion: '.js-sub-comments-link-region'
 
   initialize: ->
     @listenTo @model, 'change:formatted_comment_content', @render
@@ -40,9 +36,12 @@ class window.CommentView extends Backbone.Marionette.Layout
     @voteRegion.show new EvidenceVoteView model: @model.argumentTally()
     @headingRegion.show new EvidenceishHeadingView model: @model.creator()
 
-    bottomView = new CommentBottomView model: @model
-    @listenTo bottomView, 'toggleSubCommentsList', @toggleSubCommentsView
-    @bottomRegion.show bottomView
+    if @model.can_destroy()
+      @_deleteButtonView = new DeleteButtonView model: @model
+      @listenTo @_deleteButtonView, 'delete', -> @model.destroy wait: true
+      @deleteRegion.show @_deleteButtonView
+
+    @subCommentsLinkRegion.show new CommentReplyView model: @model
 
   toggleSubCommentsView: ->
     if @subCommentsOpen
