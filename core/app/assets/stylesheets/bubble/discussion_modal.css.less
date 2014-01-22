@@ -17,7 +17,9 @@ body.discussion-modal-open {
   cursor: pointer;
 
   background: transparent;
-  transition: background-color @discussionModalTransitionTime;
+  visibility: hidden;
+  transition: background-color @discussionModalTransitionTime,
+              visibility 0s @discussionModalTransitionTime;
 }
 
 .discussion-modal {
@@ -35,6 +37,8 @@ body.discussion-modal-open {
 
 .discussion-modal-container-visible {
   background-color: fade(@semiTransparentLayerColor, 20%);
+  visibility: visible;
+  transition: background-color @discussionModalTransitionTime;
 
   .discussion-modal {
     right: 0;
