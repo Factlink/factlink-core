@@ -24,14 +24,16 @@ window_has_scrollbar = -> window.innerHeight < document.documentElement.scrollHe
 saved_marginRight = null
 
 FactlinkJailRoot.on 'modalOpened', ->
-  if scrollbarWidth > 0 && window_has_scrollbar()
-    console.log 'has scrollbar!'
-    saved_marginRight = document.documentElement.style.marginRight
-    document.documentElement.style.marginRight = scrollbarWidth + 'px'
+  if window_has_scrollbar()
+    right_margin = window.innerWidth - document.documentElement.offsetWidth - document.documentElement.offsetLeft
+    if right_margin > 0
+      saved_marginRight = document.documentElement.style.marginRight
+      document.documentElement.style.marginRight = right_margin + 'px'
 
   document.documentElement.setAttribute('data-factlink-suppress-scrolling', '')
 FactlinkJailRoot.on 'modalClosed', ->
   if saved_marginRight != null
     document.documentElement.style.marginRight = saved_marginRight
+    saved_marginRight = null
 
   document.documentElement.removeAttribute('data-factlink-suppress-scrolling')
