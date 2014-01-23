@@ -1,4 +1,7 @@
 // Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
+// changed line 14. In the original version, it broke PhantomJS, now it works
+// This probably means this doesn't support some weird corner case, or we broke an optimization.
+
 
 if (!Function.prototype.bind) {
   Function.prototype.bind = function (oThis) {
@@ -11,9 +14,7 @@ if (!Function.prototype.bind) {
         fToBind = this,
         fNOP = function () {},
         fBound = function () {
-          return fToBind.apply(this instanceof fNOP && oThis
-                                 ? this
-                                 : oThis,
+          return fToBind.apply(oThis,
                                aArgs.concat(Array.prototype.slice.call(arguments)));
         };
 
