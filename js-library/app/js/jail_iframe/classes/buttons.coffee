@@ -168,3 +168,51 @@ class FactlinkJailRoot.CreateButton extends Button
 
     @_fadeIn()
     @_showAtCoordinates top, left
+
+
+class ParagraphButton
+  constructor: (@el) ->
+    @$el = $(@el)
+
+    # TODO: actually show icon
+
+    if FactlinkJailRoot.can_haz.debug_bounding_boxes
+      contentBox = FactlinkJailRoot.contentBox(el)
+
+      @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'green'
+
+  remove: ->
+    @$boundingBox?.remove()
+
+
+class FactlinkJailRoot.ParagraphButtons
+
+  constructor: ->
+    @_paragraphButtons = []
+
+  _paragraphHasContent: (el) ->
+    $clonedEl = $(el).clone()
+    $clonedEl.find('a').remove() # Strip links
+
+    textLength = $clonedEl.text().length
+    $clonedEl.remove()
+
+    textLength >= 50
+
+  _containsFactlink: (el) ->
+    $(el).find('.factlink').length > 0
+
+  _addParagraphButton: (el) ->
+    return unless @_paragraphHasContent(el)
+    return if @_containsFactlink(el)
+
+    @_paragraphButtons.push new ParagraphButton el
+
+  addParagraphButtons: ->
+    return unless FactlinkJailRoot.can_haz.paragraph_icons
+
+    for paragraphButton in @_paragraphButtons
+      paragraphButton.remove()
+
+    for el in $('p, h2, h3, h4, h5, h6')
+      @_addParagraphButton el
