@@ -6,8 +6,7 @@ FactlinkJailRoot.annotatedSiteReceiver =
   modalFrameReady: (featureToggles) ->
     FactlinkJailRoot.can_haz = featureToggles
     window.FACTLINK_ON_CORE_LOAD?()
-
-    (new FactlinkJailRoot.ParagraphIcons).addParagraphIcons()
+    FactlinkJailRoot.trigger 'coreLoad'
 
   openModalOverlay: ->
     if modalOpen
