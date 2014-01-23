@@ -19,5 +19,7 @@ window.initClientCommunicator = ->
 
   Factlink.createReceiverEnvoy local
 
-  Factlink.createSenderEnvoy window.parent
-
+  if window.parent
+    Factlink.createSenderEnvoy window.parent
+  else
+    ->
