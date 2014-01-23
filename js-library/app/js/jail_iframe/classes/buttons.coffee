@@ -97,27 +97,25 @@ class FactlinkJailRoot.ShowButton extends Button
     unless FactlinkJailRoot.can_haz.client_buttons
       @$el.addClass 'fl-button-hide-default'
 
-  $textContainer: ($el) ->
-    for el in $el.parents()
-      return $(el) if window.getComputedStyle(el).display == 'block'
-    console.error 'FactlinkJailRoot: No text container found for ', $el
+  _textContainer: (el) ->
+    for el in $(el).parents()
+      return el if window.getComputedStyle(el).display == 'block'
+    console.error 'FactlinkJailRoot: No text container found for ', el
 
   _updatePosition: ->
     top = @$nearEl.offset().top + @$nearEl.outerHeight()/2 - @frame.$el.outerHeight()/2
 
-    $textContainer = @$textContainer(@$nearEl)
-    textContainerOffset = $textContainer.offset()
+    textContainer = @_textContainer(@$nearEl[0])
+    contentBox = FactlinkJailRoot.contentBox(textContainer)
 
-    left = textContainerOffset.left + $textContainer.width()
+    left = contentBox.left + contentBox.width
     left = Math.min left, $(window).width() - @frame.$el.outerWidth()
 
     @_showAtCoordinates top, left
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()
-      @$boundingBox = FactlinkJailRoot.drawBoundingBox
-        left: textContainerOffset.left, top: textContainerOffset.top,
-        width: $textContainer.width(), height: $textContainer.height()
+      @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox
 
 
 class FactlinkJailRoot.CreateButton extends Button
