@@ -176,7 +176,7 @@ class FactlinkJailRoot.CreateButton extends Button
 
 
 class ParagraphButton extends Button
-  content: '<div class="fl-icon-button"><span class="icon-comment"></span></div>'
+  content: '<div class="fl-icon-button"><span class="icon-comment"></span>+</div>'
 
   constructor: (options) ->
     super

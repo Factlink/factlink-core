@@ -4,7 +4,8 @@
   display: block;
   opacity: 0.4;
   transition: opacity $highlight_visibility_transition_time;
-  
+  white-space: nowrap;
+
   &.hovered {
     opacity: 1;
   }
