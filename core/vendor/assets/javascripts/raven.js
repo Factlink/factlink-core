@@ -15,6 +15,15 @@
  MIT license
 */
 
+
+
+// HACK BY FACTLINK, don't always load raven
+;(function(){
+  if (Factlink.Global.environment !== 'staging' && Factlink.Global.environment !== 'production' ) {
+    return;
+  }
+// END
+
 ;(function(window, undefined) {
 
 
@@ -1654,3 +1663,6 @@ if (typeof define === 'function' && define.amd) {
 }
 
 })(window);
+
+
+})(); // HACK BY FACTLINK -- don't always load raven
