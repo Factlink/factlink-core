@@ -7,6 +7,8 @@ FactlinkJailRoot.annotatedSiteReceiver =
     FactlinkJailRoot.can_haz = featureToggles
     window.FACTLINK_ON_CORE_LOAD?()
 
+    (new FactlinkJailRoot.ParagraphIcons).addParagraphIcons()
+
   openModalOverlay: ->
     if modalOpen
       console.error 'trying to open an already open modal: bug?'

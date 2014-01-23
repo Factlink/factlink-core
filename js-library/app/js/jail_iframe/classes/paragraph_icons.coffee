@@ -9,15 +9,18 @@ class FactlinkJailRoot.ParagraphIcons
 
     textLength >= 50
 
-  $paragraphs: ->
-    paragraphSelector = 'p, h2, h3, h4, h5, h6'
+  _addParagraphIcon: (el) ->
+    return unless @_paragraphHasContent(el)
 
-    $(el for el in $(paragraphSelector) when @_paragraphHasContent(el))
+    # TODO: actually show icon
 
-  highlightParagraphs: ->
-    @$paragraphs().css 'outline', '3px solid red'
+    if FactlinkJailRoot.can_haz.debug_bounding_boxes
+      contentBox = FactlinkJailRoot.contentBox(el)
 
-FactlinkJailRoot.paragraphIcons = new FactlinkJailRoot.ParagraphIcons
+      FactlinkJailRoot.drawBoundingBox contentBox, 'green'
 
-if FactlinkJailRoot.can_haz.paragraph_icons
-  FactlinkJailRoot.paragraphIcons.highlightParagraphs()
+  addParagraphIcons: ->
+    return unless FactlinkJailRoot.can_haz.paragraph_icons
+
+    for el in $('p, h2, h3, h4, h5, h6')
+      @_addParagraphIcon el
