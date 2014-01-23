@@ -190,6 +190,16 @@ class ParagraphButton extends Button
     @_fadeIn()
     @_updatePositionRegularly()
 
+    FactlinkJailRoot.on 'factlink.factsLoaded', @_destroyIfContainsFactlink
+
+  destroy: ->
+    super
+    FactlinkJailRoot.off 'factlink.factsLoaded', @_destroyIfContainsFactlink
+
+  _destroyIfContainsFactlink: =>
+    if $(@nearEl).find('.factlink').length > 0
+      @destroy()
+
   _updatePosition: ->
     contentBox = FactlinkJailRoot.contentBox(@nearEl)
 
@@ -214,12 +224,8 @@ class FactlinkJailRoot.ParagraphButtons
 
     textLength >= 50
 
-  _containsFactlink: (el) ->
-    $(el).find('.factlink').length > 0
-
   _addParagraphButton: (el) ->
     return unless @_paragraphHasContent(el)
-    return if @_containsFactlink(el)
 
     @_paragraphButtons.push new ParagraphButton el: el
 

@@ -2,5 +2,5 @@ FactlinkJailRoot.createButton = new FactlinkJailRoot.CreateButton
 
 paragraphButtons = new FactlinkJailRoot.ParagraphButtons
 
-FactlinkJailRoot.on 'factlink.factsLoaded coreLoad', ->
+FactlinkJailRoot.on 'coreLoad', ->
   paragraphButtons.addParagraphButtons()
