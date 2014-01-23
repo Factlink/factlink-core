@@ -1,4 +1,4 @@
-FactlinkJailRoot.drawBoundingBox = (box, color='green') ->
+FactlinkJailRoot.drawBoundingBox = (box, color='red') ->
   coreContainerOffset = FactlinkJailRoot.$factlinkCoreContainer.offset()
 
   $boundingBox = $ """
