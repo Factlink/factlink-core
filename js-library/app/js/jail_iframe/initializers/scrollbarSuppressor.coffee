@@ -21,5 +21,7 @@ FactlinkJailRoot.loaded_promise.then ->
 # rather than  document.documentElement.clientHeight so it works in css compat mode.
 window_has_scrollbar = -> window.innerHeight < document.documentElement.scrollHeight
 FactlinkJailRoot.on 'modalOpened', ->
+  if scrollbarWidth > 0 && window_has_scrollbar()
+    console.log 'has scrollbar!'
   document.documentElement.setAttribute('data-factlink-suppress-scrolling', '')
 FactlinkJailRoot.on 'modalClosed', -> document.documentElement.removeAttribute('data-factlink-suppress-scrolling')
