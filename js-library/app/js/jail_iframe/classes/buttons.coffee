@@ -70,6 +70,13 @@ class Button
       left: left + "px"
       top: top + "px"
 
+  _updatePositionRegularly: ->
+    $(window).on 'resize', @_updatePosition
+    @_interval = setInterval @_updatePosition, 1000
+    @_updatePosition()
+
+  _updatePosition: =>
+
   hide: =>
     @frame.fadeOut()
     @_visible = false
@@ -77,6 +84,9 @@ class Button
   destroy: =>
     @frame.destroy()
     @_robustHover.destroy()
+    $(window).off 'resize', @_updatePosition
+    clearInterval @_interval
+    @$boundingBox?.remove()
 
 class FactlinkJailRoot.ShowButton extends Button
   content: '<div class="fl-icon-button"><span class="icon-comment"></span></div>'
@@ -88,10 +98,7 @@ class FactlinkJailRoot.ShowButton extends Button
 
     @$nearEl = $(options.el)
     @_fadeIn()
-    @_updatePosition()
-
-    $(window).on 'resize', => @_updatePosition()
-    setInterval (=> @_updatePosition()), 1000
+    @_updatePositionRegularly()
 
     # remove when removing client_buttons feature toggle
     unless FactlinkJailRoot.can_haz.client_buttons
@@ -102,7 +109,7 @@ class FactlinkJailRoot.ShowButton extends Button
       return el if window.getComputedStyle(el).display == 'block'
     console.error 'FactlinkJailRoot: No text container found for ', el
 
-  _updatePosition: ->
+  _updatePosition: =>
     top = @$nearEl.offset().top + @$nearEl.outerHeight()/2 - @frame.$el.outerHeight()/2
 
     textContainer = @_textContainer(@$nearEl[0])
@@ -147,8 +154,6 @@ class FactlinkJailRoot.CreateButton extends Button
     current_user_opinion = $(event.target).data('opinion')
     FactlinkJailRoot.createFactFromSelection(current_user_opinion)
 
-  _updatePosition: ->
-
   placeNearSelection: (mouseX=null) ->
     return if @_visible
 
@@ -170,19 +175,29 @@ class FactlinkJailRoot.CreateButton extends Button
     @_showAtCoordinates top, left
 
 
-class ParagraphButton
-  constructor: (@el) ->
-    @$el = $(@el)
+class ParagraphButton extends Button
+  content: '<div class="fl-icon-button"><span class="icon-comment"></span></div>'
 
-    # TODO: actually show icon
+  constructor: (options) ->
+    super
+
+    @_bindCallbacks
+      mouseenter: => @startHovering()
+      mouseleave: => @stopHovering()
+
+    @nearEl = options.el
+
+    @_fadeIn()
+    @_updatePositionRegularly()
+
+  _updatePosition: ->
+    contentBox = FactlinkJailRoot.contentBox(@nearEl)
+
+    @_showAtCoordinates contentBox.top, contentBox.left + contentBox.width
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
-      contentBox = FactlinkJailRoot.contentBox(el)
-
+      @$boundingBox?.remove()
       @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'green'
-
-  remove: ->
-    @$boundingBox?.remove()
 
 
 class FactlinkJailRoot.ParagraphButtons
@@ -206,13 +221,13 @@ class FactlinkJailRoot.ParagraphButtons
     return unless @_paragraphHasContent(el)
     return if @_containsFactlink(el)
 
-    @_paragraphButtons.push new ParagraphButton el
+    @_paragraphButtons.push new ParagraphButton el: el
 
   addParagraphButtons: ->
     return unless FactlinkJailRoot.can_haz.paragraph_icons
 
     for paragraphButton in @_paragraphButtons
-      paragraphButton.remove()
+      paragraphButton.destroy()
 
     for el in $('p, h2, h3, h4, h5, h6')
       @_addParagraphButton el
