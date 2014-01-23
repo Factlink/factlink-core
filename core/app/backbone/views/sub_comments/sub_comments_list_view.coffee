@@ -6,7 +6,8 @@ class window.SubCommentsView extends Backbone.Marionette.CollectionView
   itemViewOptions: (model) ->
     if model instanceof SubComment
       creator: model.creator()
-      innerView: new SubCommentView model: model
+      innerView: new ReactView
+        component: ReactSubComment(model: model)
     else # emptyView
       collection: @collection
 

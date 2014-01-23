@@ -4,6 +4,7 @@ module Acceptance
 
     def go_to_discussion_page_of factlink
       visit friendly_fact_path factlink
+      find('.js-button-believes')
     end
 
     def go_to_fact_show_of factlink

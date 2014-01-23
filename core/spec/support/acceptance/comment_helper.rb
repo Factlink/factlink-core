@@ -75,13 +75,11 @@ module Acceptance
       def add_sub_comment(comment)
         find('.spec-sub-comments-form .text_area_view').set comment
         find('.spec-sub-comments-form .text_area_view').value.should eq comment
+        within '.spec-sub-comments-form' do
+          click_button 'Reply'
+        end
         eventually_succeeds do
-          if find('.spec-sub-comments-form .text_area_view').value != ''
-            within '.spec-sub-comments-form' do
-              click_button 'Reply'
-              find('.spec-sub-comments-form .text_area_view').value.should eq ''
-            end
-          end
+          find('.spec-sub-comments-form .text_area_view').value.should eq ''
         end
       end
 

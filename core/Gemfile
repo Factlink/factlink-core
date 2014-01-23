@@ -1,4 +1,5 @@
 source 'http://rubygems.org'
+source 'https://rails-assets.org'
 
 ruby '2.1.0'
 
@@ -88,6 +89,9 @@ group :assets do
   gem "backbone-rails", '~> 1.0.0' #beware, backbone does not use semver!
 
   gem "marionette-rails", '~> 1.4'
+
+  gem "rails-assets-react"
+  gem "rails-assets-react.backbone"
 
   # Rails 4 pipline
   gem 'sprockets', '2.2.2.backport2' #upgrade awaiting rails 4

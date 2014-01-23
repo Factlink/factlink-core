@@ -128,6 +128,7 @@ class Ability
     pink_feedback_button
     memory_profiling
     client_buttons
+    debug_bounding_boxes
   )
 
   def enabled_global_features
