@@ -2,11 +2,11 @@ window.ReactDeleteButton = React.createBackboneClass
   getInitialState: ->
     opened: false
 
-  toggleButton: -> @setState opened: !@state.opened
+  _toggleButton: -> @setState opened: !@state.opened
 
-  slideButtonIn: -> @setState opened: false
+  _slideButtonIn: -> @setState opened: false
 
-  onDelete: -> @props.onDelete()
+  _onDelete: -> @props._onDelete()
 
   render: ->
     second_button =
@@ -16,7 +16,7 @@ window.ReactDeleteButton = React.createBackboneClass
         R.span className: "delete-button-arrow"
 
     first_button =
-      R.span className: "delete-button-first", onClick: @toggleButton,
+      R.span className: "delete-button-first", onClick: @_toggleButton,
         R.i className: "icon-trash"
 
     around_element_klass = [
@@ -24,6 +24,6 @@ window.ReactDeleteButton = React.createBackboneClass
       'delete-button-open' if @state.opened
     ].join(' ')
 
-    R.span className: around_element_klass, onMouseLeave: @slideButtonIn,
+    R.span className: around_element_klass, onMouseLeave: @_slideButtonIn,
       second_button
       first_button
