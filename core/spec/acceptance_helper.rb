@@ -30,7 +30,7 @@ RSpec.configure do |config|
   Capybara.register_driver :poltergeist do |app|
     options = {
       debug: false,
-      js_errors: false,
+      js_errors: true,
       timeout: 60,
       phantomjs_options: ['--load-images=no'],
     }
@@ -40,7 +40,7 @@ RSpec.configure do |config|
   Capybara.register_driver :poltergeist_slow do |app|
     options = {
       debug: false,
-      js_errors: false,
+      js_errors: true,
       timeout: 60,
     }
     Capybara::Poltergeist::Driver.new(app, options)
