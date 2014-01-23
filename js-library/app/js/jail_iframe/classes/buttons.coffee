@@ -113,6 +113,12 @@ class FactlinkJailRoot.ShowButton extends Button
 
     @_showAtCoordinates top, left
 
+    if FactlinkJailRoot.can_haz.debug_bounding_boxes
+      @$boundingBox?.remove()
+      @$boundingBox = FactlinkJailRoot.drawBoundingBox
+        left: textContainerOffset.left, top: textContainerOffset.top,
+        width: $textContainer.width(), height: $textContainer.height()
+
 
 class FactlinkJailRoot.CreateButton extends Button
   content: """
