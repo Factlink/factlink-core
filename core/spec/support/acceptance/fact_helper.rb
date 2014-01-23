@@ -25,7 +25,8 @@ module Acceptance
     end
 
     def click_agree fact, user
-      click_button 'Agree'
+      find('.js-button-believes').click
+
 
       eventually_succeeds do
         expect(fact.believable.opinion_of_graph_user(user.graph_user)).to eq "believes"

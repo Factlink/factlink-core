@@ -1,5 +1,5 @@
 # ensure we update this file when we update the locales
-# SHASUM of locales: e9656439e7d843e8fc3ff82f4cac60344bc947b1
+# SHASUM of locales: 598acbeccc1d284c4b23152236b713b6957a8b4f
 
 window.Factlink ||= {}
 
@@ -9,6 +9,7 @@ Factlink.Global =
   warning_sign_image: '<%= image_path("warning-sign.png") %>'
 
   core_url: "<%= URI.parse(FactlinkUI::Application.config.core_url).to_s %>"
+  environment: "<%= Rails.env %>"
   t: {}
   can_haz: {}
   signed_in: false
@@ -22,13 +23,6 @@ Factlink.Global =
     :followers,
     :unfollow,
     :is_now_following_you,
-    :fact_believe_opinion,
-    :fact_doubt_opinion,
-    :fact_disbelieve_opinion,
-
-    :fact_believe_past_singular_action_about,
-    :fact_disbelieve_past_singular_action_about,
-    :fact_doubt_past_singular_action_about,
 
     :post_argument,
     :post_subcomment,

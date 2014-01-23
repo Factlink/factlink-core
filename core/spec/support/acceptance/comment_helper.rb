@@ -15,8 +15,7 @@ module Acceptance
       # the comment box
       def open_add_comment_form
         return unless all('.add-evidence-form').empty?
-
-        click_button 'Unsure'
+        find('.js-button-doubts').click
         find('.add-evidence-form')
       end
 

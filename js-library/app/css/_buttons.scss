@@ -26,7 +26,7 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   display: none;
 }
 
-.fl-button-black, .fl-button-state-hovered, .fl-button-state-loading {
+.fl-button-black, .fl-button.hovered, .fl-button.loading {
   display: block; // remove when removing client_buttons feature toggle
   background-color: $buttonBackground;
   color: white;
@@ -90,7 +90,7 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   height: auto;
 }
 
-.fl-button-state-hovered {
+.fl-button.hovered {
   .fl-button-content-default,
   .fl-button-content-hovered,
   .fl-button-content-loading {
@@ -102,7 +102,7 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   }
 }
 
-.fl-button-state-loading {
+.fl-button.loading {
   .fl-button-content-default,
   .fl-button-content-hovered,
   .fl-button-content-loading {
@@ -112,24 +112,6 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   .fl-button-content-loading {
     height: auto;
   }
-}
-
-.fl-button-icon:before,
-.fl-button-icon-white:before,
-.fl-button-icon-add:before {
-  content: url("../images/comment-black.png");
-  display: inline-block;
-  vertical-align: middle;
-  width: $iconWidth;
-  height: 24px;
-}
-
-.fl-button-icon-white:before {
-  content: url("../images/comment-white.png");
-}
-
-.fl-button-icon-add:before {
-  content: url("../images/comment-white.png"); // TODO: special add button
 }
 
 // keep in sync with core .striped

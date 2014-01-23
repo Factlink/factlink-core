@@ -2,20 +2,31 @@
 # document for mousemove to be sure.
 class RobustHover
   constructor: (@$el, @_callbacks) ->
-    @$el.on 'mouseenter', @_onMouseEnter
+    @_hovered = false
+
+    # Use mousemove instead of mouseenter since it is more reliable
+    @$el.on 'mousemove', @_onMouseEnter
     @$el.on 'mouseleave', @_onMouseLeave
 
   destroy: ->
-    @$el.off 'mouseenter', @_onMouseEnter
+    @$el.off 'mousemove', @_onMouseEnter
     @$el.off 'mouseleave', @_onMouseLeave
     $(document).off 'mousemove', @_onMouseLeave
 
   _onMouseEnter: =>
+    return if @_hovered
+
+    # Mouse leaves when *external* document registers mousemove
     $(document).on 'mousemove', @_onMouseLeave
+
+    @_hovered = true
     @_callbacks.mouseenter?()
 
   _onMouseLeave: =>
+    return unless @_hovered
+
     $(document).off 'mousemove', @_onMouseLeave
+    @_hovered = false
     @_callbacks.mouseleave?()
 
 class Button
@@ -28,11 +39,11 @@ class Button
     @_robustHover = new RobustHover @$el, callbacks
     @$el.on 'click', -> callbacks.click?()
 
-  startLoading: => @_addClass 'fl-button-state-loading'
-  stopLoading: => @_removeClass 'fl-button-state-loading fl-button-state-hovered'
+  startLoading: => @_addClass 'loading'
+  stopLoading: => @_removeClass 'loading hovered'
 
-  startHovering: => @_addClass 'fl-button-state-hovered'
-  stopHovering: => @_removeClass 'fl-button-state-hovered'
+  startHovering: => @_addClass 'hovered'
+  stopHovering: => @_removeClass 'hovered'
 
   _addClass: (classes) =>
     @$el.addClass classes
@@ -68,18 +79,7 @@ class Button
     @_robustHover.destroy()
 
 class FactlinkJailRoot.ShowButton extends Button
-  content: """
-    <div class="fl-button">
-      <div class="fl-button-content-default">
-        <span class="fl-button-icon"></span>
-      </div>
-      <div class="fl-button-content-hovered">
-        <span class="fl-button-icon-white"></span>
-        Show Discussion
-      </div>
-      <div class="fl-button-content-loading">Loading...</div>
-    </div>
-  """
+  content: '<div class="fl-icon-button"><span class="icon-comment"></span></div>'
 
   constructor: (options) ->
     super
@@ -109,10 +109,9 @@ class FactlinkJailRoot.ShowButton extends Button
     range = document.createRange()
     range.setStartBefore textContainer
     range.setEndAfter textContainer
-    selectionBox = range.getBoundingClientRect()
-    selectionLeft = selectionBox.left + $(window).scrollLeft()
+    rangeBox = FactlinkJailRoot.rangeBox(range)
 
-    left = selectionLeft + selectionBox.width
+    left = rangeBox.left + rangeBox.width
     left = Math.min left, $(window).width() - @frame.$el.outerWidth()
 
     @_showAtCoordinates top, left
@@ -122,11 +121,11 @@ class FactlinkJailRoot.CreateButton extends Button
   content: """
     <div class="fl-button fl-button-black fl-button-with-arrow-down">
       <div class="fl-button-content-default">
-        <span class="fl-button-icon-add"></span>
+        <span class="icon-comment"></span>
       </div>
       <div class="fl-button-content-hovered">
-        <span class="fl-button-icon-add"></span>
-        <span class="fl-button-sub-button" data-opinion="believes">Agree</span><span class="fl-button-sub-button" data-opinion="doubts">Unsure</span><span class="fl-button-sub-button" data-opinion="disbelieves">Disagree</span>
+        <span class="icon-comment"></span>
+        <span class="fl-button-sub-button" data-opinion="believes"><span class="icon-smile"></span></span><span class="fl-button-sub-button" data-opinion="doubts"><span class="icon-meh"></span></span><span class="fl-button-sub-button" data-opinion="disbelieves"><span class="icon-frown"></span></span>
       </div>
       <div class="fl-button-content-loading">Loading...</div>
     </div>

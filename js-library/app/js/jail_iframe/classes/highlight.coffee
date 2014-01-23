@@ -1,21 +1,12 @@
 highlight_time_on_load_and_creation = 2000
 highlight_time_on_in_view = 1500
 
-delay_before_mouseover_detected = 75
-
-if FactlinkJailRoot.can_haz.client_buttons
-  delay_between_highlight_and_show_button_open = 1000
-else
-  delay_between_highlight_and_show_button_open = 0
-
-delay_before_mouseout_detected = 300
-
 class Highlighter
-  constructor: (@$elements, @class) ->
-    throw 'Higlighter requires class' unless @class
+  constructor: (@$elements, @className) ->
+    throw 'Higlighter requires class' unless @className
 
-  highlight:   -> @$elements.addClass(@class)
-  dehighlight: -> @$elements.removeClass(@class)
+  highlight:   -> @$elements.addClass(@className)
+  dehighlight: -> @$elements.removeClass(@className)
 
 class HighlightInteraction
   constructor: (elements, @id, @options) ->
@@ -38,18 +29,6 @@ class HighlightInteraction
     $elements.on 'mouseenter', @_onHover
     $elements.on 'mouseleave', @_onUnhover
 
-    @button_attention = new FactlinkJailRoot.AttentionSpan
-      onAttentionLost:   => @show_button.stopHovering()
-      onAttentionGained: => @show_button.startHovering()
-      wait_for_attention:  delay_before_mouseover_detected + delay_between_highlight_and_show_button_open
-      wait_for_neglection: delay_before_mouseout_detected
-
-    @highlight_attention = new FactlinkJailRoot.AttentionSpan
-      onAttentionLost:   => @highlighter.dehighlight()
-      onAttentionGained: => @highlighter.highlight()
-      wait_for_attention:  delay_before_mouseover_detected
-      wait_for_neglection: delay_before_mouseout_detected
-
   _onClick: =>
     @show_button.startLoading() # must be called after show
     FactlinkJailRoot.on 'modalOpened', @_onModalOpened, @
@@ -60,12 +39,12 @@ class HighlightInteraction
     FactlinkJailRoot.off 'modalOpened', @_onModalOpened, @
 
   _onHover: =>
-    @button_attention.gainAttention()
-    @highlight_attention.gainAttention()
+    @show_button.startHovering()
+    @highlighter.highlight()
 
   _onUnhover: =>
-    @button_attention.loseAttention()
-    @highlight_attention.loseAttention()
+    @show_button.stopHovering()
+    @highlighter.dehighlight()
 
   destroy: ->
     @show_button.destroy()
