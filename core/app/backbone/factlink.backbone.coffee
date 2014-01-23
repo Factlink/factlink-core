@@ -3,6 +3,8 @@
 #     which subclasses the router
 #= require backbone.queryparams
 #= require backbone.marionette
+#= require react
+#= require react.backbone
 #= require_tree ../templates
 #= require_self
 
