@@ -190,11 +190,11 @@ class ParagraphButton extends Button
     @_fadeIn()
     @_updatePositionRegularly()
 
-    FactlinkJailRoot.on 'factlink.factsLoaded', @_destroyIfContainsFactlink
+    FactlinkJailRoot.on 'factlink.factsLoaded factlinkAdded', @_destroyIfContainsFactlink
 
   destroy: ->
     super
-    FactlinkJailRoot.off 'factlink.factsLoaded', @_destroyIfContainsFactlink
+    FactlinkJailRoot.off 'factlink.factsLoaded factlinkAdded', @_destroyIfContainsFactlink
 
   _destroyIfContainsFactlink: =>
     if $(@nearEl).find('.factlink').length > 0
