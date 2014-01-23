@@ -20,8 +20,18 @@ FactlinkJailRoot.loaded_promise.then ->
 # To check for scrollbars on the window,  use the slightly unusual window.innerHeight
 # rather than  document.documentElement.clientHeight so it works in css compat mode.
 window_has_scrollbar = -> window.innerHeight < document.documentElement.scrollHeight
+
+saved_marginRight = null
+
 FactlinkJailRoot.on 'modalOpened', ->
   if scrollbarWidth > 0 && window_has_scrollbar()
     console.log 'has scrollbar!'
+    saved_marginRight = document.documentElement.style.marginRight
+    document.documentElement.style.marginRight = scrollbarWidth + 'px'
+
   document.documentElement.setAttribute('data-factlink-suppress-scrolling', '')
-FactlinkJailRoot.on 'modalClosed', -> document.documentElement.removeAttribute('data-factlink-suppress-scrolling')
+FactlinkJailRoot.on 'modalClosed', ->
+  if saved_marginRight != null
+    document.documentElement.style.marginRight = saved_marginRight
+
+  document.documentElement.removeAttribute('data-factlink-suppress-scrolling')
