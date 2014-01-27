@@ -101,10 +101,6 @@ class FactlinkJailRoot.ShowButton extends Button
     @_fadeIn()
     @_updatePositionRegularly()
 
-    # remove when removing client_buttons feature toggle
-    unless FactlinkJailRoot.can_haz.client_buttons
-      @$el.addClass 'fl-button-hide-default'
-
   _textContainer: (el) ->
     for el in $(el).parents()
       return el if window.getComputedStyle(el).display == 'block'

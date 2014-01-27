@@ -127,7 +127,6 @@ class Ability
   FEATURES = %w(
     pink_feedback_button
     memory_profiling
-    client_buttons
     debug_bounding_boxes
     paragraph_icons
   )
