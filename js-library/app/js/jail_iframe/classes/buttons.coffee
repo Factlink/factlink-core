@@ -150,7 +150,7 @@ class FactlinkJailRoot.CreateButton extends Button
 
   _onClick: (event) =>
     @startLoading()
-    current_user_opinion = $(event.target).data('opinion')
+    current_user_opinion = $(event.target).closest('[data-opinion]').data('opinion')
     FactlinkJailRoot.createFactFromSelection(current_user_opinion)
 
   placeNearSelection: (mouseX=null) ->
