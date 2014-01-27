@@ -110,15 +110,13 @@ class FactlinkJailRoot.ShowButton extends Button
     console.error 'FactlinkJailRoot: No text container found for ', el
 
   _updatePosition: =>
-    top = @$nearEl.offset().top + @$nearEl.outerHeight()/2 - @frame.$el.outerHeight()/2
-
     textContainer = @_textContainer(@$nearEl[0])
     contentBox = FactlinkJailRoot.contentBox(textContainer)
 
     left = contentBox.left + contentBox.width
     left = Math.min left, $(window).width() - @frame.$el.outerWidth()
 
-    @_showAtCoordinates top, left
+    @_showAtCoordinates @$nearEl.offset().top, left
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()
