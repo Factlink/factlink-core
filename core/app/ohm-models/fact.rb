@@ -74,6 +74,11 @@ class Fact < OurOhm
     opinionated_users_ids - [created_by_id] == []
   end
 
+  # For compatibility with DeadFact
+  def site_url
+    site.url
+  end
+
   private
 
   # TODO: dirty, please decouple
