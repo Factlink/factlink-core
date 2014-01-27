@@ -25,10 +25,6 @@ class Button
 
   _updatePosition: =>
 
-  hide: =>
-    @frame.fadeOut()
-    @_visible = false
-
 
 class FactlinkJailRoot.CreateButton extends Button
   content: """
@@ -83,6 +79,10 @@ class FactlinkJailRoot.CreateButton extends Button
     @frame.setOffset
       top: top
       left: left
+
+  hide: =>
+    @frame.fadeOut()
+    @_visible = false
 
 
 
