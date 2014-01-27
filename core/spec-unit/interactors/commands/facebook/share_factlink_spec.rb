@@ -84,7 +84,7 @@ describe Commands::Facebook::ShareFactlink do
         link: 'sharing_url',
         caption: "example.org \u2014 title",
         description: 'Read more',
-        picture: 'http://cdn.factlink.com/1/facebook-factwheel-logo.png'
+        picture: 'http://cdn.factlink.com/1/facebook-factlink-share-logo.png'
 
       command = described_class.new fact_id: fact.id, message: nil,
                                     pavlov_options: pavlov_options
