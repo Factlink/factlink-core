@@ -1,26 +1,4 @@
-class Button
-  constructor: ->
-    @frame = new FactlinkJailRoot.ControlIframe()
-    @frame.setContent($.parseHTML(@content.trim())[0])
-    @$el = $(@frame.frameBody.firstChild)
-
-  _bindCallbacks: (callbacks) ->
-    @_robustHover = new FactlinkJailRoot.RobustHover @$el, callbacks
-    @$el.on 'click', -> callbacks.click?()
-
-  startHovering: => @frame.addClass 'hovered'
-  stopHovering: => @frame.removeClass 'hovered'
-
-  # TODO: do all updates of different buttons in one pass
-  _updatePositionRegularly: ->
-    $(window).on 'resize', @_updatePosition
-    @_interval = setInterval @_updatePosition, 1000
-    @_updatePosition()
-
-  _updatePosition: =>
-
-
-class FactlinkJailRoot.CreateButton extends Button
+class FactlinkJailRoot.CreateButton
   content: """
     <div class="fl-button fl-button-black fl-button-with-arrow-down">
       <div class="fl-button-content-default">
@@ -35,11 +13,13 @@ class FactlinkJailRoot.CreateButton extends Button
   """
 
   constructor: ->
-    super
+    @frame = new FactlinkJailRoot.ControlIframe()
+    @frame.setContent($.parseHTML(@content.trim())[0])
+    @$el = $(@frame.frameBody.firstChild)
 
     @_robustHover = new FactlinkJailRoot.RobustHover @$el,
-      mouseenter: => @startHovering()
-      mouseleave: => @stopHovering()
+      mouseenter: => @frame.addClass 'hovered'
+      mouseleave: => @frame.removeClass 'hovered'
 
     @$el.on 'mousedown', (event) -> event.preventDefault() # To prevent de-selecting text
     @$el.on 'click', @_onClick
@@ -80,8 +60,12 @@ class FactlinkJailRoot.CreateButton extends Button
     @_visible = false
 
 
+class IconButton
 
-class IconButton extends Button
+  constructor: ->
+    @frame = new FactlinkJailRoot.ControlIframe()
+    @frame.setContent($.parseHTML(@content.trim())[0])
+    @$el = $(@frame.frameBody.firstChild)
 
   destroy: =>
     @frame.destroy()
@@ -89,6 +73,22 @@ class IconButton extends Button
     $(window).off 'resize', @_updatePosition
     clearInterval @_interval
     @$boundingBox?.remove()
+
+  _bindCallbacks: (callbacks) ->
+    @_robustHover = new FactlinkJailRoot.RobustHover @$el, callbacks
+    @$el.on 'click', -> callbacks.click?()
+
+  startHovering: => @frame.addClass 'hovered'
+  stopHovering: => @frame.removeClass 'hovered'
+
+  # TODO: do all updates of different buttons in one pass
+  _updatePositionRegularly: ->
+    $(window).on 'resize', @_updatePosition
+    @_interval = setInterval @_updatePosition, 1000
+    @_updatePosition()
+
+  _updatePosition: =>
+
 
 
 class FactlinkJailRoot.ShowButton extends IconButton
