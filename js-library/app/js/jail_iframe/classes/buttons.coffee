@@ -11,12 +11,6 @@ class Button
   startHovering: => @frame.addClass 'hovered'
   stopHovering: => @frame.removeClass 'hovered'
 
-  _fadeIn: ->
-    return if @_visible
-
-    @_visible = true
-    @frame.fadeIn()
-
   # TODO: do all updates of different buttons in one pass
   _updatePositionRegularly: ->
     $(window).on 'resize', @_updatePosition
@@ -75,7 +69,8 @@ class FactlinkJailRoot.CreateButton extends Button
     left -= buttonWidth/2
     top = selectionTop-2-@frame.$el.outerHeight()
 
-    @_fadeIn()
+    @_visible = true
+    @frame.fadeIn()
     @frame.setOffset
       top: top
       left: left
@@ -105,7 +100,7 @@ class FactlinkJailRoot.ShowButton extends IconButton
     @_bindCallbacks options.callbacks
 
     @$nearEl = $(options.el)
-    @_fadeIn()
+    @frame.fadeIn()
     @_updatePositionRegularly()
 
     # remove when removing client_buttons feature toggle
@@ -146,7 +141,7 @@ class ParagraphButton extends IconButton
 
     @$paragraph = $(options.el)
 
-    @_fadeIn()
+    @frame.fadeIn()
     @_updatePositionRegularly()
 
     FactlinkJailRoot.on 'factlink.factsLoaded factlinkAdded', @_destroyIfContainsFactlink
