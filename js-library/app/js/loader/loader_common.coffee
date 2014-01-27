@@ -66,7 +66,6 @@ window.FACTLINK_START_LOADER = ->
     root.perf.add_existing_timing_event 'factlink_loader_start', factlink_loader_start_timestamp
     root.perf.add_existing_timing_event 'before_jail', load_time_before_jail
     root.perf.add_timing_event 'after_jail'
-    console.log('has body: '+!!document.body)
 
     root.loaded_promise.done ->
       #called from jail-iframe when core iframe is ready.
