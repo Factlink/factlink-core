@@ -30,12 +30,10 @@ class HighlightInteraction
     $elements.on 'mouseleave', @_onUnhover
 
   _onClick: =>
-    @show_button.startLoading() # must be called after show
     FactlinkJailRoot.on 'modalOpened', @_onModalOpened, @
     FactlinkJailRoot.openFactlinkModal @id
 
   _onModalOpened: ->
-    @show_button.stopLoading()
     FactlinkJailRoot.off 'modalOpened', @_onModalOpened, @
 
   _onHover: =>
