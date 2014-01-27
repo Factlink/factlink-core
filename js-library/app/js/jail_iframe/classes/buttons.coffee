@@ -132,7 +132,7 @@ class FactlinkJailRoot.CreateButton extends Button
       </div>
       <div class="fl-button-content-hovered">
         <span class="icon-comment"></span>
-        <span class="fl-button-sub-button" data-opinion="believes"><span class="icon-smile"></span></span><span class="fl-button-sub-button" data-opinion="doubts"><span class="icon-meh"></span></span><span class="fl-button-sub-button" data-opinion="disbelieves"><span class="icon-frown"></span></span>
+        <span class="fl-button-sub-button js-opinion" data-opinion="believes"><span class="icon-smile"></span></span><span class="fl-button-sub-button js-opinion" data-opinion="doubts"><span class="icon-meh"></span></span><span class="fl-button-sub-button js-opinion" data-opinion="disbelieves"><span class="icon-frown"></span></span>
       </div>
       <div class="fl-button-content-loading">Loading...</div>
     </div>
@@ -150,7 +150,7 @@ class FactlinkJailRoot.CreateButton extends Button
 
   _onClick: (event) =>
     @startLoading()
-    current_user_opinion = $(event.target).data('opinion')
+    current_user_opinion = $(event.target).closest('.js-opinion').data('opinion')
     FactlinkJailRoot.createFactFromSelection(current_user_opinion)
 
   placeNearSelection: (mouseX=null) ->
