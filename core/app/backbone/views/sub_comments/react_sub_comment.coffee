@@ -2,7 +2,7 @@ window.ReactSubComment = React.createBackboneClass
   render: ->
     R.div {},
       R.div
-        className: "discussion-evidenceish-content discussion-evidenceish-text"
+        className: "discussion-evidenceish-content discussion-evidenceish-text spec-subcomment-content",
         dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
       R.div className: "comment-bottom",
         R.ul className: "comment-bottom-actions",
