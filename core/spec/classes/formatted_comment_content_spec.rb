@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe FormattedCommentContent do
+  include ActionView::Helpers::TagHelper
+
   describe '#html' do
     it 'sanitizes html' do
       formatted_comment = described_class.new '<a>Link</a>'
@@ -26,11 +28,12 @@ describe FormattedCommentContent do
       fact = create :fact
       fact_url = FactUrl.new(fact)
       friendly_fact_url = fact_url.friendly_fact_url
-      friendly_fact_path = fact_url.friendly_fact_path
+      proxy_open_url = fact_url.proxy_open_url
       displaystring = fact.data.displaystring
 
       formatted_comment = described_class.new friendly_fact_url
-      expected_html = "<a class=\"formatted-comment-content-factlink\" href=\"#{friendly_fact_path}\" rel=\"backbone\">Fact 1</a>"
+      expected_html = content_tag :a, displaystring, href: proxy_open_url, rel: 'backbone',
+        class: 'formatted-comment-content-factlink'
 
       expect(formatted_comment.html).to eq expected_html
     end

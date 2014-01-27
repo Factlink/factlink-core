@@ -34,9 +34,11 @@ class FormattedCommentContent
 
   def factlink_link_tag fact_id
     dead_fact = Pavlov.query :'facts/get_dead', id: fact_id
-    friendly_fact_path = FactUrl.new(dead_fact).friendly_fact_path
+    fact_url = FactUrl.new(dead_fact)
+    friendly_fact_path = fact_url.friendly_fact_path
+    proxy_open_url = fact_url.proxy_open_url
 
-    content_tag :a, dead_fact.displaystring, href: friendly_fact_path, rel: 'backbone',
+    content_tag :a, dead_fact.displaystring, href: proxy_open_url, rel: 'backbone',
       class: 'formatted-comment-content-factlink'
   end
 end
