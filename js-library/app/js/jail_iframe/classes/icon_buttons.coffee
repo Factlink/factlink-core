@@ -16,9 +16,6 @@ class IconButton
     @_robustHover = new FactlinkJailRoot.RobustHover @$el, callbacks
     @$el.on 'click', -> callbacks.click?()
 
-  startHovering: => @frame.addClass 'hovered'
-  stopHovering: => @frame.removeClass 'hovered'
-
   # TODO: do all updates of different buttons in one pass
   _updatePositionRegularly: ->
     $(window).on 'resize', @_updatePosition
@@ -41,6 +38,9 @@ class FactlinkJailRoot.ShowButton extends IconButton
     # remove when removing client_buttons feature toggle
     unless FactlinkJailRoot.can_haz.client_buttons
       @$el.addClass 'fl-button-hide-default'
+
+  startHovering: => @frame.addClass 'hovered'
+  stopHovering: => @frame.removeClass 'hovered'
 
   _textContainer: (el) ->
     for el in $(el).parents()
@@ -70,8 +70,8 @@ class ParagraphButton extends IconButton
     super
 
     @_bindCallbacks
-      mouseenter: => @startHovering()
-      mouseleave: => @stopHovering()
+      mouseenter: => @frame.addClass 'hovered'
+      mouseleave: => @frame.removeClass 'hovered'
       click: => @_onClick()
 
     @$paragraph = $(options.el)
