@@ -34,7 +34,7 @@ describe Interactors::Mails::MassSendDigest do
   end
 
   it 'does not display the header image' do
-    header_image_tag = 'src="http://cdn.factlink.com/1/emailLogo.png"'
+    header_image_tag = 'src="https://static.factlink.com/lib/dist/images/emailLogo.png"'
     expect(@mails[0].body.encoded).not_to match(header_image_tag)
   end
 end
