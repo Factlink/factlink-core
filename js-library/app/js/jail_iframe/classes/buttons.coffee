@@ -8,18 +8,8 @@ class Button
     @_robustHover = new FactlinkJailRoot.RobustHover @$el, callbacks
     @$el.on 'click', -> callbacks.click?()
 
-  startHovering: => @_addClass 'hovered'
-  stopHovering: => @_removeClass 'hovered'
-
-  _addClass: (classes) =>
-    @$el.addClass classes
-    @frame.sizeFrameToFitContent()
-    @_updatePosition()
-
-  _removeClass: (classes) =>
-    @$el.removeClass classes
-    @frame.sizeFrameToFitContent()
-    @_updatePosition()
+  startHovering: => @frame.addClass 'hovered'
+  stopHovering: => @frame.removeClass 'hovered'
 
   _fadeIn: ->
     return if @_visible
@@ -73,8 +63,8 @@ class FactlinkJailRoot.CreateButton extends Button
     @$el.on 'mousedown', (event) -> event.preventDefault() # To prevent de-selecting text
     @$el.on 'click', @_onClick
 
-  startLoading: => @_addClass 'loading'
-  stopLoading: => @_removeClass 'loading hovered'
+  startLoading: => @frame.addClass 'loading'
+  stopLoading: => @frame.removeClass 'loading hovered'
 
   _onClick: (event) =>
     @startLoading()

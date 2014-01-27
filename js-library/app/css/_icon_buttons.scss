@@ -5,8 +5,8 @@
   opacity: 0.4;
   transition: opacity $highlight_visibility_transition_time;
   white-space: nowrap; // TODO: remove when removing ugly '+' from add icon
+}
 
-  &.hovered {
-    opacity: 1;
-  }
+.hovered .fl-icon-button {
+  opacity: 1;
 }

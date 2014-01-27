@@ -26,7 +26,7 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   display: none;
 }
 
-.fl-button-black, .fl-button.hovered, .fl-button.loading {
+.fl-button-black, .hovered .fl-button, .loading .fl-button {
   display: block; // remove when removing client_buttons feature toggle
   background-color: $buttonBackground;
   color: white;
@@ -90,7 +90,7 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   height: auto;
 }
 
-.fl-button.hovered {
+.hovered {
   .fl-button-content-default,
   .fl-button-content-hovered,
   .fl-button-content-loading {
@@ -102,7 +102,7 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   }
 }
 
-.fl-button.loading {
+.loading {
   .fl-button-content-default,
   .fl-button-content-hovered,
   .fl-button-content-loading {

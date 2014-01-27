@@ -20,6 +20,7 @@ class FactlinkJailRoot.ControlIframe
     style.appendChild(@doc.createTextNode(FrameCss))
     @doc.head.appendChild(style)
     @frameBody = @doc.body
+    @$frameBody = $(@doc.body)
 
   setContent: (contentNode) ->
     @frameBody.innerHTML = '';
@@ -48,3 +49,10 @@ class FactlinkJailRoot.ControlIframe
     @el.parentElement?.removeChild(@el)
     @$el = @el = null
 
+  addClass: (classes) =>
+    @$frameBody.addClass classes
+    @sizeFrameToFitContent()
+
+  removeClass: (classes) =>
+    @$frameBody.removeClass classes
+    @sizeFrameToFitContent()
