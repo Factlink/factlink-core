@@ -1,0 +1,44 @@
+<div class="fact-vote">
+
+  <div class="fact-vote-button button-believes">
+    {{#global.signed_in}}
+      <button class="button vote-column-believes-button js-button-believes"><i class="icon-smile"></i></button>
+    {{/global.signed_in}}
+
+    {{^global.signed_in}}
+      <span class="vote-table-cell-text-believes"><i class="icon-smile"></i></span>
+    {{/global.signed_in}}
+  </div>
+
+  <div class="fact-vote-stats">
+    <table class="fact-vote-stats-table">
+      <tr>
+        <td class="fact-vote-amount-believes">10</td>
+        <td>
+          <table class="fact-vote-amount-graph">
+            <tr>
+              <td class="vote-amount-graph-believers"></td>
+              <td class="vote-amount-graph-disbelievers"></td>
+            </tr>
+          </table>
+        </td>
+        <td class="fact-vote-amount-disbelieves">5</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="fact-vote-button button-disbelieves">
+    {{#global.signed_in}}
+      <button class="button vote-column-disbelieves-button js-button-disbelieves"><i class="icon-frown"></i></button>
+    {{/global.signed_in}}
+
+    {{^global.signed_in}}
+      <span class="vote-table-cell-text-disbelieves"><i class="icon-frown"></i></span>
+    {{/global.signed_in}}
+  </div>
+</div>
+
+<div class="fact-vote-people">
+  <div class="fact-vote-people-believers js-avatars-believes-region"></div>
+  <div class="fact-vote-people-disbelievers js-avatars-disbelieves-region"></div>
+</div>

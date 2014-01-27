@@ -7,49 +7,86 @@
 @avatarLineHeight: @avatarSize + 4px;
 @cellVerticalPadding: 5px;
 
-.vote-table{
+.fact-vote {
+  display: table;
+  padding: 0 20px;
+}
+
+.fact-vote-button {
+  width: 30px;
+  display: table-cell;
+  &.button-believes {
+
+  }
+  &.button-disbelieves {
+
+  }
+}
+
+.fact-vote-stats {
+  vertical-align: middle;
+  text-align: center;
+  display: table-cell;
   width: 100%;
-  border-collapse: collapse;
 }
 
-.vote-column-believes {
+.fact-vote-stats-table {
+  width: 100%;
+}
+
+.fact-vote-amount-graph {
+  height: 14px;
+  width: 100%;
+}
+
+/* TODO replace this by actual percentages */
+.vote-amount-graph-believers{
+  background: @green;
+  width: 66%;
+}
+
+.vote-amount-graph-disbelievers {
+  background: @red;
+  width: 33%;
+}
+
+.fact-vote-amount-believes, .fact-vote-amount-disbelieves {
+  font-size: 18px;
+  width: 30px;
+  display: table-cell;
+}
+
+.fact-vote-amount-believes {
+  color: @green;
+  padding-left: 10px;
+}
+
+.fact-vote-amount-disbelieves {
+  color: @red;
+  padding-right: 10px;
+}
+
+.fact-vote-people {
+  padding: 10px 20px;
+  display: table;
+  width: 100%;
+}
+
+.fact-vote-people-believers, .fact-vote-people-disbelievers {
+  display: table-cell;
+  width: 50%;
+}
+
+.fact-vote-people-believers {
   text-align: left;
-  width: 38px;
 }
-.vote-column-disbelieves {
+
+.fact-vote-people-disbelievers {
   text-align: right;
-  width: 38px;
 }
 
-.vote-column-believes-avatars {
-  padding: 2px;
-  text-align: left;
-  background: @believesEvidenceImpactColor;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-}
 
-.vote-column-disbelieves-avatars {
-  padding: 2px;
-  text-align: right;
-  background: @disbelievesEvidenceImpactColor;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-}
 
-.vote-column-believes-button {
-  width: 38px;
-  height: 38px;
-}
-
-.vote-column-disbelieves-button {
-  height: 38px;
-  width: 38px;
-}
-
-.vote-column-divider {
-  width: 3px;
-}
 
 .fact-vote-table-cell-believes,
 .fact-vote-table-cell-disbelieves,

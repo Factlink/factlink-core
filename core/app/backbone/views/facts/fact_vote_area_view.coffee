@@ -11,9 +11,9 @@ class OpinionatorsAvatarView extends Backbone.Marionette.Layout
 
 
 class window.FactVoteTableView extends Backbone.Marionette.CompositeView
-  tagName: 'table'
-  className: 'vote-table'
-  template: 'facts/fact_vote_table'
+  tagName: 'div'
+  className: 'fact-vote-area'
+  template: 'facts/fact_vote_area'
   itemView: OpinionatorsAvatarView
 
   ui:
