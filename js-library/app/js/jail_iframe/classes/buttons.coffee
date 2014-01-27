@@ -70,6 +70,14 @@ class Button
       left: left + "px"
       top: top + "px"
 
+  # TODO: do all updates of different buttons in one pass
+  _updatePositionRegularly: ->
+    $(window).on 'resize', @_updatePosition
+    @_interval = setInterval @_updatePosition, 1000
+    @_updatePosition()
+
+  _updatePosition: =>
+
   hide: =>
     @frame.fadeOut()
     @_visible = false
@@ -77,6 +85,9 @@ class Button
   destroy: =>
     @frame.destroy()
     @_robustHover.destroy()
+    $(window).off 'resize', @_updatePosition
+    clearInterval @_interval
+    @$boundingBox?.remove()
 
 class FactlinkJailRoot.ShowButton extends Button
   content: '<div class="fl-icon-button"><span class="icon-comment"></span></div>'
@@ -88,36 +99,29 @@ class FactlinkJailRoot.ShowButton extends Button
 
     @$nearEl = $(options.el)
     @_fadeIn()
-    @_updatePosition()
-
-    $(window).on 'resize', => @_updatePosition()
-    setInterval (=> @_updatePosition()), 1000
+    @_updatePositionRegularly()
 
     # remove when removing client_buttons feature toggle
     unless FactlinkJailRoot.can_haz.client_buttons
       @$el.addClass 'fl-button-hide-default'
 
-  $textContainer: ($el) ->
-    for el in $el.parents()
-      return $(el) if window.getComputedStyle(el).display == 'block'
-    console.error 'FactlinkJailRoot: No text container found for ', $el
+  _textContainer: (el) ->
+    for el in $(el).parents()
+      return el if window.getComputedStyle(el).display == 'block'
+    console.error 'FactlinkJailRoot: No text container found for ', el
 
-  _updatePosition: ->
-    top = @$nearEl.offset().top + @$nearEl.outerHeight()/2 - @frame.$el.outerHeight()/2
+  _updatePosition: =>
+    textContainer = @_textContainer(@$nearEl[0])
+    contentBox = FactlinkJailRoot.contentBox(textContainer)
 
-    $textContainer = @$textContainer(@$nearEl)
-    textContainerOffset = $textContainer.offset()
-
-    left = textContainerOffset.left + $textContainer.width()
+    left = contentBox.left + contentBox.width
     left = Math.min left, $(window).width() - @frame.$el.outerWidth()
 
-    @_showAtCoordinates top, left
+    @_showAtCoordinates @$nearEl.offset().top, left
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()
-      @$boundingBox = FactlinkJailRoot.drawBoundingBox
-        left: textContainerOffset.left, top: textContainerOffset.top,
-        width: $textContainer.width(), height: $textContainer.height()
+      @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'red'
 
 
 class FactlinkJailRoot.CreateButton extends Button
@@ -149,8 +153,6 @@ class FactlinkJailRoot.CreateButton extends Button
     current_user_opinion = $(event.target).data('opinion')
     FactlinkJailRoot.createFactFromSelection(current_user_opinion)
 
-  _updatePosition: ->
-
   placeNearSelection: (mouseX=null) ->
     return if @_visible
 
@@ -170,3 +172,76 @@ class FactlinkJailRoot.CreateButton extends Button
 
     @_fadeIn()
     @_showAtCoordinates top, left
+
+
+class ParagraphButton extends Button
+  content: '<div class="fl-icon-button"><span class="icon-comment"></span>+</div>'
+
+  constructor: (options) ->
+    super
+
+    @_bindCallbacks
+      mouseenter: => @startHovering()
+      mouseleave: => @stopHovering()
+      click: => @_onClick()
+
+    @$paragraph = $(options.el)
+
+    @_fadeIn()
+    @_updatePositionRegularly()
+
+    FactlinkJailRoot.on 'factlink.factsLoaded factlinkAdded', @_destroyIfContainsFactlink
+
+  destroy: ->
+    super
+    FactlinkJailRoot.off 'factlink.factsLoaded factlinkAdded', @_destroyIfContainsFactlink
+
+  _destroyIfContainsFactlink: =>
+    if @$paragraph.find('.factlink').length > 0
+      @destroy()
+
+  _updatePosition: ->
+    contentBox = FactlinkJailRoot.contentBox(@$paragraph[0])
+
+    @_showAtCoordinates contentBox.top, contentBox.left + contentBox.width
+
+    if FactlinkJailRoot.can_haz.debug_bounding_boxes
+      @$boundingBox?.remove()
+      @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'green'
+
+  _onClick: ->
+    text = @$paragraph.text()
+    siteTitle = window.document.title
+    siteUrl = FactlinkJailRoot.siteUrl()
+
+    FactlinkJailRoot.factlinkCoreEnvoy 'prepareNewFactlink',
+      text, siteUrl, siteTitle, null
+
+
+class FactlinkJailRoot.ParagraphButtons
+
+  constructor: ->
+    @_paragraphButtons = []
+
+  _paragraphHasContent: (el) ->
+    $clonedEl = $(el).clone()
+    $clonedEl.find('a').remove() # Strip links
+
+    textLength = $clonedEl.text().length
+    $clonedEl.remove()
+
+    textLength >= 50
+
+  _addParagraphButton: (el) ->
+    return unless @_paragraphHasContent(el)
+
+    @_paragraphButtons.push new ParagraphButton el: el
+
+  addParagraphButtons: ->
+    return unless FactlinkJailRoot.can_haz.paragraph_icons
+
+    for paragraphButton in @_paragraphButtons
+      paragraphButton.destroy()
+
+    for el in $('p, h2, h3, h4, h5, h6')
+      @_addParagraphButton el

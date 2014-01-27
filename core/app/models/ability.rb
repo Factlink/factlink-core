@@ -129,6 +129,7 @@ class Ability
     memory_profiling
     client_buttons
     debug_bounding_boxes
+    paragraph_icons
   )
 
   def enabled_global_features
