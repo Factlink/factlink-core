@@ -12,10 +12,6 @@ class HighlightInteraction
   constructor: (elements, @id, @options) ->
     $elements = $(elements)
 
-    # remove when removing client_buttons feature toggle
-    unless FactlinkJailRoot.can_haz.client_buttons
-      $elements.addClass 'fl-always-highlight'
-
     @highlighter = new Highlighter $elements, 'fl-active'
 
     @show_button = new FactlinkJailRoot.ShowButton
