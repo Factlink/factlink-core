@@ -6,7 +6,6 @@ FactlinkJailRoot.annotatedSiteReceiver =
   modalFrameReady: (featureToggles) ->
     FactlinkJailRoot.can_haz = featureToggles
     factlink_core_loaded_deferred.resolve()
-    FactlinkJailRoot.trigger 'coreLoad'
 
   openModalOverlay: ->
     if modalOpen
