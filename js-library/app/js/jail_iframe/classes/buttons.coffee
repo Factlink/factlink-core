@@ -184,6 +184,7 @@ class ParagraphButton extends Button
     @_bindCallbacks
       mouseenter: => @startHovering()
       mouseleave: => @stopHovering()
+      click: => @_onClick()
 
     @nearEl = options.el
 
@@ -208,6 +209,14 @@ class ParagraphButton extends Button
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()
       @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'green'
+
+  _onClick: ->
+    text = $(@nearEl).text()
+    siteTitle = window.document.title
+    siteUrl = FactlinkJailRoot.siteUrl()
+
+    FactlinkJailRoot.factlinkCoreEnvoy 'prepareNewFactlink',
+      text, siteUrl, siteTitle, null
 
 
 class FactlinkJailRoot.ParagraphButtons
