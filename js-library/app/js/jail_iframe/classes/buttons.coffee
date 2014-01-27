@@ -58,41 +58,6 @@ class Button
     clearInterval @_interval
     @$boundingBox?.remove()
 
-class FactlinkJailRoot.ShowButton extends Button
-  content: '<div class="fl-icon-button"><span class="icon-comment"></span></div>'
-
-  constructor: (options) ->
-    super
-
-    @_bindCallbacks options.callbacks
-
-    @$nearEl = $(options.el)
-    @_fadeIn()
-    @_updatePositionRegularly()
-
-    # remove when removing client_buttons feature toggle
-    unless FactlinkJailRoot.can_haz.client_buttons
-      @$el.addClass 'fl-button-hide-default'
-
-  _textContainer: (el) ->
-    for el in $(el).parents()
-      return el if window.getComputedStyle(el).display == 'block'
-    console.error 'FactlinkJailRoot: No text container found for ', el
-
-  _updatePosition: =>
-    textContainer = @_textContainer(@$nearEl[0])
-    contentBox = FactlinkJailRoot.contentBox(textContainer)
-
-    left = contentBox.left + contentBox.width
-    left = Math.min left, $(window).width() - @frame.$el.outerWidth()
-
-    @_showAtCoordinates @$nearEl.offset().top, left
-
-    if FactlinkJailRoot.can_haz.debug_bounding_boxes
-      @$boundingBox?.remove()
-      @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'red'
-
-
 class FactlinkJailRoot.CreateButton extends Button
   content: """
     <div class="fl-button fl-button-black fl-button-with-arrow-down">
@@ -143,7 +108,46 @@ class FactlinkJailRoot.CreateButton extends Button
     @_showAtCoordinates top, left
 
 
-class ParagraphButton extends Button
+
+class IconButton extends Button
+
+
+class FactlinkJailRoot.ShowButton extends IconButton
+  content: '<div class="fl-icon-button"><span class="icon-comment"></span></div>'
+
+  constructor: (options) ->
+    super
+
+    @_bindCallbacks options.callbacks
+
+    @$nearEl = $(options.el)
+    @_fadeIn()
+    @_updatePositionRegularly()
+
+    # remove when removing client_buttons feature toggle
+    unless FactlinkJailRoot.can_haz.client_buttons
+      @$el.addClass 'fl-button-hide-default'
+
+  _textContainer: (el) ->
+    for el in $(el).parents()
+      return el if window.getComputedStyle(el).display == 'block'
+    console.error 'FactlinkJailRoot: No text container found for ', el
+
+  _updatePosition: =>
+    textContainer = @_textContainer(@$nearEl[0])
+    contentBox = FactlinkJailRoot.contentBox(textContainer)
+
+    left = contentBox.left + contentBox.width
+    left = Math.min left, $(window).width() - @frame.$el.outerWidth()
+
+    @_showAtCoordinates @$nearEl.offset().top, left
+
+    if FactlinkJailRoot.can_haz.debug_bounding_boxes
+      @$boundingBox?.remove()
+      @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'red'
+
+
+class ParagraphButton extends IconButton
   content: '<div class="fl-icon-button"><span class="icon-comment"></span>+</div>'
 
   constructor: (options) ->
