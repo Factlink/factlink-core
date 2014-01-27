@@ -11,7 +11,7 @@ describe "creating a Factlink", type: :feature do
   end
 
   it "should add a factlink" do
-    fact_name = "baronnenbillen"
+    fact_name = "Berlioz' death took place near Patriarch's Pond"
 
     visit new_fact_path(displaystring: fact_name)
 
