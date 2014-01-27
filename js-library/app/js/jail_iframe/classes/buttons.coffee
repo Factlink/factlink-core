@@ -37,7 +37,7 @@ class FactlinkJailRoot.CreateButton extends Button
   constructor: ->
     super
 
-    @_bindCallbacks
+    @_robustHover = new FactlinkJailRoot.RobustHover @$el,
       mouseenter: => @startHovering()
       mouseleave: => @stopHovering()
 
