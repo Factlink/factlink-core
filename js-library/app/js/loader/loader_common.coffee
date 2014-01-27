@@ -43,19 +43,6 @@ window.FACTLINK_START_LOADER = ->
 
     document.body.appendChild outerWrapperEl
 
-    window.FACTLINK_ON_CORE_LOAD = -> #called from jail-iframe when core iframe is ready.
-      for name in methods
-        do (name) ->
-          # don't return the value, as we can't do that when storing calls
-          window.FACTLINK[name] = ->
-            jslib_jail_iframe.contentWindow.FactlinkJailRoot[name](arguments...)
-            return
-
-      delete window.FACTLINK_ON_CORE_LOAD
-
-      for methodCall in storedMethodCalls
-        window.FACTLINK[methodCall.name](methodCall.arguments...)
-      storedMethodCalls = undefined
 
     jail_window = jslib_jail_iframe.contentWindow
     jail_window.FactlinkConfig = window.FactlinkConfig
@@ -71,6 +58,19 @@ window.FACTLINK_START_LOADER = ->
     script_tag = jslib_jail_doc.createElement 'script'
     script_tag.appendChild(jslib_jail_doc.createTextNode(jslib_jail_code))
     jslib_jail_doc.documentElement.appendChild(script_tag)
+
+    jslib_jail_iframe.contentWindow.FactlinkJailRoot.loaded_promise.then ->
+      #called from jail-iframe when core iframe is ready.
+      for name in methods
+        do (name) ->
+          # don't return the value, as we can't do that when storing calls
+          window.FACTLINK[name] = ->
+            jslib_jail_iframe.contentWindow.FactlinkJailRoot[name](arguments...)
+            return
+
+      for methodCall in storedMethodCalls
+        window.FACTLINK[methodCall.name](methodCall.arguments...)
+      storedMethodCalls = undefined
 
   if /^(interactive|complete)$/.test(document.readyState)
     onReady()

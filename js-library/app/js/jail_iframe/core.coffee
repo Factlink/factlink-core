@@ -1,4 +1,9 @@
-window.FactlinkJailRoot = $.extend({ can_haz: {}}, window.Events);
+window.factlink_core_loaded_deferred = $.Deferred()
+window.FactlinkJailRoot =
+  $.extend(
+    can_haz: {}
+    loaded_promise: factlink_core_loaded_deferred.promise()
+  , window.Events);
 
 # See http://stackoverflow.com/questions/3690447/override-default-jquery-selector-context
 jQuery.noConflict()
