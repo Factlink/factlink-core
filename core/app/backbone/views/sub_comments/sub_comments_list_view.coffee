@@ -46,29 +46,14 @@ ReactSubCommentsAdd = React.createClass
         value: @state.text
       submit_button
 
-class window.SubCommentContainerView extends Backbone.Marionette.Layout
-  className: 'sub-comment-container'
-  template: 'sub_comments/sub_comment_container'
-
-  regions:
-    headingRegion: '.js-heading-region'
-    innerRegion: '.js-inner-region'
-
-  onRender: ->
-    @headingRegion.show new EvidenceishHeadingView model: @options.creator
-    @innerRegion.show @options.innerView
-
-
 class window.SubCommentsView extends Backbone.Marionette.CollectionView
   className: 'sub-comments'
   emptyView: Backbone.Factlink.EmptyLoadingView
-  itemView: SubCommentContainerView
+  itemView: ReactView
 
   itemViewOptions: (model) ->
     if model instanceof SubComment
-      creator: model.creator()
-      innerView: new ReactView
-        component: ReactSubComment(model: model)
+      component: ReactSubComment(model: model)
     else # emptyView
       collection: @collection
 
