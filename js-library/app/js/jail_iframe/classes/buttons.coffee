@@ -17,15 +17,6 @@ class Button
     @_visible = true
     @frame.fadeIn()
 
-  _showAtCoordinates: (top, left) =>
-    containerOffset = FactlinkJailRoot.$factlinkCoreContainer.offset()
-    left -= containerOffset.left
-    top -= containerOffset.top
-
-    @frame.$el.css
-      left: left + "px"
-      top: top + "px"
-
   # TODO: do all updates of different buttons in one pass
   _updatePositionRegularly: ->
     $(window).on 'resize', @_updatePosition
@@ -89,7 +80,9 @@ class FactlinkJailRoot.CreateButton extends Button
     top = selectionTop-2-@frame.$el.outerHeight()
 
     @_fadeIn()
-    @_showAtCoordinates top, left
+    @frame.setOffset
+      top: top
+      left: left
 
 
 
@@ -131,7 +124,9 @@ class FactlinkJailRoot.ShowButton extends IconButton
     left = contentBox.left + contentBox.width
     left = Math.min left, $(window).width() - @frame.$el.outerWidth()
 
-    @_showAtCoordinates @$nearEl.offset().top, left
+    @frame.setOffset
+      top: @$nearEl.offset().top
+      left: left
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()
@@ -167,7 +162,9 @@ class ParagraphButton extends IconButton
   _updatePosition: ->
     contentBox = FactlinkJailRoot.contentBox(@$paragraph[0])
 
-    @_showAtCoordinates contentBox.top, contentBox.left + contentBox.width
+    @frame.setOffset
+      top: contentBox.top
+      left: contentBox.left + contentBox.width
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()

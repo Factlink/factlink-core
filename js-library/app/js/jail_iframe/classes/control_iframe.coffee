@@ -56,3 +56,10 @@ class FactlinkJailRoot.ControlIframe
   removeClass: (classes) =>
     @$frameBody.removeClass classes
     @sizeFrameToFitContent()
+
+  setOffset: (coordinates) =>
+    containerOffset = FactlinkJailRoot.$factlinkCoreContainer.offset()
+
+    @$el.css
+      left: (coordinates.left - containerOffset.left) + "px"
+      top: (coordinates.top - containerOffset.top) + "px"
