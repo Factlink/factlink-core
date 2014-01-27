@@ -1,60 +1,55 @@
-class window.SubCommentsAddView extends Backbone.Marionette.Layout
-  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin
+ReactSubCommentsAdd = React.createClass
+  getInitialState: ->
+    text: ''
+    phase: 'new'
 
-  className: 'discussion-evidenceish-content sub-comments-add spec-sub-comments-form'
-
-  template: 'sub_comments/sub_comments_add'
-
-  events:
-    'click .js-submit': 'submit'
-
-  ui:
-    submit: '.js-submit'
-
-  regions:
-    textareaRegion: '.js-region-textarea'
-
-  initialize: ->
-    @_textModel = new Backbone.Model text: ''
-
-    @_textAreaComponent = Backbone.Factlink.ReactTextArea
-      model: @_textModel
-      placeholder: 'Comment...'
-    @_textAreaView = new ReactView
-        component: @_textAreaComponent
-
-  onRender: ->
-    @textareaRegion.show @_textAreaView
+  updateText: (e)->
+    @setState text: e.target.value
 
   submit: ->
-    return if @submitting
+    return if @state.phase == 'submitting'
+    @state.phase = 'submitting'
 
-    @model = new SubComment
-      content: $.trim(@_textModel.get('text'))
+    model = new SubComment
+      content: $.trim(@state.text)
       created_by: currentUser.toJSON()
 
-    return @addModelError() unless @model.isValid()
+    return @addModelError() unless model.isValid()
 
-    @disableSubmit()
-    @addDefaultModel()
-
-  addModelSuccess: ->
-    @enableSubmit()
-    @_textModel.set 'text', ''
-    @_textAreaComponent.forceUpdate()
+    @props.addToCollection.add(model)
+    model.save {},
+      success: =>
+        @addModelSuccess()
+      error: =>
+        @props.addToCollection.remove(model)
+        @addModelError()
+    console.info "Submitting", @state.text
 
   addModelError: ->
-    @enableSubmit()
+    @setState phase: 'new'
     FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
 
+  addModelSuccess: ->
+    @setState phase: 'new'
+    @setState text: ''
 
-  enableSubmit: ->
-    @submitting = false
-    @ui.submit.prop('disabled',false).text(Factlink.Global.t.post_subcomment)
+  render: ->
+    submit_button =
+      if @state.phase == 'new'
+        R.button className: "js-submit button button-confirm button-small post-comment-button", onClick: @submit,
+          Factlink.Global.t.post_subcomment
+      else
+        R.button className: "js-submit button button-confirm button-small post-comment-button", onClick: @submit, disabled: true,
+          'Posting...'
 
-  disableSubmit: ->
-    @submitting = true
-    @ui.submit.prop('disabled',true ).text('Posting...')
+    R.div className: 'discussion-evidenceish-content sub-comments-add spec-sub-comments-form',
+      R.textarea
+        className: "text_area_view",
+        placeholder: 'Comment...'
+        onChange: @updateText
+        ref: 'textarea'
+        value: @state.text
+      submit_button
 
 class window.SubCommentContainerView extends Backbone.Marionette.Layout
   className: 'sub-comment-container'
@@ -89,7 +84,9 @@ class window.SubCommentsView extends Backbone.Marionette.CollectionView
     @collection.fetch()
 
     if Factlink.Global.signed_in
-      @_addViewContainer = new SubCommentsAddView addToCollection: @collection
+      @_addViewContainer = new ReactView
+        component: new ReactSubCommentsAdd
+          addToCollection: @collection
 
   onRender: ->
     return if @collection.loading()

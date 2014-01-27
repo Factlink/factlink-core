@@ -5,20 +5,6 @@
 
 Backbone.Factlink ||= {}
 
-Backbone.Factlink.ReactTextArea = React.createBackboneClass
-  updateText: (e)->
-    @getModel().set text: e.target.value
-
-  render: ->
-    R.textarea
-      className: "text_area_view",
-      placeholder: @props.placeholder
-      onKeyUp: @updateText
-      onInput: @updateText
-      ref: 'textarea'
-      value: @getModel().get('text')
-
-
 class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
   template: 'generic/text_area'
   events:
