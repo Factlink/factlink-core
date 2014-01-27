@@ -1,4 +1,7 @@
 window.initClientCommunicator = ->
+  if !window.parent || window == window.parent
+    return ->
+
   local =
     showFactlink: (id) -> showUrl "/client/facts/#{id}"
 
@@ -19,7 +22,4 @@ window.initClientCommunicator = ->
 
   Factlink.createReceiverEnvoy local
 
-  if window.parent
-    Factlink.createSenderEnvoy window.parent
-  else
-    ->
+  Factlink.createSenderEnvoy window.parent
