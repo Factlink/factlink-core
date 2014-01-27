@@ -121,7 +121,7 @@ class FactlinkJailRoot.ShowButton extends Button
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()
-      @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox
+      @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'red'
 
 
 class FactlinkJailRoot.CreateButton extends Button
