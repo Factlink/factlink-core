@@ -70,6 +70,7 @@ class Button
       left: left + "px"
       top: top + "px"
 
+  # TODO: do all updates of different buttons in one pass
   _updatePositionRegularly: ->
     $(window).on 'resize', @_updatePosition
     @_interval = setInterval @_updatePosition, 1000
