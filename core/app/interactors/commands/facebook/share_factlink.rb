@@ -13,7 +13,7 @@ module Commands
           link: url,
           caption: caption,
           description: 'Read more',
-          picture: 'http://cdn.factlink.com/1/facebook-factlink-share-logo.png'
+          picture: 'https://static.factlink.com/lib/dist/images/facebook-factlink-share-logo.png'
       end
 
       def token
