@@ -39,6 +39,8 @@ FactlinkUI::Application.configure do
   config.serve_static_assets = true
   config.static_cache_control = "public, max-age=3600"
 
+  # Do not compress assets
+  config.assets.compress = false
   config.assets.debug = false
 
   config.roadie.enabled = false
