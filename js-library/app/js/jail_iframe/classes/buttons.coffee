@@ -48,12 +48,6 @@ class Button
     @frame.fadeOut()
     @_visible = false
 
-  destroy: =>
-    @frame.destroy()
-    @_robustHover.destroy()
-    $(window).off 'resize', @_updatePosition
-    clearInterval @_interval
-    @$boundingBox?.remove()
 
 class FactlinkJailRoot.CreateButton extends Button
   content: """
@@ -110,6 +104,13 @@ class FactlinkJailRoot.CreateButton extends Button
 
 
 class IconButton extends Button
+
+  destroy: =>
+    @frame.destroy()
+    @_robustHover.destroy()
+    $(window).off 'resize', @_updatePosition
+    clearInterval @_interval
+    @$boundingBox?.remove()
 
 
 class FactlinkJailRoot.ShowButton extends IconButton
