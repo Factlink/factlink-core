@@ -1,3 +1,74 @@
+class window.SubCommentsAddView extends Backbone.Marionette.Layout
+  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin
+
+  className: 'discussion-evidenceish-content sub-comments-add spec-sub-comments-form'
+
+  template: 'sub_comments/sub_comments_add'
+
+  events:
+    'click .js-submit': 'submit'
+
+  ui:
+    submit: '.js-submit'
+
+  regions:
+    textareaRegion: '.js-region-textarea'
+
+  initialize: ->
+    @_textModel = new Backbone.Model text: ''
+
+    @_textAreaComponent = Backbone.Factlink.ReactTextArea
+      model: @_textModel
+      placeholder: 'Comment...'
+    @_textAreaView = new ReactView
+        component: @_textAreaComponent
+
+  onRender: ->
+    @textareaRegion.show @_textAreaView
+
+  submit: ->
+    return if @submitting
+
+    @model = new SubComment
+      content: $.trim(@_textModel.get('text'))
+      created_by: currentUser.toJSON()
+
+    return @addModelError() unless @model.isValid()
+
+    @disableSubmit()
+    @addDefaultModel()
+
+  addModelSuccess: ->
+    @enableSubmit()
+    @_textModel.set 'text', ''
+    @_textAreaComponent.forceUpdate()
+
+  addModelError: ->
+    @enableSubmit()
+    FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
+
+
+  enableSubmit: ->
+    @submitting = false
+    @ui.submit.prop('disabled',false).text(Factlink.Global.t.post_subcomment)
+
+  disableSubmit: ->
+    @submitting = true
+    @ui.submit.prop('disabled',true ).text('Posting...')
+
+class window.SubCommentContainerView extends Backbone.Marionette.Layout
+  className: 'sub-comment-container'
+  template: 'sub_comments/sub_comment_container'
+
+  regions:
+    headingRegion: '.js-heading-region'
+    innerRegion: '.js-inner-region'
+
+  onRender: ->
+    @headingRegion.show new EvidenceishHeadingView model: @options.creator
+    @innerRegion.show @options.innerView
+
+
 class window.SubCommentsView extends Backbone.Marionette.CollectionView
   className: 'sub-comments'
   emptyView: Backbone.Factlink.EmptyLoadingView
@@ -18,9 +89,7 @@ class window.SubCommentsView extends Backbone.Marionette.CollectionView
     @collection.fetch()
 
     if Factlink.Global.signed_in
-      @_addViewContainer = new SubCommentContainerView
-        creator: currentUser
-        innerView: new SubCommentsAddView addToCollection: @collection
+      @_addViewContainer = new SubCommentsAddView addToCollection: @collection
 
   onRender: ->
     return if @collection.loading()
