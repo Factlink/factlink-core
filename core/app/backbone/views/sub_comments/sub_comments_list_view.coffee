@@ -14,24 +14,19 @@ ReactSubCommentsAdd = React.createClass
       content: $.trim(@state.text)
       created_by: currentUser.toJSON()
 
-    return @addModelError() unless model.isValid()
-
-    @props.addToCollection.add(model)
-    model.save {},
-      success: =>
-        @addModelSuccess()
-      error: =>
-        @props.addToCollection.remove(model)
-        @addModelError()
-    console.info "Submitting", @state.text
-
-  addModelError: ->
-    @setState phase: 'new'
-    FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
-
-  addModelSuccess: ->
-    @setState phase: 'new'
-    @setState text: ''
+    if model.isValid()
+      @props.addToCollection.add(model)
+      model.save {},
+        success: =>
+          @setState phase: 'new'
+          @setState text: ''
+        error: =>
+          @props.addToCollection.remove(model)
+          @setState phase: 'new'
+          FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
+    else
+      @setState phase: 'new'
+      FactlinkApp.NotificationCenter.error 'Your comment is not valid.'
 
   render: ->
     submit_button =
