@@ -5,13 +5,9 @@ FactlinkJailRoot.createFactFromSelection = (current_user_opinion) ->
     FactlinkJailRoot.createButton.hide()
     FactlinkJailRoot.off 'modalOpened', success
 
-  selInfo =
-    text: window.document.getSelection().toString()
-    title: window.document.title
-
-  text = selInfo.text
+  text = window.document.getSelection().toString()
+  siteTitle = window.document.title
   siteUrl = FactlinkJailRoot.siteUrl()
-  siteTitle = selInfo.title
 
   FactlinkJailRoot.on 'modalOpened', success
   FactlinkJailRoot.factlinkCoreEnvoy 'prepareNewFactlink',
