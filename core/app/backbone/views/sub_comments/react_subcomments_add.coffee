@@ -8,7 +8,7 @@ window.ReactSubCommentsAdd = React.createClass
 
   submit: ->
     return if @state.phase == 'submitting'
-    @state.phase = 'submitting'
+    @setState phase: 'submitting'
 
     model = new SubComment
       content: $.trim(@state.text)
@@ -29,7 +29,7 @@ window.ReactSubCommentsAdd = React.createClass
       FactlinkApp.NotificationCenter.error 'Your comment is not valid.'
 
   render: ->
-    submit_button_classes = "button button-confirm button-small post-comment-button"
+    submit_button_classes = "button button-confirm button-small post-comment-button spec-submit"
     submit_button =
       if @state.phase == 'new'
         R.button className: submit_button_classes, onClick: @submit,
