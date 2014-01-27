@@ -16,7 +16,7 @@ feature "adding comments to a fact", type: :feature do
 
     go_to_discussion_page_of factlink
 
-    comment = 'Geert is een buffel'
+    comment = "The tomcat hopped on the bus after Berlioz' death"
     add_comment :believes, comment
 
     assert_comment_exists comment
