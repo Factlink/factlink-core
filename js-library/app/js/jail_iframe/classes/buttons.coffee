@@ -186,7 +186,7 @@ class ParagraphButton extends Button
       mouseleave: => @stopHovering()
       click: => @_onClick()
 
-    @nearEl = options.el
+    @$paragraph = $(options.el)
 
     @_fadeIn()
     @_updatePositionRegularly()
@@ -198,11 +198,11 @@ class ParagraphButton extends Button
     FactlinkJailRoot.off 'factlink.factsLoaded factlinkAdded', @_destroyIfContainsFactlink
 
   _destroyIfContainsFactlink: =>
-    if $(@nearEl).find('.factlink').length > 0
+    if @$paragraph.find('.factlink').length > 0
       @destroy()
 
   _updatePosition: ->
-    contentBox = FactlinkJailRoot.contentBox(@nearEl)
+    contentBox = FactlinkJailRoot.contentBox(@$paragraph[0])
 
     @_showAtCoordinates contentBox.top, contentBox.left + contentBox.width
 
@@ -211,7 +211,7 @@ class ParagraphButton extends Button
       @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'green'
 
   _onClick: ->
-    text = $(@nearEl).text()
+    text = @$paragraph.text()
     siteTitle = window.document.title
     siteUrl = FactlinkJailRoot.siteUrl()
 
