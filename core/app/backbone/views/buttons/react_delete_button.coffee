@@ -6,12 +6,12 @@ window.ReactDeleteButton = React.createBackboneClass
 
   _slideButtonIn: -> @setState opened: false
 
-  _onDelete: -> @props._onDelete()
+  _onDelete: -> @props.onDelete()
 
   render: ->
     second_button =
       R.span className: "delete-button-second-container",
-        R.span className: "delete-button-second button button-small button-danger", onClick: @onDelete,
+        R.span className: "delete-button-second button button-small button-danger", onClick: @_onDelete,
           'Delete'
         R.span className: "delete-button-arrow"
 
