@@ -35,10 +35,6 @@ class FactlinkJailRoot.ShowButton extends IconButton
     @frame.fadeIn()
     @_updatePositionRegularly()
 
-    # remove when removing client_buttons feature toggle
-    unless FactlinkJailRoot.can_haz.client_buttons
-      @$el.addClass 'fl-button-hide-default'
-
   startHovering: => @frame.addClass 'hovered'
   stopHovering: => @frame.removeClass 'hovered'
 
