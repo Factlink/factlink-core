@@ -21,7 +21,7 @@ $font-size        : 12px;
   @include button-background($greyLight, $grey);
 
   &:before {
-    background: url("../images/icon-14x14.png");
+    background: url("../inline-images/icon-14x14.png");
     width: 14px;
     height: 14px;
     content: '';
@@ -46,7 +46,7 @@ $font-size        : 12px;
 }
 
 .factlink-create-button-square {
-  background: url("../images/icon-24x24.png");
+  background: url("../inline-images/icon-24x24.png");
   position:relative;
   width: 24px;
   height: 24px;
