@@ -41,7 +41,7 @@ window.ReactSubCommentsAdd = React.createClass
     R.div className: 'discussion-evidenceish-content sub-comment-add spec-sub-comments-form',
       R.textarea
         className: "text_area_view",
-        placeholder: 'Comment...'
+        placeholder: 'Leave a reply'
         onChange: @updateText
         ref: 'textarea'
         value: @state.text
