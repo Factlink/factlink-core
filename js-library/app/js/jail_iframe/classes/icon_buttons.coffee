@@ -80,11 +80,16 @@ class FactlinkJailRoot.ParagraphButton
     @frame = new FactlinkJailRoot.ControlIframe @content
     $el = $(@frame.frameBody.firstChild)
 
+    @_attentionSpan = new FactlinkJailRoot.AttentionSpan
+      wait_for_neglection: 500
+      onAttentionGained: => @frame.fadeIn()
+      onAttentionLost: => @frame.fadeOut()
+
     @_robustFrameHover = new FactlinkJailRoot.RobustHover
       $el: $el
       $externalDocument: $(document)
-      mouseenter: => @frame.addClass 'hovered'
-      mouseleave: => @frame.removeClass 'hovered'
+      mouseenter: => @frame.addClass 'hovered'; @_attentionSpan.gainAttention()
+      mouseleave: => @frame.removeClass 'hovered'; @_attentionSpan.loseAttention()
     $el.on 'click', @_onClick
 
     @$paragraph = $(paragraphElement)
@@ -94,23 +99,27 @@ class FactlinkJailRoot.ParagraphButton
     if 'ontouchstart' in window # Touch devices
       @frame.fadeIn()
     else
-      @$paragraph.on 'mousemove', @_showOnlyThisParagraphButton
-      FactlinkJailRoot.on 'hideAllParagraphButtons', @_hide
+      @_robustParagraphHover = new FactlinkJailRoot.RobustHover
+        $el: @$paragraph
+        mouseenter: => @_showOnlyThisParagraphButton()
+        mouseleave: => @_attentionSpan.loseAttention()
+      FactlinkJailRoot.on 'hideAllParagraphButtons', @_onHideAllParagraphButtons
 
   _showOnlyThisParagraphButton: =>
     FactlinkJailRoot.trigger 'hideAllParagraphButtons'
-    @frame.fadeIn()
+    @_attentionSpan.gainAttention()
 
-  _hide: =>
-    @frame.fadeOut()
+  _onHideAllParagraphButtons: =>
+    @_attentionSpan.loseAttentionNow()
 
   destroy: ->
     @$boundingBox?.remove()
-    @_robustHover.destroy()
+    @_robustFrameHover.destroy()
+    @_robustParagraphHover?.destroy()
     @frame.destroy()
     FactlinkJailRoot.off 'updateIconButtons', @_update
     @$paragraph.off 'mousemove', @_showOnlyThisParagraphButton
-    FactlinkJailRoot.off 'hideAllParagraphButtons', @_hide
+    FactlinkJailRoot.off 'hideAllParagraphButtons', @_onHideAllParagraphButtons
 
   _update: =>
     if @_valid()
