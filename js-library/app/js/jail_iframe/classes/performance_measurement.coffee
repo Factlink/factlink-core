@@ -1,5 +1,4 @@
 load_moments = []
-last_sorted = 0
 
 add_timing_event = (name) ->
   add_existing_timing_event name, new Date().getTime()
@@ -7,12 +6,7 @@ add_timing_event = (name) ->
 add_existing_timing_event = (name, time) ->
   load_moments.push(Object.freeze(name:name, time: time, idx: load_moments.length))
 
-get_sorted_moments = ->
-  if(load_moments.length > last_sorted)
-    load_moments.sort (x,y) ->
-      x.time - y.time || x.idx - y.idx
-    last_sorted = load_moments.length
-  load_moments.slice(0)
+get_sorted_moments = -> load_moments.sort (x,y) -> x.time - y.time || x.idx - y.idx
 
 get_relative_timings = ->
   sorted_moments = get_sorted_moments()
