@@ -18,7 +18,6 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
 
   ui:
     avatarsBelievesRegion: '.js-avatars-believes-region'
-    avatarsDoubtsRegion: '.js-avatars-doubts-region'
     avatarsDisbelievesRegion: '.js-avatars-disbelieves-region'
 
   events:
