@@ -27,7 +27,7 @@ get_perf_summary = ->
     ).join('\n')
 
 FactlinkJailRoot.core_loaded_promise
-.then( -> FactlinkJailRoot.load_promise)
+.then( -> FactlinkJailRoot.host_loaded_promise)
 .then( -> FactlinkJailRoot.delay 1000)
 .then( ->
   console.log document.readyState
