@@ -91,7 +91,6 @@ window.FACTLINK_START_LOADER = ->
     if document.body
       whenHasBody()
     else
-      console.log 'waiting #{i}...'
       setTimeout i, tryToInit(i+1)
 
   tryToInit(1)()
