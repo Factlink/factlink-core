@@ -1,11 +1,9 @@
-class CommentReplyView extends Backbone.Marionette.ItemView
-  tagName: 'span'
-  template:
-    text: "({{sub_comments_count}}) Reply"
-
-  initialize: ->
-    @listenTo @model, 'change:sub_comments_count', @render
-
+ReactCommentReply = React.createBackboneClass
+  render: ->
+    R.span {},
+      '('
+      @model().get('sub_comments_count')
+      ') Reply'
 
 class window.CommentView extends Backbone.Marionette.Layout
   className: 'evidence-argument'
@@ -41,7 +39,9 @@ class window.CommentView extends Backbone.Marionette.Layout
       @listenTo @_deleteButtonView, 'delete', -> @model.destroy wait: true
       @deleteRegion.show @_deleteButtonView
 
-    @subCommentsLinkRegion.show new CommentReplyView model: @model
+    @subCommentsLinkRegion.show new ReactView
+      component: ReactCommentReply
+        model: @model
 
   toggleSubCommentsView: ->
     if @subCommentsOpen
