@@ -25,9 +25,13 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     formRegion: '.js-form-region'
 
   onRender: ->
-    @_addEvidenceFormView = new AddEvidenceFormView collection: @collection
-    @formRegion.show @_addEvidenceFormView
-    @opinionHelpRegion.show new OpinionHelpView collection: @collection
+    if Factlink.Global.signed_in
+      @_addEvidenceFormView = new AddEvidenceFormView collection: @collection
+      @formRegion.show @_addEvidenceFormView
+
+    if !Factlink.Global.signed_in
+      @opinionHelpRegion.show new OpinionHelpView collection: @collection
+
     @collectionRegion.show new EvidenceCollectionView collection: @collection
     @_updateLoading()
 
