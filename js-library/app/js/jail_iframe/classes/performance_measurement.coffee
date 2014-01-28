@@ -26,13 +26,14 @@ get_perf_summary = ->
       (padder + o.offset).substr(-offset_col_width)
     ).join('\n')
 
-FactlinkJailRoot.core_loaded_promise.then( ->
+FactlinkJailRoot.core_loaded_promise
+.then( -> FactlinkJailRoot.load_promise)
+.then( ->  FactlinkJailRoot.delay 1000)
+.then( ->
   if window.performance && window.performance.timing
     'fetchStart responseEnd domLoading domInteractive domContentLoadedEventEnd domComplete loadEventEnd'
       .split(' ').forEach (timing_event) ->
         add_existing_timing_event timing_event, window.performance.timing[timing_event]
-).then( ->
-  FactlinkJailRoot.delay 1000
 ).then( ->
   if FactlinkJailRoot.can_haz.log_jslib_loading_performance
     console.log get_perf_summary()
