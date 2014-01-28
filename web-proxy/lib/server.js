@@ -147,6 +147,7 @@ function getServer(config) {
 
       actions.push('FACTLINK.startHighlighting();');
       actions.push('FACTLINK.startAnnotating();');
+      actions.push('FACTLINK.showProxyMessage();');
 
       // Inject Factlink library at the end of the file
       var loader_filename = (config.ENV === "development" ? "/factlink_loader_basic.js" : "/factlink_loader_basic.min.js");
