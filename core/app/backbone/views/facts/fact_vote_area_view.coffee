@@ -24,8 +24,6 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
   events:
     'click .js-button-believes': ->
       @collection.clickCurrentUserOpinion 'believes'
-    'click .js-button-doubts': ->
-      @collection.clickCurrentUserOpinion 'doubts'
     'click .js-button-disbelieves': ->
       @collection.clickCurrentUserOpinion 'disbelieves'
 
@@ -43,7 +41,6 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
     switch model.get('type')
       when 'believes'    then @ui.avatarsBelievesRegion
       when 'disbelieves' then @ui.avatarsDisbelievesRegion
-      when 'doubts'      then @ui.avatarsDoubtsRegion
 
   onRender: ->
     @_updateActiveCell()
