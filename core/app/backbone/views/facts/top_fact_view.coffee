@@ -8,7 +8,6 @@ class window.TopFactView extends Backbone.Marionette.Layout
 
   regions:
     userHeadingRegion: '.js-user-heading-region'
-    userRegion: '.js-user-name-region'
     deleteRegion: '.js-delete-region'
     shareRegion: '.js-share-region'
     factVoteTableRegion: '.js-fact-vote-table-region'
