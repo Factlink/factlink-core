@@ -47,6 +47,7 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
 
   onRender: ->
     @_updateActiveCell()
+    @$('.fact-vote-stats table').hide() # functionality will be implemented with conversion to react
 
   _updateActiveCell: ->
     opinion = @collection.opinion_for_current_user()
