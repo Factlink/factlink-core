@@ -101,7 +101,7 @@ class ParagraphButton
       @destroy()
 
   _valid: =>
-    @$paragraph.find('.factlink').length <= 0
+    @$paragraph.find('.factlink').length <= 0 && @$paragraph.is(':visible')
 
   _updatePosition: ->
     contentBox = FactlinkJailRoot.contentBox(@$paragraph[0])
