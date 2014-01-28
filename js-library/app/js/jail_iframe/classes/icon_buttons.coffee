@@ -26,17 +26,41 @@ class IconButton
 class FactlinkJailRoot.ShowButton extends IconButton
   content: '<div class="fl-icon-button"><span class="icon-comment"></span></div>'
 
-  constructor: (options) ->
+  constructor: (highlightElements, factId) ->
     super
 
-    @_bindCallbacks options.callbacks
+    @$highlightElements = $(highlightElements)
+    @_factId = factId
 
-    @$nearEl = $(options.el)
+    @_bindCallbacks
+      mouseenter: @_onHover
+      mouseleave: @_onUnhover
+      click:      @_onClick
+    @$highlightElements.on 'mouseenter', @_onHover
+    @$highlightElements.on 'mouseleave', @_onUnhover
+    @$highlightElements.on 'click', @_onClick
+
     @frame.fadeIn()
     @_updatePositionRegularly()
 
-  startHovering: => @frame.addClass 'hovered'
-  stopHovering: => @frame.removeClass 'hovered'
+  destroy: ->
+    super
+
+    @$highlightElements.off 'mouseenter', @_onHover
+    @$highlightElements.off 'mouseleave', @_onUnhover
+    @$highlightElements.off 'click', @_onClick
+
+
+  _onHover: =>
+    @frame.addClass 'hovered'
+    @$highlightElements.addClass 'fl-active'
+
+  _onUnhover: =>
+    @frame.removeClass 'hovered'
+    @$highlightElements.removeClass 'fl-active'
+
+  _onClick: =>
+    FactlinkJailRoot.openFactlinkModal @_factId
 
   _textContainer: (el) ->
     for el in $(el).parents()
@@ -44,14 +68,14 @@ class FactlinkJailRoot.ShowButton extends IconButton
     console.error 'FactlinkJailRoot: No text container found for ', el
 
   _updatePosition: =>
-    textContainer = @_textContainer(@$nearEl[0])
+    textContainer = @_textContainer(@$highlightElements[0])
     contentBox = FactlinkJailRoot.contentBox(textContainer)
 
     left = contentBox.left + contentBox.width
     left = Math.min left, $(window).width() - @frame.$el.outerWidth()
 
     @frame.setOffset
-      top: @$nearEl.offset().top
+      top: @$highlightElements.first().offset().top
       left: left
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
