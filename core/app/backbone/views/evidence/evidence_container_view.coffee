@@ -29,7 +29,7 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
       @_addEvidenceFormView = new AddEvidenceFormView collection: @collection
       @formRegion.show @_addEvidenceFormView
 
-    if !Factlink.Global.signed_in
+    else
       @opinionHelpRegion.show new OpinionHelpView collection: @collection
 
     @collectionRegion.show new EvidenceCollectionView collection: @collection
