@@ -27,11 +27,19 @@ window.ReactEvidenceVote = React.createBackboneClass
     R.div className: 'evidence-vote',
       R.span className:"evidence-vote-relevance spec-evidence-relevance",
         format_as_short_number(@model().relevance())
-      R.a
-        className: up_classes
-        href: "javascript:" if Factlink.Global.signed_in
-        onClick: @_on_up_vote
-      R.a
-        className: down_classes
-        href: "javascript:" if Factlink.Global.signed_in
-        onClick: @_on_down_vote
+      if Factlink.Global.signed_in
+        [
+          R.a
+            className: up_classes
+            href: "javascript:" if Factlink.Global.signed_in
+            onClick: @_on_up_vote
+          R.a
+            className: down_classes
+            href: "javascript:" if Factlink.Global.signed_in
+            onClick: @_on_down_vote
+        ]
+      else
+        [
+          R.span(className: up_classes)
+          R.span(className: down_classes)
+        ]
