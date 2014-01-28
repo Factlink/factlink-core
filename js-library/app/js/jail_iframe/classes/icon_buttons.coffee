@@ -17,7 +17,8 @@ class FactlinkJailRoot.ShowButton
     @$highlightElements = $(highlightElements)
     @_factId = factId
 
-    @_robustHover = new FactlinkJailRoot.RobustHover $el,
+    @_robustHover = new FactlinkJailRoot.RobustHover
+      $el: $el,
       mouseenter: @_onHover
       mouseleave: @_onUnhover
     $el.on 'click', @_onClick
@@ -78,7 +79,8 @@ class ParagraphButton
     @frame = new FactlinkJailRoot.ControlIframe @content
     $el = $(@frame.frameBody.firstChild)
 
-    @_robustHover = new FactlinkJailRoot.RobustHover $el,
+    @_robustFrameHover = new FactlinkJailRoot.RobustHover
+      $el: $el
       mouseenter: => @frame.addClass 'hovered'
       mouseleave: => @frame.removeClass 'hovered'
     $el.on 'click', @_onClick
