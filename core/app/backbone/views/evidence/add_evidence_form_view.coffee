@@ -57,9 +57,9 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   _updateQuestion: ->
     @ui.question.html switch @_argumentTypeModel.get('argument_type')
       when 'believes'
-        'Why do you <i class="icon-smile"></i>?'
+        'Why do you <i class="icon-thumbs-up"></i>?'
       when 'disbelieves'
-        'Why do you  <i class="icon-frown"></i>?'
+        'Why do you  <i class="icon-thumbs-down"></i>?'
       when 'doubts'
         'What do you think?'
       else

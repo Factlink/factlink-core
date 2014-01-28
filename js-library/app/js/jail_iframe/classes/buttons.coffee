@@ -6,7 +6,7 @@ class FactlinkJailRoot.CreateButton
       </div>
       <div class="fl-button-content-hovered">
         <span class="icon-comment"></span>
-        <span class="fl-button-sub-button" data-opinion="believes"><span class="icon-smile"></span></span><span class="fl-button-sub-button" data-opinion="doubts"><span class="icon-meh"></span></span><span class="fl-button-sub-button" data-opinion="disbelieves"><span class="icon-frown"></span></span>
+        <span class="fl-button-sub-button" data-opinion="believes"><span class="icon-thumbs-up"></span></span><span class="fl-button-sub-button" data-opinion="disbelieves"><span class="icon-thumbs-down"></span></span>
       </div>
       <div class="fl-button-content-loading">Loading...</div>
     </div>

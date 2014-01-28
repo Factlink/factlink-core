@@ -11,9 +11,9 @@ class OpinionatorsAvatarView extends Backbone.Marionette.Layout
 
 
 class window.FactVoteTableView extends Backbone.Marionette.CompositeView
-  tagName: 'table'
-  className: 'fact-vote-table'
-  template: 'facts/fact_vote_table'
+  tagName: 'div'
+  className: 'fact-vote-area'
+  template: 'facts/fact_vote_area'
   itemView: OpinionatorsAvatarView
 
   ui:
@@ -24,8 +24,6 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
   events:
     'click .js-button-believes': ->
       @collection.clickCurrentUserOpinion 'believes'
-    'click .js-button-doubts': ->
-      @collection.clickCurrentUserOpinion 'doubts'
     'click .js-button-disbelieves': ->
       @collection.clickCurrentUserOpinion 'disbelieves'
 
@@ -37,16 +35,18 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
     @listenTo @collection, 'reset add remove change', @render, @
 
   appendHtml: (collectionView, itemView, index) ->
+    return unless itemView.model.get('type') in ['believes', 'disbelieves']
+
     @typeRegionForVote(itemView.model).append itemView.el
 
   typeRegionForVote:(model) ->
     switch model.get('type')
       when 'believes'    then @ui.avatarsBelievesRegion
       when 'disbelieves' then @ui.avatarsDisbelievesRegion
-      when 'doubts'      then @ui.avatarsDoubtsRegion
 
   onRender: ->
     @_updateActiveCell()
+    @$('.fact-vote-stats table').hide() # functionality will be implemented with conversion to react
 
   _updateActiveCell: ->
     opinion = @collection.opinion_for_current_user()
