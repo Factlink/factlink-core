@@ -38,7 +38,7 @@ window.ReactSubCommentsAdd = React.createClass
         R.button className: submit_button_classes, disabled: true,
           'Posting...'
 
-    R.div className: 'discussion-evidenceish-content sub-comments-add spec-sub-comments-form',
+    R.div className: 'discussion-evidenceish-content sub-comment-add spec-sub-comments-form',
       R.textarea
         className: "text_area_view",
         placeholder: 'Comment...'
