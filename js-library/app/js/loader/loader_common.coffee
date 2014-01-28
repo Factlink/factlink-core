@@ -1,3 +1,5 @@
+factlink_loader_start_timestamp = new Date().getTime()
+
 window.FACTLINK_START_LOADER = ->
   unsupported_browser = document.documentMode < 9
   return if unsupported_browser
@@ -43,6 +45,7 @@ window.FACTLINK_START_LOADER = ->
 
     document.body.appendChild outerWrapperEl
 
+    load_time_before_jail = new Date().getTime()
 
     jail_window = jslib_jail_iframe.contentWindow
     jail_window.FactlinkConfig = window.FactlinkConfig
@@ -59,7 +62,12 @@ window.FACTLINK_START_LOADER = ->
     script_tag.appendChild(jslib_jail_doc.createTextNode(jslib_jail_code))
     jslib_jail_doc.documentElement.appendChild(script_tag)
 
-    jslib_jail_iframe.contentWindow.FactlinkJailRoot.loaded_promise.then ->
+    root = jslib_jail_iframe.contentWindow.FactlinkJailRoot
+    root.perf.add_existing_timing_event 'factlink_loader_start', factlink_loader_start_timestamp
+    root.perf.add_existing_timing_event 'before_jail', load_time_before_jail
+    root.perf.add_timing_event 'after_jail'
+
+    root.loaded_promise.done ->
       #called from jail-iframe when core iframe is ready.
       for name in methods
         do (name) ->
@@ -67,6 +75,8 @@ window.FACTLINK_START_LOADER = ->
           window.FACTLINK[name] = ->
             jslib_jail_iframe.contentWindow.FactlinkJailRoot[name](arguments...)
             return
+
+      root.perf.add_timing_event 'core_loaded'
 
       for methodCall in storedMethodCalls
         window.FACTLINK[methodCall.name](methodCall.arguments...)

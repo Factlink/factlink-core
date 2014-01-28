@@ -129,6 +129,7 @@ class Ability
     memory_profiling
     debug_bounding_boxes
     paragraph_icons
+    log_jslib_loading_performance
   )
 
   def enabled_global_features
