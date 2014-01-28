@@ -58,5 +58,5 @@ class FactlinkJailRoot.CreateButton
     @frame.fadeOut()
     @_visible = false
 
-FactlinkJailRoot.loaded_promise.then ->
+FactlinkJailRoot.core_loaded_promise.then ->
   FactlinkJailRoot.createButton = new FactlinkJailRoot.CreateButton

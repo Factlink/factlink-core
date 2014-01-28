@@ -26,7 +26,7 @@ get_perf_summary = ->
       (padder + o.offset).substr(-offset_col_width)
     ).join('\n')
 
-FactlinkJailRoot.loaded_promise.then( ->
+FactlinkJailRoot.core_loaded_promise.then( ->
   if window.performance && window.performance.timing
     'fetchStart responseEnd domLoading domInteractive domContentLoadedEventEnd domComplete loadEventEnd'
       .split(' ').forEach (timing_event) ->
