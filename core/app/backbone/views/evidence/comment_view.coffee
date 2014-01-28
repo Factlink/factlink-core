@@ -47,8 +47,9 @@ class window.CommentView extends Backbone.Marionette.Layout
       @subCommentsRegion.close()
     else
       @subCommentsOpen = true
-      @subCommentsRegion.show new SubCommentsView
-        collection: new SubComments([], parentModel: @model)
+      @subCommentsRegion.show new ReactView
+        component: ReactSubComments
+          model: new SubComments([], parentModel: @model)
 
   _typeCss: ->
     switch @model.get('type')

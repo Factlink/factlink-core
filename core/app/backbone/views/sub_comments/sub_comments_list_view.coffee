@@ -1,13 +1,11 @@
 class window.SubCommentsView extends Backbone.Marionette.CollectionView
   className: 'sub-comments'
   emptyView: Backbone.Factlink.EmptyLoadingView
-  itemView: SubCommentContainerView
+  itemView: ReactView
 
   itemViewOptions: (model) ->
     if model instanceof SubComment
-      creator: model.creator()
-      innerView: new ReactView
-        component: ReactSubComment(model: model)
+      component: ReactSubComment(model: model)
     else # emptyView
       collection: @collection
 
@@ -18,9 +16,9 @@ class window.SubCommentsView extends Backbone.Marionette.CollectionView
     @collection.fetch()
 
     if Factlink.Global.signed_in
-      @_addViewContainer = new SubCommentContainerView
-        creator: currentUser
-        innerView: new SubCommentsAddView addToCollection: @collection
+      @_addViewContainer = new ReactView
+        component: new ReactSubCommentsAdd
+          addToCollection: @collection
 
   onRender: ->
     return if @collection.loading()
