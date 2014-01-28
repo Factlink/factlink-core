@@ -45,7 +45,7 @@ gem 'omniauth-twitter', '~> 1.0.1'
 gem 'twitter', '~> 4.7.0'
 
 # social sharing
-gem 'koala', '~> 1.8.0rc1'
+gem 'koala', '~> 1.8.0'
 
 gem 'httparty', '~> 0.12.0'
 
