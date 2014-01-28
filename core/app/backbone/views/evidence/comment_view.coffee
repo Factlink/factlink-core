@@ -55,7 +55,6 @@ class window.CommentView extends Backbone.Marionette.Layout
     switch @model.get('type')
       when 'believes' then 'evidence-believes'
       when 'disbelieves' then 'evidence-disbelieves'
-      when 'doubts' then 'evidence-unsure'
 
   _updateIrrelevance: ->
     relevant = @model.argumentTally().relevance() >= 0
