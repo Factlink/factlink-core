@@ -141,14 +141,20 @@ class FactlinkJailRoot.ParagraphButtons
 
     @_paragraphButtons.push new ParagraphButton el
 
+  _addParagraphButtonsBatch: (elements) ->
+    for el in elements[0...10]
+      @_addParagraphButton el
+
+    elementsLeft = elements[10..]
+    setTimeout (=> @_addParagraphButtonsBatch(elementsLeft)), 200
+
   addParagraphButtons: ->
     return unless FactlinkJailRoot.can_haz.paragraph_icons
 
     for paragraphButton in @_paragraphButtons
       paragraphButton.destroy()
 
-    for el in $('p, h2, h3, h4, h5, h6')
-      @_addParagraphButton el
+    @_addParagraphButtonsBatch $('p, h2, h3, h4, h5, h6')
 
 FactlinkJailRoot.loaded_promise.then ->
   paragraphButtons = new FactlinkJailRoot.ParagraphButtons
