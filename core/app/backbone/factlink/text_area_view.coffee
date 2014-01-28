@@ -4,6 +4,7 @@
 #even if initialized before the element is in the DOM.
 
 Backbone.Factlink ||= {}
+
 class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
   template: 'generic/text_area'
   events:

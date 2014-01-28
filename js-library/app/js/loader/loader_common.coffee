@@ -67,7 +67,7 @@ window.FACTLINK_START_LOADER = ->
     root.perf.add_existing_timing_event 'before_jail', load_time_before_jail
     root.perf.add_timing_event 'after_jail'
 
-    root.loaded_promise.done ->
+    root.core_loaded_promise.done ->
       #called from jail-iframe when core iframe is ready.
       for name in methods
         do (name) ->

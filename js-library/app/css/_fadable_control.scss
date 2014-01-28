@@ -1,31 +1,21 @@
 %fadable-control {
   visibility: hidden;
 
-  // iOS Safari seems to have trouble with visibility:hidden iframe, so
-  // also position it out of sight.
-  // This also helps when developing, as the inspector inspects invisible
-  // elements also, which is very annoying.
-  margin-top: -100000px;
-  margin-left: -100000px;
-
   &.factlink-control-visible {
-    margin: 0;
-
     visibility: visible;
   }
 }
 
 // This is done because of transitions crashes on iOS devices.
 // For now we're disabling transitions on devices smaller than 1025 pixels
-// Most PC have bigger screens so, this works perfect for PC's
+// Most PC have bigger screens so, this works perfect for PCs
 @media only screen and (min-device-width: 1025px) {
   %fadable-control {
     opacity: 0;
     visibility: hidden;
 
     transition: opacity $control_visibility_transition_time,
-                visibility 0s $control_visibility_transition_time,
-                margin 0s $control_visibility_transition_time;
+                visibility 0s $control_visibility_transition_time;
     //note the time unit is REQUIRED even for 0s!  FF won't accept 0.
 
     &.factlink-control-visible {
@@ -33,7 +23,7 @@
       visibility: visible;
 
       transition: opacity $control_visibility_transition_time,
-                  visibility 0s 0s, margin 0s 0s;
+                  visibility 0s 0s;
     }
   }
 }

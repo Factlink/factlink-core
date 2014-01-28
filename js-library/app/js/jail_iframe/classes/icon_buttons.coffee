@@ -1,7 +1,7 @@
 updateIconButtons = ->
   FactlinkJailRoot.trigger 'updateIconButtons'
 
-FactlinkJailRoot.loaded_promise.then ->
+FactlinkJailRoot.core_loaded_promise.then ->
   $(window).on 'resize', updateIconButtons
   setInterval updateIconButtons, 1000
   FactlinkJailRoot.on 'factlink.factsLoaded factlinkAdded', updateIconButtons
@@ -95,12 +95,13 @@ class ParagraphButton
     FactlinkJailRoot.off 'updateIconButtons', @_update
 
   _update: =>
-    @_updatePosition()
-    @_destroyIfContainsFactlink()
-
-  _destroyIfContainsFactlink: =>
-    if @$paragraph.find('.factlink').length > 0
+    if @_valid()
+      @_updatePosition()
+    else
       @destroy()
+
+  _valid: =>
+    @$paragraph.find('.factlink').length <= 0 && @$paragraph.is(':visible')
 
   _updatePosition: ->
     contentBox = FactlinkJailRoot.contentBox(@$paragraph[0])
@@ -150,6 +151,6 @@ class FactlinkJailRoot.ParagraphButtons
     for el in $('p, h2, h3, h4, h5, h6')
       @_addParagraphButton el
 
-FactlinkJailRoot.loaded_promise.then ->
+FactlinkJailRoot.core_loaded_promise.then ->
   paragraphButtons = new FactlinkJailRoot.ParagraphButtons
   paragraphButtons.addParagraphButtons()
