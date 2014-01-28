@@ -17,7 +17,9 @@ class FactlinkJailRoot.ShowButton
     @$highlightElements = $(highlightElements)
     @_factId = factId
 
-    @_robustHover = new FactlinkJailRoot.RobustHover $el,
+    @_robustHover = new FactlinkJailRoot.RobustHover
+      $el: $el
+      $externalDocument: $(document)
       mouseenter: @_onHover
       mouseleave: @_onUnhover
     $el.on 'click', @_onClick
@@ -78,21 +80,46 @@ class FactlinkJailRoot.ParagraphButton
     @frame = new FactlinkJailRoot.ControlIframe @content
     $el = $(@frame.frameBody.firstChild)
 
-    @_robustHover = new FactlinkJailRoot.RobustHover $el,
-      mouseenter: => @frame.addClass 'hovered'
-      mouseleave: => @frame.removeClass 'hovered'
+    @_attentionSpan = new FactlinkJailRoot.AttentionSpan
+      wait_for_neglection: 500
+      onAttentionGained: => @frame.fadeIn()
+      onAttentionLost: => @frame.fadeOut()
+
+    @_robustFrameHover = new FactlinkJailRoot.RobustHover
+      $el: $el
+      $externalDocument: $(document)
+      mouseenter: => @frame.addClass 'hovered'; @_attentionSpan.gainAttention()
+      mouseleave: => @frame.removeClass 'hovered'; @_attentionSpan.loseAttention()
     $el.on 'click', @_onClick
 
     @$paragraph = $(paragraphElement)
-    @frame.fadeIn()
     FactlinkJailRoot.on 'updateIconButtons', @_update
     @_update()
 
+    if FactlinkJailRoot.isTouchDevice()
+      @frame.fadeIn()
+    else
+      @_robustParagraphHover = new FactlinkJailRoot.RobustHover
+        $el: @$paragraph
+        mouseenter: => @_showOnlyThisParagraphButton()
+        mouseleave: => @_attentionSpan.loseAttention()
+      FactlinkJailRoot.on 'hideAllParagraphButtons', @_onHideAllParagraphButtons
+
+  _showOnlyThisParagraphButton: =>
+    FactlinkJailRoot.trigger 'hideAllParagraphButtons'
+    @_attentionSpan.gainAttention()
+
+  _onHideAllParagraphButtons: =>
+    @_attentionSpan.loseAttentionNow()
+
   destroy: ->
     @$boundingBox?.remove()
-    @_robustHover.destroy()
+    @_robustFrameHover.destroy()
+    @_robustParagraphHover?.destroy()
     @frame.destroy()
     FactlinkJailRoot.off 'updateIconButtons', @_update
+    @$paragraph.off 'mousemove', @_showOnlyThisParagraphButton
+    FactlinkJailRoot.off 'hideAllParagraphButtons', @_onHideAllParagraphButtons
 
   _update: =>
     if @_valid()

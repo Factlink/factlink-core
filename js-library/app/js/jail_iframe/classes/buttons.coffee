@@ -16,7 +16,9 @@ class FactlinkJailRoot.CreateButton
     @frame = new FactlinkJailRoot.ControlIframe(@content)
     @$el = $(@frame.frameBody.firstChild)
 
-    @_robustHover = new FactlinkJailRoot.RobustHover @$el,
+    @_robustHover = new FactlinkJailRoot.RobustHover
+      $el: @$el
+      $externalDocument: $(document)
       mouseenter: => @frame.addClass 'hovered'
       mouseleave: => @frame.removeClass 'hovered'
 
