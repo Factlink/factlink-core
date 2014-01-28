@@ -46,7 +46,15 @@
   display: inline-block;
   height: @arrowHeight;
   width:  @voteButtonWidth;
+  opacity: 0.2;
+  &.evidence-active {
+    opacity: 0.8;
+  }
+  &:hover {
+    opacity: 1.0;
+  }
 }
+
 
 
 .evidence-vote-up {
