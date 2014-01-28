@@ -1,20 +1,8 @@
 class IconButton
-
-  constructor: ->
-    @frame = new FactlinkJailRoot.ControlIframe()
-    @frame.setContent($.parseHTML(@content.trim())[0])
-    @$el = $(@frame.frameBody.firstChild)
-
   destroy: =>
-    @frame.destroy()
-    @_robustHover.destroy()
     $(window).off 'resize', @_updatePosition
     clearInterval @_interval
     @$boundingBox?.remove()
-
-  _bindCallbacks: (callbacks) ->
-    @_robustHover = new FactlinkJailRoot.RobustHover @$el, callbacks
-    @$el.on 'click', -> callbacks.click?()
 
   # TODO: do all updates of different buttons in one pass
   _updatePositionRegularly: ->
@@ -27,15 +15,18 @@ class FactlinkJailRoot.ShowButton extends IconButton
   content: '<div class="fl-icon-button"><span class="icon-comment"></span></div>'
 
   constructor: (highlightElements, factId) ->
-    super
+    @frame = new FactlinkJailRoot.ControlIframe()
+    @frame.setContent($.parseHTML(@content.trim())[0])
+    $el = $(@frame.frameBody.firstChild)
 
     @$highlightElements = $(highlightElements)
     @_factId = factId
 
-    @_bindCallbacks
+    @_robustHover = new FactlinkJailRoot.RobustHover $el,
       mouseenter: @_onHover
       mouseleave: @_onUnhover
-      click:      @_onClick
+    $el.on 'click', @_onClick
+
     @$highlightElements.on 'mouseenter', @_onHover
     @$highlightElements.on 'mouseleave', @_onUnhover
     @$highlightElements.on 'click', @_onClick
@@ -45,11 +36,11 @@ class FactlinkJailRoot.ShowButton extends IconButton
 
   destroy: ->
     super
-
+    @_robustHover.destroy()
     @$highlightElements.off 'mouseenter', @_onHover
     @$highlightElements.off 'mouseleave', @_onUnhover
     @$highlightElements.off 'click', @_onClick
-
+    @frame.destroy()
 
   _onHover: =>
     @frame.addClass 'hovered'
@@ -86,15 +77,17 @@ class FactlinkJailRoot.ShowButton extends IconButton
 class ParagraphButton extends IconButton
   content: '<div class="fl-icon-button"><span class="icon-comment"></span>+</div>'
 
-  constructor: (options) ->
-    super
+  constructor: (paragraphElement) ->
+    @frame = new FactlinkJailRoot.ControlIframe()
+    @frame.setContent($.parseHTML(@content.trim())[0])
+    $el = $(@frame.frameBody.firstChild)
 
-    @_bindCallbacks
+    @_robustHover = new FactlinkJailRoot.RobustHover $el,
       mouseenter: => @frame.addClass 'hovered'
       mouseleave: => @frame.removeClass 'hovered'
-      click: => @_onClick()
+    $el.on 'click', @_onClick
 
-    @$paragraph = $(options.el)
+    @$paragraph = $(paragraphElement)
 
     @frame.fadeIn()
     @_updatePositionRegularly()
@@ -103,6 +96,8 @@ class ParagraphButton extends IconButton
 
   destroy: ->
     super
+    @_robustHover.destroy()
+    @frame.destroy()
     FactlinkJailRoot.off 'factlink.factsLoaded factlinkAdded', @_destroyIfContainsFactlink
 
   _destroyIfContainsFactlink: =>
@@ -120,7 +115,7 @@ class ParagraphButton extends IconButton
       @$boundingBox?.remove()
       @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'green'
 
-  _onClick: ->
+  _onClick: =>
     text = @$paragraph.text()
     siteTitle = window.document.title
     siteUrl = FactlinkJailRoot.siteUrl()
@@ -146,7 +141,7 @@ class FactlinkJailRoot.ParagraphButtons
   _addParagraphButton: (el) ->
     return unless @_paragraphHasContent(el)
 
-    @_paragraphButtons.push new ParagraphButton el: el
+    @_paragraphButtons.push new ParagraphButton el
 
   addParagraphButtons: ->
     return unless FactlinkJailRoot.can_haz.paragraph_icons
