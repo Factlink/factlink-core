@@ -31,7 +31,9 @@ class window.CommentView extends Backbone.Marionette.Layout
     @$el.addClass @_typeCss()
     @listenTo @model.argumentTally(), 'change', @_updateIrrelevance
     @_updateIrrelevance()
-    @voteRegion.show new EvidenceVoteView model: @model.argumentTally()
+    @voteRegion.show new ReactView
+      component: ReactEvidenceVote
+        model: @model.argumentTally()
     @headingRegion.show new EvidenceishHeadingView model: @model.creator()
 
     if @model.can_destroy()
