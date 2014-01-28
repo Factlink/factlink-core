@@ -25,9 +25,9 @@ class FactlinkJailRoot.ControlIframe
   setContent: (contentNode) ->
     @frameBody.innerHTML = '';
     @frameBody.appendChild(contentNode)
-    @sizeFrameToFitContent()
+    @_sizeFrameToFitContent()
 
-  sizeFrameToFitContent: ->
+  _sizeFrameToFitContent: ->
     @el.style.width = @frameBody.clientWidth  + 'px'
     @el.style.height = @frameBody.clientHeight + 'px'
 
@@ -51,11 +51,11 @@ class FactlinkJailRoot.ControlIframe
 
   addClass: (classes) =>
     @$frameBody.addClass classes
-    @sizeFrameToFitContent()
+    @_sizeFrameToFitContent()
 
   removeClass: (classes) =>
     @$frameBody.removeClass classes
-    @sizeFrameToFitContent()
+    @_sizeFrameToFitContent()
 
   setOffset: (coordinates) =>
     containerOffset = FactlinkJailRoot.$factlinkCoreContainer.offset()
