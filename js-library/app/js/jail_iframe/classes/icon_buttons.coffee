@@ -84,15 +84,29 @@ class FactlinkJailRoot.ParagraphButton
     $el.on 'click', @_onClick
 
     @$paragraph = $(paragraphElement)
-    @frame.fadeIn()
     FactlinkJailRoot.on 'updateIconButtons', @_update
     @_update()
+
+    if 'ontouchstart' in window # Touch devices
+      @frame.fadeIn()
+    else
+      @$paragraph.on 'mousemove', @_showOnlyThisParagraphButton
+      FactlinkJailRoot.on 'hideAllParagraphButtons', @_hide
+
+  _showOnlyThisParagraphButton: =>
+    FactlinkJailRoot.trigger 'hideAllParagraphButtons'
+    @frame.fadeIn()
+
+  _hide: =>
+    @frame.fadeOut()
 
   destroy: ->
     @$boundingBox?.remove()
     @_robustHover.destroy()
     @frame.destroy()
     FactlinkJailRoot.off 'updateIconButtons', @_update
+    @$paragraph.off 'mousemove', @_showOnlyThisParagraphButton
+    FactlinkJailRoot.off 'hideAllParagraphButtons', @_hide
 
   _update: =>
     if @_valid()
