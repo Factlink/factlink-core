@@ -34,12 +34,10 @@ class window.CommentView extends Backbone.Marionette.Layout
     @headingRegion.show new EvidenceishHeadingView model: @model.creator()
 
     if @model.can_destroy()
-      @_deleteButtonView = new ReactView
+      @deleteRegion.show new ReactView
         component: ReactDeleteButton
           model: @model
           onDelete: -> @model.destroy wait: true
-
-      @deleteRegion.show @_deleteButtonView
 
     @subCommentsLinkRegion.show new ReactView
       component: ReactCommentReply
