@@ -96,7 +96,7 @@ class FactlinkJailRoot.ParagraphButton
     FactlinkJailRoot.on 'updateIconButtons', @_update
     @_update()
 
-    if 'ontouchstart' in window # Touch devices
+    if FactlinkJailRoot.isTouchDevice()
       @frame.fadeIn()
     else
       @_robustParagraphHover = new FactlinkJailRoot.RobustHover
