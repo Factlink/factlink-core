@@ -1,9 +1,8 @@
 ReactCommentReply = React.createBackboneClass
   render: ->
+    count = @model().get('sub_comments_count')
     R.span {},
-      '('
-      @model().get('sub_comments_count')
-      ') Reply'
+      "(#{count}) Reply"
 
 class window.CommentView extends Backbone.Marionette.Layout
   className: 'evidence-argument'
