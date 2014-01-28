@@ -7,15 +7,10 @@ ReactCommentHeading = React.createBackboneClass
           className:"heading-avatar-image"
       R.a
         href: @model().link()
-        className:"discussion-evidenceish-name popover-link js-user-link"
+        className:"discussion-evidenceish-name popover-link"
         rel: "backbone"
         @model().get('name')
 
-ReactCommentReply = React.createBackboneClass
-  render: ->
-    count = @model().get('sub_comments_count')
-    R.span {},
-      "(#{count}) Reply"
 
 window.ReactComment = React.createBackboneClass
   getInitialState: ->
@@ -33,6 +28,36 @@ window.ReactComment = React.createBackboneClass
   _toggleSubcomments: ->
     @setState show_subcomments: !@state.show_subcomments
 
+  _content: ->
+    R.div
+      className:"discussion-evidenceish-content discussion-evidenceish-text",
+      dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
+
+  _bottom: ->
+    sub_comment_count = @model().get('sub_comments_count')
+
+    R.div className: 'comment-bottom',
+      R.ul className: "comment-bottom-actions", [
+        R.li className: "comment-bottom-action",
+          ReactEvidenceVote model: @model().argumentTally()
+        R.li className:"comment-bottom-action comment-bottom-action-time",
+          R.i className:"icon-time"
+          @model().get('time_ago')
+          " "
+          Factlink.Global.t.ago
+        if @model().can_destroy()
+          R.li className: "comment-bottom-action comment-bottom-action-delete",
+            ReactDeleteButton
+              model: @model()
+              onDelete: @_onDelete
+        R.li className:"comment-bottom-action",
+          R.a
+            className:"spec-sub-comments-link"
+            href:"javascript:"
+            onClick: @_toggleSubcomments
+
+            "(#{sub_comment_count}) Reply"
+      ]
   render: ->
     relevant = @model().argumentTally().relevance() >= 0
 
@@ -44,34 +69,9 @@ window.ReactComment = React.createBackboneClass
 
     R.div className: top_classes,
       R.div className:"discussion-evidenceish-box spec-evidence-box",
-        R.div className: "js-heading-region",
-          ReactCommentHeading(model: @model().creator())
-        R.div
-          className:"discussion-evidenceish-content discussion-evidenceish-text",
-          dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
-        R.div className: 'comment-bottom',
-          R.ul className: "comment-bottom-actions", [
-            R.li className: "comment-bottom-action js-vote-region",
-              ReactEvidenceVote model: @model().argumentTally()
-            R.li className:"comment-bottom-action comment-bottom-action-time",
-              R.i className:"icon-time"
-              @model().get('time_ago')
-              " "
-              Factlink.Global.t.ago
-            if @model().can_destroy()
-              R.li className: "comment-bottom-action comment-bottom-action-delete js-delete-region",
-                ReactDeleteButton
-                  model: @model()
-                  onDelete: @_onDelete
-            R.li className:"js-sub-comments-link-container comment-bottom-action",
-              R.a
-                className:"js-sub-comments-link js-sub-comments-link-region"
-                href:"javascript:"
-                onClick: @_toggleSubcomments
-
-                ReactCommentReply model: @model()
-          ]
+        ReactCommentHeading(model: @model().creator())
+        @_content()
+        @_bottom()
       if @state.show_subcomments
-        R.div className: "js-sub-comments-region",
-          ReactSubComments
-            model: new SubComments([], parentModel: @model())
+        ReactSubComments
+          model: new SubComments([], parentModel: @model())
