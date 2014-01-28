@@ -11,8 +11,7 @@ class FactlinkJailRoot.ShowButton
   content: '<div class="fl-icon-button"><span class="icon-comment"></span></div>'
 
   constructor: (highlightElements, factId) ->
-    @frame = new FactlinkJailRoot.ControlIframe()
-    @frame.setContent($.parseHTML(@content.trim())[0])
+    @frame = new FactlinkJailRoot.ControlIframe @content
     $el = $(@frame.frameBody.firstChild)
 
     @$highlightElements = $(highlightElements)
@@ -76,8 +75,7 @@ class ParagraphButton
   content: '<div class="fl-icon-button"><span class="icon-comment"></span>+</div>'
 
   constructor: (paragraphElement) ->
-    @frame = new FactlinkJailRoot.ControlIframe()
-    @frame.setContent($.parseHTML(@content.trim())[0])
+    @frame = new FactlinkJailRoot.ControlIframe @content
     $el = $(@frame.frameBody.firstChild)
 
     @_robustHover = new FactlinkJailRoot.RobustHover $el,

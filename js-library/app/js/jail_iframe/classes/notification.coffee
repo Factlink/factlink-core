@@ -14,19 +14,15 @@ showNotification = (options) ->
   frame = null
 
   renderFrame = ->
-    frame = new FactlinkJailRoot.ControlIframe()
-    fillFrame()
-    positionFrame()
-    doTransition()
-
-  fillFrame = ->
     content = """
       <div class="fl-message #{options.type_classes}">
         <div class="fl-message-icon"></div><span class="fl-message-content">#{options.message}</span>
       </div>
-    """.trim()
+    """
 
-    frame.setContent($.parseHTML(content)[0])
+    frame = new FactlinkJailRoot.ControlIframe content
+    positionFrame()
+    doTransition()
 
   positionFrame = ->
     frame.$el.css

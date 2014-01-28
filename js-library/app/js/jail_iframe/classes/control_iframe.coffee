@@ -5,7 +5,7 @@ control_visibility_transition_time = 300+1000/60 #keep in sync with scss
 # thus avoiding then need for frame introspection.
 
 class FactlinkJailRoot.ControlIframe
-  constructor: ->
+  constructor: (contentHtml) ->
     @el = document.createElement('iframe')
     @el.className = 'factlink-control-frame'
     #need to append to outer document before we can access frame document.
@@ -22,9 +22,8 @@ class FactlinkJailRoot.ControlIframe
     @frameBody = @doc.body
     @$frameBody = $(@doc.body)
 
-  setContent: (contentNode) ->
     @frameBody.innerHTML = '';
-    @frameBody.appendChild(contentNode)
+    @frameBody.appendChild $.parseHTML(contentHtml.trim())[0]
     @_sizeFrameToFitContent()
 
   _sizeFrameToFitContent: ->
