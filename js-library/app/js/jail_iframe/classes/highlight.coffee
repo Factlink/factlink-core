@@ -26,11 +26,7 @@ class HighlightInteraction
     $elements.on 'mouseleave', @_onUnhover
 
   _onClick: =>
-    FactlinkJailRoot.on 'modalOpened', @_onModalOpened, @
     FactlinkJailRoot.openFactlinkModal @id
-
-  _onModalOpened: ->
-    FactlinkJailRoot.off 'modalOpened', @_onModalOpened, @
 
   _onHover: =>
     @show_button.startHovering()
