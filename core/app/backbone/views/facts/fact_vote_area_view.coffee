@@ -35,6 +35,8 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
     @listenTo @collection, 'reset add remove change', @render, @
 
   appendHtml: (collectionView, itemView, index) ->
+    return unless itemView.model.get('type') in ['believes', 'disbelieves']
+
     @typeRegionForVote(itemView.model).append itemView.el
 
   typeRegionForVote:(model) ->
