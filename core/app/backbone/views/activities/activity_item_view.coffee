@@ -7,7 +7,7 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
         CreatedCommentView
       when "created_sub_comment"
         CreatedSubCommentView
-      when "believes", "disbelieves"
+      when "believes", "disbelieves", "doubts"
         AddedOpinionView
       when 'followed_user'
         FollowedUserView
