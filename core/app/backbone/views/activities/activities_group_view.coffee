@@ -92,7 +92,7 @@ class UserFactActivitiesGroupView extends UserActivitiesGroupView
   appendable: (model) -> super(model) and @sameFact(model)
 
   isOpinion: (activity) ->
-    activity.get('action') in ['believes', 'disbelieves']
+    activity.get('action') in ['believes', 'disbelieves', 'doubts']
 
   isAddedArgument: (activity) ->
     activity.get('action') == "created_comment"
