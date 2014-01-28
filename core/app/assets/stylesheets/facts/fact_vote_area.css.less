@@ -1,0 +1,111 @@
+@import "bootstrap/mixins";
+
+// TODO: we shouldn't call this "voting" but opinionating, polling, or something else
+//       since it's quite distinct from voting (on comments)
+
+@avatarSize: 32px;
+@avatarLineHeight: @avatarSize + 4px;
+
+.fact-vote {
+  display: table;
+  padding: 0 20px;
+}
+
+.fact-vote-button {
+  width: 30px;
+  display: table-cell;
+}
+
+.fact-vote-stats {
+  vertical-align: middle;
+  text-align: center;
+  display: table-cell;
+  width: 100%;
+}
+
+.fact-vote-stats-table {
+  width: 100%;
+}
+
+.fact-vote-amount-graph {
+  height: 14px;
+  width: 100%;
+}
+
+/* TODO replace this by actual percentages */
+.fact-vote-amount-believes, .fact-vote-amount-disbelieves {
+  font-size: 18px;
+  width: 20px;
+  display: table-cell;
+}
+
+.vote-amount-graph-believers{
+  background: @green;
+  width: 66%;
+}
+
+.vote-amount-graph-disbelievers {
+  background: @red;
+  width: 33%;
+}
+
+.fact-vote-amount-believes {
+  color: @green;
+  padding-left: 10px;
+}
+
+.fact-vote-amount-disbelieves {
+  color: @red;
+  padding-right: 10px;
+}
+
+.fact-vote-people {
+  padding: 10px 20px;
+  display: table;
+  width: 100%;
+}
+
+.fact-vote-people-believers, .fact-vote-people-disbelievers {
+  display: table-cell;
+  width: 50%;
+}
+
+.fact-vote-people-believers {
+  text-align: left;
+}
+
+.fact-vote-people-disbelievers {
+  text-align: right;
+}
+
+
+// TODO decide if we want to keep this, otherwhise remove this (also the logic)
+.cell-background(@color) {
+  background-color: fade(@color, 15%);
+  &.fact-vote-table-cell-active {
+    background-color: @color;
+  }
+}
+
+.opinionators-avatars {
+  line-height: @avatarLineHeight
+}
+
+.opinionators-avatar {
+  margin-left: 4px;
+
+  // for user statistics popovers:
+  display: inline-block;
+  position: relative;
+  text-align: left;
+}
+
+.opinionators-avatar-link {
+  // for user statistics popovers:
+  display: inline-block;
+  height: @avatarSize;
+}
+
+.opinionators-avatar-image {
+  border-radius: 3px;
+}
