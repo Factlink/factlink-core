@@ -131,7 +131,7 @@ class FactlinkJailRoot.ParagraphButtons
     $clonedEl = $(el).clone()
     $clonedEl.find('a').remove() # Strip links
 
-    textLength = $clonedEl.text().length
+    textLength = $clonedEl.text().replace(/\s+/g, ' ').trim().length
     $clonedEl.remove()
 
     textLength >= 50
