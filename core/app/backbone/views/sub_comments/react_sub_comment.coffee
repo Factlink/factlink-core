@@ -7,17 +7,17 @@ window.ReactSubComment = React.createBackboneClass
   render: ->
     creator = @model().creator()
 
-    R.div className: "subcomment",
-      R.span className: "subcomment-avatar",
+    R.div className: "sub-comment",
+      R.span className: "sub-comment-avatar",
         ReactAvatar user: creator, size: 28
       R.span
         className: "subcomment-content spec-subcomment-content",
         dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
       ' — '
-      R.a className: "subcomment-creator", href: creator.link(),
+      R.a className: "sub-comment-creator", href: creator.link(),
         creator.get("name")
       ' '
-      R.span className: "subcomment-time",
+      R.span className: "sub-comment-time",
         @model().get('time_ago'),
         ' '
         Factlink.Global.t.ago
