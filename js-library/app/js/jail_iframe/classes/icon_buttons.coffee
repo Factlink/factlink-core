@@ -154,7 +154,7 @@ class FactlinkJailRoot.ParagraphButtons
     for paragraphButton in @_paragraphButtons
       paragraphButton.destroy()
 
-    @_addParagraphButtonsBatch $('p, h2, h3, h4, h5, h6')
+    @_addParagraphButtonsBatch $('p, h2, h3, h4, h5, h6, li')
 
 FactlinkJailRoot.loaded_promise.then ->
   paragraphButtons = new FactlinkJailRoot.ParagraphButtons
