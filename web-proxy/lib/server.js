@@ -39,7 +39,7 @@ function getServer(config) {
     setTimeout(function(){
       res.setHeader('Content-Type', 'application/javascript');
       res.send('console.log("loaded intentionally delayed script!");');
-    },3000);
+    }, parseInt(req.query.delay || "3000" ));
   });
 
   /**
