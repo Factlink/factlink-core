@@ -50,7 +50,7 @@ class HighlightScrollPromotion
 
 class FactlinkJailRoot.Highlight
   constructor: (@id, @elements) ->
-    @sho_button = new FactlinkJailRoot.ShowButton @elements, @id
+    @show_button = new FactlinkJailRoot.ShowButton @elements, @id
     @fact_promotion = new HighlightScrollPromotion(this)
     @fact_load_promotion = new HighlightLoadPromotion(@elements)
 
@@ -63,4 +63,4 @@ class FactlinkJailRoot.Highlight
     for el in @elements
       $(el).contents().unwrap()
 
-    @sho_button.destroy()
+    @show_button.destroy()
