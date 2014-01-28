@@ -1,17 +1,13 @@
-class IconButton
-  destroy: =>
-    $(window).off 'resize', @_updatePosition
-    clearInterval @_interval
-    @$boundingBox?.remove()
+updateIconButtons = ->
+  FactlinkJailRoot.trigger 'updateIconButtons'
 
-  # TODO: do all updates of different buttons in one pass
-  _updatePositionRegularly: ->
-    $(window).on 'resize', @_updatePosition
-    @_interval = setInterval @_updatePosition, 1000
-    @_updatePosition()
+FactlinkJailRoot.loaded_promise.then ->
+  $(window).on 'resize', updateIconButtons
+  setInterval updateIconButtons, 1000
+  FactlinkJailRoot.on 'factlink.factsLoaded factlinkAdded', updateIconButtons
 
 
-class FactlinkJailRoot.ShowButton extends IconButton
+class FactlinkJailRoot.ShowButton
   content: '<div class="fl-icon-button"><span class="icon-comment"></span></div>'
 
   constructor: (highlightElements, factId) ->
@@ -32,15 +28,17 @@ class FactlinkJailRoot.ShowButton extends IconButton
     @$highlightElements.on 'click', @_onClick
 
     @frame.fadeIn()
-    @_updatePositionRegularly()
+    FactlinkJailRoot.on 'updateIconButtons', @_updatePosition
+    @_updatePosition()
 
   destroy: ->
-    super
+    @$boundingBox?.remove()
     @_robustHover.destroy()
     @$highlightElements.off 'mouseenter', @_onHover
     @$highlightElements.off 'mouseleave', @_onUnhover
     @$highlightElements.off 'click', @_onClick
     @frame.destroy()
+    FactlinkJailRoot.off 'updateIconButtons', @_updatePosition
 
   _onHover: =>
     @frame.addClass 'hovered'
@@ -74,7 +72,7 @@ class FactlinkJailRoot.ShowButton extends IconButton
       @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'red'
 
 
-class ParagraphButton extends IconButton
+class ParagraphButton
   content: '<div class="fl-icon-button"><span class="icon-comment"></span>+</div>'
 
   constructor: (paragraphElement) ->
@@ -88,17 +86,19 @@ class ParagraphButton extends IconButton
     $el.on 'click', @_onClick
 
     @$paragraph = $(paragraphElement)
-
     @frame.fadeIn()
-    @_updatePositionRegularly()
-
-    FactlinkJailRoot.on 'factlink.factsLoaded factlinkAdded', @_destroyIfContainsFactlink
+    FactlinkJailRoot.on 'updateIconButtons', @_update
+    @_update()
 
   destroy: ->
-    super
+    @$boundingBox?.remove()
     @_robustHover.destroy()
     @frame.destroy()
-    FactlinkJailRoot.off 'factlink.factsLoaded factlinkAdded', @_destroyIfContainsFactlink
+    FactlinkJailRoot.off 'updateIconButtons', @_update
+
+  _update: =>
+    @_updatePosition()
+    @_destroyIfContainsFactlink()
 
   _destroyIfContainsFactlink: =>
     if @$paragraph.find('.factlink').length > 0
