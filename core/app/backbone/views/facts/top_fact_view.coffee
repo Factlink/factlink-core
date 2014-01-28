@@ -8,7 +8,6 @@ class window.TopFactView extends Backbone.Marionette.Layout
 
   regions:
     userHeadingRegion: '.js-user-heading-region'
-    userRegion: '.js-user-name-region'
     deleteRegion: '.js-delete-region'
     shareRegion: '.js-share-region'
     factVoteTableRegion: '.js-fact-vote-table-region'
@@ -18,9 +17,6 @@ class window.TopFactView extends Backbone.Marionette.Layout
 
   onRender: ->
     @userHeadingRegion.show new TopFactHeadingLinkView model: @model
-    @userRegion.show new UserInTopFactView
-        model: @model.user()
-        $offsetParent: @$el
 
     @deleteRegion.show @_deleteButtonView() if @model.can_destroy()
     @factVoteTableRegion.show new FactVoteTableView model: @model
