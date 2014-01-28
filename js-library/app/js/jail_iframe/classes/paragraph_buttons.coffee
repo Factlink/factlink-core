@@ -34,8 +34,11 @@ class ParagraphButtons
       'div#page', 'div.page', 'div#site', 'div.site'
     ]
 
-    for s in selectors when $(s).length == 1 # Only match if selector is unique
-      return "#{s} p, #{s} h2, #{s} h3, #{s} h4, #{s} h5, #{s} h6, #{s} li, #{s} dd, #{s} dt"
+    for s in selectors
+      $element = $(s)
+      # Only match if selector is unique
+      if $element.length == 1 && $element.is(':visible')
+        return "#{s} p, #{s} h2, #{s} h3, #{s} h4, #{s} h5, #{s} h6, #{s} li, #{s} dd, #{s} dt"
 
     null
 
