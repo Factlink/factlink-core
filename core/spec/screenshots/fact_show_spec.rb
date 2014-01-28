@@ -12,7 +12,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
 
     @factlink.add_opiniated :believes, @user.graph_user
     as(@user) do |p|
-      c = p.interactor(:'comments/create', fact_id: @factlink.id.to_i, type: 'doubts', content: comment_text)
+      c = p.interactor(:'comments/create', fact_id: @factlink.id.to_i, type: 'believes', content: comment_text)
       p.interactor(:'comments/update_opinion', comment_id: c.id.to_s, opinion: 'disbelieves')
     end
 
@@ -23,7 +23,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
     as(@user) do |p|
       other_factlink = backend_create_fact
       fact_url = FactUrl.new(other_factlink)
-      c = p.interactor(:'comments/create', fact_id: @factlink.id.to_i, type: 'doubts', content: fact_url.friendly_fact_url)
+      c = p.interactor(:'comments/create', fact_id: @factlink.id.to_i, type: 'believes', content: fact_url.friendly_fact_url)
       p.interactor(:'comments/update_opinion', comment_id: c.id.to_s, opinion: 'believes')
       p.interactor(:'sub_comments/create_for_comment', comment_id: c.id.to_s, content: sub_comment_text)
     end
@@ -35,7 +35,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
     5.times do
       @factlink.add_opiniated :disbelieves, (create :user).graph_user
       @factlink.add_opiniated :believes, (create :user).graph_user
-      @factlink.add_opiniated :doubts, (create :user).graph_user
+      @factlink.add_opiniated :believes, (create :user).graph_user
     end
 
     @factlink.add_opiniated :believes, (create :user).graph_user

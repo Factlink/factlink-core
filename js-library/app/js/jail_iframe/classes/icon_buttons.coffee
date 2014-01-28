@@ -17,7 +17,9 @@ class FactlinkJailRoot.ShowButton
     @$highlightElements = $(highlightElements)
     @_factId = factId
 
-    @_robustHover = new FactlinkJailRoot.RobustHover $el,
+    @_robustHover = new FactlinkJailRoot.RobustHover
+      $el: $el
+      $externalDocument: $(document)
       mouseenter: @_onHover
       mouseleave: @_onUnhover
     $el.on 'click', @_onClick
@@ -71,28 +73,53 @@ class FactlinkJailRoot.ShowButton
       @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'red'
 
 
-class ParagraphButton
+class FactlinkJailRoot.ParagraphButton
   content: '<div class="fl-icon-button"><span class="icon-comment"></span>+</div>'
 
   constructor: (paragraphElement) ->
     @frame = new FactlinkJailRoot.ControlIframe @content
     $el = $(@frame.frameBody.firstChild)
 
-    @_robustHover = new FactlinkJailRoot.RobustHover $el,
-      mouseenter: => @frame.addClass 'hovered'
-      mouseleave: => @frame.removeClass 'hovered'
+    @_attentionSpan = new FactlinkJailRoot.AttentionSpan
+      wait_for_neglection: 500
+      onAttentionGained: => @frame.fadeIn()
+      onAttentionLost: => @frame.fadeOut()
+
+    @_robustFrameHover = new FactlinkJailRoot.RobustHover
+      $el: $el
+      $externalDocument: $(document)
+      mouseenter: => @frame.addClass 'hovered'; @_attentionSpan.gainAttention()
+      mouseleave: => @frame.removeClass 'hovered'; @_attentionSpan.loseAttention()
     $el.on 'click', @_onClick
 
     @$paragraph = $(paragraphElement)
-    @frame.fadeIn()
     FactlinkJailRoot.on 'updateIconButtons', @_update
     @_update()
 
+    if FactlinkJailRoot.isTouchDevice()
+      @frame.fadeIn()
+    else
+      @_robustParagraphHover = new FactlinkJailRoot.RobustHover
+        $el: @$paragraph
+        mouseenter: => @_showOnlyThisParagraphButton()
+        mouseleave: => @_attentionSpan.loseAttention()
+      FactlinkJailRoot.on 'hideAllParagraphButtons', @_onHideAllParagraphButtons
+
+  _showOnlyThisParagraphButton: =>
+    FactlinkJailRoot.trigger 'hideAllParagraphButtons'
+    @_attentionSpan.gainAttention()
+
+  _onHideAllParagraphButtons: =>
+    @_attentionSpan.loseAttentionNow()
+
   destroy: ->
     @$boundingBox?.remove()
-    @_robustHover.destroy()
+    @_robustFrameHover.destroy()
+    @_robustParagraphHover?.destroy()
     @frame.destroy()
     FactlinkJailRoot.off 'updateIconButtons', @_update
+    @$paragraph.off 'mousemove', @_showOnlyThisParagraphButton
+    FactlinkJailRoot.off 'hideAllParagraphButtons', @_onHideAllParagraphButtons
 
   _update: =>
     if @_valid()
@@ -121,42 +148,3 @@ class ParagraphButton
 
     FactlinkJailRoot.factlinkCoreEnvoy 'prepareNewFactlink',
       text, siteUrl, siteTitle, null
-
-
-class FactlinkJailRoot.ParagraphButtons
-
-  constructor: ->
-    @_paragraphButtons = []
-
-  _paragraphHasContent: (el) ->
-    $clonedEl = $(el).clone()
-    $clonedEl.find('a').remove() # Strip links
-
-    textLength = $clonedEl.text().replace(/\s+/g, ' ').trim().length
-    $clonedEl.remove()
-
-    textLength >= 50
-
-  _addParagraphButton: (el) ->
-    return unless @_paragraphHasContent(el)
-
-    @_paragraphButtons.push new ParagraphButton el
-
-  _addParagraphButtonsBatch: (elements) ->
-    for el in elements[0...10]
-      @_addParagraphButton el
-
-    elementsLeft = elements[10..]
-    setTimeout (=> @_addParagraphButtonsBatch(elementsLeft)), 200
-
-  addParagraphButtons: ->
-    return unless FactlinkJailRoot.can_haz.paragraph_icons
-
-    for paragraphButton in @_paragraphButtons
-      paragraphButton.destroy()
-
-    @_addParagraphButtonsBatch $('p, h2, h3, h4, h5, h6, li')
-
-FactlinkJailRoot.core_loaded_promise.then ->
-  paragraphButtons = new FactlinkJailRoot.ParagraphButtons
-  paragraphButtons.addParagraphButtons()

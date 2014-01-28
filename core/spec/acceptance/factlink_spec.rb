@@ -44,7 +44,7 @@ describe "factlink", type: :feature do
 
     visit friendly_fact_path(factlink)
 
-    page.should have_content 'sign in/up with Factlink'
+    page.should have_content 'sign in/up with email'
   end
 
 
