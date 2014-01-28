@@ -5,4 +5,6 @@ class window.NewFactLoginView extends Backbone.Marionette.Layout
     opinionHelpRegion: '.js-opinion-help-region'
 
   onRender: ->
-    @opinionHelpRegion.show new OpinionHelpView
+    @opinionHelpRegion.show new ReactView
+      component: ReactOpinionHelp
+        collection: @collection

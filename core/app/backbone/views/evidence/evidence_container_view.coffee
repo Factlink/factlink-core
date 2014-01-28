@@ -30,7 +30,9 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
       @formRegion.show @_addEvidenceFormView
 
     else
-      @opinionHelpRegion.show new OpinionHelpView collection: @collection
+      @opinionHelpRegion.show new ReactView
+        component: ReactOpinionHelp
+          collection: @collection
 
     @collectionRegion.show new EvidenceCollectionView collection: @collection
     @_updateLoading()
