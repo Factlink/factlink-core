@@ -80,11 +80,10 @@ window.FACTLINK_START_LOADER = ->
             jslib_jail_iframe.contentWindow.FactlinkJailRoot[name](arguments...)
             return
 
-      root.perf.add_timing_event 'core_loaded'
-
       for methodCall in storedMethodCalls
         window.FACTLINK[methodCall.name](methodCall.arguments...)
       storedMethodCalls = undefined
+      root.perf.add_timing_event 'FACTLINK_queue_emptied'
 
 
   tryToInit = (i) -> ->
