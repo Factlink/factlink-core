@@ -26,9 +26,10 @@ get_perf_summary = ->
       (padder + o.offset).substr(-offset_col_width)
     ).join('\n')
 
-FactlinkJailRoot.core_loaded_promise.then( ->
-  FactlinkJailRoot.delay 1000
-).then( ->
+FactlinkJailRoot.core_loaded_promise
+.then( -> FactlinkJailRoot.host_loaded_promise)
+.then( -> FactlinkJailRoot.delay 1000)
+.then( ->
   console.log document.readyState
   if window.performance && window.performance.timing
     'fetchStart responseEnd domLoading domInteractive domContentLoadedEventEnd domComplete loadEventEnd'
