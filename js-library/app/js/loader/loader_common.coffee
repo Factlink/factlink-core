@@ -72,7 +72,7 @@ window.FACTLINK_START_LOADER = ->
     root.core_loaded_promise
     .then( ->
         root.perf.add_timing_event 'core_loaded'
-        root.ready_promise
+        root.host_ready_promise
     )
     .then ->
       #called from jail-iframe when core iframe is ready.
