@@ -95,12 +95,13 @@ class ParagraphButton
     FactlinkJailRoot.off 'updateIconButtons', @_update
 
   _update: =>
-    @_updatePosition()
-    @_destroyIfContainsFactlink()
-
-  _destroyIfContainsFactlink: =>
-    if @$paragraph.find('.factlink').length > 0
+    if @_valid()
+      @_updatePosition()
+    else
       @destroy()
+
+  _valid: =>
+    @$paragraph.find('.factlink').length <= 0
 
   _updatePosition: ->
     contentBox = FactlinkJailRoot.contentBox(@$paragraph[0])
