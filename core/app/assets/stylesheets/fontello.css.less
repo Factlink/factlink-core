@@ -109,3 +109,35 @@
   height: 30px;
   display: inline-block;
 }
+
+.icon-meh {
+  font-style: normal;
+  font-weight: bold;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+
+  margin-right: .2em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+
+  text-align: center;
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+
+  /* you can be more comfortable with increased icons size */
+  font-size: 120%;
+
+  vertical-align: -5%;
+
+  &:before {
+    content: '?';
+  }
+}
