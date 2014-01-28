@@ -84,16 +84,22 @@ FactlinkJailRoot.highlightFact = (text, id) ->
       console.error "Could not highlight, empty factlink or complete overlap? Text: <#{text}>"
 
 highlightFacts = (facts_data) ->
+  FactlinkJailRoot.perf.add_timing_event 'fetchFacts:done'
+
   # If there are multiple matches on the page, loop through them all
   for fact_data in facts_data
     FactlinkJailRoot.highlightFact(fact_data.displaystring, fact_data.id)
 
   FactlinkJailRoot.trigger "factlink.factsLoaded", facts_data
+  FactlinkJailRoot.perf.add_timing_event 'facts highlighted'
+
 
 # Function which will collect all the facts for the current page
 # and select them.
 # Returns deferred object
 fetchFacts = (siteUrl) ->
+  FactlinkJailRoot.perf.add_timing_event 'fetchFacts:start'
+
   $.ajax
     # The URL to the FactlinkJailRoot backend
     url: FactlinkConfig.api + "/site?url=" + encodeURIComponent(siteUrl)
