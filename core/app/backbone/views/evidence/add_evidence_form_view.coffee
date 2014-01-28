@@ -48,6 +48,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
 
   _setArgumentTypeToOpinion: ->
     opinion = @_factVotes.opinion_for_current_user()
+    opinion = 'doubts' if opinion == 'no_vote'
 
     @$("input[name=argumentType][value=#{opinion}]").prop('checked', true)
     @_updateArgumentType()
@@ -59,7 +60,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
         'Why do you <i class="icon-thumbs-up"></i>?'
       when 'disbelieves'
         'Why do you  <i class="icon-thumbs-down"></i>?'
-      when 'no_vote'
+      when 'doubts'
         'What do you think?'
       else
         ''
