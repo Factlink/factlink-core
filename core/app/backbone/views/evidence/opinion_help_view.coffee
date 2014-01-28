@@ -9,5 +9,5 @@ window.ReactOpinionHelp = React.createClass
         R.a href: "/auth/facebook", className: "button button-facebook small-connect-button opinion-help-button js-accounts-popup-link",
           R.i className: "icon-facebook"
         R.a href: "/users/sign_in_or_up", className: "js-accounts-popup-link",
-          "or sign in/up with Factlink."
+          "or sign in/up with email."
       R.div className: "opinion-help-arrow"
