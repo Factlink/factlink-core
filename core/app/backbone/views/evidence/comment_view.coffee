@@ -17,63 +17,61 @@ ReactCommentReply = React.createBackboneClass
     R.span {},
       "(#{count}) Reply"
 
-class window.CommentView extends Backbone.Marionette.Layout
-  className: 'evidence-argument'
-  template: 'evidence/comment'
-
-  events:
-    'click .js-sub-comments-link': 'toggleSubCommentsView'
-
-  templateHelpers: =>
-    showDelete: @model.can_destroy()
-
-  regions:
-    voteRegion: '.js-vote-region'
-    headingRegion: '.js-heading-region'
-    subCommentsRegion: '.js-sub-comments-region'
-    deleteRegion: '.js-delete-region'
-    subCommentsLinkRegion: '.js-sub-comments-link-region'
-
-  initialize: ->
-    @listenTo @model, 'change:formatted_comment_content', @render
-
-  onRender: ->
-    @$el.addClass @_typeCss()
-    @listenTo @model.argumentTally(), 'change', @_updateIrrelevance
-    @_updateIrrelevance()
-    @voteRegion.show new ReactView
-      component: ReactEvidenceVote
-        model: @model.argumentTally()
-    @headingRegion.show new ReactView
-      component: ReactCommentHeading
-        model: @model.creator()
-
-    if @model.can_destroy()
-      @deleteRegion.show new ReactView
-        component: ReactDeleteButton
-          model: @model
-          onDelete: -> @model.destroy wait: true
-
-    @subCommentsLinkRegion.show new ReactView
-      component: ReactCommentReply
-        model: @model
-
-  toggleSubCommentsView: ->
-    if @subCommentsOpen
-      @subCommentsOpen = false
-      @subCommentsRegion.close()
-    else
-      @subCommentsOpen = true
-      @subCommentsRegion.show new ReactView
-        component: ReactSubComments
-          model: new SubComments([], parentModel: @model)
+window.ReactComment = React.createBackboneClass
+  getInitialState: ->
+    show_subcomments: false
 
   _typeCss: ->
-    switch @model.get('type')
+    switch @model().get('type')
       when 'believes' then 'evidence-believes'
       when 'disbelieves' then 'evidence-disbelieves'
       when 'doubts' then 'evidence-unsure'
 
-  _updateIrrelevance: ->
-    relevant = @model.argumentTally().relevance() >= 0
-    @$el.toggleClass 'evidence-irrelevant', !relevant
+  _onDelete: ->
+     @model().destroy wait: true
+
+  _toggleSubcomments: ->
+    @setState show_subcomments: !@state.show_subcomments
+
+  render: ->
+    relevant = @model().argumentTally().relevance() >= 0
+
+    top_classes = [
+      'evidence-argument'
+      @_typeCss()
+      'evidence-irrelevant' unless relevant
+    ].join(' ')
+
+    R.div className: top_classes,
+      R.div className:"discussion-evidenceish-box spec-evidence-box",
+        R.div className: "js-heading-region",
+          ReactCommentHeading(model: @model().creator())
+        R.div
+          className:"discussion-evidenceish-content discussion-evidenceish-text",
+          dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
+        R.div className: 'comment-bottom',
+          R.ul className: "comment-bottom-actions", [
+            R.li className: "comment-bottom-action js-vote-region",
+              ReactEvidenceVote model: @model().argumentTally()
+            R.li className:"comment-bottom-action comment-bottom-action-time",
+              R.i className:"icon-time"
+              @model().get('time_ago')
+              " "
+              Factlink.Global.t.ago
+            if @model().can_destroy()
+              R.li className: "comment-bottom-action comment-bottom-action-delete js-delete-region",
+                ReactDeleteButton
+                  model: @model()
+                  onDelete: @_onDelete
+            R.li className:"js-sub-comments-link-container comment-bottom-action",
+              R.a
+                className:"js-sub-comments-link js-sub-comments-link-region"
+                href:"javascript:"
+                onClick: @_toggleSubcomments
+
+                ReactCommentReply model: @model()
+          ]
+      if @state.show_subcomments
+        R.div className: "js-sub-comments-region",
+          ReactSubComments
+            model: new SubComments([], parentModel: @model())

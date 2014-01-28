@@ -1,11 +1,14 @@
 class EvidenceCollectionView extends Backbone.Marionette.CollectionView
-  itemView: CommentView
+  itemView: ReactView
 
   # Add new evidence at the top of the list
   appendHtml: (collectionView, itemView, index) ->
     return super if collectionView.isBuffering
 
     collectionView.$el.prepend itemView.el
+  itemViewOptions: (model)->
+    component: ReactComment
+      model: model
 
 class window.EvidenceContainerView extends Backbone.Marionette.Layout
   className: 'evidence-container'
