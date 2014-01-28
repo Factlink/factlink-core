@@ -1,3 +1,16 @@
+ReactCommentHeading = React.createBackboneClass
+  render: ->
+    R.div className: 'discussion-evidenceish-heading',
+      R.span className:"heading-avatar",
+        R.img
+          src: @model().avatar_url(32)
+          className:"heading-avatar-image"
+      R.a
+        href: @model().link()
+        className:"discussion-evidenceish-name popover-link js-user-link"
+        rel: "backbone"
+        @model().get('name')
+
 ReactCommentReply = React.createBackboneClass
   render: ->
     count = @model().get('sub_comments_count')
@@ -31,7 +44,9 @@ class window.CommentView extends Backbone.Marionette.Layout
     @voteRegion.show new ReactView
       component: ReactEvidenceVote
         model: @model.argumentTally()
-    @headingRegion.show new EvidenceishHeadingView model: @model.creator()
+    @headingRegion.show new ReactView
+      component: ReactCommentHeading
+        model: @model.creator()
 
     if @model.can_destroy()
       @deleteRegion.show new ReactView
