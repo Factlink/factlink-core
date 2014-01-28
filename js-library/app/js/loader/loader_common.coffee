@@ -32,7 +32,7 @@ window.FACTLINK_START_LOADER = ->
     content && el.appendChild(content)
     el
 
-  onReady = ->
+  whenHasBody = ->
     # Add styles
     style_tag = mkEl 'style', null, document.createTextNode(style_code)
     document.getElementsByTagName('head')[0].appendChild style_tag
@@ -43,7 +43,7 @@ window.FACTLINK_START_LOADER = ->
     # Wrapper for increased CSS specificity
     outerWrapperEl = mkEl 'div', 'factlink-containment-wrapper', jslib_jail_iframe
 
-    document.body.appendChild outerWrapperEl
+    document.body.insertBefore(outerWrapperEl, document.body.firstChild)
 
     load_time_before_jail = new Date().getTime()
 
@@ -63,11 +63,15 @@ window.FACTLINK_START_LOADER = ->
     jslib_jail_doc.documentElement.appendChild(script_tag)
 
     root = jslib_jail_iframe.contentWindow.FactlinkJailRoot
+    $ = jslib_jail_iframe.contentWindow.$
     root.perf.add_existing_timing_event 'factlink_loader_start', factlink_loader_start_timestamp
     root.perf.add_existing_timing_event 'before_jail', load_time_before_jail
     root.perf.add_timing_event 'after_jail'
 
-    root.core_loaded_promise.done ->
+
+    root.core_loaded_promise
+    .then( -> root.ready_promise)
+    .then ->
       #called from jail-iframe when core iframe is ready.
       for name in methods
         do (name) ->
@@ -82,11 +86,15 @@ window.FACTLINK_START_LOADER = ->
         window.FACTLINK[methodCall.name](methodCall.arguments...)
       storedMethodCalls = undefined
 
-  if /^(interactive|complete)$/.test(document.readyState)
-    onReady()
-  else
-    document.addEventListener('DOMContentLoaded',onReady);
 
+  tryToInit = (i) -> ->
+    if document.body
+      whenHasBody()
+    else
+      console.log 'waiting #{i}...'
+      setTimeout i, tryToInit(i+1)
+
+  tryToInit(1)()
 
 jslib_jail_code = __INLINE_JS_PLACEHOLDER__
 style_code = __INLINE_CSS_PLACEHOLDER__
