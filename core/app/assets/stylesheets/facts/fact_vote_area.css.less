@@ -12,8 +12,27 @@
 }
 
 .fact-vote-button {
-  width: 30px;
   display: table-cell;
+}
+
+.fact-vote-button-active {
+  &.fact-vote-button-believes {
+    background: @green;
+    border-bottom-color: darken(@green, 10%);
+    color: darken(@green, 30%);
+  }
+  &.fact-vote-button-disbelieves {
+    background: @red;
+    border-bottom-color: darken(@red, 10%);
+    color: darken(@red, 30%);
+  }
+}
+
+.fact-vote-button-believes,
+.fact-vote-button-disbelieves {
+  padding: 0px 5px;
+  font-size: 16px;
+  height: auto;
 }
 
 .fact-vote-stats {
@@ -76,15 +95,6 @@
 
 .fact-vote-people-disbelievers {
   text-align: right;
-}
-
-
-// TODO decide if we want to keep this, otherwhise remove this (also the logic)
-.cell-background(@color) {
-  background-color: fade(@color, 15%);
-  &.fact-vote-table-cell-active {
-    background-color: @color;
-  }
 }
 
 .opinionators-avatars {
