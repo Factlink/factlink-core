@@ -8,43 +8,6 @@ class Highlighter
   highlight:   -> @$elements.addClass(@className)
   dehighlight: -> @$elements.removeClass(@className)
 
-class HighlightInteraction
-  constructor: (elements, @id, @options) ->
-    $elements = $(elements)
-
-    @highlighter = new Highlighter $elements, 'fl-active'
-
-    @show_button = new FactlinkJailRoot.ShowButton
-      el: elements[0]
-      callbacks:
-        mouseenter: @_onHover
-        mouseleave: @_onUnhover
-        click:      @_onClick
-
-    $elements.on 'click', @_onClick
-    $elements.on 'mouseenter', @_onHover
-    $elements.on 'mouseleave', @_onUnhover
-
-  _onClick: =>
-    @show_button.startLoading() # must be called after show
-    FactlinkJailRoot.on 'modalOpened', @_onModalOpened, @
-    FactlinkJailRoot.openFactlinkModal @id
-
-  _onModalOpened: ->
-    @show_button.stopLoading()
-    FactlinkJailRoot.off 'modalOpened', @_onModalOpened, @
-
-  _onHover: =>
-    @show_button.startHovering()
-    @highlighter.highlight()
-
-  _onUnhover: =>
-    @show_button.stopHovering()
-    @highlighter.dehighlight()
-
-  destroy: ->
-    @show_button.destroy()
-
 class HighlightLoadPromotion
   constructor: (elements) ->
     @highlighter = new Highlighter $(elements), 'fl-load-highlight'
@@ -87,7 +50,7 @@ class HighlightScrollPromotion
 
 class FactlinkJailRoot.Highlight
   constructor: (@id, @elements) ->
-    @fact_interaction = new HighlightInteraction @elements, @id
+    @show_button = new FactlinkJailRoot.ShowButton @elements, @id
     @fact_promotion = new HighlightScrollPromotion(this)
     @fact_load_promotion = new HighlightLoadPromotion(@elements)
 
@@ -100,4 +63,4 @@ class FactlinkJailRoot.Highlight
     for el in @elements
       $(el).contents().unwrap()
 
-    @fact_interaction.destroy()
+    @show_button.destroy()
