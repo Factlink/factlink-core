@@ -12,7 +12,7 @@ window.FACTLINK_START_LOADER = ->
 
   # Create proxy object that stores all calls
   # proxies calls from external content page to the js-library "jail" iframe's "FactlinkJailRoot"..
-  methods = 'on,triggerClick,startHighlighting,highlightAdditionalFactlinks,startAnnotating,stopAnnotating,showLoadedNotification,scrollTo,openFactlinkModal,initializeFactlinkButton,showProxyMessage'.split(',')
+  methods = 'on,triggerClick,highlightAdditionalFactlinks,startAnnotating,stopAnnotating,showLoadedNotification,scrollTo,openFactlinkModal,initializeFactlinkButton,showProxyMessage'.split(',')
 
   storedMethodCalls = []
 
@@ -68,7 +68,6 @@ window.FACTLINK_START_LOADER = ->
     root.perf.add_timing_event 'after_jail'
 
     root.core_loaded_promise.done ->
-      jslib_jail_iframe.contentWindow.FactlinkJailRoot.startHighlighting()
       #called from jail-iframe when core iframe is ready.
       for name in methods
         do (name) ->
