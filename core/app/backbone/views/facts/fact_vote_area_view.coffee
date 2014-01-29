@@ -7,47 +7,75 @@ ReactOpinionatorsAvatar = React.createBackboneClass
         _img ["image-24px", "opinionators-avatar-image",
               src: @model().avatar_url(24)]
 
+ReactOpinionatorsAvatars = React.createBackboneClass
+  render: ->
+    _div ["fact-vote-people-#{@props.type}"],
+      @model()
+        .filter( (vote) => vote.get('type') == @props.type)
+        .map (vote) ->
+          ReactOpinionatorsAvatar(model: vote.user())
+
+window.ReactVoteArea = React.createBackboneClass
+  render: ->
+    _div ['fact-vote-area'],
+      _div className: 'fact-vote',
+        FactVoteButton
+          model: @model().getVotes()
+          type: 'believes'
+        _div ["fact-vote-stats"],
+          _table ["fact-vote-stats-table"],
+            _tr [],
+              _td ["fact-vote-amount-believes"], 10
+              _td [],
+                _table ["fact-vote-amount-graph"],
+                  _tr [],
+                    _td ["vote-amount-graph-believers"]
+                    _td ["vote-amount-graph-disbelievers"]
+              _td ["fact-vote-amount-believes"], 5
+        FactVoteButton
+          model: @model().getVotes()
+          type: 'disbelieves'
+      _div ["fact-vote-people"],
+          ReactOpinionatorsAvatars
+            model: @model().getVotes()
+            type: 'believes'
+          ReactOpinionatorsAvatars
+            model: @model().getVotes()
+            type: 'disbelieves'
+
+FactVoteButton = React.createBackboneClass
+  componentDidMount: ->
+    # react.backbone.js doesn't listen to changing models
+    @model().on 'change', => @forceUpdate()
+
+  _onClick: ->
+    @model().clickCurrentUserOpinion @props.type
+
+  _direction: ->
+   if @props.type == 'believes'
+     'up'
+   else
+     'down'
+
+  render: ->
+    is_opinion = @model().opinion_for_current_user() == @props.type
+    _div ["fact-vote-button"],
+      if Factlink.Global.signed_in
+        _button ["button fact-vote-button-#{@props.type}",
+                 'fact-vote-button-active' if is_opinion,
+                 onClick: @_onClick],
+           _i ["icon-thumbs-#{@_direction()}"]
+      else
+        _span ["fact-vote-indicator"],
+          _i ["icon-thumbs-#{@_direction()}"]
+
 
 class window.FactVoteTableView extends Backbone.Marionette.CompositeView
-  tagName: 'div'
-  className: 'fact-vote-area'
-  template: 'facts/fact_vote_area'
-  itemView: ReactView
-
-  itemViewOptions: (vote)=>
-    component: ReactOpinionatorsAvatar
-      model: vote.user()
-
-  ui:
-    avatarsBelievesRegion: '.js-avatars-believes-region'
-    avatarsDisbelievesRegion: '.js-avatars-disbelieves-region'
-
   events:
     'click .js-button-believes': ->
       @collection.clickCurrentUserOpinion 'believes'
     'click .js-button-disbelieves': ->
       @collection.clickCurrentUserOpinion 'disbelieves'
-
-  initialize: ->
-    @collection = @model.getVotes()
-    @collection.fetch reset: true
-
-  _initialEvents: ->
-    @listenTo @collection, 'reset add remove change', @render, @
-
-  appendHtml: (collectionView, itemView, index) ->
-    return unless itemView.model.get('type') in ['believes', 'disbelieves']
-
-    @typeRegionForVote(itemView.model).append itemView.el
-
-  typeRegionForVote:(model) ->
-    switch model.get('type')
-      when 'believes'    then @ui.avatarsBelievesRegion
-      when 'disbelieves' then @ui.avatarsDisbelievesRegion
-
-  onRender: ->
-    @_updateActiveCell()
-    @$('.fact-vote-stats table').hide() # functionality will be implemented with conversion to react
 
   _updateActiveCell: ->
     opinion = @collection.opinion_for_current_user()
