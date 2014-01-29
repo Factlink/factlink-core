@@ -10,12 +10,6 @@ ReactOpinionatorsAvatar = React.createBackboneClass
           src: @model().avatar_url(24)
           class:"image-24px opinionators-avatar-image"
 
-class OpinionatorsAvatarView extends Backbone.Marionette.Layout
-
-  onRender: ->
-    UserPopoverContentView.makeTooltip @, @model.user()
-
-
 class window.FactVoteTableView extends Backbone.Marionette.CompositeView
   tagName: 'div'
   className: 'fact-vote-area'
