@@ -2,7 +2,25 @@
 @import "bootstrap/mixins";
 
 @commentPadding: 20px;
+@impactColouredBorderWidth: 3px;
 
+.comment-container {
+  margin-top: 5px;
+  position: relative;
+  background: white;
+  .block-box-shadow();
+}
+
+.evidence-believes > .comment-container {
+  border-left: @impactColouredBorderWidth solid @believesEvidenceImpactColor;
+}
+
+.evidence-disbelieves > .comment-container {
+  border-left: @impactColouredBorderWidth solid @disbelievesEvidenceImpactColor;
+}
+
+.evidence-unsure > .comment-container {
+  border-left: @impactColouredBorderWidth solid @doubtsEvidenceImpactColor;
 }
 
 .comment-post-heading {
@@ -21,4 +39,6 @@
   .ellipsis(200px);
 }
 
+.comment-post-content {
 
+}
