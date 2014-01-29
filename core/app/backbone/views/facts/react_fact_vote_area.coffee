@@ -8,6 +8,10 @@ ReactOpinionatorsAvatar = React.createBackboneClass
               src: @model().avatar_url(24)]
 
 ReactOpinionatorsAvatars = React.createBackboneClass
+  componentDidMount: ->
+    # react.backbone.js doesn't listen to changing models
+    @model().on 'change', => @forceUpdate()
+
   render: ->
     _div ["fact-vote-people-#{@props.type}"],
       @model()
