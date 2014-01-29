@@ -43,6 +43,33 @@ FactVoteButton = React.createBackboneClass
           _i ["icon-thumbs-#{@_direction()}"]
 
 
+FactVoteStatsTable = React.createBackboneClass
+  render: ->
+    votes = @model().countBy (vote) -> vote.get('type')
+    _.defaults votes,
+      believes: 0,
+      disbelieves: 0
+
+    vote_padding = 0.2 # to pad the graph
+    total = votes.believes + votes.disbelieves + 2*vote_padding
+    believe_percentage = Math.ceil(100 * (votes.believes + vote_padding)/ total)
+    disbelieve_percentage = 100-believe_percentage
+
+
+    _div ["fact-vote-stats"],
+      _table ["fact-vote-stats-table"],
+        _tr [],
+          _td ["fact-vote-amount-believes"], votes.believes
+          _td [],
+            _table ["fact-vote-amount-graph"],
+              _tr [],
+                _td ["vote-amount-graph-believers"
+                     style: {width: "#{believe_percentage}%"}]
+                _td ["vote-amount-graph-disbelievers"
+                     style: {width: "#{disbelieve_percentage}%"}]
+          _td ["fact-vote-amount-disbelieves"], votes.disbelieves
+
+
 window.ReactVoteArea = React.createBackboneClass
   render: ->
     _div ['fact-vote-area'],
@@ -50,16 +77,8 @@ window.ReactVoteArea = React.createBackboneClass
         FactVoteButton
           model: @model().getVotes()
           type: 'believes'
-        _div ["fact-vote-stats"],
-          _table ["fact-vote-stats-table"],
-            _tr [],
-              _td ["fact-vote-amount-believes"], 10
-              _td [],
-                _table ["fact-vote-amount-graph"],
-                  _tr [],
-                    _td ["vote-amount-graph-believers"]
-                    _td ["vote-amount-graph-disbelievers"]
-              _td ["fact-vote-amount-believes"], 5
+        FactVoteStatsTable
+          model: @model().getVotes()
         FactVoteButton
           model: @model().getVotes()
           type: 'disbelieves'
