@@ -30,7 +30,6 @@ function getServer(config) {
    */
   server.get('/',       render_page('index'));
   server.get('/header', render_page('header'));
-  server.get('/search', get_search);
   server.get('/parse',  get_parse);
   server.get('/submit', get_submit);
 
@@ -234,16 +233,6 @@ function getServer(config) {
         }
       });
     };
-  }
-
-  /**
-   *  Search on Factlink enabled Google
-   */
-  function get_search(req, res) {
-    var query             = req.query.query;
-    var search_redir_url  = urlbuilder.search_redir_url(config.PROXY_URL, query, req.query.factlinkModus);
-
-    res.redirect(search_redir_url);
   }
 
   /**
