@@ -1,31 +1,20 @@
 @import "bootstrap/mixins";
 
-@evidencePadding: 18px;
-
-.discussion-evidenceish-heading {
-  position: absolute;
-  top: -@evidenceishHeadingOverhang;
-  left: @evidencePadding;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-}
+@evidencePadding: 20px;
 
 .discussion-evidenceish-box {
   position: relative;
-  .white-block-with-shadow();
+  background: white;
+  .block-box-shadow();
 }
 
 .discussion-evidenceish-content {
-  padding: @evidencePadding @evidencePadding 13px;
   word-wrap: break-word;
+  padding: 10px @evidencePadding
 }
 
 .discussion-evidenceish-text {
   white-space: pre-wrap;
-}
-
-.discussion-evidenceish-name {
-  display: inline-block;
-  .ellipsis(200px);
 }
 
 .comment-bottom {
@@ -49,15 +38,5 @@
 }
 
 .comment-bottom-action-delete {
-  float: right;
-
-  &:after {
-    content: "·";
-    margin-right: 10px;
-    margin-left: 4px;
-  }
-}
-
-.comment-bottom-action-time {
   float: right;
 }
