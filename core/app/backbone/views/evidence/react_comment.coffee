@@ -1,15 +1,20 @@
 ReactCommentHeading = React.createBackboneClass
   render: ->
-    R.div className: 'discussion-evidenceish-heading',
+    R.div className: 'comment-post-heading',
       R.span className:"heading-avatar",
         R.img
-          src: @model().avatar_url(32)
+          src: @model().creator().avatar_url(32)
           className:"heading-avatar-image"
       R.a
-        href: @model().link()
-        className:"discussion-evidenceish-name popover-link"
+        href: @model().creator().link()
+        className:"comment-creator-name popover-link"
         rel: "backbone"
-        @model().get('name')
+        @model().creator().get('name')
+      R.span className:"comment-bottom-action comment-post-time",
+          R.i className:"icon-time"
+          @model().get('time_ago')
+          " "
+          Factlink.Global.t.ago
 
 window.ReactComment = React.createBackboneClass
   getInitialState: ->
@@ -17,9 +22,9 @@ window.ReactComment = React.createBackboneClass
 
   _typeCss: ->
     switch @model().get('type')
-      when 'believes' then 'evidence-believes'
-      when 'disbelieves' then 'evidence-disbelieves'
-      when 'doubts' then 'evidence-unsure'
+      when 'believes' then 'comment-believes'
+      when 'disbelieves' then 'comment-disbelieves'
+      when 'doubts' then 'comment-unsure'
 
   _onDelete: ->
      @model().destroy wait: true
@@ -29,7 +34,7 @@ window.ReactComment = React.createBackboneClass
 
   _content: ->
     R.div
-      className:"discussion-evidenceish-content discussion-evidenceish-text",
+      className:"comment-content",
       dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
 
   _bottom: ->
@@ -39,11 +44,7 @@ window.ReactComment = React.createBackboneClass
       R.ul className: "comment-bottom-actions", [
         R.li className: "comment-bottom-action",
           ReactEvidenceVote model: @model().argumentTally()
-        R.li className:"comment-bottom-action comment-bottom-action-time",
-          R.i className:"icon-time"
-          @model().get('time_ago')
-          " "
-          Factlink.Global.t.ago
+
         if @model().can_destroy()
           R.li className: "comment-bottom-action comment-bottom-action-delete",
             ReactDeleteButton
@@ -61,14 +62,14 @@ window.ReactComment = React.createBackboneClass
     relevant = @model().argumentTally().relevance() >= 0
 
     top_classes = [
-      'evidence-argument'
+      'comment-region'
       @_typeCss()
-      'evidence-irrelevant' unless relevant
+      'comment-irrelevant' unless relevant
     ].join(' ')
 
     R.div className: top_classes,
-      R.div className:"discussion-evidenceish-box spec-evidence-box",
-        ReactCommentHeading(model: @model().creator())
+      R.div className:"comment-container spec-evidence-box",
+        ReactCommentHeading(model: @model())
         @_content()
         @_bottom()
       if @state.show_subcomments
