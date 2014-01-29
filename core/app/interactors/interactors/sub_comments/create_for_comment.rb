@@ -24,7 +24,7 @@ module Interactors
 
         create_activity sub_comment
 
-        KillObject.sub_comment sub_comment
+        Backend::SubComments.dead_for sub_comment
       end
 
       def create_activity sub_comment

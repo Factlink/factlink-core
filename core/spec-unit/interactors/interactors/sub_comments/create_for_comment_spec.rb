@@ -1,5 +1,6 @@
 require 'pavlov_helper'
 require_relative '../../../../app/interactors/interactors/sub_comments/create_for_comment'
+require_relative '../../../../app/interactors/backend/sub_comments.rb'
 
 describe Interactors::SubComments::CreateForComment do
   include PavlovSupport
