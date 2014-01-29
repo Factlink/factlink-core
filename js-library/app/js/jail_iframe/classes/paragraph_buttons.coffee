@@ -22,7 +22,8 @@ class ParagraphButtons
       @_addParagraphButton el
 
     elementsLeft = elements[10..]
-    setTimeout (=> @_addParagraphButtonsBatch(elementsLeft)), 200
+    if elementsLeft.length > 0
+      setTimeout (=> @_addParagraphButtonsBatch(elementsLeft)), 200
 
   _defaultSelector: ->
     "p, h2, h3, h4, h5, h6, li, dd, dt"
