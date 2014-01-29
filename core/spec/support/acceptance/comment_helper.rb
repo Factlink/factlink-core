@@ -89,7 +89,7 @@ module Acceptance
 
       def assert_comment_exists comment
         within_evidence_list do
-          find('.comment-post-content', text: comment)
+          find('.discussion-evidenceish-content', text: comment)
         end
       end
 

@@ -34,7 +34,7 @@ window.ReactComment = React.createBackboneClass
 
   _content: ->
     R.div
-      className:"comment-post-content",
+      className:"discussion-evidenceish-content",
       dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
 
   _bottom: ->
