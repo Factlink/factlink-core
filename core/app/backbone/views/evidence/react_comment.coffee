@@ -64,7 +64,7 @@ window.ReactComment = React.createBackboneClass
     top_classes = [
       'evidence-argument'
       @_typeCss()
-      'evidence-irrelevant' unless relevant
+      'comment-irrelevant' unless relevant
     ].join(' ')
 
     R.div className: top_classes,
