@@ -68,7 +68,6 @@ window.FACTLINK_START_LOADER = ->
     root.perf.add_existing_timing_event 'before_jail', load_time_before_jail
     root.perf.add_timing_event 'after_jail'
 
-
     root.initializers.forEach( (f) -> f())
 
     root.core_loaded_promise
@@ -94,7 +93,7 @@ window.FACTLINK_START_LOADER = ->
     if document.body
       whenHasBody()
     else
-      setTimeout i, tryToInit(i+1)
+      setTimeout tryToInit(i+1), i
 
   tryToInit(1)()
 
