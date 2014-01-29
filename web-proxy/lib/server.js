@@ -146,7 +146,6 @@ function getServer(config) {
         actions.push('FACTLINK.scrollTo(' + scroll_to + ');');
       }
 
-      actions.push('FACTLINK.startHighlighting();');
       actions.push('FACTLINK.startAnnotating();');
       actions.push('FACTLINK.showProxyMessage();');
 
