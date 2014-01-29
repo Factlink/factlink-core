@@ -18,7 +18,6 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
 
   ui:
     avatarsBelievesRegion: '.js-avatars-believes-region'
-    avatarsDoubtsRegion: '.js-avatars-doubts-region'
     avatarsDisbelievesRegion: '.js-avatars-disbelieves-region'
 
   events:
@@ -50,5 +49,5 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
 
   _updateActiveCell: ->
     opinion = @collection.opinion_for_current_user()
-    @$('.fact-vote-table-cell-active').removeClass 'fact-vote-table-cell-active'
-    @$(".js-cell-#{opinion}").addClass 'fact-vote-table-cell-active'
+    @$('.fact-vote-button-active').removeClass 'fact-vote-button-active'
+    @$(".fact-vote-button-#{opinion}").addClass 'fact-vote-button-active'

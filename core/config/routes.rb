@@ -133,6 +133,4 @@ FactlinkUI::Application.routes.draw do
     get "/subscribe/:token/:type" => 'mail_subscriptions#update', subscribe_action: 'subscribe', as: :subscribe
   end
 
-  get "/D/delayed_javascript" => "debug#delayed_javascript"
-
 end

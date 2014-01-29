@@ -12,7 +12,7 @@ window.FACTLINK_START_LOADER = ->
 
   # Create proxy object that stores all calls
   # proxies calls from external content page to the js-library "jail" iframe's "FactlinkJailRoot"..
-  methods = 'on,triggerClick,startHighlighting,highlightAdditionalFactlinks,startAnnotating,stopAnnotating,showLoadedNotification,scrollTo,openFactlinkModal,initializeFactlinkButton'.split(',')
+  methods = 'on,triggerClick,highlightAdditionalFactlinks,startAnnotating,stopAnnotating,showLoadedNotification,scrollTo,openFactlinkModal,initializeFactlinkButton,showProxyMessage'.split(',')
 
   storedMethodCalls = []
 
