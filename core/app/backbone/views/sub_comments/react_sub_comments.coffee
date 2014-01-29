@@ -74,4 +74,4 @@ window.ReactSubCommentList = React.createBackboneClass
 
 window.ReactSubComments = React.createClass
   render: ->
-    ReactSubCommentList model: new SubComments([], parentModel: @props.model)
+    ReactSubCommentList model: @props.model.sub_comments()
