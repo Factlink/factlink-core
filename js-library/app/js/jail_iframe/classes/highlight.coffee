@@ -47,12 +47,12 @@ class HighlightScrollPromotion
       @highlighter.dehighlight()
     @state = to_state
 
-
 class FactlinkJailRoot.Highlight
   constructor: (@id, @elements) ->
     @show_button = new FactlinkJailRoot.ShowButton @elements, @id
     @fact_promotion = new HighlightScrollPromotion(this)
     @fact_load_promotion = new HighlightLoadPromotion(@elements)
+    @core_highlighter = new Highlighter $(@elements), 'fl-core-highlight'
 
   isInView: ->
     for element in $(@elements)
@@ -64,3 +64,13 @@ class FactlinkJailRoot.Highlight
       $(el).contents().unwrap()
 
     @show_button.destroy()
+
+previousCoreHighlightId = null
+FactlinkJailRoot.showCoreHighlight = (factId) ->
+  for highlight in FactlinkJailRoot.highlightsByFactIds[previousCoreHighlightId] || []
+    highlight.core_highlighter.dehighlight()
+
+  for highlight in FactlinkJailRoot.highlightsByFactIds[factId] || []
+    highlight.core_highlighter.highlight()
+
+  previousCoreHighlightId = factId

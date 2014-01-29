@@ -109,10 +109,7 @@ fetchFacts = (siteUrl) ->
     jsonp: "callback"
     success: highlightFacts
 
-highlighting = false
-FactlinkJailRoot.startHighlighting = ->
-  return if highlighting
-  highlighting = true
+FactlinkJailRoot.core_loaded_promise.done ->
   FactlinkJailRoot.initializeFactlinkButton()
 
   console.info "FactlinkJailRoot:", "startHighlighting"

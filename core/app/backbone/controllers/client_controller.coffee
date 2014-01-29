@@ -27,6 +27,8 @@ class window.ClientController
       FactlinkApp.discussionSidebarContainer.slideIn view
 
   _renderDiscussion: (fact) ->
+    @annotatedSiteEnvoy 'highlightExistingFactlink', fact.id
+
     fact.on 'destroy', => @annotatedSiteEnvoy 'deleteFactlink', fact.id
 
     fact.fetch
