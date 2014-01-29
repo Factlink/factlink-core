@@ -1,14 +1,12 @@
 ReactOpinionatorsAvatar = React.createBackboneClass
   render: ->
-    R.span className: 'opinionators-avatar',
-      R.a
-        href: @model().get('username')
-        rel:"backbone"
-        class:"popover-link js-user-link opinionators-avatar-link"
+    _span ['opinionators-avatar'],
+      _a ["popover-link js-user-link opinionators-avatar-link"
+          href: @model().get('username')
+          rel:"backbone"],
+        _img ["image-24px", "opinionators-avatar-image",
+              src: @model().avatar_url(24)]
 
-        R.img
-          src: @model().avatar_url(24)
-          class:"image-24px opinionators-avatar-image"
 
 class window.FactVoteTableView extends Backbone.Marionette.CompositeView
   tagName: 'div'
