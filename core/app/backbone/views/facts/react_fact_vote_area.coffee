@@ -15,6 +15,34 @@ ReactOpinionatorsAvatars = React.createBackboneClass
         .map (vote) ->
           ReactOpinionatorsAvatar(model: vote.user())
 
+
+FactVoteButton = React.createBackboneClass
+  componentDidMount: ->
+    # react.backbone.js doesn't listen to changing models
+    @model().on 'change', => @forceUpdate()
+
+  _onClick: ->
+    @model().clickCurrentUserOpinion @props.type
+
+  _direction: ->
+   if @props.type == 'believes'
+     'up'
+   else
+     'down'
+
+  render: ->
+    is_opinion = @model().opinion_for_current_user() == @props.type
+    _div ["fact-vote-button"],
+      if Factlink.Global.signed_in
+        _button ["button fact-vote-button-#{@props.type}",
+                 'fact-vote-button-active' if is_opinion,
+                 onClick: @_onClick],
+           _i ["icon-thumbs-#{@_direction()}"]
+      else
+        _span ["fact-vote-indicator"],
+          _i ["icon-thumbs-#{@_direction()}"]
+
+
 window.ReactVoteArea = React.createBackboneClass
   render: ->
     _div ['fact-vote-area'],
@@ -42,29 +70,3 @@ window.ReactVoteArea = React.createBackboneClass
           ReactOpinionatorsAvatars
             model: @model().getVotes()
             type: 'disbelieves'
-
-FactVoteButton = React.createBackboneClass
-  componentDidMount: ->
-    # react.backbone.js doesn't listen to changing models
-    @model().on 'change', => @forceUpdate()
-
-  _onClick: ->
-    @model().clickCurrentUserOpinion @props.type
-
-  _direction: ->
-   if @props.type == 'believes'
-     'up'
-   else
-     'down'
-
-  render: ->
-    is_opinion = @model().opinion_for_current_user() == @props.type
-    _div ["fact-vote-button"],
-      if Factlink.Global.signed_in
-        _button ["button fact-vote-button-#{@props.type}",
-                 'fact-vote-button-active' if is_opinion,
-                 onClick: @_onClick],
-           _i ["icon-thumbs-#{@_direction()}"]
-      else
-        _span ["fact-vote-indicator"],
-          _i ["icon-thumbs-#{@_direction()}"]
