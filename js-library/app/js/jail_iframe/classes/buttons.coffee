@@ -6,7 +6,7 @@ class FactlinkJailRoot.CreateButton
       </div>
       <div class="fl-button-content-hovered">
         <span class="icon-comment"></span>
-        <span class="fl-button-sub-button" data-opinion="believes"><span class="icon-smile"></span></span><span class="fl-button-sub-button" data-opinion="doubts"><span class="icon-meh"></span></span><span class="fl-button-sub-button" data-opinion="disbelieves"><span class="icon-frown"></span></span>
+        <span class="fl-button-sub-button" data-opinion="believes"><span class="icon-thumbs-up"></span></span><span class="fl-button-sub-button" data-opinion="disbelieves"><span class="icon-thumbs-down"></span></span>
       </div>
       <div class="fl-button-content-loading">Loading...</div>
     </div>
@@ -16,7 +16,9 @@ class FactlinkJailRoot.CreateButton
     @frame = new FactlinkJailRoot.ControlIframe(@content)
     @$el = $(@frame.frameBody.firstChild)
 
-    @_robustHover = new FactlinkJailRoot.RobustHover @$el,
+    @_robustHover = new FactlinkJailRoot.RobustHover
+      $el: @$el
+      $externalDocument: $(document)
       mouseenter: => @frame.addClass 'hovered'
       mouseleave: => @frame.removeClass 'hovered'
 
