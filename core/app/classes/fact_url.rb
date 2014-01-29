@@ -16,11 +16,6 @@ class FactUrl
     full_url friendly_fact_path
   end
 
-  def proxy_scroll_url
-    proxy_url + "/?url=" + CGI.escape(@fact.site_url) +
-      "&scrollto=" + URI.escape(@fact.id)
-  end
-
   def proxy_open_url
     proxy_url + "/?url=" + CGI.escape(@fact.site_url) +
       "&open_id=" + URI.escape(@fact.id)
