@@ -1,0 +1,32 @@
+@import "twitter/bootstrap/variables";
+@import "bootstrap/mixins";
+
+@arrowHeight: 12px;
+@voteButtonWidth: 20px;
+
+.evidence-vote-relevance {
+  display: inline-block;
+  width: 10px;
+}
+
+.evidence-vote-up,
+.evidence-vote-down {
+  display: inline-block;
+  height: @arrowHeight;
+  width:  @voteButtonWidth;
+  opacity: 0.2;
+  &.evidence-active {
+    opacity: 0.8;
+  }
+  &:hover {
+    opacity: 1.0;
+  }
+}
+
+.evidence-vote-up {
+  background: asset-data-url('evidence-arrows/up-arrow-normal.png') center center no-repeat;
+}
+
+.evidence-vote-down {
+  background: asset-data-url('evidence-arrows/down-arrow-normal.png') center center no-repeat;
+}
