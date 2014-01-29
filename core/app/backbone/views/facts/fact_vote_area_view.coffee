@@ -1,10 +1,16 @@
-class OpinionatorsAvatarView extends Backbone.Marionette.Layout
-  tagName: 'span'
-  className: 'opinionators-avatar'
-  template: 'opinionators/avatar'
+ReactOpinionatorsAvatar = React.createBackboneClass
+  render: ->
+    R.span className: 'opinionators-avatar',
+      R.a
+        href: @model().get('username')
+        rel:"backbone"
+        class:"popover-link js-user-link opinionators-avatar-link"
 
-  templateHelpers: =>
-    user: @model.user().toJSON()
+        R.img
+          src: @model().avatar_url(24)
+          class:"image-24px opinionators-avatar-image"
+
+class OpinionatorsAvatarView extends Backbone.Marionette.Layout
 
   onRender: ->
     UserPopoverContentView.makeTooltip @, @model.user()
@@ -14,7 +20,11 @@ class window.FactVoteTableView extends Backbone.Marionette.CompositeView
   tagName: 'div'
   className: 'fact-vote-area'
   template: 'facts/fact_vote_area'
-  itemView: OpinionatorsAvatarView
+  itemView: ReactView
+
+  itemViewOptions: (vote)=>
+    component: ReactOpinionatorsAvatar
+      model: vote.user()
 
   ui:
     avatarsBelievesRegion: '.js-avatars-believes-region'
