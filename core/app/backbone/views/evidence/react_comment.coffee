@@ -1,6 +1,6 @@
 ReactCommentHeading = React.createBackboneClass
   render: ->
-    R.div className: 'comment-heading',
+    R.div className: 'comment-post-heading',
       R.span className:"heading-avatar",
         R.img
           src: @model().creator().avatar_url(32)
@@ -68,7 +68,7 @@ window.ReactComment = React.createBackboneClass
     ].join(' ')
 
     R.div className: top_classes,
-      R.div className:"discussion-evidenceish-box spec-evidence-box",
+      R.div className:"comment-container spec-evidence-box",
         ReactCommentHeading(model: @model())
         @_content()
         @_bottom()

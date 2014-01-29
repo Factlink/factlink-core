@@ -1,5 +1,5 @@
 class window.EvidenceishHeadingView extends Backbone.Marionette.ItemView
-  className: 'comment-heading'
+  className: 'comment-post-heading'
   template: 'evidence/evidenceish_heading'
 
   onRender: ->
