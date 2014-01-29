@@ -1,4 +1,4 @@
-window.ReactSubCommentsAdd = React.createClass
+ReactSubCommentsAdd = React.createClass
   getInitialState: ->
     text: ''
     phase: 'new'
