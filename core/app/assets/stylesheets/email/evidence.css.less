@@ -54,8 +54,7 @@
 
 .added-argument-timeline,
 .timeline-left,
-.timeline-right,
-.timeline-impact
+.timeline-right
 {
   background: @emailBackgroundColor;
 }
@@ -70,22 +69,6 @@
 .timeline-right {
   width: (@timeline-width/2 - @timeline-border-width);
   border-left: @timeline-border-width solid #b9bec6;
-}
-
-.timeline-impact {
-  width: @timeline-width;
-  height: 37px;
-}
-
-.timeline-impact-indicator {
-  text-align: center;
-  margin: 0 auto;
-}
-
-.timeline-impact-indicator > img {
-  //images are inline but we don't want browsers to add padding for descenders
-  vertical-align: top; //avoid descender-padding
-  font-size: 0; //some browsers don't support vertical-align; they get 0-sized descenders.
 }
 
 .added-subcomment-message-content {
