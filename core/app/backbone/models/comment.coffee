@@ -12,6 +12,9 @@ class window.Comment extends Backbone.Model
 
   can_destroy: -> @_is_mine() && @get('is_deletable')
 
+  sub_comments: ->
+    @_sub_comments ?= new SubComments([], parentModel: @)
+
   argumentTally: ->
     @_argumentTally ?= new ArgumentTally @get('tally'),
       argument: this

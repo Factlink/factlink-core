@@ -77,6 +77,9 @@ class FactlinkJailRoot.ParagraphButton
   content: '<div class="fl-icon-button"><span class="icon-comment"></span>+</div>'
 
   constructor: (paragraphElement) ->
+    @$paragraph = $(paragraphElement)
+    return unless @_valid()
+
     @frame = new FactlinkJailRoot.ControlIframe @content
     $el = $(@frame.frameBody.firstChild)
 
@@ -92,9 +95,8 @@ class FactlinkJailRoot.ParagraphButton
       mouseleave: => @frame.removeClass 'hovered'; @_attentionSpan.loseAttention()
     $el.on 'click', @_onClick
 
-    @$paragraph = $(paragraphElement)
     FactlinkJailRoot.on 'updateIconButtons', @_update
-    @_update()
+    @_updatePosition()
 
     if FactlinkJailRoot.isTouchDevice()
       @frame.fadeIn()

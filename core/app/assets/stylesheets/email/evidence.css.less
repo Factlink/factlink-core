@@ -20,9 +20,9 @@
 
 .added-argument-message-container {
   background: @emailBackgroundColor;
-  min-height: 70px;
-  padding: 21px 21px 21px 21px;
-  display: block;
+  height: auto;
+  width: 90%;
+  padding: 21px 21px 21px 0;
 
   .message-user-image {
     padding-left: 20px;
@@ -52,9 +52,40 @@
   }
 }
 
-.added-argument-timeline
+.added-argument-timeline,
+.timeline-left,
+.timeline-right,
+.timeline-impact
 {
   background: @emailBackgroundColor;
+}
+
+@timeline-width: 100px;
+@timeline-border-width: 3px;
+
+.timeline-left {
+  width: (@timeline-width/2);
+}
+
+.timeline-right {
+  width: (@timeline-width/2 - @timeline-border-width);
+  border-left: @timeline-border-width solid #b9bec6;
+}
+
+.timeline-impact {
+  width: @timeline-width;
+  height: 37px;
+}
+
+.timeline-impact-indicator {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.timeline-impact-indicator > img {
+  //images are inline but we don't want browsers to add padding for descenders
+  vertical-align: top; //avoid descender-padding
+  font-size: 0; //some browsers don't support vertical-align; they get 0-sized descenders.
 }
 
 .added-subcomment-message-content {
