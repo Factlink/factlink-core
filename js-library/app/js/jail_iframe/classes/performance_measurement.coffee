@@ -30,7 +30,6 @@ FactlinkJailRoot.core_loaded_promise
 .then( -> FactlinkJailRoot.host_loaded_promise)
 .then( -> FactlinkJailRoot.delay 1000)
 .then( ->
-  console.log document.readyState
   if window.performance && window.performance.timing
     'fetchStart responseEnd domLoading domInteractive domContentLoadedEventStart domContentLoadedEventEnd domComplete loadEventEnd'
     .split(' ').forEach (timing_event) ->
