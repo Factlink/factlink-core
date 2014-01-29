@@ -68,16 +68,3 @@ FactVoteButton = React.createBackboneClass
       else
         _span ["fact-vote-indicator"],
           _i ["icon-thumbs-#{@_direction()}"]
-
-
-class window.FactVoteTableView extends Backbone.Marionette.CompositeView
-  events:
-    'click .js-button-believes': ->
-      @collection.clickCurrentUserOpinion 'believes'
-    'click .js-button-disbelieves': ->
-      @collection.clickCurrentUserOpinion 'disbelieves'
-
-  _updateActiveCell: ->
-    opinion = @collection.opinion_for_current_user()
-    @$('.fact-vote-button-active').removeClass 'fact-vote-button-active'
-    @$(".fact-vote-button-#{opinion}").addClass 'fact-vote-button-active'
