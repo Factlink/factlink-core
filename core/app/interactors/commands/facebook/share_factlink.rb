@@ -12,8 +12,7 @@ module Commands
           name: fact.trimmed_quote(100),
           link: url,
           caption: caption,
-          description: 'Read more',
-          picture: 'https://static.factlink.com/lib/dist/images/facebook-factlink-share-logo.png'
+          description: 'Read more'
       end
 
       def token
