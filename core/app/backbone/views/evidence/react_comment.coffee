@@ -50,7 +50,7 @@ window.ReactComment = React.createBackboneClass
             ReactDeleteButton
               model: @model()
               onDelete: @_onDelete
-        R.li className:"comment-bottom-action",
+        R.li className:"comment-reply",
           R.a
             className:"spec-sub-comments-link"
             href:"javascript:"
