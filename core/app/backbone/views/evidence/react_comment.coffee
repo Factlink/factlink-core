@@ -34,7 +34,7 @@ window.ReactComment = React.createBackboneClass
 
   _content: ->
     R.div
-      className:"comment-post-content discussion-evidenceish-text",
+      className:"comment-content",
       dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
 
   _bottom: ->
@@ -62,9 +62,9 @@ window.ReactComment = React.createBackboneClass
     relevant = @model().argumentTally().relevance() >= 0
 
     top_classes = [
-      'evidence-argument'
+      'comment-region'
       @_typeCss()
-      'evidence-irrelevant' unless relevant
+      'comment-irrelevant' unless relevant
     ].join(' ')
 
     R.div className: top_classes,
