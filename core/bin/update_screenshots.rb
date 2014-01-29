@@ -68,7 +68,8 @@ class ScreenshotUpdater
         fail '''
           ENV variable CIRCLE_CI_TOKEN is missing.
           You should create an api token @ https://circleci.com/account/api and
-          insert it in your .bash_profile (or equivalent).  For example:
+          insert it in your `.bash_profile` for OS X, `.zshrc` for zsh, and `.bashrc` for non-mac bash.
+          For example:
           export CIRCLE_CI_TOKEN="<your-40-char-hexadecimal-token>"
         '''
     end
