@@ -68,6 +68,7 @@ window.FACTLINK_START_LOADER = ->
     root.perf.add_timing_event 'after_jail'
 
     root.core_loaded_promise.done ->
+      jslib_jail_iframe.contentWindow.FactlinkJailRoot.startHighlighting()
       #called from jail-iframe when core iframe is ready.
       for name in methods
         do (name) ->
