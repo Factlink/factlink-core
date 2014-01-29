@@ -18,7 +18,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
   onRender: ->
     @userHeadingRegion.show new TopFactHeadingLinkView model: @model
 
-    @deleteRegion.show @_deleteButtonView() if @model.can_destroy()
+    @deleteRegion.show @_deleteButtonView() #if @model.can_destroy()
     @factVoteTableRegion.show new FactVoteTableView model: @model
 
     Backbone.Factlink.makeTooltipForView @,
@@ -29,11 +29,11 @@ class window.TopFactView extends Backbone.Marionette.Layout
       tooltipViewFactory: => new ShareFactView model: @model
 
   _deleteButtonView: ->
-    deleteButtonView = new DeleteButtonView model: @model, undo: @model.justCreated()
-
-    @listenTo deleteButtonView, 'delete', ->
-      @model.destroy
-        wait: true
-        success: -> mp_track "Factlink: Destroy"
-
-    deleteButtonView
+    new ReactView
+      component: ReactDeleteButton
+        model: @model,
+        text: 'Undo' if @model.justCreated()
+        onDelete: ->
+          @model.destroy
+            wait: true
+            success: -> mp_track "Factlink: Destroy"
