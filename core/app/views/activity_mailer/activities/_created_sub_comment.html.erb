@@ -18,9 +18,6 @@
     </td>
   </tr>
   <tr>
-    <td class="timeline-left" height="70px">&nbsp;</td>
-    <td class="timeline-right" height="70px">&nbsp;</td>
-
     <td class="added-argument-message-container is-inactive" rowspan="3">
       <table cellpadding="0" cellspacing="0" border="0" class="added-argument-message-box">
         <tr>
@@ -39,15 +36,8 @@
       </table>
       <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
-          <td valign="top" width="20px" class="added-subcomment-timeline-before-padding"></td>
-          <td valign="top" width="20px">
-            <table cellpadding="0" cellspacing="0" border="0" class="added-argument-timeline">
-              <tr><td class="subcomment-timeline"></td></tr>
-            </table>
-          </td>
-          <td>
-            <table cellpadding="0" cellspacing="0" border="0" class="added-argument-timeline-subcomment">
-              <tr><td>&nbsp;</td></tr>
+          <td class="subcomment-container-padding">
+            <table cellpadding="0" cellspacing="0" border="0" class="subcomment-container">
               <tr>
                 <td valign="top" class="message-user-image">
                   <img src="<%= @activity.user.user.avatar_url(size: 24) %>" width="24" height="24" alt="<%= @activity.user.user %>" />
@@ -65,18 +55,6 @@
       </table>
     </td>
   </tr>
-
-  <tr>
-    <td colspan="2" class="timeline-impact">
-      <div class="timeline-impact-indicator"><img src="https://static.factlink.com/lib/dist/images/email-impact-background.png" heigth="37px" width="37px" /></div>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="timeline-left">&nbsp;</td>
-    <td class="timeline-right">&nbsp;</td>
-  </tr>
-
 </table>
 
 <br /><br />
