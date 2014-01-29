@@ -35,6 +35,12 @@ function getServer(config) {
   server.get('/search', get_search);
   server.get('/parse',  get_parse);
   server.get('/submit', get_submit);
+  server.get('/delayed_javascript', function(req, res) {
+    setTimeout(function(){
+      res.setHeader('Content-Type', 'application/javascript');
+      res.send('console.log("loaded intentionally delayed script!");');
+    }, parseInt(req.query.delay || "3000" ));
+  });
 
   /**
    * Static file serving in develop
