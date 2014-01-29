@@ -11,7 +11,6 @@ ReactCommentHeading = React.createBackboneClass
         rel: "backbone"
         @model().get('name')
 
-
 window.ReactComment = React.createBackboneClass
   getInitialState: ->
     show_subcomments: false
@@ -73,5 +72,4 @@ window.ReactComment = React.createBackboneClass
         @_content()
         @_bottom()
       if @state.show_subcomments
-        ReactSubComments
-          model: new SubComments([], parentModel: @model())
+        ReactSubComments(model: model)
