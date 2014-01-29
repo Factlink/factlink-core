@@ -13,13 +13,13 @@ window.ReactEvidenceVote = React.createBackboneClass
 
   render: ->
     up_classes = [
-      'evidence-vote-up'
+      'comment-vote-up'
       'evidence-active' if @model().get('current_user_opinion') == 'believes'
       'spec-evidence-vote-up'
     ].join(' ')
 
     down_classes = [
-      'evidence-vote-down'
+      'comment-vote-down'
       'evidence-active' if @model().get('current_user_opinion') == 'disbelieves'
       'spec-evidence-vote-down'
     ].join(' ')
@@ -33,10 +33,12 @@ window.ReactEvidenceVote = React.createBackboneClass
             className: up_classes
             href: "javascript:" if Factlink.Global.signed_in
             onClick: @_on_up_vote
+            R.i className: "icon-up-open"
           R.a
             className: down_classes
             href: "javascript:" if Factlink.Global.signed_in
             onClick: @_on_down_vote
+            R.i className: "icon-down-open"
         ]
       else
         [
