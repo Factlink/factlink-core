@@ -1,7 +1,7 @@
 window.ReactOpinionHelp = React.createClass
   render: ->
     R.div className: 'opinion-help',
-      R.div className: 'discussion-evidenceish-content',
+      R.div className: 'comment-content',
         R.span className: "js-question opinion-help-question",
           "What do you think?"
         R.a href: "/auth/twitter", className: "button button-twitter small-connect-button opinion-help-button js-accounts-popup-link",
