@@ -18,7 +18,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
   onRender: ->
     @userHeadingRegion.show new TopFactHeadingLinkView model: @model
 
-    @deleteRegion.show @_deleteButtonView() #if @model.can_destroy()
+    @deleteRegion.show @_deleteButtonView() if @model.can_destroy()
     @factVoteTableRegion.show new FactVoteTableView model: @model
 
     Backbone.Factlink.makeTooltipForView @,
