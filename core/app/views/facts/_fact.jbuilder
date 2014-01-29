@@ -16,9 +16,7 @@ json.created_at dead_fact.created_at
 
 json.fact_title dead_fact.title
 
-if dead_fact.site_url
-  json.fact_url dead_fact.site_url
-  json.proxy_scroll_url dead_fact.url.proxy_scroll_url
-end
+json.fact_url dead_fact.site_url
+json.proxy_scroll_url dead_fact.url.proxy_scroll_url
 
 json.is_deletable dead_fact.deletable?
