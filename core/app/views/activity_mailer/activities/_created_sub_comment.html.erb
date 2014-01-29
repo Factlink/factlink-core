@@ -41,7 +41,7 @@
               <tr>
                 <td valign="top" class="message-user-image">
                   <img src="<%= @activity.user.user.avatar_url(size: 24) %>" width="24" height="24" alt="<%= @activity.user.user %>" />
-                  <%= link_to_possibly_dead_user(@activity.user.user, class: "user-name") %>
+                  <%= link_to_possibly_dead_user(@activity.user.user, class: "user-name subcomment-user-name") %>
                 </td>
               </tr>
               <tr>
