@@ -17,10 +17,10 @@ FactlinkJailRoot.annotatedSiteReceiver =
 
   highlightNewFactlink: (displaystring, id) ->
     FactlinkJailRoot.highlightFact(displaystring, id)
-    FactlinkJailRoot.trigger 'highlightFactlinkId', id
+    FactlinkJailRoot.showCoreHighlight id
 
   highlightExistingFactlink: (id) ->
-    FactlinkJailRoot.trigger 'highlightFactlinkId', id
+    FactlinkJailRoot.showCoreHighlight id
 
   deleteFactlink: (id) ->
     for fact in FactlinkJailRoot.highlightsByFactIds[id]
@@ -35,4 +35,4 @@ FactlinkJailRoot.annotatedSiteReceiver =
 
     FactlinkJailRoot.trigger 'modalClosed'
     FactlinkJailRoot.$sidebarFrame.removeClass 'factlink-sidebar-frame-visible'
-    FactlinkJailRoot.trigger 'highlightFactlinkId', null
+    FactlinkJailRoot.showCoreHighlight null
