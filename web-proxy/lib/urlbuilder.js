@@ -20,5 +20,4 @@ function create_url(base, query) {
   return url;
 }
 
-exports.search_redir_url = search_redir_url;
 exports.create_url = create_url;
