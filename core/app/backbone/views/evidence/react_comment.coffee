@@ -22,9 +22,9 @@ window.ReactComment = React.createBackboneClass
 
   _typeCss: ->
     switch @model().get('type')
-      when 'believes' then 'evidence-believes'
-      when 'disbelieves' then 'evidence-disbelieves'
-      when 'doubts' then 'evidence-unsure'
+      when 'believes' then 'comment-believes'
+      when 'disbelieves' then 'comment-disbelieves'
+      when 'doubts' then 'comment-unsure'
 
   _onDelete: ->
      @model().destroy wait: true
@@ -34,7 +34,7 @@ window.ReactComment = React.createBackboneClass
 
   _content: ->
     R.div
-      className:"discussion-evidenceish-content discussion-evidenceish-text",
+      className:"comment-post-content discussion-evidenceish-text",
       dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
 
   _bottom: ->
