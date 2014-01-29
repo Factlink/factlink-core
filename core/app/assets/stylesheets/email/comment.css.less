@@ -1,0 +1,79 @@
+@import "email/email_variables";
+
+#added-argument-message {
+  border-radius: 3px;
+  border: @emailBaseBorderStyling;
+  margin-bottom: 30px;
+  border-collapse: collapse;
+  height: 100%;
+  width: 100%;
+}
+
+.added-argument-message-header {
+  border-bottom: @emailBaseBorderStyling;
+  padding: 20px;
+
+  h3 {
+    line-height: 1.25em;
+  }
+}
+
+.added-argument-message-container {
+  background: @emailBackgroundColor;
+  min-height: 70px;
+  padding: 21px;
+  display: block;
+
+  .message-user-image {
+    padding-left: 20px;
+    padding-bottom: 5px
+  }
+}
+
+.added-argument-message-box {
+  width: 100%;
+}
+
+.added-argument-message-content {
+  padding: 20px;
+  background: #fff;
+  border-radius: 3px;
+  border: @emailBaseBorderStyling;
+  max-width: 700px;
+
+  .is-inactive & {
+    color: #999999;
+    font-size: 13px;
+  }
+
+  p {
+    margin-bottom: 0;
+    word-wrap: break-word;
+  }
+}
+
+.subcomment-container-padding {
+  padding-left: 5%;
+  padding-top: 20px;
+}
+
+.subcomment-container {
+  width: 100%;
+
+  .subcomment-user-name {
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
+
+.added-subcomment-message-content {
+  margin-top: 20px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 3px;
+  border: @emailBaseBorderStyling;
+
+  p {
+    margin-bottom: 0;
+  }
+}
