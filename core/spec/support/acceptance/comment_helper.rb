@@ -69,7 +69,7 @@ module Acceptance
       end
 
       def wait_until_argument_has_one_vote text
-        page.find('.evidence-argument', text: text).find('.spec-evidence-relevance', text: 1)
+        page.find('.comment-region', text: text).find('.spec-evidence-relevance', text: 1)
       end
 
       def add_sub_comment(comment)
@@ -104,7 +104,7 @@ module Acceptance
       end
 
       def vote_comment direction, comment
-        within('.evidence-argument', text: comment, visible: false) do
+        within('.comment-region', text: comment, visible: false) do
           find(".spec-evidence-vote-#{direction}").click
         end
       end

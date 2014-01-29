@@ -62,7 +62,7 @@ window.ReactComment = React.createBackboneClass
     relevant = @model().argumentTally().relevance() >= 0
 
     top_classes = [
-      'evidence-argument'
+      'comment-region'
       @_typeCss()
       'comment-irrelevant' unless relevant
     ].join(' ')
