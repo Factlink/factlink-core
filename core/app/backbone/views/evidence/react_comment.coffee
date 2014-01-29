@@ -72,4 +72,4 @@ window.ReactComment = React.createBackboneClass
         @_content()
         @_bottom()
       if @state.show_subcomments
-        ReactSubComments(model: model)
+        ReactSubComments(model: @model())
