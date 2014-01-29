@@ -24,8 +24,8 @@ window.ReactEvidenceVote = React.createBackboneClass
       'spec-evidence-vote-down'
     ].join(' ')
 
-    R.div className: 'evidence-vote',
-      R.span className:"evidence-vote-relevance spec-evidence-relevance",
+    R.div className: 'comment-vote-container',
+      R.span className:"comment-vote-amount spec-evidence-relevance",
         format_as_short_number(@model().relevance())
       if Factlink.Global.signed_in
         [
