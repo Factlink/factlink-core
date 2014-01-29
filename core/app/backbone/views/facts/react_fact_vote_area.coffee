@@ -39,6 +39,7 @@ FactVoteButton = React.createBackboneClass
     _div ["fact-vote-button"],
       if Factlink.Global.signed_in
         _button ["button fact-vote-button-#{@props.type}",
+                 "spec-button-#{@props.type}",
                  'fact-vote-button-active' if is_opinion,
                  onClick: @_onClick],
            _i ["icon-thumbs-#{@_direction()}"]
