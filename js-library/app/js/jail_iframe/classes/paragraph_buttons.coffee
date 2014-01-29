@@ -58,6 +58,6 @@ class ParagraphButtons
     @_addParagraphButtonsBatch @_paragraphElements()
     FactlinkJailRoot.perf.add_timing_event 'paragraph buttons added'
 
-FactlinkJailRoot.core_loaded_promise.then ->
+FactlinkJailRoot.host_ready_promise.then ->
   paragraphButtons = new ParagraphButtons
   paragraphButtons.addParagraphButtons()

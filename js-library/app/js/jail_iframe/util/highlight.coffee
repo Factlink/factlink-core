@@ -84,8 +84,6 @@ FactlinkJailRoot.highlightFact = (text, id) ->
       console.error "Could not highlight, empty factlink or complete overlap? Text: <#{text}>"
 
 highlightFacts = (facts_data) ->
-
-
   # If there are multiple matches on the page, loop through them all
   for fact_data in facts_data
     FactlinkJailRoot.highlightFact(fact_data.displaystring, fact_data.id)
@@ -112,7 +110,7 @@ facts_promise = null
 
 FactlinkJailRoot.initializers.push( -> facts_promise = fetchFacts FactlinkJailRoot.siteUrl())
 
-FactlinkJailRoot.core_loaded_promise.done ->
+FactlinkJailRoot.host_ready_promise.done ->
   FactlinkJailRoot.initializeFactlinkButton()
 
   console.info "FactlinkJailRoot:", "startHighlighting"
