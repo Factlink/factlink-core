@@ -30,7 +30,7 @@
       "created_at": "<created_at>",
       "fact_title": "Fact title 1",
       "fact_url": "http://example.org/1.html",
-      "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1",
+      "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&open_id=1",
       "is_deletable": true
     }
   }

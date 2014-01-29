@@ -44,6 +44,7 @@ window.ReactComment = React.createBackboneClass
       R.ul className: "comment-bottom-actions", [
         R.li className: "comment-bottom-action",
           ReactEvidenceVote model: @model().argumentTally()
+
         if @model().can_destroy()
           R.li className: "comment-bottom-action comment-bottom-action-delete",
             ReactDeleteButton

@@ -78,14 +78,11 @@ function getServer(config) {
     });
   }
 
-  function publisherUrl(site, scroll_to, open_id) {
+  function publisherUrl(site, open_id) {
     open_id = parse_int_or_null(open_id);
-    scroll_to = parse_int_or_null(scroll_to);
 
     if (open_id !== null) {
       return site + '#factlink-open-' + open_id;
-    } else if (scroll_to !== null) {
-      return site + '#factlink-' + scroll_to;
     } else {
       return site;
     }
@@ -94,7 +91,7 @@ function getServer(config) {
   /**
    * Add base url and inject proxy.js, and return the proxied site
    */
-  function injectFactlinkJs(original_html, site, scroll_to, open_id, successFn) {
+  function injectFactlinkJs(original_html, site, open_id, successFn) {
     "use strict";
 
     if (/factlink_loader_publishers.min.js/.test(original_html)) {
@@ -105,7 +102,7 @@ function getServer(config) {
         // Redirect to publishers' sites
         // Circumvent blacklist as we assume we don't want to blacklist publishers for now, and it's faster
         // to not check.
-        var redirect_url = publisherUrl(site, scroll_to, open_id);
+        var redirect_url = publisherUrl(site, open_id);
 
         successFn('<script>window.parent.location = ' + JSON.stringify(redirect_url) + ';</script>');
         return;
@@ -136,17 +133,12 @@ function getServer(config) {
       var actions = [];
 
       open_id = parse_int_or_null(open_id) ;
-      scroll_to = parse_int_or_null(scroll_to) || open_id;
 
       if (open_id !== null) {
+        actions.push('FACTLINK.scrollTo(' + open_id + ');');
         actions.push('FACTLINK.openFactlinkModal(' + open_id + ');');
       }
 
-      if (scroll_to !== null) {
-        actions.push('FACTLINK.scrollTo(' + scroll_to + ');');
-      }
-
-      actions.push('FACTLINK.startHighlighting();');
       actions.push('FACTLINK.startAnnotating();');
       actions.push('FACTLINK.showProxyMessage();');
 
@@ -165,7 +157,7 @@ function getServer(config) {
     });
   }
 
-  function handleProxyRequest(res, url, scrollto, open_id, form_hash) {
+  function handleProxyRequest(res, url, open_id, form_hash) {
     if ( typeof url !== "string" || url.length === 0) {
       renderWelcomePage(res);
       return;
@@ -180,15 +172,15 @@ function getServer(config) {
             console.error('Rendered "Something went wrong" page because could not download page on ' + url);
             renderErrorPage(res, url);
           } else {
-            renderProxiedPage(res, site, scrollto, open_id, str);
+            renderProxiedPage(res, site, open_id, str);
           }
         });
       }
     }
   }
 
-  function renderProxiedPage(res, site, scrollto, open_id, html_in) {
-    injectFactlinkJs(html_in, site, scrollto, open_id, function(html) {
+  function renderProxiedPage(res, site, open_id, html_in) {
+    injectFactlinkJs(html_in, site, open_id, function(html) {
       res.writeHead(200, {'Content-Type': 'text/html'});
       res.write(html);
       res.end();
@@ -221,9 +213,11 @@ function getServer(config) {
    */
   function get_parse(req, res) {
     var site     = req.query.url;
-    var scrollto = req.query.scrollto;
-    var open_id  = req.query.open_id;
-    handleProxyRequest(res, site, scrollto, open_id, {});
+
+    // TODO: remove support for scrollto next time you see this!
+    var open_id  = req.query.open_id || req.query.scrollto;
+
+    handleProxyRequest(res, site, open_id, {});
   }
 
   /**

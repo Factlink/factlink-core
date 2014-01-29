@@ -1,39 +1,45 @@
-class window.EvidenceVoteView extends Backbone.Marionette.ItemView
-  className: 'evidence-vote'
-  template: 'evidence/evidence_vote'
-
-  events:
-    "click .js-up":   "_on_up_vote"
-    "click .js-down": "_on_down_vote"
-
-  ui:
-    upButton: '.js-up'
-    downButton: '.js-down'
-    relevance: '.js-relevance'
-
-  modelEvents:
-    'change': '_updateValues'
-
-  onRender: ->
-    @_updateValues()
-
-  _updateValues: ->
-    @ui.upButton.toggleClass   'evidence-vote-active', @model.get('current_user_opinion') == 'believes'
-    @ui.downButton.toggleClass 'evidence-vote-active', @model.get('current_user_opinion') == 'disbelieves'
-
-    @ui.downButton.toggleClass 'evidence-vote-inactive', @model.get('current_user_opinion') == 'believes'
-    @ui.upButton.toggleClass   'evidence-vote-inactive', @model.get('current_user_opinion') == 'disbelieves'
-
-    @ui.relevance.text format_as_short_number(@model.relevance())
-
+window.ReactEvidenceVote = React.createBackboneClass
   _on_up_vote: ->
     return unless Factlink.Global.signed_in
 
     mp_track "Factlink: Upvote evidence click"
-    @model.clickCurrentUserOpinion 'believes'
+    @model().clickCurrentUserOpinion 'believes'
 
   _on_down_vote: ->
     return unless Factlink.Global.signed_in
 
     mp_track "Factlink: Downvote evidence click"
-    @model.clickCurrentUserOpinion 'disbelieves'
+    @model().clickCurrentUserOpinion 'disbelieves'
+
+  render: ->
+    up_classes = [
+      'evidence-vote-up'
+      'evidence-active' if @model().get('current_user_opinion') == 'believes'
+      'spec-evidence-vote-up'
+    ].join(' ')
+
+    down_classes = [
+      'evidence-vote-down'
+      'evidence-active' if @model().get('current_user_opinion') == 'disbelieves'
+      'spec-evidence-vote-down'
+    ].join(' ')
+
+    R.div className: 'evidence-vote',
+      R.span className:"evidence-vote-relevance spec-evidence-relevance",
+        format_as_short_number(@model().relevance())
+      if Factlink.Global.signed_in
+        [
+          R.a
+            className: up_classes
+            href: "javascript:" if Factlink.Global.signed_in
+            onClick: @_on_up_vote
+          R.a
+            className: down_classes
+            href: "javascript:" if Factlink.Global.signed_in
+            onClick: @_on_down_vote
+        ]
+      else
+        [
+          R.span(className: up_classes)
+          R.span(className: down_classes)
+        ]
