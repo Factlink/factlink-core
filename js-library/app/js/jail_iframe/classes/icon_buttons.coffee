@@ -115,6 +115,7 @@ class FactlinkJailRoot.ParagraphButton
   destroy: ->
     @$boundingBox?.remove()
     @_robustFrameHover.destroy()
+    @_attentionSpan.destroy()
     @_robustParagraphHover?.destroy()
     @frame.destroy()
     FactlinkJailRoot.off 'updateIconButtons', @_update

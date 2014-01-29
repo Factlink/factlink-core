@@ -112,10 +112,7 @@ facts_promise = null
 
 FactlinkJailRoot.initializers.push( -> facts_promise = fetchFacts FactlinkJailRoot.siteUrl())
 
-highlighting = false
-FactlinkJailRoot.startHighlighting = ->
-  return if highlighting
-  highlighting = true
+FactlinkJailRoot.core_loaded_promise.done ->
   FactlinkJailRoot.initializeFactlinkButton()
 
   console.info "FactlinkJailRoot:", "startHighlighting"

@@ -1,12 +1,12 @@
 <div class="fact-vote">
 
-  <div class="fact-vote-button button-believes">
+  <div class="fact-vote-button ">
     {{#global.signed_in}}
-      <button class="button vote-column-believes-button js-button-believes"><i class="icon-thumbs-up"></i></button>
+      <button class="button fact-vote-button-believes js-button-believes"><i class="icon-thumbs-up"></i></button>
     {{/global.signed_in}}
 
     {{^global.signed_in}}
-      <span class="vote-table-cell-text-believes"><i class="icon-thumbs-up"></i></span>
+      <span class="fact-vote-indicator"><i class="icon-thumbs-up"></i></span>
     {{/global.signed_in}}
   </div>
 
@@ -29,11 +29,11 @@
 
   <div class="fact-vote-button button-disbelieves">
     {{#global.signed_in}}
-      <button class="button vote-column-disbelieves-button js-button-disbelieves"><i class="icon-thumbs-down"></i></button>
+      <button class="button fact-vote-button-disbelieves js-button-disbelieves"><i class="icon-thumbs-down"></i></button>
     {{/global.signed_in}}
 
     {{^global.signed_in}}
-      <span class="vote-table-cell-text-disbelieves"><i class="icon-thumbs-down"></i></span>
+      <span class="fact-vote-indicator"><i class="icon-thumbs-down"></i></span>
     {{/global.signed_in}}
   </div>
 </div>

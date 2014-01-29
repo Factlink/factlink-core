@@ -32,16 +32,3 @@ FactlinkJailRoot.annotatedSiteReceiver =
 
     FactlinkJailRoot.trigger 'modalClosed'
     FactlinkJailRoot.$sidebarFrame.removeClass 'factlink-sidebar-frame-visible'
-
-  # For compatibility, please remove the next time you see this
-  closeModal_noAction: ->
-    @closeModal()
-
-  # For compatibility, please remove the next time you see this
-  closeModal_highlightNewFactlink: (displaystring, id) ->
-    @highlightNewFactlink(displaystring, id)
-    @closeModal()
-
-  # For compatibility, please remove the next time you see this
-  closeModal_deleteFactlink: (id) ->
-    @deleteFactlink(id)
