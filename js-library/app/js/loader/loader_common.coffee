@@ -69,6 +69,8 @@ window.FACTLINK_START_LOADER = ->
     root.perf.add_timing_event 'after_jail'
 
 
+    root.initializers.forEach( (f) -> f())
+
     root.core_loaded_promise
     .then( ->
         root.perf.add_timing_event 'core_loaded'
