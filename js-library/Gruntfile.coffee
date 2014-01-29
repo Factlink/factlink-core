@@ -133,8 +133,8 @@ module.exports = (grunt) ->
         files:
           'build/factlink.start_annotating.min.js':   ['build/factlink.start_annotating.js']
           'build/factlink.stop_annotating.min.js':    ['build/factlink.stop_annotating.js']
-          'build/factlink.start_highlighting.min.js': ['build/factlink.start_highlighting.js'] #Obsolete!
-          'build/factlink.stop_highlighting.min.js':  ['build/factlink.stop_highlighting.js'] #Obsolete!
+          'build/factlink.start_highlighting.min.js': ['build/factlink.start_highlighting.js'] #Obsolete; remove 2014-04-01
+          'build/factlink.stop_highlighting.min.js':  ['build/factlink.stop_highlighting.js'] #Obsolete; remove 2014-04-01
           'build/factlink_loader_basic.min.js':       ['build/factlink_loader_basic.js']
           'build/factlink_loader_publishers.min.js':  ['build/factlink_loader_publishers.js']
           'build/factlink_loader_bookmarklet.min.js': ['build/factlink_loader_bookmarklet.js']
