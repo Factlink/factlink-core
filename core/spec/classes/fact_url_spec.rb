@@ -44,17 +44,6 @@ describe FactUrl do
     end
   end
 
-  describe '.proxy_scroll_url' do
-    it 'returns the correct url' do
-      fact = double id: '3', site_url: 'http://sciencedaily.com'
-
-      fact_url = FactUrl.new fact
-
-      expect(fact_url.proxy_scroll_url)
-        .to eq 'http://proxy.com/?url=http%3A%2F%2Fsciencedaily.com&scrollto=3'
-    end
-  end
-
   describe '.proxy_open_url' do
     it 'returns the correct url' do
       fact = double id: '3', site_url: 'http://sciencedaily.com'
