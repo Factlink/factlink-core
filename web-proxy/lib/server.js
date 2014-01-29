@@ -28,12 +28,7 @@ function getServer(config) {
   /**
    *  Routes and request handling
    */
-  server.get('/',       render_page('index'));
-  server.get('/header', render_page('header'));
-  server.get('/unsupported', render_page('index', config.PROXY_URL + "/inner_unsupported"));
-  server.get('/inner_unsupported', render_page('inner_unsupported'));
-  server.get('/search', get_search);
-  server.get('/parse',  get_parse);
+  server.get('/', get_parse);
   server.get('/submit', get_submit);
   server.get('/delayed_javascript', function(req, res) {
     setTimeout(function(){
@@ -216,43 +211,9 @@ function getServer(config) {
       layout:false,
       locals: {
         proxy_url:      config.PROXY_URL,
-        core_url:       config.API_URL,
-        static_url:     config.STATIC_URL
+        core_url:       config.API_URL
       }
     });
-  }
-
-  /**
-   *  Render a jade template
-   */
-  function render_page(pagename, page_url) {
-    return function(req, res) {
-      var header_url  = urlbuilder.create_url(config.PROXY_URL + "/header", req.query);
-      var parse_url   = page_url || urlbuilder.create_url(config.PROXY_URL + "/parse", req.query);
-      res.render(pagename, {
-        layout: false,
-        locals: {
-          static_url: config.STATIC_URL,
-          proxy_url: config.PROXY_URL,
-          core_url: config.API_URL,
-          page_url: req.query.url,
-          clean_page_url: urlvalidation.clean_url(req.query.url),
-          factlinkModus: req.query.factlinkModus,
-          header_url: header_url,
-          parse_url: parse_url
-        }
-      });
-    };
-  }
-
-  /**
-   *  Search on Factlink enabled Google
-   */
-  function get_search(req, res) {
-    var query             = req.query.query;
-    var search_redir_url  = urlbuilder.search_redir_url(config.PROXY_URL, query, req.query.factlinkModus);
-
-    res.redirect(search_redir_url);
   }
 
   /**
