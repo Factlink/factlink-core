@@ -10,4 +10,3 @@ window.ReactOpinionHelp = React.createClass
           R.i className: "icon-facebook"
         R.a href: "/users/sign_in_or_up", className: "js-accounts-popup-link",
           "or sign in/up with email."
-      R.div className: "opinion-help-arrow"
