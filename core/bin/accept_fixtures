@@ -1,5 +1,0 @@
-#!/bin/bash
-cd fixtures/approvals
-ls *.received.* \
-  | perl -pe 's/(.*)received(.*)/$1received$2 $1approved$2/' \
-  | xargs -n2 mv
