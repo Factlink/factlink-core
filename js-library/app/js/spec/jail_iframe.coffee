@@ -1,23 +1,33 @@
 describe '$.distinctDescendants', ->
   it "doesn't filter siblings", ->
-    html = """
+    $div = $ """
       <div>
         <div class="element"></div>
         <div class="element"></div>
       </div>
     """
-    $elements = $(html).find('.element')
-
-    expect($elements.distinctDescendants().length).to.equal 2
+    expect($div.find('.element').distinctDescendants().length).to.equal 2
 
   it "filters parents", ->
-    html = """
+    $div = $ """
       <div>
+        <div class="element">
+          <div class="element"></div>
+        </div>
         <div class="element">
           <div class="element"></div>
         </div>
       </div>
     """
-    $elements = $(html).find('.element')
+    expect($div.find('.element').distinctDescendants().length).to.equal 2
 
-    expect($elements.distinctDescendants().length).to.equal 1
+  it "works when an earlier parent is selected a second time", ->
+    $div = $ """
+      <div>
+        <div class="element2">
+          <div class="element1"></div>
+        </div>
+      </div>
+    """
+    expect($div.find('.element1').distinctDescendants().length).to.equal 1
+    expect($div.find('.element2').distinctDescendants().length).to.equal 1

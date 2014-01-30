@@ -205,10 +205,10 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'jail_iframe', []
   grunt.registerTask 'compile',  [
-    'clean', 'copy:build',  'copy:extension_events', 'coffee','copy:postFactlinkObject',
+    'clean', 'copy:build',  'copy:extension_events', 'coffee', 'copy:postFactlinkObject',
     'sass', 'cssUrlEmbed', 'cssmin',
-    'concat', 'uglify', 'code_inliner',
-    'shell:gzip_js_files', 'copy:dist', 'mocha'
+    'concat', 'mocha', 'uglify', 'code_inliner',
+    'shell:gzip_js_files', 'copy:dist'
   ]
 
   grunt.registerTask 'default', ['compile']

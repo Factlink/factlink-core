@@ -1,4 +1,4 @@
-ReactCommentHeading = React.createBackboneClass
+React.defineBackboneClass('ReactCommentHeading')
   render: ->
     R.div className: 'comment-post-heading',
       R.span className:"heading-avatar",
@@ -7,7 +7,7 @@ ReactCommentHeading = React.createBackboneClass
           className:"heading-avatar-image"
       R.a
         href: @model().creator().link()
-        className:"comment-creator-name popover-link"
+        className:"comment-creator-name"
         rel: "backbone"
         @model().creator().get('name')
       R.span className:"comment-bottom-action comment-post-time",
@@ -21,6 +21,8 @@ window.ReactComment = React.createBackboneClass
     show_subcomments: false
 
   _typeCss: ->
+    return 'comment-unsure' unless Factlink.Global.can_haz.opinions_of_users_and_comments
+
     switch @model().get('type')
       when 'believes' then 'comment-believes'
       when 'disbelieves' then 'comment-disbelieves'
@@ -34,23 +36,20 @@ window.ReactComment = React.createBackboneClass
 
   _content: ->
     R.div
-      className:"comment-post-content discussion-evidenceish-text",
+      className:"comment-post-content spec-comment-content",
       dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
 
   _bottom: ->
     sub_comment_count = @model().get('sub_comments_count')
 
-    R.div className: 'comment-bottom',
+    R.div className: 'comment-post-bottom',
       R.ul className: "comment-bottom-actions", [
-        R.li className: "comment-bottom-action",
-          ReactEvidenceVote model: @model().argumentTally()
-
         if @model().can_destroy()
           R.li className: "comment-bottom-action comment-bottom-action-delete",
             ReactDeleteButton
               model: @model()
               onDelete: @_onDelete
-        R.li className:"comment-bottom-action",
+        R.li className:"comment-reply",
           R.a
             className:"spec-sub-comments-link"
             href:"javascript:"
@@ -62,15 +61,18 @@ window.ReactComment = React.createBackboneClass
     relevant = @model().argumentTally().relevance() >= 0
 
     top_classes = [
-      'evidence-argument'
+      'comment-region'
       @_typeCss()
-      'evidence-irrelevant' unless relevant
+      'comment-irrelevant' unless relevant
     ].join(' ')
 
     R.div className: top_classes,
       R.div className:"comment-container spec-evidence-box",
-        ReactCommentHeading(model: @model())
-        @_content()
-        @_bottom()
-      if @state.show_subcomments
-        ReactSubComments(model: @model())
+        R.div className: "comment-votes-container",
+          ReactEvidenceVote model: @model().argumentTally()
+        R.div className: "comment-content-container",
+          ReactCommentHeading(model: @model())
+          @_content()
+          @_bottom()
+        if @state.show_subcomments
+          ReactSubComments(model: @model())

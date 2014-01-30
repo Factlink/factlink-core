@@ -6,7 +6,6 @@ json.displaystring dead_fact.displaystring
 json.id dead_fact.id
 
 json.url dead_fact.url.friendly_fact_path
-json.sharing_url dead_fact.url.sharing_url
 
 json.created_by do |j|
   json.partial! 'users/user_partial', user: dead_fact_creator

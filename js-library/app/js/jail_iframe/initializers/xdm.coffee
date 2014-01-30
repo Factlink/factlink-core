@@ -5,7 +5,8 @@ iframe.id = "factlink-sidebar-frame"
 iframe.src = "#{FactlinkConfig.api}/client/blank"
 FactlinkJailRoot.$factlinkCoreContainer[0].appendChild(iframe)
 
-FactlinkJailRoot.factlinkCoreEnvoy = FactlinkJailRoot.createSenderEnvoy iframe.contentWindow
+real_envoy =  FactlinkJailRoot.createSenderEnvoy iframe.contentWindow
+FactlinkJailRoot.factlinkCoreEnvoy = (args...) -> FactlinkJailRoot.core_loaded_promise.done -> real_envoy(args...)
 FactlinkJailRoot.perf.add_timing_event('inserted core iframe')
 FactlinkJailRoot.openFactlinkModal = (id) -> FactlinkJailRoot.factlinkCoreEnvoy 'showFactlink', id
 

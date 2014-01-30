@@ -2,27 +2,27 @@
 <html>
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" href="mocha.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="mocha.css" type="text/css" />
 </head>
 <body>
     <!-- Required for browser reporter -->
     <div id="mocha"></div>
 
     <!-- mocha -->
-    <script src="mocha.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript" charset="utf-8">
+    <script src="mocha.js"></script>
+    <script>
         // This will be overridden by mocha-helper if you run with grunt
         mocha.setup('bdd');
     </script>
 
     <!-- Include your assertion lib of choice -->
-    <script src="chai.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript" charset="utf-8">
+    <script src="chai.js"></script>
+    <script>
         // Setup chai
         window.expect = chai.expect;
     </script>
 
-    <script type="text/javascript" charset="utf-8">
+    <script>
       window.FactlinkConfig = {}
       window.FrameCss = ''
     </script>
@@ -31,19 +31,18 @@
     <div id="factlink-containment-wrapper"></div>
 
     <!-- Include anything you want to test -->
-    <script src="../build/jail_iframe.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../build/jail_iframe.js"></script>
 
     <!-- Spec files -->
-    <script src="../build/js/spec/jail_iframe.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../build/js/spec/jail_iframe.js"></script>
 
     <!-- run mocha -->
-    <script type="text/javascript" charset="utf-8">
-        // If tests run in a real browser
-        // Can alternatively do a check on window.PHANTOMJS
-        if (navigator.userAgent.indexOf('PhantomJS') < 0) {
-            mocha
-                .run();
-        }
+    <script>
+      // If tests run in a real browser
+      // Can alternatively do a check on window.PHANTOMJS
+      if (navigator.userAgent.indexOf('PhantomJS') < 0) {
+          mocha.run();
+      }
     </script>
 </body>
 </html>

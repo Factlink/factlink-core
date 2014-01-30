@@ -20,8 +20,7 @@ test:
     - bundle exec rake konacha:load_poltergeist konacha:run
     - cd ~/factlink/js-library; grunt
     - cd ~/factlink/web-proxy; node_modules/expresso/bin/expresso -b
-    - bundle exec rspec spec/acceptance --profile
-    - bundle exec rspec spec/screenshots --profile
+    - bundle exec rspec spec/acceptance spec/screenshots --profile
     - bundle exec brakeman --except SessionSettings -q -z
     - bin/check_assets_updated.sh
     - bundle exec rails_best_practices --silent
