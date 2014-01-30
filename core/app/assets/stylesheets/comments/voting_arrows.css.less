@@ -17,12 +17,11 @@
   border-radius: 4px;
   margin: 10px 0px 10px 10px;
   text-align: center;
-  transition: 1s ease;
+  transition: 0.5s ease;
   &:hover{
-    .block-box-shadow();
+    background: @grayLighter;
   }
 }
-
 
 .comment-vote-amount {
   min-width: 25px;
@@ -37,19 +36,14 @@
   display: inline-block;
   height: @arrowHeight;
   width:  @voteButtonWidth;
-  opacity: 0.2;
+  color: @grayLight;
   &.evidence-active {
-    opacity: 0.8;
+    color: @blue;
+    &:hover{
+      color: darken(@blue, 10%)
+    }
   }
   &:hover {
-    opacity: 1.0;
+    color: @gray;
   }
-}
-
-.comment-vote-up {
-
-}
-
-.comment-vote-down {
-
 }
