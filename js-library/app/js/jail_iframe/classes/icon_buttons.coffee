@@ -65,8 +65,8 @@ class FactlinkJailRoot.ShowButton
     left = Math.min left, $(window).width() - @frame.$el.outerWidth()
 
     @frame.setOffset
-      top: @$highlightElements.first().offset().top
-      left: left
+      top: @$highlightElements.first().offset().top - 5
+      left: left - 5
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()
@@ -137,8 +137,8 @@ class FactlinkJailRoot.ParagraphButton
     contentBox = FactlinkJailRoot.contentBox(@$paragraph[0])
 
     @frame.setOffset
-      top: contentBox.top
-      left: contentBox.left + contentBox.width
+      top: contentBox.top - 5
+      left: contentBox.left + contentBox.width - 5
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()
