@@ -22,6 +22,9 @@ class window.AddCommentView extends Backbone.Marionette.Layout
       onSubmit: =>
         @addComment()
       defaultValue: @_textModel().get('text')
+      onFocus: =>
+        @$('.add-comment-posting-controls').show()
+        @options.onFocus?()
     @_textAreaView = new ReactView
       component: @_textAreaComponent
 

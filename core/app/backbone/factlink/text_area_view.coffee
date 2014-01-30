@@ -43,8 +43,11 @@ React.defineClass('ReactTextArea')
       e.stopPropagation()
       @props.onSubmit()
 
-  componentDidMount: ->
-    @$_textarea().autosize append: '\n\n'
+  _onFocus: ->
+    unless @_autosized
+      @_autosized = true
+      @$_textarea().autosize append: '\n\n'
+    @props.onFocus?()
 
   componentDidUpdate: ->
     @$_textarea().trigger('autosize.resize')
@@ -59,4 +62,5 @@ React.defineClass('ReactTextArea')
       ref: 'textarea'
       onChange: @_onChange
       onKeyDown: @_handleSubmit
+      onFocus: @_onFocus
       value: @state.text
