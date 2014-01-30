@@ -208,12 +208,12 @@ module.exports = (grunt) ->
     'clean', 'copy:build',  'copy:extension_events', 'coffee','copy:postFactlinkObject',
     'sass', 'cssUrlEmbed', 'cssmin',
     'concat', 'uglify', 'code_inliner',
-    'shell:gzip_js_files', 'copy:dist'
+    'shell:gzip_js_files', 'copy:dist', 'mocha'
   ]
 
   grunt.registerTask 'default', ['compile']
   grunt.registerTask 'server',  ['compile']
-  grunt.registerTask 'test',    ['compile', 'mocha']
+  grunt.registerTask 'test',    ['compile']
 
   grunt.loadNpmTasks 'grunt-contrib-sass'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
