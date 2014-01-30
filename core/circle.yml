@@ -8,15 +8,17 @@ dependencies:
   cache_directories:
     - "js-library/node_modules"
     - "js-library/vendor"
+  post:
+    - cd ../js-library; bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --clean
+    - cd ../js-library; npm install
 test:
   override:
     - rspec spec-unit --profile
     - bundle exec rspec spec --profile
     - bundle exec rake konacha:load_poltergeist konacha:run
+    - cd ../js-library; npm test
     - bundle exec rspec spec/acceptance --profile
     - bundle exec rspec spec/screenshots --profile
     - bundle exec brakeman --except SessionSettings -q -z
     - bin/check_assets_updated.sh
     - bundle exec rails_best_practices --silent
-    - cd ../js-library; bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --clean
-    - cd ../js-library; npm install; npm test
