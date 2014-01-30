@@ -17,6 +17,12 @@
   .block-box-shadow();
 }
 
+.comment-content-container {
+  display: table-cell;
+  width: 100%;
+  padding: 10px 20px 10px 10px;
+}
+
 .comment-believes > .comment-container {
   border-left: @impactColouredBorderWidth solid @believesEvidenceImpactColor;
 }
@@ -30,7 +36,7 @@
 }
 
 .comment-post-heading {
-  padding: @commentPadding @commentPadding 0px;
+  margin-bottom: 10px;
 }
 
 .comment-post-time {
@@ -45,30 +51,23 @@
   .ellipsis(200px);
 }
 
-
 .comment-post-content {
   word-wrap: break-word;
-  padding: 10px @commentPadding;
-}
-
-.comment-reply {
-  float: right;
 }
 
 .comment-content {
-  word-wrap: break-word;
   padding: 10px @commentPadding
 }
 
-.comment-bottom {
+.comment-post-bottom {
   box-shadow: 0px -1px @mutedBorderBottomColor, 0px -2px @mutedBorderTopColor;
-  margin: 0 @commentPadding;
-  padding: 5px 0;
   color: @mutedFontColor;
   font-size: @metaFontSize;
   white-space: nowrap;
   position: relative;
   overflow: hidden;
+  margin-top: 10px;
+  padding: 5px 0px 0px;
 }
 
 .comment-bottom-actions {

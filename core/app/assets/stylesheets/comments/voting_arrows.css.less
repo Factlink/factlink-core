@@ -9,9 +9,18 @@
   width: 10px;
 }
 
-.comment-vote-container {
-  background: @grayLighter;
+.comment-votes-container {
+  display: table-cell;
+}
+
+.comment-votes {
   border-radius: 4px;
+  margin: 10px 0px 10px 10px;
+  text-align: center;
+  transition: 1s ease;
+  &:hover{
+    .block-box-shadow();
+  }
 }
 
 
