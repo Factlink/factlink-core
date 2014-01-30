@@ -1,6 +1,7 @@
-require 'screenshot_helper'
+require 'acceptance_helper'
 
 describe "factlink", type: :feature, driver: :poltergeist_slow do
+  include ScreenshotTest
   include Acceptance::FactHelper
 
   before do

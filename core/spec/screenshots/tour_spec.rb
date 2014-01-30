@@ -1,6 +1,7 @@
-require 'screenshot_helper'
+require 'acceptance_helper'
 
 describe "Check the tour", type: :feature, driver: :poltergeist_slow do
+  include ScreenshotTest
   include PavlovSupport
 
   before do

@@ -1,6 +1,8 @@
-require 'screenshot_helper'
+require 'acceptance_helper'
 
 describe "Static pages:", type: :feature, driver: :poltergeist_slow do
+  include ScreenshotTest
+
   describe "Homepage" do
     it "with open feedback as expected" do
       visit "/"
