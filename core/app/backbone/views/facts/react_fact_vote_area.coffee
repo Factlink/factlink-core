@@ -77,8 +77,6 @@ FactVoteStatsTable = React.createBackboneClass
               disbelieves: votes.disbelieves
           _td ["fact-vote-amount-disbelieves"], votes.disbelieves
 
-
-
 window.ReactVoteArea = React.createBackboneClass
   _voting: ->
     _div className: 'fact-vote',
