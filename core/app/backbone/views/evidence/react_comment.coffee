@@ -34,13 +34,13 @@ window.ReactComment = React.createBackboneClass
 
   _content: ->
     R.div
-      className:"comment-content",
+      className:"comment-post-content",
       dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
 
   _bottom: ->
     sub_comment_count = @model().get('sub_comments_count')
 
-    R.div className: 'comment-bottom',
+    R.div className: 'comment-post-bottom',
       R.ul className: "comment-bottom-actions", [
         R.li className: "comment-bottom-action",
           ReactEvidenceVote model: @model().argumentTally()
