@@ -25,8 +25,8 @@ window.ReactEvidenceVote = React.createBackboneClass
     ].join(' ')
 
     comment_votes_amount =
-        R.span className:"comment-vote-amount spec-evidence-relevance",
-          format_as_short_number(@model().relevance())
+      R.span className:"comment-vote-amount spec-evidence-relevance",
+        format_as_short_number(@model().relevance())
 
     if Factlink.Global.signed_in
       R.div className: 'comment-votes',
