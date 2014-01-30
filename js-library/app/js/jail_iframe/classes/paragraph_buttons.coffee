@@ -47,7 +47,7 @@ class ParagraphButtons
     selector = @_articleContainerSelector() || @_defaultSelector()
     console.info 'FactlinkJailRoot: Paragraph selector:', selector
 
-    $(selector).filter(':visible')
+    $(selector).distinctDescendants().filter(':visible')
 
   addParagraphButtons: ->
     for paragraphButton in @_paragraphButtons

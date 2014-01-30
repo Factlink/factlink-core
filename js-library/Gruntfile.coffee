@@ -163,6 +163,11 @@ module.exports = (grunt) ->
     watch:
       files: ['app/**/*', 'Gruntfile.coffee']
       tasks: ['default']
+    mocha:
+      test:
+        src: ['tests/**/*.html']
+        options:
+          run: true
 
   grunt.task.registerTask 'code_inliner', 'Inline code from one file into another',  ->
     min_filename = (filename) -> filename.replace(/\.\w+$/,'.min$&')
@@ -200,9 +205,9 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'jail_iframe', []
   grunt.registerTask 'compile',  [
-    'clean', 'copy:build',  'copy:extension_events', 'coffee','copy:postFactlinkObject',
+    'clean', 'copy:build',  'copy:extension_events', 'coffee', 'copy:postFactlinkObject',
     'sass', 'cssUrlEmbed', 'cssmin',
-    'concat', 'uglify', 'code_inliner',
+    'concat', 'mocha', 'uglify', 'code_inliner',
     'shell:gzip_js_files', 'copy:dist'
   ]
 
@@ -219,3 +224,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-css-url-embed'
   grunt.loadNpmTasks 'grunt-shell'
+  grunt.loadNpmTasks 'grunt-mocha'
