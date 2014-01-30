@@ -42,10 +42,10 @@ FactVoteButton = React.createBackboneClass
                  "spec-button-#{@props.type}",
                  'fact-vote-button-active' if is_opinion,
                  onClick: @_onClick],
-           _i ["icon-thumbs-#{@_direction()}"]
+           _i ["icon-thumbs-#{@props.type}"]
       else
         _span ["fact-vote-indicator"],
-          _i ["icon-thumbs-#{@_direction()}"]
+          _i ["icon-thumbs-#{@props.type}"]
 
 
 FactVoteAmountGraph = React.createClass
