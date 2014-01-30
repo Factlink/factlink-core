@@ -8,6 +8,7 @@
   .icon-comment {
     text-shadow: -1px -1px 1.5px white, 1px -1px 1.5px white, -1px 1px 1.5px white, 1px 1px 1.5px white;
   }
+  //we need to reserve some space around the icons so the text-shadow doesn't get cut off.
   margin:5px; //keep in sync with icon_buttons.coffee
   position:relative;
 }
