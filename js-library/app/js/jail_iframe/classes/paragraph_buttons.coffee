@@ -41,11 +41,11 @@ class ParagraphButtons
       'div#page', 'div.page', 'div#site', 'div.site'
     ]
 
-    for s in selectors
-      $element = $(s)
+    for selector in selectors
+      $element = $(selector)
       # Only match if selector is unique
       if $element.length == 1 && $element.is(':visible')
-        return @_prefixedParagraphSelectors(s).join(',')
+        return @_prefixedParagraphSelectors(selector).join(',')
 
     null
 
