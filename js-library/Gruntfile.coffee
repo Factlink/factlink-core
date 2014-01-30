@@ -163,6 +163,11 @@ module.exports = (grunt) ->
     watch:
       files: ['app/**/*', 'Gruntfile.coffee']
       tasks: ['default']
+    mocha:
+      test:
+        src: ['tests/**/*.html']
+        options:
+          run: true
 
   grunt.task.registerTask 'code_inliner', 'Inline code from one file into another',  ->
     min_filename = (filename) -> filename.replace(/\.\w+$/,'.min$&')
@@ -208,6 +213,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'default', ['compile']
   grunt.registerTask 'server',  ['compile']
+  grunt.registerTask 'test',    ['compile', 'mocha']
 
   grunt.loadNpmTasks 'grunt-contrib-sass'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
@@ -219,3 +225,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-css-url-embed'
   grunt.loadNpmTasks 'grunt-shell'
+  grunt.loadNpmTasks 'grunt-mocha'
