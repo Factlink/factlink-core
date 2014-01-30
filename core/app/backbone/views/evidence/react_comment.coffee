@@ -4,7 +4,7 @@ React.defineBackboneClass('ReactCommentHeading')
       R.span className:"heading-avatar",
         R.img
           src: @model().creator().avatar_url(32)
-          className:"heading-avatar-image"
+          className:"avatar-image"
       R.a
         href: @model().creator().link()
         className:"comment-creator-name"
