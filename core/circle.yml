@@ -7,6 +7,7 @@ database:
 test:
   override:
     - rspec spec-unit --profile
+    - cd ../js-library; bundle install; npm install; npm test
     - bundle exec rspec spec --profile
     - bundle exec rake konacha:load_poltergeist konacha:run
     - bundle exec rspec spec/acceptance --profile
