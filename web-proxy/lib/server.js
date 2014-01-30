@@ -15,7 +15,6 @@ function getServer(config) {
   });
 
   var urlvalidation = require('./urlvalidation');
-  var urlbuilder    = require('./urlbuilder');
 
   /**
    *  Use Jade as templating engine
