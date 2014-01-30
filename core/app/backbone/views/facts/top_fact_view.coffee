@@ -19,7 +19,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
     @userHeadingRegion.show new TopFactHeadingLinkView model: @model
 
     @deleteRegion.show @_deleteButtonView() if @model.can_destroy()
-    if Factlink.Global.can_haz.show_opinionating_region
+    if Factlink.Global.can_haz.opinions_of_users_and_comments
       @factVoteTableRegion.show new ReactView
         component: ReactVoteArea
           model: @model

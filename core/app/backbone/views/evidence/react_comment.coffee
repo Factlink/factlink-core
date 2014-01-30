@@ -21,6 +21,8 @@ window.ReactComment = React.createBackboneClass
     show_subcomments: false
 
   _typeCss: ->
+    return 'comment-unsure' unless Factlink.Global.can_haz.opinions_of_users_and_comments
+
     switch @model().get('type')
       when 'believes' then 'comment-believes'
       when 'disbelieves' then 'comment-disbelieves'

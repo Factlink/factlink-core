@@ -130,7 +130,7 @@ class Ability
     debug_bounding_boxes
     paragraph_icons
     log_jslib_loading_performance
-    show_opinionating_region
+    opinions_of_users_and_comments
   )
 
   def enabled_global_features
