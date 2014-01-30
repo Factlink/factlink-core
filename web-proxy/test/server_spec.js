@@ -31,27 +31,10 @@ exports['The index should render succesful'] = function(beforeExit, assert){
       status: 200
   });
 };
-exports['The header should render'] = function(beforeExit, assert){
-  assert.response(server, {
-      url: '/header',
-      method: 'GET'
-  }, {
-      status: 200
-  });
-};
 
 exports['The proxied page should be succesful'] = function(beforeExit, assert){
   assert.response(server, {
-      url: '/parse?url=http://www.github.com',
-      method: 'GET'
-  }, {
-      status: 200
-  });
-};
-
-exports['The proxied page should be succesful'] = function(beforeExit, assert){
-  assert.response(server, {
-      url: '/parse?url=http://www.github.com',
+      url: '/?url=http://www.github.com',
       method: 'GET'
   }, {
       status: 200
@@ -60,7 +43,7 @@ exports['The proxied page should be succesful'] = function(beforeExit, assert){
 
 exports["When an empty url is given, the route should not throw an error"] = function(beforeExit, assert) {
   assert.response(server, {
-    url: '/parse?url=',
+    url: '/?url=',
     method: "GET"
   }, {
     status: 200
