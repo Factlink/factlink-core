@@ -1,11 +1,9 @@
-class EvidenceCollectionView extends Backbone.Marionette.CollectionView
-  itemView: CommentView
+window.ReactComments = React.createBackboneClass
+  render: ->
+    R.div {},
+      @model().map (comment) =>
+        ReactComment(model: comment)
 
-  # Add new evidence at the top of the list
-  appendHtml: (collectionView, itemView, index) ->
-    return super if collectionView.isBuffering
-
-    collectionView.$el.prepend itemView.el
 
 class window.EvidenceContainerView extends Backbone.Marionette.Layout
   className: 'evidence-container'
@@ -28,13 +26,15 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     if Factlink.Global.signed_in
       @_addEvidenceFormView = new AddEvidenceFormView collection: @collection
       @formRegion.show @_addEvidenceFormView
-
     else
       @opinionHelpRegion.show new ReactView
         component: ReactOpinionHelp
           collection: @collection
 
-    @collectionRegion.show new EvidenceCollectionView collection: @collection
+    @collectionRegion.show new ReactView
+      component: ReactComments
+        model: @collection
+
     @_updateLoading()
 
   _updateLoading: ->

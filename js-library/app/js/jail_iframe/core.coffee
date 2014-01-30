@@ -4,6 +4,7 @@ window.FactlinkJailRoot =
     core_loaded_promise: $.Deferred()
     host_ready_promise: $.Deferred()
     host_loaded_promise: $.Deferred()
+    jail_ready_promise: $.Deferred()
   , window.Events);
 
 # See http://stackoverflow.com/questions/3690447/override-default-jquery-selector-context

@@ -133,7 +133,7 @@ module FactlinkUI
   end
 end
 begin
-  version_file = File.new('REVISION','r')
+  version_file = File.new('GIT_REVISION','r')
   FactlinkUI::Application.config.version_number = version_file.gets.chomp
   version_file.close
 rescue

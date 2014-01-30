@@ -29,12 +29,11 @@ function getServer(config) {
    *  Routes and request handling
    */
   server.get('/', get_parse);
-  server.get('/submit', get_submit);
   server.get('/delayed_javascript', function(req, res) {
     setTimeout(function(){
       res.setHeader('Content-Type', 'application/javascript');
       res.send('console.log("loaded intentionally delayed script!");');
-    }, parseInt(req.query.delay || "3000" ));
+    }, parseInt(req.query.delay || "3000"));
   });
 
   /**
@@ -78,23 +77,20 @@ function getServer(config) {
     });
   }
 
-  function publisherUrl(site, scroll_to, open_id) {
+  function publisherUrl(site, open_id) {
     open_id = parse_int_or_null(open_id);
-    scroll_to = parse_int_or_null(scroll_to);
 
     if (open_id !== null) {
       return site + '#factlink-open-' + open_id;
-    } else if (scroll_to !== null) {
-      return site + '#factlink-' + scroll_to;
     } else {
       return site;
     }
   }
 
   /**
-   * Add base url and inject proxy.js, and return the proxied site
+   * Add base url, and return the proxied site
    */
-  function injectFactlinkJs(original_html, site, scroll_to, open_id, successFn) {
+  function injectFactlinkJs(original_html, site, open_id, successFn) {
     "use strict";
 
     if (/factlink_loader_publishers.min.js/.test(original_html)) {
@@ -105,7 +101,7 @@ function getServer(config) {
         // Redirect to publishers' sites
         // Circumvent blacklist as we assume we don't want to blacklist publishers for now, and it's faster
         // to not check.
-        var redirect_url = publisherUrl(site, scroll_to, open_id);
+        var redirect_url = publisherUrl(site, open_id);
 
         successFn('<script>window.parent.location = ' + JSON.stringify(redirect_url) + ';</script>');
         return;
@@ -136,14 +132,10 @@ function getServer(config) {
       var actions = [];
 
       open_id = parse_int_or_null(open_id) ;
-      scroll_to = parse_int_or_null(scroll_to) || open_id;
 
       if (open_id !== null) {
+        actions.push('FACTLINK.scrollTo(' + open_id + ');');
         actions.push('FACTLINK.openFactlinkModal(' + open_id + ');');
-      }
-
-      if (scroll_to !== null) {
-        actions.push('FACTLINK.scrollTo(' + scroll_to + ');');
       }
 
       actions.push('FACTLINK.startAnnotating();');
@@ -153,9 +145,7 @@ function getServer(config) {
       var loader_filename = (config.ENV === "development" ? "/factlink_loader_basic.js" : "/factlink_loader_basic.min.js");
 
       var loader_tag = '<script async defer src="' + config.LIB_URL + loader_filename + '" onload="'+actions.join('')+ '"></script>';
-      var proxy_script_tag = '<script async defer src="' + config.PROXY_URL + '/static/scripts/proxy.js?1"></script>';
-
-      var header_content = new_base_tag + inline_setup_script_tag + loader_tag + proxy_script_tag;
+      var header_content = new_base_tag + inline_setup_script_tag + loader_tag;
 
       output_html = inject_html_in_head(output_html, header_content);
       successFn(output_html);
@@ -164,7 +154,7 @@ function getServer(config) {
     });
   }
 
-  function handleProxyRequest(res, url, scrollto, open_id, form_hash) {
+  function handleProxyRequest(res, url, open_id) {
     if ( typeof url !== "string" || url.length === 0) {
       renderWelcomePage(res);
       return;
@@ -179,15 +169,15 @@ function getServer(config) {
             console.error('Rendered "Something went wrong" page because could not download page on ' + url);
             renderErrorPage(res, url);
           } else {
-            renderProxiedPage(res, site, scrollto, open_id, str);
+            renderProxiedPage(res, site, open_id, str);
           }
         });
       }
     }
   }
 
-  function renderProxiedPage(res, site, scrollto, open_id, html_in) {
-    injectFactlinkJs(html_in, site, scrollto, open_id, function(html) {
+  function renderProxiedPage(res, site, open_id, html_in) {
+    injectFactlinkJs(html_in, site, open_id, function(html) {
       res.writeHead(200, {'Content-Type': 'text/html'});
       res.write(html);
       res.end();
@@ -220,24 +210,11 @@ function getServer(config) {
    */
   function get_parse(req, res) {
     var site     = req.query.url;
-    var scrollto = req.query.scrollto;
-    var open_id  = req.query.open_id;
-    handleProxyRequest(res, site, scrollto, open_id, {});
-  }
 
-  /**
-   * Forms get posted with a hidden 'factlinkFormUrl' field,
-   * which is added by the proxy (in proxy.js). This is the 'action' URL which
-   * the form normally submits its form to.
-   */
-  function get_submit(req, res) {
-    var form_hash = req.query;
-    var site      = form_hash.factlinkFormUrl;
-    delete form_hash.factlinkFormUrl;
+    // TODO: remove support for scrollto next time you see this!
+    var open_id  = req.query.open_id || req.query.scrollto;
 
-    handleProxyRequest(res, site, undefined, undefined, {
-      'query': form_hash
-    });
+    handleProxyRequest(res, site, open_id);
   }
 
   return server;

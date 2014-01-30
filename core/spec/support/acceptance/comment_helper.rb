@@ -15,7 +15,7 @@ module Acceptance
       # the comment box
       def open_add_comment_form
         return unless all('.add-evidence-form').empty?
-        find('.js-button-believes').click
+        find('.spec-button-believes').click
         find('.add-evidence-form')
       end
 
@@ -69,7 +69,7 @@ module Acceptance
       end
 
       def wait_until_argument_has_one_vote text
-        page.find('.evidence-argument', text: text).find('.spec-evidence-relevance', text: 1)
+        page.find('.comment-region', text: text).find('.spec-evidence-relevance', text: 1)
       end
 
       def add_sub_comment(comment)
@@ -89,7 +89,7 @@ module Acceptance
 
       def assert_comment_exists comment
         within_evidence_list do
-          find('.discussion-evidenceish-text', text: comment)
+          find('.comment-content', text: comment)
         end
       end
 
@@ -104,7 +104,7 @@ module Acceptance
       end
 
       def vote_comment direction, comment
-        within('.evidence-argument', text: comment, visible: false) do
+        within('.comment-region', text: comment, visible: false) do
           find(".spec-evidence-vote-#{direction}").click
         end
       end

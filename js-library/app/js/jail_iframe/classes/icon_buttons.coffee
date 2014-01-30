@@ -1,7 +1,7 @@
 updateIconButtons = ->
   FactlinkJailRoot.trigger 'updateIconButtons'
 
-FactlinkJailRoot.core_loaded_promise.then ->
+FactlinkJailRoot.host_ready_promise.then ->
   $(window).on 'resize', updateIconButtons
   setInterval updateIconButtons, 1000
   FactlinkJailRoot.on 'factlink.factsLoaded factlinkAdded', updateIconButtons
@@ -77,6 +77,9 @@ class FactlinkJailRoot.ParagraphButton
   content: '<div class="fl-icon-button"><span class="icon-comment"></span>+</div>'
 
   constructor: (paragraphElement) ->
+    @$paragraph = $(paragraphElement)
+    return unless @_valid()
+
     @frame = new FactlinkJailRoot.ControlIframe @content
     $el = $(@frame.frameBody.firstChild)
 
@@ -92,9 +95,8 @@ class FactlinkJailRoot.ParagraphButton
       mouseleave: => @frame.removeClass 'hovered'; @_attentionSpan.loseAttention()
     $el.on 'click', @_onClick
 
-    @$paragraph = $(paragraphElement)
     FactlinkJailRoot.on 'updateIconButtons', @_update
-    @_update()
+    @_updatePosition()
 
     if FactlinkJailRoot.isTouchDevice()
       @frame.fadeIn()
@@ -142,9 +144,23 @@ class FactlinkJailRoot.ParagraphButton
       @$boundingBox?.remove()
       @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'green'
 
+  _textFromElement: (element) ->
+    selection = document.getSelection()
+    selection.removeAllRanges()
+
+    range = document.createRange()
+    range.setStart element, 0
+    range.setEndAfter element
+
+    selection.addRange(range)
+    text = selection.toString()
+    selection.removeAllRanges()
+
+    text.trim()
+
   _onClick: =>
-    text = @$paragraph.text()
-    siteTitle = window.document.title
+    text = @_textFromElement @$paragraph[0]
+    siteTitle = document.title
     siteUrl = FactlinkJailRoot.siteUrl()
 
     FactlinkJailRoot.factlinkCoreEnvoy 'prepareNewFactlink',

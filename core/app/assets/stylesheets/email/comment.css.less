@@ -21,7 +21,7 @@
 .added-argument-message-container {
   background: @emailBackgroundColor;
   min-height: 70px;
-  padding: 21px 21px 21px 21px;
+  padding: 21px;
   display: block;
 
   .message-user-image {
@@ -52,9 +52,18 @@
   }
 }
 
-.added-argument-timeline
-{
-  background: @emailBackgroundColor;
+.subcomment-container-padding {
+  padding-left: 5%;
+  padding-top: 20px;
+}
+
+.subcomment-container {
+  width: 100%;
+
+  .subcomment-user-name {
+    font-size: 14px;
+    line-height: 22px;
+  }
 }
 
 .added-subcomment-message-content {
@@ -67,29 +76,4 @@
   p {
     margin-bottom: 0;
   }
-}
-
-.subcomment-timeline {
-  border-left: 3px solid #b9bec6;
-  border-bottom: 3px solid #b9bec6;
-  width: 20px;
-  min-width: 20px;
-  height: 78px;
-}
-
-.added-argument-timeline-subcomment {
-  background: #e9eaee;
-  height: 100%;
-  width: 100%;
-  padding-top: 20px;
-
-  .user-name {
-    font-size: 14px;
-    line-height: 22px;
-  }
-}
-
-.added-subcomment-timeline-before-padding {
-  min-width: 10px;
-  width: 20px;
 }
