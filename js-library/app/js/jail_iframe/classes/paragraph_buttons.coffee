@@ -25,7 +25,8 @@ class ParagraphButtons
     setTimeout (=> @_addParagraphButtonsBatch(elementsLeft)), 200
 
   _paragraphSelectors: ->
-    ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'dd', 'dt']
+    ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'dd', 'dt',
+     '.paragraph', '.para', '.par']
 
   _prefixedParagraphSelectors: (prefix) ->
     (prefix + ' ' + selector for selector in @_paragraphSelectors())
