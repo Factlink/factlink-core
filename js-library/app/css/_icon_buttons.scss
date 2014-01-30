@@ -6,20 +6,21 @@
   transition: opacity $highlight_visibility_transition_time;
   white-space: nowrap; // TODO: remove when removing ugly '+' from add icon
   .icon-comment {
-    text-shadow: 0 0 10px white;
+    text-shadow: -1px -1px 1.5px white, 1px -1px 1.5px white, -1px 1px 1.5px white, 1px 1px 1.5px white;
   }
   margin:5px;
   position:relative;
 }
 .comment-add-plus-overlay{
   position:absolute;
-  top:0px;
+  top:1px;
   font-weight:bold;
-  font-size:90%;
+  font-size:85%;
   left:0;
-  right:1px;
+  right:0.5px;
   text-align:center;
   color:white;
+  -webkit-font-smoothing: antialiased;
 }
 
 .hovered .fl-icon-button {
