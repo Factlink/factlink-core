@@ -1,9 +1,11 @@
-window.ReactAvatar = React.createBackboneClass
+React.defineBackboneClass('ReactAvatar')
   render: ->
-    R.a href: @props.user.link(),
-      R.img src: @props.user.avatar_url(@props.size)
+    _a [href: @props.user.link()],
+      _img [ "avatar-image",
+          src: @props.user.avatar_url(@props.size)
+        ]
 
-window.ReactSubComment = React.createBackboneClass
+React.defineBackboneClass('ReactSubComment')
   render: ->
     creator = @model().creator()
 

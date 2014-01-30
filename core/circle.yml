@@ -4,13 +4,23 @@ machine:
 database:
   override:
   - cp config/mongoid.yml.ci config/mongoid.yml
+dependencies:
+  cache_directories:
+    - "~/factlink/js-library/node_modules"
+    - "~/factlink/js-library/vendor"
+    - "~/factlink/web-proxy/node_modules"
+  post:
+    - cd ~/factlink/js-library; bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --clean
+    - cd ~/factlink/js-library; npm install
+    - cd ~/factlink/web-proxy; npm install
 test:
   override:
     - rspec spec-unit --profile
     - bundle exec rspec spec --profile
     - bundle exec rake konacha:load_poltergeist konacha:run
-    - bundle exec rspec spec/acceptance --profile
-    - bundle exec rspec spec/screenshots --profile
+    - cd ~/factlink/js-library; grunt
+    - cd ~/factlink/web-proxy; node_modules/expresso/bin/expresso -b
+    - bundle exec rspec spec/acceptance spec/screenshots --profile
     - bundle exec brakeman --except SessionSettings -q -z
     - bin/check_assets_updated.sh
     - bundle exec rails_best_practices --silent

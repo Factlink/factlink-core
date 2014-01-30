@@ -1,8 +1,8 @@
 ReactOpinionatorsAvatar = React.createBackboneClass
   render: ->
     _span ['opinionators-avatar'],
-      _a ["popover-link opinionators-avatar-link"
-          href: @model().get('username')
+      _a ["opinionators-avatar-link"
+          href: @model().link()
           rel:"backbone"],
         _img ["image-24px", "opinionators-avatar-image",
               src: @model().avatar_url(24)]
@@ -76,8 +76,6 @@ FactVoteStatsTable = React.createBackboneClass
               believes: votes.believes
               disbelieves: votes.disbelieves
           _td ["fact-vote-amount-disbelieves"], votes.disbelieves
-
-
 
 window.ReactVoteArea = React.createBackboneClass
   _voting: ->

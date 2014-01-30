@@ -34,7 +34,7 @@
 
     <i>
         <script>document.write('starting delay...');</script>
-        <script src="/delayed_javascript"></script>
+        <script src="/delayed_javascript?delay=1000"></script>
         <script>document.write('finished delay!');</script>
     </i>
 
@@ -47,6 +47,6 @@
         </p>
     <p id="done" style="display:none;"><b>Done loading!</b></p>
 </article>
-<script src="/delayed_javascript?delay=6000" async onload="document.getElementById('done').style.display = 'block';"></script>
+<script src="/delayed_javascript?delay=2000" async onload="document.getElementById('done').style.display = 'block';"></script>
 </body>
 </html>

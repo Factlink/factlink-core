@@ -11,7 +11,7 @@
   },
   "#######COMMENT": "The below exact match for uglify-js 2.4.4 is because 2.4.5 isn't present on npm's servers; (eamon 2013-11-25)",
   "dependencies": {
-    "uglify-js": "=2.4.4", 
+    "uglify-js": "=2.4.4",
     "grunt": "~0.4.2",
     "grunt-contrib-sass": "~0.6.0",
     "grunt-contrib-uglify": "~0.2.7",
@@ -22,6 +22,7 @@
     "grunt-contrib-cssmin": "~0.7.0",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-css-url-embed": "~0.1.2",
-    "grunt-shell": "~0.6.1"
+    "grunt-shell": "~0.6.1",
+    "grunt-mocha": "~0.4.10"
   }
 }

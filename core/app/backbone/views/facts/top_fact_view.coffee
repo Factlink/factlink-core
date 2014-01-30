@@ -3,9 +3,6 @@ class window.TopFactView extends Backbone.Marionette.Layout
 
   template: 'facts/top_fact'
 
-  events:
-    'click .js-undo': -> @model.destroy()
-
   regions:
     deleteRegion: '.js-delete-region'
     factVoteTableRegion: '.js-fact-vote-table-region'
@@ -25,7 +22,6 @@ class window.TopFactView extends Backbone.Marionette.Layout
     new ReactView
       component: ReactDeleteButton
         model: @model,
-        text: 'Undo' if @model.justCreated()
         onDelete: ->
           @model.destroy
             wait: true
