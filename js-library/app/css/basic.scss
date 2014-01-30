@@ -6,6 +6,8 @@
 
 html[data-factlink-suppress-scrolling] {
   overflow: hidden !important;
+  width:auto;
+  max-width: none;
 }
 
 span.factlink {
