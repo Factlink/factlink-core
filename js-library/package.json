@@ -9,6 +9,7 @@
     "type": "git",
     "url": "git@github.com:Factlink/js-library.git"
   },
+  "scripts": { "test" : "grunt test" },
   "#######COMMENT": "The below exact match for uglify-js 2.4.4 is because 2.4.5 isn't present on npm's servers; (eamon 2013-11-25)",
   "dependencies": {
     "uglify-js": "=2.4.4",
