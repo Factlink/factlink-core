@@ -7,7 +7,6 @@ class window.TopFactView extends Backbone.Marionette.Layout
     'click .js-undo': -> @model.destroy()
 
   regions:
-    userHeadingRegion: '.js-user-heading-region'
     deleteRegion: '.js-delete-region'
     shareRegion: '.js-share-region'
     factVoteTableRegion: '.js-fact-vote-table-region'
@@ -16,8 +15,6 @@ class window.TopFactView extends Backbone.Marionette.Layout
     showDelete: @model.can_destroy()
 
   onRender: ->
-    @userHeadingRegion.show new TopFactHeadingLinkView model: @model
-
     @deleteRegion.show @_deleteButtonView() if @model.can_destroy()
     @factVoteTableRegion.show new FactVoteTableView model: @model
 
