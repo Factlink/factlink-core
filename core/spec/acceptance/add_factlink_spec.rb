@@ -38,6 +38,7 @@ describe "creating a Factlink", type: :feature do
 
     page.should have_content fact_name
 
+    find('.delete-button-first').click
     find('.delete-button-second').click
 
     go_to_profile_page_of @user

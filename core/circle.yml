@@ -4,11 +4,19 @@ machine:
 database:
   override:
   - cp config/mongoid.yml.ci config/mongoid.yml
+dependencies:
+  cache_directories:
+    - "~/factlink/js-library/node_modules"
+    - "~/factlink/js-library/vendor"
+  post:
+    - cd ~/factlink/js-library; bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --clean
+    - cd ~/factlink/js-library; npm install
 test:
   override:
     - rspec spec-unit --profile
     - bundle exec rspec spec --profile
     - bundle exec rake konacha:load_poltergeist konacha:run
+    - cd ~/factlink/js-library; grunt
     - bundle exec rspec spec/acceptance --profile
     - bundle exec rspec spec/screenshots --profile
     - bundle exec brakeman --except SessionSettings -q -z
