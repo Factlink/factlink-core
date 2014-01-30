@@ -22,7 +22,6 @@ class window.TopFactView extends Backbone.Marionette.Layout
     new ReactView
       component: ReactDeleteButton
         model: @model,
-        text: 'Undo' if @model.justCreated()
         onDelete: ->
           @model.destroy
             wait: true
