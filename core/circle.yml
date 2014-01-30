@@ -8,15 +8,18 @@ dependencies:
   cache_directories:
     - "~/factlink/js-library/node_modules"
     - "~/factlink/js-library/vendor"
+    - "~/factlink/web-proxy/node_modules"
   post:
     - cd ~/factlink/js-library; bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --clean
     - cd ~/factlink/js-library; npm install
+    - cd ~/factlink/web-proxy; npm install
 test:
   override:
     - rspec spec-unit --profile
     - bundle exec rspec spec --profile
     - bundle exec rake konacha:load_poltergeist konacha:run
     - cd ~/factlink/js-library; grunt
+    - cd ~/factlink/web-proxy; node_modules/expresso/bin/expresso -b
     - bundle exec rspec spec/acceptance spec/screenshots --profile
     - bundle exec brakeman --except SessionSettings -q -z
     - bin/check_assets_updated.sh
