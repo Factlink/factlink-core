@@ -99,8 +99,6 @@ function getServer(config) {
         original_html = original_html.replace(/factlink_loader_publishers.min.js/g, 'factlink_loader_publishers_DEACTIVATED.min.js');
       } else {
         // Redirect to publishers' sites
-        // Circumvent blacklist as we assume we don't want to blacklist publishers for now, and it's faster
-        // to not check.
         var redirect_url = publisherUrl(site, open_id);
 
         successFn('<script>window.parent.location = ' + JSON.stringify(redirect_url) + ';</script>');
@@ -108,50 +106,45 @@ function getServer(config) {
       }
     }
 
-    blacklist.if_allowed(site,function() {
+    var output_html = original_html;
 
-      var output_html = original_html;
+    var new_base_tag = '<base href="' + site + '" />';
 
-      var new_base_tag = '<base href="' + site + '" />';
+    var framebuster_script = 'window.self = window.top;\n\n';
 
-      var framebuster_script = 'window.self = window.top;\n\n';
+    // Inject config also at the top
+    var FactlinkConfig = {
+      api: config.API_URL,
+      lib: config.LIB_URL,
+      srcPath: config.ENV === "development" ? "/factlink.core.js" : "/factlink.core.min.js",
+      url: site
+    };
+    var factlink_config_script = 'window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + ';\n';
+    var factlink_proxy_url_script = 'window.FactlinkProxyUrl = ' + JSON.stringify(config.PROXY_URL) + ';\n';
 
-      // Inject config also at the top
-      var FactlinkConfig = {
-        api: config.API_URL,
-        lib: config.LIB_URL,
-        srcPath: config.ENV === "development" ? "/factlink.core.js" : "/factlink.core.min.js",
-        url: site
-      };
-      var factlink_config_script = 'window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + ';\n';
-      var factlink_proxy_url_script = 'window.FactlinkProxyUrl = ' + JSON.stringify(config.PROXY_URL) + ';\n';
+    var inline_setup_script_tag = '<script>' + framebuster_script +
+      factlink_config_script + factlink_proxy_url_script + '</script>';
 
-      var inline_setup_script_tag = '<script>' + framebuster_script +
-        factlink_config_script + factlink_proxy_url_script + '</script>';
+    var actions = [];
 
-      var actions = [];
+    open_id = parse_int_or_null(open_id) ;
 
-      open_id = parse_int_or_null(open_id) ;
+    if (open_id !== null) {
+      actions.push('FACTLINK.scrollTo(' + open_id + ');');
+      actions.push('FACTLINK.openFactlinkModal(' + open_id + ');');
+    }
 
-      if (open_id !== null) {
-        actions.push('FACTLINK.scrollTo(' + open_id + ');');
-        actions.push('FACTLINK.openFactlinkModal(' + open_id + ');');
-      }
+    actions.push('FACTLINK.startAnnotating();');
+    actions.push('FACTLINK.showProxyMessage();');
 
-      actions.push('FACTLINK.startAnnotating();');
-      actions.push('FACTLINK.showProxyMessage();');
+    // Inject Factlink library at the end of the file
+    var loader_filename = (config.ENV === "development" ? "/factlink_loader_basic.js" : "/factlink_loader_basic.min.js");
 
-      // Inject Factlink library at the end of the file
-      var loader_filename = (config.ENV === "development" ? "/factlink_loader_basic.js" : "/factlink_loader_basic.min.js");
+    var loader_tag = '<script async defer src="' + config.LIB_URL + loader_filename + '" onload="'+actions.join('')+ '"></script>';
+    var header_content = new_base_tag + inline_setup_script_tag + loader_tag;
 
-      var loader_tag = '<script async defer src="' + config.LIB_URL + loader_filename + '" onload="'+actions.join('')+ '"></script>';
-      var header_content = new_base_tag + inline_setup_script_tag + loader_tag;
-
-      output_html = inject_html_in_head(output_html, header_content);
-      successFn(output_html);
-    },function(){
-      successFn(original_html);
-    });
+    output_html = inject_html_in_head(output_html, header_content);
+    successFn(output_html);
   }
 
   function handleProxyRequest(res, url, open_id) {
