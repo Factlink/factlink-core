@@ -18,8 +18,18 @@
   margin: 10px 0px 10px 10px;
   text-align: center;
   transition: 0.5s ease;
-  &:hover{
+  &:hover {
     background: @grayLighter;
+  }
+}
+
+.comment-votes.disabled {
+  &:hover {
+    background: none;
+  }
+  >.comment-vote-up,
+  >.comment-vote-down {
+    color: @grayLighter;
   }
 }
 
@@ -38,7 +48,7 @@
     background: @grayLighter;
     color: @blue;
     border-radius: 5px;
-    &:hover{
+    &:hover {
       color: darken(@blue, 10%)
     }
   }
