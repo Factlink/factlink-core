@@ -14,14 +14,6 @@ production_env.NODE_ENV = 'production';
 var development_config  = require('../lib/config').get(development_env);
 var production_config   = require('../lib/config').get(production_env);
 
-/** Config */
-exports['htpasswd should NOT be set on development env'] = function(beforeExit, assert){
-  assert.isUndefined(development_config.core.htpasswd);
-};
-exports['htpasswd should be set on production env'] = function(beforeExit, assert){
-  assert.eql(production_config.core.htpasswd.username, "proxyuser");
-};
-
 /** Server */
 exports['The index should render succesful'] = function(beforeExit, assert){
   assert.response(server, {

@@ -15,15 +15,9 @@ staging:
         hostname: factlink-staging.inverselink.com
         port: 443
         protocol: https://
-        htpasswd:
-          username: proxyuser
-          password: "f;Y5irI:Is{[,[([Hx:4-JoWP#&usx-"
 
 production:
     core:
         hostname: factlink.com
         port: 443
         protocol: https://
-        htpasswd:
-          username: proxyuser
-          password: "f;Y5irI:Is{[,[([Hx:4-JoWP#&usx-"
