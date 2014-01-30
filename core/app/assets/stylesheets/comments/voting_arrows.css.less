@@ -23,6 +23,16 @@
   }
 }
 
+.comment-votes.disabled{
+  &:hover {
+    background: none;
+  }
+  >.comment-vote-up,
+  >.comment-vote-down {
+    color: @grayLighter;
+  }
+}
+
 .comment-vote-amount {
   display: inline-block;
   text-align: center;
