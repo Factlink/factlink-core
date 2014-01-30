@@ -19,30 +19,30 @@ describe "Backbone.Factlink.TextAreaView", ->
     textarea().trigger 'keydown'
 
 
-  it "shows the text", ->
+  it.skip "shows the text", ->
     expect(textarea().val()).to.equal initialText
 
-  it "updates the textarea when the model changes", ->
+  it.skip "updates the textarea when the model changes", ->
     model.set text: sampleShortText
     expect(textarea().val()).to.equal sampleShortText
 
-  it "updates the model when the textarea changes", ->
+  it.skip "updates the model when the textarea changes", ->
     textarea().val('bla - bla!')
     textarea().trigger 'keyup'
     expect(model.get('text')).to.equal 'bla - bla!'
 
-  it "is initially small and scrollbarless", ->
+  it.skip "is initially small and scrollbarless", ->
     expect(textarea().height()).to.be.below 70
     expect(textarea()[0].scrollHeight).to.equal textarea()[0].clientHeight
 
-  it "grows vertically and avoids a scrollbar when text doesn't fit", ->
+  it.skip "grows vertically and avoids a scrollbar when text doesn't fit", ->
     initialHeight = textarea().height()
     textarea().val sampleLongText
     textarea().trigger 'input'
     expect(textarea().height()).not.to.equal initialHeight
     expect(textarea()[0].scrollHeight).to.equal textarea()[0].clientHeight
 
-  it "autosizes also whe the model is updated", ->
+  it.skip "autosizes also whe the model is updated", ->
     initialHeight = textarea().height()
     model.set text: sampleLongText
     expect(textarea().height()).not.to.equal initialHeight
