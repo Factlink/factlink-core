@@ -213,7 +213,6 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'default', ['compile']
   grunt.registerTask 'server',  ['compile']
-  grunt.registerTask 'test',    ['compile']
 
   grunt.loadNpmTasks 'grunt-contrib-sass'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
