@@ -28,12 +28,6 @@ FactVoteButton = React.createBackboneClass
   _onClick: ->
     @model().clickCurrentUserOpinion @props.type
 
-  _direction: ->
-   if @props.type == 'believes'
-     'up'
-   else
-     'down'
-
   render: ->
     is_opinion = @model().opinion_for_current_user() == @props.type
     _div ["fact-vote-button"],
