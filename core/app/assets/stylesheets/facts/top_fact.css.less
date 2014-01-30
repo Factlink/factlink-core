@@ -4,47 +4,14 @@
   .block-box-shadow();
   background: white;
   position: relative;
-  margin-top: 50px;
 }
 
 .top-fact-content {
-  padding: 30px @topFactHorizontalPadding 20px;
+  padding: 20px @topFactHorizontalPadding 20px;
 }
 
 .top-fact-text {
   font-size: @topFactFontSize;
   line-height: @topFactFontSize * 1.5;
   word-break: break-word;
-}
-
-.top-fact-controls {
-  position: absolute;
-  top: -29px;
-  right: 4px;
-  display: none;
-}
-
-@media only screen and (min-width: 520px) {
-  .top-fact-controls {
-    display: block;
-  }
-}
-
-.top-fact-control {
-  &:after {
-    content: "·";
-    margin: 0 8px;
-  }
-  &:last-child:after {
-    content: "";
-    margin: 0;
-  }
-}
-
-.top-fact-delete {
-  margin-top: 2px;
-
-  &:after {
-    margin-left: 0;
-  }
 }
