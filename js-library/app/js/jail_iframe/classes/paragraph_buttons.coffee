@@ -25,8 +25,15 @@ class ParagraphButtons
     if elementsLeft.length > 0
       setTimeout (=> @_addParagraphButtonsBatch(elementsLeft)), 200
 
+  _paragraphSelectors: ->
+    ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'dd', 'dt',
+     '.paragraph', '.para', '.par']
+
+  _prefixedParagraphSelectors: (prefix) ->
+    (prefix + ' ' + selector for selector in @_paragraphSelectors())
+
   _defaultSelector: ->
-    "p, h2, h3, h4, h5, h6, li, dd, dt"
+    @_paragraphSelectors().join(',')
 
   _articleContainerSelector: ->
     selectors = [
@@ -39,7 +46,7 @@ class ParagraphButtons
       $element = $(s)
       # Only match if selector is unique
       if $element.length == 1 && $element.is(':visible')
-        return "#{s} p, #{s} h2, #{s} h3, #{s} h4, #{s} h5, #{s} h6, #{s} li, #{s} dd, #{s} dt"
+        return @_prefixedParagraphSelectors(s).join(',')
 
     null
 
