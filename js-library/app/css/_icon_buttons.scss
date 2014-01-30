@@ -8,7 +8,7 @@
   .icon-comment {
     text-shadow: -1px -1px 1.5px white, 1px -1px 1.5px white, -1px 1px 1.5px white, 1px 1px 1.5px white;
   }
-  margin:5px;
+  margin:5px; //keep in sync with icon_buttons.coffee
   position:relative;
 }
 .comment-add-plus-overlay{
