@@ -1,4 +1,4 @@
-ReactCommentHeading = React.createBackboneClass
+React.defineBackboneClass('ReactCommentHeading')
   render: ->
     R.div className: 'comment-post-heading',
       R.span className:"heading-avatar",

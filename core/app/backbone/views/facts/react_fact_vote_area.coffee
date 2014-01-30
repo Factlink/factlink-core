@@ -57,6 +57,10 @@ FactVoteAmountGraph = React.createClass
              style: {width: "#{disbelieve_percentage}%"}]
 
 FactVoteStatsTable = React.createBackboneClass
+  componentDidMount: ->
+    # react.backbone.js doesn't listen to changing models
+    @model().on 'change', => @forceUpdate()
+
   render: ->
     votes = @model().countBy (vote) -> vote.get('type')
     _.defaults votes,
