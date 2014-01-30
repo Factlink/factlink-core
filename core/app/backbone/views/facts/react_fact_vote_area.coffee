@@ -1,8 +1,8 @@
 ReactOpinionatorsAvatar = React.createBackboneClass
   render: ->
     _span ['opinionators-avatar'],
-          href: @model().get('username')
       _a ["opinionators-avatar-link"
+          href: @model().link()
           rel:"backbone"],
         _img ["image-24px", "opinionators-avatar-image",
               src: @model().avatar_url(24)]
