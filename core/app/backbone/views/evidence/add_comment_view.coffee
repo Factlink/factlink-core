@@ -1,6 +1,19 @@
+AddModelToCollectionMixin =
+  addModel: (model, options) ->
+    @options.addToCollection.unshift(model, options)
+    model.save {},
+      success: =>
+        @addModelSuccess(model) if @addModelSuccess?
+      error: =>
+        @options.addToCollection.remove(model)
+        @addModelError(model) if @addModelError?
+
+  addDefaultModel: (options) -> @addModel @model, options
+
+  addWrappedModel: -> @addModel @wrapNewModel(@model)
 
 class window.AddCommentView extends Backbone.Marionette.Layout
-  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin
+  _.extend @prototype, AddModelToCollectionMixin
 
   className: 'add-comment'
   events:

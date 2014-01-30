@@ -2,7 +2,7 @@ Backbone.Factlink ||= {}
 
 Backbone.Factlink.AddModelToCollectionMixin =
   addModel: (model, options) ->
-    @options.addToCollection.add(model, options)
+    @options.addToCollection.unshift(model, options)
     model.save {},
       success: =>
         @addModelSuccess(model) if @addModelSuccess?
