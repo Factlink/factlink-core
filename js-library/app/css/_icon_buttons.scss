@@ -5,6 +5,11 @@
   opacity: 0.4;
   transition: opacity $highlight_visibility_transition_time;
   white-space: nowrap; // TODO: remove when removing ugly '+' from add icon
+  .icon-comment {
+    text-shadow: 0 0 10px white;
+  }
+  margin:5px;
+  position:relative;
 }
 .comment-add-plus-overlay{
   position:absolute;
