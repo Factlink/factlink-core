@@ -4,7 +4,7 @@ React.defineBackboneClass('ReactCommentHeading')
       R.span className:"heading-avatar",
         R.img
           src: @model().creator().avatar_url(32)
-          className:"heading-avatar-image"
+          className:"avatar-image"
       R.a
         href: @model().creator().link()
         className:"comment-creator-name"
@@ -57,6 +57,9 @@ window.ReactComment = React.createBackboneClass
 
             "(#{sub_comment_count}) Reply"
       ]
+      if @state.show_subcomments
+        ReactSubComments(model: @model())
+
   render: ->
     relevant = @model().argumentTally().relevance() >= 0
 
@@ -74,5 +77,3 @@ window.ReactComment = React.createBackboneClass
           ReactCommentHeading(model: @model())
           @_content()
           @_bottom()
-        if @state.show_subcomments
-          ReactSubComments(model: @model())

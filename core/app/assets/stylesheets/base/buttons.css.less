@@ -27,7 +27,6 @@
   padding: 0 @largeButtonPadding;
   transition: all 0.1s;
   vertical-align: middle;
-  outline: none;
   cursor: pointer;
 
   border: none;
@@ -56,6 +55,7 @@
     background-color: @buttonDarkBackground;
     border-top: @largeButtonBorderWidth solid @buttonDarkBorder;
     border-bottom: 0px;
+    outline: none; //prevents ugly webkit active state
   }
 
   &.button-loading, &[disabled] {
