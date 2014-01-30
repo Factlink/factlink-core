@@ -1,3 +1,4 @@
+
 class window.AddCommentView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin
 
@@ -15,13 +16,19 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     shareFactSelectionRegion: '.js-share-fact-selection-region'
 
   initialize: ->
-    @_textAreaView = new Backbone.Factlink.TextAreaView model: @_textModel()
-    @listenTo @_textAreaView, 'return', @addComment
+    @_textAreaComponent = ReactTextArea
+      onChange: (text) =>
+        @_textModel().set text: text
+      onSubmit: =>
+        @addComment()
+      defaultValue: @_textModel().get('text')
+    @_textAreaView = new ReactView
+      component: @_textAreaComponent
 
-  focus: -> @_textAreaView.focusInput()
+  focus: -> @_textAreaComponent.focusInput()
 
   insert: (text) ->
-    @_textAreaView.insert text
+    @_textAreaComponent.insert text
 
   onRender: ->
     @inputRegion.show @_textAreaView
@@ -43,7 +50,9 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @addDefaultModel()
     @_shareFactlink(@model)
 
-  setFormContent: (content) -> @_textModel().set 'text', content
+  setFormContent: (content) ->
+    @_textModel().set 'text', content
+    @_textAreaComponent.updateText('')
 
   addModelSuccess: (model) ->
     @enableSubmit()

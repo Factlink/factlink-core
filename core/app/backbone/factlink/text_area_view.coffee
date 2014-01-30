@@ -1,73 +1,62 @@
-#= require jquery.autosize
+#= require jquery-autosize
 
 #we're using jquery autosize rather than jquery elastic since this works
 #even if initialized before the element is in the DOM.
 
 Backbone.Factlink ||= {}
 
-class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
-  template: 'generic/text_area'
-  events:
-    #we will init autosize not on render, but on keydown: this way the
-    #textarea remains small in its unfocused state.
-    'keydown textarea': '_parseKeyDown'
-    'keyup textarea': 'updateModel'
-    'input textarea': 'updateModel'
-    'click textarea': '_onClick'
+insertTextInto = (currentText, cursorPos, text) ->
+  textBefore = currentText.substring(0, cursorPos)
+  textAfter = currentText.substring(cursorPos, currentText.length)
 
-  triggers:
-    'focus textarea': 'focus'
-    'blur textarea': 'blur'
+  if /\S$/.test(textBefore)
+    text = ' ' + text
+  if /^\S/.test(textAfter)
+    text += ' '
+  textBefore + text + textAfter
 
-  ui:
-    inputField: 'textarea'
+React.defineClass('ReactTextArea')
+  getInitialState: ->
+    text: @props.defaultValue
 
-  templateHelpers: =>
-    placeholder: @options.placeholder
+  _onChange: (e)->
+    @updateText e.target.value
 
-  initialize: ->
-    @listenTo @model, 'change', @updateDom
-
-  onRender: -> @focusInput()
+  updateText: (text) ->
+    @setState text: text
+    @props.onChange?(text)
 
   focusInput: ->
-    _.defer => @ui.inputField.focus()
+    @refs.textarea.getDOMNode().focus()
 
-  updateModel: ->
-    @model.set text: @ui.inputField.val()
-  updateDom: ->
-    if @model.get('text') != @ui.inputField.val()
-      @ui.inputField.val(@model.get('text')).trigger('autosize')
-
-  enable: -> @ui.inputField.prop 'disabled', false
-  disable:-> @ui.inputField.prop 'disabled', true
-
-  _initAutosize: ->
-    return if @autosizeInitialized
-    @autosizeInitialized = true
-    @ui.inputField.autosize append: '\n\n'
-
-  _parseKeyDown: (e) ->
-    @_initAutosize()
-    if e.keyCode == 13 && (e.ctrlKey || e.metaKey || e.shiftKey)
-      @trigger 'return'
-      e.preventDefault()
-      e.stopPropagation()
+  $_textarea: ->
+    $(@getDOMNode())
 
   insert: (text) ->
-    cursorPos = @ui.inputField.prop('selectionStart')
-    currentText = @model.get('text')
-    textBefore = currentText.substring(0, cursorPos)
-    textAfter = currentText.substring(cursorPos, currentText.length)
+    cursorPos =  @$_textarea().prop('selectionStart')
+    @setState text: insertTextInto(@state.text, cursorPos, text), =>
+      @focusInput()
 
-    if /\S$/.test(textBefore)
-      text = ' ' + text
-    if /^\S/.test(textAfter)
-      text += ' '
+  _handleSubmit: (e)->
+    if e.keyCode == 13 && (e.ctrlKey || e.metaKey || e.shiftKey)
+      e.preventDefault()
+      e.stopPropagation()
+      @props.onSubmit()
 
-    @_initAutosize()
-    @model.set 'text', textBefore + text + textAfter
-    @focusInput()
+  componentDidMount: ->
+    @$_textarea().autosize append: '\n\n'
 
-  _onClick: ->
-    @_initAutosize() if @model.get('text')
+  componentDidUpdate: ->
+    @$_textarea().trigger('autosize.resize')
+
+  componentWillUnmount: ->
+    @$_textarea().trigger('autosize.destroy')
+
+  render: ->
+    _textarea
+      className: "text_area_view",
+      placeholder: @props.placeholder
+      ref: 'textarea'
+      onChange: @_onChange
+      onKeyDown: @_handleSubmit
+      value: @state.text
