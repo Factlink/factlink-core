@@ -1,9 +1,7 @@
-trim = (string) -> string.replace(/^\s+|\s+$/g, '');
-
 # Chrome, Firefox, Safari
 searchWithWindowFind = (searchString) ->
   # Trim
-  searchString = trim(searchString);
+  searchString = searchString.trim();
 
   # If the user currently has selected some text, store the selection
   selection = window.document.getSelection()
@@ -84,8 +82,6 @@ FactlinkJailRoot.highlightFact = (text, id) ->
       console.error "Could not highlight, empty factlink or complete overlap? Text: <#{text}>"
 
 highlightFacts = (facts_data) ->
-  FactlinkJailRoot.perf.add_timing_event 'fetchFacts:done'
-
   # If there are multiple matches on the page, loop through them all
   for fact_data in facts_data
     FactlinkJailRoot.highlightFact(fact_data.displaystring, fact_data.id)
@@ -99,24 +95,27 @@ highlightFacts = (facts_data) ->
 # Returns deferred object
 fetchFacts = (siteUrl) ->
   FactlinkJailRoot.perf.add_timing_event 'fetchFacts:start'
-
   $.ajax
-    # The URL to the FactlinkJailRoot backend
+  # The URL to the FactlinkJailRoot backend
     url: FactlinkConfig.api + "/site?url=" + encodeURIComponent(siteUrl)
     dataType: "jsonp"
     crossDomain: true
     type: "GET"
     jsonp: "callback"
-    success: highlightFacts
+    success: -> FactlinkJailRoot.perf.add_timing_event 'fetchFacts:done'
 
-FactlinkJailRoot.core_loaded_promise.done ->
+facts_promise = null
+
+FactlinkJailRoot.jail_ready_promise.done( -> facts_promise = fetchFacts FactlinkJailRoot.siteUrl())
+
+FactlinkJailRoot.host_ready_promise.done ->
   FactlinkJailRoot.initializeFactlinkButton()
 
   console.info "FactlinkJailRoot:", "startHighlighting"
-  fetchFacts FactlinkJailRoot.siteUrl()
+  facts_promise.done(highlightFacts)
 
 # Don't check for highlighting here, as this is a
 # special hacky-patchy method for in the blog
 FactlinkJailRoot.highlightAdditionalFactlinks = (siteUrl) ->
   console.info "FactlinkJailRoot:", "highlightAdditionalFactlinks"
-  fetchFacts siteUrl
+  fetchFacts(siteUrl).done(highlightFacts)

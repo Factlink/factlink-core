@@ -19,7 +19,11 @@ class window.TopFactView extends Backbone.Marionette.Layout
     @userHeadingRegion.show new TopFactHeadingLinkView model: @model
 
     @deleteRegion.show @_deleteButtonView() if @model.can_destroy()
-    @factVoteTableRegion.show new FactVoteTableView model: @model
+    if Factlink.Global.can_haz.opinions_of_users_and_comments
+      @factVoteTableRegion.show new ReactView
+        component: ReactVoteArea
+          model: @model
+      @model.getVotes().fetch()
 
     Backbone.Factlink.makeTooltipForView @,
       stayWhenHoveringTooltip: true

@@ -4,7 +4,7 @@ module Acceptance
 
     def go_to_discussion_page_of factlink
       visit friendly_fact_path factlink
-      find('.js-button-believes')
+      find('.spec-button-believes')
     end
 
     def go_to_fact_show_of factlink
@@ -25,7 +25,7 @@ module Acceptance
     end
 
     def click_agree fact, user
-      find('.js-button-believes').click
+      find('.spec-button-believes').click
 
 
       eventually_succeeds do
