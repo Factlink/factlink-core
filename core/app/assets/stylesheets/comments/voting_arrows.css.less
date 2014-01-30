@@ -24,21 +24,20 @@
 }
 
 .comment-vote-amount {
-  min-width: 25px;
   display: inline-block;
   text-align: center;
   font-weight: 600;
-  padding: 2px 5px;
+  padding: 2px;
 }
 
 .comment-vote-up,
 .comment-vote-down {
   display: inline-block;
-  height: @arrowHeight;
-  width:  @voteButtonWidth;
   color: @grayLight;
   &.evidence-active {
+    background: @grayLighter;
     color: @blue;
+    border-radius: 5px;
     &:hover{
       color: darken(@blue, 10%)
     }
