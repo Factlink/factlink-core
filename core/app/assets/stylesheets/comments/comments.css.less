@@ -2,8 +2,10 @@
 @import "bootstrap/mixins";
 
 @impactColouredBorderWidth: 3px;
-@commentPadding: 20px;
-@impactColouredBorderWidth: 3px;
+
+.add-evidence-container {
+  padding: 10px 20px
+}
 
 .comment-region {
   position: relative;
@@ -15,6 +17,12 @@
   position: relative;
   background: white;
   .block-box-shadow();
+}
+
+.comment-content-container {
+  display: table-cell;
+  width: 100%;
+  padding: 10px 20px 10px 10px;
 }
 
 .comment-believes > .comment-container {
@@ -30,7 +38,7 @@
 }
 
 .comment-post-heading {
-  padding: @commentPadding @commentPadding 0px;
+  margin-bottom: 10px;
 }
 
 .comment-post-time {
@@ -45,20 +53,19 @@
   .ellipsis(200px);
 }
 
-.comment-content {
+.comment-post-content {
   word-wrap: break-word;
-  padding: 20px @commentPadding
 }
 
-.comment-bottom {
+.comment-post-bottom {
   box-shadow: 0px -1px @mutedBorderBottomColor, 0px -2px @mutedBorderTopColor;
-  margin: 0 @commentPadding;
-  padding: 5px 0;
   color: @mutedFontColor;
   font-size: @metaFontSize;
   white-space: nowrap;
   position: relative;
   overflow: hidden;
+  margin-top: 10px;
+  padding: 5px 0px 0px;
 }
 
 .comment-bottom-actions {
