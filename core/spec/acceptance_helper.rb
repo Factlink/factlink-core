@@ -88,6 +88,10 @@ RSpec.configure do |config|
     ElasticSearch.stub synchronous: true
   end
 
+  config.before(:each) do
+    enable_global_features(:opinions_of_users_and_comments)
+  end
+
   config.after(:each) do
     TestRequestSyncer.increment_counter
     # after incrementing the counter, no new ajax requests will *start* to run.
