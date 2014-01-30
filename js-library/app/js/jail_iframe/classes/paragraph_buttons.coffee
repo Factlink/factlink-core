@@ -26,8 +26,7 @@ class ParagraphButtons
       setTimeout (=> @_addParagraphButtonsBatch(elementsLeft)), 200
 
   _paragraphSelectors: ->
-    ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'dd', 'dt',
-     '.paragraph', '.para', '.par']
+    ['p', 'li', 'dd', 'dt', '.paragraph', '.para', '.par', '.text', '.summary']
 
   _prefixedParagraphSelectors: (prefix) ->
     (prefix + ' ' + selector for selector in @_paragraphSelectors())
@@ -42,11 +41,11 @@ class ParagraphButtons
       'div#page', 'div.page', 'div#site', 'div.site'
     ]
 
-    for s in selectors
-      $element = $(s)
+    for selector in selectors
+      $element = $(selector)
       # Only match if selector is unique
       if $element.length == 1 && $element.is(':visible')
-        return @_prefixedParagraphSelectors(s).join(',')
+        return @_prefixedParagraphSelectors(selector).join(',')
 
     null
 
