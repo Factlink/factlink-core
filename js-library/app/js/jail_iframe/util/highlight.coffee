@@ -108,7 +108,7 @@ fetchFacts = (siteUrl) ->
 
 facts_promise = null
 
-FactlinkJailRoot.initializers.push( -> facts_promise = fetchFacts FactlinkJailRoot.siteUrl())
+FactlinkJailRoot.jail_ready_promise.done( -> facts_promise = fetchFacts FactlinkJailRoot.siteUrl())
 
 FactlinkJailRoot.host_ready_promise.done ->
   FactlinkJailRoot.initializeFactlinkButton()
