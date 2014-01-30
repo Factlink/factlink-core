@@ -144,9 +144,23 @@ class FactlinkJailRoot.ParagraphButton
       @$boundingBox?.remove()
       @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'green'
 
+  _textFromElement: (element) ->
+    selection = document.getSelection()
+    selection.removeAllRanges()
+
+    range = document.createRange()
+    range.setStart element, 0
+    range.setEndAfter element
+
+    selection.addRange(range)
+    text = selection.toString()
+    selection.removeAllRanges()
+
+    text.trim()
+
   _onClick: =>
-    text = @$paragraph.text()
-    siteTitle = window.document.title
+    text = @_textFromElement @$paragraph[0]
+    siteTitle = document.title
     siteUrl = FactlinkJailRoot.siteUrl()
 
     FactlinkJailRoot.factlinkCoreEnvoy 'prepareNewFactlink',
