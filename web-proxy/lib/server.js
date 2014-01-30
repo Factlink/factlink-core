@@ -15,10 +15,7 @@ function getServer(config) {
   });
 
   var urlvalidation = require('./urlvalidation');
-  var blacklist     = require('./blacklist');
   var urlbuilder    = require('./urlbuilder');
-  blacklist.set_API_URL(config.API_URL);
-  blacklist.set_API_OPTIONS(config.API_OPTIONS);
 
   /**
    *  Use Jade as templating engine
