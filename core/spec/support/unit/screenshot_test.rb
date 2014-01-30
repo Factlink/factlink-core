@@ -214,6 +214,8 @@ module ScreenshotTest
   end
 
   def assume_unchanged_screenshot(title)
+    Capybara::Screenshot.autosave_on_failure = false
+
     shot = Screenshot.new page, title
     shot.take
     t0 = Time.now
