@@ -8,11 +8,6 @@ class window.ReactView extends Backbone.View
 
 window.R = React.DOM
 
-Object.keys(React.DOM).forEach (tag)->
-  return if tag == 'injection'
-
-
-
 define_tag = (tag) ->
   return unless {}.hasOwnProperty.call(React.DOM, tag) and tag != 'injection'
 
