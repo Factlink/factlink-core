@@ -28,7 +28,6 @@ window.ReactEvidenceVote = React.createBackboneClass
         R.span className:"comment-vote-amount spec-evidence-relevance",
           format_as_short_number(@model().relevance())
 
-
     coment_voting_arrows = [
         if Factlink.Global.signed_in
           R.a
