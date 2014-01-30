@@ -205,15 +205,14 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'jail_iframe', []
   grunt.registerTask 'compile',  [
-    'clean', 'copy:build',  'copy:extension_events', 'coffee','copy:postFactlinkObject',
+    'clean', 'copy:build',  'copy:extension_events', 'coffee', 'copy:postFactlinkObject',
     'sass', 'cssUrlEmbed', 'cssmin',
-    'concat', 'uglify', 'code_inliner',
+    'concat', 'mocha', 'uglify', 'code_inliner',
     'shell:gzip_js_files', 'copy:dist'
   ]
 
   grunt.registerTask 'default', ['compile']
   grunt.registerTask 'server',  ['compile']
-  grunt.registerTask 'test',    ['compile', 'mocha']
 
   grunt.loadNpmTasks 'grunt-contrib-sass'
   grunt.loadNpmTasks 'grunt-contrib-uglify'

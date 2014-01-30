@@ -29,12 +29,11 @@ function getServer(config) {
    *  Routes and request handling
    */
   server.get('/', get_parse);
-  server.get('/submit', get_submit);
   server.get('/delayed_javascript', function(req, res) {
     setTimeout(function(){
       res.setHeader('Content-Type', 'application/javascript');
       res.send('console.log("loaded intentionally delayed script!");');
-    }, parseInt(req.query.delay || "3000" ));
+    }, parseInt(req.query.delay || "3000"));
   });
 
   /**
@@ -89,7 +88,7 @@ function getServer(config) {
   }
 
   /**
-   * Add base url and inject proxy.js, and return the proxied site
+   * Add base url, and return the proxied site
    */
   function injectFactlinkJs(original_html, site, open_id, successFn) {
     "use strict";
@@ -146,9 +145,7 @@ function getServer(config) {
       var loader_filename = (config.ENV === "development" ? "/factlink_loader_basic.js" : "/factlink_loader_basic.min.js");
 
       var loader_tag = '<script async defer src="' + config.LIB_URL + loader_filename + '" onload="'+actions.join('')+ '"></script>';
-      var proxy_script_tag = '<script async defer src="' + config.PROXY_URL + '/static/scripts/proxy.js?1"></script>';
-
-      var header_content = new_base_tag + inline_setup_script_tag + loader_tag + proxy_script_tag;
+      var header_content = new_base_tag + inline_setup_script_tag + loader_tag;
 
       output_html = inject_html_in_head(output_html, header_content);
       successFn(output_html);
@@ -157,7 +154,7 @@ function getServer(config) {
     });
   }
 
-  function handleProxyRequest(res, url, open_id, form_hash) {
+  function handleProxyRequest(res, url, open_id) {
     if ( typeof url !== "string" || url.length === 0) {
       renderWelcomePage(res);
       return;
@@ -217,22 +214,7 @@ function getServer(config) {
     // TODO: remove support for scrollto next time you see this!
     var open_id  = req.query.open_id || req.query.scrollto;
 
-    handleProxyRequest(res, site, open_id, {});
-  }
-
-  /**
-   * Forms get posted with a hidden 'factlinkFormUrl' field,
-   * which is added by the proxy (in proxy.js). This is the 'action' URL which
-   * the form normally submits its form to.
-   */
-  function get_submit(req, res) {
-    var form_hash = req.query;
-    var site      = form_hash.factlinkFormUrl;
-    delete form_hash.factlinkFormUrl;
-
-    handleProxyRequest(res, site, undefined, undefined, {
-      'query': form_hash
-    });
+    handleProxyRequest(res, site, open_id);
   }
 
   return server;

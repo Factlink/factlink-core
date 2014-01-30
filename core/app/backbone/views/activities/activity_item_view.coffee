@@ -22,8 +22,8 @@ class CreatedSubCommentView extends ActivityItemView
   template: "activities/created_sub_comment"
 
 actionToIcon =
-  believes: 'icon-thumbs-up'
-  disbelieves: 'icon-thumbs-down'
+  believes: 'icon-thumbs-believes'
+  disbelieves: 'icon-thumbs-disbelieves'
   doubts: 'icon-meh'
 
 class AddedOpinionView extends ActivityItemView

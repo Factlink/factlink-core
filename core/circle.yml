@@ -16,7 +16,7 @@ test:
     - rspec spec-unit --profile
     - bundle exec rspec spec --profile
     - bundle exec rake konacha:load_poltergeist konacha:run
-    - cd ~/factlink/js-library; npm test
+    - cd ~/factlink/js-library; grunt
     - bundle exec rspec spec/acceptance --profile
     - bundle exec rspec spec/screenshots --profile
     - bundle exec brakeman --except SessionSettings -q -z

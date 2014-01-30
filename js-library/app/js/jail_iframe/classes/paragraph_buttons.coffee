@@ -22,7 +22,8 @@ class ParagraphButtons
       @_addParagraphButton el
 
     elementsLeft = elements[10..]
-    setTimeout (=> @_addParagraphButtonsBatch(elementsLeft)), 200
+    if elementsLeft.length > 0
+      setTimeout (=> @_addParagraphButtonsBatch(elementsLeft)), 200
 
   _paragraphSelectors: ->
     ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'dd', 'dt',
@@ -56,14 +57,15 @@ class ParagraphButtons
     $(selector).distinctDescendants().filter(':visible')
 
   addParagraphButtons: ->
-    return unless FactlinkJailRoot.can_haz.paragraph_icons
-
     for paragraphButton in @_paragraphButtons
       paragraphButton.destroy()
 
     @_addParagraphButtonsBatch @_paragraphElements()
     FactlinkJailRoot.perf.add_timing_event 'paragraph buttons added'
 
-FactlinkJailRoot.core_loaded_promise.then ->
-  paragraphButtons = new ParagraphButtons
-  paragraphButtons.addParagraphButtons()
+FactlinkJailRoot.host_ready_promise
+  .then(-> FactlinkJailRoot.core_loaded_promise) #wait due to FactlinkJailRoot.can_haz.paragraph_icons
+  .then ->
+    if  FactlinkJailRoot.can_haz.paragraph_icons
+      paragraphButtons = new ParagraphButtons
+      paragraphButtons.addParagraphButtons()
