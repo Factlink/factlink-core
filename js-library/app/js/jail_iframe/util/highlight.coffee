@@ -1,9 +1,7 @@
-trim = (string) -> string.replace(/^\s+|\s+$/g, '');
-
 # Chrome, Firefox, Safari
 searchWithWindowFind = (searchString) ->
   # Trim
-  searchString = trim(searchString);
+  searchString = searchString.trim();
 
   # If the user currently has selected some text, store the selection
   selection = window.document.getSelection()
