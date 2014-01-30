@@ -46,7 +46,7 @@ class ParagraphButtons
     selector = @_articleContainerSelector() || @_defaultSelector()
     console.info 'FactlinkJailRoot: Paragraph selector:', selector
 
-    $(selector).filter(':visible')
+    $(selector).distinctDescendants().filter(':visible')
 
   addParagraphButtons: ->
     return unless FactlinkJailRoot.can_haz.paragraph_icons
