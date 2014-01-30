@@ -6,7 +6,7 @@ onexit() {
   sleep 1
   kill -9 0
 }
-cd core
+cd "$( dirname "${BASH_SOURCE[0]}" )"/core
 trap onexit SIGINT SIGTERM EXIT INT QUIT TERM
 (elasticsearch -f -Des.config=config/developmentservers/elasticsearch.yml -Des.cluster.name="elasticsearch_$(hostname)"  || kill $$)  2>&1| perl -pe "s/^/\x1b[0;31m[elasticsearch] \x1b[0m/" &
 (redis-server config/developmentservers/redis.conf  || kill $$)  2>&1| perl -pe "s/^/\x1b[0;32m[redis] \x1b[0m/" &
