@@ -1,6 +1,8 @@
 updateIconButtons = ->
   FactlinkJailRoot.trigger 'updateIconButtons'
 
+iconButtonMargin = 5 #keep in sync with _ icon_buttons.scss
+
 FactlinkJailRoot.host_ready_promise.then ->
   $(window).on 'resize', updateIconButtons
   setInterval updateIconButtons, 1000
@@ -65,8 +67,8 @@ class FactlinkJailRoot.ShowButton
     left = Math.min left, $(window).width() - @frame.$el.outerWidth()
 
     @frame.setOffset
-      top: @$highlightElements.first().offset().top
-      left: left
+      top: @$highlightElements.first().offset().top - iconButtonMargin
+      left: left - iconButtonMargin
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()
@@ -74,7 +76,7 @@ class FactlinkJailRoot.ShowButton
 
 
 class FactlinkJailRoot.ParagraphButton
-  content: '<div class="fl-icon-button"><span class="icon-comment"></span>+</div>'
+  content: '<div class="fl-icon-button"><span class="icon-comment"></span><div class="comment-add-plus-overlay">+</div></div>'
 
   constructor: (paragraphElement) ->
     @$paragraph = $(paragraphElement)
@@ -137,8 +139,8 @@ class FactlinkJailRoot.ParagraphButton
     contentBox = FactlinkJailRoot.contentBox(@$paragraph[0])
 
     @frame.setOffset
-      top: contentBox.top
-      left: contentBox.left + contentBox.width
+      top: contentBox.top - iconButtonMargin
+      left: contentBox.left + contentBox.width - iconButtonMargin
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()

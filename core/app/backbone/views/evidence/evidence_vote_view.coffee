@@ -24,24 +24,33 @@ window.ReactEvidenceVote = React.createBackboneClass
       'spec-evidence-vote-down'
     ].join(' ')
 
-    R.div className: 'comment-votes',
-      if Factlink.Global.signed_in
+    comment_votes_amount =
+      R.span className:"comment-vote-amount spec-evidence-relevance",
+        format_as_short_number(@model().relevance())
+
+    if Factlink.Global.signed_in
+      R.div className: 'comment-votes',
         R.a
           className: up_classes
           href: "javascript:"
           onClick: @_on_up_vote
           R.i className: "icon-up-open"
-      else
-        R.span(className: up_classes)
 
-      R.span className:"comment-vote-amount spec-evidence-relevance",
-        format_as_short_number(@model().relevance())
+        comment_votes_amount
 
-      if Factlink.Global.signed_in
         R.a
           className: down_classes
           href: "javascript:"
           onClick: @_on_down_vote
           R.i className: "icon-down-open"
-      else
-        R.span(className: down_classes)
+
+    else
+      R.div className: 'comment-votes disabled',
+        R.span className: up_classes,
+          R.i className: "icon-up-open"
+
+        comment_votes_amount
+
+        R.span className: down_classes,
+          R.i className: "icon-down-open"
+

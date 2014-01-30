@@ -11,7 +11,7 @@
   <tr>
     <td colspan="3" class="added-argument-message-header">
       <h3>
-        <%= link_to(friendly_fact_url(@activity.object), class: "message-title") do %>
+        <%= link_to FactUrl.new(@activity.object).proxy_open_url, class: "message-title" do %>
           <%= @activity.object.data.displaystring %>
         <% end %>
       </h3>

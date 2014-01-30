@@ -7,7 +7,7 @@ class ParagraphButtons
     $clonedEl = $(el).clone()
     $clonedEl.find('a').remove() # Strip links
 
-    textLength = $clonedEl.text().replace(/\s+/g, ' ').trim().length
+    textLength = $clonedEl.text().trim().replace(/\s\s+/g, ' ').length
     $clonedEl.remove()
 
     textLength >= 50
@@ -25,8 +25,14 @@ class ParagraphButtons
     if elementsLeft.length > 0
       setTimeout (=> @_addParagraphButtonsBatch(elementsLeft)), 200
 
+  _paragraphSelectors: ->
+    ['p', 'li', 'dd', 'dt', '.paragraph', '.para', '.par', '.text', '.summary']
+
+  _prefixedParagraphSelectors: (prefix) ->
+    (prefix + ' ' + selector for selector in @_paragraphSelectors())
+
   _defaultSelector: ->
-    "p, h2, h3, h4, h5, h6, li, dd, dt"
+    @_paragraphSelectors().join(',')
 
   _articleContainerSelector: ->
     selectors = [
@@ -35,11 +41,11 @@ class ParagraphButtons
       'div#page', 'div.page', 'div#site', 'div.site'
     ]
 
-    for s in selectors
-      $element = $(s)
+    for selector in selectors
+      $element = $(selector)
       # Only match if selector is unique
       if $element.length == 1 && $element.is(':visible')
-        return "#{s} p, #{s} h2, #{s} h3, #{s} h4, #{s} h5, #{s} h6, #{s} li, #{s} dd, #{s} dt"
+        return @_prefixedParagraphSelectors(selector).join(',')
 
     null
 

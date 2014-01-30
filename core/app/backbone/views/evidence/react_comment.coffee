@@ -7,7 +7,7 @@ React.defineBackboneClass('ReactCommentHeading')
           className:"heading-avatar-image"
       R.a
         href: @model().creator().link()
-        className:"comment-creator-name popover-link"
+        className:"comment-creator-name"
         rel: "backbone"
         @model().creator().get('name')
       R.span className:"comment-bottom-action comment-post-time",
