@@ -1,7 +1,7 @@
 updateIconButtons = ->
   FactlinkJailRoot.trigger 'updateIconButtons'
 
-FactlinkJailRoot.core_loaded_promise.then ->
+FactlinkJailRoot.host_ready_promise.then ->
   $(window).on 'resize', updateIconButtons
   setInterval updateIconButtons, 1000
   FactlinkJailRoot.on 'factlink.factsLoaded factlinkAdded', updateIconButtons
