@@ -48,6 +48,20 @@ FactVoteButton = React.createBackboneClass
           _i ["icon-thumbs-#{@_direction()}"]
 
 
+FactVoteAmountGraph = React.createClass
+  render: ->
+    vote_padding = 0.2
+    total = @props.believes + @props.disbelieves + 2*vote_padding
+    believe_percentage = Math.ceil(100 * (@props.believes + vote_padding)/ total)
+    disbelieve_percentage = 100-believe_percentage
+
+    _table ["fact-vote-amount-graph"],
+      _tr [],
+        _td ["vote-amount-graph-believers"
+             style: {width: "#{believe_percentage}%"}]
+        _td ["vote-amount-graph-disbelievers"
+             style: {width: "#{disbelieve_percentage}%"}]
+
 FactVoteStatsTable = React.createBackboneClass
   render: ->
     votes = @model().countBy (vote) -> vote.get('type')
@@ -55,42 +69,40 @@ FactVoteStatsTable = React.createBackboneClass
       believes: 0,
       disbelieves: 0
 
-    vote_padding = 0.2 # to pad the graph
-    total = votes.believes + votes.disbelieves + 2*vote_padding
-    believe_percentage = Math.ceil(100 * (votes.believes + vote_padding)/ total)
-    disbelieve_percentage = 100-believe_percentage
-
-
     _div ["fact-vote-stats"],
       _table ["fact-vote-stats-table"],
         _tr [],
           _td ["fact-vote-amount-believes"], votes.believes
           _td [],
-            _table ["fact-vote-amount-graph"],
-              _tr [],
-                _td ["vote-amount-graph-believers"
-                     style: {width: "#{believe_percentage}%"}]
-                _td ["vote-amount-graph-disbelievers"
-                     style: {width: "#{disbelieve_percentage}%"}]
+            FactVoteAmountGraph
+              believes: votes.believes
+              disbelieves: votes.disbelieves
           _td ["fact-vote-amount-disbelieves"], votes.disbelieves
 
 
+
 window.ReactVoteArea = React.createBackboneClass
+  _voting: ->
+    _div className: 'fact-vote',
+      FactVoteButton
+        model: @model().getVotes()
+        type: 'believes'
+      FactVoteStatsTable
+        model: @model().getVotes()
+      FactVoteButton
+        model: @model().getVotes()
+        type: 'disbelieves'
+
+  _voters: ->
+    _div ["fact-vote-people"],
+      ReactOpinionatorsAvatars
+        model: @model().getVotes()
+        type: 'believes'
+      ReactOpinionatorsAvatars
+        model: @model().getVotes()
+        type: 'disbelieves'
+
   render: ->
     _div ['fact-vote-area'],
-      _div className: 'fact-vote',
-        FactVoteButton
-          model: @model().getVotes()
-          type: 'believes'
-        FactVoteStatsTable
-          model: @model().getVotes()
-        FactVoteButton
-          model: @model().getVotes()
-          type: 'disbelieves'
-      _div ["fact-vote-people"],
-          ReactOpinionatorsAvatars
-            model: @model().getVotes()
-            type: 'believes'
-          ReactOpinionatorsAvatars
-            model: @model().getVotes()
-            type: 'disbelieves'
+      @_voting()
+      @_voters()
