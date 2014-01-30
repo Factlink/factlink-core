@@ -20,7 +20,7 @@ class ScreenshotUpdater
   end
 
   def local_screenshot_path
-    local_repo_path + '/spec/screenshots/screenshots/'
+    local_repo_path + '/core/spec/screenshots/screenshots/'
   end
 
   def local_repo_path
