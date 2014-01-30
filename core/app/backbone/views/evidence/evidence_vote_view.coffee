@@ -28,31 +28,6 @@ window.ReactEvidenceVote = React.createBackboneClass
         R.span className:"comment-vote-amount spec-evidence-relevance",
           format_as_short_number(@model().relevance())
 
-    coment_voting_arrows = [
-        if Factlink.Global.signed_in
-          R.a
-            className: up_classes
-            href: "javascript:"
-            onClick: @_on_up_vote
-            R.i className: "icon-up-open"
-        else
-          R.span
-            className: up_classes,
-            R.i className: "icon-up-open"
-
-        comment_votes_amount
-
-        if Factlink.Global.signed_in
-          R.a
-            className: down_classes
-            href: "javascript:"
-            onClick: @_on_down_vote
-            R.i className: "icon-down-open"
-        else
-          R.span className: down_classes,
-            R.i className: "icon-down-open"
-      ]
-
     if Factlink.Global.signed_in
       R.div className: 'comment-votes',
         R.a
