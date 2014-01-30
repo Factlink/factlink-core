@@ -15,19 +15,5 @@ class window.FactBaseView extends Backbone.Marionette.Layout
 class FactBodyView extends Backbone.Marionette.ItemView
   template: "facts/fact_body"
 
-  events:
-    "click span.js-displaystring": "click"
-
-  ui:
-    displaystring: '.js-displaystring'
-
   initialize: ->
     @listenTo @model, 'change', @render
-
-  click: (e) ->
-    if e.metaKey or e.ctrlKey or e.altKey
-      window.open @model.get('url'), "_blank"
-    else if FactlinkApp.onClientApp
-      Backbone.history.navigate @model.clientLink(), true
-    else
-      FactlinkApp.DiscussionSidebarOnFrontend.openDiscussion @model, e
