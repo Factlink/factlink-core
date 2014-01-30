@@ -4,10 +4,11 @@
 @impactColouredBorderWidth: 3px;
 @commentPadding: 20px;
 @impactColouredBorderWidth: 3px;
-@evidencePadding: 20px;
 
-.discussion-evidenceish-text {
-  white-space: pre-wrap;
+.comment-region {
+  position: relative;
+  margin-bottom: 5px;
+  padding-top: 5px;
 }
 
 .comment-container {
@@ -44,6 +45,7 @@
   .ellipsis(200px);
 }
 
+
 .comment-post-content {
   word-wrap: break-word;
   padding: 10px @commentPadding;
@@ -53,14 +55,14 @@
   float: right;
 }
 
-.discussion-evidenceish-content {
+.comment-content {
   word-wrap: break-word;
-  padding: 20px @evidencePadding
+  padding: 10px @commentPadding
 }
 
 .comment-bottom {
   box-shadow: 0px -1px @mutedBorderBottomColor, 0px -2px @mutedBorderTopColor;
-  margin: 0 @evidencePadding;
+  margin: 0 @commentPadding;
   padding: 5px 0;
   color: @mutedFontColor;
   font-size: @metaFontSize;
@@ -82,14 +84,8 @@
   float: right;
 }
 
-.evidence-argument {
-  position: relative;
-  margin-bottom: 5px;
-  padding-top: 5px;
-}
-
 // Irrelevant (faded out)
-.evidence-irrelevant {
+.comment-irrelevant {
   opacity: 0.6;
   .transition(opacity 0.2s);
 
