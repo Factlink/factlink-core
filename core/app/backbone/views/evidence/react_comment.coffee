@@ -36,23 +36,20 @@ window.ReactComment = React.createBackboneClass
 
   _content: ->
     R.div
-      className:"comment-content",
+      className:"comment-post-content spec-comment-content",
       dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
 
   _bottom: ->
     sub_comment_count = @model().get('sub_comments_count')
 
-    R.div className: 'comment-bottom',
+    R.div className: 'comment-post-bottom',
       R.ul className: "comment-bottom-actions", [
-        R.li className: "comment-bottom-action",
-          ReactEvidenceVote model: @model().argumentTally()
-
         if @model().can_destroy()
           R.li className: "comment-bottom-action comment-bottom-action-delete",
             ReactDeleteButton
               model: @model()
               onDelete: @_onDelete
-        R.li className:"comment-bottom-action",
+        R.li className:"comment-reply",
           R.a
             className:"spec-sub-comments-link"
             href:"javascript:"
@@ -71,8 +68,11 @@ window.ReactComment = React.createBackboneClass
 
     R.div className: top_classes,
       R.div className:"comment-container spec-evidence-box",
-        ReactCommentHeading(model: @model())
-        @_content()
-        @_bottom()
-      if @state.show_subcomments
-        ReactSubComments(model: @model())
+        R.div className: "comment-votes-container",
+          ReactEvidenceVote model: @model().argumentTally()
+        R.div className: "comment-content-container",
+          ReactCommentHeading(model: @model())
+          @_content()
+          @_bottom()
+        if @state.show_subcomments
+          ReactSubComments(model: @model())
