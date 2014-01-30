@@ -7,7 +7,7 @@ class ParagraphButtons
     $clonedEl = $(el).clone()
     $clonedEl.find('a').remove() # Strip links
 
-    textLength = $clonedEl.text().replace(/\s+/g, ' ').trim().length
+    textLength = $clonedEl.text().trim().replace(/\s\s+/g, ' ').length
     $clonedEl.remove()
 
     textLength >= 50
