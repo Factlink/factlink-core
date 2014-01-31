@@ -11,7 +11,6 @@ React.defineBackboneClass('ReactCommentHeading')
         rel: "backbone"
         @model().creator().get('name')
       R.span className:"comment-bottom-action comment-post-time",
-          R.i className:"icon-time"
           @model().get('time_ago')
           " "
           Factlink.Global.t.ago
