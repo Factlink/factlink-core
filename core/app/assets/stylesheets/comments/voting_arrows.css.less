@@ -8,16 +8,13 @@
 
 .comment-votes-container {
   display: table-cell;
+  vertical-align: top;
 }
 
 .comment-votes {
-  border-radius: 4px;
-  margin: @votePadding 0px @votePadding @votePadding;
+  margin-left: @votePadding;
+  margin-top: 7px;
   text-align: center;
-  transition: 0.5s ease;
-  &:hover {
-    background: @grayLighter;
-  }
 }
 
 .comment-votes.disabled {
@@ -34,22 +31,21 @@
   display: inline-block;
   text-align: center;
   font-weight: 600;
-  padding: 2px;
 }
 
 .comment-vote-up,
 .comment-vote-down {
+  padding: 0px 1px 1px;
+  font-size: 10px;
   display: inline-block;
   color: @grayLight;
+  border-radius:4px;
+  &:hover{
+    color: @grayDark;
+    background: @grayLighter;
+  }
   &.evidence-active {
     background: @grayLighter;
-    color: @blue;
-    border-radius: 5px;
-    &:hover {
-      color: darken(@blue, 10%)
-    }
-  }
-  &:hover {
-    color: @gray;
+    color: @grayDark;
   }
 }
