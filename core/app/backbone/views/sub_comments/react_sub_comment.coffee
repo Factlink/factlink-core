@@ -22,7 +22,7 @@ React.defineBackboneClass('ReactSubComment')
           Factlink.Global.t.ago
 
       R.span
-        className: "subcomment-content spec-subcomment-content",
+        className: "spec-subcomment-content",
         dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
 
       if @model().can_destroy()
