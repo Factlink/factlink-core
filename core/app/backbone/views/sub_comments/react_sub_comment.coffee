@@ -12,7 +12,7 @@ React.defineBackboneClass('ReactSubComment')
     R.div className: "sub-comment",
       R.span className: "sub-comment-avatar",
         ReactAvatar user: creator, size: 28
-      R.div className: "sub-comment-heading",
+      R.div "",
         R.a className: "sub-comment-creator", href: creator.link(),
           creator.get("name")
 
