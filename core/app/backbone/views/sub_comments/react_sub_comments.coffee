@@ -70,7 +70,8 @@ window.ReactSubCommentList = React.createBackboneClass
       R.div className: 'sub-comments',
         @model().map (sub_comment) =>
           ReactSubComment(model: sub_comment)
-        ReactSubCommentsAdd(addToCollection: @model())
+        if Factlink.Global.signed_in
+          ReactSubCommentsAdd(addToCollection: @model())
 
 window.ReactSubComments = React.createClass
   render: ->
