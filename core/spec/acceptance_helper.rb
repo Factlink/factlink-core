@@ -86,7 +86,7 @@ RSpec.configure do |config|
     FactoryGirl.reload
 
     ElasticSearch.stub synchronous: true
-    Capybara::Screenshot.autosave_on_failure = false
+    Capybara::Screenshot.autosave_on_failure = true
   end
 
   config.before(:each) do
