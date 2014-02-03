@@ -7,11 +7,10 @@ React.defineBackboneClass('ReactCommentHeading')
           className:"avatar-image"
       R.a
         href: @model().creator().link()
-        className:"comment-creator-name"
+        className:"comment-post-creator-name"
         rel: "backbone"
         @model().creator().get('name')
       R.span className:"comment-bottom-action comment-post-time",
-          R.i className:"icon-time"
           @model().get('time_ago')
           " "
           Factlink.Global.t.ago
@@ -55,7 +54,7 @@ window.ReactComment = React.createBackboneClass
             href:"javascript:"
             onClick: @_toggleSubcomments
 
-            "(#{sub_comment_count}) Reply"
+            "(#{sub_comment_count}) Comment"
       ]
       if @state.show_subcomments
         ReactSubComments(model: @model())
