@@ -9,7 +9,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
     @user = sign_in_user create :full_user
 
     @factlink = backend_create_fact_with_long_text
-    comment_text = '1. Comment'
+    comment_text = "A comment...\n\n...with newlines!"
 
     @factlink.add_opiniated :believes, @user.graph_user
     as(@user) do |p|
