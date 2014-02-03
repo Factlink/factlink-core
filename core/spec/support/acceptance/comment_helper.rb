@@ -64,8 +64,12 @@ module Acceptance
           #ensure button is enabled, i.e. doesn't say "posting":
           find('button', 'Post')
 
-          open_search = find('.js-open-search-facts-link')
-          open_search.click
+          # try to open search, if not already open
+          begin
+            open_search = find('.js-open-search-facts-link')
+            open_search.click
+          rescue
+          end
 
           page.find("input[type=text]").click
           page.find("input[type=text]").set(text)
