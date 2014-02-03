@@ -22,8 +22,8 @@ React.defineClass('ReactTextArea')
   _onChange: (e)->
     @updateText e.target.value
 
-  updateText: (text) ->
-    @setState text: text
+  updateText: (text, callback) ->
+    @setState text: text, callback
     @props.onChange?(text)
 
   focusInput: ->
@@ -34,7 +34,7 @@ React.defineClass('ReactTextArea')
 
   insert: (text) ->
     cursorPos =  @$_textarea().prop('selectionStart')
-    @setState text: insertTextInto(@state.text, cursorPos, text), =>
+    @updateText insertTextInto(@state.text, cursorPos, text), =>
       @focusInput()
 
   _handleSubmit: (e)->
