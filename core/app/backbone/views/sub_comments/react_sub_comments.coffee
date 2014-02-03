@@ -1,4 +1,4 @@
-React.defineClass('SubCommentsAdd')
+React.defineClass('ReactSubCommentsAdd')
   getInitialState: ->
     phase: 'new'
 
