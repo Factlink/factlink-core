@@ -1,7 +1,7 @@
 window.ReactOpinionHelp = React.createClass
   render: ->
-    _div ['opinion-help'],
-      _div [],
+    _div ['add-evidence-form'],
+      _div ['opinion-help'],
         _span ["opinion-help-question"],
           "What do you think?"
         _a ["button button-twitter small-connect-button opinion-help-button js-accounts-popup-link",
