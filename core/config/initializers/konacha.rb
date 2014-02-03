@@ -18,7 +18,7 @@ if Rails.env == 'development' || Rails.env == 'test'
             puts "@@@@ https://github.com/jfirebaugh/konacha/issues/146"
             Rack::Handler::Thin.run(app, :Port => port)
           end
-          super(*args)
+          super
         end
       end
       prepend thin_runner
