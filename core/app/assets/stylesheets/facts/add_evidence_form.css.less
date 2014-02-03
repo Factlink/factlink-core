@@ -5,6 +5,32 @@
   .block-box-shadow();
   background: white;
   margin-bottom: 5px;
+.add-evidence-form {
+  margin-top:12px;
+}
+
+.add-evidence-form:after, .add-evidence-form:before {
+  bottom: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.add-evidence-form:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-bottom-color: #fff;
+  border-width: 10px;
+  margin-left: -10px;
+}
+.add-evidence-form:before {
+  border-color: rgba(0, 0, 0, 0);
+  border-bottom-color: @dropdownBorder;
+  border-width: 11px;
+  margin-left: -11px;
 }
 
 .opinion-help {
