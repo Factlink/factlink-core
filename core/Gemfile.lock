@@ -321,6 +321,9 @@ GEM
       activesupport (= 3.2.16)
       bundler (~> 1.0)
       railties (= 3.2.16)
+    rails-assets-jquery (2.1.0)
+    rails-assets-jquery-autosize (1.18.4)
+      rails-assets-jquery (>= 1.7)
     rails-assets-react (0.8.0)
     rails-assets-react.backbone (0.1.0)
     rails-dev-tweaks (0.6.1)
@@ -533,6 +536,7 @@ DEPENDENCIES
   rack-rewrite (~> 1.3.3)
   rack-xframe-options!
   rails (= 3.2.16)
+  rails-assets-jquery-autosize
   rails-assets-react
   rails-assets-react.backbone
   rails-dev-tweaks (~> 0)

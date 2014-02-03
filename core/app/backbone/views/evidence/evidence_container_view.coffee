@@ -2,7 +2,7 @@ window.ReactComments = React.createBackboneClass
   render: ->
     R.div {},
       @model().map (comment) =>
-        ReactComment(model: comment)
+        ReactComment(model: comment, key: comment.get('id'))
 
 
 class window.EvidenceContainerView extends Backbone.Marionette.Layout

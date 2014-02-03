@@ -25,6 +25,8 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     @_addCommentView = new AddCommentView
       addToCollection: @collection
       argumentTypeModel: @_argumentTypeModel
+      onFocus: =>
+        @$(".add-evidence-form-search-facts").show()
 
   onRender: ->
     @addCommentRegion.show @_addCommentView
