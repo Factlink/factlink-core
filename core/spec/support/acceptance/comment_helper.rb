@@ -58,8 +58,14 @@ module Acceptance
         within '.add-evidence-form' do
           select_add_type type
 
+          comment_input = find('.text_area_view')
+          comment_input.click
+
           #ensure button is enabled, i.e. doesn't say "posting":
           find('button', 'Post')
+
+          open_search = find('.js-open-search-facts-link')
+          open_search.click
 
           page.find("input[type=text]").click
           page.find("input[type=text]").set(text)
