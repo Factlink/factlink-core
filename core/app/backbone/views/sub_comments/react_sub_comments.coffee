@@ -1,17 +1,13 @@
 ReactSubCommentsAdd = React.createClass
   getInitialState: ->
-    text: ''
     phase: 'new'
-
-  updateText: (e)->
-    @setState text: e.target.value
 
   submit: ->
     return if @state.phase == 'submitting'
     @setState phase: 'submitting'
 
     model = new SubComment
-      content: $.trim(@state.text)
+      content: $.trim(@refs.text_area.state.text)
       created_by: currentUser.toJSON()
 
     if model.isValid()
@@ -19,7 +15,7 @@ ReactSubCommentsAdd = React.createClass
       model.save {},
         success: =>
           @setState phase: 'new'
-          @setState text: ''
+          @refs.text_area.updateText ''
         error: =>
           @props.addToCollection.remove(model)
           @setState phase: 'new'
@@ -39,12 +35,12 @@ ReactSubCommentsAdd = React.createClass
           'Posting...'
 
     R.div className: 'sub-comment-add spec-sub-comments-form',
-      R.textarea
-        className: "text_area_view",
+      ReactTextArea
         placeholder: 'Leave a reply'
         onChange: @updateText
-        ref: 'textarea'
-        value: @state.text
+        defaultValue: ''
+        ref: 'text_area'
+        onSubmit: @submit
       submit_button
 
 
