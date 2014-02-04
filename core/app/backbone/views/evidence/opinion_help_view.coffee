@@ -1,6 +1,7 @@
 window.ReactOpinionHelp = React.createClass
   render: ->
     _div ['add-evidence-form'],
+      _span ["add-evidence-arrow"]
       _div ['opinion-help'],
         _span ["opinion-help-question"],
           "What do you think?"
