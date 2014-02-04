@@ -15,7 +15,9 @@ insertTextInto = (currentText, cursorPos, text) ->
     text += ' '
   textBefore + text + textAfter
 
-React.defineClass('ReactTextArea')
+window.ReactTextArea = React.createClass
+  displayName: 'ReactTextArea'
+
   getInitialState: ->
     text: @props.defaultValue
 

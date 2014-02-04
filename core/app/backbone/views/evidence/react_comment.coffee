@@ -1,4 +1,6 @@
-React.defineBackboneClass('ReactCommentHeading')
+ReactCommentHeading = React.createBackboneClass
+  displayName: 'ReactCommentHeading'
+
   render: ->
     R.div className: 'comment-post-heading',
       R.span className:"heading-avatar",
@@ -16,6 +18,8 @@ React.defineBackboneClass('ReactCommentHeading')
           Factlink.Global.t.ago
 
 window.ReactComment = React.createBackboneClass
+  displayName: 'ReactComment'
+
   getInitialState: ->
     show_subcomments: false
 

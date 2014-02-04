@@ -1,4 +1,6 @@
 ReactOpinionatorsAvatar = React.createBackboneClass
+  displayName: 'ReactOpinionatorsAvatar'
+
   render: ->
     _span ['opinionators-avatar'],
       _a ["opinionators-avatar-link"
@@ -8,6 +10,8 @@ ReactOpinionatorsAvatar = React.createBackboneClass
               src: @model().avatar_url(24)]
 
 ReactOpinionatorsAvatars = React.createBackboneClass
+  displayName: 'ReactOpinionatorsAvatar'
+
   componentDidMount: ->
     # react.backbone.js doesn't listen to changing models
     @model().on 'change', (-> @forceUpdate()), this
@@ -21,6 +25,7 @@ ReactOpinionatorsAvatars = React.createBackboneClass
 
 
 FactVoteButton = React.createBackboneClass
+  displayName: 'FactVoteButton'
   componentDidMount: ->
     # react.backbone.js doesn't listen to changing models
     @model().on 'change', (-> @forceUpdate()), this
@@ -43,6 +48,8 @@ FactVoteButton = React.createBackboneClass
 
 
 FactVoteAmountGraph = React.createClass
+  displayName: 'FactVoteAmountGraph'
+
   render: ->
     vote_padding = 0.2
     total = @props.believes + @props.disbelieves + 2*vote_padding
@@ -57,6 +64,8 @@ FactVoteAmountGraph = React.createClass
              style: {width: "#{disbelieve_percentage}%"}]
 
 FactVoteStatsTable = React.createBackboneClass
+  displayName: 'FactVoteStatsTable'
+
   componentDidMount: ->
     # react.backbone.js doesn't listen to changing models
     @model().on 'change', => @forceUpdate()
@@ -78,6 +87,8 @@ FactVoteStatsTable = React.createBackboneClass
           _td ["fact-vote-amount-disbelieves"], votes.disbelieves
 
 window.ReactVoteArea = React.createBackboneClass
+  displayName: 'ReactVoteArea'
+
   _voting: ->
     _div className: 'fact-vote',
       FactVoteButton
