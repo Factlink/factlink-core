@@ -36,16 +36,14 @@ React.defineClass('ReactSubCommentsAdd')
         Factlink.Global.t.post_subcomment
 
 window.ReactSubCommentList = React.createBackboneClass
-  getInitialState: ->
-    loading: true
-
   componentDidMount: ->
-    @model().fetch
-      success: => @setState loading: false
-    @setState loading: true
+    @props.model.on 'sync request', (-> @forceUpdate()), @
+
+  componentWillMount: ->
+    @model().fetch()
 
   render: ->
-    if @model().size() == 0 && @state.loading
+    if @model().size() == 0 && @model().loading()
       ReactLoadingIndicator()
     else
       R.div className: 'sub-comments',
