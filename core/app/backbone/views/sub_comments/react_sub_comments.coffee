@@ -1,39 +1,28 @@
 React.defineClass('ReactSubCommentsAdd')
   getInitialState: ->
-    phase: 'new'
+    text: ''
 
   submit: ->
-    return if @state.phase == 'submitting'
-    @setState phase: 'submitting'
-
     model = new SubComment
-      content: $.trim(@refs.text_area.state.text)
+      content: @state.text
       created_by: currentUser.toJSON()
 
-    if model.isValid()
-      @props.addToCollection.add(model)
-      model.save {},
-        success: =>
-          @setState phase: 'new'
-          @refs.text_area.updateText ''
-        error: =>
-          @props.addToCollection.remove(model)
-          @setState phase: 'new'
-          FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
-    else
-      @setState phase: 'new'
-      FactlinkApp.NotificationCenter.error 'Your comment is not valid.'
+    unless model.isValid()
+      FactlinkApp.NotificationCenter.error "Your comment '#{model.get('content')}' is not valid."
+      return
+
+    @props.addToCollection.add(model)
+    model.save {},
+      success: =>
+      error: =>
+        @props.addToCollection.remove(model)
+        FactlinkApp.NotificationCenter.error "Your comment '#{model.get('content')}' could not be posted, please try again."
+    @refs.text_area.updateText ''
+
+  updateText: (text)->
+    @state.text = $.trim(text)
 
   render: ->
-    submit_button_classes = "button button-confirm button-small spec-submit"
-    submit_button =
-      if @state.phase == 'new'
-        R.button className: submit_button_classes, onClick: @submit,
-          Factlink.Global.t.post_subcomment
-      else
-        R.button className: submit_button_classes, disabled: true,
-          'Posting...'
-
     R.div className: 'sub-comment-add spec-sub-comments-form',
       ReactTextArea
         placeholder: 'Leave a reply'
@@ -41,7 +30,8 @@ React.defineClass('ReactSubCommentsAdd')
         defaultValue: ''
         ref: 'text_area'
         onSubmit: @submit
-      submit_button
+      _button ["button button-confirm button-small spec-submit", onClick: @submit],
+        Factlink.Global.t.post_subcomment
 
 window.ReactSubCommentList = React.createBackboneClass
   getInitialState: ->
