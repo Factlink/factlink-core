@@ -7,10 +7,7 @@ React.defineBackboneClass('ReactAvatar')
 
 React.defineBackboneClass('ReactSubComment')
   _save: ->
-    @model().set save_failed: false
-    @model().save {},
-      error: =>
-        @model().set save_failed: true
+    @model().saveWithState()
 
   _content_tag: ->
     if @model().get('formatted_comment_content')

@@ -10,10 +10,7 @@ React.defineClass('ReactSubCommentsAdd')
   submit: ->
     model = @model_for_text()
     @props.addToCollection.add(model)
-    model.set save_failed: false
-    model.save {},
-      error: =>
-        model.set save_failed: true
+    model.saveWithState()
     @refs.text_area.updateText ''
 
   updateText: (text)->
