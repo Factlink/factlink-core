@@ -9,7 +9,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
     @user = sign_in_user create :full_user
 
     @factlink = backend_create_fact_with_long_text
-    comment_text = '1. Comment'
+    comment_text = "A comment...\n\n...with newlines!"
 
     @factlink.add_opiniated :believes, @user.graph_user
     as(@user) do |p|
@@ -26,6 +26,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
       fact_url = FactUrl.new(other_factlink)
       c = p.interactor(:'comments/create', fact_id: @factlink.id.to_i, type: 'believes', content: fact_url.friendly_fact_url)
       p.interactor(:'comments/update_opinion', comment_id: c.id.to_s, opinion: 'believes')
+      p.interactor(:'sub_comments/create_for_comment', comment_id: c.id.to_s, content: "A short subcomment")
       p.interactor(:'sub_comments/create_for_comment', comment_id: c.id.to_s, content: sub_comment_text)
     end
   end

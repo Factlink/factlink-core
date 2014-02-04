@@ -38,7 +38,7 @@ React.defineClass('ReactTextArea')
       @focusInput()
 
   _handleSubmit: (e)->
-    if e.keyCode == 13 && (e.ctrlKey || e.metaKey || e.shiftKey)
+    if e.keyCode == 13 && (e.ctrlKey || e.metaKey)
       e.preventDefault()
       e.stopPropagation()
       @props.onSubmit()
