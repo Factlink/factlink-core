@@ -33,7 +33,7 @@ ReactOpinionatorsAvatars = React.createBackboneClass
           ReactOpinionatorsAvatar(model: vote.user())
 
       if show_plus
-          _span ["more-people"],
+          _span ["opinionators-more"],
             "+" + (@_opinionators().length - number_of_places + 1)
 
 
