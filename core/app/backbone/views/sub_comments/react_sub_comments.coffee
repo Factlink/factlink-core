@@ -13,7 +13,6 @@ React.defineClass('ReactSubCommentsAdd')
 
     @props.addToCollection.add(model)
     model.save {},
-      success: =>
       error: =>
         @props.addToCollection.remove(model)
         FactlinkApp.NotificationCenter.error "Your comment '#{model.get('content')}' could not be posted, please try again."
