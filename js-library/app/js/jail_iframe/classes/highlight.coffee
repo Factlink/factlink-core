@@ -65,12 +65,12 @@ class FactlinkJailRoot.Highlight
 
     @show_button.destroy()
 
-previousCoreHighlightId = null
+FactlinkJailRoot.highlightedFactId = null
 FactlinkJailRoot.showCoreHighlight = (factId) ->
-  for highlight in FactlinkJailRoot.highlightsByFactIds[previousCoreHighlightId] || []
+  for highlight in FactlinkJailRoot.highlightsByFactIds[FactlinkJailRoot.highlightedFactId] || []
     highlight.core_highlighter.dehighlight()
 
   for highlight in FactlinkJailRoot.highlightsByFactIds[factId] || []
     highlight.core_highlighter.highlight()
 
-  previousCoreHighlightId = factId
+  FactlinkJailRoot.highlightedFactId = factId
