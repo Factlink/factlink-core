@@ -13,6 +13,7 @@ function getServer(config) {
   server.configure(function() {
     server.set('views', __dirname + '/../views');
   });
+  server.use(express.cookieParser());
 
   var urlvalidation = require('./urlvalidation');
 
@@ -194,10 +195,20 @@ function getServer(config) {
     });
   }
 
+  // Clear cookies, otherwise cookie header becomes extremely long from
+  // cookies set by websites in Javascript!
+  function clearCookies(req, res) {
+    for(var name in req.cookies) {
+      res.clearCookie(name);
+    }
+  }
+
   /**
    *  Inject Factlink in regular get requests
    */
   function get_parse(req, res) {
+    clearCookies(req, res);
+
     var site     = req.query.url;
 
     // TODO: remove support for scrollto next time you see this!
