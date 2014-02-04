@@ -10,10 +10,10 @@ React.defineClass('ReactSubCommentsAdd')
   submit: ->
     model = @model_for_text()
     @props.addToCollection.add(model)
+    model.set save_failed: false
     model.save {},
       error: =>
-        @props.addToCollection.remove(model)
-        FactlinkApp.NotificationCenter.error "Your comment '#{model.get('content')}' could not be posted, please try again."
+        model.set save_failed: true
     @refs.text_area.updateText ''
 
   updateText: (text)->

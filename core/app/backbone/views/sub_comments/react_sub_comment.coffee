@@ -6,7 +6,13 @@ React.defineBackboneClass('ReactAvatar')
         ]
 
 React.defineBackboneClass('ReactSubComment')
-  renderContent: ->
+  _save: ->
+    @model().set save_failed: false
+    @model().save {},
+      error: =>
+        @model().set save_failed: true
+
+  _content_tag: ->
     if @model().get('formatted_comment_content')
       _span ["subcomment-content spec-subcomment-content",
         dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}]
@@ -14,10 +20,8 @@ React.defineBackboneClass('ReactSubComment')
       _span ["subcomment-content spec-subcomment-content"],
         @model().get('content')
 
-
   render: ->
     creator = @model().creator()
-
     R.div className: "sub-comment",
       R.span className: "sub-comment-avatar",
         ReactAvatar user: creator, size: 28
@@ -25,14 +29,19 @@ React.defineBackboneClass('ReactSubComment')
         R.a className: "sub-comment-creator", href: creator.link(),
           creator.get("name")
 
-        R.span className: "sub-comment-time",
-          @model().get('time_ago'),
-          ' '
-          Factlink.Global.t.ago
+        if @model().get('time_ago')
+          R.span className: "sub-comment-time",
+            @model().get('time_ago'),
+            ' '
+            Factlink.Global.t.ago
 
-      @renderContent()
 
-      if @model().can_destroy()
+      @_content_tag()
+
+      if @model().get('save_failed') == true
+        _a ['button', 'button-danger', onClick: @_save, style: {float: 'right'} ],
+          'Save failed - Retry'
+      else if @model().can_destroy()
         window.ReactDeleteButton
           model: @model()
           onDelete: -> @model.destroy wait: true
