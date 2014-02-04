@@ -43,13 +43,6 @@ React.defineClass('ReactSubCommentsAdd')
         onSubmit: @submit
       submit_button
 
-
-window.ReactLoadingIndicator = React.createClass
-  render: ->
-    R.img
-      className: 'ajax-loader'
-      src: Factlink.Global.ajax_loader_image
-
 window.ReactSubCommentList = React.createBackboneClass
   getInitialState: ->
     loading: true
