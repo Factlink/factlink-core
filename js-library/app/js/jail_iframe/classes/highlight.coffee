@@ -2,8 +2,8 @@ class FactlinkJailRoot.Highlight
   constructor: (@id, @elements) ->
     @show_button = new FactlinkJailRoot.ShowButton @elements, @id
 
-  highlight:   -> @$elements.addClass('fl-core-highlight')
-  dehighlight: -> @$elements.removeClass('fl-core-highlight')
+  highlight:   -> $(@elements).addClass('fl-core-highlight')
+  dehighlight: -> $(@elements).removeClass('fl-core-highlight')
 
   destroy: ->
     for el in @elements
