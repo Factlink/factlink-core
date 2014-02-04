@@ -1,7 +1,5 @@
 class TourUserView extends Backbone.Marionette.Layout
 
-  _.extend @prototype, Backbone.Factlink.PopoverMixin
-
   template: 'tour/interesting_user'
   className: 'tour-interesting-user'
 
