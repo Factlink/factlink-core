@@ -2,15 +2,13 @@ React.defineClass('ReactSubCommentsAdd')
   getInitialState: ->
     text: ''
 
-  submit: ->
+  model_for_text: ->
     model = new SubComment
       content: @state.text
       created_by: currentUser.toJSON()
 
-    unless model.isValid()
-      FactlinkApp.NotificationCenter.error "Your comment '#{model.get('content')}' is not valid."
-      return
-
+  submit: ->
+    model = @model_for_text()
     @props.addToCollection.add(model)
     model.save {},
       error: =>
@@ -19,7 +17,10 @@ React.defineClass('ReactSubCommentsAdd')
     @refs.text_area.updateText ''
 
   updateText: (text)->
-    @state.text = $.trim(text)
+    @setState text: $.trim(text)
+
+  is_valid: ->
+    @model_for_text().isValid()
 
   render: ->
     R.div className: 'sub-comment-add spec-sub-comments-form',
@@ -29,7 +30,9 @@ React.defineClass('ReactSubCommentsAdd')
         defaultValue: ''
         ref: 'text_area'
         onSubmit: @submit
-      _button ["button button-confirm button-small spec-submit", onClick: @submit],
+      _button ["button button-confirm button-small spec-submit",
+               disabled: !@is_valid(),
+               onClick: @submit],
         Factlink.Global.t.post_subcomment
 
 window.ReactSubCommentList = React.createBackboneClass
