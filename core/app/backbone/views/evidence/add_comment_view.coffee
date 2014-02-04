@@ -89,10 +89,12 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
   enableSubmit: ->
     @submitting = false
+    @ui.submit.removeClass 'button-loading'
     @ui.submit.prop('disabled',false).text(Factlink.Global.t.post_argument)
 
   disableSubmit: ->
     @submitting = true
+    @ui.submit.addClass 'button-loading'
     @ui.submit.prop('disabled',true ).text('Posting...')
 
   _textModel: -> @__textModel ?= new Backbone.Factlink.SemiPersistentTextModel {},
