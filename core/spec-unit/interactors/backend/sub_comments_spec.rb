@@ -25,11 +25,12 @@ describe Backend::SubComments do
   describe '#index' do
     it 'no subcomments' do
       parent_id = 1
+      sub_comment_finder = double
 
       SubComment.stub(:any_in)
         .with(parent_id: [parent_id])
-        .and_return(sub_comment_finder2)
-      sub_comment_finder2.stub(:asc)
+        .and_return(sub_comment_finder)
+      sub_comment_finder.stub(:asc)
         .with(:created_at).and_return([])
 
       result = Backend::SubComments.index(parent_ids_in: parent_id)
@@ -41,11 +42,12 @@ describe Backend::SubComments do
       parent_id = '2a'
       sub_comments = [double, double]
       dead_sub_comments = [double, double]
+      sub_comment_finder = double
 
       SubComment.stub(:any_in)
         .with(parent_id: [parent_id])
-        .and_return(sub_comment_finder2)
-      sub_comment_finder2.stub(:asc)
+        .and_return(sub_comment_finder)
+      sub_comment_finder.stub(:asc)
         .with(:created_at).and_return(sub_comments)
       KillObject.stub(:sub_comment)
         .with(sub_comments[0])
@@ -64,10 +66,12 @@ describe Backend::SubComments do
       sub_comments = [double, double]
       dead_sub_comments = [double, double]
 
+      sub_comment_finder = double
+
       SubComment.stub(:any_in)
         .with(parent_id: parent_ids)
-        .and_return(sub_comment_finder2)
-      sub_comment_finder2.stub(:asc)
+        .and_return(sub_comment_finder)
+      sub_comment_finder.stub(:asc)
         .with(:created_at).and_return(sub_comments)
 
       result = Backend::SubComments.index(parent_ids_in: parent_ids)
