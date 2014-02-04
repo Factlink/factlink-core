@@ -1,4 +1,6 @@
 window.ReactComments = React.createBackboneClass
+  displayName: 'ReactComments'
+
   render: ->
     R.div {},
       @model().map (comment) =>
