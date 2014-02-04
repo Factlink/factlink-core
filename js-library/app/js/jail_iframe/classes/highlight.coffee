@@ -1,22 +1,33 @@
+highlightsByFactIds = {}
+highlightedFactId = null
+
 class FactlinkJailRoot.Highlight
   constructor: (@id, @elements) ->
     @show_button = new FactlinkJailRoot.ShowButton @elements, @id
+    highlightsByFactIds[id] ?= []
+    highlightsByFactIds[id].push @
+    if @id == highlightedFactId
+      @highlight()
 
   highlight:   -> $(@elements).addClass('fl-core-highlight')
   dehighlight: -> $(@elements).removeClass('fl-core-highlight')
 
   destroy: ->
-    for el in @elements
-      $(el).contents().unwrap()
-
+    $(@elements).contents().unwrap()
     @show_button.destroy()
 
-FactlinkJailRoot.highlightedFactId = null
 FactlinkJailRoot.showCoreHighlight = (factId) ->
-  for highlight in FactlinkJailRoot.highlightsByFactIds[FactlinkJailRoot.highlightedFactId] || []
+  for highlight in highlightsByFactIds[highlightedFactId] || []
     highlight.dehighlight()
 
-  for highlight in FactlinkJailRoot.highlightsByFactIds[factId] || []
+  highlightedFactId = factId
+
+  for highlight in highlightsByFactIds[highlightedFactId] || []
     highlight.highlight()
 
-  FactlinkJailRoot.highlightedFactId = factId
+
+FactlinkJailRoot.destroyCoreHighlight = (factId) ->
+  for fact in highlightsByFactIds[factId] || []
+    fact.destroy()
+  delete highlightsByFactIds[factId]
+

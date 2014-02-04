@@ -64,23 +64,18 @@ highlightRange = (normalizedRange, id) ->
     elements.push element if element?
   elements
 
-FactlinkJailRoot.highlightsByFactIds = {}
 
 # Function to select the found ranges
 FactlinkJailRoot.highlightFact = (text, id) ->
   ranges = search(text)
 
-  FactlinkJailRoot.highlightsByFactIds[id] ?= []
 
   for range in ranges
     normalizedRange = new FactlinkJailRoot.Range.BrowserRange(range).normalize()
     elements = highlightRange(normalizedRange, id)
 
     if elements.length > 0
-      highlight = new FactlinkJailRoot.Highlight(id, elements)
-      FactlinkJailRoot.highlightsByFactIds[id].push highlight
-      if id == FactlinkJailRoot.highlightedFactId
-        highlight.highlight()
+      new FactlinkJailRoot.Highlight(id, elements)
     else
       console.error "Could not highlight, empty factlink or complete overlap? Text: <#{text}>"
 
