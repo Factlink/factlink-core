@@ -38,9 +38,4 @@ class FollowedUserView extends ActivityItemView
   templateHelpers: =>
     followed_user: @user().toJSON()
 
-  onRender: ->
-    UserPopoverContentView.makeTooltip @, @user(),
-      selector: '.js-activity-user'
-      $offsetParent: @options.$offsetParent
-
   user: -> @_user ?= new User(@model.get('activity').followed_user)
