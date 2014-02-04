@@ -110,6 +110,6 @@ window.ReactVoteArea = React.createBackboneClass
         type: 'disbelieves'
 
   render: ->
-    _div ['fact-vote-area'],
+    _div [''],
       @_voting()
       @_voters()
