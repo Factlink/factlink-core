@@ -63,7 +63,7 @@ describe Interactors::SubComments::CreateForComment do
         .with(parent_id: comment.id, content: content, user: user)
         .and_return(sub_comment)
       interactor.should_receive(:create_activity).with(sub_comment)
-      KillObject.should_receive(:sub_comment).with(sub_comment).
+      Backend::SubComments.should_receive(:dead_for).with(sub_comment).
         and_return(dead_sub_comment)
 
       result = interactor.execute
