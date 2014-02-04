@@ -10,7 +10,7 @@ ReactOpinionatorsAvatar = React.createBackboneClass
 ReactOpinionatorsAvatars = React.createBackboneClass
   componentDidMount: ->
     # react.backbone.js doesn't listen to changing models
-    @model().on 'change', => @forceUpdate()
+    @model().on 'change', (-> @forceUpdate()), this
 
   render: ->
     _div ["fact-vote-people-#{@props.type}"],
@@ -23,7 +23,7 @@ ReactOpinionatorsAvatars = React.createBackboneClass
 FactVoteButton = React.createBackboneClass
   componentDidMount: ->
     # react.backbone.js doesn't listen to changing models
-    @model().on 'change', => @forceUpdate()
+    @model().on 'change', (-> @forceUpdate()), this
 
   _onClick: ->
     @model().clickCurrentUserOpinion @props.type

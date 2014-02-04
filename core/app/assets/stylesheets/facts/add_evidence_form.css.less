@@ -1,14 +1,25 @@
 @import "bootstrap/mixins";
 
-.opinion-help, .add-evidence-form {
+.add-evidence-form {
   position: relative;
   .block-box-shadow();
   background: white;
-  margin-bottom: 5px;
+  margin-bottom: @sidebarMarginBetween;
+}
+
+.add-evidence-form {
+  margin-top:12px;
+}
+
+.add-evidence-arrow {
+  position: absolute;
+  left: 50%;
+  .triangle-arrow-up();
 }
 
 .opinion-help {
-  padding: 20px;
+  text-align: center;
+  padding: 10px;
 }
 
 .opinion-help-question {
