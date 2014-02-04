@@ -115,7 +115,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.3)
+    coffee-script-source (1.7.0)
     colored (1.2)
     colorize (0.6.0)
     commonjs (0.2.7)
