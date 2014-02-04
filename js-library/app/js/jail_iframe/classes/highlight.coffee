@@ -1,4 +1,3 @@
-highlight_time_on_load_and_creation = 2000
 highlight_time_on_in_view = 1500
 
 class Highlighter
@@ -7,14 +6,6 @@ class Highlighter
 
   highlight:   -> @$elements.addClass(@className)
   dehighlight: -> @$elements.removeClass(@className)
-
-class HighlightLoadPromotion
-  constructor: (elements) ->
-    @highlighter = new Highlighter $(elements), 'fl-load-highlight'
-    @highlighter.highlight()
-    setTimeout =>
-      @highlighter.dehighlight()
-    , highlight_time_on_load_and_creation
 
 class HighlightScrollPromotion
   # states: invisible, just_visible, visible
@@ -51,7 +42,6 @@ class FactlinkJailRoot.Highlight
   constructor: (@id, @elements) ->
     @show_button = new FactlinkJailRoot.ShowButton @elements, @id
     @fact_promotion = new HighlightScrollPromotion(this)
-    @fact_load_promotion = new HighlightLoadPromotion(@elements)
     @core_highlighter = new Highlighter $(@elements), 'fl-core-highlight'
 
   isInView: ->
