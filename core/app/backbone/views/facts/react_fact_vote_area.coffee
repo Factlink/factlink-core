@@ -12,12 +12,29 @@ ReactOpinionatorsAvatars = React.createBackboneClass
     # react.backbone.js doesn't listen to changing models
     @model().on 'change', => @forceUpdate()
 
+  _opinionators: ->
+    @model()
+      .filter( (vote) => vote.get('type') == @props.type)
+
   render: ->
+    number_of_places = 5
+
+    if @_opinionators().length <= number_of_places
+      take = number_of_places
+      show_plus = false
+    else
+      take = number_of_places - 1
+      show_plus = true
+
     _div ["fact-vote-people-#{@props.type}"],
-      @model()
-        .filter( (vote) => vote.get('type') == @props.type)
+      @_opinionators()
+        .slice(0,take)
         .map (vote) ->
           ReactOpinionatorsAvatar(model: vote.user())
+
+      if show_plus
+          _span ["more-people"],
+            "+" + (@_opinionators().length - number_of_places + 1)
 
 
 FactVoteButton = React.createBackboneClass
