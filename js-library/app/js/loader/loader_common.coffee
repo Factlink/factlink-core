@@ -70,11 +70,8 @@ window.FACTLINK_START_LOADER = ->
 
     root.jail_ready_promise.resolve()
 
-    root.core_loaded_promise
-    .then( ->
-        root.perf.add_timing_event 'core_loaded'
-    )
-    .then ->
+    root.core_loaded_promise.then ->
+      root.perf.add_timing_event 'core_loaded'
       #called from jail-iframe when core iframe is ready.
       for name in methods
         do (name) ->
@@ -93,6 +90,7 @@ window.FACTLINK_START_LOADER = ->
     if document.body
       whenHasBody()
     else
+      console.log('skipped init attempt ' + i)
       setTimeout tryToInit(i+1), i
 
   tryToInit(1)()
