@@ -6,6 +6,15 @@ React.defineBackboneClass('ReactAvatar')
         ]
 
 React.defineBackboneClass('ReactSubComment')
+  renderContent: ->
+    if @model().get('formatted_comment_content')
+      _span ["subcomment-content spec-subcomment-content",
+        dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}]
+    else
+      _span ["subcomment-content spec-subcomment-content"],
+        @model().get('content')
+
+
   render: ->
     creator = @model().creator()
 
@@ -21,9 +30,7 @@ React.defineBackboneClass('ReactSubComment')
           ' '
           Factlink.Global.t.ago
 
-      R.span
-        className: "subcomment-content spec-subcomment-content",
-        dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
+      @renderContent()
 
       if @model().can_destroy()
         window.ReactDeleteButton
