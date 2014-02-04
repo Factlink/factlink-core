@@ -21,6 +21,7 @@ if [[ -z "$1" ]]
 fi
 
 cd core
+  bundle
   git rev-parse HEAD > GIT_REVISION
   bundle exec cap $env deploy
   rm GIT_REVISION

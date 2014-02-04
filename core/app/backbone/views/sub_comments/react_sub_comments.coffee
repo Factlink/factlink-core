@@ -43,7 +43,7 @@ window.ReactSubCommentList = React.createBackboneClass
     if @model().size() == 0 && @model().loading()
       ReactLoadingIndicator()
     else
-      R.div className: 'sub-comments',
+      R.div {},
         @model().map (sub_comment) =>
           ReactSubComment(model: sub_comment)
         if Factlink.Global.signed_in

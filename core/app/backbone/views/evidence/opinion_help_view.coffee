@@ -1,12 +1,14 @@
 window.ReactOpinionHelp = React.createClass
   render: ->
-    R.div className: 'opinion-help',
-      R.div className: 'comment-content',
-        R.span className: "js-question opinion-help-question",
+    _div ['opinion-help'],
+      _div [],
+        _span ["opinion-help-question"],
           "What do you think?"
-        R.a href: "/auth/twitter", className: "button button-twitter small-connect-button opinion-help-button js-accounts-popup-link",
-          R.i className: "icon-twitter"
-        R.a href: "/auth/facebook", className: "button button-facebook small-connect-button opinion-help-button js-accounts-popup-link",
-          R.i className: "icon-facebook"
-        R.a href: "/users/sign_in_or_up", className: "js-accounts-popup-link",
+        _a ["button button-twitter small-connect-button opinion-help-button js-accounts-popup-link",
+          href: "/auth/twitter"],
+            _i ["icon-twitter"]
+        _a ["button button-facebook small-connect-button opinion-help-button js-accounts-popup-link",
+          href: "/auth/facebook"],
+          _i ["icon-facebook"]
+        _a ["js-accounts-popup-link", href: "/users/sign_in_or_up"],
           "or sign in/up with email."
