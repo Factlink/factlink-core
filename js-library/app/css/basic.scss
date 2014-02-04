@@ -19,7 +19,7 @@ span.factlink {
   color: inherit !important;
   text-decoration: inherit !important;
 
-  &:hover, &.fl-active {
+  &.fl-active {
     background: rgba(255,255,0, 0.6) !important;
   }
 
