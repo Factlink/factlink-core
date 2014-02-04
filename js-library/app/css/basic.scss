@@ -18,11 +18,11 @@ span.factlink {
   text-decoration: inherit !important;
 
   &.fl-active {
-    background: rgba(255,255,0, 0.6) !important;
+    background: $factlinkInactiveColor !important;
   }
 
   &.fl-core-highlight {
-    background: rgba(255,255,0, 1) !important;
+    background: $factlinkActiveColor !important;
   }
 
   transition: all $highlight_visibility_transition_time;
