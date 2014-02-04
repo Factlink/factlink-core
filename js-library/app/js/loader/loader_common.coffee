@@ -90,7 +90,7 @@ window.FACTLINK_START_LOADER = ->
     if document.body
       whenHasBody()
     else
-      console.log('skipped init attempt ' + i)
+      if localStorage?['debug'] then console.log('skipped init attempt ' + i)
       setTimeout tryToInit(i+1), i
 
   tryToInit(1)()
