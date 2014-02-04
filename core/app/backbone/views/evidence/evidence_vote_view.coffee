@@ -1,4 +1,6 @@
 window.ReactEvidenceVote = React.createBackboneClass
+  displayName: 'ReactEvidenceVote'
+
   _on_up_vote: ->
     return unless Factlink.Global.signed_in
 

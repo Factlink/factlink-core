@@ -1,4 +1,6 @@
 window.ReactDeleteButton = React.createBackboneClass
+  displayName: 'ReactDeleteButton'
+
   getInitialState: ->
     opened: false
 

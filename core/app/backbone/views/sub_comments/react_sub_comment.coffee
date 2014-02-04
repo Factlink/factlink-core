@@ -1,11 +1,15 @@
-React.defineBackboneClass('ReactAvatar')
+window.ReactAvatar = React.createBackboneClass
+  displayName: 'ReactAvatar'
+
   render: ->
     _a [href: @props.user.link()],
       _img [ "avatar-image",
           src: @props.user.avatar_url(@props.size)
         ]
 
-React.defineBackboneClass('ReactSubComment')
+window.ReactSubComment = React.createBackboneClass
+  displayName: 'ReactSubComment'
+
   _save: ->
     @model().saveWithState()
 
