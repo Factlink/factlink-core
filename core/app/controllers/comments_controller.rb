@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
     fact_id = params[:id]
     @evidence = interactor(:'comments/for_fact_id', fact_id: fact_id)
 
-    render 'evidence/index', formats: [:json]
+    render 'index', formats: [:json]
   end
 
   def create
