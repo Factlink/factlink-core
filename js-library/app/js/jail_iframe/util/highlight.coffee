@@ -80,7 +80,7 @@ FactlinkJailRoot.highlightFact = (text, id) ->
       highlight = new FactlinkJailRoot.Highlight(id, elements)
       FactlinkJailRoot.highlightsByFactIds[id].push highlight
       if id == FactlinkJailRoot.highlightedFactId
-        highlight.core_highlighter.highlight()
+        highlight.highlight()
     else
       console.error "Could not highlight, empty factlink or complete overlap? Text: <#{text}>"
 

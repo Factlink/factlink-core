@@ -26,10 +26,6 @@ class FactlinkJailRoot.ShowButton
       mouseleave: @_onUnhover
     $el.on 'click', @_onClick
 
-    @$highlightElements.on 'mouseenter', @_onHover
-    @$highlightElements.on 'mouseleave', @_onUnhover
-    @$highlightElements.on 'click', @_onClick
-
     @frame.fadeIn()
     FactlinkJailRoot.on 'updateIconButtons', @_updatePosition
     @_updatePosition()
@@ -37,9 +33,6 @@ class FactlinkJailRoot.ShowButton
   destroy: ->
     @$boundingBox?.remove()
     @_robustHover.destroy()
-    @$highlightElements.off 'mouseenter', @_onHover
-    @$highlightElements.off 'mouseleave', @_onUnhover
-    @$highlightElements.off 'click', @_onClick
     @frame.destroy()
     FactlinkJailRoot.off 'updateIconButtons', @_updatePosition
 
