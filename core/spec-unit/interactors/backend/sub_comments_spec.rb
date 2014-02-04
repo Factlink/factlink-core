@@ -23,8 +23,34 @@ describe Backend::SubComments do
   end
 
   describe '#index' do
+    let(:parent_id) { '2a' }
+
+    let(:sub_comments) do
+      [
+        double(
+          id: '2a',
+          created_by: double,
+          created_by_id: double,
+          created_at: mock,
+          content: 'bar',
+          parent_id: parent_id,
+        ),
+        double(
+          id: '2b',
+          created_by: double,
+          created_by_id: double,
+          created_at: mock,
+          content: 'foo',
+          parent_id: parent_id,
+        )
+      ]
+    end
+
+    let(:dead_sub_comments) do
+      sub_comments.map { |c| Backend::SubComments.dead_for(c) }
+    end
+
     it 'no subcomments' do
-      parent_id = 1
       sub_comment_finder = double
 
       SubComment.stub(:any_in)
@@ -40,8 +66,6 @@ describe Backend::SubComments do
 
     it 'two subcomments' do
       parent_id = '2a'
-      sub_comments = [double, double]
-      dead_sub_comments = [double, double]
       sub_comment_finder = double
 
       SubComment.stub(:any_in)
@@ -49,12 +73,6 @@ describe Backend::SubComments do
         .and_return(sub_comment_finder)
       sub_comment_finder.stub(:asc)
         .with(:created_at).and_return(sub_comments)
-      KillObject.stub(:sub_comment)
-        .with(sub_comments[0])
-        .and_return(dead_sub_comments[0])
-      KillObject.stub(:sub_comment)
-        .with(sub_comments[1])
-        .and_return(dead_sub_comments[1])
 
       result = Backend::SubComments.index(parent_ids_in: parent_id)
 
@@ -63,8 +81,6 @@ describe Backend::SubComments do
 
     it 'retrieves subcomments for multiple comments' do
       parent_ids = ['2a', '2b']
-      sub_comments = [double, double]
-      dead_sub_comments = [double, double]
 
       sub_comment_finder = double
 
