@@ -5,13 +5,13 @@ json.created_by do |json|
 end
 json.type         comment.type #rename: "type"
 
-json.formatted_comment_content FormattedCommentContent.new(comment.content).html
+json.formatted_comment_content comment.formatted_content
 
 json.fact_data do |json|
   json.partial! 'facts/fact_data_partial', fact_data: comment.fact_data
 end
 
-json.time_ago TimeFormatter.as_time_ago(comment.created_at)
+json.time_ago comment.time_ago
 
 json.tally do |j|
   j.partial! 'believable/votes', votes: comment.votes
