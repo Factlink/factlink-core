@@ -6,9 +6,6 @@ factlink-paragraph-button {
   opacity: 0.4;
   transition: opacity $highlight_visibility_transition_time;
   white-space: nowrap; // TODO: remove when removing ugly '+' from add icon
-  .icon-comment {
-    text-shadow: -1px -1px 1.5px white, 1px -1px 1.5px white, -1px 1px 1.5px white, 1px 1px 1.5px white;
-  }
   //we need to reserve some space around the icons so the text-shadow doesn't get cut off.
   margin: 5px; //keep in sync with icon_buttons.coffee
   visibility: visible;
@@ -22,6 +19,7 @@ factlink-paragraph-button {
   &:before {
     @extend %icon-font;
     content: '\e80f';
+    text-shadow: -1px -1px 1.5px white, 1px -1px 1.5px white, -1px 1px 1.5px white, 1px 1px 1.5px white;
   }
 }
 
