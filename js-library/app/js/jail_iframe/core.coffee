@@ -18,4 +18,5 @@ $.fn = $.prototype = jQuery.fn
 jQuery.extend $, jQuery
 
 # Create the FactlinkJailRoot container
-FactlinkJailRoot.$factlinkCoreContainer = $("#factlink-containment-wrapper")
+FactlinkJailRoot.$factlinkCoreContainer = $("<factlink-core-container></factlink-core-container>")
+$('body').append FactlinkJailRoot.$factlinkCoreContainer
