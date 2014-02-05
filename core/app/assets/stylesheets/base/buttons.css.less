@@ -1,7 +1,6 @@
 @import "bootstrap/mixins";
 
 .button-base {
-  border: none;
   color: white;
   display: inline-block;
   position: relative;
@@ -14,15 +13,21 @@
   transition: all 0.1s;
   vertical-align: middle;
   cursor: pointer;
+  border: solid 0px rgba(0,0,0,0.1);
+  border-bottom-width: @largeButtonBorderWidth;
 
   &:before { // This resolved a weird bug in Chrome where an area between the text and the border bottom was not clickable. (issue 1029)
     content: '';
     position: absolute;
     top: 0;
     right: 0;
-    bottom: 0;
+    bottom: -@largeButtonBorderWidth;
     left: 0;
     border-radius: inherit;
+  }
+
+  &:hover:enabled:before, &:active:before {
+    background-color: rgba(0,0,0,0.1);
   }
 
   &:disabled {
@@ -31,8 +36,9 @@
   }
 
   &:active {
-    border-bottom: 0px;
     outline: none; //prevents ugly webkit active state
+    border-bottom-width: 0px;
+    border-top-width: @largeButtonBorderWidth;
   }
 
   &.button-loading {
@@ -43,52 +49,33 @@
   }
 }
 
-.button-color(@backgroundColor) {
-  background-color: @backgroundColor;
-  border-bottom: @largeButtonBorderWidth solid rgba(0,0,0,0.1);
-
-  &:hover:enabled {
-    background-color: darken(@backgroundColor, 10%);
-    border-color: rgba(0,0,0,0.1);
-  }
-
-  &:active {
-    background-color: darken(@backgroundColor, 10%);
-    border-top: @largeButtonBorderWidth solid rgba(0,0,0,0.1);
-  }
-}
-
-.button-shadow(@shadowColor) {
-  text-shadow: 0 1px 0 @shadowColor;
-}
-
 .button {
   .button-base();
-  .button-color(@buttonBackground);
-  .button-shadow(@buttonTextShadow);
+  background-color: @buttonBackground;
   color: @linkColor;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.35);
 }
 
 .button-confirm {
   .button-base();
-  .button-color(@buttonConfirmBackground);
-  .button-shadow(@buttonConfirmTextShadow);
+  background-color: @buttonConfirmBackground;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.35);
 }
 
 .button-danger {
   .button-base();
-  .button-color(@buttonDangerBackground);
-  .button-shadow(@buttonDangerTextShadow);
+  text-shadow: 0 1px 0 rgba(0,0,0,0.35);
+  background-color: @buttonDangerBackground;
 }
 
 .button-twitter {
   .button-base();
-  .button-color(@buttonTwitterBackground);
+  background-color: @buttonTwitterBackground;
 }
 
 .button-facebook {
   .button-base();
-  .button-color(@buttonFacebookBackground);
+  background-color: @buttonFacebookBackground;
 }
 
 .button-small {
