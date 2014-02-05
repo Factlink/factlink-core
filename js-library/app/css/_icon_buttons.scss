@@ -10,9 +10,10 @@ factlink-paragraph-button {
     text-shadow: -1px -1px 1.5px white, 1px -1px 1.5px white, -1px 1px 1.5px white, 1px 1px 1.5px white;
   }
   //we need to reserve some space around the icons so the text-shadow doesn't get cut off.
-  margin:5px; //keep in sync with icon_buttons.coffee
+  margin: 5px; //keep in sync with icon_buttons.coffee
   visibility: visible;
   position: absolute;
+  z-index: $max-z-index - 1;
 
   &:hover {
     opacity: 1;
