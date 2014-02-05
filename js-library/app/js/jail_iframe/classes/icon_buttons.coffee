@@ -69,7 +69,7 @@ class FactlinkJailRoot.ShowButton
 
 
 class FactlinkJailRoot.ParagraphButton
-  content: '<factlink-paragraph-button><span class="icon-comment"></span><div class="comment-add-plus-overlay">+</div></factlink-paragraph-button>'
+  content: '<factlink-paragraph-button><div class="comment-add-plus-overlay">+</div></factlink-paragraph-button>'
 
   constructor: (paragraphElement) ->
     @$paragraph = $(paragraphElement)
@@ -81,7 +81,7 @@ class FactlinkJailRoot.ParagraphButton
     @_attentionSpan = new FactlinkJailRoot.AttentionSpan
       wait_for_neglection: 500
       onAttentionGained: => @frame.fadeIn()
-      onAttentionLost: => @frame.fadeOut()
+      onAttentionLost: => #@frame.fadeOut()
 
     @_robustFrameHover = new FactlinkJailRoot.RobustHover
       $el: $el

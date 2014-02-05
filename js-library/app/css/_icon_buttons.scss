@@ -28,3 +28,8 @@
 .hovered factlink-paragraph-button {
   opacity: 1;
 }
+
+factlink-paragraph-button:before {
+  @extend %icon-font;
+  content: '\e80f';
+}
