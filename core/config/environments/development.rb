@@ -46,6 +46,8 @@ FactlinkUI::Application.configure do
   config.lograge.enabled = true
 
   config.dev_tweaks.log_autoload_notice = false
+
+  config.middleware.use PrettyJsonResponse
 end
 
 
