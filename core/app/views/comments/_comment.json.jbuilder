@@ -13,11 +13,7 @@ end
 
 json.time_ago comment.time_ago
 
-json.tally do |j|
-  json.believes             comment.votes[:believes]
-  json.disbelieves          comment.votes[:disbelieves]
-  json.current_user_opinion comment.votes[:current_user_opinion]
-end
+json.tally comment.tally
 
 json.is_deletable comment.deletable?
 

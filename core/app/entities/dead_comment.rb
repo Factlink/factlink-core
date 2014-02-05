@@ -11,4 +11,8 @@ DeadComment = StrictStruct.new(
   def time_ago
     TimeFormatter.as_time_ago(created_at)
   end
+
+  def tally
+    votes.slice(:believes, :disbelieves, :current_user_opinion)
+  end
 end
