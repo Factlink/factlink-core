@@ -3,8 +3,7 @@
 // TODO: we shouldn't call this "voting" but opinionating, polling, or something else
 //       since it's quite distinct from voting (on comments)
 
-@avatarSize: 32px;
-@avatarLineHeight: @avatarSize + 4px;
+@avatarSize: 24px;
 
 .fact-vote {
   display: table;
@@ -88,38 +87,42 @@
 
 .fact-vote-people-believes, .fact-vote-people-disbelieves {
   display: table-cell;
+  vertical-align: middle;
   width: 50%;
 }
 
 .fact-vote-people-believes {
-  text-align: left;
+  .opinionators-avatar,
+  .opinionators-more {
+    float: left;
+    margin-right: 4px;
+  }
 }
 
 .fact-vote-people-disbelieves {
-  text-align: right;
-}
-
-.opinionators-avatars {
-  line-height: @avatarLineHeight
-}
-
-.opinionators-avatar {
-  margin-left: 4px;
-  &:first-child {
-    margin-left: 0;
+  .opinionators-avatar,
+  .opinionators-more {
+    float: right;
+    margin-left: 4px;
   }
-
-  // for user statistics popovers:
-  display: inline-block;
-  position: relative;
-  text-align: left;
 }
 
-.opinionators-avatar-link {
-  // for user statistics popovers:
-  display: inline-block;
+.fact-vote-people-believes .opinionators-more {
+  background: @green;
+}
+
+.fact-vote-people-disbelieves .opinionators-more {
+  background: @red;
 }
 
 .opinionators-avatar-image {
   border-radius: 3px;
+}
+
+.opinionators-more {
+  font-weight: 600;
+  color: white;
+  padding: 0px 5px;
+  border-radius: 3px;
+  line-height: @avatarSize;
 }
