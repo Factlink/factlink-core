@@ -12,7 +12,6 @@ module Queries
           created_at: comment.created_at,
           content: comment.content,
           type: comment.type,
-          fact_data: comment.fact_data,
           created_by_id: comment.created_by_id,
           sub_comments_count: Backend::SubComments.count(parent_id: comment.id),
           votes: votes,
