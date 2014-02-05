@@ -11,10 +11,9 @@ module Commands
       comment.created_by = creator
       comment.type = type
       comment.content = content
-      comment.save
+      comment.save!
 
-      KillObject.comment comment,
-        sub_comments_count: 0
+      comment
     end
 
     def fact_data
