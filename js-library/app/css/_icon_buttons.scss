@@ -13,8 +13,13 @@
   position:relative;
 }
 
+factlink-paragraph-button {
+  visibility: visible;
+  position: absolute;
+}
+
 .hovered .fl-icon-button,
-.hovered factlink-paragraph-button {
+factlink-paragraph-button:hover {
   opacity: 1;
 }
 

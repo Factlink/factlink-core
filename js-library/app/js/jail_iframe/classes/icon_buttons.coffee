@@ -69,33 +69,29 @@ class FactlinkJailRoot.ShowButton
 
 
 class FactlinkJailRoot.ParagraphButton
-  content: '<factlink-paragraph-button></factlink-paragraph-button>'
-
   constructor: (paragraphElement) ->
     @$paragraph = $(paragraphElement)
     return unless @_valid()
 
-    @frame = new FactlinkJailRoot.ControlIframe @content
-    $el = $(@frame.frameBody.firstChild)
+    @$el = $('<factlink-paragraph-button></factlink-paragraph-button>')
+    FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
 
     @_attentionSpan = new FactlinkJailRoot.AttentionSpan
       wait_for_neglection: 500
-      onAttentionGained: => @frame.fadeIn()
-      onAttentionLost: => #@frame.fadeOut()
+      onAttentionGained: => @$el.show()
+      onAttentionLost: => @$el.hide()
 
     @_robustFrameHover = new FactlinkJailRoot.RobustHover
-      $el: $el
-      $externalDocument: $(document)
-      mouseenter: => @frame.addClass 'hovered'; @_attentionSpan.gainAttention()
-      mouseleave: => @frame.removeClass 'hovered'; @_attentionSpan.loseAttention()
-    $el.on 'click', @_onClick
+      $el: @$el
+      mouseenter: => @_attentionSpan.gainAttention()
+      mouseleave: => @_attentionSpan.loseAttention()
+    @$el.on 'click', @_onClick
 
     FactlinkJailRoot.on 'updateIconButtons', @_update
     @_updatePosition()
 
-    if FactlinkJailRoot.isTouchDevice()
-      @frame.fadeIn()
-    else
+    unless FactlinkJailRoot.isTouchDevice()
+      @$el.hide()
       @_robustParagraphHover = new FactlinkJailRoot.RobustHover
         $el: @$paragraph
         mouseenter: => @_showOnlyThisParagraphButton()
@@ -114,7 +110,7 @@ class FactlinkJailRoot.ParagraphButton
     @_robustFrameHover.destroy()
     @_attentionSpan.destroy()
     @_robustParagraphHover?.destroy()
-    @frame.destroy()
+    @$el.remove()
     FactlinkJailRoot.off 'updateIconButtons', @_update
     @$paragraph.off 'mousemove', @_showOnlyThisParagraphButton
     FactlinkJailRoot.off 'hideAllParagraphButtons', @_onHideAllParagraphButtons
@@ -130,10 +126,11 @@ class FactlinkJailRoot.ParagraphButton
 
   _updatePosition: ->
     contentBox = FactlinkJailRoot.contentBox(@$paragraph[0])
+    containerOffset = FactlinkJailRoot.$factlinkCoreContainer.offset()
 
-    @frame.setOffset
-      top: contentBox.top - iconButtonMargin
-      left: contentBox.left + contentBox.width - iconButtonMargin
+    @$el.css
+      top: (contentBox.top - iconButtonMargin - containerOffset.top) + 'px'
+      left: (contentBox.left + contentBox.width - iconButtonMargin - containerOffset.left) + 'px'
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()
