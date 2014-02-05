@@ -5,7 +5,7 @@ json.created_by do |json|
 end
 json.type         comment.type #rename: "type"
 
-json.formatted_comment_content comment.formatted_content
+json.formatted_content comment.formatted_content
 
 json.time_ago comment.time_ago
 

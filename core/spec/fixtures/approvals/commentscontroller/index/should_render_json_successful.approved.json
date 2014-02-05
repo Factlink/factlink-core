@@ -12,7 +12,7 @@
       "statistics_following_count": 0
     },
     "type": "doubts",
-    "formatted_comment_content": "a comment",
+    "formatted_content": "a comment",
     "time_ago": "1 minute",
     "tally": {
       "believes": 1,
@@ -35,7 +35,7 @@
       "statistics_following_count": 0
     },
     "type": "doubts",
-    "formatted_comment_content": "a comment",
+    "formatted_content": "a comment",
     "time_ago": "1 minute",
     "tally": {
       "believes": 0,
