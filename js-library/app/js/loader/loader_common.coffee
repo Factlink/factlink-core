@@ -1,3 +1,5 @@
+factlink_loader_start_timestamp = new Date().getTime()
+
 window.FACTLINK_START_LOADER = ->
   unsupported_browser = document.documentMode < 9
   return if unsupported_browser
@@ -10,7 +12,7 @@ window.FACTLINK_START_LOADER = ->
 
   # Create proxy object that stores all calls
   # proxies calls from external content page to the js-library "jail" iframe's "FactlinkJailRoot"..
-  methods = 'on,triggerClick,startHighlighting,highlightAdditionalFactlinks,startAnnotating,stopAnnotating,showLoadedNotification,scrollTo,openFactlinkModal,initializeFactlinkButton'.split(',')
+  methods = 'on,triggerClick,highlightAdditionalFactlinks,startAnnotating,stopAnnotating,showLoadedNotification,scrollTo,openFactlinkModal,initializeFactlinkButton,showProxyMessage'.split(',')
 
   storedMethodCalls = []
 
@@ -30,7 +32,7 @@ window.FACTLINK_START_LOADER = ->
     content && el.appendChild(content)
     el
 
-  onReady = ->
+  whenHasBody = ->
     # Add styles
     style_tag = mkEl 'style', null, document.createTextNode(style_code)
     document.getElementsByTagName('head')[0].appendChild style_tag
@@ -41,8 +43,9 @@ window.FACTLINK_START_LOADER = ->
     # Wrapper for increased CSS specificity
     outerWrapperEl = mkEl 'div', 'factlink-containment-wrapper', jslib_jail_iframe
 
-    document.body.appendChild outerWrapperEl
+    document.body.insertBefore(outerWrapperEl, document.body.firstChild)
 
+    load_time_before_jail = new Date().getTime()
 
     jail_window = jslib_jail_iframe.contentWindow
     jail_window.FactlinkConfig = window.FactlinkConfig
@@ -59,7 +62,16 @@ window.FACTLINK_START_LOADER = ->
     script_tag.appendChild(jslib_jail_doc.createTextNode(jslib_jail_code))
     jslib_jail_doc.documentElement.appendChild(script_tag)
 
-    jslib_jail_iframe.contentWindow.FactlinkJailRoot.loaded_promise.then ->
+    root = jslib_jail_iframe.contentWindow.FactlinkJailRoot
+    $ = jslib_jail_iframe.contentWindow.$
+    root.perf.add_existing_timing_event 'factlink_loader_start', factlink_loader_start_timestamp
+    root.perf.add_existing_timing_event 'before_jail', load_time_before_jail
+    root.perf.add_timing_event 'after_jail'
+
+    root.jail_ready_promise.resolve()
+
+    root.core_loaded_promise.then ->
+      root.perf.add_timing_event 'core_loaded'
       #called from jail-iframe when core iframe is ready.
       for name in methods
         do (name) ->
@@ -71,12 +83,17 @@ window.FACTLINK_START_LOADER = ->
       for methodCall in storedMethodCalls
         window.FACTLINK[methodCall.name](methodCall.arguments...)
       storedMethodCalls = undefined
+      root.perf.add_timing_event 'FACTLINK_queue_emptied'
 
-  if /^(interactive|complete)$/.test(document.readyState)
-    onReady()
-  else
-    document.addEventListener('DOMContentLoaded',onReady);
 
+  tryToInit = (i) -> ->
+    if document.body
+      whenHasBody()
+    else
+      if localStorage?['debug'] then console.log('skipped init attempt ' + i)
+      setTimeout tryToInit(i+1), i
+
+  tryToInit(1)()
 
 jslib_jail_code = __INLINE_JS_PLACEHOLDER__
 style_code = __INLINE_CSS_PLACEHOLDER__

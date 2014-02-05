@@ -36,3 +36,7 @@ class FactlinkJailRoot.AttentionSpan
   clearTimeout: (name) ->
     clearTimeout this[name]
     delete this[name]
+
+  destroy: ->
+    @clearTimeout 'gaining_attention_timeout_handler'
+    @clearTimeout 'losing_attention_timeout_handler'

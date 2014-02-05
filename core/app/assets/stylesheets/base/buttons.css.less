@@ -19,6 +19,7 @@
 .button {
   display: inline-block;
   position: relative;
+  font-family: inherit;
   font-size: 13px;
   border-radius: 3px;
   height: @largeButtonHeight;
@@ -26,7 +27,6 @@
   padding: 0 @largeButtonPadding;
   transition: all 0.1s;
   vertical-align: middle;
-  outline: none;
   cursor: pointer;
 
   border: none;
@@ -55,12 +55,16 @@
     background-color: @buttonDarkBackground;
     border-top: @largeButtonBorderWidth solid @buttonDarkBorder;
     border-bottom: 0px;
+    outline: none; //prevents ugly webkit active state
   }
 
-  &.button-loading, &[disabled] {
+  &.button-loading {
     background-size: 40px 40px;
     .striped(45deg, rgba(0,0,0,0.07));
     .animate-stripes(1.5s);
+  }
+
+  &:disabled {
     color: @mutedFontColor;
   }
 }
@@ -68,31 +72,16 @@
 .button-confirm {
   .button-base(@buttonConfirmBackground, @buttonConfirmBorder);
   .button-shadow(@buttonConfirmTextShadow);
-
-  &.button-loading, &[disabled] {
-    .striped(45deg);
-    color: rgba(255,255,255,0.6);
-  }
 }
 
 .button-danger {
   .button-base(@buttonDangerBackground, @buttonDangerBorder);
   .button-shadow(@buttonDangerTextShadow);
-
-  &.button-loading, &[disabled] {
-    .striped(45deg);
-    color: rgba(255,255,255,0.6);
-  }
 }
 
 .button-success {
   .button-base(@buttonSuccessBackground, @buttonSuccessBorder);
   .button-shadow(@buttonSuccessTextShadow);
-
-  &.button-loading, &[disabled] {
-    .striped(45deg);
-    color: rgba(255,255,255,0.6);
-  }
 }
 
 .button-small {

@@ -42,8 +42,7 @@ describe Commands::Facebook::ShareFactlink do
         name: 'quote',
         link: 'sharing_url',
         caption: "example.org \u2014 title",
-        description: 'Read more',
-        picture: 'https://static.factlink.com/lib/dist/images/facebook-factlink-share-logo.png'
+        description: 'Read more'
 
       command = described_class.new fact_id: fact.id, message: message,
                                     pavlov_options: pavlov_options
@@ -83,8 +82,7 @@ describe Commands::Facebook::ShareFactlink do
         name: 'quote',
         link: 'sharing_url',
         caption: "example.org \u2014 title",
-        description: 'Read more',
-        picture: 'https://static.factlink.com/lib/dist/images/facebook-factlink-share-logo.png'
+        description: 'Read more'
 
       command = described_class.new fact_id: fact.id, message: nil,
                                     pavlov_options: pavlov_options

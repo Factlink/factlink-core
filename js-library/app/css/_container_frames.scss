@@ -21,9 +21,19 @@
     width: 100%;
     height: 100%;
     z-index: $max-z-index;
+    visibility: visible;
+
+    // iOS Safari seems to have trouble with visibility:hidden iframe.
+    // And Firefox has trouble with display:none iframe (http://jsfiddle.net/UzZ28/3/)
+    // Therefore, just move the iframe far, far away.
+    // This also helps when developing, as the inspector inspects invisible
+    // elements also, which is very annoying.
+    left: -100000px;
+    top: -100000px;
 
     &.factlink-sidebar-frame-visible {
-      visibility: visible;
+      left: 0;
+      top: 0;
     }
   }
 }

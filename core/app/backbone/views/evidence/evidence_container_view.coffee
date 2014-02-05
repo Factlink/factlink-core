@@ -1,11 +1,11 @@
-class EvidenceCollectionView extends Backbone.Marionette.CollectionView
-  itemView: CommentView
+window.ReactComments = React.createBackboneClass
+  displayName: 'ReactComments'
 
-  # Add new evidence at the top of the list
-  appendHtml: (collectionView, itemView, index) ->
-    return super if collectionView.isBuffering
+  render: ->
+    R.div {},
+      @model().map (comment) =>
+        ReactComment(model: comment, key: comment.get('id'))
 
-    collectionView.$el.prepend itemView.el
 
 class window.EvidenceContainerView extends Backbone.Marionette.Layout
   className: 'evidence-container'
@@ -24,24 +24,20 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     opinionHelpRegion: '.js-opinion-help-region'
     formRegion: '.js-form-region'
 
-  initialize: ->
-    @_factVotes = @collection.fact.getVotes()
-    @listenTo @_factVotes, 'change reset add remove', @_updateForm
-
   onRender: ->
-    @_addEvidenceFormView = new AddEvidenceFormView collection: @collection
-    @formRegion.show @_addEvidenceFormView
-    @opinionHelpRegion.show new OpinionHelpView collection: @collection
-    @collectionRegion.show new EvidenceCollectionView collection: @collection
+    if Factlink.Global.signed_in
+      @_addEvidenceFormView = new AddEvidenceFormView collection: @collection
+      @formRegion.show @_addEvidenceFormView
+    else
+      @opinionHelpRegion.show new ReactView
+        component: ReactOpinionHelp
+          collection: @collection
+
+    @collectionRegion.show new ReactView
+      component: ReactComments
+        model: @collection
+
     @_updateLoading()
-    @_updateForm()
 
   _updateLoading: ->
     @ui.loading.toggle @collection.loading()
-
-  _updateForm: ->
-    showForm = @_factVotes.opinion_for_current_user() != 'no_vote'
-
-    @ui.opinionHelpRegion.toggle !showForm
-    @ui.formRegion.toggle showForm
-    @_addEvidenceFormView.focus()

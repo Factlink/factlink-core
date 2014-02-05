@@ -1,6 +1,7 @@
-require 'screenshot_helper'
+require 'acceptance_helper'
 
 describe "factlink", type: :feature, driver: :poltergeist_slow do
+  include ScreenshotTest
   include Acceptance::FactHelper
   include Acceptance::CommentHelper
 
@@ -8,11 +9,11 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
     @user = sign_in_user create :full_user
 
     @factlink = backend_create_fact_with_long_text
-    comment_text = '1. Comment'
+    comment_text = "A comment...\n\n...with newlines!"
 
     @factlink.add_opiniated :believes, @user.graph_user
     as(@user) do |p|
-      c = p.interactor(:'comments/create', fact_id: @factlink.id.to_i, type: 'doubts', content: comment_text)
+      c = p.interactor(:'comments/create', fact_id: @factlink.id.to_i, type: 'believes', content: comment_text)
       p.interactor(:'comments/update_opinion', comment_id: c.id.to_s, opinion: 'disbelieves')
     end
 
@@ -23,8 +24,9 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
     as(@user) do |p|
       other_factlink = backend_create_fact
       fact_url = FactUrl.new(other_factlink)
-      c = p.interactor(:'comments/create', fact_id: @factlink.id.to_i, type: 'doubts', content: fact_url.friendly_fact_url)
+      c = p.interactor(:'comments/create', fact_id: @factlink.id.to_i, type: 'believes', content: fact_url.friendly_fact_url)
       p.interactor(:'comments/update_opinion', comment_id: c.id.to_s, opinion: 'believes')
+      p.interactor(:'sub_comments/create_for_comment', comment_id: c.id.to_s, content: "A short subcomment")
       p.interactor(:'sub_comments/create_for_comment', comment_id: c.id.to_s, content: sub_comment_text)
     end
   end
@@ -35,7 +37,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
     5.times do
       @factlink.add_opiniated :disbelieves, (create :user).graph_user
       @factlink.add_opiniated :believes, (create :user).graph_user
-      @factlink.add_opiniated :doubts, (create :user).graph_user
+      @factlink.add_opiniated :believes, (create :user).graph_user
     end
 
     @factlink.add_opiniated :believes, (create :user).graph_user
@@ -44,7 +46,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
 
     page.should have_content @factlink.data.displaystring
 
-    first('.js-sub-comments-link').click
+    first('.spec-sub-comments-link').click
     first('.sub-comment-container') # wait for subcomments to appear
 
     assume_unchanged_screenshot "fact_show"

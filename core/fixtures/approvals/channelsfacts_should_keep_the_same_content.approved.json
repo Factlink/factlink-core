@@ -3,7 +3,6 @@
     "displaystring": "Fact 3",
     "id": "<id>",
     "url": "/f/3",
-    "sharing_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&open_id=3",
     "created_by": {
       "id": "<id>",
       "name": "John1 Doe1",
@@ -16,7 +15,7 @@
     "created_at": "<created_at>",
     "fact_title": "Fact title 3",
     "fact_url": "http://example.org/3.html",
-    "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&scrollto=3",
+    "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&open_id=3",
     "is_deletable": true,
     "timestamp": "<timestamp>"
   },
@@ -24,7 +23,6 @@
     "displaystring": "Fact 2",
     "id": "<id>",
     "url": "/f/2",
-    "sharing_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&open_id=2",
     "created_by": {
       "id": "<id>",
       "name": "John1 Doe1",
@@ -37,7 +35,7 @@
     "created_at": "<created_at>",
     "fact_title": "Fact title 2",
     "fact_url": "http://example.org/2.html",
-    "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&scrollto=2",
+    "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&open_id=2",
     "is_deletable": true,
     "timestamp": "<timestamp>"
   },
@@ -45,7 +43,6 @@
     "displaystring": "Fact 1",
     "id": "<id>",
     "url": "/f/1",
-    "sharing_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&open_id=1",
     "created_by": {
       "id": "<id>",
       "name": "John1 Doe1",
@@ -58,7 +55,7 @@
     "created_at": "<created_at>",
     "fact_title": "Fact title 1",
     "fact_url": "http://example.org/1.html",
-    "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1",
+    "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&open_id=1",
     "is_deletable": true,
     "timestamp": "<timestamp>"
   }

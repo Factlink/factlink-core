@@ -1,0 +1,18 @@
+.proxy-message {
+  @extend %default-font;
+
+  background: rgba(0,0,0,0.8);
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+  margin: 10px;
+
+  ul {
+    padding-left: 20px;
+    margin: 5px 0;
+  }
+
+  a {
+    color: white;
+  }
+}

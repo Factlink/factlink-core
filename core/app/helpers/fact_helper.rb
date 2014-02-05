@@ -8,10 +8,4 @@ module FactHelper
     dead_fact = Pavlov.query :'facts/get_dead', id: fact.id.to_s
     FactUrl.new(dead_fact).friendly_fact_path
   end
-
-  def friendly_fact_url(fact, max_slug_length = 1024)
-    # Obsolete method
-    dead_fact = Pavlov.query :'facts/get_dead', id: fact.id.to_s
-    FactUrl.new(dead_fact).friendly_fact_url
-  end
 end

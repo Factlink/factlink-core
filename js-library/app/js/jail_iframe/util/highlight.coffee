@@ -1,9 +1,7 @@
-trim = (string) -> string.replace(/^\s+|\s+$/g, '');
-
 # Chrome, Firefox, Safari
 searchWithWindowFind = (searchString) ->
   # Trim
-  searchString = trim(searchString);
+  searchString = searchString.trim();
 
   # If the user currently has selected some text, store the selection
   selection = window.document.getSelection()
@@ -66,20 +64,18 @@ highlightRange = (normalizedRange, id) ->
     elements.push element if element?
   elements
 
-FactlinkJailRoot.highlightsByFactIds = {}
 
 # Function to select the found ranges
 FactlinkJailRoot.highlightFact = (text, id) ->
   ranges = search(text)
 
-  FactlinkJailRoot.highlightsByFactIds[id] ?= []
 
   for range in ranges
     normalizedRange = new FactlinkJailRoot.Range.BrowserRange(range).normalize()
     elements = highlightRange(normalizedRange, id)
 
     if elements.length > 0
-      FactlinkJailRoot.highlightsByFactIds[id].push new FactlinkJailRoot.Highlight(id, elements)
+      new FactlinkJailRoot.Highlight(id, elements)
     else
       console.error "Could not highlight, empty factlink or complete overlap? Text: <#{text}>"
 
@@ -89,11 +85,14 @@ highlightFacts = (facts_data) ->
     FactlinkJailRoot.highlightFact(fact_data.displaystring, fact_data.id)
 
   FactlinkJailRoot.trigger "factlink.factsLoaded", facts_data
+  FactlinkJailRoot.perf.add_timing_event 'facts highlighted'
+
 
 # Function which will collect all the facts for the current page
 # and select them.
 # Returns deferred object
 fetchFacts = (siteUrl) ->
+  FactlinkJailRoot.perf.add_timing_event 'fetchFacts:start'
   $.ajax
     # The URL to the FactlinkJailRoot backend
     url: FactlinkConfig.api + "/site?url=" + encodeURIComponent(siteUrl)
@@ -101,19 +100,20 @@ fetchFacts = (siteUrl) ->
     crossDomain: true
     type: "GET"
     jsonp: "callback"
-    success: highlightFacts
+    success: -> FactlinkJailRoot.perf.add_timing_event 'fetchFacts:done'
 
-highlighting = false
-FactlinkJailRoot.startHighlighting = ->
-  return if highlighting
-  highlighting = true
+facts_promise = null
+
+FactlinkJailRoot.jail_ready_promise.done( -> facts_promise = fetchFacts FactlinkJailRoot.siteUrl())
+
+FactlinkJailRoot.host_ready_promise.done ->
   FactlinkJailRoot.initializeFactlinkButton()
 
   console.info "FactlinkJailRoot:", "startHighlighting"
-  fetchFacts FactlinkJailRoot.siteUrl()
+  facts_promise.done(highlightFacts)
 
 # Don't check for highlighting here, as this is a
 # special hacky-patchy method for in the blog
 FactlinkJailRoot.highlightAdditionalFactlinks = (siteUrl) ->
   console.info "FactlinkJailRoot:", "highlightAdditionalFactlinks"
-  fetchFacts siteUrl
+  fetchFacts(siteUrl).done(highlightFacts)

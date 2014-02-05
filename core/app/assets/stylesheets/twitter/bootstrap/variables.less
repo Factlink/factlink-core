@@ -14,8 +14,10 @@
 
 // Colors
 // -------------------------
-@green:                 #98d100;
+@green:                 #5cc14b;
+@red:                   #ce0000;
 @orange:                #f89406;
+@blue:                  #3D75A3;
 
 @lightYellow:           #fdfad9;
 @itemHoverColor:        lighten(@linkColor, 51%);
@@ -28,8 +30,8 @@
 
 // Links
 // -------------------------
-@linkColor:             #3D75A3;
-@linkColorHover:        darken(@linkColor, 20);
+@linkColor:             @blue;
+@linkColorHover:        darken(@blue, 20);
 
 // Typography
 // -------------------------
@@ -49,8 +51,6 @@
 @heading2FontSize:          14px;
 @heading3FontSize:          13px;
 @heading4FontSize:          12px;
-
-@topFactFontSize:           16px;
 
 @headingsFontWeight:        bold;    // instead of browser default, bold
 
@@ -211,12 +211,13 @@
 @discussionUnsureLineColor: #f5f5f6;
 @semiTransparentLayerColor: rgba(233, 234, 238, 0.7);
 
+// Keep in sync with variables in js-library _variables.scss
 @factlinkActiveColor:       rgba(255,255,0, 0.6);
 @factlinkInactiveColor:     rgba(255,255,0, 0.2);
 
 // Discussion page half-circles
 @believesEvidenceImpactColor:    @green;
-@disbelievesEvidenceImpactColor: #e94e1b;
+@disbelievesEvidenceImpactColor: @red;
 @doubtsEvidenceImpactColor:      #36a9e1;
 
 // Layouting
@@ -227,6 +228,7 @@
 @mainLeftPadding:           20px;
 @mainRightPadding:          20px;
 @mainBottomPadding:         20px;
+@votePadding:               10px;
 
 @bubbleLeftPadding:         15px;
 @bubbleRightPadding:        15px;
@@ -234,4 +236,6 @@
 @statisticsSpacing:         10px;
 
 @evidenceishHeadingOverhang: 23px;
-@topFactHorizontalPadding:   35px;
+@topFactHorizontalPadding:   20px;
+
+@sidebarMarginBetween:        3px;

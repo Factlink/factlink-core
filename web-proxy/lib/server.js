@@ -15,10 +15,6 @@ function getServer(config) {
   });
 
   var urlvalidation = require('./urlvalidation');
-  var blacklist     = require('./blacklist');
-  var urlbuilder    = require('./urlbuilder');
-  blacklist.set_API_URL(config.API_URL);
-  blacklist.set_API_OPTIONS(config.API_OPTIONS);
 
   /**
    *  Use Jade as templating engine
@@ -28,13 +24,13 @@ function getServer(config) {
   /**
    *  Routes and request handling
    */
-  server.get('/',       render_page('index'));
-  server.get('/header', render_page('header'));
-  server.get('/unsupported', render_page('index', config.PROXY_URL + "/inner_unsupported"));
-  server.get('/inner_unsupported', render_page('inner_unsupported'));
-  server.get('/search', get_search);
-  server.get('/parse',  get_parse);
-  server.get('/submit', get_submit);
+  server.get('/', get_parse);
+  server.get('/delayed_javascript', function(req, res) {
+    setTimeout(function(){
+      res.setHeader('Content-Type', 'application/javascript');
+      res.send('console.log("loaded intentionally delayed script!");');
+    }, parseInt(req.query.delay || "3000"));
+  });
 
   /**
    * Static file serving in develop
@@ -77,23 +73,20 @@ function getServer(config) {
     });
   }
 
-  function publisherUrl(site, scroll_to, open_id) {
+  function publisherUrl(site, open_id) {
     open_id = parse_int_or_null(open_id);
-    scroll_to = parse_int_or_null(scroll_to);
 
     if (open_id !== null) {
       return site + '#factlink-open-' + open_id;
-    } else if (scroll_to !== null) {
-      return site + '#factlink-' + scroll_to;
     } else {
       return site;
     }
   }
 
   /**
-   * Add base url and inject proxy.js, and return the proxied site
+   * Add base url, and return the proxied site
    */
-  function injectFactlinkJs(original_html, site, scroll_to, open_id, successFn) {
+  function injectFactlinkJs(original_html, site, open_id, successFn) {
     "use strict";
 
     if (/factlink_loader_publishers.min.js/.test(original_html)) {
@@ -102,68 +95,55 @@ function getServer(config) {
         original_html = original_html.replace(/factlink_loader_publishers.min.js/g, 'factlink_loader_publishers_DEACTIVATED.min.js');
       } else {
         // Redirect to publishers' sites
-        // Circumvent blacklist as we assume we don't want to blacklist publishers for now, and it's faster
-        // to not check.
-        var redirect_url = publisherUrl(site, scroll_to, open_id);
+        var redirect_url = publisherUrl(site, open_id);
 
         successFn('<script>window.parent.location = ' + JSON.stringify(redirect_url) + ';</script>');
         return;
       }
     }
 
-    blacklist.if_allowed(site,function() {
+    var output_html = original_html;
 
-      var output_html = original_html;
+    var new_base_tag = '<base href="' + site + '" />';
 
-      var new_base_tag = '<base href="' + site + '" />';
+    var framebuster_script = 'window.self = window.top;\n\n';
 
-      var framebuster_script = 'window.self = window.top;\n\n';
+    // Inject config also at the top
+    var FactlinkConfig = {
+      api: config.API_URL,
+      lib: config.LIB_URL,
+      srcPath: config.ENV === "development" ? "/factlink.core.js" : "/factlink.core.min.js",
+      url: site
+    };
+    var factlink_config_script = 'window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + ';\n';
+    var factlink_proxy_url_script = 'window.FactlinkProxyUrl = ' + JSON.stringify(config.PROXY_URL) + ';\n';
 
-      // Inject config also at the top
-      var FactlinkConfig = {
-        api: config.API_URL,
-        lib: config.LIB_URL,
-        srcPath: config.ENV === "development" ? "/factlink.core.js" : "/factlink.core.min.js",
-        url: site
-      };
-      var factlink_config_script = 'window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + ';\n';
-      var factlink_proxy_url_script = 'window.FactlinkProxyUrl = ' + JSON.stringify(config.PROXY_URL) + ';\n';
+    var inline_setup_script_tag = '<script>' + framebuster_script +
+      factlink_config_script + factlink_proxy_url_script + '</script>';
 
-      var inline_setup_script_tag = '<script>' + framebuster_script +
-        factlink_config_script + factlink_proxy_url_script + '</script>';
+    var actions = [];
 
-      var actions = [];
+    open_id = parse_int_or_null(open_id) ;
 
-      open_id = parse_int_or_null(open_id) ;
-      scroll_to = parse_int_or_null(scroll_to) || open_id;
+    if (open_id !== null) {
+      actions.push('FACTLINK.scrollTo(' + open_id + ');');
+      actions.push('FACTLINK.openFactlinkModal(' + open_id + ');');
+    }
 
-      if (open_id !== null) {
-        actions.push('FACTLINK.openFactlinkModal(' + open_id + ');');
-      }
+    actions.push('FACTLINK.startAnnotating();');
+    actions.push('FACTLINK.showProxyMessage();');
 
-      if (scroll_to !== null) {
-        actions.push('FACTLINK.scrollTo(' + scroll_to + ');');
-      }
+    // Inject Factlink library at the end of the file
+    var loader_filename = (config.ENV === "development" ? "/factlink_loader_basic.js" : "/factlink_loader_basic.min.js");
 
-      actions.push('FACTLINK.startHighlighting();');
-      actions.push('FACTLINK.startAnnotating();');
+    var loader_tag = '<script async defer src="' + config.LIB_URL + loader_filename + '" onload="'+actions.join('')+ '"></script>';
+    var header_content = new_base_tag + inline_setup_script_tag + loader_tag;
 
-      // Inject Factlink library at the end of the file
-      var loader_filename = (config.ENV === "development" ? "/factlink_loader_basic.js" : "/factlink_loader_basic.min.js");
-
-      var loader_tag = '<script async defer src="' + config.LIB_URL + loader_filename + '" onload="'+actions.join('')+ '"></script>';
-      var proxy_script_tag = '<script async defer src="' + config.PROXY_URL + '/static/scripts/proxy.js?1"></script>';
-
-      var header_content = new_base_tag + inline_setup_script_tag + loader_tag + proxy_script_tag;
-
-      output_html = inject_html_in_head(output_html, header_content);
-      successFn(output_html);
-    },function(){
-      successFn(original_html);
-    });
+    output_html = inject_html_in_head(output_html, header_content);
+    successFn(output_html);
   }
 
-  function handleProxyRequest(res, url, scrollto, open_id, form_hash) {
+  function handleProxyRequest(res, url, open_id) {
     if ( typeof url !== "string" || url.length === 0) {
       renderWelcomePage(res);
       return;
@@ -178,15 +158,15 @@ function getServer(config) {
             console.error('Rendered "Something went wrong" page because could not download page on ' + url);
             renderErrorPage(res, url);
           } else {
-            renderProxiedPage(res, site, scrollto, open_id, str);
+            renderProxiedPage(res, site, open_id, str);
           }
         });
       }
     }
   }
 
-  function renderProxiedPage(res, site, scrollto, open_id, html_in) {
-    injectFactlinkJs(html_in, site, scrollto, open_id, function(html) {
+  function renderProxiedPage(res, site, open_id, html_in) {
+    injectFactlinkJs(html_in, site, open_id, function(html) {
       res.writeHead(200, {'Content-Type': 'text/html'});
       res.write(html);
       res.end();
@@ -209,43 +189,9 @@ function getServer(config) {
       layout:false,
       locals: {
         proxy_url:      config.PROXY_URL,
-        core_url:       config.API_URL,
-        static_url:     config.STATIC_URL
+        core_url:       config.API_URL
       }
     });
-  }
-
-  /**
-   *  Render a jade template
-   */
-  function render_page(pagename, page_url) {
-    return function(req, res) {
-      var header_url  = urlbuilder.create_url(config.PROXY_URL + "/header", req.query);
-      var parse_url   = page_url || urlbuilder.create_url(config.PROXY_URL + "/parse", req.query);
-      res.render(pagename, {
-        layout: false,
-        locals: {
-          static_url: config.STATIC_URL,
-          proxy_url: config.PROXY_URL,
-          core_url: config.API_URL,
-          page_url: req.query.url,
-          clean_page_url: urlvalidation.clean_url(req.query.url),
-          factlinkModus: req.query.factlinkModus,
-          header_url: header_url,
-          parse_url: parse_url
-        }
-      });
-    };
-  }
-
-  /**
-   *  Search on Factlink enabled Google
-   */
-  function get_search(req, res) {
-    var query             = req.query.query;
-    var search_redir_url  = urlbuilder.search_redir_url(config.PROXY_URL, query, req.query.factlinkModus);
-
-    res.redirect(search_redir_url);
   }
 
   /**
@@ -253,24 +199,11 @@ function getServer(config) {
    */
   function get_parse(req, res) {
     var site     = req.query.url;
-    var scrollto = req.query.scrollto;
-    var open_id  = req.query.open_id;
-    handleProxyRequest(res, site, scrollto, open_id, {});
-  }
 
-  /**
-   * Forms get posted with a hidden 'factlinkFormUrl' field,
-   * which is added by the proxy (in proxy.js). This is the 'action' URL which
-   * the form normally submits its form to.
-   */
-  function get_submit(req, res) {
-    var form_hash = req.query;
-    var site      = form_hash.factlinkFormUrl;
-    delete form_hash.factlinkFormUrl;
+    // TODO: remove support for scrollto next time you see this!
+    var open_id  = req.query.open_id || req.query.scrollto;
 
-    handleProxyRequest(res, site, undefined, undefined, {
-      'query': form_hash
-    });
+    handleProxyRequest(res, site, open_id);
   }
 
   return server;

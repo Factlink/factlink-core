@@ -1,0 +1,78 @@
+@import "twitter/bootstrap/variables";
+@import "bootstrap/mixins";
+
+@impactColouredBorderWidth: 3px;
+
+.add-evidence-container {
+  padding: @votePadding;
+}
+
+.comment-region {
+  position: relative;
+  margin-bottom: @sidebarMarginBetween;
+}
+
+.comment-container {
+  position: relative;
+  background: white;
+  .block-box-shadow();
+}
+
+.comment-content-container {
+  display: table-cell;
+  width: 100%;
+  padding: @votePadding;
+}
+
+.comment-believes > .comment-container {
+  border-left: @impactColouredBorderWidth solid @believesEvidenceImpactColor;
+}
+
+.comment-disbelieves > .comment-container {
+  border-left: @impactColouredBorderWidth solid @disbelievesEvidenceImpactColor;
+}
+
+.comment-unsure > .comment-container {
+  border-left: @impactColouredBorderWidth solid @doubtsEvidenceImpactColor;
+}
+
+.comment-post-heading {
+  margin-bottom: 5px;
+}
+
+.comment-post-time {
+  float: right;
+  color: @grayLight;
+  font-size: 11px;
+}
+
+.comment-post-creator-name {
+  display: inline-block;
+  .ellipsis(200px);
+}
+
+
+.comment-bottom-actions {
+  color: @mutedFontColor;
+  font-size: @metaFontSize;
+  margin: 0;
+  padding: 0;
+}
+
+.comment-bottom-action {
+  display: inline-block;
+}
+
+.comment-bottom-action-delete {
+  float: right;
+}
+
+// Irrelevant (faded out)
+.comment-irrelevant {
+  opacity: 0.6;
+  .transition(opacity 0.2s);
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

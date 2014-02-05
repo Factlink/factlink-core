@@ -6,23 +6,23 @@
 
 html[data-factlink-suppress-scrolling] {
   overflow: hidden !important;
+  width:auto;
+  max-width: none;
 }
 
 span.factlink {
-  cursor: pointer;
-
   // elementary reset
   background: transparent !important;
   font: inherit !important;
   color: inherit !important;
   text-decoration: inherit !important;
 
-  &.fl-scroll-highlight, &.fl-load-highlight {
-    background: rgba(255,255,0, 0.3) !important;
+  &.fl-active {
+    background: $factlinkInactiveColor !important;
   }
 
-  &:hover, &.fl-active {
-    background: rgba(255,255,0, 0.6) !important;
+  &.fl-core-highlight {
+    background: $factlinkActiveColor !important;
   }
 
   transition: all $highlight_visibility_transition_time;

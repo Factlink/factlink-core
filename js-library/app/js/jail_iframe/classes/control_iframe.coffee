@@ -5,7 +5,7 @@ control_visibility_transition_time = 300+1000/60 #keep in sync with scss
 # thus avoiding then need for frame introspection.
 
 class FactlinkJailRoot.ControlIframe
-  constructor: ->
+  constructor: (contentHtml) ->
     @el = document.createElement('iframe')
     @el.className = 'factlink-control-frame'
     #need to append to outer document before we can access frame document.
@@ -20,13 +20,13 @@ class FactlinkJailRoot.ControlIframe
     style.appendChild(@doc.createTextNode(FrameCss))
     @doc.head.appendChild(style)
     @frameBody = @doc.body
+    @$frameBody = $(@doc.body)
 
-  setContent: (contentNode) ->
     @frameBody.innerHTML = '';
-    @frameBody.appendChild(contentNode)
-    @sizeFrameToFitContent()
+    @frameBody.appendChild $.parseHTML(contentHtml.trim())[0]
+    @_sizeFrameToFitContent()
 
-  sizeFrameToFitContent: ->
+  _sizeFrameToFitContent: ->
     @el.style.width = @frameBody.clientWidth  + 'px'
     @el.style.height = @frameBody.clientHeight + 'px'
 
@@ -48,3 +48,17 @@ class FactlinkJailRoot.ControlIframe
     @el.parentElement?.removeChild(@el)
     @$el = @el = null
 
+  addClass: (classes) =>
+    @$frameBody.addClass classes
+    @_sizeFrameToFitContent()
+
+  removeClass: (classes) =>
+    @$frameBody.removeClass classes
+    @_sizeFrameToFitContent()
+
+  setOffset: (coordinates) =>
+    containerOffset = FactlinkJailRoot.$factlinkCoreContainer.offset()
+
+    @$el.css
+      left: (coordinates.left - containerOffset.left) + "px"
+      top: (coordinates.top - containerOffset.top) + "px"

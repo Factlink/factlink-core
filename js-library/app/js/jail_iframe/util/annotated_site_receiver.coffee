@@ -5,7 +5,7 @@ modalOpen = false
 FactlinkJailRoot.annotatedSiteReceiver =
   modalFrameReady: (featureToggles) ->
     FactlinkJailRoot.can_haz = featureToggles
-    factlink_core_loaded_deferred.resolve()
+    FactlinkJailRoot.core_loaded_promise.resolve()
 
   openModalOverlay: ->
     if modalOpen
@@ -17,12 +17,12 @@ FactlinkJailRoot.annotatedSiteReceiver =
 
   highlightNewFactlink: (displaystring, id) ->
     FactlinkJailRoot.highlightFact(displaystring, id)
-    FactlinkJailRoot.trigger 'factlinkAdded'
+    FactlinkJailRoot.showCoreHighlight id
 
-  deleteFactlink: (id) ->
-    for fact in FactlinkJailRoot.highlightsByFactIds[id]
-      fact.destroy()
-    delete FactlinkJailRoot.highlightsByFactIds[id]
+  highlightExistingFactlink: (id) ->
+    FactlinkJailRoot.showCoreHighlight id
+
+  deleteFactlink: FactlinkJailRoot.destroyCoreHighlight
 
   closeModal: ->
     if !modalOpen
@@ -32,16 +32,4 @@ FactlinkJailRoot.annotatedSiteReceiver =
 
     FactlinkJailRoot.trigger 'modalClosed'
     FactlinkJailRoot.$sidebarFrame.removeClass 'factlink-sidebar-frame-visible'
-
-  # For compatibility, please remove the next time you see this
-  closeModal_noAction: ->
-    @closeModal()
-
-  # For compatibility, please remove the next time you see this
-  closeModal_highlightNewFactlink: (displaystring, id) ->
-    @highlightNewFactlink(displaystring, id)
-    @closeModal()
-
-  # For compatibility, please remove the next time you see this
-  closeModal_deleteFactlink: (id) ->
-    @deleteFactlink(id)
+    FactlinkJailRoot.showCoreHighlight null

@@ -16,9 +16,6 @@ describe "factlink", type: :feature do
       search_string = 'Test search'
 
       go_to_discussion_page_of @factlink
-
-      page.should have_content(@factlink.data.title)
-
       click_agree @factlink, @user
     end
 
@@ -32,8 +29,6 @@ describe "factlink", type: :feature do
       @factlink_evidence.data.save
 
       go_to_discussion_page_of @factlink
-      page.should have_content(@factlink.data.title)
-
       add_existing_factlink :believes, @factlink_evidence
     end
   end
@@ -44,7 +39,7 @@ describe "factlink", type: :feature do
 
     visit friendly_fact_path(factlink)
 
-    page.should have_content 'sign in/up with Factlink'
+    page.should have_content 'sign in/up with email'
   end
 
 

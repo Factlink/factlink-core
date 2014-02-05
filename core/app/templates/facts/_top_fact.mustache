@@ -1,16 +1,5 @@
-<div class="js-user-heading-region"></div>
-
-<div class="top-fact-content">
   <div class="top-fact-text">
-    {{displaystring}}
+    {{displaystring}} {{#showDelete}}<span class="js-delete-region"></span>{{/showDelete}}
   </div>
-</div>
 
 <div class="js-fact-vote-table-region"></div>
-
-{{! at the end for rendering of sharing popovers on top of the rest !}}
-<div class="top-fact-controls">
-  {{#showDelete}}<span class="top-fact-control top-fact-delete js-delete-region"></span>{{/showDelete}}{{!
-
-  !}}{{#global.signed_in}}<span class="top-fact-control"><a href="javascript:" class="js-share">Share</a></span>{{/global.signed_in}}
-</div>

@@ -1,6 +1,7 @@
-require 'screenshot_helper'
+require 'acceptance_helper'
 
 describe "Non signed in pages:", type: :feature, driver: :poltergeist_slow do
+  include ScreenshotTest
   include Acceptance::FactHelper
 
   describe "Profile page page" do

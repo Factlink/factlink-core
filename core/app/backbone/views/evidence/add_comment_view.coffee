@@ -1,5 +1,19 @@
+AddModelToCollectionMixin =
+  addModel: (model, options) ->
+    @options.addToCollection.unshift(model, options)
+    model.save {},
+      success: =>
+        @addModelSuccess(model) if @addModelSuccess?
+      error: =>
+        @options.addToCollection.remove(model)
+        @addModelError(model) if @addModelError?
+
+  addDefaultModel: (options) -> @addModel @model, options
+
+  addWrappedModel: -> @addModel @wrapNewModel(@model)
+
 class window.AddCommentView extends Backbone.Marionette.Layout
-  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin
+  _.extend @prototype, AddModelToCollectionMixin
 
   className: 'add-comment'
   events:
@@ -15,13 +29,22 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     shareFactSelectionRegion: '.js-share-fact-selection-region'
 
   initialize: ->
-    @_textAreaView = new Backbone.Factlink.TextAreaView model: @_textModel()
-    @listenTo @_textAreaView, 'return', @addComment
+    @_textAreaComponent = ReactTextArea
+      onChange: (text) =>
+        @_textModel().set text: text
+      onSubmit: =>
+        @addComment()
+      defaultValue: @_textModel().get('text')
+      onFocus: =>
+        @$('.add-comment-posting-controls').show()
+        @options.onFocus?()
+    @_textAreaView = new ReactView
+      component: @_textAreaComponent
 
-  focus: -> @_textAreaView.focusInput()
+  focus: -> @_textAreaComponent.focusInput()
 
   insert: (text) ->
-    @_textAreaView.insert text
+    @_textAreaComponent.insert text
 
   onRender: ->
     @inputRegion.show @_textAreaView
@@ -43,7 +66,9 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @addDefaultModel()
     @_shareFactlink(@model)
 
-  setFormContent: (content) -> @_textModel().set 'text', content
+  setFormContent: (content) ->
+    @_textModel().set 'text', content
+    @_textAreaComponent.updateText('')
 
   addModelSuccess: (model) ->
     @enableSubmit()
@@ -64,10 +89,12 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
   enableSubmit: ->
     @submitting = false
+    @ui.submit.removeClass 'button-loading'
     @ui.submit.prop('disabled',false).text(Factlink.Global.t.post_argument)
 
   disableSubmit: ->
     @submitting = true
+    @ui.submit.addClass 'button-loading'
     @ui.submit.prop('disabled',true ).text('Posting...')
 
   _textModel: -> @__textModel ?= new Backbone.Factlink.SemiPersistentTextModel {},

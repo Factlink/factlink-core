@@ -9,27 +9,20 @@ FactlinkJailRoot.showLoadedNotification = ->
     type_classes: 'fl-message-icon-time fl-message-success'
 
 in_screen_time = 3000
-content = """
-  <div class="fl-message">
-    <div class="fl-message-icon"></div><span class="fl-message-content fl-js-message"></span>
-  </div>
-""".trim()
 
 showNotification = (options) ->
   frame = null
 
   renderFrame = ->
-    frame = new FactlinkJailRoot.ControlIframe()
-    fillFrame()
+    content = """
+      <div class="fl-message #{options.type_classes}">
+        <div class="fl-message-icon"></div><span class="fl-message-content">#{options.message}</span>
+      </div>
+    """
+
+    frame = new FactlinkJailRoot.ControlIframe content
     positionFrame()
     doTransition()
-
-  fillFrame = ->
-    frame.setContent($.parseHTML(content)[0])
-    $el = $(frame.frameBody.firstChild)
-    $el.find('.fl-js-message').text(options.message)
-    $el.addClass(options.type_classes)
-    frame.sizeFrameToFitContent()
 
   positionFrame = ->
     frame.$el.css

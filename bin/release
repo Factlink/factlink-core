@@ -1,0 +1,49 @@
+#!/bin/bash
+
+#abort this script on any error:
+set -e
+
+cd "$( dirname "${BASH_SOURCE[0]}" )"/..
+
+env=$1
+branch=`git symbolic-ref HEAD`
+
+if [[ "$branch" != "refs/heads/master" ]]
+  then
+    echo "Switch to master branch please!"
+    exit 1
+fi
+
+if [[ -z "$1" ]]
+  then
+    echo "No argument supplied"
+    exit 1
+fi
+
+cd core
+  bundle
+  git rev-parse HEAD > GIT_REVISION
+  bundle exec cap $env deploy
+  rm GIT_REVISION
+cd ..
+
+echo "Deployed Core"
+
+cd js-library
+  bundle
+  npm install
+  grunt
+  bundle exec cap $env deploy
+cd ..
+
+echo "Deployed js-library"
+
+cd web-proxy
+  bundle
+  npm install
+  bundle exec cap $env deploy
+cd ..
+
+echo "Deployed web-proxy"
+
+echo "Done! Deployed to $env"

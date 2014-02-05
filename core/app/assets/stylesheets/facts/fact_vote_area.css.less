@@ -1,0 +1,125 @@
+@import "bootstrap/mixins";
+
+// TODO: we shouldn't call this "voting" but opinionating, polling, or something else
+//       since it's quite distinct from voting (on comments)
+
+@avatarSize: 32px;
+@avatarLineHeight: @avatarSize + 4px;
+
+.fact-vote {
+  display: table;
+  margin: 10px 0px;
+}
+
+.fact-vote-button {
+  display: table-cell;
+}
+
+.fact-vote-button-active {
+  &.fact-vote-button-believes {
+    background: @green;
+    border-bottom-color: darken(@green, 10%);
+    color: darken(@green, 30%);
+  }
+  &.fact-vote-button-disbelieves {
+    background: @red;
+    border-bottom-color: darken(@red, 10%);
+    color: darken(@red, 30%);
+  }
+}
+
+.fact-vote-button-believes,
+.fact-vote-button-disbelieves {
+  padding: 0px 5px;
+  font-size: 16px;
+  height: auto;
+}
+
+.fact-vote-indicator {
+  font-size: 20px;
+  color: @grayLight;
+}
+
+.fact-vote-stats {
+  vertical-align: middle;
+  text-align: center;
+  display: table-cell;
+  width: 100%;
+}
+
+.fact-vote-stats-table {
+  width: 100%;
+}
+
+.fact-vote-amount-graph {
+  height: 14px;
+  width: 100%;
+}
+
+/* TODO replace this by actual percentages */
+.fact-vote-amount-believes, .fact-vote-amount-disbelieves {
+  font-size: 18px;
+  width: 20px;
+  display: table-cell;
+}
+
+.vote-amount-graph-believers{
+  background: @green;
+}
+
+.vote-amount-graph-disbelievers {
+  background: @red;
+}
+
+.fact-vote-amount-believes {
+  color: @green;
+  padding-left: 10px;
+}
+
+.fact-vote-amount-disbelieves {
+  color: @red;
+  padding-right: 10px;
+}
+
+.fact-vote-people {
+  display: table;
+  width: 100%;
+}
+
+.fact-vote-people-believes, .fact-vote-people-disbelieves {
+  display: table-cell;
+  width: 50%;
+}
+
+.fact-vote-people-believes {
+  text-align: left;
+}
+
+.fact-vote-people-disbelieves {
+  text-align: right;
+}
+
+.opinionators-avatars {
+  line-height: @avatarLineHeight
+}
+
+.opinionators-avatar {
+  margin-left: 4px;
+  &:first-child {
+    margin-left: 0;
+  }
+
+  // for user statistics popovers:
+  display: inline-block;
+  position: relative;
+  text-align: left;
+}
+
+.opinionators-avatar-link {
+  // for user statistics popovers:
+  display: inline-block;
+}
+
+.opinionators-avatar-image {
+  border-radius: 3px;
+}

@@ -25,6 +25,8 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     @_addCommentView = new AddCommentView
       addToCollection: @collection
       argumentTypeModel: @_argumentTypeModel
+      onFocus: =>
+        @$(".add-evidence-form-search-facts").show()
 
   onRender: ->
     @addCommentRegion.show @_addCommentView
@@ -57,9 +59,9 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   _updateQuestion: ->
     @ui.question.html switch @_argumentTypeModel.get('argument_type')
       when 'believes'
-        'Why do you <i class="icon-smile"></i>?'
+        'Why do you <i class="icon-thumbs-believes"></i>?'
       when 'disbelieves'
-        'Why do you  <i class="icon-frown"></i>?'
+        'Why do you  <i class="icon-thumbs-disbelieves"></i>?'
       when 'doubts'
         'What do you think?'
       else

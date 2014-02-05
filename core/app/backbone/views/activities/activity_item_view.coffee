@@ -7,7 +7,7 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
         CreatedCommentView
       when "created_sub_comment"
         CreatedSubCommentView
-      when "believes", "doubts", "disbelieves"
+      when "believes", "disbelieves", "doubts"
         AddedOpinionView
       when 'followed_user'
         FollowedUserView
@@ -22,8 +22,8 @@ class CreatedSubCommentView extends ActivityItemView
   template: "activities/created_sub_comment"
 
 actionToIcon =
-  believes: 'icon-smile'
-  disbelieves: 'icon-frown'
+  believes: 'icon-thumbs-believes'
+  disbelieves: 'icon-thumbs-disbelieves'
   doubts: 'icon-meh'
 
 class AddedOpinionView extends ActivityItemView
