@@ -37,9 +37,8 @@ describe Interactors::Comments::Create do
       content = 'content'
       user = double(id: '1a', graph_user: double)
 
-      opinion = double
       comment = double(:comment, id: double(to_s: '10a'), fact_data: double(fact: fact))
-      mongoid_comment = double
+      dead_comment = double
       pavlov_options = {current_user: user}
       interactor = described_class.new fact_id: fact.fact_id, type: type,
                                        content: content,
@@ -49,7 +48,6 @@ describe Interactors::Comments::Create do
             .with(:'comments/add_votes_and_deletable',
                       comment: comment, pavlov_options: pavlov_options)
             .and_return(comment)
-      Comment.stub(:find).with(comment.id).and_return(mongoid_comment)
 
       Pavlov.should_receive(:command)
             .with(:'create_comment',
@@ -63,10 +61,14 @@ describe Interactors::Comments::Create do
       Pavlov.should_receive(:command)
             .with(:'create_activity',
                       graph_user: user.graph_user, action: :created_comment,
-                      subject: mongoid_comment, object: fact,
+                      subject: comment, object: fact,
                       pavlov_options: pavlov_options)
+      Pavlov.stub(:query)
+            .with(:'comments/get',
+                     comment_id: comment.id, pavlov_options: pavlov_options)
+            .and_return(dead_comment)
 
-      expect(interactor.call).to eq comment
+      expect(interactor.call).to eq dead_comment
     end
   end
 end

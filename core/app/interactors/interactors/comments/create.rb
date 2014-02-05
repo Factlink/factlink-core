@@ -20,11 +20,9 @@ module Interactors
       end
 
       def create_activity comment
-        # TODO fix this ugly data access shit, need to think about where to kill objects, etc
-        refetched_comment = Comment.find(comment.id)
         command(:'create_activity',
                     graph_user: pavlov_options[:current_user].graph_user,
-                    action: :created_comment, subject: refetched_comment,
+                    action: :created_comment, subject: comment,
                     object: comment.fact_data.fact)
       end
 
