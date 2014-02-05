@@ -54,6 +54,8 @@
 }
 
 .comment-post-heading {
+  display: table;
+  width: 100%;
   margin-bottom: 5px;
 }
 
@@ -63,9 +65,22 @@
   font-size: 11px;
 }
 
+.comment-post-creator {
+  display: table-cell;
+  width: auto;
+  padding: 0px 5px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
 .comment-post-creator-name {
-  display: inline-block;
   .ellipsis(200px);
+}
+
+.comment-post-creator-avatar {
+  display: table-cell;
+  height: @commentCreatorAvatarSize;
+  width: @commentCreatorAvatarSize;
 }
 
 
