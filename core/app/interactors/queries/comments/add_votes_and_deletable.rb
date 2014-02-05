@@ -8,7 +8,7 @@ module Queries
       def execute
         DeadComment.new(
           id: comment.id,
-          created_by: comment.created_by,
+          created_by: query(:users_by_ids, user_ids: comment.created_by_id).first,
           created_at: comment.created_at,
           content: comment.content,
           type: comment.type,
