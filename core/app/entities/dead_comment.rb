@@ -1,7 +1,7 @@
 DeadComment = StrictStruct.new(
   :id, :created_by, :created_at, :content, :type,
   :sub_comments_count, :created_by_id,
-  :votes, :deletable?
+  :votes, :is_deletable
 ) do
 
   def formatted_content

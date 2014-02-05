@@ -33,7 +33,7 @@ module Queries
           created_by_id: comment.created_by_id,
           sub_comments_count: Backend::SubComments.count(parent_id: comment.id),
           votes: votes(believable),
-          deletable?: deletable?(comment, believable),
+          is_deletable: deletable?(comment, believable),
         )
       end
 

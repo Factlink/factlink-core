@@ -11,6 +11,6 @@ json.time_ago comment.time_ago
 
 json.tally comment.tally
 
-json.is_deletable comment.deletable?
+json.is_deletable comment.is_deletable
 
 json.sub_comments_count comment.sub_comments_count
