@@ -9,13 +9,17 @@
 
 .comment-region {
   position: relative;
-  margin-bottom: 3px;
+  margin-bottom: @sidebarMarginBetween;
 }
 
 .comment-container {
   position: relative;
   background: white;
   .block-box-shadow();
+}
+
+.comment-container:hover .comment-bottom-actions {
+  opacity: 1.0;
 }
 
 .comment-content-container {
@@ -53,6 +57,8 @@
 
 
 .comment-bottom-actions {
+  opacity: 0.4;
+  transition: opacity 0.5s ease;
   color: @mutedFontColor;
   font-size: @metaFontSize;
   margin: 0;

@@ -8,7 +8,7 @@ module Backend
       parent_ids = Array(parent_ids_in)
       sub_comments = SubComment.any_in(parent_id: parent_ids).asc(:created_at)
       sub_comments.map do |sub_comment|
-        KillObject.sub_comment sub_comment
+        dead_for(sub_comment)
       end
     end
 
@@ -24,6 +24,15 @@ module Backend
       sub_comment.save!
 
       sub_comment
+    end
+
+    def self.dead_for(sub_comment)
+      DeadSubComment.new id: sub_comment.id,
+                         created_by: sub_comment.created_by,
+                         created_by_id: sub_comment.created_by_id,
+                         created_at: sub_comment.created_at,
+                         content: sub_comment.content,
+                         parent_id: sub_comment.parent_id
     end
   end
 end

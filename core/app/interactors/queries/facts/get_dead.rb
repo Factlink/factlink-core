@@ -8,12 +8,12 @@ module Queries
       private
 
       def execute
-        DeadFact.new fact.id,
-                     site_url,
-                     fact.data.displaystring,
-                     fact.data.created_at,
-                     fact.data.title,
-                     fact.deletable?
+        DeadFact.new id:fact.id,
+                     site_url: site_url,
+                     displaystring: fact.data.displaystring,
+                     created_at: fact.data.created_at,
+                     title: fact.data.title,
+                     deletable?: fact.deletable?
       end
 
       def fact

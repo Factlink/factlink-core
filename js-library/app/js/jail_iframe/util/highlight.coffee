@@ -64,20 +64,18 @@ highlightRange = (normalizedRange, id) ->
     elements.push element if element?
   elements
 
-FactlinkJailRoot.highlightsByFactIds = {}
 
 # Function to select the found ranges
 FactlinkJailRoot.highlightFact = (text, id) ->
   ranges = search(text)
 
-  FactlinkJailRoot.highlightsByFactIds[id] ?= []
 
   for range in ranges
     normalizedRange = new FactlinkJailRoot.Range.BrowserRange(range).normalize()
     elements = highlightRange(normalizedRange, id)
 
     if elements.length > 0
-      FactlinkJailRoot.highlightsByFactIds[id].push new FactlinkJailRoot.Highlight(id, elements)
+      new FactlinkJailRoot.Highlight(id, elements)
     else
       console.error "Could not highlight, empty factlink or complete overlap? Text: <#{text}>"
 
@@ -96,7 +94,7 @@ highlightFacts = (facts_data) ->
 fetchFacts = (siteUrl) ->
   FactlinkJailRoot.perf.add_timing_event 'fetchFacts:start'
   $.ajax
-  # The URL to the FactlinkJailRoot backend
+    # The URL to the FactlinkJailRoot backend
     url: FactlinkConfig.api + "/site?url=" + encodeURIComponent(siteUrl)
     dataType: "jsonp"
     crossDomain: true

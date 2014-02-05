@@ -1,18 +1,33 @@
-.fl-icon-button {
+factlink-show-button,
+factlink-paragraph-button {
   @extend %default-font;
-  cursor: pointer;
+  @extend %fadable-control;
+
+  position: absolute;
   display: block;
-  opacity: 0.4;
-  transition: opacity $highlight_visibility_transition_time;
+  cursor: pointer;
+
   white-space: nowrap; // TODO: remove when removing ugly '+' from add icon
-  .icon-comment {
+
+  // reset inherited styles
+  font-size: 13px;
+  line-height: normal;
+
+  color: rgba(0, 0, 0, 0.4);
+
+  &:hover {
+    color: black;
+  }
+
+  &:before {
+    @extend %icon-font;
+    content: '\e80f';
     text-shadow: -1px -1px 1.5px white, 1px -1px 1.5px white, -1px 1px 1.5px white, 1px 1px 1.5px white;
   }
-  //we need to reserve some space around the icons so the text-shadow doesn't get cut off.
-  margin:5px; //keep in sync with icon_buttons.coffee
-  position:relative;
 }
-.comment-add-plus-overlay{
+
+factlink-paragraph-button:after {
+  content: '+';
   position:absolute;
   top:1px;
   font-weight:bold;
@@ -22,8 +37,4 @@
   text-align:center;
   color:white;
   -webkit-font-smoothing: antialiased;
-}
-
-.hovered .fl-icon-button {
-  opacity: 1;
 }

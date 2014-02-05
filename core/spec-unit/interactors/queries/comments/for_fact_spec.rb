@@ -21,15 +21,10 @@ describe Queries::Comments::ForFact do
       Comment.should_receive(:where)
              .with(fact_data_id: fact.data_id)
              .and_return [comment]
-      Backend::SubComments.should_receive(:count)
-                          .with(parent_id: comment.id)
-                          .and_return(sub_comments_count)
       Pavlov.should_receive(:query)
             .with(:'comments/add_votes_and_deletable',
                       comment: comment, pavlov_options: pavlov_options)
             .and_return(dead_comment)
-
-      comment.should_receive(:sub_comments_count=).with(sub_comments_count)
 
       expect(query.call).to eq [dead_comment]
     end

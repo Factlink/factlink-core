@@ -1,17 +1,13 @@
 @import "bootstrap/mixins";
 
 .top-fact {
+  .block-box-shadow();
   background: white;
   position: relative;
   padding: @votePadding;
 }
 
-.top-fact-content {
-  padding: 10px;
-}
-
 .top-fact-text {
-  font-size: @topFactFontSize;
-  line-height: @topFactFontSize * 1.5;
+  line-height: @baseFontSize * 1.5;
   word-break: break-word;
 }
