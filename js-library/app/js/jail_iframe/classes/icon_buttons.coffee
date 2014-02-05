@@ -50,14 +50,14 @@ class FactlinkJailRoot.ShowButton
   _updatePosition: =>
     textContainer = @_textContainer(@$highlightElements[0])
     contentBox = FactlinkJailRoot.contentBox(textContainer)
-    containerOffset = FactlinkJailRoot.$factlinkCoreContainer.offset()
 
     left = contentBox.left + contentBox.width
     left = Math.min left, $(window).width() - @$el.outerWidth()
 
-    @$el.css
-      top: (@$highlightElements.first().offset().top - iconButtonMargin - containerOffset.top) + 'px'
-      left: (left - iconButtonMargin - containerOffset.left) + 'px'
+    FactlinkJailRoot.setElementPosition
+      $el: @$el
+      top: @$highlightElements.first().offset().top - iconButtonMargin
+      left: left - iconButtonMargin
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()
@@ -122,11 +122,11 @@ class FactlinkJailRoot.ParagraphButton
 
   _updatePosition: ->
     contentBox = FactlinkJailRoot.contentBox(@$paragraph[0])
-    containerOffset = FactlinkJailRoot.$factlinkCoreContainer.offset()
 
-    @$el.css
-      top: (contentBox.top - iconButtonMargin - containerOffset.top) + 'px'
-      left: (contentBox.left + contentBox.width - iconButtonMargin - containerOffset.left) + 'px'
+    FactlinkJailRoot.setElementPosition
+      $el: @$el
+      top: contentBox.top - iconButtonMargin
+      left: contentBox.left + contentBox.width - iconButtonMargin
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()
