@@ -59,7 +59,7 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     addressable (2.3.5)
-    approvals (0.0.9)
+    approvals (0.0.10)
       nokogiri
       thor
     arel (3.0.3)
