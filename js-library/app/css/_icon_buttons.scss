@@ -23,7 +23,8 @@ factlink-paragraph-button:hover {
   opacity: 1;
 }
 
-factlink-paragraph-button:before {
+factlink-paragraph-button:before,
+factlink-show-button:before {
   @extend %icon-font;
   content: '\e80f';
 }

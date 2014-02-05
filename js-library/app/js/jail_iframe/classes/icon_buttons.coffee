@@ -10,7 +10,7 @@ FactlinkJailRoot.host_ready_promise.then ->
 
 
 class FactlinkJailRoot.ShowButton
-  content: '<factlink-show-button><span class="icon-comment"></span></factlink-show-button>'
+  content: '<factlink-show-button></factlink-show-button>'
 
   constructor: (highlightElements, factId) ->
     @frame = new FactlinkJailRoot.ControlIframe @content
