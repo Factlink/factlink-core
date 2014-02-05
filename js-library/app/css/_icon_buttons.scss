@@ -12,17 +12,6 @@
   margin:5px; //keep in sync with icon_buttons.coffee
   position:relative;
 }
-.comment-add-plus-overlay{
-  position:absolute;
-  top:1px;
-  font-weight:bold;
-  font-size:85%;
-  left:0;
-  right:0.5px;
-  text-align:center;
-  color:white;
-  -webkit-font-smoothing: antialiased;
-}
 
 .hovered .fl-icon-button,
 .hovered factlink-paragraph-button {
@@ -32,4 +21,17 @@
 factlink-paragraph-button:before {
   @extend %icon-font;
   content: '\e80f';
+}
+
+factlink-paragraph-button:after {
+  content: '+';
+  position:absolute;
+  top:1px;
+  font-weight:bold;
+  font-size:85%;
+  left:0;
+  right:0.5px;
+  text-align:center;
+  color:white;
+  -webkit-font-smoothing: antialiased;
 }
