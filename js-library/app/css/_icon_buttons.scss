@@ -1,42 +1,40 @@
-factlink-core-container {
-  factlink-show-button,
-  factlink-paragraph-button {
-    @extend %default-font;
-    @extend %fadable-control;
+factlink-show-button,
+factlink-paragraph-button {
+  @extend %default-font;
+  @extend %fadable-control;
 
-    position: absolute;
-    display: block;
-    cursor: pointer;
+  position: absolute;
+  display: block;
+  cursor: pointer;
 
-    white-space: nowrap; // TODO: remove when removing ugly '+' from add icon
+  white-space: nowrap; // TODO: remove when removing ugly '+' from add icon
 
-    // reset inherited styles
-    font-size: 13px;
-    line-height: normal;
+  // reset inherited styles
+  font-size: 13px;
+  line-height: normal;
 
-    color: rgba(0, 0, 0, 0.4);
+  color: rgba(0, 0, 0, 0.4);
 
-    &:hover {
-      color: black;
-    }
-
-    &:before {
-      @extend %icon-font;
-      content: '\e80f';
-      text-shadow: -1px -1px 1.5px white, 1px -1px 1.5px white, -1px 1px 1.5px white, 1px 1px 1.5px white;
-    }
+  &:hover {
+    color: black;
   }
 
-  factlink-paragraph-button:after {
-    content: '+';
-    position:absolute;
-    top:1px;
-    font-weight:bold;
-    font-size:85%;
-    left:0;
-    right:0.5px;
-    text-align:center;
-    color:white;
-    -webkit-font-smoothing: antialiased;
+  &:before {
+    @extend %icon-font;
+    content: '\e80f';
+    text-shadow: -1px -1px 1.5px white, 1px -1px 1.5px white, -1px 1px 1.5px white, 1px 1px 1.5px white;
   }
+}
+
+factlink-paragraph-button:after {
+  content: '+';
+  position:absolute;
+  top:1px;
+  font-weight:bold;
+  font-size:85%;
+  left:0;
+  right:0.5px;
+  text-align:center;
+  color:white;
+  -webkit-font-smoothing: antialiased;
 }
