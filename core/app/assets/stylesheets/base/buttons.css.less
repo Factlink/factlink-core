@@ -1,22 +1,7 @@
 @import "bootstrap/mixins";
 
-.button-base(@backgroundColor, @borderColor) {
-  background-color: @backgroundColor;
+.button-base {
   color: white;
-  border-color: @borderColor;
-
-  &:hover, &:active {
-    background-color: darken(@backgroundColor, 10%);
-    border-color: darken(@borderColor, 10%);
-    color: white;
-  }
-}
-
-.button-shadow(@shadowColor) {
-  text-shadow: 0 1px 0 @shadowColor;
-}
-
-.button {
   display: inline-block;
   position: relative;
   font-family: inherit;
@@ -28,60 +13,69 @@
   transition: all 0.1s;
   vertical-align: middle;
   cursor: pointer;
-
-  border: none;
-  border-bottom: @largeButtonBorderWidth solid @buttonBorder;
-  background-color: @buttonBackground;
-
-  color: @linkColor;
-  text-shadow: 0 1px 0 @buttonTextShadow;
+  border: solid 0px rgba(0,0,0,0.1);
+  border-bottom-width: @largeButtonBorderWidth;
 
   &:before { // This resolved a weird bug in Chrome where an area between the text and the border bottom was not clickable. (issue 1029)
     content: '';
     position: absolute;
     top: 0;
     right: 0;
-    bottom: 0;
+    bottom: -@largeButtonBorderWidth;
     left: 0;
     border-radius: inherit;
   }
 
-  &:hover {
-    background: @buttonDarkBackground;
-    border-color: @buttonDarkBorder;
+  &:hover:enabled:before, &:active:before {
+    background-color: rgba(0,0,0,0.1);
+  }
+
+  &:disabled {
+    color: @mutedFontColor;;
+    cursor: not-allowed;
   }
 
   &:active {
-    background-color: @buttonDarkBackground;
-    border-top: @largeButtonBorderWidth solid @buttonDarkBorder;
-    border-bottom: 0px;
     outline: none; //prevents ugly webkit active state
+    border-bottom-width: 0px;
+    border-top-width: @largeButtonBorderWidth;
   }
 
   &.button-loading {
     background-size: 40px 40px;
+    text-shadow: none;
     .striped(45deg, rgba(0,0,0,0.07));
     .animate-stripes(1.5s);
   }
+}
 
-  &:disabled {
-    color: @mutedFontColor;
-  }
+.button {
+  .button-base();
+  background-color: @buttonBackground;
+  color: @linkColor;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.35);
 }
 
 .button-confirm {
-  .button-base(@buttonConfirmBackground, @buttonConfirmBorder);
-  .button-shadow(@buttonConfirmTextShadow);
+  .button-base();
+  background-color: @buttonConfirmBackground;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.35);
 }
 
 .button-danger {
-  .button-base(@buttonDangerBackground, @buttonDangerBorder);
-  .button-shadow(@buttonDangerTextShadow);
+  .button-base();
+  text-shadow: 0 1px 0 rgba(0,0,0,0.35);
+  background-color: @buttonDangerBackground;
 }
 
-.button-success {
-  .button-base(@buttonSuccessBackground, @buttonSuccessBorder);
-  .button-shadow(@buttonSuccessTextShadow);
+.button-twitter {
+  .button-base();
+  background-color: #52a1dc;
+}
+
+.button-facebook {
+  .button-base();
+  background-color: #335292;
 }
 
 .button-small {
@@ -94,29 +88,6 @@
   &:active {
     padding-top: 1px;
     border-top-width: @baseButtonBorderWidth;
-  }
-}
-
-.button-twitter {
-  .button-base(@buttonTwitterBackground, @buttonTwitterBorder);
-}
-
-.button-facebook {
-  .button-base(@buttonFacebookBackground, @buttonFacebookBorder);
-}
-
-.button-loading {
-  text-shadow: none;
-}
-
-.button-disabled {
-  background-color: @buttonDisabledBackground;
-  color: @mutedFontColor;
-  text-shadow: 0 1px 0 @buttonDisabledTextShadow;
-  border: @baseButtonBorderWidth solid @buttonDisabledBorder;
-
-  &:hover {
-    cursor: not-allowed;
   }
 }
 

@@ -1,5 +1,6 @@
-#factlink-containment-wrapper {
+factlink-core-container {
   @extend %frame-styles;
+  display: block;
   visibility: hidden;
   z-index: $max-z-index;
 
