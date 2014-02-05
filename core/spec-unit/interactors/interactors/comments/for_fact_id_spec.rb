@@ -53,8 +53,8 @@ describe Interactors::Comments::ForFactId do
           .with(fact.id)
           .and_return(fact)
       Pavlov.stub(:query)
-            .with(:'comments/for_fact',
-                      fact_data_id: fact.data_id, pavlov_options: pavlov_options)
+            .with(:'comments/by_ids',
+                      by: :fact_data_id, ids: [fact.data_id], pavlov_options: pavlov_options)
             .and_return [comment1, comment2]
 
       result = interactor.call

@@ -21,7 +21,7 @@ module Interactors
       end
 
       def comments
-        query(:'comments/for_fact', fact_data_id: Fact[fact_id].data_id)
+        query(:'comments/by_ids', by: :fact_data_id, ids: [Fact[fact_id].data_id])
       end
 
       def relevance_of comment
