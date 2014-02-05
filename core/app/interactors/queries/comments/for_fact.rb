@@ -17,10 +17,7 @@ module Queries
 
       def dead_comments_with_opinion
         comments.map do |comment|
-          comment.sub_comments_count = Backend::SubComments.count(parent_id: comment.id)
-          dead_comment = query(:'comments/add_votes_and_deletable', comment: comment)
-
-          dead_comment
+          query(:'comments/add_votes_and_deletable', comment: comment)
         end
       end
     end
