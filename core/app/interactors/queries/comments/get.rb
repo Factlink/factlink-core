@@ -5,9 +5,7 @@ module Queries
       arguments :comment_id
 
       def execute
-        comment = Comment.find(@comment_id)
-
-        query(:'comments/add_votes_and_deletable', comment: comment)
+        query(:'comments/by_ids', by: :_id, ids: [comment_id]).first
       end
     end
   end

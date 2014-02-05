@@ -44,11 +44,6 @@ describe Interactors::Comments::Create do
                                        content: content,
                                        pavlov_options: pavlov_options
 
-      Pavlov.stub(:query)
-            .with(:'comments/add_votes_and_deletable',
-                      comment: comment, pavlov_options: pavlov_options)
-            .and_return(comment)
-
       Pavlov.should_receive(:command)
             .with(:'create_comment',
                       fact_id: fact.fact_id, type: type, content: content,
