@@ -14,9 +14,9 @@ window.ReactSubComment = React.createBackboneClass
     @model().saveWithState()
 
   _content_tag: ->
-    if @model().get('formatted_comment_content')
+    if @model().get('formatted_content')
       _span ["subcomment-content spec-subcomment-content",
-        dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}]
+        dangerouslySetInnerHTML: {__html: @model().get('formatted_content')}]
     else
       _span ["subcomment-content spec-subcomment-content"],
         @model().get('content')

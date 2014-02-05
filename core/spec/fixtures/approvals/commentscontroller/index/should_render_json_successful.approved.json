@@ -2,6 +2,16 @@
   {
     "id": "<id>",
     "created_at": "<created_at>",
+    "type": "doubts",
+    "formatted_content": "a comment",
+    "time_ago": "1 minute",
+    "tally": {
+      "believes": 1,
+      "disbelieves": 0,
+      "current_user_opinion": "no_vote"
+    },
+    "is_deletable": true,
+    "sub_comments_count": 0,
     "created_by": {
       "id": "<id>",
       "name": "John1 Doe1",
@@ -10,26 +20,21 @@
       "statistics_created_fact_count": 0,
       "statistics_follower_count": 0,
       "statistics_following_count": 0
-    },
-    "type": "doubts",
-    "formatted_comment_content": "a comment",
-    "fact_data": {
-      "id": "<id>",
-      "displaystring": "displaystring"
-    },
-    "time_ago": "1 minute",
-    "tally": {
-      "believes": 1,
-      "disbelieves": 0,
-      "doubts": 0,
-      "current_user_opinion": "no_vote"
-    },
-    "is_deletable": true,
-    "sub_comments_count": 0
+    }
   },
   {
     "id": "<id>",
     "created_at": "<created_at>",
+    "type": "doubts",
+    "formatted_content": "a comment",
+    "time_ago": "1 minute",
+    "tally": {
+      "believes": 0,
+      "disbelieves": 1,
+      "current_user_opinion": "disbelieves"
+    },
+    "is_deletable": true,
+    "sub_comments_count": 0,
     "created_by": {
       "id": "<id>",
       "name": "John2 Doe2",
@@ -38,21 +43,6 @@
       "statistics_created_fact_count": 1,
       "statistics_follower_count": 0,
       "statistics_following_count": 0
-    },
-    "type": "doubts",
-    "formatted_comment_content": "a comment",
-    "fact_data": {
-      "id": "<id>",
-      "displaystring": "displaystring"
-    },
-    "time_ago": "1 minute",
-    "tally": {
-      "believes": 0,
-      "disbelieves": 1,
-      "doubts": 0,
-      "current_user_opinion": "disbelieves"
-    },
-    "is_deletable": true,
-    "sub_comments_count": 0
+    }
   }
 ]

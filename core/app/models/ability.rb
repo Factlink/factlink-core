@@ -68,8 +68,8 @@ class Ability
 
     can :read, Comment
     can :destroy, Comment do |comment|
-      comment.created_by_id == user.id &&
-        Pavlov.query(:'comments/is_deletable', comment_id: comment.id)
+      dead_comment = Pavlov.query(:'comments/by_ids', ids: comment.id.to_s, pavlov_options: {}).first
+      comment.created_by_id == user.id && dead_comment.is_deletable
     end
   end
 
