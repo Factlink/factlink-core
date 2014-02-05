@@ -14,12 +14,18 @@ class FactlinkJailRoot.ShowButton
 
     @$el.addClass 'factlink-control-visible'
 
+    # TODO: really do grouping, so we don't have to do hacks like this!
+    textContainer = @_textContainer(@$highlightElements[0])
+    verticalOffset = @$highlightElements.offset().top - $(textContainer).offset().top
+    verticalOffsetPercentage = verticalOffset*100 / $(textContainer).height()
+
     @_tether = new Tether
       element: @$el[0]
-      target: @_textContainer(@$highlightElements[0])
+      target: textContainer
       attachment: 'top left'
       targetAttachment: 'top right'
       classPrefix: 'factlink-tether'
+      targetOffset: "#{verticalOffsetPercentage}% 0"
 
   destroy: ->
     @_tether.destroy()
