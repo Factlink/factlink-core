@@ -22,14 +22,17 @@ class FactlinkJailRoot.ShowButton
     @$el.on 'click', @_onClick
 
     @$el.addClass 'factlink-control-visible'
-    FactlinkJailRoot.on 'updateIconButtons', @_updatePosition
-    @_updatePosition()
+
+    @_tether = new Tether
+      element: @$el[0]
+      target: @_textContainer(@$highlightElements[0])
+      attachment: 'top left'
+      targetAttachment: 'top right'
 
   destroy: ->
-    @$boundingBox?.remove()
+    @_tether.destroy()
     @_robustHover.destroy()
     @$el.remove()
-    FactlinkJailRoot.off 'updateIconButtons', @_updatePosition
 
   _onHover: =>
     @$highlightElements.addClass 'fl-active'
@@ -44,23 +47,6 @@ class FactlinkJailRoot.ShowButton
     for el in $(el).parents()
       return el if window.getComputedStyle(el).display == 'block'
     console.error 'FactlinkJailRoot: No text container found for ', el
-
-  _updatePosition: =>
-    textContainer = @_textContainer(@$highlightElements[0])
-    contentBox = FactlinkJailRoot.contentBox(textContainer)
-
-    left = contentBox.left + contentBox.width
-    left = Math.min left, $(window).width() - @$el.outerWidth()
-
-    FactlinkJailRoot.setElementPosition
-      $el: @$el
-      top: @$highlightElements.first().offset().top
-      left: left
-
-    if FactlinkJailRoot.can_haz.debug_bounding_boxes
-      @$boundingBox?.remove()
-      @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'red'
-
 
 class FactlinkJailRoot.ParagraphButton
   constructor: (paragraphElement) ->
