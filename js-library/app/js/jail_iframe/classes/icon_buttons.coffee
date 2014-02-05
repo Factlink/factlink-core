@@ -102,9 +102,9 @@ class FactlinkJailRoot.ParagraphButton
     FactlinkJailRoot.off 'hideAllParagraphButtons', @_onHideAllParagraphButtons
 
   _destroyUnlessValid: =>
-    @destroy() unless @_valid?
+    @destroy() unless @_valid()
 
-  _valid: =>
+  _valid: ->
     @$paragraph.find('.factlink').length <= 0
 
   _textFromElement: (element) ->
