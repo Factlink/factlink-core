@@ -28,11 +28,9 @@ describe Commands::CreateComment do
       comment.should_receive(:created_by=).with(user)
       comment.should_receive(:type=).with(type)
       comment.should_receive(:content=).with(content)
-      comment.should_receive(:save)
+      comment.should_receive(:save!)
 
-      KillObject.should_receive(:comment).with(comment, sub_comments_count: 0)
-
-      command.call
+      expect(command.call).to eq comment
     end
   end
 

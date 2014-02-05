@@ -1,4 +1,4 @@
-DeadFact = Struct.new(
+DeadFact = StrictStruct.new(
   :id,
   :site_url,
   :displaystring,
