@@ -40,6 +40,7 @@ function get(process_env){
 
   config.API_URL              = config.core.protocol + config.core.hostname + ':' + config.core.port;
   config.PROXY_URL            = config.proxy.protocol + config.proxy.hostname + ':' + config.proxy.port;
+  config.PROXY_HOSTNAME       = config.proxy.hostname;
   config.STATIC_URL           = config.static.protocol + config.static.hostname + ':' + config.static.port;
   config.LIB_URL              = config.STATIC_URL + "/lib/dist";
   config.INTERNAL_PROXY_PORT  = parseInt(config.proxy.internal_port, 10);
