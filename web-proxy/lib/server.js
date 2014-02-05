@@ -121,8 +121,7 @@ function getServer(config) {
     // Inject config also at the top
     var FactlinkConfig = {
       api: config.API_URL,
-      lib: config.LIB_URL,
-      url: site
+      url: site,
     };
     var factlink_config_script = 'window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + ';\n';
     var factlink_proxy_url_script = 'window.FactlinkProxyUrl = ' + JSON.stringify(config.PROXY_URL) + ';\n';
