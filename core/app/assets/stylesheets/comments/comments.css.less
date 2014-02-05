@@ -30,16 +30,27 @@
   padding-left: 7px;
 }
 
-.comment-believes > .comment-container {
-  border-left: @impactColouredBorderWidth solid @believesEvidenceImpactColor;
+.comment-believes,
+.comment-disbelieves,
+.comment-unsure {
+  height: @commentCreatorAvatarSize;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 4px;
+  width: 3px;
+  margin-right: 1px;
 }
 
-.comment-disbelieves > .comment-container {
-  border-left: @impactColouredBorderWidth solid @disbelievesEvidenceImpactColor;
+.comment-believes {
+  background: @believesEvidenceImpactColor;
 }
 
-.comment-unsure > .comment-container {
-  border-left: @impactColouredBorderWidth solid @doubtsEvidenceImpactColor;
+.comment-disbelieves {
+  background: @disbelievesEvidenceImpactColor;
+}
+
+.comment-unsure {
+  background: @doubtsEvidenceImpactColor;
 }
 
 .comment-post-heading {
