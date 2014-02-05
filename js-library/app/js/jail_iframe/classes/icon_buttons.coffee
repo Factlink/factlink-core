@@ -1,8 +1,6 @@
 updateIconButtons = ->
   FactlinkJailRoot.trigger 'updateIconButtons'
 
-iconButtonMargin = 5 #keep in sync with _ icon_buttons.scss
-
 FactlinkJailRoot.host_ready_promise.then ->
   $(window).on 'resize', updateIconButtons
   setInterval updateIconButtons, 1000
@@ -56,8 +54,8 @@ class FactlinkJailRoot.ShowButton
 
     FactlinkJailRoot.setElementPosition
       $el: @$el
-      top: @$highlightElements.first().offset().top - iconButtonMargin
-      left: left - iconButtonMargin
+      top: @$highlightElements.first().offset().top
+      left: left
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()
@@ -126,8 +124,8 @@ class FactlinkJailRoot.ParagraphButton
 
     FactlinkJailRoot.setElementPosition
       $el: @$el
-      top: contentBox.top - iconButtonMargin
-      left: contentBox.left + contentBox.width - iconButtonMargin
+      top: contentBox.top
+      left: contentBox.left + contentBox.width
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()
