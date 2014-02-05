@@ -24,8 +24,8 @@ module Interactors
         query(:'comments/for_fact', fact: Fact[fact_id])
       end
 
-      def relevance_of evidence
-        evidence.votes[:believes] - evidence.votes[:disbelieves]
+      def relevance_of comment
+        comment.votes[:believes] - comment.votes[:disbelieves]
       end
     end
   end
