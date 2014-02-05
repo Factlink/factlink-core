@@ -20,7 +20,14 @@ module Queries
       end
 
       def votes
-        query(:'believable/votes', believable: believable)
+        believable.votes.merge current_user_opinion: current_user_opinion
+      end
+
+      def current_user_opinion
+        current_user = pavlov_options[:current_user]
+        return :no_vote unless current_user
+
+        believable.opinion_of_graph_user current_user.graph_user
       end
 
       def believable
@@ -28,7 +35,11 @@ module Queries
       end
 
       def deletable?
-        query(:'comments/is_deletable', comment_id: comment.id.to_s)
+        EvidenceDeletable.new(comment, 'Comment', believable, graph_user_id_of_creator).deletable?
+      end
+
+      def graph_user_id_of_creator
+        comment.created_by.graph_user_id
       end
     end
   end
