@@ -22,10 +22,7 @@ FactlinkJailRoot.annotatedSiteReceiver =
   highlightExistingFactlink: (id) ->
     FactlinkJailRoot.showCoreHighlight id
 
-  deleteFactlink: (id) ->
-    for fact in FactlinkJailRoot.highlightsByFactIds[id]
-      fact.destroy()
-    delete FactlinkJailRoot.highlightsByFactIds[id]
+  deleteFactlink: FactlinkJailRoot.destroyCoreHighlight
 
   closeModal: ->
     if !modalOpen

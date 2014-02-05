@@ -7,16 +7,14 @@
 
     window.FactlinkConfig = {
       api: "<%= FactlinkUI::Application.config.api_url %>",
-      lib: lib_url,
-      srcPath: "/factlink.core.js"
+      lib: lib_url
     };
   <% elsif ['staging'].include?(Rails.env) %>
     var loader_filename = "/factlink_loader_bookmarklet.min.js";
 
     window.FactlinkConfig = {
       api: "<%= FactlinkUI::Application.config.api_url %>",
-      lib: lib_url,
-      srcPath: "/factlink.core.min.js"
+      lib: lib_url
     };
   <% else %>
     var loader_filename = "/factlink_loader_bookmarklet.min.js";
@@ -26,5 +24,5 @@
   var script = document.createElement("script");
   script.src = lib_url + loader_filename;
 
-  document.getElementsByTagName("head")[0].appendChild(script);
+  document.head.appendChild(script);
 })();

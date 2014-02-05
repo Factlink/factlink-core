@@ -27,10 +27,3 @@ define_tag = (tag) ->
 
 define_tag tag for tag, method of React.DOM
 
-defineReactClass = (method_name) -> (name) -> (options) ->
-  _.defaults options, displayName: name
-  window[name] = React[method_name](options)
-
-window.React.defineClass = defineReactClass('createClass')
-window.React.defineBackboneClass = defineReactClass('createBackboneClass')
-

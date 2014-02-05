@@ -14,6 +14,16 @@ function getServer(config) {
     server.set('views', __dirname + '/../views');
   });
 
+  // Clear cookies, otherwise cookie header becomes extremely long from
+  // cookies set by websites in Javascript!
+  server.use(express.cookieParser());
+  server.use(function (req, res, next) {
+    for (var name in req.cookies) {
+      res.clearCookie(name);
+    }
+    next();
+  });
+
   var urlvalidation = require('./urlvalidation');
 
   /**
@@ -112,7 +122,6 @@ function getServer(config) {
     var FactlinkConfig = {
       api: config.API_URL,
       lib: config.LIB_URL,
-      srcPath: config.ENV === "development" ? "/factlink.core.js" : "/factlink.core.min.js",
       url: site
     };
     var factlink_config_script = 'window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + ';\n';

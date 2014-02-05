@@ -1,4 +1,6 @@
-React.defineClass('ReactSubCommentsAdd')
+ReactSubCommentsAdd = React.createClass
+  displayName: 'ReactSubCommentsAdd'
+
   getInitialState: ->
     text: ''
 
@@ -33,6 +35,8 @@ React.defineClass('ReactSubCommentsAdd')
         Factlink.Global.t.post_subcomment
 
 window.ReactSubCommentList = React.createBackboneClass
+  displayName: 'ReactSubCommentList'
+
   componentDidMount: ->
     @props.model.on 'sync request', (-> @forceUpdate()), @
 
@@ -50,5 +54,7 @@ window.ReactSubCommentList = React.createBackboneClass
           ReactSubCommentsAdd(addToCollection: @model())
 
 window.ReactSubComments = React.createClass
+  displayName: 'ReactSubComments'
+
   render: ->
     ReactSubCommentList model: @props.model.sub_comments()
