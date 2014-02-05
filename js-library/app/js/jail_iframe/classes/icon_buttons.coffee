@@ -69,7 +69,7 @@ class FactlinkJailRoot.ShowButton
 
 
 class FactlinkJailRoot.ParagraphButton
-  content: '<div class="fl-icon-button"><span class="icon-comment"></span><div class="comment-add-plus-overlay">+</div></div>'
+  content: '<factlink-paragraph-button><span class="icon-comment"></span><div class="comment-add-plus-overlay">+</div></factlink-paragraph-button>'
 
   constructor: (paragraphElement) ->
     @$paragraph = $(paragraphElement)
