@@ -31,7 +31,7 @@ describe Backend::SubComments do
           id: '2a',
           created_by: double,
           created_by_id: double,
-          created_at: mock,
+          created_at: double,
           content: 'bar',
           parent_id: parent_id,
         ),
@@ -39,7 +39,7 @@ describe Backend::SubComments do
           id: '2b',
           created_by: double,
           created_by_id: double,
-          created_at: mock,
+          created_at: double,
           content: 'foo',
           parent_id: parent_id,
         )
