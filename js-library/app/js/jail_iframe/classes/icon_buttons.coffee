@@ -10,38 +10,33 @@ FactlinkJailRoot.host_ready_promise.then ->
 
 
 class FactlinkJailRoot.ShowButton
-  content: '<factlink-show-button></factlink-show-button>'
-
   constructor: (highlightElements, factId) ->
-    @frame = new FactlinkJailRoot.ControlIframe @content
-    $el = $(@frame.frameBody.firstChild)
+    @$el = $('<factlink-show-button></factlink-show-button>')
+    FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
 
     @$highlightElements = $(highlightElements)
     @_factId = factId
 
     @_robustHover = new FactlinkJailRoot.RobustHover
-      $el: $el
-      $externalDocument: $(document)
+      $el: @$el
       mouseenter: @_onHover
       mouseleave: @_onUnhover
-    $el.on 'click', @_onClick
+    @$el.on 'click', @_onClick
 
-    @frame.fadeIn()
+    @$el.show()
     FactlinkJailRoot.on 'updateIconButtons', @_updatePosition
     @_updatePosition()
 
   destroy: ->
     @$boundingBox?.remove()
     @_robustHover.destroy()
-    @frame.destroy()
+    @$el.remove()
     FactlinkJailRoot.off 'updateIconButtons', @_updatePosition
 
   _onHover: =>
-    @frame.addClass 'hovered'
     @$highlightElements.addClass 'fl-active'
 
   _onUnhover: =>
-    @frame.removeClass 'hovered'
     @$highlightElements.removeClass 'fl-active'
 
   _onClick: =>
@@ -55,13 +50,14 @@ class FactlinkJailRoot.ShowButton
   _updatePosition: =>
     textContainer = @_textContainer(@$highlightElements[0])
     contentBox = FactlinkJailRoot.contentBox(textContainer)
+    containerOffset = FactlinkJailRoot.$factlinkCoreContainer.offset()
 
     left = contentBox.left + contentBox.width
-    left = Math.min left, $(window).width() - @frame.$el.outerWidth()
+    left = Math.min left, $(window).width() - @$el.outerWidth()
 
-    @frame.setOffset
-      top: @$highlightElements.first().offset().top - iconButtonMargin
-      left: left - iconButtonMargin
+    @$el.css
+      top: (@$highlightElements.first().offset().top - iconButtonMargin - containerOffset.top) + 'px'
+      left: (left - iconButtonMargin - containerOffset.left) + 'px'
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()

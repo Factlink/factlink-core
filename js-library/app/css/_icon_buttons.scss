@@ -1,4 +1,5 @@
-factlink-show-button, factlink-paragraph-button {
+factlink-show-button,
+factlink-paragraph-button {
   @extend %default-font;
   cursor: pointer;
   display: block;
@@ -10,23 +11,17 @@ factlink-show-button, factlink-paragraph-button {
   }
   //we need to reserve some space around the icons so the text-shadow doesn't get cut off.
   margin:5px; //keep in sync with icon_buttons.coffee
-  position:relative;
-}
-
-factlink-paragraph-button {
   visibility: visible;
   position: absolute;
-}
 
-.hovered factlink-show-button,
-factlink-paragraph-button:hover {
-  opacity: 1;
-}
+  &:hover {
+    opacity: 1;
+  }
 
-factlink-paragraph-button:before,
-factlink-show-button:before {
-  @extend %icon-font;
-  content: '\e80f';
+  &:before {
+    @extend %icon-font;
+    content: '\e80f';
+  }
 }
 
 factlink-paragraph-button:after {
