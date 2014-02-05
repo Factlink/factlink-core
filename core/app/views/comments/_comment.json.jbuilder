@@ -7,10 +7,6 @@ json.type         comment.type #rename: "type"
 
 json.formatted_comment_content comment.formatted_content
 
-json.fact_data do |json|
-  json.partial! 'facts/fact_data_partial', fact_data: comment.fact_data
-end
-
 json.time_ago comment.time_ago
 
 json.tally comment.tally
