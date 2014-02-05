@@ -1,10 +1,8 @@
 @import "bootstrap/mixins";
 
-.button-base(@backgroundColor, @borderColor, @textColor) {
-  background-color: @backgroundColor;
+.button-base {
   border: none;
-  border-bottom: @largeButtonBorderWidth solid @borderColor;
-  color: @textColor;
+  color: white;
   display: inline-block;
   position: relative;
   font-family: inherit;
@@ -27,28 +25,14 @@
     border-radius: inherit;
   }
 
-  &:hover {
-    background-color: darken(@backgroundColor, 10%);
-    border-color: darken(@borderColor, 10%);
-    color: @textColor;
+  &:disabled {
+    color: @mutedFontColor;;
+    cursor: not-allowed;
   }
 
   &:active {
-    background-color: darken(@backgroundColor, 10%);
-    border-top: @largeButtonBorderWidth solid darken(@borderColor, 10%);
     border-bottom: 0px;
     outline: none; //prevents ugly webkit active state
-    color: @textColor;
-  }
-
-  &:disabled {
-    color: @mutedFontColor;;
-
-    &:hover {
-      cursor: not-allowed;
-      background: @backgroundColor;
-      color: @mutedFontColor;
-    }
   }
 
   &.button-loading {
@@ -59,31 +43,52 @@
   }
 }
 
+.button-color(@backgroundColor, @borderColor) {
+  background-color: @backgroundColor;
+  border-bottom: @largeButtonBorderWidth solid @borderColor;
+
+  &:hover:enabled {
+    background-color: darken(@backgroundColor, 10%);
+    border-color: darken(@borderColor, 10%);
+  }
+
+  &:active {
+    background-color: darken(@backgroundColor, 10%);
+    border-top: @largeButtonBorderWidth solid darken(@borderColor, 10%);
+  }
+}
+
 .button-shadow(@shadowColor) {
   text-shadow: 0 1px 0 @shadowColor;
 }
 
 .button {
-  .button-base(@buttonBackground, @buttonBorder, @linkColor);
+  .button-base();
+  .button-color(@buttonBackground, @buttonBorder);
   .button-shadow(@buttonTextShadow);
+  color: @linkColor;
 }
 
 .button-confirm {
-  .button-base(@buttonConfirmBackground, @buttonConfirmBorder, white);
+  .button-base();
+  .button-color(@buttonConfirmBackground, @buttonConfirmBorder);
   .button-shadow(@buttonConfirmTextShadow);
 }
 
 .button-danger {
-  .button-base(@buttonDangerBackground, @buttonDangerBorder, white);
+  .button-base();
+  .button-color(@buttonDangerBackground, @buttonDangerBorder);
   .button-shadow(@buttonDangerTextShadow);
 }
 
 .button-twitter {
-  .button-base(@buttonTwitterBackground, @buttonTwitterBorder, white);
+  .button-base();
+  .button-color(@buttonTwitterBackground, @buttonTwitterBorder);
 }
 
 .button-facebook {
-  .button-base(@buttonFacebookBackground, @buttonFacebookBorder, white);
+  .button-base();
+  .button-color(@buttonFacebookBackground, @buttonFacebookBorder);
 }
 
 .button-small {
