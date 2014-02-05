@@ -20,7 +20,6 @@
   "tally": {
     "believes": 1,
     "disbelieves": 0,
-    "doubts": 0,
     "current_user_opinion": "believes"
   },
   "is_deletable": true,

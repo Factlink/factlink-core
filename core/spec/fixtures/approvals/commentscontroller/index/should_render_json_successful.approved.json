@@ -21,7 +21,6 @@
     "tally": {
       "believes": 1,
       "disbelieves": 0,
-      "doubts": 0,
       "current_user_opinion": "no_vote"
     },
     "is_deletable": true,
@@ -49,7 +48,6 @@
     "tally": {
       "believes": 0,
       "disbelieves": 1,
-      "doubts": 0,
       "current_user_opinion": "disbelieves"
     },
     "is_deletable": true,
