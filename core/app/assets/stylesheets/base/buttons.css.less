@@ -43,18 +43,18 @@
   }
 }
 
-.button-color(@backgroundColor, @borderColor) {
+.button-color(@backgroundColor) {
   background-color: @backgroundColor;
-  border-bottom: @largeButtonBorderWidth solid @borderColor;
+  border-bottom: @largeButtonBorderWidth solid rgba(0,0,0,0.1);
 
   &:hover:enabled {
     background-color: darken(@backgroundColor, 10%);
-    border-color: darken(@borderColor, 10%);
+    border-color: rgba(0,0,0,0.1);
   }
 
   &:active {
     background-color: darken(@backgroundColor, 10%);
-    border-top: @largeButtonBorderWidth solid darken(@borderColor, 10%);
+    border-top: @largeButtonBorderWidth solid rgba(0,0,0,0.1);
   }
 }
 
@@ -64,31 +64,31 @@
 
 .button {
   .button-base();
-  .button-color(@buttonBackground, @buttonBorder);
+  .button-color(@buttonBackground);
   .button-shadow(@buttonTextShadow);
   color: @linkColor;
 }
 
 .button-confirm {
   .button-base();
-  .button-color(@buttonConfirmBackground, @buttonConfirmBorder);
+  .button-color(@buttonConfirmBackground);
   .button-shadow(@buttonConfirmTextShadow);
 }
 
 .button-danger {
   .button-base();
-  .button-color(@buttonDangerBackground, @buttonDangerBorder);
+  .button-color(@buttonDangerBackground);
   .button-shadow(@buttonDangerTextShadow);
 }
 
 .button-twitter {
   .button-base();
-  .button-color(@buttonTwitterBackground, @buttonTwitterBorder);
+  .button-color(@buttonTwitterBackground);
 }
 
 .button-facebook {
   .button-base();
-  .button-color(@buttonFacebookBackground, @buttonFacebookBorder);
+  .button-color(@buttonFacebookBackground);
 }
 
 .button-small {
