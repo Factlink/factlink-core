@@ -23,7 +23,7 @@ class FactlinkJailRoot.ShowButton
       mouseleave: @_onUnhover
     @$el.on 'click', @_onClick
 
-    @$el.show()
+    @$el.addClass 'factlink-control-visible'
     FactlinkJailRoot.on 'updateIconButtons', @_updatePosition
     @_updatePosition()
 
@@ -74,8 +74,8 @@ class FactlinkJailRoot.ParagraphButton
 
     @_attentionSpan = new FactlinkJailRoot.AttentionSpan
       wait_for_neglection: 500
-      onAttentionGained: => @$el.show()
-      onAttentionLost: => @$el.hide()
+      onAttentionGained: => @$el.addClass 'factlink-control-visible'
+      onAttentionLost: => @$el.removeClass 'factlink-control-visible'
 
     @_robustFrameHover = new FactlinkJailRoot.RobustHover
       $el: @$el
@@ -86,8 +86,9 @@ class FactlinkJailRoot.ParagraphButton
     FactlinkJailRoot.on 'updateIconButtons', @_update
     @_updatePosition()
 
-    unless FactlinkJailRoot.isTouchDevice()
-      @$el.hide()
+    if FactlinkJailRoot.isTouchDevice()
+      @$el.addClass 'factlink-control-visible'
+    else
       @_robustParagraphHover = new FactlinkJailRoot.RobustHover
         $el: @$paragraph
         mouseenter: => @_showOnlyThisParagraphButton()

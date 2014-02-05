@@ -1,21 +1,21 @@
 factlink-show-button,
 factlink-paragraph-button {
   @extend %default-font;
+  @extend %fadable-control;
   cursor: pointer;
   display: block;
-  opacity: 0.4;
+  color: rgba(0, 0, 0, 0.4);
   transition: opacity $highlight_visibility_transition_time;
   white-space: nowrap; // TODO: remove when removing ugly '+' from add icon
   //we need to reserve some space around the icons so the text-shadow doesn't get cut off.
   margin: 5px; //keep in sync with icon_buttons.coffee
-  visibility: visible;
   position: absolute;
   z-index: $max-z-index - 1;
   font-size: 13px;
   line-height: normal;
 
   &:hover {
-    opacity: 1;
+    color: black;
   }
 
   &:before {
