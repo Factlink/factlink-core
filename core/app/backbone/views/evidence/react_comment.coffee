@@ -1,28 +1,6 @@
 ReactCommentHeading = React.createBackboneClass
   displayName: 'ReactCommentHeading'
 
-  render: ->
-    R.div className: 'comment-post-heading',
-      R.span className:"heading-avatar",
-        R.img
-          src: @model().creator().avatar_url(32)
-          className:"avatar-image"
-      R.a
-        href: @model().creator().link()
-        className:"comment-post-creator-name"
-        rel: "backbone"
-        @model().creator().get('name')
-      R.span className:"comment-bottom-action comment-post-time",
-          @model().get('time_ago')
-          " "
-          Factlink.Global.t.ago
-
-window.ReactComment = React.createBackboneClass
-  displayName: 'ReactComment'
-
-  getInitialState: ->
-    show_subcomments: false
-
   _typeCss: ->
     return 'comment-unsure' unless Factlink.Global.can_haz.opinions_of_users_and_comments
 
@@ -30,6 +8,31 @@ window.ReactComment = React.createBackboneClass
       when 'believes' then 'comment-believes'
       when 'disbelieves' then 'comment-disbelieves'
       when 'doubts' then 'comment-unsure'
+
+  render: ->
+    R.div className: 'comment-post-heading',
+      R.span className: @_typeCss()
+      R.span className:"comment-post-creator-avatar",
+        R.img
+          src: @model().creator().avatar_url(32)
+          className:"avatar-image"
+      R.span className:"comment-post-creator",
+        R.a
+          href: @model().creator().link()
+          className:"comment-post-creator-name"
+          rel: "backbone"
+          @model().creator().get('name')
+        R.span className:"comment-bottom-action comment-post-time",
+            @model().get('time_ago')
+            " "
+            Factlink.Global.t.ago
+
+window.ReactComment = React.createBackboneClass
+  displayName: 'ReactComment'
+
+  getInitialState: ->
+    show_subcomments: false
+
 
   _onDelete: ->
      @model().destroy wait: true
@@ -68,7 +71,6 @@ window.ReactComment = React.createBackboneClass
 
     top_classes = [
       'comment-region'
-      @_typeCss()
       'comment-irrelevant' unless relevant
     ].join(' ')
 
