@@ -2,15 +2,19 @@ factlink-show-button,
 factlink-paragraph-button {
   @extend %default-font;
   @extend %fadable-control;
-  cursor: pointer;
-  display: block;
-  color: rgba(0, 0, 0, 0.4);
-  transition: opacity $highlight_visibility_transition_time;
-  white-space: nowrap; // TODO: remove when removing ugly '+' from add icon
+
   position: absolute;
+  display: block;
+  cursor: pointer;
   z-index: $max-z-index - 1;
+
+  white-space: nowrap; // TODO: remove when removing ugly '+' from add icon
+
+  // reset inherited styles
   font-size: 13px;
   line-height: normal;
+
+  color: rgba(0, 0, 0, 0.4);
 
   &:hover {
     color: black;
