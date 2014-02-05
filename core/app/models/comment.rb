@@ -2,8 +2,6 @@ class Comment
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  attr_accessor :sub_comments_count
-
   belongs_to :fact_data, class_name: 'FactData'
 
   field :type,              type: String
