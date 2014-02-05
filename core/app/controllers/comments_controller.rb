@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   def index
     fact_id = params[:id]
-    @evidence = interactor(:'comments/for_fact_id', fact_id: fact_id)
+    @comments = interactor(:'comments/for_fact_id', fact_id: fact_id)
 
     render 'index', formats: [:json]
   end
