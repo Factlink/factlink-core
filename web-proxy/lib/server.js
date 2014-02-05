@@ -112,7 +112,6 @@ function getServer(config) {
     var FactlinkConfig = {
       api: config.API_URL,
       lib: config.LIB_URL,
-      srcPath: config.ENV === "development" ? "/factlink.core.js" : "/factlink.core.min.js",
       url: site
     };
     var factlink_config_script = 'window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + ';\n';
