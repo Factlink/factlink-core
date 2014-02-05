@@ -38,4 +38,24 @@ describe CommentsController do
       verify(format: :json) { response.body }
     end
   end
+
+  describe :create do
+    it "should return the correct json" do
+      FactoryGirl.reload
+
+      authenticate_user!(user)
+      fact = nil
+
+      as(user) do |pavlov|
+        fact = pavlov.interactor(:'facts/create',
+                                     displaystring: 'displaystring',
+                                     url: 'url',
+                                     title: 'title')
+      end
+
+      post :create, id: fact.id, type: 'doubts', content: 'Gerard is een gekke meneer', format: :json
+
+      verify(format: :json) { response.body }
+    end
+  end
 end
