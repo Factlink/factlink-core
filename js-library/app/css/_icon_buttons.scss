@@ -11,6 +11,8 @@ factlink-paragraph-button {
   visibility: visible;
   position: absolute;
   z-index: $max-z-index - 1;
+  font-size: 13px;
+  line-height: normal;
 
   &:hover {
     opacity: 1;
