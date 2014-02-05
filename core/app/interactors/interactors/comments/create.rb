@@ -16,8 +16,7 @@ module Interactors
 
         create_activity comment
 
-        query(:'comments/add_votes_and_deletable',
-                  comment: comment)
+        query(:'comments/get', comment_id: comment.id)
       end
 
       def create_activity comment

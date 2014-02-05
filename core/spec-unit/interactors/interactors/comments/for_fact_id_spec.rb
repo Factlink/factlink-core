@@ -39,7 +39,7 @@ describe Interactors::Comments::ForFactId do
   describe '#call' do
     it 'correctly' do
       type = :believes
-      fact = double id: '1'
+      fact = double id: '1', data_id: '1a'
       pavlov_options = { current_user: double, ability: double(can?: true) }
       interactor = described_class.new fact_id: fact.id, type: type,
                                        pavlov_options: pavlov_options
@@ -54,7 +54,7 @@ describe Interactors::Comments::ForFactId do
           .and_return(fact)
       Pavlov.stub(:query)
             .with(:'comments/for_fact',
-                      fact: fact, pavlov_options: pavlov_options)
+                      fact_data_id: fact.data_id, pavlov_options: pavlov_options)
             .and_return [comment1, comment2]
 
       result = interactor.call

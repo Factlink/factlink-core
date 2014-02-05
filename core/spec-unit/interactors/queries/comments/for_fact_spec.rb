@@ -16,7 +16,7 @@ describe Queries::Comments::ForFact do
       dead_comment = double
       sub_comments_count = 2
       pavlov_options = { current_user: double }
-      query = described_class.new fact: fact, pavlov_options: pavlov_options
+      query = described_class.new fact_data_id: fact.data_id, pavlov_options: pavlov_options
 
       Comment.should_receive(:where)
              .with(fact_data_id: fact.data_id)
