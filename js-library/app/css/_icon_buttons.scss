@@ -1,4 +1,4 @@
-.fl-icon-button, factlink-paragraph-button {
+factlink-show-button, factlink-paragraph-button {
   @extend %default-font;
   cursor: pointer;
   display: block;
@@ -18,7 +18,7 @@ factlink-paragraph-button {
   position: absolute;
 }
 
-.hovered .fl-icon-button,
+.hovered factlink-show-button,
 factlink-paragraph-button:hover {
   opacity: 1;
 }
