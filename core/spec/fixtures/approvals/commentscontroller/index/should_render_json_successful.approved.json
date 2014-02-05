@@ -47,10 +47,10 @@
     },
     "time_ago": "1 minute",
     "tally": {
-      "believes": 1,
-      "disbelieves": 0,
+      "believes": 0,
+      "disbelieves": 1,
       "doubts": 0,
-      "current_user_opinion": "believes"
+      "current_user_opinion": "disbelieves"
     },
     "is_deletable": true,
     "sub_comments_count": 0

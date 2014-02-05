@@ -27,11 +27,11 @@ describe CommentsController do
       end
 
       as(user) do |pavlov|
-        pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'doubts', content: 'a comment')
+        comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'doubts', content: 'a comment')
+        pavlov.interactor(:'comments/update_opinion', comment_id: comment.id.to_s, opinion: 'disbelieves')
       end
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
-      should_check_can :show, fact
 
       get :index, id: fact.id, format: :json
 
