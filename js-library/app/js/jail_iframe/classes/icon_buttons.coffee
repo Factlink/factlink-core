@@ -97,7 +97,7 @@ class FactlinkJailRoot.ParagraphButton
     @destroy() unless @_valid?
 
   _valid: =>
-    @$paragraph.find('.factlink').length <= 0 && @$paragraph.is(':visible')
+    @$paragraph.find('.factlink').length <= 0
 
   _textFromElement: (element) ->
     selection = document.getSelection()
