@@ -5,14 +5,7 @@
   font-style: normal;
 }
 
-.icon-thumbs-up:before { content: '\e800'; }
-.icon-thumbs-down:before { content: '\e801'; }
-.icon-comment:before { content: '\e80f'; }
-
-.icon-thumbs-up,
-.icon-thumbs-down,
-.icon-comment,
-{
+%icon-font {
   font-family: "factlink-jslib-icons" !important;
   font-style: normal;
   font-weight: normal;

@@ -1,0 +1,10 @@
+.icon-thumbs-up,
+.icon-thumbs-down,
+.icon-comment,
+{
+  @extend %icon-font;
+}
+
+.icon-thumbs-up:before { content: '\e800'; }
+.icon-thumbs-down:before { content: '\e801'; }
+.icon-comment:before { content: '\e80f'; }

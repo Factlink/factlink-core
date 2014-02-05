@@ -1,6 +1,7 @@
 #factlink-containment-wrapper {
   @extend %frame-styles;
   visibility: hidden;
+  z-index: $max-z-index;
 
   > #factlink-iframe {
     @extend %frame-styles;
@@ -11,7 +12,6 @@
   > .factlink-control-frame {
     @extend %frame-styles;
     @extend %fadable-control;
-    z-index: $max-z-index - 1;
   }
 
   > #factlink-sidebar-frame {
@@ -20,8 +20,9 @@
     position: fixed;
     width: 100%;
     height: 100%;
-    z-index: $max-z-index;
     visibility: visible;
+
+    z-index: 10; // on top of control frames and icon buttons
 
     // iOS Safari seems to have trouble with visibility:hidden iframe.
     // And Firefox has trouble with display:none iframe (http://jsfiddle.net/UzZ28/3/)

@@ -1,9 +1,9 @@
 @import "variables";
 @import "buttons";
-@import "icon_buttons";
 @import "notification";
 @import "proxy_message";
-@import "../iconfont/factlink-jslib-icons";
+@import "../iconfont/factlink-jslib-icons-font";
+@import "../iconfont/factlink-jslib-icons-classes";
 
 html {
   overflow: hidden;
@@ -16,4 +16,3 @@ body {
 }
 
 * { box-sizing: border-box; }
-
