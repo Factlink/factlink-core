@@ -3,6 +3,8 @@
 @import "fadable_control"; // should be after frame_styles as it overrides frame_styles
 @import "publisher_button";
 @import "container_frames";
+@import "icon_buttons";
+@import "../iconfont/factlink-jslib-icons-font";
 
 html[data-factlink-suppress-scrolling] {
   overflow: hidden !important;

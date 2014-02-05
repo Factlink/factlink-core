@@ -1,8 +1,6 @@
 updateIconButtons = ->
   FactlinkJailRoot.trigger 'updateIconButtons'
 
-iconButtonMargin = 5 #keep in sync with _ icon_buttons.scss
-
 FactlinkJailRoot.host_ready_promise.then ->
   $(window).on 'resize', updateIconButtons
   setInterval updateIconButtons, 1000
@@ -10,38 +8,33 @@ FactlinkJailRoot.host_ready_promise.then ->
 
 
 class FactlinkJailRoot.ShowButton
-  content: '<div class="fl-icon-button"><span class="icon-comment"></span></div>'
-
   constructor: (highlightElements, factId) ->
-    @frame = new FactlinkJailRoot.ControlIframe @content
-    $el = $(@frame.frameBody.firstChild)
+    @$el = $('<factlink-show-button></factlink-show-button>')
+    FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
 
     @$highlightElements = $(highlightElements)
     @_factId = factId
 
     @_robustHover = new FactlinkJailRoot.RobustHover
-      $el: $el
-      $externalDocument: $(document)
+      $el: @$el
       mouseenter: @_onHover
       mouseleave: @_onUnhover
-    $el.on 'click', @_onClick
+    @$el.on 'click', @_onClick
 
-    @frame.fadeIn()
+    @$el.addClass 'factlink-control-visible'
     FactlinkJailRoot.on 'updateIconButtons', @_updatePosition
     @_updatePosition()
 
   destroy: ->
     @$boundingBox?.remove()
     @_robustHover.destroy()
-    @frame.destroy()
+    @$el.remove()
     FactlinkJailRoot.off 'updateIconButtons', @_updatePosition
 
   _onHover: =>
-    @frame.addClass 'hovered'
     @$highlightElements.addClass 'fl-active'
 
   _onUnhover: =>
-    @frame.removeClass 'hovered'
     @$highlightElements.removeClass 'fl-active'
 
   _onClick: =>
@@ -57,11 +50,12 @@ class FactlinkJailRoot.ShowButton
     contentBox = FactlinkJailRoot.contentBox(textContainer)
 
     left = contentBox.left + contentBox.width
-    left = Math.min left, $(window).width() - @frame.$el.outerWidth()
+    left = Math.min left, $(window).width() - @$el.outerWidth()
 
-    @frame.setOffset
-      top: @$highlightElements.first().offset().top - iconButtonMargin
-      left: left - iconButtonMargin
+    FactlinkJailRoot.setElementPosition
+      $el: @$el
+      top: @$highlightElements.first().offset().top
+      left: left
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()
@@ -69,32 +63,29 @@ class FactlinkJailRoot.ShowButton
 
 
 class FactlinkJailRoot.ParagraphButton
-  content: '<div class="fl-icon-button"><span class="icon-comment"></span><div class="comment-add-plus-overlay">+</div></div>'
-
   constructor: (paragraphElement) ->
     @$paragraph = $(paragraphElement)
     return unless @_valid()
 
-    @frame = new FactlinkJailRoot.ControlIframe @content
-    $el = $(@frame.frameBody.firstChild)
+    @$el = $('<factlink-paragraph-button></factlink-paragraph-button>')
+    FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
 
     @_attentionSpan = new FactlinkJailRoot.AttentionSpan
       wait_for_neglection: 500
-      onAttentionGained: => @frame.fadeIn()
-      onAttentionLost: => @frame.fadeOut()
+      onAttentionGained: => @$el.addClass 'factlink-control-visible'
+      onAttentionLost: => @$el.removeClass 'factlink-control-visible'
 
     @_robustFrameHover = new FactlinkJailRoot.RobustHover
-      $el: $el
-      $externalDocument: $(document)
-      mouseenter: => @frame.addClass 'hovered'; @_attentionSpan.gainAttention()
-      mouseleave: => @frame.removeClass 'hovered'; @_attentionSpan.loseAttention()
-    $el.on 'click', @_onClick
+      $el: @$el
+      mouseenter: => @_attentionSpan.gainAttention()
+      mouseleave: => @_attentionSpan.loseAttention()
+    @$el.on 'click', @_onClick
 
     FactlinkJailRoot.on 'updateIconButtons', @_update
     @_updatePosition()
 
     if FactlinkJailRoot.isTouchDevice()
-      @frame.fadeIn()
+      @$el.addClass 'factlink-control-visible'
     else
       @_robustParagraphHover = new FactlinkJailRoot.RobustHover
         $el: @$paragraph
@@ -114,7 +105,7 @@ class FactlinkJailRoot.ParagraphButton
     @_robustFrameHover.destroy()
     @_attentionSpan.destroy()
     @_robustParagraphHover?.destroy()
-    @frame.destroy()
+    @$el.remove()
     FactlinkJailRoot.off 'updateIconButtons', @_update
     @$paragraph.off 'mousemove', @_showOnlyThisParagraphButton
     FactlinkJailRoot.off 'hideAllParagraphButtons', @_onHideAllParagraphButtons
@@ -131,9 +122,10 @@ class FactlinkJailRoot.ParagraphButton
   _updatePosition: ->
     contentBox = FactlinkJailRoot.contentBox(@$paragraph[0])
 
-    @frame.setOffset
-      top: contentBox.top - iconButtonMargin
-      left: contentBox.left + contentBox.width - iconButtonMargin
+    FactlinkJailRoot.setElementPosition
+      $el: @$el
+      top: contentBox.top
+      left: contentBox.left + contentBox.width
 
     if FactlinkJailRoot.can_haz.debug_bounding_boxes
       @$boundingBox?.remove()

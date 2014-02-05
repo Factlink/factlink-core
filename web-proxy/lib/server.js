@@ -19,7 +19,11 @@ function getServer(config) {
   server.use(express.cookieParser());
   server.use(function (req, res, next) {
     for (var name in req.cookies) {
+      // Clear both with empty domain and with hostname domain,
+      // as the browser only clears when the domain matches, and
+      // empty or hostname ("fct.li") are the only two possibilities
       res.clearCookie(name);
+      res.clearCookie(name, {domain: config.PROXY_HOSTNAME});
     }
     next();
   });

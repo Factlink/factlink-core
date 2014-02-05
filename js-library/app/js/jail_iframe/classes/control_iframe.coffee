@@ -57,8 +57,7 @@ class FactlinkJailRoot.ControlIframe
     @_sizeFrameToFitContent()
 
   setOffset: (coordinates) =>
-    containerOffset = FactlinkJailRoot.$factlinkCoreContainer.offset()
-
-    @$el.css
-      left: (coordinates.left - containerOffset.left) + "px"
-      top: (coordinates.top - containerOffset.top) + "px"
+    FactlinkJailRoot.setElementPosition
+      $el: @$el
+      left: coordinates.left
+      top: coordinates.top
