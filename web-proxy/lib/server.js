@@ -14,6 +14,16 @@ function getServer(config) {
     server.set('views', __dirname + '/../views');
   });
 
+  // Clear cookies, otherwise cookie header becomes extremely long from
+  // cookies set by websites in Javascript!
+  server.use(express.cookieParser());
+  server.use(function (req, res, next) {
+    for (var name in req.cookies) {
+      res.clearCookie(name);
+    }
+    next();
+  });
+
   var urlvalidation = require('./urlvalidation');
 
   /**
