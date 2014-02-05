@@ -59,9 +59,9 @@ describe Interactors::Comments::Create do
                       subject: comment, object: fact,
                       pavlov_options: pavlov_options)
       Pavlov.stub(:query)
-            .with(:'comments/get',
-                     comment_id: comment.id, pavlov_options: pavlov_options)
-            .and_return(dead_comment)
+            .with(:'comments/by_ids',
+                     ids: comment.id, pavlov_options: pavlov_options)
+            .and_return([dead_comment])
 
       expect(interactor.call).to eq dead_comment
     end

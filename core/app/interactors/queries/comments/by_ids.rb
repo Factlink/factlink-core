@@ -4,8 +4,12 @@ module Queries
       include Pavlov::Query
 
       attribute :ids
-      attribute :by
+      attribute :by, Symbol, default: :_id
       attribute :pavlov_options
+
+      def validate
+        validate_in_set :by, by, [:_id, :fact_data_id]
+      end
 
       def execute
         comments.map do |comment|
@@ -14,7 +18,7 @@ module Queries
       end
 
       def comments
-        Comment.all_in(by => ids)
+        Comment.all_in(by => Array(ids))
       end
 
       def dead_for comment

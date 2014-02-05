@@ -16,7 +16,7 @@ module Interactors
 
         create_activity comment
 
-        query(:'comments/get', comment_id: comment.id)
+        query(:'comments/by_ids', ids: comment.id).first
       end
 
       def create_activity comment
