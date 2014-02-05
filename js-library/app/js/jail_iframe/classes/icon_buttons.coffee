@@ -19,6 +19,7 @@ class FactlinkJailRoot.ShowButton
       target: @_textContainer(@$highlightElements[0])
       attachment: 'top left'
       targetAttachment: 'top right'
+      classPrefix: 'factlink-tether'
 
   destroy: ->
     @_tether.destroy()
@@ -64,6 +65,7 @@ class FactlinkJailRoot.ParagraphButton
       target: @$paragraph[0]
       attachment: 'top left'
       targetAttachment: 'top right'
+      classPrefix: 'factlink-tether'
 
     FactlinkJailRoot.on 'factlink.factsLoaded factlinkAdded', @_destroyUnlessValid
 
