@@ -16,5 +16,6 @@ FactlinkJailRoot.showProxyMessage = ->
     top: '10px'
     left: '10px'
     position: 'fixed'
+    zIndex: '11'
 
   frame.fadeIn()
