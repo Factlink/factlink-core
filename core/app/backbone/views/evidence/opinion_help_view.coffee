@@ -8,10 +8,10 @@ window.ReactOpinionHelp = React.createClass
         _span ["opinion-help-question"],
           "What do you think?"
         _span ["opinion-help-login-options"],
-          _a ["button button-twitter small-connect-button opinion-help-button js-accounts-popup-link",
+          _a ["button-twitter small-connect-button opinion-help-button js-accounts-popup-link",
             href: "/auth/twitter"],
               _i ["icon-twitter"]
-          _a ["button button-facebook small-connect-button opinion-help-button js-accounts-popup-link",
+          _a ["button-facebook small-connect-button opinion-help-button js-accounts-popup-link",
             href: "/auth/facebook"],
             _i ["icon-facebook"]
           _a ["js-accounts-popup-link", href: "/users/sign_in_or_up"],

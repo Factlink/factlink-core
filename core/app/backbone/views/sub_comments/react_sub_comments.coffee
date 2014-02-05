@@ -29,7 +29,7 @@ ReactSubCommentsAdd = React.createClass
         defaultValue: ''
         ref: 'text_area'
         onSubmit: @submit
-      _button ["button button-confirm button-small spec-submit",
+      _button ["button-confirm button-small spec-submit",
                disabled: !@is_valid(),
                onClick: @submit],
         Factlink.Global.t.post_subcomment

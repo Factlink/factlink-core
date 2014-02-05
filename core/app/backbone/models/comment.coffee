@@ -21,7 +21,7 @@ class window.Comment extends Backbone.Model
 
   toJSON: ->
     json = super
-    defaults = {formatted_comment_content: json.content}
+    defaults = {formatted_content: json.content}
 
     _.extend defaults, json,
       formatted_impact: format_as_short_number(@get('impact'))

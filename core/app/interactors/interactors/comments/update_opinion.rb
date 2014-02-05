@@ -16,7 +16,7 @@ module Interactors
                       graph_user: pavlov_options[:current_user].graph_user)
         end
 
-        query(:'comments/get', comment_id: comment_id)
+        query(:'comments/by_ids', ids: comment_id).first
       end
 
       def validate
