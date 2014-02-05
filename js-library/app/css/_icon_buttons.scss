@@ -6,7 +6,6 @@ factlink-paragraph-button {
   position: absolute;
   display: block;
   cursor: pointer;
-  z-index: $max-z-index - 1;
 
   white-space: nowrap; // TODO: remove when removing ugly '+' from add icon
 
