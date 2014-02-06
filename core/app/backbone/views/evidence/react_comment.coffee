@@ -10,22 +10,17 @@ ReactCommentHeading = React.createBackboneClass
       else 'comment-unsure'
 
   render: ->
-    R.div className: 'comment-post-heading',
-      R.span className: @_typeCss()
-      R.span className:"comment-post-creator-avatar",
-        R.img
-          src: @model().creator().avatar_url(32)
-          className:"avatar-image"
-      R.span className:"comment-post-creator",
-        R.a
-          href: @model().creator().link()
-          className:"comment-post-creator-name"
-          rel: "backbone"
+    _div ['comment-post-heading'],
+      _span [@_typeCss()]
+      _span ["comment-post-creator-avatar"],
+        _img [src: @model().creator().avatar_url(32), "avatar-image"]
+      _span ["comment-post-creator"],
+        _a [href: @model().creator().link(), "comment-post-creator-name", rel: "backbone"]
           @model().creator().get('name')
-        R.span className:"comment-bottom-action comment-post-time",
-            @model().get('time_ago')
-            " "
-            Factlink.Global.t.ago
+        _span ["comment-bottom-action comment-post-time"],
+          @model().get('time_ago')
+          " "
+          Factlink.Global.t.ago
 
 window.ReactComment = React.createBackboneClass
   displayName: 'ReactComment'
@@ -41,26 +36,21 @@ window.ReactComment = React.createBackboneClass
     @setState show_subcomments: !@state.show_subcomments
 
   _content: ->
-    R.div
-      className:"comment-content spec-comment-content",
+    _div ["comment-content spec-comment-content"],
       dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
 
   _bottom: ->
     sub_comment_count = @model().get('sub_comments_count')
 
-    R.div className: 'comment-post-bottom',
-      R.ul className: "comment-bottom-actions", [
+    _div ['comment-post-bottom'],
+      _ul ["comment-bottom-actions"], [
         if @model().can_destroy()
-          R.li className: "comment-bottom-action comment-bottom-action-delete",
+          _li ["comment-bottom-action comment-bottom-action-delete"],
             ReactDeleteButton
               model: @model()
               onDelete: @_onDelete
-        R.li className:"comment-reply",
-          R.a
-            className:"spec-sub-comments-link"
-            href:"javascript:"
-            onClick: @_toggleSubcomments
-
+        _li ["comment-reply"],
+          _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments]
             "(#{sub_comment_count}) Comment"
       ]
       if @state.show_subcomments
@@ -74,11 +64,11 @@ window.ReactComment = React.createBackboneClass
       'comment-irrelevant' unless relevant
     ].join(' ')
 
-    R.div className: top_classes,
-      R.div className:"comment-container spec-evidence-box",
-        R.div className: "comment-votes-container",
+    _div [top_classes],
+      _div ["comment-container spec-evidence-box"],
+        _div ["comment-votes-container"],
           ReactEvidenceVote model: @model().argumentTally()
-        R.div className: "comment-content-container",
+        _div ["comment-content-container"],
           ReactCommentHeading(model: @model())
           @_content()
           @_bottom()
