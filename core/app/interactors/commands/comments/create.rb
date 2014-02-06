@@ -3,14 +3,13 @@ module Commands
     class Create
       include Pavlov::Command
 
-      arguments :fact_id, :type, :content, :user_id
+      arguments :fact_id, :content, :user_id
 
       def execute
         comment = Comment.new
         comment.fact_data = fact_data
         creator = get_creator
         comment.created_by = creator
-        comment.type = type
         comment.content = content
         comment.save!
 

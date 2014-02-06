@@ -26,7 +26,6 @@ describe Commands::Comments::Create do
       User.should_receive(:find).with(user_id).and_return(user)
 
       comment.should_receive(:created_by=).with(user)
-      comment.should_receive(:type=).with(type)
       comment.should_receive(:content=).with(content)
       comment.should_receive(:save!)
 
