@@ -1,6 +1,6 @@
 class FactlinkJailRoot.ShowButton
   constructor: (highlightElements, factId) ->
-    @$el = $('<factlink-icon-button></factlink-icon-button>')
+    @$el = $('<factlink-icon-button><factlink-bubble-icon><factlink-bubble-icon-triangle></factlink-bubble-icon-triangle></factlink-bubble-icon></factlink-icon-button>')
     FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
 
     @$highlightElements = $(highlightElements)
@@ -28,9 +28,9 @@ class FactlinkJailRoot.ShowButton
       targetOffset: "#{verticalOffsetPercentage}% 0"
 
     @$el.css
-      'color': $(textContainer).css('color')
+      # 'color': $(textContainer).css('color')
       'line-height': $(textContainer).css('line-height')
-      'font-size': Math.max 15, parseInt $(textContainer).css('font-size')
+      'font-size': Math.max 15, Math.min 20, parseInt $(textContainer).css('font-size')
 
   destroy: ->
     @_tether.destroy()
@@ -57,13 +57,13 @@ class FactlinkJailRoot.ParagraphButton
     @$paragraph = $(paragraphElement)
     return unless @_valid()
 
-    @$el = $('<factlink-icon-button></factlink-icon-button>')
+    @$el = $(@$el = $('<factlink-icon-button><factlink-bubble-icon>+<factlink-bubble-icon-triangle></factlink-bubble-icon-triangle></factlink-bubble-icon></factlink-icon-button>'))
     FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
 
     @$el.css
-      'color': @$paragraph.css('color')
+      # 'color': @$paragraph.css('color')
       'line-height': @$paragraph.css('line-height')
-      'font-size': Math.max 15, parseInt @$paragraph.css('font-size')
+      'font-size': Math.max 15, Math.min 20, parseInt @$paragraph.css('font-size')
 
     @_attentionSpan = new FactlinkJailRoot.AttentionSpan
       wait_for_neglection: 500
