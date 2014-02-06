@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../app/interactors/commands/create_comment.rb'
+require_relative '../../../app/interactors/commands/comments/create.rb'
 
-describe Commands::CreateComment do
+describe Commands::Comments::Create do
   include PavlovSupport
   before do
     stub_classes 'Comment', 'FactData', 'User', 'Fact', 'KillObject'
@@ -26,7 +26,6 @@ describe Commands::CreateComment do
       User.should_receive(:find).with(user_id).and_return(user)
 
       comment.should_receive(:created_by=).with(user)
-      comment.should_receive(:type=).with(type)
       comment.should_receive(:content=).with(content)
       comment.should_receive(:save!)
 

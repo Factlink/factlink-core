@@ -28,7 +28,6 @@ window.ReactComment = React.createBackboneClass
   getInitialState: ->
     show_subcomments: false
 
-
   _onDelete: ->
      @model().destroy wait: true
 
@@ -36,8 +35,9 @@ window.ReactComment = React.createBackboneClass
     @setState show_subcomments: !@state.show_subcomments
 
   _content: ->
+
     _div ["comment-content spec-comment-content"],
-      dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
+      dangerouslySetInnerHTML: {__html: @model().get('formatted_content')}
 
   _bottom: ->
     sub_comment_count = @model().get('sub_comments_count')

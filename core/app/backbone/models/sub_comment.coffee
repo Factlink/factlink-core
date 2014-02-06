@@ -19,4 +19,4 @@ class window.SubComment extends Backbone.Model
   toJSON: ->
     json = super
 
-    _.extend {formatted_comment_content: json.content}, json
+    _.extend {formatted_content: json.content}, json
