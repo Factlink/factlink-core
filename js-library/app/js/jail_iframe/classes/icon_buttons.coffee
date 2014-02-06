@@ -28,8 +28,8 @@ class FactlinkJailRoot.ShowButton
       targetOffset: "#{verticalOffsetPercentage}% 0"
 
     @$el.css
-      'line-height': $(textContainer).css 'line-height'
-      'font-size': $(textContainer).css 'font-size'
+      'line-height': $(textContainer).css('line-height')
+      'font-size': Math.max 15, parseInt $(textContainer).css('font-size')
 
   destroy: ->
     @_tether.destroy()
@@ -60,8 +60,8 @@ class FactlinkJailRoot.ParagraphButton
     FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
 
     @$el.css
-      'line-height': @$paragraph.css 'line-height'
-      'font-size': @$paragraph.css 'font-size'
+      'line-height': @$paragraph.css('line-height')
+      'font-size': Math.max 15, parseInt @$paragraph.css('font-size')
 
     @_attentionSpan = new FactlinkJailRoot.AttentionSpan
       wait_for_neglection: 500
