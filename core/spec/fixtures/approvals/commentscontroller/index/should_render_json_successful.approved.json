@@ -4,7 +4,6 @@
     "created_at": "<created_at>",
     "type": "doubts",
     "formatted_content": "a comment",
-    "time_ago": "1 minute",
     "tally": {
       "believes": 1,
       "disbelieves": 0,
@@ -27,7 +26,6 @@
     "created_at": "<created_at>",
     "type": "doubts",
     "formatted_content": "a comment",
-    "time_ago": "1 minute",
     "tally": {
       "believes": 0,
       "disbelieves": 1,

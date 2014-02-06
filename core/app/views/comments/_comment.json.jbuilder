@@ -3,7 +3,6 @@ json.extract! comment,
   :created_at,
   :type,
   :formatted_content,
-  :time_ago,
   :tally,
   :is_deletable,
   :sub_comments_count

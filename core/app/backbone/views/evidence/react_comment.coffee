@@ -12,10 +12,9 @@ ReactCommentHeading = React.createBackboneClass
         className:"comment-post-creator-name"
         rel: "backbone"
         @model().creator().get('name')
-      R.span className:"comment-bottom-action comment-post-time",
-          @model().get('time_ago')
-          " "
-          Factlink.Global.t.ago
+      TimeAgo
+        className: "comment-bottom-action comment-post-time"
+        time: @model().get('created_at')
 
 window.ReactComment = React.createBackboneClass
   displayName: 'ReactComment'
