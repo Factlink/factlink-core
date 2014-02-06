@@ -58,7 +58,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @model = new Comment
       content: $.trim(@_textModel().get('text'))
       created_by: currentUser.toJSON()
-      type: @options.argumentTypeModel.get 'argument_type'
 
     return @addModelError() unless @model.isValid()
 
@@ -76,7 +75,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
     mp_track "Factlink: Added comment",
       factlink_id: @options.addToCollection.fact.id
-      type: @options.argumentTypeModel.get 'argument_type'
 
   _shareFactlink: (model) ->
     return unless Factlink.Global.signed_in
