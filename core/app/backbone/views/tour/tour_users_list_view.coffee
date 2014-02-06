@@ -5,11 +5,9 @@ class TourUserView extends Backbone.Marionette.Layout
 
   regions:
     buttonRegion: '.js-region-button'
-    contentRegion: '.js-content-region'
 
   onRender: ->
     @buttonRegion.show @followUserButton()
-    @contentRegion.show new UserStatisticsView(model: @model)
 
   followUserButton: ->
     unless @_followUserButton?
