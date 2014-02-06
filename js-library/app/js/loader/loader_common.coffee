@@ -67,6 +67,15 @@ window.FACTLINK_START_LOADER = ->
 
     root.core_loaded_promise.then ->
       root.perf.add_timing_event 'core_loaded'
+
+      #TODO put this functionality somewhere other than the loader
+      open_id =
+        /#factlink-open-(\d+)/i.exec(window.location.hash)?[1] ||
+        /(^\?|\&)(factlink_)?open_id=(\d+)($|&)/.exec(window.location.search)?[3]
+      if open_id
+        window.FACTLINK.scrollTo parseInt(open_id)
+        window.FACTLINK.openFactlinkModal parseInt(open_id)
+
       #called from jail-iframe when core iframe is ready.
       for name in methods
         do (name) ->
