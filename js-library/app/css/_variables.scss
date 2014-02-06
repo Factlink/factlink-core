@@ -6,8 +6,7 @@ $control_visibility_transition_time : 300ms; //keep in sync with coffeescript
 $highlight_visibility_transition_time: 200ms;
 
 %default-font {
-  font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
-  font-size: 13px;
+  font: normal normal normal 13px/1.5 "lucida grande", tahoma, verdana, arial, sans-serif;
 }
 
 // Keep in sync with variables in core variables.less

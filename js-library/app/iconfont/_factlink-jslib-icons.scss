@@ -5,7 +5,10 @@
   font-style: normal;
 }
 
-%icon-font {
+.icon-thumbs-up,
+.icon-thumbs-down,
+.icon-comment,
+{
   font-family: "factlink-jslib-icons" !important;
   font-style: normal;
   font-weight: normal;
@@ -31,3 +34,7 @@
 
   -webkit-font-smoothing: antialiased; // OS X makes fonts bolder than normal. This looks weird with those icons.
 }
+
+.icon-comment:before { content: '\e80f'; }
+.icon-thumbs-up:before { content: '\e800'; }
+.icon-thumbs-down:before { content: '\e801'; }
