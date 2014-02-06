@@ -23,7 +23,4 @@ ssh_options[:forward_agent] = true
 # don't touch all static files:
 set :normalize_asset_timestamps, false
 
-
-#after "deploy", "deploy:build"
-
 after 'deploy:update', 'deploy:cleanup'
