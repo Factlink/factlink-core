@@ -40,10 +40,11 @@ window.ReactComment = React.createBackboneClass
 
   _bottom: ->
     sub_comment_count = @model().get('sub_comments_count')
+
     [
       _ul ["comment-post-bottom"], [
         if @model().can_destroy()
-          _li ["comment-bottom-action comment-bottom-action-delete"],
+          _li ["comment-post-delete"],
             ReactDeleteButton
               model: @model()
               onDelete: @_onDelete
@@ -54,6 +55,7 @@ window.ReactComment = React.createBackboneClass
       if @state.show_subcomments
         ReactSubComments(model: @model())
     ]
+
   render: ->
     relevant = @model().argumentTally().relevance() >= 0
 
