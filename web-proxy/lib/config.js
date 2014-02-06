@@ -20,26 +20,26 @@ function merge_options(obj1, obj2) {
 var configs = {
   development: {
     FactlinkBaseUri: 'http://localhost:3000/',
-    PROXY_HOSTNAME: 'localhost',
-    PROXY_URL: 'http://localhost:8080/',
-    INTERNAL_PROXY_PORT: 8080,
+    proxy_hostname: 'localhost',
+    proxy_uri: 'http://localhost:8080/',
+    internal_proxy_port: 8080,
     jslib_uri: 'http://localhost:8000/lib/dist/factlink_loader_basic.js'
   },
 
   staging:{
     FactlinkBaseUri: 'https://factlink-staging.inverselink.com/',
-    PROXY_HOSTNAME: 'staging.fct.li',
-    PROXY_URL: 'http://staging.fct.li/',
-    INTERNAL_PROXY_PORT: 8080,
+    proxy_hostname: 'staging.fct.li',
+    proxy_uri: 'http://staging.fct.li/',
+    internal_proxy_port: 8080,
     jslib_uri: 'https://factlink-static-staging.inverselink.com/lib/dist/factlink_loader_basic.min.js'
 
   },
 
   production:{
     FactlinkBaseUri: 'https://factlink.com/',
-    PROXY_HOSTNAME: 'fct.li',
-    PROXY_URL: 'http://fct.li/',
-    INTERNAL_PROXY_PORT: 8080,
+    proxy_hostname: 'fct.li',
+    proxy_uri: 'http://fct.li/',
+    internal_proxy_port: 8080,
     jslib_uri: 'https://static.factlink.com/lib/dist/factlink_loader_basic.min.js'
   }
 };

@@ -23,7 +23,7 @@ function getServer(config) {
       // as the browser only clears when the domain matches, and
       // empty or hostname ("fct.li") are the only two possibilities
       res.clearCookie(name);
-      res.clearCookie(name, {domain: config.PROXY_HOSTNAME});
+      res.clearCookie(name, {domain: config.proxy_hostname});
     }
     next();
   });
