@@ -62,6 +62,8 @@ class FactlinkJailRoot.ShowButton
   constructor: (highlightElements, factId) ->
     @$highlightElements = $(highlightElements)
 
+    # Calculate a vertical percentage to position the icon relative
+    # to the textContainer
     # TODO: really do grouping, so we don't have to do hacks like this!
     textContainer = @_textContainer(@$highlightElements[0])
     textContainerBoundingRect = textContainer.getBoundingClientRect()
