@@ -143,7 +143,7 @@ module.exports = (grunt) ->
           'build/factlink_loader_bookmarklet.min.js': ['build/factlink_loader_bookmarklet.js']
     shell:
       gzip_js_files:
-        command: ' find build/ -iname \'*.js\'  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
+        command: ' find build/ -iname \'*.js\'  -maxdepth 1  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
 
     copy:
       config_development:
