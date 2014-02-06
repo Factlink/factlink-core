@@ -28,6 +28,7 @@ class FactlinkJailRoot.ShowButton
       targetOffset: "#{verticalOffsetPercentage}% 0"
 
     @$el.css
+      'color': $(textContainer).css('color')
       'line-height': $(textContainer).css('line-height')
       'font-size': Math.max 15, parseInt $(textContainer).css('font-size')
 
@@ -60,6 +61,7 @@ class FactlinkJailRoot.ParagraphButton
     FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
 
     @$el.css
+      'color': @$paragraph.css('color')
       'line-height': @$paragraph.css('line-height')
       'font-size': Math.max 15, parseInt @$paragraph.css('font-size')
 
