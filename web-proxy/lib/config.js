@@ -17,37 +17,41 @@ function merge_options(obj1, obj2) {
     return obj3;
 }
 
-function read_conf(config_path, fs, env) {
-  var i;
-  var confs = ['static', 'proxy', 'core'];
-  var parsed_conf = {};
-  for(i = 0; i < confs.length; i++) {
-    var yaml = fs.readFileSync(config_path+confs[i] +'.yml').toString('utf-8') + "\n\n";
+var configs = {
+  development: {
+    FactlinkBaseUri: 'http://localhost:3000/',
+    PROXY_HOSTNAME: 'localhost',
+    PROXY_URL: 'http://localhost:8080/',
+    INTERNAL_PROXY_PORT: 8080,
+    jslib_uri: 'http://localhost:8000/lib/dist/factlink_loader_basic.js'
+  },
 
-    // eval gives jshint issues, but this is because yaml should not use eval, not something we can fix
-    var file_conf = require('yaml').eval(yaml)[env]; /* https://github.com/visionmedia/js-yaml/issues/13 */
+  staging:{
+    FactlinkBaseUri: 'https://factlink-staging.inverselink.com/',
+    PROXY_HOSTNAME: 'staging.fct.li',
+    PROXY_URL: 'http://staging.fct.li/',
+    INTERNAL_PROXY_PORT: 8080,
+    jslib_uri: 'https://factlink-static-staging.inverselink.com/lib/dist/factlink_loader_basic.min.js'
 
-    parsed_conf = merge_options(parsed_conf,file_conf);
+  },
+
+  production:{
+    FactlinkBaseUri: 'https://factlink.com/',
+    PROXY_HOSTNAME: 'fct.li',
+    PROXY_URL: 'http://fct.li/',
+    INTERNAL_PROXY_PORT: 8080,
+    jslib_uri: 'https://static.factlink.com/lib/dist/factlink_loader_basic.min.js'
   }
-  return parsed_conf;
-}
+};
 
-function get(process_env){
-  var config_path = './config/';
-  var env         = process_env.NODE_ENV || 'development';
+function get_config(environment){
+  var env =  environment !== 'test' && environment || 'development';
 
-  var config = read_conf(config_path, fs, env);
+  var config = configs[env];
 
-  config.API_URL              = config.core.protocol + config.core.hostname + ':' + config.core.port;
-  config.PROXY_URL            = config.proxy.protocol + config.proxy.hostname + ':' + config.proxy.port;
-  config.PROXY_HOSTNAME       = config.proxy.hostname;
-  config.STATIC_URL           = config.static.protocol + config.static.hostname + ':' + config.static.port;
-  config.LIB_URL              = config.STATIC_URL + "/lib/dist";
-  config.INTERNAL_PROXY_PORT  = parseInt(config.proxy.internal_port, 10);
-  config.ENV                  = env;
+  config.ENV = env;
 
   return config;
 }
 
-exports.read_conf = read_conf;
-exports.get = get;
+exports.get_config = get_config;

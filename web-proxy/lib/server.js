@@ -142,10 +142,7 @@ function getServer(config) {
     actions.push('FACTLINK.startAnnotating();');
     actions.push('FACTLINK.showProxyMessage();');
 
-    // Inject Factlink library at the end of the file
-    var loader_filename = (config.ENV === "development" ? "/factlink_loader_basic.js" : "/factlink_loader_basic.min.js");
-
-    var loader_tag = '<script async defer src="' + config.LIB_URL + loader_filename + '" onload="'+actions.join('')+ '"></script>';
+    var loader_tag = '<script async defer src="' + config.jslib_uri + '" onload="'+actions.join('')+ '"></script>';
     var header_content = new_base_tag + inline_setup_script_tag + loader_tag;
 
     output_html = inject_html_in_head(output_html, header_content);
@@ -185,21 +182,14 @@ function getServer(config) {
   function renderErrorPage(res, url){
     res.render('something_went_wrong', {
       layout: false,
-      locals: {
-        static_url: config.STATIC_URL,
-        proxy_url: config.PROXY_URL,
-        site: url
-      }
+      locals: { site: url  }
     });
   }
 
   function renderWelcomePage(res){
     res.render('welcome.jade',{
       layout:false,
-      locals: {
-        proxy_url:      config.PROXY_URL,
-        core_url:       config.API_URL
-      }
+      locals: { core_url: config.FactlinkBaseUri }
     });
   }
 
