@@ -17,10 +17,6 @@ ReactCommentHeading = React.createBackboneClass
       _span ["comment-post-creator"],
         _a [href: @model().creator().link(), "comment-post-creator-name", rel: "backbone"],
           @model().creator().get('name')
-        _span ["comment-bottom-action comment-post-time"],
-          @model().get('time_ago')
-          " "
-          Factlink.Global.t.ago
         TimeAgo
           className: "comment-bottom-action comment-post-time"
           time: @model().get('created_at')
