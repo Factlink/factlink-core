@@ -22,9 +22,9 @@ class IconButton
 
     @_robustHover = new FactlinkJailRoot.RobustHover
       $el: @$el
-      mouseenter: options.mouseenter
-      mouseleave: options.mouseleave
-    @$el.on 'click', options.mouseclick
+      mouseenter: options.onmouseenter
+      mouseleave: options.onmouseleave
+    @$el.on 'click', options.onclick
 
     targetColor = $targetElement.css('color')
 
@@ -68,9 +68,9 @@ class FactlinkJailRoot.ShowButton
     @_iconButton = new IconButton
       targetElement: textContainer
       targetOffset: "#{verticalOffsetPercentage}% 0"
-      mouseenter: @_onHover
-      mouseleave: @_onUnhover
-      click: @_onClick
+      onmouseenter: @_onHover
+      onmouseleave: @_onUnhover
+      onclick: @_onClick
 
     @_factId = factId
 
@@ -102,9 +102,9 @@ class FactlinkJailRoot.ParagraphButton
     @_iconButton = new IconButton
       content: '+'
       targetElement: @$paragraph[0]
-      mouseenter: => @_attentionSpan.gainAttention()
-      mouseleave: => @_attentionSpan.loseAttention()
-      click: @_onClick
+      onmouseenter: => @_attentionSpan.gainAttention()
+      onmouseleave: => @_attentionSpan.loseAttention()
+      onclick: @_onClick
 
     @_attentionSpan = new FactlinkJailRoot.AttentionSpan
       wait_for_neglection: 500
