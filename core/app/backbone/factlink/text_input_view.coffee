@@ -1,7 +1,7 @@
 Backbone.Factlink ||= {}
 class Backbone.Factlink.TextInputView extends Backbone.Marionette.ItemView
   events:
-    'keydown .typeahead': 'parseKeyDown'
+    'keydown .typeahead': '_parseKeyDown'
     'keyup .typeahead': '_updateModel'
     'input .typeahead': '_updateModel'
 
@@ -23,7 +23,7 @@ class Backbone.Factlink.TextInputView extends Backbone.Marionette.ItemView
   focusInput: ->
     _.defer => @ui.inputField.focus()
 
-  parseKeyDown: (e) ->
+  _parseKeyDown: (e) ->
     eventHandled = false
     switch e.keyCode
       when 13 then @trigger 'return'
