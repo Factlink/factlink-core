@@ -3,7 +3,7 @@ class IconButton
     @$el = $ """
       <factlink-icon-button>
         <factlink-icon-button-bubble>
-          #{options.content || ''}
+          #{options.content}
           <factlink-icon-button-bubble-triangle></factlink-icon-button-bubble-triangle>
         </factlink-icon-button-bubble>
       </factlink-icon-button>
@@ -71,6 +71,7 @@ class FactlinkJailRoot.HighlightIconButtonContainer
     verticalOffsetPercentage = verticalOffset*100 / textContainerBoundingRect.height
 
     @_iconButton = new IconButton
+      content: ''
       targetElement: textContainer
       targetOffset: "#{verticalOffsetPercentage}% 0"
       onmouseenter: @_onHover
