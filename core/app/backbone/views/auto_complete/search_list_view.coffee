@@ -5,7 +5,7 @@ class window.AutoCompleteSearchListView extends Backbone.Factlink.SteppableView
 
   className: 'auto-complete-search-list'
 
-  itemViewOptions: => query: @model.get('text')
+  itemViewOptions: => query: '' # @model.get('text')
 
   constructor: ->
     super

@@ -61,7 +61,7 @@ class window.AutoCompleteFactsView extends AutoCompleteSearchView
         recent_collection: @_recent_collection
       placeholder: 'Search discussion link to insert...'
 
-    @listenTo @model, 'change', @queryChanges
+    # @listenTo @model, 'change', @queryChanges
 
   onRender: ->
     @_text_input_view.focusInput()
@@ -73,9 +73,9 @@ class window.AutoCompleteFactsView extends AutoCompleteSearchView
     @trigger 'insert', selected_fact.friendly_fact_url()
 
   reset: ->
-    @model.set text: ''
+    # @model.set text: ''
 
-  queryChanges: ->
-    unless @query_has_changed
-      @query_has_changed = true
-      mp_track "Evidence: Started searching for insertable discussion"
+  # queryChanges: ->
+  #   unless @query_has_changed
+  #     @query_has_changed = true
+  #     mp_track "Evidence: Started searching for insertable discussion"
