@@ -1,14 +1,16 @@
 Backbone.Factlink ||= {}
 class Backbone.Factlink.TextInputView extends Backbone.Marionette.ItemView
   events:
-    'click': 'focusInput'
     'keydown .typeahead': 'parseKeyDown'
-    'keyup .typeahead': 'updateModel'
-    'input .typeahead': 'updateModel'
+    'keyup .typeahead': '_updateModel'
+    'input .typeahead': '_updateModel'
 
   triggers:
     'focus .typeahead': 'focus'
     'blur .typeahead': 'blur'
+
+  ui:
+    inputField: '.typeahead'
 
   templateHelpers: =>
     placeholder: @options.placeholder
@@ -16,10 +18,10 @@ class Backbone.Factlink.TextInputView extends Backbone.Marionette.ItemView
   template: 'generic/text_input'
 
   initialize: ->
-    @listenTo @model, 'change', @updateHtml
+    @listenTo @model, 'change', @_updateHtml
 
   focusInput: ->
-    _.defer => @$inputField().focus()
+    _.defer => @ui.inputField.focus()
 
   parseKeyDown: (e) ->
     eventHandled = false
@@ -34,12 +36,7 @@ class Backbone.Factlink.TextInputView extends Backbone.Marionette.ItemView
       e.preventDefault()
       e.stopPropagation()
 
-  updateModel: -> @model.set text: @$inputField().val()
-  updateHtml: ->
-    if @model.get('text') != @$inputField().val()
-      @$inputField().val(@model.get('text'))
-
-  enable: -> @$inputField().prop 'disabled', false
-  disable: ->@$inputField().prop 'disabled', true
-
-  $inputField: -> @$('.typeahead')
+  _updateModel: -> @model.set text: @ui.inputField.val()
+  _updateHtml: ->
+    if @model.get('text') != @ui.inputField.val()
+      @ui.inputField.val(@model.get('text'))
