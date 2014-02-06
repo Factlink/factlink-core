@@ -6,12 +6,6 @@ factlink-icon-button {
   display: block;
   cursor: pointer;
 
-  white-space: nowrap; // TODO: remove when removing ugly '+' from add icon
-
-  // reset inherited styles
-  font-size: 13px;
-  line-height: normal;
-
   color: rgba(0, 0, 0, 0.4);
 
   &:hover {
@@ -21,6 +15,9 @@ factlink-icon-button {
   &:before {
     @extend %icon-font;
     content: '\e80f';
+    font-size: 90%;
+    line-height: 1;
+    vertical-align: 10%;
     text-shadow: -1px -1px 1.5px white, 1px -1px 1.5px white, -1px 1px 1.5px white, 1px 1px 1.5px white;
   }
 }
