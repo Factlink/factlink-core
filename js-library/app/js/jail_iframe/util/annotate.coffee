@@ -14,8 +14,6 @@ FactlinkJailRoot.startAnnotating = ->
   return if annotating
   annotating = true
 
-  console.info "FactlinkJailRoot:", "startAnnotating"
-
   $("body").on "mouseup.factlink", (event) ->
     window.clearTimeout timeout
     FactlinkJailRoot.createButton.hide()
@@ -43,3 +41,6 @@ FactlinkJailRoot.stopAnnotating = ->
   console.info "FactlinkJailRoot:", "stopAnnotating"
   FactlinkJailRoot.createButton.hide()
   $("body").off "mouseup.factlink"
+
+
+FactlinkJailRoot.host_ready_promise.done FactlinkJailRoot.startAnnotating
