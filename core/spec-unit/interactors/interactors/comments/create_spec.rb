@@ -25,28 +25,21 @@ describe Interactors::Comments::Create do
       .to fail_validation 'fact_id should be an integer.'
   end
 
-  it 'with a invalid type doesn''t validate' do
-    expect_validating( fact_id: 1, type: 'dunno', content: 'Hoi!' )
-      .to fail_validation 'type should be on of these values: ["believes", "disbelieves", "doubts"].'
-  end
-
   describe '#call' do
     it 'works' do
       fact = double( fact_id: 1 )
-      type = 'believes'
       content = 'content'
       user = double(id: '1a', graph_user: double)
 
       comment = double(:comment, id: double(to_s: '10a'), fact_data: double(fact: fact))
       dead_comment = double
       pavlov_options = {current_user: user}
-      interactor = described_class.new fact_id: fact.fact_id, type: type,
-                                       content: content,
+      interactor = described_class.new fact_id: fact.fact_id, content: content,
                                        pavlov_options: pavlov_options
 
       Pavlov.should_receive(:command)
-            .with(:'create_comment',
-                      fact_id: fact.fact_id, type: type, content: content,
+            .with(:'comments/create',
+                      fact_id: fact.fact_id, content: content,
                       user_id: user.id, pavlov_options: pavlov_options)
             .and_return(comment)
       Pavlov.should_receive(:command)

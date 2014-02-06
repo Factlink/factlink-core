@@ -12,10 +12,9 @@ ReactCommentHeading = React.createBackboneClass
         className:"comment-post-creator-name"
         rel: "backbone"
         @model().creator().get('name')
-      R.span className:"comment-bottom-action comment-post-time",
-          @model().get('time_ago')
-          " "
-          Factlink.Global.t.ago
+      TimeAgo
+        className: "comment-bottom-action comment-post-time"
+        time: @model().get('created_at')
 
 window.ReactComment = React.createBackboneClass
   displayName: 'ReactComment'
@@ -29,7 +28,7 @@ window.ReactComment = React.createBackboneClass
     switch @model().get('type')
       when 'believes' then 'comment-believes'
       when 'disbelieves' then 'comment-disbelieves'
-      when 'doubts' then 'comment-unsure'
+      else 'comment-unsure'
 
   _onDelete: ->
      @model().destroy wait: true

@@ -29,7 +29,7 @@ describe "factlink", type: :feature do
       @factlink_evidence.data.save
 
       go_to_discussion_page_of @factlink
-      add_existing_factlink :believes, @factlink_evidence
+      add_existing_factlink @factlink_evidence
     end
   end
 

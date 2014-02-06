@@ -6,11 +6,6 @@ module Acceptance
         page.find('.js-open-search-facts-link').click
       end
 
-      def select_add_type type
-        open_type_selector
-        find('.spec-evidence-radio-' + type.to_s).click
-      end
-
       # Doubts the factlink if not already given opinion, which opens
       # the comment box
       def open_add_comment_form
@@ -19,18 +14,10 @@ module Acceptance
         find('.add-evidence-form')
       end
 
-      def open_type_selector
-        return unless all('.spec-evidence-radio-believes').empty?
-
-        find('.spec-change-type').click
-      end
-
-      def add_comment type, comment
+      def add_comment comment
         open_add_comment_form
 
         within '.add-evidence-form' do
-          select_add_type type
-
           comment_input = find('.text_area_view')
           comment_input.click
 
@@ -49,15 +36,13 @@ module Acceptance
         wait_until_argument_has_one_vote comment
       end
 
-      def add_existing_factlink type, evidence_factlink
+      def add_existing_factlink evidence_factlink
         open_add_comment_form
         open_search_factlink
 
         text = evidence_factlink.to_s
 
         within '.add-evidence-form' do
-          select_add_type type
-
           comment_input = find('.text_area_view')
           comment_input.click
 

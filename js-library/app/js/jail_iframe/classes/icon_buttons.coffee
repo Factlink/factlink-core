@@ -61,8 +61,9 @@ class FactlinkJailRoot.ShowButton
 
     # TODO: really do grouping, so we don't have to do hacks like this!
     textContainer = @_textContainer(@$highlightElements[0])
-    verticalOffset = @$highlightElements.offset().top - $(textContainer).offset().top
-    verticalOffsetPercentage = verticalOffset*100 / $(textContainer).height()
+    textContainerBoundingRect = textContainer.getBoundingClientRect()
+    verticalOffset = @$highlightElements[0].getBoundingClientRect().top - textContainerBoundingRect.top
+    verticalOffsetPercentage = verticalOffset*100 / textContainerBoundingRect.height
 
     @_iconButton = new IconButton
       targetElement: textContainer
