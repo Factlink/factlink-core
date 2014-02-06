@@ -60,7 +60,7 @@ class FactlinkJailRoot.ParagraphButton
       onAttentionGained: => @$el.addClass 'factlink-control-visible'
       onAttentionLost: => @$el.removeClass 'factlink-control-visible'
 
-    @_robustFrameHover = new FactlinkJailRoot.RobustHover
+    @_robustHover = new FactlinkJailRoot.RobustHover
       $el: @$el
       mouseenter: => @_attentionSpan.gainAttention()
       mouseleave: => @_attentionSpan.loseAttention()
@@ -93,7 +93,7 @@ class FactlinkJailRoot.ParagraphButton
 
   destroy: ->
     @_tether.destroy()
-    @_robustFrameHover.destroy()
+    @_robustHover.destroy()
     @_attentionSpan.destroy()
     @_robustParagraphHover?.destroy()
     @$el.remove()
