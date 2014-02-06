@@ -1,17 +1,29 @@
-ReactCommentHeading = React.createBackboneClass
-  displayName: 'ReactCommentHeading'
+OpinionIndicator = React.createBackboneClass
+  displayName: 'OpinionIndicator'
+  changeOptions: 'add remove reset sort' + ' change'
+
+  _type: ->
+    @model().vote_for(@props.username)?.get('type')
 
   _typeCss: ->
     return 'comment-unsure' unless Factlink.Global.can_haz.opinions_of_users_and_comments
 
-    switch @model().get('type')
+    switch @_type()
       when 'believes' then 'comment-believes'
       when 'disbelieves' then 'comment-disbelieves'
       else 'comment-unsure'
 
   render: ->
+    _span [@_typeCss()]
+
+ReactCommentHeading = React.createBackboneClass
+  displayName: 'ReactCommentHeading'
+
+  render: ->
     _div ['comment-post-heading'],
-      _span [@_typeCss()]
+      OpinionIndicator
+        username: @model().creator().get('username')
+        model: @props.votes
       _span ["comment-post-creator-avatar"],
         _img ["avatar-image", src: @model().creator().avatar_url(32)]
       _span ["comment-post-creator"],
@@ -63,6 +75,8 @@ window.ReactComment = React.createBackboneClass
       _div ["comment-votes-container"],
         ReactEvidenceVote model: @model().argumentTally()
       _div ["comment-content-container"],
-        ReactCommentHeading(model: @model())
+        ReactCommentHeading
+          votes: @props.votes
+          model: @model()
         @_content()
         @_bottom()
