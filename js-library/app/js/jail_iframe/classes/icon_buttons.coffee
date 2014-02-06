@@ -118,7 +118,6 @@ textFromElement = (element) ->
 class FactlinkJailRoot.ParagraphIconButtonContainer
   constructor: (paragraphElement) ->
     @$paragraph = $(paragraphElement)
-    return unless @_valid()
 
     @_iconButton = new IconButton
       content: '+'
@@ -158,10 +157,10 @@ class FactlinkJailRoot.ParagraphIconButtonContainer
     FactlinkJailRoot.off 'hideAllParagraphButtons', @_onHideAllParagraphButtons
 
   _destroyUnlessValid: =>
-    @destroy() unless @_valid()
+    @destroy() if @_containsFactlink()
 
-  _valid: ->
-    @$paragraph.find('.factlink').length <= 0
+  _containsFactlink: ->
+    @$paragraph.find('.factlink').length > 0
 
   _onClick: =>
     text = textFromElement @$paragraph[0]
