@@ -123,15 +123,12 @@ function getServer(config) {
     var framebuster_script = 'window.self = window.top;\n\n';
 
     // Inject config also at the top
-    var FactlinkConfig = {
-      api: config.API_URL,
-      url: site,
-    };
-    var factlink_config_script = 'window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + ';\n';
-    var factlink_proxy_url_script = 'window.FactlinkProxyUrl = ' + JSON.stringify(config.PROXY_URL) + ';\n';
+    var FactlinkProxiedUri = site;
+
+    var factlink_config_script = 'window.FactlinkProxiedUri = ' + JSON.stringify(site) + ';\n';
 
     var inline_setup_script_tag = '<script>' + framebuster_script +
-      factlink_config_script + factlink_proxy_url_script + '</script>';
+      factlink_config_script + '</script>';
 
     var actions = [];
 
