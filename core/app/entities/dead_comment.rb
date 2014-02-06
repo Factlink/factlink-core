@@ -1,5 +1,5 @@
 DeadComment = StrictStruct.new(
-  :id, :created_by, :created_at, :content, :type,
+  :id, :created_by, :created_at, :content,
   :sub_comments_count, :created_by_id,
   :votes, :is_deletable
 ) do

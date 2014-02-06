@@ -29,7 +29,7 @@ window.ReactComment = React.createBackboneClass
     switch @model().get('type')
       when 'believes' then 'comment-believes'
       when 'disbelieves' then 'comment-disbelieves'
-      when 'doubts' then 'comment-unsure'
+      else 'comment-unsure'
 
   _onDelete: ->
      @model().destroy wait: true
