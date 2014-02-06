@@ -102,7 +102,7 @@ module Acceptance
       end
 
       def vote_comment direction, comment
-        within('.comment-region', text: comment, visible: false) do
+        within('.comment-container', text: comment, visible: false) do
           find(".spec-evidence-vote-#{direction}").click
         end
       end

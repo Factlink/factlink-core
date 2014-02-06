@@ -59,16 +59,10 @@ window.ReactComment = React.createBackboneClass
   render: ->
     relevant = @model().argumentTally().relevance() >= 0
 
-    top_classes = [
-      'comment-region'
-      'comment-irrelevant' unless relevant
-    ].join(' ')
-
-    _div [top_classes],
-      _div ["comment-container spec-evidence-box"],
-        _div ["comment-votes-container"],
-          ReactEvidenceVote model: @model().argumentTally()
-        _div ["comment-content-container"],
-          ReactCommentHeading(model: @model())
-          @_content()
-          @_bottom()
+    _div ["comment-container", "spec-evidence-box", "comment-irrelevant" unless relevant],
+      _div ["comment-votes-container"],
+        ReactEvidenceVote model: @model().argumentTally()
+      _div ["comment-content-container"],
+        ReactCommentHeading(model: @model())
+        @_content()
+        @_bottom()
