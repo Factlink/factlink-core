@@ -45,7 +45,7 @@ describe Interactors::Comments::Create do
                                        pavlov_options: pavlov_options
 
       Pavlov.should_receive(:command)
-            .with(:'create_comment',
+            .with(:'comments/create',
                       fact_id: fact.fact_id, type: type, content: content,
                       user_id: user.id, pavlov_options: pavlov_options)
             .and_return(comment)

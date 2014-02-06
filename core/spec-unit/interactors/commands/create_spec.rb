@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../app/interactors/commands/create_comment.rb'
+require_relative '../../../app/interactors/commands/comments/create.rb'
 
-describe Commands::CreateComment do
+describe Commands::Comments::Create do
   include PavlovSupport
   before do
     stub_classes 'Comment', 'FactData', 'User', 'Fact', 'KillObject'

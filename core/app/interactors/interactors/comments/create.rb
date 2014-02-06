@@ -6,7 +6,7 @@ module Interactors
       arguments :fact_id, :type, :content
 
       def execute
-        comment = command(:'create_comment',
+        comment = command(:'comments/create',
                               fact_id: fact_id, type: type, content: content,
                               user_id: pavlov_options[:current_user].id.to_s)
 
