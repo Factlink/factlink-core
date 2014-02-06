@@ -54,11 +54,13 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 """
-
+timer = require 'grunt-timer'
 path = require 'path'
 fs = require 'fs'
 
 module.exports = (grunt) ->
+  timer.init(grunt)
+   
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
     clean: ['build']
