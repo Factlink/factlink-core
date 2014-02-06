@@ -1,6 +1,6 @@
 class FactlinkJailRoot.ShowButton
   constructor: (highlightElements, factId) ->
-    @$el = $('<factlink-show-button></factlink-show-button>')
+    @$el = $('<factlink-icon-button></factlink-icon-button>')
     FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
 
     @$highlightElements = $(highlightElements)
@@ -52,7 +52,7 @@ class FactlinkJailRoot.ParagraphButton
     @$paragraph = $(paragraphElement)
     return unless @_valid()
 
-    @$el = $('<factlink-paragraph-button></factlink-paragraph-button>')
+    @$el = $('<factlink-icon-button></factlink-icon-button>')
     FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
 
     @_attentionSpan = new FactlinkJailRoot.AttentionSpan

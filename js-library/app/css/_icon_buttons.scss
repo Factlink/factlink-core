@@ -1,5 +1,4 @@
-factlink-show-button,
-factlink-paragraph-button {
+factlink-icon-button {
   @extend %default-font;
   @extend %fadable-control;
 
@@ -24,17 +23,4 @@ factlink-paragraph-button {
     content: '\e80f';
     text-shadow: -1px -1px 1.5px white, 1px -1px 1.5px white, -1px 1px 1.5px white, 1px 1px 1.5px white;
   }
-}
-
-factlink-paragraph-button:after {
-  content: '+';
-  position:absolute;
-  top:1px;
-  font-weight:bold;
-  font-size:85%;
-  left:0;
-  right:0.5px;
-  text-align:center;
-  color:white;
-  -webkit-font-smoothing: antialiased;
 }
