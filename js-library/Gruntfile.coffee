@@ -70,6 +70,7 @@ module.exports = (grunt) ->
     concat:
       jail_iframe:
         src: [
+          'build/js/jail_iframe/config/*'
           'build/js/jail_iframe/libs/*'
           'build/js/jail_iframe/core.js'
           'build/js/jail_iframe/wrap/first.js'
@@ -144,6 +145,10 @@ module.exports = (grunt) ->
         command: ' find build/ -iname \'*.js\'  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
 
     copy:
+      config_development:
+        files: [
+          { src: ['development.js'], cwd: 'build/config', dest: 'build/js/jail_iframe/config', expand: true }
+        ]
       build:
         files: [
           { src: ['**/*.js', '**/*.png', '**/*.gif', '**/*.woff', 'robots.txt'], cwd: 'app', dest: 'build', expand: true }
@@ -204,8 +209,8 @@ module.exports = (grunt) ->
             grunt.file.write(target_filename, target_with_inlined_content)
 
   grunt.registerTask 'jail_iframe', []
-  grunt.registerTask 'compile',  [
-    'clean', 'copy:build',  'copy:extension_events', 'coffee', 'copy:postFactlinkObject',
+  grunt.registerTask 'compile',  [ 'clean',
+    'copy:build',  'copy:extension_events', 'coffee', 'copy:postFactlinkObject', 'copy:config_development',
     'sass', 'cssUrlEmbed', 'cssmin',
     'concat', 'mocha', 'uglify', 'code_inliner',
     'shell:gzip_js_files', 'copy:dist'
