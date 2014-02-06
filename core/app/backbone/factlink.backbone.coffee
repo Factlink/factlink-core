@@ -10,6 +10,8 @@
 
 #= require_tree ./contrib
 #= require_tree ./factlink
+#= require_tree ./mixins
+#= require_tree ./components
 
 #= require app.js
 #= require_tree ./modules
