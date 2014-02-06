@@ -2,23 +2,20 @@
 @import "bootstrap/mixins";
 
 @impactColouredBorderWidth: 3px;
+@commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 
-.add-evidence-container {
+.comment-container-add {
   padding: @votePadding;
-}
-
-.comment-region {
-  position: relative;
-  margin-bottom: @sidebarMarginBetween;
 }
 
 .comment-container {
   position: relative;
   background: white;
   .block-box-shadow();
+  margin-bottom: @sidebarMarginBetween;
 }
 
-.comment-container:hover .comment-bottom-actions {
+.comment-container:hover .comment-post-bottom {
   opacity: 1.0;
 }
 
@@ -26,18 +23,30 @@
   display: table-cell;
   width: 100%;
   padding: @votePadding;
+  padding-left: 0px;
 }
 
-.comment-believes > .comment-container {
-  border-left: @impactColouredBorderWidth solid @believesEvidenceImpactColor;
+.comment-believes,
+.comment-disbelieves,
+.comment-unsure {
+  height: @commentCreatorAvatarSize;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 4px;
+  width: 3px;
+  margin-right: 1px;
 }
 
-.comment-disbelieves > .comment-container {
-  border-left: @impactColouredBorderWidth solid @disbelievesEvidenceImpactColor;
+.comment-believes {
+  background: @believesEvidenceImpactColor;
 }
 
-.comment-unsure > .comment-container {
-  border-left: @impactColouredBorderWidth solid @doubtsEvidenceImpactColor;
+.comment-disbelieves {
+  background: @disbelievesEvidenceImpactColor;
+}
+
+.comment-unsure {
+  background: @doubtsEvidenceImpactColor;
 }
 
 .comment-post-heading {
@@ -45,18 +54,30 @@
 }
 
 .comment-post-time {
+  line-height: @commentCreatorAvatarSize;
   float: right;
   color: @grayLight;
   font-size: 11px;
 }
 
+.comment-post-creator {
+  padding: 0px 7px;
+}
+
 .comment-post-creator-name {
+  line-height: @commentCreatorAvatarSize;
   display: inline-block;
+  vertical-align: middle;
   .ellipsis(200px);
 }
 
+.comment-post-creator-avatar {
+  display: inline-block;
+  height: @commentCreatorAvatarSize;
+  width: @commentCreatorAvatarSize;
+}
 
-.comment-bottom-actions {
+.comment-post-bottom {
   opacity: 0.4;
   transition: opacity 0.5s ease;
   color: @mutedFontColor;
@@ -65,11 +86,7 @@
   padding: 0;
 }
 
-.comment-bottom-action {
-  display: inline-block;
-}
-
-.comment-bottom-action-delete {
+.comment-post-delete {
   float: right;
 }
 

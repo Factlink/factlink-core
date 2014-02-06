@@ -101,7 +101,7 @@ feature "adding comments to a fact", type: :feature do
     assert_comment_exists comment1
 
     within_evidence_list do
-      items = all '.comment-region', visible: false
+      items = all '.comment-container', visible: false
       expect(items[0].text).to match (Regexp.new factlink2.to_s)
       expect(items[1].text).to match (Regexp.new comment3)
       expect(items[2].text).to match (Regexp.new comment1)

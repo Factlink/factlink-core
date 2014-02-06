@@ -2,7 +2,6 @@ factlink-core-container {
   @extend %frame-styles;
   display: block;
   visibility: hidden;
-  z-index: $max-z-index;
 
   > #factlink-iframe {
     @extend %frame-styles;
@@ -13,6 +12,14 @@ factlink-core-container {
   > .factlink-control-frame {
     @extend %frame-styles;
     @extend %fadable-control;
+    z-index: $max-z-index - 2;
+  }
+
+  > .factlink-control-frame-proxy-message {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: $max-z-index;
   }
 
   > #factlink-sidebar-frame {
@@ -23,7 +30,7 @@ factlink-core-container {
     height: 100%;
     visibility: visible;
 
-    z-index: 10; // on top of control frames and icon buttons
+    z-index: $max-z-index - 1; // below proxy message
 
     // iOS Safari seems to have trouble with visibility:hidden iframe.
     // And Firefox has trouble with display:none iframe (http://jsfiddle.net/UzZ28/3/)

@@ -3,7 +3,7 @@ highlightedFactId = null
 
 class FactlinkJailRoot.Highlight
   constructor: (@id, @elements) ->
-    @show_button = new FactlinkJailRoot.ShowButton @elements, @id
+    @show_button = new FactlinkJailRoot.HighlightIconButtonContainer @elements, @id
     highlightsByFactIds[id] ?= []
     highlightsByFactIds[id].push @
     if @id == highlightedFactId
