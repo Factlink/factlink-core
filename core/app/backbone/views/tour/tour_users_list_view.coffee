@@ -27,7 +27,6 @@ class TourUserView extends Backbone.Marionette.Layout
 
 class window.TourUsersListView extends Backbone.Marionette.CollectionView
   itemView: TourUserView
-  className: 'tour-interesting-users-list'
   emptyView: Backbone.Factlink.LoadingView
 
   onRender: ->
