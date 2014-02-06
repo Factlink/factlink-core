@@ -1,10 +1,7 @@
 @import "bootstrap/mixins";
 
 @user-width: 200px;
-@user-height: 135px;
-@user-block-padding-horizontal: 15px;
-@user-block-padding-vertical: 20px;
-
+@user-height: 90px;
 
 .tour-interesting-users {
   position: relative;
@@ -66,10 +63,6 @@
   right: -30px;
 }
 
-.tour-interesting-users-list {
-  position: relative;
-}
-
 .tour-interesting-users-list-empty {
   width: 100%;
   text-align: center;
@@ -84,73 +77,17 @@
   &.loaded{
     cursor: pointer;
   }
-
-  position: relative;
-
-
-  ul {
-    margin: 0;
-  }
-
-  li {
-    margin: 6px 0;
-  }
 }
 
 .tour-follow-user-heading {
-  //the user's avatar+name should be raised slightly above + overlapping
-  //the overall user-info block.
-  position: absolute;
-  top: -21px;
+  margin-bottom: 10px;
+  margin-left: 2px; // needed to compensate for user-heading-avatar before border
 }
 
 .tour-follow-user-heading-text {
-  left: 42px;
-  margin: -10px;
-  padding: 10px;
-  position: absolute;
-  top: 0;
   .ellipsis(@user-width - 40)
 }
 
-.tour-follow-user-block {
-  border: 1px solid @tableBorder;
-  border-radius: @baseBorderRadius;
-  background: white;
-  position: absolute;
-  //the user's info box should leave some extra space on the top of
-  //its container to make room for the jutting-out avatar.
-  top: 24px; bottom: 0;
-  left: 0; right: 0;
-  padding: @user-block-padding-vertical 0 0 @user-block-padding-horizontal;
-
-  //very subtle box-shadow.
-  box-shadow: 0 2px 3px -3px rgba(0,0,0,0.5);
-}
-
 .tour-user-button-region > button {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
   width: 100%;
-}
-
-.tour-user-button-region > .button {
-  border-radius: 0 0 @baseBorderRadius @baseBorderRadius !important;
-}
-
-.hover > .tour-follow-user-block {
-  border-color: @linkColor;
-  //on hover, make border 1px and compensate with margin.
-  border-width: 2px;
-  margin: -1px;
-  box-shadow: none;
-}
-.secondary > .tour-follow-user-block {
-  border-color: @tableBorder;
-}
-
-.secondary.hover > .tour-follow-user-block {
-  border-color: #c0544d;
 }

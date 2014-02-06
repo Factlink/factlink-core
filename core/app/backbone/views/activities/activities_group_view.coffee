@@ -57,10 +57,6 @@ class UserActivitiesGroupView extends ActivitiesGroupView
     NewItemView = ActivityItemView.classForModel(item)
     @lastView = super(item, NewItemView, options)
 
-  makeUserTooltip: ->
-    UserPopoverContentView.makeTooltip @, @model.user(),
-      selector: '.js-activity-group-user'
-
   activityMadeRedundantBy: (newActivity, oldActivity) -> false
   newActivityIsRedundant: (newActivity) ->
     return false unless @collection.models.length > 1
