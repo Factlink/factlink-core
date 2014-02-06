@@ -1,41 +1,81 @@
-class FactlinkJailRoot.ShowButton
-  constructor: (highlightElements, factId) ->
-    @$el = $('<factlink-icon-button><factlink-bubble-icon><factlink-bubble-icon-triangle></factlink-bubble-icon-triangle></factlink-bubble-icon></factlink-icon-button>')
+class IconButton
+  constructor: (options) ->
+    $targetElement = $(options.targetElement)
+
+    @$el = $ """
+      <factlink-icon-button>
+        <factlink-bubble-icon>
+          #{options.content || ''}
+          <factlink-bubble-icon-triangle></factlink-bubble-icon-triangle>
+        </factlink-bubble-icon>
+      </factlink-icon-button>
+    """
     FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
 
-    @$highlightElements = $(highlightElements)
-    @_factId = factId
+    @_tether = new Tether
+      element: @$el[0]
+      target: $targetElement[0]
+      attachment: 'top left'
+      targetAttachment: 'top right'
+      classPrefix: 'factlink-tether'
+      targetOffset: options.targetOffset || '0 0'
 
     @_robustHover = new FactlinkJailRoot.RobustHover
       $el: @$el
-      mouseenter: @_onHover
-      mouseleave: @_onUnhover
-    @$el.on 'click', @_onClick
+      mouseenter: options.mouseenter
+      mouseleave: options.mouseleave
+    @$el.on 'click', options.mouseclick
 
+    targetColor = $targetElement.css('color')
+    targetRGB = targetColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
+
+    # See https://gamedev.stackexchange.com/questions/38536/given-a-rgb-color-x-how-to-find-the-most-contrasting-color-y/38561#38561
+    targetBrightness = 0.2126*targetRGB[1]*targetRGB[1] + 0.7152*targetRGB[2]*targetRGB[2] + 0.0722*targetRGB[3]*targetRGB[3]
+
+    @$el.css
+      'line-height': $targetElement.css('line-height')
+      'font-size': Math.max 15, Math.min 20, parseInt $targetElement.css('font-size')
+      'color': if targetBrightness > 0.5 then 'black' else 'white'
+
+    @$el.find('factlink-bubble-icon').css
+      'background-color': targetColor
+
+    @$el.find('factlink-bubble-icon-triangle').css
+      'border-top-color': targetColor
+
+  destroy: ->
+    @_tether.destroy()
+    @_robustHover.destroy()
+    @$el.remove()
+
+  fadeIn: ->
     @$el.addClass 'factlink-control-visible'
+
+  fadeOut: ->
+    @$el.removeClass 'factlink-control-visible'
+
+class FactlinkJailRoot.ShowButton
+  constructor: (highlightElements, factId) ->
+    @$highlightElements = $(highlightElements)
 
     # TODO: really do grouping, so we don't have to do hacks like this!
     textContainer = @_textContainer(@$highlightElements[0])
     verticalOffset = @$highlightElements.offset().top - $(textContainer).offset().top
     verticalOffsetPercentage = verticalOffset*100 / $(textContainer).height()
 
-    @_tether = new Tether
-      element: @$el[0]
-      target: textContainer
-      attachment: 'top left'
-      targetAttachment: 'top right'
-      classPrefix: 'factlink-tether'
+    @_iconButton = new IconButton
+      targetElement: textContainer
       targetOffset: "#{verticalOffsetPercentage}% 0"
+      mouseenter: @_onHover
+      mouseleave: @_onUnhover
+      click: @_onClick
 
-    @$el.css
-      # 'color': $(textContainer).css('color')
-      'line-height': $(textContainer).css('line-height')
-      'font-size': Math.max 15, Math.min 20, parseInt $(textContainer).css('font-size')
+    @_factId = factId
+
+    @_iconButton.fadeIn()
 
   destroy: ->
-    @_tether.destroy()
-    @_robustHover.destroy()
-    @$el.remove()
+    @_iconButton.destroy()
 
   _onHover: =>
     @$highlightElements.addClass 'fl-active'
@@ -57,40 +97,26 @@ class FactlinkJailRoot.ParagraphButton
     @$paragraph = $(paragraphElement)
     return unless @_valid()
 
-    @$el = $(@$el = $('<factlink-icon-button><factlink-bubble-icon>+<factlink-bubble-icon-triangle></factlink-bubble-icon-triangle></factlink-bubble-icon></factlink-icon-button>'))
-    FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
-
-    @$el.css
-      # 'color': @$paragraph.css('color')
-      'line-height': @$paragraph.css('line-height')
-      'font-size': Math.max 15, Math.min 20, parseInt @$paragraph.css('font-size')
+    @_iconButton = new IconButton
+      content: '+'
+      targetElement: @$paragraph[0]
+      mouseenter: => @_attentionSpan.gainAttention()
+      mouseleave: => @_attentionSpan.loseAttention()
+      click: @_onClick
 
     @_attentionSpan = new FactlinkJailRoot.AttentionSpan
       wait_for_neglection: 500
-      onAttentionGained: => @$el.addClass 'factlink-control-visible'
-      onAttentionLost: => @$el.removeClass 'factlink-control-visible'
-
-    @_robustHover = new FactlinkJailRoot.RobustHover
-      $el: @$el
-      mouseenter: => @_attentionSpan.gainAttention()
-      mouseleave: => @_attentionSpan.loseAttention()
-    @$el.on 'click', @_onClick
-
-    @_tether = new Tether
-      element: @$el[0]
-      target: @$paragraph[0]
-      attachment: 'top left'
-      targetAttachment: 'top right'
-      classPrefix: 'factlink-tether'
+      onAttentionGained: => @_iconButton.fadeIn()
+      onAttentionLost: => @_iconButton.fadeOut()
 
     FactlinkJailRoot.on 'factlink.factsLoaded factlinkAdded', @_destroyUnlessValid
 
     if FactlinkJailRoot.isTouchDevice()
-      @$el.addClass 'factlink-control-visible'
+      @_iconButton.fadeIn()
     else
       @_robustParagraphHover = new FactlinkJailRoot.RobustHover
         $el: @$paragraph
-        mouseenter: => @_showOnlyThisParagraphButton()
+        mouseenter: @_showOnlyThisParagraphButton
         mouseleave: => @_attentionSpan.loseAttention()
       FactlinkJailRoot.on 'hideAllParagraphButtons', @_onHideAllParagraphButtons
 
@@ -102,13 +128,10 @@ class FactlinkJailRoot.ParagraphButton
     @_attentionSpan.loseAttentionNow()
 
   destroy: ->
-    @_tether.destroy()
-    @_robustHover.destroy()
+    @_iconButton.destroy()
     @_attentionSpan.destroy()
     @_robustParagraphHover?.destroy()
-    @$el.remove()
     FactlinkJailRoot.off 'factlink.factsLoaded factlinkAdded', @_destroyUnlessValid
-    @$paragraph.off 'mousemove', @_showOnlyThisParagraphButton
     FactlinkJailRoot.off 'hideAllParagraphButtons', @_onHideAllParagraphButtons
 
   _destroyUnlessValid: =>
