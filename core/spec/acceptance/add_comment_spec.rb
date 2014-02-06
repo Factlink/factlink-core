@@ -17,7 +17,7 @@ feature "adding comments to a fact", type: :feature do
     go_to_discussion_page_of factlink
 
     comment = "The tomcat hopped on the bus after Berlioz' death"
-    add_comment :believes, comment
+    add_comment comment
 
     assert_comment_exists comment
 
@@ -30,7 +30,7 @@ feature "adding comments to a fact", type: :feature do
     go_to_discussion_page_of factlink
 
     comment = 'Buffels zijn niet klein te krijgen joh'
-    add_comment :believes, comment
+    add_comment comment
     assert_comment_exists comment
 
     go_to_discussion_page_of factlink
@@ -44,7 +44,7 @@ feature "adding comments to a fact", type: :feature do
     go_to_discussion_page_of factlink
 
     comment = 'Buffels zijn niet klein te krijgen joh'
-    add_comment :believes, comment
+    add_comment comment
     assert_comment_exists comment
 
     within_evidence_list do
@@ -67,8 +67,8 @@ feature "adding comments to a fact", type: :feature do
     comment1 = 'Vroeger was Gerard een hengst'
     comment2 = 'Henk is nog steeds een buffel'
 
-    add_comment :believes, comment1
-    add_comment :believes, comment2
+    add_comment comment1
+    add_comment comment2
 
     assert_comment_exists comment1
     assert_comment_exists comment2
@@ -86,9 +86,9 @@ feature "adding comments to a fact", type: :feature do
     factlink2 = backend_create_fact
     comment3 = 'Geert is een baas'
 
-    add_comment :believes, comment1
-    add_existing_factlink :believes, factlink2
-    add_comment :doubts, comment3
+    add_comment comment1
+    add_existing_factlink factlink2
+    add_comment comment3
 
     vote_comment :down, comment1
     vote_comment :up  , comment3
@@ -113,7 +113,7 @@ feature "adding comments to a fact", type: :feature do
 
     comment = 'Vroeger had Gerard een hele stoere fiets'
 
-    add_comment :believes, comment
+    add_comment comment
     assert_comment_exists comment
 
     within_evidence_list do

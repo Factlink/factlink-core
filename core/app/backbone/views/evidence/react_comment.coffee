@@ -29,7 +29,7 @@ window.ReactComment = React.createBackboneClass
     switch @model().get('type')
       when 'believes' then 'comment-believes'
       when 'disbelieves' then 'comment-disbelieves'
-      when 'doubts' then 'comment-unsure'
+      else 'comment-unsure'
 
   _onDelete: ->
      @model().destroy wait: true
@@ -40,7 +40,7 @@ window.ReactComment = React.createBackboneClass
   _content: ->
     R.div
       className:"comment-content spec-comment-content",
-      dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}
+      dangerouslySetInnerHTML: {__html: @model().get('formatted_content')}
 
   _bottom: ->
     sub_comment_count = @model().get('sub_comments_count')

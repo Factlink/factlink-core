@@ -14,9 +14,9 @@ window.ReactSubComment = React.createBackboneClass
     @model().saveWithState()
 
   _content_tag: ->
-    if @model().get('formatted_comment_content')
+    if @model().get('formatted_content')
       _span ["subcomment-content spec-subcomment-content",
-        dangerouslySetInnerHTML: {__html: @model().get('formatted_comment_content')}]
+        dangerouslySetInnerHTML: {__html: @model().get('formatted_content')}]
     else
       _span ["subcomment-content spec-subcomment-content"],
         @model().get('content')
@@ -40,7 +40,7 @@ window.ReactSubComment = React.createBackboneClass
       @_content_tag()
 
       if @model().get('save_failed') == true
-        _a ['button', 'button-danger', onClick: @_save, style: {float: 'right'} ],
+        _a ['button-danger', onClick: @_save, style: {float: 'right'} ],
           'Save failed - Retry'
       if @model().can_destroy()
         window.ReactDeleteButton

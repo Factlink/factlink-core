@@ -21,11 +21,11 @@ module Interactors
       end
 
       def comments
-        query(:'comments/for_fact', fact: Fact[fact_id])
+        query(:'comments/by_ids', by: :fact_data_id, ids: [Fact[fact_id].data_id])
       end
 
-      def relevance_of evidence
-        evidence.votes[:believes] - evidence.votes[:disbelieves]
+      def relevance_of comment
+        comment.votes[:believes] - comment.votes[:disbelieves]
       end
     end
   end

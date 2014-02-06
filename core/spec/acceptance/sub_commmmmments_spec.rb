@@ -14,7 +14,7 @@ feature "sub_comments", type: :feature do
   end
 
   scenario "A user can comment on a comment" do
-    @comment_user_b = command(:'create_comment', fact_id: @factlink_user_a.id.to_i, type: "believes", content: "test", user_id: @user_b.id.to_s)
+    @comment_user_b = command(:'comments/create', fact_id: @factlink_user_a.id.to_i, type: "believes", content: "test", user_id: @user_b.id.to_s)
 
     sub_comment_text = "Berlioz' death was predicted by the man with the pince-nez"
 

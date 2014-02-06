@@ -43,56 +43,6 @@
   margin-bottom: 10px;
 }
 
-.add-evidence-form-type {
-  display: table;
-  width: 300px;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.add-evidence-form-type-label {
-  display: table-cell;
-  cursor: pointer;
-}
-
-.add-evidence-form-type-button {
-  background: @buttonBackground;
-  padding: 4px;
-  color: @linkColor;
-  &:hover{
-    background: @buttonDarkBackground;
-  }
-  &.add-evidence-form-type-button-believes {
-    border-top-left-radius: @baseBorderRadius;
-    border-bottom-left-radius: @baseBorderRadius;
-  }
-  &.add-evidence-form-type-button-disbelieves {
-    border-top-right-radius: @baseBorderRadius;
-    border-bottom-right-radius: @baseBorderRadius;
-  }
-}
-
-input.add-evidence-form-type-radio {
-  display: none;
-  margin-top: -3px;
-
-  &:checked + .add-evidence-form-type-button-believes,
-  &:checked + .add-evidence-form-type-button-doubts,
-  &:checked + .add-evidence-form-type-button-disbelieves {
-    color: white;
-  }
-
-  &:checked + .add-evidence-form-type-button-believes {
-    background: @believesEvidenceImpactColor;
-  }
-  &:checked + .add-evidence-form-type-button-doubts {
-    background: @doubtsEvidenceImpactColor;
-  }
-  &:checked + .add-evidence-form-type-button-disbelieves {
-    background: @disbelievesEvidenceImpactColor;
-  }
-}
-
 .add-evidence-form-search-facts {
   box-shadow: 0px -1px @mutedBorderBottomColor, 0px -2px @mutedBorderTopColor;
   display: inline-block; // for block formatting context

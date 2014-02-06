@@ -1,12 +1,3 @@
-updateIconButtons = ->
-  FactlinkJailRoot.trigger 'updateIconButtons'
-
-FactlinkJailRoot.host_ready_promise.then ->
-  $(window).on 'resize', updateIconButtons
-  setInterval updateIconButtons, 1000
-  FactlinkJailRoot.on 'factlink.factsLoaded factlinkAdded', updateIconButtons
-
-
 class FactlinkJailRoot.ShowButton
   constructor: (highlightElements, factId) ->
     @$el = $('<factlink-show-button></factlink-show-button>')
@@ -22,14 +13,25 @@ class FactlinkJailRoot.ShowButton
     @$el.on 'click', @_onClick
 
     @$el.addClass 'factlink-control-visible'
-    FactlinkJailRoot.on 'updateIconButtons', @_updatePosition
-    @_updatePosition()
+
+    # TODO: really do grouping, so we don't have to do hacks like this!
+    textContainer = @_textContainer(@$highlightElements[0])
+    textContainerBoundingRect = textContainer.getBoundingClientRect()
+    verticalOffset = @$highlightElements[0].getBoundingClientRect().top - textContainerBoundingRect.top
+    verticalOffsetPercentage = verticalOffset*100 / textContainerBoundingRect.height
+
+    @_tether = new Tether
+      element: @$el[0]
+      target: textContainer
+      attachment: 'top left'
+      targetAttachment: 'top right'
+      classPrefix: 'factlink-tether'
+      targetOffset: "#{verticalOffsetPercentage}% 0"
 
   destroy: ->
-    @$boundingBox?.remove()
+    @_tether.destroy()
     @_robustHover.destroy()
     @$el.remove()
-    FactlinkJailRoot.off 'updateIconButtons', @_updatePosition
 
   _onHover: =>
     @$highlightElements.addClass 'fl-active'
@@ -44,22 +46,6 @@ class FactlinkJailRoot.ShowButton
     for el in $(el).parents()
       return el if window.getComputedStyle(el).display == 'block'
     console.error 'FactlinkJailRoot: No text container found for ', el
-
-  _updatePosition: =>
-    textContainer = @_textContainer(@$highlightElements[0])
-    contentBox = FactlinkJailRoot.contentBox(textContainer)
-
-    left = contentBox.left + contentBox.width
-    left = Math.min left, $(window).width() - @$el.outerWidth()
-
-    FactlinkJailRoot.setElementPosition
-      $el: @$el
-      top: @$highlightElements.first().offset().top
-      left: left
-
-    if FactlinkJailRoot.can_haz.debug_bounding_boxes
-      @$boundingBox?.remove()
-      @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'red'
 
 
 class FactlinkJailRoot.ParagraphButton
@@ -81,8 +67,14 @@ class FactlinkJailRoot.ParagraphButton
       mouseleave: => @_attentionSpan.loseAttention()
     @$el.on 'click', @_onClick
 
-    FactlinkJailRoot.on 'updateIconButtons', @_update
-    @_updatePosition()
+    @_tether = new Tether
+      element: @$el[0]
+      target: @$paragraph[0]
+      attachment: 'top left'
+      targetAttachment: 'top right'
+      classPrefix: 'factlink-tether'
+
+    FactlinkJailRoot.on 'factlink.factsLoaded factlinkAdded', @_destroyUnlessValid
 
     if FactlinkJailRoot.isTouchDevice()
       @$el.addClass 'factlink-control-visible'
@@ -101,35 +93,20 @@ class FactlinkJailRoot.ParagraphButton
     @_attentionSpan.loseAttentionNow()
 
   destroy: ->
-    @$boundingBox?.remove()
+    @_tether.destroy()
     @_robustFrameHover.destroy()
     @_attentionSpan.destroy()
     @_robustParagraphHover?.destroy()
     @$el.remove()
-    FactlinkJailRoot.off 'updateIconButtons', @_update
+    FactlinkJailRoot.off 'factlink.factsLoaded factlinkAdded', @_destroyUnlessValid
     @$paragraph.off 'mousemove', @_showOnlyThisParagraphButton
     FactlinkJailRoot.off 'hideAllParagraphButtons', @_onHideAllParagraphButtons
 
-  _update: =>
-    if @_valid()
-      @_updatePosition()
-    else
-      @destroy()
+  _destroyUnlessValid: =>
+    @destroy() unless @_valid()
 
-  _valid: =>
-    @$paragraph.find('.factlink').length <= 0 && @$paragraph.is(':visible')
-
-  _updatePosition: ->
-    contentBox = FactlinkJailRoot.contentBox(@$paragraph[0])
-
-    FactlinkJailRoot.setElementPosition
-      $el: @$el
-      top: contentBox.top
-      left: contentBox.left + contentBox.width
-
-    if FactlinkJailRoot.can_haz.debug_bounding_boxes
-      @$boundingBox?.remove()
-      @$boundingBox = FactlinkJailRoot.drawBoundingBox contentBox, 'green'
+  _valid: ->
+    @$paragraph.find('.factlink').length <= 0
 
   _textFromElement: (element) ->
     selection = document.getSelection()

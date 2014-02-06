@@ -6,6 +6,7 @@
   color: white;
   padding: 10px;
   margin: 10px;
+  display: none;
 
   ul {
     padding-left: 20px;
@@ -14,5 +15,11 @@
 
   a {
     color: white;
+  }
+}
+
+@media only screen and (min-device-width: 500px) {
+  .proxy-message {
+    display: block;
   }
 }
