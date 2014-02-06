@@ -73,15 +73,15 @@ window.FACTLINK_START_LOADER = ->
         /#factlink-open-(\d+)/i.exec(window.location.hash)?[1] ||
         /(^\?|\&)(factlink_)?open_id=(\d+)($|&)/.exec(window.location.search)?[3]
       if open_id
-        window.FACTLINK.scrollTo parseInt(open_id)
-        window.FACTLINK.openFactlinkModal parseInt(open_id)
+        root.scrollTo parseInt(open_id)
+        root.openFactlinkModal parseInt(open_id)
 
       #called from jail-iframe when core iframe is ready.
       for name in methods
         do (name) ->
           # don't return the value, as we can't do that when storing calls
           window.FACTLINK[name] = ->
-            jslib_jail_iframe.contentWindow.FactlinkJailRoot[name](arguments...)
+            root[name](arguments...)
             return
 
       for methodCall in storedMethodCalls
