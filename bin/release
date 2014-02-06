@@ -35,6 +35,7 @@ cd js-library
   npm install
   grunt compile_$env
   bundle exec cap $env deploy
+  grunt compile_development
 cd ..
 
 echo "Deployed js-library"
