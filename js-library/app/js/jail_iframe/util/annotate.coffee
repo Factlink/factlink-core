@@ -38,7 +38,6 @@ FactlinkJailRoot.stopAnnotating = ->
   return unless annotating
   annotating = false
 
-  console.info "FactlinkJailRoot:", "stopAnnotating"
   FactlinkJailRoot.createButton.hide()
   $("body").off "mouseup.factlink"
 
