@@ -36,9 +36,7 @@ ReactSubCommentsAdd = React.createClass
 
 window.ReactSubCommentList = React.createBackboneClass
   displayName: 'ReactSubCommentList'
-
-  getDefaultProps: ->
-    changeOptions: 'add remove reset sort' + ' sync request'
+  changeOptions: 'add remove reset sort' + ' sync request'
 
   componentWillMount: ->
     @model().fetch()

@@ -11,9 +11,7 @@ ReactOpinionatorsAvatar = React.createBackboneClass
 
 ReactOpinionatorsAvatars = React.createBackboneClass
   displayName: 'ReactOpinionatorsAvatar'
-
-  getDefaultProps: ->
-    changeOptions: 'add remove reset sort' + ' change'
+  changeOptions: 'add remove reset sort' + ' change'
 
   _opinionators: ->
     @model()
@@ -42,9 +40,7 @@ ReactOpinionatorsAvatars = React.createBackboneClass
 
 FactVoteButton = React.createBackboneClass
   displayName: 'FactVoteButton'
-
-  getDefaultProps: ->
-    changeOptions: 'add remove reset sort' + ' change'
+  changeOptions: 'add remove reset sort' + ' change'
 
   _onClick: ->
     @model().clickCurrentUserOpinion @props.type
@@ -81,9 +77,7 @@ FactVoteAmountGraph = React.createClass
 
 FactVoteStatsTable = React.createBackboneClass
   displayName: 'FactVoteStatsTable'
-
-  getDefaultProps: ->
-    changeOptions: 'add remove reset sort' + ' change'
+  changeOptions: 'add remove reset sort' + ' change'
 
   render: ->
     votes = @model().countBy (vote) -> vote.get('type')
