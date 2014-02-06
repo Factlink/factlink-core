@@ -4,10 +4,10 @@ class IconButton
 
     @$el = $ """
       <factlink-icon-button>
-        <factlink-bubble-icon>
+        <factlink-icon-button-bubble>
           #{options.content || ''}
-          <factlink-bubble-icon-triangle></factlink-bubble-icon-triangle>
-        </factlink-bubble-icon>
+          <factlink-icon-button-bubble-triangle></factlink-icon-button-bubble-triangle>
+        </factlink-icon-button-bubble>
       </factlink-icon-button>
     """
     FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
@@ -38,10 +38,10 @@ class IconButton
       'font-size': Math.max 15, Math.min 20, parseInt $targetElement.css('font-size')
       'color': if targetBrightness > 0.5 then 'black' else 'white'
 
-    @$el.find('factlink-bubble-icon').css
+    @$el.find('factlink-icon-button-bubble').css
       'background-color': targetColor
 
-    @$el.find('factlink-bubble-icon-triangle').css
+    @$el.find('factlink-icon-button-bubble-triangle').css
       'border-top-color': targetColor
 
   destroy: ->

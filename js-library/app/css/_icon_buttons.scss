@@ -7,7 +7,7 @@ factlink-icon-button {
   margin-left: 0.5em;
 }
 
-factlink-bubble-icon {
+factlink-icon-button-bubble {
   @extend %default-font;
   font-weight: bold;
   -webkit-font-smoothing: auto;
@@ -27,11 +27,11 @@ factlink-bubble-icon {
   opacity: 0.5;
 }
 
-factlink-icon-button:hover factlink-bubble-icon {
+factlink-icon-button:hover factlink-icon-button-bubble {
   opacity: 1;
 }
 
-factlink-bubble-icon-triangle {
+factlink-icon-button-bubble-triangle {
   position: absolute;
   display: block;
 
