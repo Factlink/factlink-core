@@ -54,13 +54,13 @@ window.ReactComment = React.createBackboneClass
     sub_comment_count = @model().get('sub_comments_count')
 
     [
-      _ul ["comment-post-bottom"], [
+      _span ["comment-post-bottom"], [
         if @model().can_destroy()
-          _li ["comment-post-delete"],
+          _span ["comment-post-delete"],
             ReactDeleteButton
               model: @model()
               onDelete: @_onDelete
-        _li ["comment-reply"],
+        _span ["comment-reply"],
           _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments],
             "(#{sub_comment_count}) Comment"
       ]
