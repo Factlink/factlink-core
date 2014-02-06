@@ -1,4 +1,4 @@
-class window.EvidenceCollection extends Backbone.Factlink.Collection
+class window.Comments extends Backbone.Factlink.Collection
   model: Comment
 
   initialize: (models, options) ->
