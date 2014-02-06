@@ -18,7 +18,7 @@ class FactUrl
 
   def proxy_open_url
     proxy_url + "/?url=" + CGI.escape(@fact.site_url) +
-      "&open_id=" + URI.escape(@fact.id)
+      "&factlink_open_id=" + URI.escape(@fact.id)
   end
 
   def sharing_url

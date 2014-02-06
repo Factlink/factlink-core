@@ -14,7 +14,7 @@
     "time_ago": "1 minute",
     "id": "<id>",
     "activity": {
-      "target_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&open_id=1",
+      "target_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&factlink_open_id=1",
       "fact_displaystring": "Fact 1",
       "fact": "Fact 1"
     },
