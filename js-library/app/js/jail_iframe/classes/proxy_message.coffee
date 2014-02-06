@@ -12,10 +12,6 @@ FactlinkJailRoot.showProxyMessage = ->
 
   frame = new FactlinkJailRoot.ControlIframe content
 
-  frame.$el.css
-    top: '10px'
-    left: '10px'
-    position: 'fixed'
-    zIndex: '11'
+  frame.$el.addClass 'factlink-control-frame-proxy-message'
 
   frame.fadeIn()
