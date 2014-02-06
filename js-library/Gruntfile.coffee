@@ -205,16 +205,17 @@ module.exports = (grunt) ->
             target_with_inlined_content = target_content.replace replacement.placeholder, input_content_stringified
             grunt.file.write(target_filename, target_with_inlined_content)
 
-  grunt.registerTask 'jail_iframe', []
-  grunt.registerTask 'compile',  [ 'clean',
-    'copy:build',  'copy:extension_events', 'coffee', 'copy:config_development',
-    'sass', 'cssUrlEmbed', 'cssmin',
-    'concat', 'mocha', 'uglify', 'code_inliner',
-    'shell:gzip_js_files', 'copy:dist'
-  ]
+  grunt.registerTask 'preprocessor',  [
+    'clean', 'copy:build', 'copy:extension_events', 'coffee', 'sass', 'cssUrlEmbed', 'cssmin', ]
 
-  grunt.registerTask 'default', ['compile']
-  grunt.registerTask 'server',  ['compile']
+  grunt.registerTask 'postprocessor', [
+    'concat', 'mocha', 'uglify', 'code_inliner', 'shell:gzip_js_files', 'copy:dist' ]
+
+  grunt.registerTask 'compile_develop',   [ 'preprocessor', 'copy:config_development', 'postprocessor' ]
+  grunt.registerTask 'compile_staging',   [ 'preprocessor', 'copy:config_staging',     'postprocessor' ]
+  grunt.registerTask 'compile_production',[ 'preprocessor', 'copy:config_production',  'postprocessor' ]
+
+  grunt.registerTask 'default', ['compile_develop']
 
   grunt.loadNpmTasks 'grunt-contrib-sass'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
