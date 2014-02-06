@@ -50,7 +50,7 @@ window.ReactComment = React.createBackboneClass
               model: @model()
               onDelete: @_onDelete
         _li ["comment-reply"],
-          _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments]
+          _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments],
             "(#{sub_comment_count}) Comment"
       ]
       if @state.show_subcomments
