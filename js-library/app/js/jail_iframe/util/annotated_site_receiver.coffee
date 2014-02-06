@@ -17,6 +17,7 @@ FactlinkJailRoot.annotatedSiteReceiver =
 
   highlightNewFactlink: (displaystring, id) ->
     FactlinkJailRoot.highlightFact(displaystring, id)
+    FactlinkJailRoot.trigger 'factlinkAdded'
     FactlinkJailRoot.showCoreHighlight id
 
   highlightExistingFactlink: (id) ->

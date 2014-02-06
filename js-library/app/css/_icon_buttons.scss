@@ -1,40 +1,43 @@
-factlink-show-button,
-factlink-paragraph-button {
-  @extend %default-font;
+factlink-icon-button {
   @extend %fadable-control;
-
   position: absolute;
   display: block;
   cursor: pointer;
-
-  white-space: nowrap; // TODO: remove when removing ugly '+' from add icon
-
-  // reset inherited styles
-  font-size: 13px;
-  line-height: normal;
-
-  color: rgba(0, 0, 0, 0.4);
-
-  &:hover {
-    color: black;
-  }
-
-  &:before {
-    @extend %icon-font;
-    content: '\e80f';
-    text-shadow: -1px -1px 1.5px white, 1px -1px 1.5px white, -1px 1px 1.5px white, 1px 1px 1.5px white;
-  }
+  z-index: $max-z-index - 2;
+  margin-left: 0.5em;
 }
 
-factlink-paragraph-button:after {
-  content: '+';
-  position:absolute;
-  top:1px;
-  font-weight:bold;
-  font-size:85%;
-  left:0;
-  right:0.5px;
-  text-align:center;
-  color:white;
-  -webkit-font-smoothing: antialiased;
+factlink-icon-button-bubble {
+  @extend %default-font;
+  font-weight: bold;
+  -webkit-font-smoothing: auto;
+
+  position: relative;
+  display: inline-block;
+  min-width: 1.4em;
+  height: 1.1em;
+  border-radius: 0.25em;
+  padding: 0 0.2em;
+  font-size: 80%;
+  line-height: 1;
+  vertical-align: text-top;
+  text-align: center;
+  box-sizing: border-box;
+
+  opacity: 0.5;
+}
+
+factlink-icon-button:hover factlink-icon-button-bubble {
+  opacity: 1;
+}
+
+factlink-icon-button-bubble-triangle {
+  position: absolute;
+  display: block;
+
+  top: 1em;
+  left: 20%;
+  border-style: solid;
+  border-width: 0.43em 0.55em 0 0;
+  border-color: transparent;
 }

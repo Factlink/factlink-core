@@ -1,8 +1,5 @@
 class ParagraphButtons
 
-  constructor: ->
-    @_paragraphButtons = []
-
   _paragraphHasContent: (el) ->
     $clonedEl = $(el).clone()
     $clonedEl.find('a').remove() # Strip links
@@ -12,10 +9,14 @@ class ParagraphButtons
 
     textLength >= 50
 
+  _containsFactlink: (el) ->
+    $(el).find('.factlink').length > 0
+
   _addParagraphButton: (el) ->
     return unless @_paragraphHasContent(el)
+    return if @_containsFactlink(el)
 
-    @_paragraphButtons.push new FactlinkJailRoot.ParagraphButton el
+    new FactlinkJailRoot.ParagraphIconButtonContainer el
 
   _addParagraphButtonsBatch: (elements) ->
     for el in elements[0...10]
@@ -56,9 +57,6 @@ class ParagraphButtons
     $(selector).distinctDescendants().filter(':visible')
 
   addParagraphButtons: ->
-    for paragraphButton in @_paragraphButtons
-      paragraphButton.destroy()
-
     @_addParagraphButtonsBatch @_paragraphElements()
     FactlinkJailRoot.perf.add_timing_event 'paragraph buttons added'
 
