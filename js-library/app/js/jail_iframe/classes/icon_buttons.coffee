@@ -58,7 +58,7 @@ class IconButton
       'border-top-color': targetColor
 
 
-class FactlinkJailRoot.ShowButton
+class FactlinkJailRoot.HighlightIconButtonContainer
   constructor: (highlightElements, factId) ->
     @$highlightElements = $(highlightElements)
 
@@ -114,7 +114,7 @@ textFromElement = (element) ->
   text.trim()
 
 
-class FactlinkJailRoot.ParagraphButton
+class FactlinkJailRoot.ParagraphIconButtonContainer
   constructor: (paragraphElement) ->
     @$paragraph = $(paragraphElement)
     return unless @_valid()

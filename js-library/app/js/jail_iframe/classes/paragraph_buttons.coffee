@@ -15,7 +15,7 @@ class ParagraphButtons
   _addParagraphButton: (el) ->
     return unless @_paragraphHasContent(el)
 
-    @_paragraphButtons.push new FactlinkJailRoot.ParagraphButton el
+    @_paragraphButtons.push new FactlinkJailRoot.ParagraphIconButtonContainer el
 
   _addParagraphButtonsBatch: (elements) ->
     for el in elements[0...10]
