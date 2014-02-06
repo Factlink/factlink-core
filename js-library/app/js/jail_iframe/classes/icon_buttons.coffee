@@ -99,6 +99,21 @@ class FactlinkJailRoot.ShowButton
     console.error 'FactlinkJailRoot: No text container found for ', el
 
 
+textFromElement = (element) ->
+  selection = document.getSelection()
+  selection.removeAllRanges()
+
+  range = document.createRange()
+  range.setStart element, 0
+  range.setEndAfter element
+
+  selection.addRange(range)
+  text = selection.toString()
+  selection.removeAllRanges()
+
+  text.trim()
+
+
 class FactlinkJailRoot.ParagraphButton
   constructor: (paragraphElement) ->
     @$paragraph = $(paragraphElement)
@@ -147,22 +162,8 @@ class FactlinkJailRoot.ParagraphButton
   _valid: ->
     @$paragraph.find('.factlink').length <= 0
 
-  _textFromElement: (element) ->
-    selection = document.getSelection()
-    selection.removeAllRanges()
-
-    range = document.createRange()
-    range.setStart element, 0
-    range.setEndAfter element
-
-    selection.addRange(range)
-    text = selection.toString()
-    selection.removeAllRanges()
-
-    text.trim()
-
   _onClick: =>
-    text = @_textFromElement @$paragraph[0]
+    text = textFromElement @$paragraph[0]
     siteTitle = document.title
     siteUrl = FactlinkJailRoot.siteUrl()
 
