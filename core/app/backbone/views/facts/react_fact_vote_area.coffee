@@ -9,10 +9,7 @@ ReactOpinionatorsAvatar = React.createBackboneClass
 
 ReactOpinionatorsAvatars = React.createBackboneClass
   displayName: 'ReactOpinionatorsAvatar'
-
-  componentDidMount: ->
-    # react.backbone.js doesn't listen to changing models
-    @model().on 'change', (-> @forceUpdate()), this
+  changeOptions: 'add remove reset sort' + ' change'
 
   _opinionators: ->
     @model()
@@ -41,9 +38,7 @@ ReactOpinionatorsAvatars = React.createBackboneClass
 
 FactVoteButton = React.createBackboneClass
   displayName: 'FactVoteButton'
-  componentDidMount: ->
-    # react.backbone.js doesn't listen to changing models
-    @model().on 'change', (-> @forceUpdate()), this
+  changeOptions: 'add remove reset sort' + ' change'
 
   _onClick: ->
     @model().clickCurrentUserOpinion @props.type
@@ -80,10 +75,7 @@ FactVoteAmountGraph = React.createClass
 
 FactVoteStatsTable = React.createBackboneClass
   displayName: 'FactVoteStatsTable'
-
-  componentDidMount: ->
-    # react.backbone.js doesn't listen to changing models
-    @model().on 'change', => @forceUpdate()
+  changeOptions: 'add remove reset sort' + ' change'
 
   render: ->
     votes = @model().countBy (vote) -> vote.get('type')
