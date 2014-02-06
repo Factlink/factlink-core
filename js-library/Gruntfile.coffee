@@ -139,7 +139,6 @@ module.exports = (grunt) ->
           'build/factlink_loader_basic.min.js':       ['build/factlink_loader_basic.js']
           'build/factlink_loader_publishers.min.js':  ['build/factlink_loader_publishers.js']
           'build/factlink_loader_bookmarklet.min.js': ['build/factlink_loader_bookmarklet.js']
-          'build/postFactlinkObject.min.js': ['build/js/jail_iframe/util/postFactlinkObject.js']
     shell:
       gzip_js_files:
         command: ' find build/ -iname \'*.js\'  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
@@ -156,10 +155,6 @@ module.exports = (grunt) ->
       extension_events:
         files: [
           { src: ['factlink.*.js'], cwd: 'build/js/extension_events', dest: 'build', expand: true }
-        ]
-      postFactlinkObject:
-        files: [
-          { src: ['postFactlinkObject.js'], cwd: 'build/js/jail_iframe/util', dest: 'build', expand: true }
         ]
       dist:
         files: [
@@ -210,7 +205,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'jail_iframe', []
   grunt.registerTask 'compile',  [ 'clean',
-    'copy:build',  'copy:extension_events', 'coffee', 'copy:postFactlinkObject', 'copy:config_development',
+    'copy:build',  'copy:extension_events', 'coffee', 'copy:config_development',
     'sass', 'cssUrlEmbed', 'cssmin',
     'concat', 'mocha', 'uglify', 'code_inliner',
     'shell:gzip_js_files', 'copy:dist'
