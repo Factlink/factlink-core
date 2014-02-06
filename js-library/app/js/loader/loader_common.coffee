@@ -48,7 +48,6 @@ window.FACTLINK_START_LOADER = ->
     load_time_before_jail = new Date().getTime()
 
     jail_window = jslib_jail_iframe.contentWindow
-    jail_window.FactlinkConfig = window.FactlinkConfig
     jail_window.FrameCss = frame_style_code
 
     #### Load iframe with script tag

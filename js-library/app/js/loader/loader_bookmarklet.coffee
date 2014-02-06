@@ -1,4 +1,3 @@
-window.FactlinkConfig ?= {}
 window.FactlinkBaseUri ?= 'https://factlink.com:443'
 
 window.FACTLINK_START_LOADER()
