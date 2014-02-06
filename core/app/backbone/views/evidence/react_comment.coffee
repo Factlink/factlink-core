@@ -25,7 +25,7 @@ ReactCommentHeading = React.createBackboneClass
         username: @model().creator().get('username')
         model: @props.votes
       _span ["comment-post-creator-avatar"],
-        _img ["avatar-image", src: @model().creator().avatar_url(32)]
+        _img ["avatar-image", src: @model().creator().avatar_url(32)] #has to be kept in sync with the css variable: @commentCreatorAvatarSize
       _span ["comment-post-creator"],
         _a ["comment-post-creator-name", href: @model().creator().link(), rel: "backbone"],
           @model().creator().get('name')

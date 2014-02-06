@@ -2,7 +2,7 @@
 @import "bootstrap/mixins";
 
 @impactColouredBorderWidth: 3px;
-@commentCreatorAvatarSize: 32px;
+@commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 
 .comment-container-add {
   padding: @votePadding;
@@ -29,7 +29,7 @@
 .comment-believes,
 .comment-disbelieves,
 .comment-unsure {
-  height: @commentCreatorAvatarSize; //have to be kept in sync with other places in this file.
+  height: @commentCreatorAvatarSize;
   display: inline-block;
   vertical-align: middle;
   border-radius: 4px;
@@ -54,7 +54,7 @@
 }
 
 .comment-post-time {
-  line-height: @commentCreatorAvatarSize; //have to be kept in sync with other places in this file.
+  line-height: @commentCreatorAvatarSize;
   float: right;
   color: @grayLight;
   font-size: 11px;
@@ -65,7 +65,7 @@
 }
 
 .comment-post-creator-name {
-  line-height: @commentCreatorAvatarSize; //have to be kept in sync with other places in this file.
+  line-height: @commentCreatorAvatarSize;
   display: inline-block;
   vertical-align: middle;
   .ellipsis(200px);
@@ -73,8 +73,8 @@
 
 .comment-post-creator-avatar {
   display: inline-block;
-  height: @commentCreatorAvatarSize; //have to be kept in sync with other places in this file.
-  width: @commentCreatorAvatarSize; //have to be kept in sync with other places in this file.
+  height: @commentCreatorAvatarSize;
+  width: @commentCreatorAvatarSize;
 }
 
 .comment-post-bottom {
