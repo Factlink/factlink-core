@@ -2,7 +2,6 @@
   {
     "id": "<id>",
     "created_at": "<created_at>",
-    "type": "doubts",
     "formatted_content": "a comment",
     "time_ago": "1 minute",
     "tally": {
@@ -25,7 +24,6 @@
   {
     "id": "<id>",
     "created_at": "<created_at>",
-    "type": "doubts",
     "formatted_content": "a comment",
     "time_ago": "1 minute",
     "tally": {

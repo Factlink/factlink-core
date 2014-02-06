@@ -1,7 +1,6 @@
 {
   "id": "<id>",
   "created_at": "<created_at>",
-  "type": "doubts",
   "formatted_content": "Gerard is een gekke meneer",
   "time_ago": "1 minute",
   "tally": {
