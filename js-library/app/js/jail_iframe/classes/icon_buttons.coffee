@@ -1,7 +1,5 @@
 class IconButton
   constructor: (options) ->
-    $targetElement = $(options.targetElement)
-
     @$el = $ """
       <factlink-icon-button>
         <factlink-icon-button-bubble>
@@ -12,13 +10,7 @@ class IconButton
     """
     FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
 
-    @_tether = new Tether
-      element: @$el[0]
-      target: $targetElement[0]
-      attachment: 'top left'
-      targetAttachment: 'top right'
-      classPrefix: 'factlink-tether'
-      targetOffset: options.targetOffset || '0 0'
+    @_setStylesFromElement(options.targetElement)
 
     @_robustHover = new FactlinkJailRoot.RobustHover
       $el: @$el
@@ -26,23 +18,13 @@ class IconButton
       mouseleave: options.onmouseleave
     @$el.on 'click', options.onclick
 
-    targetColor = $targetElement.css('color')
-
-    # See https://gamedev.stackexchange.com/questions/38536/given-a-rgb-color-x-how-to-find-the-most-contrasting-color-y/38561#38561
-    targetRGB = targetColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
-    r = targetRGB[1]/255; g = targetRGB[2]/255; b = targetRGB[3]/255;
-    targetBrightness = 0.2126*r*r + 0.7152*g*g + 0.0722*b*b
-
-    @$el.css
-      'line-height': $targetElement.css('line-height')
-      'font-size': Math.max 15, Math.min 20, parseInt $targetElement.css('font-size')
-      'color': if targetBrightness > 0.5 then 'black' else 'white'
-
-    @$el.find('factlink-icon-button-bubble').css
-      'background-color': targetColor
-
-    @$el.find('factlink-icon-button-bubble-triangle').css
-      'border-top-color': targetColor
+    @_tether = new Tether
+      element: @$el[0]
+      target: options.targetElement
+      attachment: 'top left'
+      targetAttachment: 'top right'
+      classPrefix: 'factlink-tether'
+      targetOffset: options.targetOffset || '0 0'
 
   destroy: ->
     @_tether.destroy()
@@ -54,6 +36,27 @@ class IconButton
 
   fadeOut: ->
     @$el.removeClass 'factlink-control-visible'
+
+  _setStylesFromElement: (element) ->
+    $element = $(element)
+    targetColor = $element.css('color')
+
+    # See https://gamedev.stackexchange.com/questions/38536/given-a-rgb-color-x-how-to-find-the-most-contrasting-color-y/38561#38561
+    targetRGB = targetColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
+    r = targetRGB[1]/255; g = targetRGB[2]/255; b = targetRGB[3]/255;
+    targetBrightness = 0.2126*r*r + 0.7152*g*g + 0.0722*b*b
+
+    @$el.css
+      'line-height': $element.css('line-height')
+      'font-size': Math.max 15, Math.min 20, parseInt $element.css('font-size')
+      'color': if targetBrightness > 0.5 then 'black' else 'white'
+
+    @$el.find('factlink-icon-button-bubble').css
+      'background-color': targetColor
+
+    @$el.find('factlink-icon-button-bubble-triangle').css
+      'border-top-color': targetColor
+
 
 class FactlinkJailRoot.ShowButton
   constructor: (highlightElements, factId) ->
