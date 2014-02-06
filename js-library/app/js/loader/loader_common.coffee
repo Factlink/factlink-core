@@ -1,6 +1,11 @@
 factlink_loader_start_timestamp = new Date().getTime()
 
-window.FACTLINK_START_LOADER = ->
+
+jslib_jail_code = __INLINE_JS_PLACEHOLDER__
+style_code = __INLINE_CSS_PLACEHOLDER__
+frame_style_code = __INLINE_FRAME_CSS_PLACEHOLDER__
+
+do ->
   unsupported_browser = document.documentMode < 9
   return if unsupported_browser
   if window.FACTLINK_LOADED
@@ -98,9 +103,4 @@ window.FACTLINK_START_LOADER = ->
       setTimeout tryToInit(i+1), i
 
   tryToInit(1)()
-
-jslib_jail_code = __INLINE_JS_PLACEHOLDER__
-style_code = __INLINE_CSS_PLACEHOLDER__
-frame_style_code = __INLINE_FRAME_CSS_PLACEHOLDER__
-
 
