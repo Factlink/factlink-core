@@ -13,12 +13,12 @@ ReactCommentHeading = React.createBackboneClass
     _div ['comment-post-heading'],
       _span [@_typeCss()]
       _span ["comment-post-creator-avatar"],
-        _img [src: @model().creator().avatar_url(32), "avatar-image"]
+        _img ["avatar-image", src: @model().creator().avatar_url(32)]
       _span ["comment-post-creator"],
-        _a [href: @model().creator().link(), "comment-post-creator-name", rel: "backbone"],
+        _a ["comment-post-creator-name", href: @model().creator().link(), rel: "backbone"],
           @model().creator().get('name')
         TimeAgo
-          className: "comment-bottom-action comment-post-time"
+          className: "comment-post-time"
           time: @model().get('created_at')
 
 window.ReactComment = React.createBackboneClass
@@ -40,9 +40,8 @@ window.ReactComment = React.createBackboneClass
 
   _bottom: ->
     sub_comment_count = @model().get('sub_comments_count')
-
-    _div ['comment-post-bottom'],
-      _ul ["comment-bottom-actions"], [
+    [
+      _ul ["comment-post-bottom"], [
         if @model().can_destroy()
           _li ["comment-bottom-action comment-bottom-action-delete"],
             ReactDeleteButton
@@ -54,7 +53,7 @@ window.ReactComment = React.createBackboneClass
       ]
       if @state.show_subcomments
         ReactSubComments(model: @model())
-
+    ]
   render: ->
     relevant = @model().argumentTally().relevance() >= 0
 
