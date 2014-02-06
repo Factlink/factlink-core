@@ -60,7 +60,7 @@ fs = require 'fs'
 
 module.exports = (grunt) ->
   timer.init(grunt)
-   
+
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
     clean: ['build']
@@ -149,6 +149,15 @@ module.exports = (grunt) ->
       config_development:
         files: [
           { src: ['development.js'], cwd: 'build/config', dest: 'build/js/jail_iframe/config', expand: true }
+        ]
+      config_staging:
+        files: [
+          { src: ['staging.js'], cwd: 'build/config', dest: 'build/js/jail_iframe/config', expand: true }
+        ]
+      config_production:
+        files: [
+          { src: ['production
+.js'], cwd: 'build/config', dest: 'build/js/jail_iframe/config', expand: true }
         ]
       build:
         files: [
