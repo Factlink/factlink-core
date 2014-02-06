@@ -15,7 +15,7 @@ ReactCommentHeading = React.createBackboneClass
       _span ["comment-post-creator-avatar"],
         _img [src: @model().creator().avatar_url(32), "avatar-image"]
       _span ["comment-post-creator"],
-        _a [href: @model().creator().link(), "comment-post-creator-name", rel: "backbone"]
+        _a [href: @model().creator().link(), "comment-post-creator-name", rel: "backbone"],
           @model().creator().get('name')
         _span ["comment-bottom-action comment-post-time"],
           @model().get('time_ago')

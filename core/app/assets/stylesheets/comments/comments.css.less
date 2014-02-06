@@ -54,23 +54,19 @@
 }
 
 .comment-post-heading {
-  display: table;
-  width: 100%;
   margin-bottom: 5px;
 }
 
 .comment-post-time {
+  line-height: @commentCreatorAvatarSize;
   float: right;
   color: @grayLight;
   font-size: 11px;
 }
 
 .comment-post-creator {
-  display: table-cell;
-  width: auto;
   padding: 0px 5px;
   margin-left: 5px;
-  vertical-align: middle;
 }
 
 .comment-post-creator-name {
@@ -78,7 +74,7 @@
 }
 
 .comment-post-creator-avatar {
-  display: table-cell;
+  display: inline-block;
   height: @commentCreatorAvatarSize;
   width: @commentCreatorAvatarSize;
 }
