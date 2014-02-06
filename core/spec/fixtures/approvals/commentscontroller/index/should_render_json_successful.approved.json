@@ -2,7 +2,6 @@
   {
     "id": "<id>",
     "created_at": "<created_at>",
-    "type": "doubts",
     "formatted_content": "a comment",
     "tally": {
       "believes": 1,
@@ -24,7 +23,6 @@
   {
     "id": "<id>",
     "created_at": "<created_at>",
-    "type": "doubts",
     "formatted_content": "a comment",
     "tally": {
       "believes": 0,

@@ -1,7 +1,6 @@
 json.extract! comment,
   :id,
   :created_at,
-  :type,
   :formatted_content,
   :tally,
   :is_deletable,

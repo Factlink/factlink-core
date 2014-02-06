@@ -1,38 +1,15 @@
 <span class="add-evidence-arrow"></span>
 <div class="add-evidence-container">
-  <div class="add-evidence-form-question js-question-container">
-    <span class="js-question"></span>
-    {{#global.can_haz.opinions_of_users_and_comments}}
-    <a class="js-change-type spec-change-type" href="javascript:">(change)</a>
-    {{/global.can_haz.opinions_of_users_and_comments}}
-  </div>
-
-  <div class="add-evidence-form-type js-type-selector">
-    <label class="add-evidence-form-type-label">
-      <input class="add-evidence-form-type-radio" type="radio" name="argumentType" value="believes">
-
-      <div class="add-evidence-form-type-button add-evidence-form-type-button-believes spec-evidence-radio-believes">Supporting</div>
-    </label>
-
-    <label class="add-evidence-form-type-label">
-      <input class="add-evidence-form-type-radio" type="radio" name="argumentType" value="doubts">
-
-      <div class="add-evidence-form-type-button add-evidence-form-type-button-doubts spec-evidence-radio-doubts">Neutral</div>
-    </label>
-
-    <label class="add-evidence-form-type-label">
-      <input class="add-evidence-form-type-radio" type="radio" name="argumentType" value="disbelieves">
-
-      <div class="add-evidence-form-type-button add-evidence-form-type-button-disbelieves spec-evidence-radio-disbelieves">Weakening</div>
-    </label>
+  <div class="add-evidence-form-question">
+    What do you think?
   </div>
 
   <div class="js-add-comment-region"></div>
 
   <div class="add-evidence-form-search-facts" style="display:none">
-    <a href="javascript:" class="js-open-search-facts-link">Search
-      for {{global.t.factlinks}} (beta)</a>
-
+    <a href="javascript:" class="js-open-search-facts-link">
+      Search for {{global.t.factlinks}} (beta)
+    </a>
     <div class="js-search-facts-region"></div>
   </div>
 </div>

@@ -3,11 +3,11 @@ module Interactors
     class Create
       include Pavlov::Interactor
 
-      arguments :fact_id, :type, :content
+      arguments :fact_id, :content
 
       def execute
-        comment = command(:'create_comment',
-                              fact_id: fact_id, type: type, content: content,
+        comment = command(:'comments/create',
+                              fact_id: fact_id, content: content,
                               user_id: pavlov_options[:current_user].id.to_s)
 
         command(:'comments/set_opinion',
@@ -34,7 +34,6 @@ module Interactors
         validate_regex   :content, content, /\S/,
           "should not be empty."
         validate_integer :fact_id, fact_id
-        validate_in_set  :type, type, ['believes', 'disbelieves', 'doubts']
       end
     end
   end

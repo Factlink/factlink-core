@@ -5,11 +5,9 @@ class TourUserView extends Backbone.Marionette.Layout
 
   regions:
     buttonRegion: '.js-region-button'
-    contentRegion: '.js-content-region'
 
   onRender: ->
     @buttonRegion.show @followUserButton()
-    @contentRegion.show new UserStatisticsView(model: @model)
 
   followUserButton: ->
     unless @_followUserButton?
@@ -29,7 +27,6 @@ class TourUserView extends Backbone.Marionette.Layout
 
 class window.TourUsersListView extends Backbone.Marionette.CollectionView
   itemView: TourUserView
-  className: 'tour-interesting-users-list'
   emptyView: Backbone.Factlink.LoadingView
 
   onRender: ->
