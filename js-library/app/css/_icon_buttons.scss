@@ -9,6 +9,8 @@ factlink-icon-button {
 
 factlink-bubble-icon {
   @extend %default-font;
+  font-weight: bold;
+  -webkit-font-smoothing: auto;
 
   position: relative;
   display: inline-block;
@@ -21,6 +23,7 @@ factlink-bubble-icon {
   vertical-align: text-top;
   text-align: center;
   box-sizing: border-box;
+
   opacity: 0.5;
 }
 
