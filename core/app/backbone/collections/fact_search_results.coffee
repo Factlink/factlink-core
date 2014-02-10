@@ -1,4 +1,4 @@
-class window.FactSearchResults extends Backbone.Collection
+class window.FactSearchResults extends Backbone.Factlink.Collection
   model: Fact
 
   initialize: (models, options) ->

@@ -24,7 +24,7 @@ ReactAutoCompleteSearchFactsView = React.createBackboneClass
     selectedModelKey: null
 
   _childView: (fact, key) ->
-    new ReactAutoCompleteSearchFactView
+    ReactAutoCompleteSearchFactView
       model: fact
       query: @model().query
       selected: key == @state.selectedModelKey
@@ -64,45 +64,43 @@ ReactAutoCompleteSearchFactsView = React.createBackboneClass
   moveSelectionDown: ->
     @_select if @state.selectedModelKey? then @state.selectedModelKey+1 else 0
 
-class window.AutoCompleteFactsView extends Backbone.Marionette.Layout
-  className: "auto-complete"
+window.ReactAutoCompleteFactsView = React.createBackboneClass
+  displayName: 'ReactAutoCompleteFactsView'
+  changeOptions: 'add remove reset sort request sync'
 
-  regions:
-    'search_list': 'div.auto-complete-search-list-container'
-    'text_input': 'div.js-auto-complete-input-view-container'
+  _loadingIndicator: ->
+    return unless @model().loading()
 
-  template: 'facts/auto_complete_facts'
+    _img ['auto-complete-loading-indicator', src: Factlink.Global.ajax_loader_image]
 
-  initialize: ->
-    @search_collection = new FactSearchResults [], fact_id: @options.fact_id
-    @listenTo @search_collection, 'request', -> @$el.addClass 'auto-complete-loading'
-    @listenTo @search_collection, 'sync', -> @$el.removeClass 'auto-complete-loading'
+  render: ->
+    _div [],
+      _div ['auto-complete-input-container'],
+        Backbone.Factlink.ReactTextInputView
+          ref: 'text'
+          placeholder: 'Search discussion link to insert...'
+          onChange: (value) =>
+            @model().searchFor value
+            @_queryChanges()
+          onUp: => @_search_list_view.moveSelectionUp()
+          onDown: => @_search_list_view.moveSelectionDown()
+          onReturn: => @addSelectedModel()
+        @_loadingIndicator()
+      ReactAutoCompleteSearchFactsView
+        ref: 'search'
+        model: @model()
+        onSelect: => @addSelectedModel()
 
-    @_search_list_view = new ReactAutoCompleteSearchFactsView
-      model: @search_collection
-      onSelect: => @addSelectedModel()
-
-    @_text_input_view = new Backbone.Factlink.ReactTextInputView
-      placeholder: 'Search discussion link to insert...'
-      onChange: (value) =>
-        @search_collection.searchFor value
-        @queryChanges()
-      onUp: => @_search_list_view.moveSelectionUp()
-      onDown: => @_search_list_view.moveSelectionDown()
-      onReturn: => @addSelectedModel()
-
-  onRender: ->
-    @search_list.show new ReactView component: @_search_list_view
-    @text_input.show new ReactView component: @_text_input_view
-    @_text_input_view.focusInput()
+  focus: ->
+    @refs.text.focusInput()
 
   addSelectedModel: ->
-    selected_fact = @_search_list_view.selectedModel()
+    selected_fact = @refs.search.selectedModel()
     return unless selected_fact?
 
-    @trigger 'insert', selected_fact.friendly_fact_url()
+    @props.onInsert?(selected_fact.friendly_fact_url())
 
-  queryChanges: ->
+  _queryChanges: ->
     unless @query_has_changed
       @query_has_changed = true
       mp_track "Evidence: Started searching for insertable discussion"
