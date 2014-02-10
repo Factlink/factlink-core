@@ -34,7 +34,5 @@ ReactProxyLink = React.createBackboneClass
 window.ReactFact = React.createBackboneClass
   render: ->
     _div ['fact-view'],
-      _div ["js-fact-base-region"],
-        ReactFactBase(model: @model())
-      _div ["js-fact-link-region"],
-         ReactProxyLink(model: @model())
+      ReactFactBase(model: @model())
+      ReactProxyLink(model: @model())
