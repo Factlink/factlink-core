@@ -24,7 +24,7 @@ ReactFactSearchResults = React.createBackboneClass
   changeOptions: 'add remove reset sort sync'
 
   getInitialState: ->
-    selectedModelIndex: null
+    hasModelSelected: false
 
   _childView: (fact, index) ->
     ReactFactSearchResult
@@ -33,12 +33,14 @@ ReactFactSearchResults = React.createBackboneClass
       selected: index == @state.selectedModelIndex
       ref: index
       key: fact.id
-      onMouseEnter: => @setState selectedModelIndex: index
-      onMouseLeave: => @setState selectedModelIndex: null
-      onClick: => @setState selectedModelIndex: index; @props.onSelect?()
+      onMouseEnter: => @setState hasModelSelected: true, selectedModelIndex: index
+      onMouseLeave: => @setState hasModelSelected: false
+      onClick: =>
+        @setState hasModelSelected: true, selectedModelIndex: index
+        @props.onSelect?()
 
   selectedModel: ->
-    return unless @state.selectedModelIndex?
+    return unless @state.hasModelSelected
 
     @model().at(@state.selectedModelIndex)
 
@@ -59,14 +61,14 @@ ReactFactSearchResults = React.createBackboneClass
 
   _select: (index) ->
     index = @_fixIndexModulo(index)
-    @setState selectedModelIndex: index
+    @setState hasModelSelected: true, selectedModelIndex: index
     @refs[index].scrollIntoView()
 
   moveSelectionUp: ->
-    @_select if @state.selectedModelIndex? then @state.selectedModelIndex-1 else -1
+    @_select if @state.hasModelSelected then @state.selectedModelIndex-1 else -1
 
   moveSelectionDown: ->
-    @_select if @state.selectedModelIndex? then @state.selectedModelIndex+1 else 0
+    @_select if @state.hasModelSelected then @state.selectedModelIndex+1 else 0
 
 window.ReactFactSearch = React.createBackboneClass
   displayName: 'ReactFactSearch'
