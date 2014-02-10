@@ -26,7 +26,11 @@
     border-radius: inherit;
   }
 
-  &:hover:enabled:before, &:active:before {
+  &:hover {
+    color: white;
+  }
+
+  &:hover:not(:disabled):before, &:active:before {
     background-color: rgba(0,0,0,0.1);
   }
 
@@ -54,6 +58,10 @@
   background-color: @buttonBackground;
   color: @linkColor;
   text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+
+  &:hover {
+    color: @linkColor;
+  }
 }
 
 .button-confirm {
