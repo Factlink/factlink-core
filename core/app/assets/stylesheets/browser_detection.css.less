@@ -4,10 +4,12 @@
 .visible-when-unsupported-browser { display: none; }
 
 html {
-  &.chrome              { .visible-when-chrome              { display: block; } }
-  &.firefox             { .visible-when-firefox             { display: block; } }
-  &.safari              { .visible-when-safari              { display: block; } }
-  &.unsupported-browser { .visible-when-unsupported-browser { display: block; } }
+  html.chrome .visible-when-chrome,
+  html.firefox .visible-when-firefox,
+  html.safari .visible-when-safari ,
+  html.unsupported-browser .visible-when-unsupported-browser {
+    display:block;
+  }
 }
 
 
