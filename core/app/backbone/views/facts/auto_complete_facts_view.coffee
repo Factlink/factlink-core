@@ -74,12 +74,7 @@ class window.AutoCompleteFactsView extends Backbone.Marionette.Layout
   template: 'facts/auto_complete_facts'
 
   initialize: ->
-    @_recent_collection = new RecentlyViewedFacts
-    @_recent_collection.fetch()
-
-    @search_collection = new FactSearchResults [],
-      fact_id: @options.fact_id
-      recent_collection: @_recent_collection
+    @search_collection = new FactSearchResults [], fact_id: @options.fact_id
     @listenTo @search_collection, 'request', -> @$el.addClass 'auto-complete-loading'
     @listenTo @search_collection, 'sync', -> @$el.removeClass 'auto-complete-loading'
 

@@ -1,13 +1,30 @@
-#= require ./search_collection
-
-class window.FactSearchResults extends SearchCollection
+class window.FactSearchResults extends Backbone.Collection
   model: Fact
 
-  initialize: (model, options) ->
+  initialize: (models, options) ->
     @fact_id = options.fact_id;
-    @recent_collection = options.recent_collection
-    @listenTo @recent_collection, 'sync', @_search
+    @_recently_viewed_facts = new RecentlyViewedFacts
+    @listenTo @_recently_viewed_facts, 'sync', @_search
+    @_recently_viewed_facts.fetch()
 
-  url: -> "/facts/#{@fact_id}/evidence_search.json?s=#{@encodedQuery()}"
+    @searchFor ''
 
-  emptyState: -> @recent_collection.models
+  url: -> "/facts/#{@fact_id}/evidence_search.json?s=#{@_encodedQuery()}"
+
+  _encodedQuery: -> encodeURIComponent @query
+
+  searchFor: (query) ->
+    query = $.trim(query)
+    return if query == @query
+    @query = query
+    @_search()
+
+  throttle = (method) -> _.throttle method, 300
+  _search: throttle ->
+    @jqxhr?.abort()
+    if @query == ''
+      @reset @_recently_viewed_facts.models
+      @trigger 'sync'
+    else
+      @reset []
+      @jqxhr = @fetch()
