@@ -1,15 +1,15 @@
-ReactAutoCompleteSearchFactView = React.createBackboneClass
-  displayName: 'ReactAutoCompleteSearchFactView'
+ReactFactSearchResult = React.createBackboneClass
+  displayName: 'ReactFactSearchResult'
 
   scrollIntoView: ->
     $el = $(@getDOMNode())
-    scrollIntoViewWithinContainer $el, $el.parents('.auto-complete-search-list')
+    scrollIntoViewWithinContainer $el, $el.parents('.fact-search-list')
 
   render: ->
     displaystring = @model().get('displaystring')
 
     _div
-      className: 'auto-complete-search-list-item' + (if @props.selected then ' selected' else '')
+      className: 'fact-search-result' + (if @props.selected then ' selected' else '')
       title: displaystring
       onMouseEnter: @props.onMouseEnter
       onMouseLeave: @props.onMouseLeave
@@ -17,14 +17,14 @@ ReactAutoCompleteSearchFactView = React.createBackboneClass
       dangerouslySetInnerHTML:
         {__html: highlightTextInTextAsHtml(@props.query, displaystring)}
 
-ReactAutoCompleteSearchFactsView = React.createBackboneClass
-  displayName: 'ReactAutoCompleteSearchFactsView'
+ReactFactSearchResults = React.createBackboneClass
+  displayName: 'ReactFactSearchResults'
 
   getInitialState: ->
     selectedModelKey: null
 
   _childView: (fact, key) ->
-    ReactAutoCompleteSearchFactView
+    ReactFactSearchResult
       model: fact
       query: @model().query
       selected: key == @state.selectedModelKey
@@ -44,7 +44,7 @@ ReactAutoCompleteSearchFactsView = React.createBackboneClass
   render: ->
     return _div() unless @model().length > 0
 
-    _div ['auto-complete-search-list'],
+    _div ['fact-search-results'],
       @model().map (fact, key) =>
         @_childView(fact, key)
 
@@ -64,18 +64,18 @@ ReactAutoCompleteSearchFactsView = React.createBackboneClass
   moveSelectionDown: ->
     @_select if @state.selectedModelKey? then @state.selectedModelKey+1 else 0
 
-window.ReactAutoCompleteFactsView = React.createBackboneClass
-  displayName: 'ReactAutoCompleteFactsView'
+window.ReactFactSearch = React.createBackboneClass
+  displayName: 'ReactFactSearch'
   changeOptions: 'add remove reset sort request sync'
 
   _loadingIndicator: ->
     return unless @model().loading()
 
-    _img ['auto-complete-loading-indicator', src: Factlink.Global.ajax_loader_image]
+    _img ['fact-search-loading-indicator', src: Factlink.Global.ajax_loader_image]
 
   render: ->
     _div [],
-      _div ['auto-complete-input-container'],
+      _div ['fact-search-input-container'],
         Backbone.Factlink.ReactTextInputView
           ref: 'text'
           placeholder: 'Search discussion link to insert...'
@@ -86,7 +86,7 @@ window.ReactAutoCompleteFactsView = React.createBackboneClass
           onDown: => @_search_list_view.moveSelectionDown()
           onReturn: => @addSelectedModel()
         @_loadingIndicator()
-      ReactAutoCompleteSearchFactsView
+      ReactFactSearchResults
         ref: 'search'
         model: @model()
         onSelect: => @addSelectedModel()
