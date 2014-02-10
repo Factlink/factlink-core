@@ -1,59 +1,5 @@
 # global config:true, file:true, task:true, module: true
 
-banner_template = """
-/*@license
-<%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage ? " * " + pkg.homepage : "" %>
-Date: <%= grunt.template.today("m/d/yyyy") %>
-Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>
-
-Copyright for the annotator subcomponent:
-
-Copyright 2012 Aron Carroll, Rufus Pollock, and Nick Stenning.
-
-Permission is hereby granted, free of charge, to any person obtaining
-a  copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-Copyright for the jQuery subcomponent:
-
-Copyright 2013 jQuery Foundation and other contributors
-http://jquery.com/
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-"""
 timer = require 'grunt-timer'
 path = require 'path'
 fs = require 'fs'
@@ -83,28 +29,13 @@ module.exports = (grunt) ->
         ]
         dest: 'build/jail_iframe.js'
       loader_basic:
-        options:
-          banner: banner_template
-        src: [
-          'build/js/loader/loader_common.js'
-          'build/js/loader/loader_basic.js'
-        ]
+        src: 'build/js/loader/loader_common.js'
         dest: 'build/factlink_loader_basic.js'
       loader_publishers:
-        options:
-          banner: banner_template
-        src: [
-          'build/js/loader/loader_common.js'
-          'build/js/loader/loader_publishers.js'
-        ]
+        src: 'build/js/loader/loader_common.js'
         dest: 'build/factlink_loader_publishers.js'
       loader_bookmarklet:
-        options:
-          banner: banner_template
-        src: [
-          'build/js/loader/loader_common.js'
-          'build/js/loader/loader_bookmarklet.js'
-        ]
+        src:'build/js/loader/loader_common.js'
         dest: 'build/factlink_loader_bookmarklet.js'
     sass:
       build:
