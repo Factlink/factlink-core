@@ -14,16 +14,18 @@ Backbone.Factlink.ReactTextInputView = React.createBackboneClass
       when 13 then @props.onReturn?()
       when 40 then @props.onDown?()
       when 38 then @props.onUp?()
-      when 27 then @props.onEscape?()
+      when 27 then @_setText ''
       else eventHandled = false
 
     if eventHandled
       e.preventDefault()
       e.stopPropagation()
 
-  _onChange: (e) ->
-    @setState text: e.target.value
-    @props.onChange?(e.target.value)
+  _onChange: (e) -> @_setText e.target.value
+
+  _setText: (text) ->
+    @setState text: text
+    @props.onChange?(text)
 
   render: ->
     _input
