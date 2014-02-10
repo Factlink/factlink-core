@@ -77,6 +77,14 @@ module.exports = (grunt) ->
         command: ' find build/ -iname \'*.js\'  -maxdepth 1  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
 
     copy:
+      loader_aliases:
+        files: [
+          { src: 'factlink_loader_common.js', cwd: 'build/', dest: 'factlink_loader_basic.js' }
+          { src: 'factlink_loader_common.js', cwd: 'build/', dest: 'factlink_loader_publishers.js' }
+          { src: 'factlink_loader_common.js', cwd: 'build/', dest: 'factlink_loader_bookmarklet.js' }
+        ]
+
+
       config_development:
         files: [
           { src: ['development.js'], cwd: 'build/config', dest: 'build/js/jail_iframe/config', expand: true }
