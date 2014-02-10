@@ -2,7 +2,7 @@ ReactAutoCompleteSearchFactView = React.createBackboneClass
   displayName: 'ReactAutoCompleteSearchFactView'
 
   scrollIntoView: ->
-    $el = $(@refs.input.getDOMNode())
+    $el = $(@getDOMNode())
     scrollIntoViewWithinContainer $el, $el.parents('.auto-complete-search-list')
 
   render: ->
@@ -28,6 +28,7 @@ ReactAutoCompleteSearchFactsView = React.createBackboneClass
       model: fact
       query: @model().query
       selected: key == @state.selectedModelKey
+      ref: key
       onMouseEnter: => @setState selectedModelKey: key
       onMouseLeave: => @setState selectedModelKey: null
       onClick: => @setState selectedModelKey: key; @props.onSelect?()
@@ -52,15 +53,16 @@ ReactAutoCompleteSearchFactsView = React.createBackboneClass
     else if key < 0 then @model().length - 1
     else key
 
+  _select: (key) ->
+    key = @_fixKeyModulo(key)
+    @setState selectedModelKey: key
+    @refs[key].scrollIntoView()
+
   moveSelectionUp: ->
-    prevKey = if @state.selectedModelKey? then @state.selectedModelKey-1 else -1
-    @setState selectedModelKey: @_fixKeyModulo(prevKey)
-    # @scrollToCurrent()
+    @_select if @state.selectedModelKey? then @state.selectedModelKey-1 else -1
 
   moveSelectionDown: ->
-    nextKey = if @state.selectedModelKey? then @state.selectedModelKey+1 else 0
-    @setState selectedModelKey: @_fixKeyModulo(nextKey)
-    # @scrollToCurrent()
+    @_select if @state.selectedModelKey? then @state.selectedModelKey+1 else 0
 
 class window.AutoCompleteFactsView extends Backbone.Marionette.Layout
   className: "auto-complete"
