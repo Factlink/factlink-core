@@ -9,7 +9,7 @@ ReactFactSearchResult = React.createBackboneClass
     displaystring = @model().get('displaystring')
 
     _div
-      className: 'fact-search-result' + (if @props.selected then ' selected' else '')
+      className: 'fact-search-result' + (if @props.selected then ' fact-search-result-selected' else '')
       title: displaystring
       onMouseEnter: @props.onMouseEnter
       onMouseLeave: @props.onMouseLeave
