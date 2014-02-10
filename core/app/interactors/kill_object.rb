@@ -13,9 +13,6 @@ module KillObject
      :gravatar_hash, :email, :receives_mailed_notifications,
      :receives_digest, :graph_user_id, :statistics,
      :deleted, :hidden?, :confirmed?]
-  dead_object :comment,
-    [:id, :created_by, :created_at, :content, :type,
-     :fact_data, :sub_comment_count, :created_by_id]
 
   def self.kill name, alive_object, take_fields, extra_fields={}
     hash = {dead_object_name: name}

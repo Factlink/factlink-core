@@ -9,10 +9,8 @@ class LoadDsl
     end
 
     def load_fact(fact_string,url="http://example.org/", opts={})
-      f = Fact.create(
-        :site => load_site(url),
-        :created_by => state_graph_user
-      )
+      f = Fact.create(site: load_site(url))
+
       f.require_saved_data
       f.data.displaystring = fact_string
       f.data.title = opts[:title] || url

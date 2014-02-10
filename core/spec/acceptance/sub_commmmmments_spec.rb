@@ -10,7 +10,7 @@ feature "sub_comments", type: :feature do
     @user_a = sign_in_user create :full_user, :confirmed
     @user_b = create :full_user, :confirmed
 
-    @factlink_user_a = create :fact, created_by: @user_a.graph_user
+    @factlink_user_a = create :fact
   end
 
   scenario "A user can comment on a comment" do
@@ -35,7 +35,7 @@ feature "sub_comments", type: :feature do
 
   scenario "After adding a subcomment the evidence can not be removed any more" do
     pending
-    @fact_relation_user_b = create :fact, created_by: @user_b.graph_user
+    @fact_relation_user_b = create :fact
     @factlink_user_a.add_evidence("believes", @fact_relation_user_b, @user_a)
 
     sub_comment_text = "Sub Comment 1"

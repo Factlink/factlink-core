@@ -16,35 +16,6 @@ describe 'activity queries' do
                                           attribute_set: [double(name:'pavlov_options'),double(name: 'activity')])
   end
 
-  describe ".user" do
-    it "should only return other users activities, not User his own activities" do
-      f1 = create :fact
-      f1.created_by.stream_activities.key.del # delete other activities
-
-      f1.add_opinion(:believes, gu1)
-      Activity.create user: gu1, action: :believes, subject: f1
-
-      f1.add_opinion(:disbelieves, f1.created_by)
-      Activity.create user: f1.created_by, action: :disbelieves, subject: f1
-
-      f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
-        {user: gu1, action: :believes, subject: f1},
-      ]
-    end
-    it "should return activity when a user opinionates a fact of the user" do
-      opinion = :doubts
-      f1 = create :fact
-      f1.created_by.stream_activities.key.del # delete other activities
-
-      f1.add_opinion(opinion, gu1)
-      Activity.create user: gu1, action: opinion, subject: f1
-
-      f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
-          {user: gu1, action: opinion, subject: f1}
-      ]
-    end
-  end
-
   describe :comments do
     context "creating a comment" do
       it "creates a notification for the interacting users" do
@@ -105,7 +76,7 @@ describe 'activity queries' do
         it "creates a stream activity" do
           comment, sub_comment = ()
 
-          fact = create :fact, created_by: current_user.graph_user
+          fact = create :fact
 
           as(current_user) do |pavlov|
             comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'disbelieves', content: 'content')
@@ -125,7 +96,7 @@ describe 'activity queries' do
         it "does not create a notification" do
           comment, sub_comment = ()
 
-          fact = create :fact, created_by: current_user.graph_user
+          fact = create :fact
 
           as(current_user) do |pavlov|
             comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'disbelieves', content: 'content')
@@ -144,7 +115,7 @@ describe 'activity queries' do
         it "creates a stream activity for the user's followers" do
           comment, sub_comment = ()
 
-          fact = create :fact, created_by: current_user.graph_user
+          fact = create :fact
 
           as(current_user) do |pavlov|
             comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'disbelieves', content: 'content')
@@ -168,7 +139,7 @@ describe 'activity queries' do
         it "creates a stream activity" do
           comment, sub_comment = ()
 
-          fact = create :fact, created_by: current_user.graph_user
+          fact = create :fact
 
           as(current_user) do |pavlov|
             comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'disbelieves', content: 'content')
@@ -190,7 +161,7 @@ describe 'activity queries' do
         it "creates a notification" do
           comment, sub_comment = ()
 
-          fact = create :fact, created_by: current_user.graph_user
+          fact = create :fact
 
           as(current_user) do |pavlov|
             comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'disbelieves', content: 'content')
@@ -214,7 +185,7 @@ describe 'activity queries' do
         it "creates a stream activity" do
           comment, sub_comment = ()
 
-          fact = create :fact, created_by: current_user.graph_user
+          fact = create :fact
 
           as(current_user) do |pavlov|
             comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'disbelieves', content: 'content')
@@ -236,7 +207,7 @@ describe 'activity queries' do
         it "creates a notification" do
           comment, sub_comment = ()
 
-          fact = create :fact, created_by: current_user.graph_user
+          fact = create :fact
 
           as(current_user) do |pavlov|
             comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'disbelieves', content: 'content')

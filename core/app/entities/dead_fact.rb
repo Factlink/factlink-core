@@ -4,7 +4,6 @@ DeadFact = StrictStruct.new(
   :displaystring,
   :created_at,
   :title,
-  :deletable?
 ) do
   def to_s
     displaystring || ""

@@ -6,12 +6,6 @@ class window.Fact extends Backbone.Model
 
   clientLink: -> "/client/facts/#{@id}"
 
-  user: -> new User(@get("created_by"))
-
-  is_mine: -> @user().is_current_user()
-
-  can_destroy: -> @is_mine() && @get('is_deletable')
-
   factUrlHost: ->
     fact_url = @get('fact_url')
     return '' unless fact_url
@@ -35,6 +29,5 @@ class window.Fact extends Backbone.Model
 
   toJSON: ->
     _.extend super(),
-      can_destroy: @can_destroy()
       fact_url_host: @factUrlHost()
       fact_url_title: @get('fact_title') || @factUrlHost()

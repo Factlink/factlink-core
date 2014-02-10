@@ -12,7 +12,6 @@ describe Queries::Activities::GraphUserIdsFollowingFact do
     it 'returns a unique list of ids' do
       fact = double :fact,
         id: '1',
-        created_by_id: 1,
         opinionated_users_ids: [2, 3],
         data_id: 133
       comments = double
@@ -26,7 +25,7 @@ describe Queries::Activities::GraphUserIdsFollowingFact do
                       comments: comments)
             .and_return([4,5])
 
-      expect(query.call).to eq [1, 2, 3, 4, 5]
+      expect(query.call).to eq [2, 3, 4, 5]
     end
   end
 end
