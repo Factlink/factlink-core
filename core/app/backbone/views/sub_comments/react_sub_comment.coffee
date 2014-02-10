@@ -30,12 +30,10 @@ window.ReactSubComment = React.createBackboneClass
         R.a className: "sub-comment-creator", href: creator.link(),
           creator.get("name")
 
-        if @model().get('time_ago')
-          R.span className: "sub-comment-time",
-            @model().get('time_ago'),
-            ' '
-            Factlink.Global.t.ago
-
+        if @model().get('created_at')
+          TimeAgo
+            className: "sub-comment-time"
+            time: @model().get('created_at')
 
       @_content_tag()
 
