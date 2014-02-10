@@ -46,7 +46,6 @@ window.ReactComment = React.createBackboneClass
     @setState show_subcomments: !@state.show_subcomments
 
   _content: ->
-
     _div ["comment-content spec-comment-content",
       dangerouslySetInnerHTML: {__html: @model().get('formatted_content')}]
 
@@ -54,7 +53,7 @@ window.ReactComment = React.createBackboneClass
     sub_comment_count = @model().get('sub_comments_count')
 
     [
-      _span ["comment-post-bottom"], [
+      _span ["comment-post-bottom"],
         if @model().can_destroy()
           _span ["comment-post-delete"],
             ReactDeleteButton
@@ -63,7 +62,6 @@ window.ReactComment = React.createBackboneClass
         _span ["comment-reply"],
           _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments],
             "(#{sub_comment_count}) Comment"
-      ]
       if @state.show_subcomments
         ReactSubComments(model: @model())
     ]
@@ -79,4 +77,4 @@ window.ReactComment = React.createBackboneClass
           votes: @props.votes
           model: @model()
         @_content()
-        @_bottom()
+        @_bottom()...
