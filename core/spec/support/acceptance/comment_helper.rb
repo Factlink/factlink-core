@@ -58,7 +58,7 @@ module Acceptance
 
           page.find("input[type=text]").click
           page.find("input[type=text]").set(text)
-          page.find("li", text: text).click
+          page.find(".spec-fact-search-result", text: text).click
 
           click_button "Post"
         end
