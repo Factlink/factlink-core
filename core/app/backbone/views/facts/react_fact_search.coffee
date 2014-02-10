@@ -8,14 +8,16 @@ ReactFactSearchResult = React.createBackboneClass
   render: ->
     displaystring = @model().get('displaystring')
 
-    _div
-      className: 'fact-search-result' + (if @props.selected then ' fact-search-result-selected' else '')
+    _div [
+      'fact-search-result'
+      'fact-search-result-selected' if @props.selected
       title: displaystring
       onMouseEnter: @props.onMouseEnter
       onMouseLeave: @props.onMouseLeave
       onClick: @props.onClick
       dangerouslySetInnerHTML:
         {__html: highlightTextInTextAsHtml(@props.query, displaystring)}
+    ]
 
 ReactFactSearchResults = React.createBackboneClass
   displayName: 'ReactFactSearchResults'
