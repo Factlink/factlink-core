@@ -37,7 +37,9 @@ ReactAutoCompleteSearchFactsView = React.createBackboneClass
 
     @model().at(@state.selectedModelKey)
 
-  # @on 'render', -> @$el.preventScrollPropagation()
+  componentDidMount: (el) ->
+    $(el).preventScrollPropagation()
+
   render: ->
     return _div() unless @model().length > 0
 
