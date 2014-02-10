@@ -85,12 +85,12 @@ class window.AutoCompleteFactsView extends Backbone.Marionette.Layout
 
     @_text_input_view = new Backbone.Factlink.ReactTextInputView
       placeholder: 'Search discussion link to insert...'
-      onChange: (value) => @search_collection.searchFor value
+      onChange: (value) =>
+        @search_collection.searchFor value
+        @queryChanges()
       onUp: => @_search_list_view.moveSelectionUp()
       onDown: => @_search_list_view.moveSelectionDown()
       onReturn: => @addSelectedModel()
-
-    # @listenTo @model, 'change', @queryChanges
 
   onRender: ->
     @search_list.show new ReactView component: @_search_list_view
@@ -106,7 +106,7 @@ class window.AutoCompleteFactsView extends Backbone.Marionette.Layout
   reset: ->
     # @model.set text: ''
 
-  # queryChanges: ->
-  #   unless @query_has_changed
-  #     @query_has_changed = true
-  #     mp_track "Evidence: Started searching for insertable discussion"
+  queryChanges: ->
+    unless @query_has_changed
+      @query_has_changed = true
+      mp_track "Evidence: Started searching for insertable discussion"
