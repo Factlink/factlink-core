@@ -18,9 +18,35 @@
               "version": "0.6.6",
               "from": "qs@0.6.6"
             },
+            "cookie-signature": {
+              "version": "1.0.1",
+              "from": "cookie-signature@1.0.1"
+            },
+            "send": {
+              "version": "0.1.4",
+              "from": "send@0.1.4",
+              "dependencies": {
+                "debug": {
+                  "version": "0.7.4",
+                  "from": "debug@*"
+                },
+                "mime": {
+                  "version": "1.2.11",
+                  "from": "mime@~1.2.9"
+                },
+                "range-parser": {
+                  "version": "0.0.4",
+                  "from": "range-parser@0.0.4"
+                }
+              }
+            },
             "bytes": {
               "version": "0.2.1",
               "from": "bytes@0.2.1"
+            },
+            "fresh": {
+              "version": "0.2.0",
+              "from": "fresh@0.2.0"
             },
             "pause": {
               "version": "0.0.1",
@@ -144,7 +170,7 @@
           "dependencies": {
             "promise": {
               "version": "2.0.0",
-              "from": "promise@~2.0",
+              "from": "promise@2.0.0",
               "dependencies": {
                 "is-promise": {
                   "version": "1.0.0",
@@ -154,7 +180,7 @@
             },
             "css": {
               "version": "1.0.8",
-              "from": "css@~1.0.8",
+              "from": "css@1.0.8",
               "dependencies": {
                 "css-parse": {
                   "version": "1.0.4",
@@ -168,7 +194,7 @@
             },
             "uglify-js": {
               "version": "2.2.5",
-              "from": "uglify-js@~2.2.5",
+              "from": "uglify-js@2.2.5",
               "dependencies": {
                 "source-map": {
                   "version": "0.1.31",
@@ -204,7 +230,7 @@
           "dependencies": {
             "readdirp": {
               "version": "0.2.5",
-              "from": "readdirp@~0.2.3",
+              "from": "readdirp@0.2.5",
               "dependencies": {
                 "minimatch": {
                   "version": "0.2.14",
@@ -226,7 +252,7 @@
         },
         "with": {
           "version": "2.0.0",
-          "from": "with@~2.0.0",
+          "from": "with@2.0.0",
           "dependencies": {
             "uglify-js": {
               "version": "2.4.0",
@@ -288,7 +314,7 @@
                 },
                 "optimist": {
                   "version": "0.3.7",
-                  "from": "optimist@~0.3.5",
+                  "from": "optimist@0.3.7",
                   "dependencies": {
                     "wordwrap": {
                       "version": "0.0.2",
@@ -334,11 +360,11 @@
       "dependencies": {
         "shelljs": {
           "version": "0.1.4",
-          "from": "shelljs@0.1.x"
+          "from": "shelljs@0.1.4"
         },
         "underscore": {
           "version": "1.4.4",
-          "from": "underscore@1.4.x"
+          "from": "underscore@1.4.4"
         },
         "cli": {
           "version": "0.4.5",
@@ -372,7 +398,7 @@
         },
         "htmlparser2": {
           "version": "3.3.0",
-          "from": "htmlparser2@3.3.x",
+          "from": "htmlparser2@3.3.0",
           "dependencies": {
             "domhandler": {
               "version": "2.1.0",
@@ -400,7 +426,7 @@
         },
         "console-browserify": {
           "version": "0.1.6",
-          "from": "console-browserify@0.1.x"
+          "from": "console-browserify@0.1.6"
         }
       }
     }
