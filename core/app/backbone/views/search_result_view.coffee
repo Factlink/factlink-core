@@ -31,7 +31,9 @@ class window.SearchResultView extends Backbone.Marionette.CompositeView
   searchResultItemView: (options) ->
     switch options.model.get("the_class")
       when "FactData"
-        new FactView(model: new Fact(options.model.get("the_object")))
+        new ReactView
+          component: ReactFact
+            model: new Fact(options.model.get("the_object"))
       when "FactlinkUser"
         new UserSearchView(model: new User(options.model.get("the_object")))
       else

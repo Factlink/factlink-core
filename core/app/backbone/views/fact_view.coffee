@@ -31,25 +31,10 @@ ReactProxyLink = React.createBackboneClass
             @model().factUrlTitle()
       _i ["proxy-link-overflow"]
 
-class window.FactView extends Backbone.Marionette.Layout
-  className: "fact-view"
-  template: "facts/fact"
-
-  regions:
-    factBaseRegion: '.js-fact-base-region'
-    linkRegion: '.js-fact-link-region'
-    poparrowRegion: '.js-region-poparrow'
-
-  initialize: (opts) ->
-    @listenTo @model, "destroy", @close
-    @listenTo @model, "change", @render
-
-  onRender: ->
-    @factBaseRegion.show new ReactView
-      component: ReactFactBase
-        model: @model
-    @linkRegion.show new ReactView
-      component: ReactProxyLink
-        model: @model
-
-  remove: -> @$el.fadeOut "fast", -> $(this).remove()
+window.ReactFact = React.createBackboneClass
+  render: ->
+    _div ['fact-view'],
+      _div ["js-fact-base-region"],
+        ReactFactBase(model: @model())
+      _div ["js-fact-link-region"],
+         ReactProxyLink(model: @model())
