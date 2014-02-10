@@ -14,14 +14,13 @@ ReactProxyLink = React.createBackboneClass
     fact_url_host = @model().factUrlHost()
 
     _div ['proxy-link-container'],
-      _div ['proxy-link-box'],
-        _a ["proxy-link",
-            href: @model().get("proxy_open_url"),
-            target:"_blank",
-            onClick: @_onClick],
-          _img ["proxy-link-favicon",
-                src:"https://www.google.com/s2/u/0/favicons?domain=#{fact_url_host}"],
-            @model().factUrlTitle()
+      _a ["proxy-link",
+          href: @model().get("proxy_open_url"),
+          target:"_blank",
+          onClick: @_onClick],
+        _img ["proxy-link-favicon",
+              src:"https://www.google.com/s2/u/0/favicons?domain=#{fact_url_host}"],
+          @model().factUrlTitle()
       _i ["proxy-link-overflow"]
 
 window.ReactFact = React.createBackboneClass

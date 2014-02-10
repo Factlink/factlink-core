@@ -11,3 +11,39 @@
     background-color: @factlinkActiveColor;
   }
 }
+
+.proxy-link-container {
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  clear: both;
+  padding: 0;
+  margin-top: 3px;
+}
+
+.proxy-link {
+  color: @gray;
+  font-weight: normal;
+  display: inline-block;
+
+  &:hover {
+    color: @grayDark;
+  }
+}
+
+.proxy-link-favicon {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-top;
+}
+
+.proxy-link-overflow {
+  z-index: 100;
+  background: image-url('discussions/title_fade.png') right repeat-y;
+  display: block;
+  height: 100%;
+  width: 20px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
