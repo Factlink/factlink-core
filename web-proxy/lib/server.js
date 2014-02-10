@@ -100,6 +100,7 @@ function getServer(config) {
       } else {
         res.setHeader('Cache-Control','max-age=86400');// expires in 1 day
         res.redirect(site,301);
+        res.end();
         // Redirect to publishers' sites
         return;
       }
@@ -125,6 +126,7 @@ function getServer(config) {
     output_html = inject_html_in_head(output_html, header_content);
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.write(output_html);
+    res.end();
   }
 
   function handleProxyRequest(res, url) {
