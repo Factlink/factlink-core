@@ -57,30 +57,6 @@
 <% content_for :tour_javascript do %>
   <script>
     $(function() {
-
-      var notClicked = true;
-
-      function showNextButtonForClient(identifier) {
-        setTimeout(function (){
-          if (notClicked) {
-            $('.visible-when-' + identifier +' .should-install-' + identifier + '-extension').fadeOut(600, function() {
-              $('.visible-when-' + identifier + ' .' + identifier + '-extension-installed').fadeIn(600);
-            });
-            notClicked = false;
-          }
-        }, 1800);
-      }
-
-      $('#chrome-extension-button').mousedown(function() {
-        showNextButtonForClient('chrome');
-      });
-
-      $('#bookmarklet-button').mousedown(function() {
-        mp_track("Bookmarklet: Clicked the Bookmarklet #almost-ready");
-        showNextButtonForClient('unsupported-browser');
-      });
-
-
       <% if FactlinkUI::Application.config.use_chrome_webstore %>
         $('#chrome-extension-webstore-button').on('click', function() {
           mp_track("Extension: Download Chrome Extension -> Clicked #almost-ready");
