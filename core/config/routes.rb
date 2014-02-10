@@ -23,7 +23,7 @@ FactlinkUI::Application.routes.draw do
   # as well (frame busting)
   get '/client/*page' => 'client#show'
 
-  resources :facts, only: [:create, :show, :destroy] do
+  resources :facts, only: [:create, :show] do
     resources :opinionators, only: [:index, :create, :destroy, :update]
 
     member do

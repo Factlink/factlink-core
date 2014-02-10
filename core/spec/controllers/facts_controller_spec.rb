@@ -78,29 +78,6 @@ describe FactsController do
     end
   end
 
-  describe :destroy do
-    it "should delete the fact" do
-      authenticate_user!(user)
-      fact = nil
-
-      as(user) do |pavlov|
-        fact = pavlov.interactor(:'facts/create',
-                                     displaystring: 'displaystring',
-                                     url: 'url',
-                                     title: 'title')
-      end
-      fact_id = fact.id
-
-      ability.should_receive(:can?).with(:show, Fact).and_return(true)
-      ability.should_receive(:can?).with(:manage, Fact).and_return(true)
-      should_check_can :destroy, fact
-      get :destroy, id: fact.id, format: :json
-      response.should be_success
-
-      Fact[fact_id].should == nil
-    end
-  end
-
   describe :create do
     it "should work with json" do
       authenticate_user!(user)

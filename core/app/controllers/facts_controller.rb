@@ -46,14 +46,6 @@ class FactsController < ApplicationController
     render 'facts/show', formats: [:json]
   end
 
-  def destroy
-    authorize! :destroy, @fact
-
-    interactor :'facts/destroy', fact_id: @fact.id
-
-    render json: {}
-  end
-
   # TODO: This search is way to simple now, we need to make sure already
   # evidenced Factlinks are not shown in search results and therefore we need
   # to move this search to the evidence_controller, to make sure it's
