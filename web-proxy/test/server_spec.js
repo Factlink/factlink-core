@@ -1,18 +1,5 @@
-var config = require('../lib/config').get(process.env);
+var config = require('../lib/config').get_config(process.env.NODE_ENV);
 var server = require('../lib/server').getServer(config);
-
-config_path = './config/';
-
-development_env = {};
-development_env.CONFIG_PATH = config_path;
-development_env.NODE_ENV = 'development';
-
-production_env = {};
-production_env.CONFIG_PATH = config_path;
-production_env.NODE_ENV = 'production';
-
-var development_config  = require('../lib/config').get(development_env);
-var production_config   = require('../lib/config').get(production_env);
 
 /** Server */
 exports['The index should render succesful'] = function(beforeExit, assert){

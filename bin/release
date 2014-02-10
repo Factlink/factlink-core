@@ -7,8 +7,9 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"/..
 
 env=$1
 branch=`git symbolic-ref HEAD`
+flag=$2
 
-if [[ "$branch" != "refs/heads/master" ]]
+if [[ "$branch" != "refs/heads/master" ]] && [[ "$flag" != "-f" ]]
   then
     echo "Switch to master branch please!"
     exit 1
@@ -32,8 +33,9 @@ echo "Deployed Core"
 cd js-library
   bundle
   npm install
-  grunt
+  grunt compile_$env
   bundle exec cap $env deploy
+  grunt compile_development
 cd ..
 
 echo "Deployed js-library"

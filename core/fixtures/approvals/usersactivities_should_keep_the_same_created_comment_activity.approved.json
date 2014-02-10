@@ -5,16 +5,13 @@
       "id": "<id>",
       "name": "John2 Doe2",
       "username": "johndoe2",
-      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
-      "statistics_created_fact_count": 0,
-      "statistics_follower_count": 0,
-      "statistics_following_count": 0
+      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734"
     },
     "action": "created_comment",
     "time_ago": "1 minute",
     "id": "<id>",
     "activity": {
-      "target_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&open_id=1",
+      "target_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html#factlink-open-1",
       "fact_displaystring": "Fact 1",
       "fact": "Fact 1"
     },

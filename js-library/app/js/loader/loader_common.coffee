@@ -1,6 +1,11 @@
 factlink_loader_start_timestamp = new Date().getTime()
 
-window.FACTLINK_START_LOADER = ->
+
+jslib_jail_code = __INLINE_JS_PLACEHOLDER__
+style_code = __INLINE_CSS_PLACEHOLDER__
+frame_style_code = __INLINE_FRAME_CSS_PLACEHOLDER__
+
+do ->
   unsupported_browser = document.documentMode < 9
   return if unsupported_browser
   if window.FACTLINK_LOADED
@@ -12,7 +17,7 @@ window.FACTLINK_START_LOADER = ->
 
   # Create proxy object that stores all calls
   # proxies calls from external content page to the js-library "jail" iframe's "FactlinkJailRoot"..
-  methods = 'on,triggerClick,highlightAdditionalFactlinks,startAnnotating,stopAnnotating,showLoadedNotification,scrollTo,openFactlinkModal,initializeFactlinkButton,showProxyMessage'.split(',')
+  methods = 'on,triggerClick,highlightAdditionalFactlinks,loadedBookmarklet,scrollTo,openFactlinkModal,initializeFactlinkButton,proxyLoaded'.split(',')
 
   storedMethodCalls = []
 
@@ -45,7 +50,6 @@ window.FACTLINK_START_LOADER = ->
     load_time_before_jail = new Date().getTime()
 
     jail_window = jslib_jail_iframe.contentWindow
-    jail_window.FactlinkConfig = window.FactlinkConfig
     jail_window.FrameCss = frame_style_code
 
     #### Load iframe with script tag
@@ -69,12 +73,13 @@ window.FACTLINK_START_LOADER = ->
 
     root.core_loaded_promise.then ->
       root.perf.add_timing_event 'core_loaded'
+
       #called from jail-iframe when core iframe is ready.
       for name in methods
         do (name) ->
           # don't return the value, as we can't do that when storing calls
           window.FACTLINK[name] = ->
-            jslib_jail_iframe.contentWindow.FactlinkJailRoot[name](arguments...)
+            root[name](arguments...)
             return
 
       for methodCall in storedMethodCalls
@@ -91,9 +96,4 @@ window.FACTLINK_START_LOADER = ->
       setTimeout tryToInit(i+1), i
 
   tryToInit(1)()
-
-jslib_jail_code = __INLINE_JS_PLACEHOLDER__
-style_code = __INLINE_CSS_PLACEHOLDER__
-frame_style_code = __INLINE_FRAME_CSS_PLACEHOLDER__
-
 

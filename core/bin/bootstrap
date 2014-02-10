@@ -4,7 +4,7 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"/..
 
 bundle install
 
-./start-db.sh &
+../start-db.sh &
 FOREMAN_PID=$!
 sleep 1
 bundle exec rake db:migrate

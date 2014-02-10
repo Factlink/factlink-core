@@ -6,14 +6,11 @@
     "id": "<id>",
     "name": "John1 Doe1",
     "username": "johndoe1",
-    "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
-    "statistics_created_fact_count": 1,
-    "statistics_follower_count": 0,
-    "statistics_following_count": 0
+    "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900"
   },
   "created_at": "<created_at>",
   "fact_title": "title",
   "fact_url": "url",
-  "proxy_open_url": "http://localhost:8080/?url=url&open_id=1",
+  "proxy_open_url": "http://localhost:8080/?url=url#factlink-open-1",
   "is_deletable": true
 }

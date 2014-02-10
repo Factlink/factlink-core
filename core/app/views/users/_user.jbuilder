@@ -12,6 +12,9 @@ graph_user = user.graph_user
 dead_user = Queries::UsersByIds.new(user_ids: [user.id]).call.first
 json.partial! 'users/user_partial', user: dead_user
 
+json.statistics_follower_count UserFollowingUsers.new(user.graph_user_id).followers_count
+json.statistics_following_count UserFollowingUsers.new(user.graph_user_id).following_count
+
 json.graph_id graph_user.id
 
 json.location nil_if_empty user.location
