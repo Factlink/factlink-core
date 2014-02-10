@@ -2,7 +2,7 @@ class BookmarkletTooltipView extends Backbone.Marionette.ItemView
   template:
     text: """
       You can drag this Bookmarklet to your bookmarks bar.<br>
-      Suitable for browsers other than Chrome and Firefox.
+      Suitable for browsers other than Chrome, Firefox or Safari.
     """
 
 class TopbarDropdownMenuView extends Backbone.View

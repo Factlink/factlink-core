@@ -1,10 +1,12 @@
 .visible-when-chrome,
 .visible-when-firefox,
+.visible-when-safari,
 .visible-when-unsupported-browser { display: none; }
 
 html {
   &.chrome              { .visible-when-chrome              { display: block; } }
   &.firefox             { .visible-when-firefox             { display: block; } }
+  &.safari              { .visible-when-safari              { display: block; } }
   &.unsupported-browser { .visible-when-unsupported-browser { display: block; } }
 }
 
@@ -19,7 +21,6 @@ html.chrome {
   }
 }
 
-
 html.firefox {
   .should-install-firefox-extension { display: inline-block; }
   .firefox-extension-installed      { display: none; }
@@ -30,3 +31,12 @@ html.firefox {
   }
 }
 
+html.safari {
+  .should-install-safari-extension { display: inline-block; }
+  .safari-extension-installed      { display: none; }
+
+  &.safari_extension_installed {
+    .should-install-safari-extension { display: none; }
+    .safari-extension-installed      { display: inline-block; }
+  }
+}

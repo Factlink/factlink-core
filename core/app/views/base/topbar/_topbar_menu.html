@@ -12,10 +12,18 @@
     </li>
 
     <li class="visible-when-firefox should-install-firefox-extension">
-      <a href="<%= "#{FactlinkUI::Application.config.static_url}/extension/firefox/factlink-latest.xpi" %>">
+      <a href="https://static.factlink.com/extension/firefox/factlink-latest.xpi">
         <i class='icon-firefox'></i>
         Firefox extension
-        <span class="label label-warning should-install-chrome-extension">Install</span>
+        <span class="label label-warning should-install-firefox-extension">Install</span>
+      </a>
+    </li>
+
+    <li class="visible-when-safari should-install-safari-extension">
+      <a href="https://static.factlink.com/extension/firefox/factlink.safariextz">
+        <i class='icon-apple'></i>
+        Safari extension
+        <span class="label label-warning should-install-safari-extension">Install</span>
       </a>
     </li>
 

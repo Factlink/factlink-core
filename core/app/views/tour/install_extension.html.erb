@@ -29,11 +29,25 @@
 
         <div class="transparent-border">
           <div class="should-install-firefox-extension">
-            <a id="firefox-extension-button" class="button-confirm" href="<%= "#{FactlinkUI::Application.config.static_url}/extension/firefox/factlink-latest.xpi" %>">Add Factlink to Firefox</a>
+            <a id="firefox-extension-button" class="button-confirm" href="https://static.factlink.com/extension/firefox/factlink-latest.xpi">Add Factlink to Firefox</a>
           </div>
 
           <div class="firefox-extension-installed">
             <button class="button" disabled >Factlink added to Firefox</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="visible-when-safari">
+        Next, add a button to your browser to create <%= t(:factlinks) %> on all websites!
+
+        <div class="transparent-border">
+          <div class="should-install-safari-extension">
+            <a id="safari-extension-button" class="button-confirm" href="https://static.factlink.com/extension/firefox/factlink.safariextz">Add Factlink to Safari</a>
+          </div>
+
+          <div class="safari-extension-installed">
+            <button class="button" disabled >Factlink added to Safari</button>
           </div>
         </div>
       </div>
