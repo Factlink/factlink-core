@@ -15,4 +15,4 @@ cd "$ffextdir"
 
 scp factlink-extension.xpi deploy@static.factlink.com:/applications/firefox-extension/shared/releases/factlink-latest.xpi
 
-scp factlink-extension.update.rdf deploy@static.factlink.com:/applications/firefox-extension/shared/releases/factlink-extension.update.rdf
+scp factlink-extension.update.rdf deploy@static.factlink.com:/applications/firefox-extension/shared/releases/updates.rdf
