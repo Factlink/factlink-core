@@ -2,7 +2,7 @@ FactlinkJailRoot.createReceiverEnvoy FactlinkJailRoot.annotatedSiteReceiver
 
 iframe = document.createElement('iframe')
 iframe.id = "factlink-sidebar-frame"
-iframe.src = "#{FactlinkConfig.api}/client/blank"
+iframe.src = "#{FactlinkBaseUri}/client/blank"
 FactlinkJailRoot.$factlinkCoreContainer[0].appendChild(iframe)
 
 real_envoy =  FactlinkJailRoot.createSenderEnvoy iframe.contentWindow

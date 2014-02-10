@@ -1,2 +1,1 @@
-FactlinkJailRoot.siteUrl = ->
-  FactlinkConfig.url || window.location.href
+FactlinkJailRoot.siteUrl = -> window.FactlinkProxiedUri || window.location.href

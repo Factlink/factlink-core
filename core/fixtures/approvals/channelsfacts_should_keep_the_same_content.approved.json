@@ -12,7 +12,7 @@
     "created_at": "<created_at>",
     "fact_title": "Fact title 3",
     "fact_url": "http://example.org/3.html",
-    "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&open_id=3",
+    "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html#factlink-open-3",
     "is_deletable": true,
     "timestamp": "<timestamp>"
   },
@@ -29,7 +29,7 @@
     "created_at": "<created_at>",
     "fact_title": "Fact title 2",
     "fact_url": "http://example.org/2.html",
-    "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&open_id=2",
+    "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html#factlink-open-2",
     "is_deletable": true,
     "timestamp": "<timestamp>"
   },
@@ -46,7 +46,7 @@
     "created_at": "<created_at>",
     "fact_title": "Fact title 1",
     "fact_url": "http://example.org/1.html",
-    "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&open_id=1",
+    "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html#factlink-open-1",
     "is_deletable": true,
     "timestamp": "<timestamp>"
   }

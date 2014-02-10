@@ -1,26 +1,14 @@
 //IMPORTANT: please use only double quotes to delimit strings
 (function(){
-  var lib_url = "<%= FactlinkUI::Application.config.jslib_url %>";
-
-  <% if ['development'].include?(Rails.env) %>
-    var loader_filename = "/factlink_loader_bookmarklet.js?" + (new Date()).getTime();
-
-    window.FactlinkConfig = {
-      api: "<%= FactlinkUI::Application.config.api_url %>"
-    };
-  <% elsif ['staging'].include?(Rails.env) %>
-    var loader_filename = "/factlink_loader_bookmarklet.min.js";
-
-    window.FactlinkConfig = {
-      api: "<%= FactlinkUI::Application.config.api_url %>"
-    };
-  <% else %>
-    var loader_filename = "/factlink_loader_bookmarklet.min.js";
-  <% end %>
-
-
   var script = document.createElement("script");
-  script.src = lib_url + loader_filename;
-
+  script.src = "<%=
+    FactlinkUI::Application.config.jslib_url + '/factlink_loader_bookmarklet' +
+      if 'development' == Rails.env
+        '.js'
+      else
+        '.min.js';
+      end
+  %>";
+  script.onload = function(){ window.FACTLINK.loadedBookmarklet();}
   document.head.appendChild(script);
 })();

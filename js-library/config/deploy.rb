@@ -23,7 +23,16 @@ ssh_options[:forward_agent] = true
 # don't touch all static files:
 set :normalize_asset_timestamps, false
 
-
-#after "deploy", "deploy:build"
-
 after 'deploy:update', 'deploy:cleanup'
+
+
+before "deploy" do
+
+  config_path = "build/js/jail_iframe/config/";
+  config_files = Dir.new(config_path).to_a.select{|f|/\.js$/.match f}
+
+  if config_files != ["#{stage}.js"]
+
+    fail "\nWRONG CONFIGURATION:\n\nExpected only config file #{stage}.js in #{config_path}, found #{config_files}\n\nDid you forget to run 'grunt compile_#{stage}'?\n\n"
+  end
+end

@@ -54,11 +54,13 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 """
-
+timer = require 'grunt-timer'
 path = require 'path'
 fs = require 'fs'
 
 module.exports = (grunt) ->
+  timer.init(grunt)
+
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
     clean: ['build']
@@ -70,6 +72,7 @@ module.exports = (grunt) ->
     concat:
       jail_iframe:
         src: [
+          'build/js/jail_iframe/config/*'
           'build/js/jail_iframe/libs/*'
           'build/js/jail_iframe/core.js'
           'build/js/jail_iframe/wrap/first.js'
@@ -138,12 +141,24 @@ module.exports = (grunt) ->
           'build/factlink_loader_basic.min.js':       ['build/factlink_loader_basic.js']
           'build/factlink_loader_publishers.min.js':  ['build/factlink_loader_publishers.js']
           'build/factlink_loader_bookmarklet.min.js': ['build/factlink_loader_bookmarklet.js']
-          'build/postFactlinkObject.min.js': ['build/js/jail_iframe/util/postFactlinkObject.js']
     shell:
       gzip_js_files:
-        command: ' find build/ -iname \'*.js\'  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
+        command: ' find build/ -iname \'*.js\'  -maxdepth 1  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
 
     copy:
+      config_development:
+        files: [
+          { src: ['development.js'], cwd: 'build/config', dest: 'build/js/jail_iframe/config', expand: true }
+        ]
+      config_staging:
+        files: [
+          { src: ['staging.js'], cwd: 'build/config', dest: 'build/js/jail_iframe/config', expand: true }
+        ]
+      config_production:
+        files: [
+          { src: ['production
+.js'], cwd: 'build/config', dest: 'build/js/jail_iframe/config', expand: true }
+        ]
       build:
         files: [
           { src: ['**/*.js', '**/*.png', '**/*.gif', '**/*.woff', 'robots.txt'], cwd: 'app', dest: 'build', expand: true }
@@ -151,10 +166,6 @@ module.exports = (grunt) ->
       extension_events:
         files: [
           { src: ['factlink.*.js'], cwd: 'build/js/extension_events', dest: 'build', expand: true }
-        ]
-      postFactlinkObject:
-        files: [
-          { src: ['postFactlinkObject.js'], cwd: 'build/js/jail_iframe/util', dest: 'build', expand: true }
         ]
       dist:
         files: [
@@ -203,16 +214,17 @@ module.exports = (grunt) ->
             target_with_inlined_content = target_content.replace replacement.placeholder, input_content_stringified
             grunt.file.write(target_filename, target_with_inlined_content)
 
-  grunt.registerTask 'jail_iframe', []
-  grunt.registerTask 'compile',  [
-    'clean', 'copy:build',  'copy:extension_events', 'coffee', 'copy:postFactlinkObject',
-    'sass', 'cssUrlEmbed', 'cssmin',
-    'concat', 'mocha', 'uglify', 'code_inliner',
-    'shell:gzip_js_files', 'copy:dist'
-  ]
+  grunt.registerTask 'preprocessor',  [
+    'clean', 'copy:build', 'copy:extension_events', 'coffee', 'sass', 'cssUrlEmbed', 'cssmin', ]
 
-  grunt.registerTask 'default', ['compile']
-  grunt.registerTask 'server',  ['compile']
+  grunt.registerTask 'postprocessor', [
+    'concat', 'mocha', 'uglify', 'code_inliner', 'shell:gzip_js_files', 'copy:dist' ]
+
+  grunt.registerTask 'compile_develop',   [ 'preprocessor', 'copy:config_development', 'postprocessor' ]
+  grunt.registerTask 'compile_staging',   [ 'preprocessor', 'copy:config_staging',     'postprocessor' ]
+  grunt.registerTask 'compile_production',[ 'preprocessor', 'copy:config_production',  'postprocessor' ]
+
+  grunt.registerTask 'default', ['compile_develop']
 
   grunt.loadNpmTasks 'grunt-contrib-sass'
   grunt.loadNpmTasks 'grunt-contrib-uglify'

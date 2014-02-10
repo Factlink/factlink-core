@@ -11,6 +11,6 @@
   "created_at": "<created_at>",
   "fact_title": "title",
   "fact_url": "url",
-  "proxy_open_url": "http://localhost:8080/?url=url&open_id=1",
+  "proxy_open_url": "http://localhost:8080/?url=url#factlink-open-1",
   "is_deletable": true
 }

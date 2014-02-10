@@ -51,7 +51,7 @@ describe FactUrl do
       fact_url = FactUrl.new fact
 
       expect(fact_url.proxy_open_url)
-        .to eq 'http://proxy.com/?url=http%3A%2F%2Fsciencedaily.com&open_id=3'
+        .to eq 'http://proxy.com/?url=http%3A%2F%2Fsciencedaily.com#factlink-open-3'
     end
   end
 
@@ -62,7 +62,7 @@ describe FactUrl do
       fact_url = FactUrl.new fact
 
       expect(fact_url.sharing_url)
-        .to eq 'http://proxy.com/?url=http%3A%2F%2Fsciencedaily.com&open_id=3'
+        .to eq 'http://proxy.com/?url=http%3A%2F%2Fsciencedaily.com#factlink-open-3'
     end
   end
 
