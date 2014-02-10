@@ -10,6 +10,7 @@ ReactFactSearchResult = React.createBackboneClass
 
     _div [
       'fact-search-result'
+      'spec-fact-search-result'
       'fact-search-result-selected' if @props.selected
       title: displaystring
       onMouseEnter: @props.onMouseEnter
