@@ -27,8 +27,13 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   _openSearchFacts: ->
     @ui.openSearchFactsLink.hide()
 
+    recently_viewed_facts = new RecentlyViewedFacts
+    recently_viewed_facts.fetch()
+
     react_fact_search = ReactFactSearch
-      model: new FactSearchResults [], fact_id: @collection.fact.id
+      model: new FactSearchResults [],
+        fact_id: @collection.fact.id
+        recently_viewed_facts: recently_viewed_facts
       onInsert: (text) => @_addCommentView.insert text
 
     @searchFactsRegion.show new ReactView

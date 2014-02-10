@@ -3,9 +3,8 @@ class window.FactSearchResults extends Backbone.Factlink.Collection
 
   initialize: (models, options) ->
     @fact_id = options.fact_id;
-    @_recently_viewed_facts = new RecentlyViewedFacts
+    @_recently_viewed_facts = options.recently_viewed_facts
     @listenTo @_recently_viewed_facts, 'sync', @_search
-    @_recently_viewed_facts.fetch()
 
     @searchFor ''
 
