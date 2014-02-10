@@ -38,7 +38,8 @@ window.FACTLINK_START_LOADER = ->
     document.getElementsByTagName('head')[0].appendChild style_tag
 
     #### Create iframe so jslib's namespace (window) doesn't collide with any content window.
-    jslib_jail_iframe = mkEl 'iframe', 'factlink-iframe'
+    jslib_jail_iframe = mkEl 'iframe'
+    jslib_jail_iframe.style.display = 'none';
     document.body.appendChild(jslib_jail_iframe)
 
     load_time_before_jail = new Date().getTime()
