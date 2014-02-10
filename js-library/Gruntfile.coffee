@@ -220,11 +220,11 @@ module.exports = (grunt) ->
   grunt.registerTask 'postprocessor', [
     'concat', 'mocha', 'uglify', 'code_inliner', 'shell:gzip_js_files', 'copy:dist' ]
 
-  grunt.registerTask 'compile_develop',   [ 'preprocessor', 'copy:config_development', 'postprocessor' ]
-  grunt.registerTask 'compile_staging',   [ 'preprocessor', 'copy:config_staging',     'postprocessor' ]
-  grunt.registerTask 'compile_production',[ 'preprocessor', 'copy:config_production',  'postprocessor' ]
+  grunt.registerTask 'compile_development', [ 'preprocessor', 'copy:config_development', 'postprocessor' ]
+  grunt.registerTask 'compile_staging',     [ 'preprocessor', 'copy:config_staging',     'postprocessor' ]
+  grunt.registerTask 'compile_production',  [ 'preprocessor', 'copy:config_production',  'postprocessor' ]
 
-  grunt.registerTask 'default', ['compile_develop']
+  grunt.registerTask 'default', ['compile_development']
 
   grunt.loadNpmTasks 'grunt-contrib-sass'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
