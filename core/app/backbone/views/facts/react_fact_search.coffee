@@ -32,6 +32,7 @@ ReactFactSearchResults = React.createBackboneClass
       query: @model().query
       selected: index == @state.selectedModelIndex
       ref: index
+      key: fact.id
       onMouseEnter: => @setState selectedModelIndex: index
       onMouseLeave: => @setState selectedModelIndex: null
       onClick: => @setState selectedModelIndex: index; @props.onSelect?()
