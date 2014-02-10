@@ -12,5 +12,3 @@ json.fact_title dead_fact.title
 
 json.fact_url dead_fact.site_url
 json.proxy_open_url dead_fact.url.proxy_open_url
-
-json.is_deletable dead_fact.deletable?
