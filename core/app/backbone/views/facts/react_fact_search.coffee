@@ -21,6 +21,7 @@ ReactFactSearchResult = React.createBackboneClass
 
 ReactFactSearchResults = React.createBackboneClass
   displayName: 'ReactFactSearchResults'
+  changeOptions: 'add remove reset sort sync'
 
   getInitialState: ->
     selectedModelKey: null
