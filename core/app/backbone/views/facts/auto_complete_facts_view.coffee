@@ -1,12 +1,21 @@
-class AutoCompleteSearchFactView extends Backbone.Factlink.StepView
+class AutoCompleteSearchFactView extends Backbone.Marionette.CompositeView
   tagName: "li"
 
   template: "facts/auto_complete_search_fact"
+
+  triggers:
+    "mouseenter": "requestActivate",
+    "mouseleave": "requestDeActivate",
+    "click"     : "requestClick"
 
   templateHelpers: ->
     query = @options.query
 
     highlighted_title: -> highlightTextInTextAsHtml(query, @displaystring)
+
+  initialize: ->
+    @on 'activate', => @$el.addClass 'active'
+    @on 'deactivate', => @$el.removeClass 'active'
 
   scrollIntoView: -> scrollIntoViewWithinContainer @$el, @$el.parents('.auto-complete-search-list')
 
