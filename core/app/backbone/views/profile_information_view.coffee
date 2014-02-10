@@ -1,12 +1,20 @@
-class SocialStatisticsView extends Backbone.Marionette.ItemView
-  template: "users/profile/social_statistics"
-  className: "profile-user-social-statistics"
+ReactSocialStatistics = React.createBackboneClass
+  displayName: 'ReactSocialStatistics'
 
-  initialize: ->
-    @listenTo @model, 'change', @render
+  render: ->
+    plural_followers = @model().get('statistics_follower_count') != 1
 
-  templateHelpers: =>
-    plural_followers: @model.get('statistics_follower_count') != 1
+    _div ["profile-user-social-statistics"],
+      _div ["profile-social-statistic-block"],
+        _h1 [],
+          @model().get('statistics_following_count')
+        "following"
+
+      _div ["profile-social-statistic-block"],
+        _h1 [],
+          @model().get('statistics_follower_count')
+        "follower"
+        "s" if plural_followers
 
 class window.ProfileInformationView extends Backbone.Marionette.Layout
   template: 'users/profile/profile_information'
@@ -18,7 +26,9 @@ class window.ProfileInformationView extends Backbone.Marionette.Layout
 
   onRender: ->
     @profilePictureRegion.show   new UserView(model: @model)
-    @socialStatisticsRegion.show new SocialStatisticsView(model: @model)
+    @socialStatisticsRegion.show new ReactView
+      component: ReactSocialStatistics
+        model: @model
 
     @_showFollowUserButton()
 
