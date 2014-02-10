@@ -14,13 +14,7 @@
         Next, add Factlink to create <%= t(:factlinks) %> on all websites!
 
         <div class="transparent-border">
-          <% if FactlinkUI::Application.config.use_chrome_webstore %>
-            <a id="chrome-extension-webstore-button" class="button-confirm">Add Factlink to Chrome</a>
-          <% else %>
-            <!-- for staging downloads of the Chrome Extension -->
-            <iframe id="ce-download" name="ce-download" height=0 width=0 border=0 style="display:none;"></iframe>
-            <a id="chrome-extension-button" target="ce-download" class="button-confirm" href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx">Add Factlink to Chrome (<%= Rails.env %>)</a>
-          <% end %>
+          <a id="chrome-extension-webstore-button" class="button-confirm">Add Factlink to Chrome</a>
         </div>
       </div>
 
