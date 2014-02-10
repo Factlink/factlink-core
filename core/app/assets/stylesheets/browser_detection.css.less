@@ -10,33 +10,3 @@ html.unsupported-browser .visible-when-unsupported-browser {
   display:block;
 }
 
-
-html.chrome {
-  .should-install-chrome-extension { display: inline-block; }
-  .chrome-extension-installed { display: none; }
-
-  &.chrome_extension_installed {
-    .should-install-chrome-extension { display: none; }
-    .chrome-extension-installed { display: inline-block; }
-  }
-}
-
-html.firefox {
-  .should-install-firefox-extension { display: inline-block; }
-  .firefox-extension-installed      { display: none; }
-
-  &.firefox_extension_installed {
-    .should-install-firefox-extension { display: none; }
-    .firefox-extension-installed      { display: inline-block; }
-  }
-}
-
-html.safari {
-  .should-install-safari-extension { display: inline-block; }
-  .safari-extension-installed      { display: none; }
-
-  &.safari_extension_installed {
-    .should-install-safari-extension { display: none; }
-    .safari-extension-installed      { display: inline-block; }
-  }
-}

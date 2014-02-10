@@ -31,10 +31,6 @@
           <div class="should-install-firefox-extension">
             <a id="firefox-extension-button" class="button-confirm" href="https://static.factlink.com/extension/firefox/factlink-latest.xpi">Add Factlink to Firefox</a>
           </div>
-
-          <div class="firefox-extension-installed">
-            <button class="button" disabled >Factlink added to Firefox</button>
-          </div>
         </div>
       </div>
 
@@ -44,10 +40,6 @@
         <div class="transparent-border">
           <div class="should-install-safari-extension">
             <a id="safari-extension-button" class="button-confirm" href="https://static.factlink.com/extension/firefox/factlink.safariextz">Add Factlink to Safari</a>
-          </div>
-
-          <div class="safari-extension-installed">
-            <button class="button" disabled >Factlink added to Safari</button>
           </div>
         </div>
       </div>
@@ -61,38 +53,6 @@
                <%# here we need singlequotes kthxbye: %>
                href='javascript:<%= minify_js(ensure_no_single_quotes(render(:partial => 'home/bookmarklet', :formats => [:js]))) %>'><span style="display: none">Factlink</span></a>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="install-extension-bottom">
-    <div class="visible-when-chrome">
-      <div class="should-install-chrome-extension">
-        <a href="<%= next_tourstep_path(ref: 'chrome_extension_skip') %>">Skip this step</a>
-      </div>
-
-      <div class="chrome-extension-installed">
-        <a class="button-confirm" href="<%= next_tourstep_path(ref: 'chrome_extension_next') %>" data-disable-with="Loading...">Next step</a>
-      </div>
-    </div>
-
-    <div class="visible-when-firefox">
-      <div class="should-install-firefox-extension">
-        <a href="<%= next_tourstep_path(ref: 'firefox_extension_skip') %>">Skip this step</a>
-      </div>
-
-      <div class="firefox-extension-installed">
-        <a class="button-confirm" href="<%= next_tourstep_path(ref: 'firefox_extension_next') %>" data-disable-with="Loading...">Next step</a>
-      </div>
-    </div>
-
-    <div class="visible-when-unsupported-browser">
-      <div class="should-install-unsupported-browser-extension">
-        <a href="<%= next_tourstep_path(ref: 'bookmarklet_skip') %>">Skip step</a>
-      </div>
-
-      <div class="unsupported-browser-extension-installed">
-        <a class="button-confirm" href="<%= next_tourstep_path(ref: 'bookmarklet_next') %>" data-disable-with="Loading...">Next step</a>
       </div>
     </div>
   </div>
