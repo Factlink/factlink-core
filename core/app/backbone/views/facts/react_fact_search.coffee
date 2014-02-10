@@ -53,9 +53,9 @@ ReactFactSearchResults = React.createBackboneClass
         @_childView(fact, index)
 
   _fixIndexModulo: (index)->
-    if index >= @model().length then 0
-    else if index < 0 then @model().length - 1
-    else index
+    collectionLength = @model().length
+
+    (index + collectionLength) % collectionLength
 
   _select: (index) ->
     index = @_fixIndexModulo(index)
