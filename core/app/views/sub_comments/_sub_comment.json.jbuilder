@@ -1,7 +1,7 @@
 json.id           sub_comment.id
 json.formatted_content FormattedCommentContent.new(sub_comment.content).html
 
-json.time_ago     TimeFormatter.as_time_ago(sub_comment.created_at)
+json.created_at   sub_comment.created_at
 
 json.created_by do |json|
   user_id = sub_comment.created_by_id
