@@ -22,14 +22,6 @@ describe Fact do
       expect(Fact[old_id]).to be_nil
       expect(FactData.find(data_id)).to be_nil
     end
-
-    it "removes the fact from the creators facts list" do
-      gu = fact.created_by
-      expect(gu.sorted_created_facts.count).to eq 1
-
-      fact.delete
-      expect(gu.sorted_created_facts.count).to eq 0
-    end
   end
 
   it "has the GraphUser set when a opinion is added" do
@@ -47,7 +39,7 @@ describe Fact do
     end
 
     it "should not give a give a document not found for Factdata" do
-      f = create :fact, created_by: graph_user
+      f = create :fact
       f.data.displaystring = "This is a fact"
       f.data.save
       f.save
@@ -65,15 +57,9 @@ describe Fact do
     end
   end
 
-  it 'creating a fact adds to graph_users sorted_created_facts' do
-    fact = create :fact, created_by: graph_user
-
-    expect(graph_user.sorted_created_facts.to_a).to match_array [fact]
-  end
-
   describe "people believes redis keys" do
     it "should be cleaned up after delete" do
-      fact = create :fact, created_by: graph_user
+      fact = create :fact
       key = fact.key['people_believes'].to_s
       fact.add_opinion(:believes, graph_user)
       redis = Redis.current
@@ -90,24 +76,16 @@ describe Fact do
     let(:other_graph_user) { create :graph_user }
 
     it "is true when a fact is just created" do
-      fact = create :fact, created_by: graph_user
+      fact = create :fact
       expect(fact.deletable?).to be_true
     end
 
     it "is false when people have given their opinion on the fact" do
-      fact = create :fact, created_by: graph_user
+      fact = create :fact
 
       fact.add_opiniated :believes, other_graph_user
 
       expect(fact.deletable?).to be_false
-    end
-
-    it "is true when only the creator has given his opinion" do
-      fact = create :fact, created_by: graph_user
-
-      fact.add_opiniated :believes, graph_user
-
-      expect(fact.deletable?).to be_true
     end
   end
 end

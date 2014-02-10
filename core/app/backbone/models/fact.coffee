@@ -6,11 +6,7 @@ class window.Fact extends Backbone.Model
 
   clientLink: -> "/client/facts/#{@id}"
 
-  user: -> new User(@get("created_by"))
-
-  is_mine: -> @user().is_current_user()
-
-  can_destroy: -> @is_mine() && @get('is_deletable')
+  can_destroy: -> false
 
   factUrlHost: ->
     fact_url = @get('fact_url')

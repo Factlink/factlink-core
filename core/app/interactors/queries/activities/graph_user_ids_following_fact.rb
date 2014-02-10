@@ -12,13 +12,8 @@ module Queries
       end
 
       def follower_ids
-        creator_ids +
-          opinionated_users_ids +
+        opinionated_users_ids +
           comments_followers_ids
-      end
-
-      def creator_ids
-        [fact.created_by_id]
       end
 
       def opinionated_users_ids

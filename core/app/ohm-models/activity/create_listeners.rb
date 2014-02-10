@@ -68,16 +68,6 @@ class Activity < OurOhm
       }
     end
 
-    # stream_activities
-    def forGraphUser_someone_opinionated_a_fact_you_created
-      {
-        subject_class: "Fact",
-        action: [:believes, :doubts, :disbelieves],
-        extra_condition: ->(a) { a.subject.created_by_id != a.user.id },
-        write_ids: ->(a) { [a.subject.created_by_id] }
-      }
-    end
-
     # notifications
     def forGraphUser_someone_followed_you
       {
@@ -122,7 +112,6 @@ class Activity < OurOhm
       stream_activities = [
         forGraphUser_comment_was_added_to_a_fact_you_follow,
         forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow,
-        forGraphUser_someone_opinionated_a_fact_you_created,
         forGraphUser_follower_created_comment,
         forGraphUser_follower_created_sub_comment,
       ]

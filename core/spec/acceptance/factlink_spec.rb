@@ -12,9 +12,7 @@ describe "factlink", type: :feature do
     end
 
     it "can be agreed" do
-      @factlink = backend_create_fact_of_user @user
-      search_string = 'Test search'
-
+      @factlink = backend_create_fact
       go_to_discussion_page_of @factlink
       click_agree @factlink, @user
     end
@@ -22,9 +20,9 @@ describe "factlink", type: :feature do
     it "should find a factlink when searching on a exact phrase containing small words" do
       displaystring = 'feathers is not a four letter groom betters'
 
-      @factlink = backend_create_fact_of_user @user
+      @factlink = backend_create_fact
 
-      @factlink_evidence = backend_create_fact_of_user @user
+      @factlink_evidence = backend_create_fact
       @factlink_evidence.data.displaystring = "Fact: " + displaystring
       @factlink_evidence.data.save
 
@@ -34,13 +32,10 @@ describe "factlink", type: :feature do
   end
 
   it "a non logged user can log in now" do
-    user = create :full_user, :confirmed
-    factlink = backend_create_fact_of_user user
+    factlink = backend_create_fact
 
     visit friendly_fact_path(factlink)
 
     page.should have_content 'sign in/up with email'
   end
-
-
 end

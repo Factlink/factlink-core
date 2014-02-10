@@ -10,7 +10,7 @@ feature "adding comments to a fact", type: :feature do
     @user = sign_in_user create :full_user, :confirmed
   end
 
-  let(:factlink) { create :fact, created_by: @user.graph_user }
+  let(:factlink) { create :fact }
 
   scenario "after adding a comment it should show up and persist" do
 
