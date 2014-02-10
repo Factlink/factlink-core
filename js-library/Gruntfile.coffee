@@ -28,15 +28,6 @@ module.exports = (grunt) ->
           'build/js/jail_iframe/wrap/last.js'
         ]
         dest: 'build/jail_iframe.js'
-      loader_basic:
-        src: 'build/js/loader/loader_common.js'
-        dest: 'build/factlink_loader_basic.js'
-      loader_publishers:
-        src: 'build/js/loader/loader_common.js'
-        dest: 'build/factlink_loader_publishers.js'
-      loader_bookmarklet:
-        src:'build/js/loader/loader_common.js'
-        dest: 'build/factlink_loader_bookmarklet.js'
     sass:
       build:
         options:
@@ -79,10 +70,19 @@ module.exports = (grunt) ->
     copy:
       loader_aliases:
         files: [
-          { src: 'factlink_loader_common.js', cwd: 'build/', dest: 'factlink_loader_basic.js' }
-          { src: 'factlink_loader_common.js', cwd: 'build/', dest: 'factlink_loader_publishers.js' }
-          { src: 'factlink_loader_common.js', cwd: 'build/', dest: 'factlink_loader_bookmarklet.js' }
+          { src: 'js/loader/loader_common.js', cwd: 'build/', dest: 'factlink_loader_basic.js' }
+          { src: 'js/loader/loader_common.js', cwd: 'build/', dest: 'factlink_loader_publishers.js' }
+          { src: 'js/loader/loader_common.js', cwd: 'build/', dest: 'factlink_loader_bookmarklet.js' }
         ]
+#      loader_basic:
+#        src: 'build/js/loader/loader_common.js'
+#        dest: 'build/factlink_loader_basic.js'
+#      loader_publishers:
+#        src: 'build/js/loader/loader_common.js'
+#        dest: 'build/factlink_loader_publishers.js'
+#      loader_bookmarklet:
+#        src:'build/js/loader/loader_common.js'
+#        dest: 'build/factlink_loader_bookmarklet.js'
 
 
       config_development:
