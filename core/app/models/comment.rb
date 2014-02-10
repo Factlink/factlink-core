@@ -11,10 +11,6 @@ class Comment
 
   index({ fact_data: 1, opinion: 1, created_at: 1})
 
-  def believable
-    @believable ||= Believable::Commentje.new(id.to_s)
-  end
-
   def to_s
     content
   end
