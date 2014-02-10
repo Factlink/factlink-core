@@ -69,7 +69,7 @@ ReactFactSearchResults = React.createBackboneClass
 
 window.ReactFactSearch = React.createBackboneClass
   displayName: 'ReactFactSearch'
-  changeOptions: 'add remove reset sort request sync'
+  changeOptions: 'request sync'
 
   _loadingIndicator: ->
     return unless @model().loading()
