@@ -96,8 +96,6 @@ FactlinkUI::Application.routes.draw do
     put "/" => "users#update"
     delete "/" => "users#destroy"
 
-    resources :created_facts, only: [:index]
-
     get '/feed' => "feed#index", as: 'feed'
     get '/feed/count' => "feed#count", as: 'feed_count'
 
