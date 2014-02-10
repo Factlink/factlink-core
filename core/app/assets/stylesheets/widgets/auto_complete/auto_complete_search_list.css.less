@@ -13,78 +13,34 @@
     .box-sizing(border-box);
     .border-bottom-radius(@border-radius);
 
-    display: none;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .17);
 
     overflow-y: auto;
     max-height: 155px;
 
-    ul {
-      list-style: none;
-      margin: 0;
+    .auto-complete-search-list-item {
+      cursor: pointer;
+      font-weight: 200;
+      border-top: 1px solid transparent;
+      border-bottom: 1px solid transparent;
+      overflow: hidden;
 
-      li {
-        cursor: pointer;
-        font-weight: 200;
-        border-top: 1px solid transparent;
-        border-bottom: 1px solid transparent;
-        overflow: hidden;
+      padding: 5px 10px 3px;
+      .ellipsis(100%);
+      text-shadow: 0 1px 0 rgba(255,255,255, 0.5);
 
-        .text {
-          padding: 5px 10px 3px;
-          .ellipsis(100%);
-          text-shadow: 0 1px 0 rgba(255,255,255, 0.5);
+      &.selected {
+        background-color: #ebf3f9;
 
-          em {
-            color: @linkColor;
-            font-style: normal;
-            font-weight: bold;
-          }
-        }
-
-        &.active {
-          background-color: #ebf3f9;
-
-          border-top: 1px solid #d9e5ef;
-          border-bottom: 1px solid #d9e5ef;
-        }
-      }
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      table-layout: fixed;
-
-      tr {
-        display: none;
+        border-top: 1px solid #d9e5ef;
+        border-bottom: 1px solid #d9e5ef;
       }
 
-      td {
-        text-align: left;
-        vertical-align: top;
-        padding: 0;
-        border-bottom: 1px solid #ccc;
-
-        .add-new-block, .active .add-new-block {
-          border-top: none;
-        }
+      em {
+        color: @linkColor;
+        font-style: normal;
+        font-weight: bold;
       }
-
-      tr:last-child th,
-      tr:last-child td {
-        border-bottom: none;
-      }
-    }
-
-    tr.auto-complete-search-list-active {
-      display: table-row;
     }
   }
-}
-
-.auto-complete-floating-list .auto-complete-search-list {
-  position: absolute;
-  left: 0px;
-  top: 0px;
 }

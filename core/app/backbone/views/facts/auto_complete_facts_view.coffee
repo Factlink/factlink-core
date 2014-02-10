@@ -1,131 +1,64 @@
-class AutoCompleteSearchFactView extends Backbone.Marionette.CompositeView
-  tagName: "li"
+ReactAutoCompleteSearchFactView = React.createBackboneClass
+  displayName: 'ReactAutoCompleteSearchFactView'
 
-  template: "facts/auto_complete_search_fact"
+  scrollIntoView: ->
+    $el = $(@refs.input.getDOMNode())
+    scrollIntoViewWithinContainer $el, $el.parents('.auto-complete-search-list')
 
-  triggers:
-    "mouseenter": "requestActivate",
-    "mouseleave": "requestDeActivate",
-    "click"     : "requestClick"
+  render: ->
+    displaystring = @model().get('displaystring')
 
-  templateHelpers: ->
-    query = @options.query
+    _div
+      className: 'auto-complete-search-list-item' + (if @props.selected then ' selected' else '')
+      title: displaystring
+      onMouseEnter: @props.onMouseEnter
+      onMouseLeave: @props.onMouseLeave
+      onClick: @props.onClick
+      dangerouslySetInnerHTML:
+        {__html: highlightTextInTextAsHtml(@props.query, displaystring)}
 
-    highlighted_title: -> highlightTextInTextAsHtml(query, @displaystring)
+ReactAutoCompleteSearchFactsView = React.createBackboneClass
+  displayName: 'ReactAutoCompleteSearchFactsView'
 
-  initialize: ->
-    @on 'activate', => @$el.addClass 'active'
-    @on 'deactivate', => @$el.removeClass 'active'
+  getInitialState: ->
+    selectedModelKey: null
 
-  scrollIntoView: -> scrollIntoViewWithinContainer @$el, @$el.parents('.auto-complete-search-list')
+  _childView: (fact, key) ->
+    new ReactAutoCompleteSearchFactView
+      model: fact
+      query: @model().query
+      selected: key == @state.selectedModelKey
+      onMouseEnter: => @setState selectedModelKey: key
+      onMouseLeave: => @setState selectedModelKey: null
+      onClick: => @setState selectedModelKey: key; @props.onSelect?()
 
-class AutoCompleteSearchFactsView extends Backbone.Marionette.CompositeView
-  itemViewContainer: 'ul'
-  itemView: AutoCompleteSearchFactView
-  itemViewOptions: => query: '' # @model.get('text')
+  selectedModel: ->
+    return unless @state.selectedModelKey?
 
-  className: 'auto-complete-search-list'
-  template: "facts/auto_complete_search_facts"
+    @model().at(@state.selectedModelKey)
 
-  ui:
-    recent_list: '.js-list-recent'
-    search_list: '.js-list-search'
+  # @on 'render', -> @$el.preventScrollPropagation()
+  render: ->
+    return _div() unless @model().length > 0
 
-    recent_row: '.js-row-recent'
-    search_row: '.js-row-search'
+    _div ['auto-complete-search-list'],
+      @model().map (fact, key) =>
+        @_childView(fact, key)
 
-  initialize: ->
-    @on 'after:item:added', @onItemAddedDoSteppableInitialization, this
-    @on 'composite:collection:rendered', => @setActiveView 0
-    @on 'item:removed', @removeViewFromList
+  # fixKeyModulo: (key)->
+  #   if key >= @list.length then 0
+  #   else if key < 0 then @list.length - 1
+  #   else key
 
-    @list = []
+  # moveSelectionUp: ->
+  #   prevKey = if @state.selectedModelKey? then @state.selectedModelKey-1 else -1
+  #   @setState selectedModelKey: prevKey
+  #   # @scrollToCurrent()
 
-    @on 'render', -> @$el.preventScrollPropagation()
-
-  showEmptyView: -> @$el.hide()
-  closeEmptyView: -> @$el.show()
-
-  onClose: ->
-    @list = []
-
-  deActivateCurrent: ->
-    @currentActiveView()?.trigger('deactivate');
-    @activeViewKey = `undefined`
-
-  fixKeyModulo: (key)->
-    if key >= @list.length then 0
-    else if key < 0 then @list.length - 1
-    else key
-
-  setActiveView: (key)->
-    @deActivateCurrent()
-    key = @fixKeyModulo(key)
-    view = @list[key]
-    if view
-      view.trigger('activate');
-      @activeViewKey = key
-
-  moveSelectionUp: ->
-    prevKey = if @activeViewKey? then @activeViewKey - 1 else -1
-    @setActiveView prevKey
-    @scrollToCurrent()
-
-  moveSelectionDown: ->
-    nextKey = if @activeViewKey? then @activeViewKey + 1 else 0
-    @setActiveView nextKey
-    @scrollToCurrent()
-
-  removeViewFromList: (view) ->
-    i = @list.indexOf(view)
-    @list.splice(i,1)
-
-  onItemAddedDoSteppableInitialization: (view) ->
-    @listenTo view, 'requestActivate', -> @requestActivate view
-
-    @listenTo view, 'requestDeActivate', -> @deActivateCurrent()
-
-    @listenTo view, 'requestClick', ->
-      @requestActivate view
-      @trigger 'click'
-
-    @list.push(view)
-
-  currentActiveModel: -> @currentActiveView()?.model
-
-  currentActiveView: ->
-    if 0 <= @activeViewKey < @list.length
-      @list[@activeViewKey]
-    else
-     null
-
-  scrollToCurrent: ->
-    @currentActiveView()?.scrollIntoView?()
-
-  requestActivate: (view) ->
-    unless @alreadyHandlingAnActivate
-      @alreadyHandlingAnActivate = true
-      i = @list.indexOf(view)
-      @setActiveView(i)
-      @alreadyHandlingAnActivate = false
-
-  onRender: -> @updateRows()
-
-  appendHtml: (collectionView, itemView, index) ->
-    model = itemView.model
-    if @options.recent_collection.get(model.id)?
-      @ui.recent_list.append itemView.el
-    else
-      @ui.search_list.append itemView.el
-
-    @updateRows()
-
-  updateRows: ->
-    @_updateRowActive @ui.recent_row, @ui.recent_list
-    @_updateRowActive @ui.search_row, @ui.search_list
-
-  _updateRowActive: ($row, $list) ->
-    $row.toggleClass 'auto-complete-search-list-active', $list.find('li').length > 0
+  # moveSelectionDown: ->
+  #   nextKey = if @state.selectedModelKey? then @state.selectedModelKey+1 else 0
+  #   @setState selectedModelKey: nextKey
+  #   # @scrollToCurrent()
 
 class window.AutoCompleteFactsView extends Backbone.Marionette.Layout
   className: "auto-complete"
@@ -146,27 +79,26 @@ class window.AutoCompleteFactsView extends Backbone.Marionette.Layout
     @listenTo @search_collection, 'request', -> @$el.addClass 'auto-complete-loading'
     @listenTo @search_collection, 'sync', -> @$el.removeClass 'auto-complete-loading'
 
-    @_search_list_view = new AutoCompleteSearchFactsView
-      collection: @search_collection
-      recent_collection: @_recent_collection
-    @listenTo @_search_list_view, 'click', @addCurrent
+    @_search_list_view = new ReactAutoCompleteSearchFactsView
+      model: @search_collection
+      onSelect: => @addSelectedModel()
 
     @_text_input_view = new Backbone.Factlink.ReactTextInputView
       onChange: (value) => @search_collection.searchFor value
       placeholder: 'Search discussion link to insert...'
     # @listenTo @_text_input_view, 'down', -> @_search_list_view.moveSelectionDown()
     # @listenTo @_text_input_view, 'up',   -> @_search_list_view.moveSelectionUp()
-    # @listenTo @_text_input_view, 'return', @addCurrent
+    # @listenTo @_text_input_view, 'return', @addSelectedModel
 
     # @listenTo @model, 'change', @queryChanges
 
   onRender: ->
-    @search_list.show @_search_list_view
+    @search_list.show new ReactView component: @_search_list_view
     @text_input.show new ReactView component: @_text_input_view
     @_text_input_view.focusInput()
 
-  addCurrent: ->
-    selected_fact = @_search_list_view.currentActiveModel()
+  addSelectedModel: ->
+    selected_fact = @_search_list_view.selectedModel()
     return unless selected_fact?
 
     @trigger 'insert', selected_fact.friendly_fact_url()
