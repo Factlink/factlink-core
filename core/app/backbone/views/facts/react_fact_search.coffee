@@ -24,22 +24,22 @@ ReactFactSearchResults = React.createBackboneClass
   changeOptions: 'add remove reset sort sync'
 
   getInitialState: ->
-    selectedModelKey: null
+    selectedModelIndex: null
 
-  _childView: (fact, key) ->
+  _childView: (fact, index) ->
     ReactFactSearchResult
       model: fact
       query: @model().query
-      selected: key == @state.selectedModelKey
-      ref: key
-      onMouseEnter: => @setState selectedModelKey: key
-      onMouseLeave: => @setState selectedModelKey: null
-      onClick: => @setState selectedModelKey: key; @props.onSelect?()
+      selected: index == @state.selectedModelIndex
+      ref: index
+      onMouseEnter: => @setState selectedModelIndex: index
+      onMouseLeave: => @setState selectedModelIndex: null
+      onClick: => @setState selectedModelIndex: index; @props.onSelect?()
 
   selectedModel: ->
-    return unless @state.selectedModelKey?
+    return unless @state.selectedModelIndex?
 
-    @model().at(@state.selectedModelKey)
+    @model().at(@state.selectedModelIndex)
 
   componentDidMount: (el) ->
     $(el).preventScrollPropagation()
@@ -48,24 +48,24 @@ ReactFactSearchResults = React.createBackboneClass
     return _div() unless @model().length > 0
 
     _div ['fact-search-results'],
-      @model().map (fact, key) =>
-        @_childView(fact, key)
+      @model().map (fact, index) =>
+        @_childView(fact, index)
 
-  _fixKeyModulo: (key)->
-    if key >= @model().length then 0
-    else if key < 0 then @model().length - 1
-    else key
+  _fixIndexModulo: (index)->
+    if index >= @model().length then 0
+    else if index < 0 then @model().length - 1
+    else index
 
-  _select: (key) ->
-    key = @_fixKeyModulo(key)
-    @setState selectedModelKey: key
-    @refs[key].scrollIntoView()
+  _select: (index) ->
+    index = @_fixIndexModulo(index)
+    @setState selectedModelIndex: index
+    @refs[index].scrollIntoView()
 
   moveSelectionUp: ->
-    @_select if @state.selectedModelKey? then @state.selectedModelKey-1 else -1
+    @_select if @state.selectedModelIndex? then @state.selectedModelIndex-1 else -1
 
   moveSelectionDown: ->
-    @_select if @state.selectedModelKey? then @state.selectedModelKey+1 else 0
+    @_select if @state.selectedModelIndex? then @state.selectedModelIndex+1 else 0
 
 window.ReactFactSearch = React.createBackboneClass
   displayName: 'ReactFactSearch'
