@@ -1,7 +1,6 @@
 ###@license
-<%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage ? " * " + pkg.homepage : "" %>
-Date: <%= grunt.template.today("m/d/yyyy") %>
-Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>
+Factlink JavaScript library - https://factlink.com
+Copyright (c) 2014 Factlink Team
 
 Copyright for the annotator subcomponent:
 
