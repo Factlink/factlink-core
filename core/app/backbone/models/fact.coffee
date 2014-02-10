@@ -27,7 +27,5 @@ class window.Fact extends Backbone.Model
   friendly_fact_url: ->
     Factlink.Global.core_url + '/f/' + @id
 
-  toJSON: ->
-    _.extend super(),
-      fact_url_host: @factUrlHost()
-      fact_url_title: @get('fact_title') || @factUrlHost()
+  factUrlTitle: ->
+    @get('fact_title') || @factUrlHost()
