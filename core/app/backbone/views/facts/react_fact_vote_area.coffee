@@ -8,7 +8,7 @@ ReactOpinionatorsAvatar = React.createBackboneClass
               src: @model().avatar_url(24)]
 
 ReactOpinionatorsAvatars = React.createBackboneClass
-  displayName: 'ReactOpinionatorsAvatar'
+  displayName: 'ReactOpinionatorsAvatars'
   changeOptions: 'add remove reset sort' + ' change'
 
   _opinionators: ->
@@ -29,7 +29,9 @@ ReactOpinionatorsAvatars = React.createBackboneClass
       @_opinionators()
         .slice(0,take)
         .map (vote) ->
-          ReactOpinionatorsAvatar(model: vote.user())
+          ReactOpinionatorsAvatar
+            model: vote.user()
+            key: vote.get('username') + '-' + vote.get('type')
 
       if show_plus
           _span ["opinionators-more"],
