@@ -3,12 +3,6 @@ factlink-core-container {
   display: block;
   visibility: hidden;
 
-  > #factlink-iframe {
-    @extend %frame-styles;
-    display: none;
-    visibility: hidden;
-  }
-
   > .factlink-control-frame {
     @extend %frame-styles;
     @extend %fadable-control;
