@@ -127,7 +127,7 @@ class AutoCompleteSearchFactsView extends Backbone.Marionette.CompositeView
   _updateRowActive: ($row, $list) ->
     $row.toggleClass 'auto-complete-search-list-active', $list.find('li').length > 0
 
-class window.AutoCompleteFactsView extends AutoCompleteSearchView
+class window.AutoCompleteFactsView extends Backbone.Marionette.Layout
   className: "auto-complete"
 
   regions:
@@ -140,17 +140,29 @@ class window.AutoCompleteFactsView extends AutoCompleteSearchView
     @_recent_collection = new RecentlyViewedFacts
     @_recent_collection.fetch()
 
-    @initializeChildViews
-      search_list_view: (options) => new AutoCompleteSearchFactsView _.extend {}, options,
-        recent_collection: @_recent_collection
-      search_collection: new FactSearchResults [],
-        fact_id: @options.fact_id
-        recent_collection: @_recent_collection
+    @search_collection = new FactSearchResults [],
+      fact_id: @options.fact_id
+      recent_collection: @_recent_collection
+    @listenTo @search_collection, 'request', -> @$el.addClass 'auto-complete-loading'
+    @listenTo @search_collection, 'sync', -> @$el.removeClass 'auto-complete-loading'
+
+    @_search_list_view = new AutoCompleteSearchFactsView
+      collection: @search_collection
+      recent_collection: @_recent_collection
+    @listenTo @_search_list_view, 'click', @addCurrent
+
+    @_text_input_view = new Backbone.Factlink.ReactTextInputView
+      onChange: (value) => @search_collection.searchFor value
       placeholder: 'Search discussion link to insert...'
+    # @listenTo @_text_input_view, 'down', -> @_search_list_view.moveSelectionDown()
+    # @listenTo @_text_input_view, 'up',   -> @_search_list_view.moveSelectionUp()
+    # @listenTo @_text_input_view, 'return', @addCurrent
 
     # @listenTo @model, 'change', @queryChanges
 
   onRender: ->
+    @search_list.show @_search_list_view
+    @text_input.show new ReactView component: @_text_input_view
     @_text_input_view.focusInput()
 
   addCurrent: ->
