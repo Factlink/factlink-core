@@ -74,11 +74,6 @@ window.ReactFactSearch = React.createBackboneClass
   displayName: 'ReactFactSearch'
   changeOptions: 'request sync'
 
-  _loadingIndicator: ->
-    return unless @model().loading()
-
-    _img ['fact-search-loading-indicator', src: Factlink.Global.ajax_loader_image]
-
   render: ->
     _div [],
       _div ['fact-search-input-container'],
@@ -91,7 +86,9 @@ window.ReactFactSearch = React.createBackboneClass
           onUp: => @refs.search.moveSelectionUp()
           onDown: => @refs.search.moveSelectionDown()
           onReturn: => @addSelectedModel()
-        @_loadingIndicator()
+        if @model().loading()
+          _div ['fact-search-loading-indicator'],
+            ReactLoadingIndicator()
       ReactFactSearchResults
         ref: 'search'
         model: @model()
