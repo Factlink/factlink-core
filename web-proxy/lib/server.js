@@ -90,16 +90,18 @@ function getServer(config) {
   /**
    * Add base url, and return the proxied site
    */
-  function injectFactlinkJs(original_html, site, successFn) {
+  function renderProxiedPage(res, site, original_html) {
     "use strict";
 
     if (/factlink_loader_publishers.min.js/.test(original_html)) {
-      if (config.ENV === "development") {
+      if (config.ENV === "development" ) {
         // Disable publisher's script in development mode
         original_html = original_html.replace(/factlink_loader_publishers.min.js/g, 'factlink_loader_publishers_DEACTIVATED.min.js');
       } else {
+        res.setHeader('Cache-Control','max-age=86400');// expires in 1 day
+        res.redirect(site,301);
+        res.end();
         // Redirect to publishers' sites
-        successFn('<script>window.parent.location = ' + JSON.stringify(site) + ';</script>');
         return;
       }
     }
@@ -118,11 +120,13 @@ function getServer(config) {
     var inline_setup_script_tag = '<script>' + framebuster_script +
       factlink_config_script + '</script>';
 
-    var loader_tag = '<script async defer src="' + config.jslib_uri + '" onload="FACTLINK.showProxyMessage();"></script>';
+    var loader_tag = '<script async defer src="' + config.jslib_uri + '" onload="FACTLINK.proxyLoaded();"></script>';
     var header_content = new_base_tag + inline_setup_script_tag + loader_tag;
 
     output_html = inject_html_in_head(output_html, header_content);
-    successFn(output_html);
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(output_html);
+    res.end();
   }
 
   function handleProxyRequest(res, url) {
@@ -145,14 +149,6 @@ function getServer(config) {
         });
       }
     }
-  }
-
-  function renderProxiedPage(res, site, html_in) {
-    injectFactlinkJs(html_in, site, function(html) {
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.write(html);
-      res.end();
-    });
   }
 
   function renderErrorPage(res, url){

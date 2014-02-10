@@ -72,7 +72,7 @@ do ->
 
   # Create proxy object that stores all calls
   # proxies calls from external content page to the js-library "jail" iframe's "FactlinkJailRoot"..
-  methods = 'on,triggerClick,highlightAdditionalFactlinks,showLoadedNotification,scrollTo,openFactlinkModal,initializeFactlinkButton,showProxyMessage'.split(',')
+  methods = 'on,triggerClick,highlightAdditionalFactlinks,loadedBookmarklet,scrollTo,openFactlinkModal,initializeFactlinkButton,proxyLoaded'.split(',')
 
   storedMethodCalls = []
 
@@ -98,7 +98,8 @@ do ->
     document.getElementsByTagName('head')[0].appendChild style_tag
 
     #### Create iframe so jslib's namespace (window) doesn't collide with any content window.
-    jslib_jail_iframe = mkEl 'iframe', 'factlink-iframe'
+    jslib_jail_iframe = mkEl 'iframe', 'factlink_jail_iframe'
+    jslib_jail_iframe.style.display = 'none';
     document.body.appendChild(jslib_jail_iframe)
 
     load_time_before_jail = new Date().getTime()
@@ -127,14 +128,6 @@ do ->
 
     root.core_loaded_promise.then ->
       root.perf.add_timing_event 'core_loaded'
-
-      #TODO put this functionality somewhere other than the loader
-      open_id =
-        /#factlink-open-(\d+)/i.exec(window.location.hash)?[1] ||
-        /(^\?|\&)(factlink_)?open_id=(\d+)($|&)/.exec(window.location.search)?[3]
-      if open_id
-        root.scrollTo parseInt(open_id)
-        root.openFactlinkModal parseInt(open_id)
 
       #called from jail-iframe when core iframe is ready.
       for name in methods

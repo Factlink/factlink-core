@@ -1,4 +1,4 @@
-FactlinkJailRoot.showProxyMessage = ->
+FactlinkJailRoot.proxyLoaded = ->
   content = """
     <div class="proxy-message">
       <strong>Factlink Browser</strong>
