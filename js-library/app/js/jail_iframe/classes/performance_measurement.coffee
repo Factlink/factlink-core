@@ -26,6 +26,9 @@ get_perf_summary = ->
       (padder + o.offset).substr(-offset_col_width)
     ).join('\n')
 
+FactlinkJailRoot.core_loaded_promise.then -> add_timing_event 'core_loaded'
+
+
 FactlinkJailRoot.core_loaded_promise
 .then( -> FactlinkJailRoot.host_loaded_promise)
 .then( -> FactlinkJailRoot.delay 1000)

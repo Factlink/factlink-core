@@ -126,7 +126,6 @@ do ->
     root.jail_ready_promise.resolve()
 
     root.core_loaded_promise.then ->
-      root.perf.add_timing_event 'core_loaded'
 
       #called from jail-iframe when core iframe is ready.
       for name in methods
