@@ -1,5 +1,8 @@
 <%
-  dead_user = Pavlov.query(:users_by_ids, user_ids: [@activity.user.user_id]).first
+  gu_id = @activity.user_id
+
+  follower_count  = UserFollowingUsers.new(gu_id).followers_count
+  following_count = UserFollowingUsers.new(gu_id).following_count
 %>
 
 <% content_for :email_header do %>
@@ -27,13 +30,13 @@
           <td class="user-info-stat" width="50px">
             <span class="muted">Followers</span><br />
             <span class="user-info-value">
-              <%= dead_user.statistics[:follower_count] %>
+              <%= follower_count %>
             </span>
           </td>
           <td class="user-info-stat no-border" width="50px">
             <span class="muted">Following</span><br />
             <span class="user-info-value">
-              <%= dead_user.statistics[:following_count] %>
+              <%= following_count %>
             </span>
           </td>
         </tr>
