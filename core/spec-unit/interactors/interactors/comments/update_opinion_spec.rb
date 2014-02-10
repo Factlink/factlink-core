@@ -40,10 +40,10 @@ describe Interactors::Comments::UpdateOpinion do
             .with(:'comments/by_ids',
                       ids: comment.id, pavlov_options: pavlov_options)
             .and_return([comment])
-      Pavlov.should_receive(:command)
-            .with(:'comments/set_opinion',
-                      comment_id: comment.id, opinion: opinion,
-                      graph_user: user.graph_user, pavlov_options: pavlov_options)
+
+
+      expect(Backend::Comments).to receive(:set_opinion)
+        .with(comment_id: comment.id, opinion: opinion, graph_user: user.graph_user)
 
       expect(interactor.call).to eq comment
     end
@@ -60,10 +60,8 @@ describe Interactors::Comments::UpdateOpinion do
                       ids: comment.id, pavlov_options: pavlov_options)
             .and_return([comment])
 
-      Pavlov.should_receive(:command)
-            .with(:'comments/remove_opinion',
-                      comment_id: comment.id, graph_user: user.graph_user,
-                      pavlov_options: pavlov_options)
+      expect(Backend::Comments).to receive(:remove_opinion)
+        .with(comment_id: comment.id, graph_user: user.graph_user)
 
       expect(interactor.call).to eq comment
     end
@@ -83,14 +81,12 @@ describe Interactors::Comments::UpdateOpinion do
             .with(:'comments/by_ids',
                       ids: comment.id, pavlov_options: pavlov_options)
             .and_return([comment])
-      Pavlov.stub(:command)
-            .with(:'comments/set_opinion',
-                      comment_id: comment.id, opinion: opinion,
-                      graph_user: user.graph_user, pavlov_options: pavlov_options) do
-          Pavlov.stub(:query)
-                .with(:'comments/by_ids',
-                          ids: comment.id, pavlov_options: pavlov_options)
-                .and_return([updated_comment])
+      allow(Backend::Comments).to receive(:set_opinion)
+        .with(comment_id: comment.id, opinion: opinion, graph_user: user.graph_user) do
+        Pavlov.stub(:query)
+              .with(:'comments/by_ids',
+                        ids: comment.id, pavlov_options: pavlov_options)
+              .and_return([updated_comment])
       end
 
       expect(interactor.call).to eq updated_comment

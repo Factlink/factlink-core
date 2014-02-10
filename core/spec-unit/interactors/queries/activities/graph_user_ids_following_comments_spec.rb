@@ -11,17 +11,23 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
   describe '#call' do
     it 'returns unique follower ids' do
       comments = [
-        double(id: '1',
-               created_by: double(graph_user_id: 1),
-               believable: double(opinionated_users_ids: 2)),
-        double(id: '2',
-               created_by: double(graph_user_id: 2),
-               believable: double(opinionated_users_ids: 3))
+        double(id: '1', created_by: double(graph_user_id: 1)),
+        double(id: '2', created_by: double(graph_user_id: 2)),
       ]
+
+      believables = [
+        double(opinionated_users_ids: 2),
+        double(opinionated_users_ids: 3),
+      ]
+
       sub_comments = [
         double( created_by: double( graph_user_id: 3 )),
         double( created_by: double( graph_user_id: 4 ))
       ]
+
+      Believable::Commentje.stub(:new).with(comments[0].id).and_return(believables[0])
+      Believable::Commentje.stub(:new).with(comments[1].id).and_return(believables[1])
+
       query = described_class.new comments: comments
 
       Backend::SubComments.stub(:index)

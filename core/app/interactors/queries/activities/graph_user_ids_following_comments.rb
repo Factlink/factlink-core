@@ -24,7 +24,7 @@ module Queries
 
       def comments_opinionated_ids
         comments.flat_map do |comment|
-          comment.believable.opinionated_users_ids
+          Believable::Commentje.new(comment.id.to_s).opinionated_users_ids
         end
       end
 

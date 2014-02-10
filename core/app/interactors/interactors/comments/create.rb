@@ -10,9 +10,9 @@ module Interactors
                               fact_id: fact_id, content: content,
                               user_id: pavlov_options[:current_user].id.to_s)
 
-        command(:'comments/set_opinion',
-                    comment_id: comment.id.to_s, opinion: 'believes',
-                    graph_user: pavlov_options[:current_user].graph_user)
+        Backend::Comments.set_opinion \
+          comment_id: comment.id.to_s, opinion: 'believes',
+          graph_user: pavlov_options[:current_user].graph_user
 
         create_activity comment
 

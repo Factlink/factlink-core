@@ -29,7 +29,7 @@ describe Interactors::Comments::Create do
     it 'works' do
       fact = double( fact_id: 1 )
       content = 'content'
-      user = double(id: '1a', graph_user: double)
+      user = double(id: '1a', graph_user: double(:graph_user))
 
       comment = double(:comment, id: double(to_s: '10a'), fact_data: double(fact: fact))
       dead_comment = double
@@ -42,10 +42,9 @@ describe Interactors::Comments::Create do
                       fact_id: fact.fact_id, content: content,
                       user_id: user.id, pavlov_options: pavlov_options)
             .and_return(comment)
-      Pavlov.should_receive(:command)
-            .with(:'comments/set_opinion',
-                      comment_id: comment.id.to_s, opinion: 'believes',
-                      graph_user: user.graph_user, pavlov_options: pavlov_options)
+      expect(Backend::Comments).to receive(:set_opinion)
+         .with(comment_id: comment.id.to_s, opinion: 'believes',
+               graph_user: user.graph_user)
       Pavlov.should_receive(:command)
             .with(:'create_activity',
                       graph_user: user.graph_user, action: :created_comment,

@@ -34,8 +34,8 @@ ReactOpinionatorsAvatars = React.createBackboneClass
             key: vote.get('username') + '-' + vote.get('type')
 
       if show_plus
-          _span ["opinionators-more"],
-            "+" + (@_opinionators().length - number_of_places + 1)
+        _span ["opinionators-more"],
+          "+" + (@_opinionators().length - number_of_places + 1)
 
 
 FactVoteButton = React.createBackboneClass

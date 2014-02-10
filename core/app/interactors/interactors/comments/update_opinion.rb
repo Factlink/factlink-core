@@ -7,13 +7,14 @@ module Interactors
 
       def execute
         if opinion == 'no_vote'
-          command(:'comments/remove_opinion',
-                      comment_id: comment_id,
-                      graph_user: pavlov_options[:current_user].graph_user)
+          Backend::Comments.remove_opinion \
+            comment_id: comment_id,
+            graph_user: pavlov_options[:current_user].graph_user
         else
-          command(:'comments/set_opinion',
-                      comment_id: comment_id, opinion: opinion,
-                      graph_user: pavlov_options[:current_user].graph_user)
+          Backend::Comments.set_opinion \
+            comment_id: comment_id,
+            opinion: opinion,
+            graph_user: pavlov_options[:current_user].graph_user
         end
 
         query(:'comments/by_ids', ids: comment_id).first
