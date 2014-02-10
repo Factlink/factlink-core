@@ -16,6 +16,17 @@ ReactSocialStatistics = React.createBackboneClass
         "follower"
         "s" if plural_followers
 
+ReactUser = React.createBackboneClass
+  displayName: 'ReactUser'
+
+  render: ->
+    _article [],
+      _div ["avatar-container--large-name"],
+        @model().get('name')
+      _img ["image-160px avatar-container--large-avatar",
+        alt:" ",
+        src: @model().avatar_url(160)]
+
 class window.ProfileInformationView extends Backbone.Marionette.Layout
   template: 'users/profile/profile_information'
 
@@ -25,7 +36,9 @@ class window.ProfileInformationView extends Backbone.Marionette.Layout
     followUserButtonRegion: '.js-region-user-follow-user'
 
   onRender: ->
-    @profilePictureRegion.show   new UserView(model: @model)
+    @profilePictureRegion.show   new ReactView
+      component: ReactUser
+        model: @model
     @socialStatisticsRegion.show new ReactView
       component: ReactSocialStatistics
         model: @model
