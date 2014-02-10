@@ -54,15 +54,9 @@ module.exports = (grunt) ->
       jail_iframe:
         files:
           'build/jail_iframe.min.js':                        ['build/jail_iframe.js']
-      all_except_jail_iframe:
+      factlink_loader:
         files:
-          'build/factlink.start_annotating.min.js':   ['build/factlink.start_annotating.js'] #Obsolete; remove 2014-04-01
-          'build/factlink.stop_annotating.min.js':    ['build/factlink.stop_annotating.js'] #Obsolete; remove 2014-04-01
-          'build/factlink.start_highlighting.min.js': ['build/factlink.start_highlighting.js'] #Obsolete; remove 2014-04-01
-          'build/factlink.stop_highlighting.min.js':  ['build/factlink.stop_highlighting.js'] #Obsolete; remove 2014-04-01
-          'build/factlink_loader_basic.min.js':       ['build/factlink_loader_basic.js']
-          'build/factlink_loader_publishers.min.js':  ['build/factlink_loader_publishers.js']
-          'build/factlink_loader_bookmarklet.min.js': ['build/factlink_loader_bookmarklet.js']
+          'build/js/loader/loader_common.min.js':       ['build/js/loader/loader_common.js']
     shell:
       gzip_js_files:
         command: ' find build/ -iname \'*.js\'  -maxdepth 1  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
@@ -73,17 +67,20 @@ module.exports = (grunt) ->
           { src: 'js/loader/loader_common.js', cwd: 'build/', dest: 'factlink_loader_basic.js' }
           { src: 'js/loader/loader_common.js', cwd: 'build/', dest: 'factlink_loader_publishers.js' }
           { src: 'js/loader/loader_common.js', cwd: 'build/', dest: 'factlink_loader_bookmarklet.js' }
-        ]
-#      loader_basic:
-#        src: 'build/js/loader/loader_common.js'
-#        dest: 'build/factlink_loader_basic.js'
-#      loader_publishers:
-#        src: 'build/js/loader/loader_common.js'
-#        dest: 'build/factlink_loader_publishers.js'
-#      loader_bookmarklet:
-#        src:'build/js/loader/loader_common.js'
-#        dest: 'build/factlink_loader_bookmarklet.js'
+          
+          { src: 'js/loader/loader_common.min.js', cwd: 'build/', dest: 'factlink_loader_basic.min.js' }
+          { src: 'js/loader/loader_common.min.js', cwd: 'build/', dest: 'factlink_loader_publishers.min.js' }
+          { src: 'js/loader/loader_common.min.js', cwd: 'build/', dest: 'factlink_loader_bookmarklet.min.js' }
+          
+          { src: 'js/loader/loader_common.js.gz', cwd: 'build/', dest: 'factlink_loader_basic.js.gz' }
+          { src: 'js/loader/loader_common.js.gz', cwd: 'build/', dest: 'factlink_loader_publishers.js.gz' }
+          { src: 'js/loader/loader_common.js.gz', cwd: 'build/', dest: 'factlink_loader_bookmarklet.js.gz' }
 
+          { src: 'js/loader/loader_common.min.js.gz', cwd: 'build/', dest: 'factlink_loader_basic.min.js.gz' }
+          { src: 'js/loader/loader_common.min.js.gz', cwd: 'build/', dest: 'factlink_loader_publishers.min.js.gz' }
+          { src: 'js/loader/loader_common.min.js.gz', cwd: 'build/', dest: 'factlink_loader_bookmarklet.min.js.gz' }
+
+        ]
 
       config_development:
         files: [
