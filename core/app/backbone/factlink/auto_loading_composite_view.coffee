@@ -22,7 +22,7 @@ window.extendWithAutoloading = (superclass) ->
         true
       else
         false
-    
+
     # this function sets the correct state after loading is done, tries to load more if applicable
     # and sets empty state if we are not loading and we have no items
     afterLoad: ->
@@ -63,10 +63,8 @@ window.extendWithAutoloading = (superclass) ->
         @emptyViewOff()
         delete @_emptyViewIsOn
 
-    
+
     # TODO: replace this by standard empty view functionality by marionette.
     emptyViewOn: ->
 
     emptyViewOff: ->
-
-window.AutoloadingCompositeView = extendWithAutoloading(Backbone.Factlink.CompositeView)
