@@ -1,16 +1,9 @@
 ReactFactBody = React.createBackboneClass
   render: ->
-    _a ["fact-body-displaystring-clickable",
+    _a ["fact-body",
         href: @model().get('proxy_open_url'),
         target: '_blank'],
       @model().get('displaystring')
-
-ReactFactBase = React.createBackboneClass
-  render: ->
-    _div ['fact-base'],
-      _div ['fact-body'],
-        ReactFactBody
-          model: @model()
 
 ReactProxyLink = React.createBackboneClass
   _onClick: ->
@@ -34,5 +27,5 @@ ReactProxyLink = React.createBackboneClass
 window.ReactFact = React.createBackboneClass
   render: ->
     _div ['fact-view'],
-      ReactFactBase(model: @model())
+      ReactFactBody(model: @model())
       ReactProxyLink(model: @model())

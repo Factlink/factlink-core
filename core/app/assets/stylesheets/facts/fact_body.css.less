@@ -1,15 +1,8 @@
 @import "bootstrap/mixins";
 
-.fact-base {
-  display: inline-block; // for block formatting context
-  width: 100%;
-}
-
 .fact-body {
+  display: inline-block; // for block formatting context
   word-wrap: break-word;
-}
-
-.fact-body-displaystring-clickable {
   padding: 1px 0;
   background-color: @factlinkInactiveColor;
   .transition(background-color 0.4s);
