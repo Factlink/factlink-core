@@ -45,20 +45,20 @@ ReactAutoCompleteSearchFactsView = React.createBackboneClass
       @model().map (fact, key) =>
         @_childView(fact, key)
 
-  # fixKeyModulo: (key)->
-  #   if key >= @list.length then 0
-  #   else if key < 0 then @list.length - 1
-  #   else key
+  _fixKeyModulo: (key)->
+    if key >= @model().length then 0
+    else if key < 0 then @model().length - 1
+    else key
 
-  # moveSelectionUp: ->
-  #   prevKey = if @state.selectedModelKey? then @state.selectedModelKey-1 else -1
-  #   @setState selectedModelKey: prevKey
-  #   # @scrollToCurrent()
+  moveSelectionUp: ->
+    prevKey = if @state.selectedModelKey? then @state.selectedModelKey-1 else -1
+    @setState selectedModelKey: @_fixKeyModulo(prevKey)
+    # @scrollToCurrent()
 
-  # moveSelectionDown: ->
-  #   nextKey = if @state.selectedModelKey? then @state.selectedModelKey+1 else 0
-  #   @setState selectedModelKey: nextKey
-  #   # @scrollToCurrent()
+  moveSelectionDown: ->
+    nextKey = if @state.selectedModelKey? then @state.selectedModelKey+1 else 0
+    @setState selectedModelKey: @_fixKeyModulo(nextKey)
+    # @scrollToCurrent()
 
 class window.AutoCompleteFactsView extends Backbone.Marionette.Layout
   className: "auto-complete"
@@ -84,11 +84,11 @@ class window.AutoCompleteFactsView extends Backbone.Marionette.Layout
       onSelect: => @addSelectedModel()
 
     @_text_input_view = new Backbone.Factlink.ReactTextInputView
-      onChange: (value) => @search_collection.searchFor value
       placeholder: 'Search discussion link to insert...'
-    # @listenTo @_text_input_view, 'down', -> @_search_list_view.moveSelectionDown()
-    # @listenTo @_text_input_view, 'up',   -> @_search_list_view.moveSelectionUp()
-    # @listenTo @_text_input_view, 'return', @addSelectedModel
+      onChange: (value) => @search_collection.searchFor value
+      onUp: => @_search_list_view.moveSelectionUp()
+      onDown: => @_search_list_view.moveSelectionDown()
+      onReturn: => @addSelectedModel()
 
     # @listenTo @model, 'change', @queryChanges
 
