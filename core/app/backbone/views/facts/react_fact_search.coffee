@@ -3,7 +3,7 @@ ReactFactSearchResult = React.createBackboneClass
 
   scrollIntoView: ->
     $el = $(@getDOMNode())
-    scrollIntoViewWithinContainer $el, $el.parents('.fact-search-list')
+    scrollIntoViewWithinContainer $el, $el.parents('.fact-search-results')
 
   render: ->
     displaystring = @model().get('displaystring')
@@ -82,8 +82,8 @@ window.ReactFactSearch = React.createBackboneClass
           onChange: (value) =>
             @model().searchFor value
             @_queryChanges()
-          onUp: => @_search_list_view.moveSelectionUp()
-          onDown: => @_search_list_view.moveSelectionDown()
+          onUp: => @refs.search.moveSelectionUp()
+          onDown: => @refs.search.moveSelectionDown()
           onReturn: => @addSelectedModel()
         @_loadingIndicator()
       ReactFactSearchResults
