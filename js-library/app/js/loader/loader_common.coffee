@@ -17,7 +17,7 @@ do ->
 
   # Create proxy object that stores all calls
   # proxies calls from external content page to the js-library "jail" iframe's "FactlinkJailRoot"..
-  methods = 'on,triggerClick,highlightAdditionalFactlinks,loadedBookmarklet,scrollTo,openFactlinkModal,initializeFactlinkButton,showProxyMessage'.split(',')
+  methods = 'on,triggerClick,highlightAdditionalFactlinks,loadedBookmarklet,scrollTo,openFactlinkModal,initializeFactlinkButton,proxyLoaded'.split(',')
 
   storedMethodCalls = []
 

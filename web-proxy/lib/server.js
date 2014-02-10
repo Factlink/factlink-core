@@ -118,7 +118,7 @@ function getServer(config) {
     var inline_setup_script_tag = '<script>' + framebuster_script +
       factlink_config_script + '</script>';
 
-    var loader_tag = '<script async defer src="' + config.jslib_uri + '" onload="FACTLINK.showProxyMessage();"></script>';
+    var loader_tag = '<script async defer src="' + config.jslib_uri + '" onload="FACTLINK.proxyLoaded();"></script>';
     var header_content = new_base_tag + inline_setup_script_tag + loader_tag;
 
     output_html = inject_html_in_head(output_html, header_content);
