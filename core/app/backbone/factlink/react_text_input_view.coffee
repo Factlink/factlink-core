@@ -17,9 +17,7 @@ Backbone.Factlink.ReactTextInputView = React.createBackboneClass
       when 27 then @_setText ''
       else eventHandled = false
 
-    if eventHandled
-      e.preventDefault()
-      e.stopPropagation()
+    return !eventHandled
 
   _onChange: (e) -> @_setText e.target.value
 
