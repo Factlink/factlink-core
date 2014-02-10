@@ -1,4 +1,4 @@
-FactlinkJailRoot.proxyLoaded = ->
+FactlinkJailRoot.public_events.on 'proxyLoaded', ->
   content = """
     <div class="proxy-message">
       <strong>Factlink Browser</strong>

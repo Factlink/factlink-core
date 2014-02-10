@@ -62,28 +62,12 @@ frame_style_code = __INLINE_FRAME_CSS_PLACEHOLDER__
 do ->
   unsupported_browser = document.documentMode < 9
   return if unsupported_browser
-  if window.FACTLINK_LOADED
-    console.error 'FACTLINK already loaded!'
+  if window.__internalFactlinkState
+    console.log 'Factlink already loaded!'
     return
-  window.FACTLINK_LOADED = true
-
-  window.FACTLINK = {}
-
-  # Create proxy object that stores all calls
-  # proxies calls from external content page to the js-library "jail" iframe's "FactlinkJailRoot"..
-  methods = 'on,triggerClick,highlightAdditionalFactlinks,loadedBookmarklet,scrollTo,openFactlinkModal,initializeFactlinkButton,proxyLoaded'.split(',')
 
   storedMethodCalls = []
-
-  storedMethodFactory = (name) ->
-    -> storedMethodCalls.push(name: name, arguments: arguments) && undefined
-
-  for name in methods
-    window.FACTLINK[name] =
-      if unsupported_browser
-        ->
-      else
-        storedMethodFactory name
+  window.__internalFactlinkState = -> storedMethodCalls.push(arguments) && undefined
 
   mkEl = (name, id, content) ->
     el = document.createElement(name)
@@ -125,20 +109,12 @@ do ->
 
     root.jail_ready_promise.resolve()
 
-    root.core_loaded_promise.then ->
+    window.__internalFactlinkState = (args...) -> root.public_events.trigger(args...)
 
-      #called from jail-iframe when core iframe is ready.
-      for name in methods
-        do (name) ->
-          # don't return the value, as we can't do that when storing calls
-          window.FACTLINK[name] = ->
-            root[name](arguments...)
-            return
-
-      for methodCall in storedMethodCalls
-        window.FACTLINK[methodCall.name](methodCall.arguments...)
-      storedMethodCalls = undefined
-      root.perf.add_timing_event 'FACTLINK_queue_emptied'
+    for args in storedMethodCalls
+      window.__internalFactlinkState(args...)
+    storedMethodCalls = undefined
+    root.perf.add_timing_event 'FACTLINK_queue_emptied'
 
 
   tryToInit = (i) -> ->
