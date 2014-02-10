@@ -1,59 +1,5 @@
 # global config:true, file:true, task:true, module: true
 
-banner_template = """
-/*@license
-<%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage ? " * " + pkg.homepage : "" %>
-Date: <%= grunt.template.today("m/d/yyyy") %>
-Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>
-
-Copyright for the annotator subcomponent:
-
-Copyright 2012 Aron Carroll, Rufus Pollock, and Nick Stenning.
-
-Permission is hereby granted, free of charge, to any person obtaining
-a  copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-Copyright for the jQuery subcomponent:
-
-Copyright 2013 jQuery Foundation and other contributors
-http://jquery.com/
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-"""
 timer = require 'grunt-timer'
 path = require 'path'
 fs = require 'fs'
@@ -81,31 +27,7 @@ module.exports = (grunt) ->
           'build/js/jail_iframe/initializers/*.js'
           'build/js/jail_iframe/wrap/last.js'
         ]
-        dest: 'build/jail_iframe.js'
-      loader_basic:
-        options:
-          banner: banner_template
-        src: [
-          'build/js/loader/loader_common.js'
-          'build/js/loader/loader_basic.js'
-        ]
-        dest: 'build/factlink_loader_basic.js'
-      loader_publishers:
-        options:
-          banner: banner_template
-        src: [
-          'build/js/loader/loader_common.js'
-          'build/js/loader/loader_publishers.js'
-        ]
-        dest: 'build/factlink_loader_publishers.js'
-      loader_bookmarklet:
-        options:
-          banner: banner_template
-        src: [
-          'build/js/loader/loader_common.js'
-          'build/js/loader/loader_bookmarklet.js'
-        ]
-        dest: 'build/factlink_loader_bookmarklet.js'
+        dest: 'build/js/jail_iframe.js'
     sass:
       build:
         options:
@@ -131,21 +53,34 @@ module.exports = (grunt) ->
         preserveComments: (node, comment) -> !comment.value.lastIndexOf('@license', 0)
       jail_iframe:
         files:
-          'build/jail_iframe.min.js':                        ['build/jail_iframe.js']
-      all_except_jail_iframe:
+          'build/js/jail_iframe.min.js':                        ['build/js/jail_iframe.js']
+      factlink_loader:
         files:
-          'build/factlink.start_annotating.min.js':   ['build/factlink.start_annotating.js']
-          'build/factlink.stop_annotating.min.js':    ['build/factlink.stop_annotating.js']
-          'build/factlink.start_highlighting.min.js': ['build/factlink.start_highlighting.js'] #Obsolete; remove 2014-04-01
-          'build/factlink.stop_highlighting.min.js':  ['build/factlink.stop_highlighting.js'] #Obsolete; remove 2014-04-01
-          'build/factlink_loader_basic.min.js':       ['build/factlink_loader_basic.js']
-          'build/factlink_loader_publishers.min.js':  ['build/factlink_loader_publishers.js']
-          'build/factlink_loader_bookmarklet.min.js': ['build/factlink_loader_bookmarklet.js']
+          'build/js/loader/loader_common.min.js':       ['build/js/loader/loader_common.js']
     shell:
       gzip_js_files:
-        command: ' find build/ -iname \'*.js\'  -maxdepth 1  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
+        command: ' find build/js/loader/ -iname \'*.js\'  -maxdepth 1  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
 
     copy:
+      dist_loader_aliases:
+        files: [
+          { src: 'build/js/loader/loader_common.js', dest: 'output/dist/factlink_loader_basic.js' }
+          { src: 'build/js/loader/loader_common.js', dest: 'output/dist/factlink_loader_publishers.js' }
+          { src: 'build/js/loader/loader_common.js', dest: 'output/dist/factlink_loader_bookmarklet.js' }
+          
+          { src: 'build/js/loader/loader_common.min.js', dest: 'output/dist/factlink_loader_basic.min.js' }
+          { src: 'build/js/loader/loader_common.min.js', dest: 'output/dist/factlink_loader_publishers.min.js' }
+          { src: 'build/js/loader/loader_common.min.js', dest: 'output/dist/factlink_loader_bookmarklet.min.js' }
+          
+          { src: 'build/js/loader/loader_common.js.gz', dest: 'output/dist/factlink_loader_basic.js.gz' }
+          { src: 'build/js/loader/loader_common.js.gz', dest: 'output/dist/factlink_loader_publishers.js.gz' }
+          { src: 'build/js/loader/loader_common.js.gz', dest: 'output/dist/factlink_loader_bookmarklet.js.gz' }
+
+          { src: 'build/js/loader/loader_common.min.js.gz', dest: 'output/dist/factlink_loader_basic.min.js.gz' }
+          { src: 'build/js/loader/loader_common.min.js.gz', dest: 'output/dist/factlink_loader_publishers.min.js.gz' }
+          { src: 'build/js/loader/loader_common.min.js.gz', dest: 'output/dist/factlink_loader_bookmarklet.min.js.gz' }
+        ]
+
       config_development:
         files: [
           { src: ['development.js'], cwd: 'build/config', dest: 'build/js/jail_iframe/config', expand: true }
@@ -163,13 +98,9 @@ module.exports = (grunt) ->
         files: [
           { src: ['**/*.js', '**/*.png', '**/*.gif', '**/*.woff', 'robots.txt'], cwd: 'app', dest: 'build', expand: true }
         ]
-      extension_events:
+      dist_static_content:
         files: [
-          { src: ['factlink.*.js'], cwd: 'build/js/extension_events', dest: 'build', expand: true }
-        ]
-      dist:
-        files: [
-          { src: ['*.js', '*.js.gz', 'robots.txt', 'images/**/*'], cwd: 'build', dest: 'output/dist', expand: true }
+          { src: ['robots.txt', 'images/**/*'], cwd: 'build', dest: 'output/dist', expand: true }
         ]
     watch:
       files: ['app/**/*', 'Gruntfile.coffee']
@@ -195,30 +126,26 @@ module.exports = (grunt) ->
       }
       {
         placeholder: '__INLINE_JS_PLACEHOLDER__'
-        content_file: 'build/jail_iframe.js'
+        content_file: 'build/js/jail_iframe.js'
       }
     ]
-    targets = [
-      'build/factlink_loader_basic.js'
-      'build/factlink_loader_bookmarklet.js'
-      'build/factlink_loader_publishers.js'
-    ]
     file_variant_funcs.forEach (file_variant_func) ->
-        replacements.forEach (replacement) ->
-          input_filename = file_variant_func(replacement.content_file)
-          input_content = grunt.file.read(input_filename, 'utf8')
-          input_content_stringified = JSON.stringify(input_content)
-          targets.map(file_variant_func).forEach (target_filename) ->
-            grunt.log.writeln "Inlining '#{input_filename}' into '#{target_filename}' where  '#{replacement.placeholder}'."
-            target_content = grunt.file.read target_filename, 'utf8'
-            target_with_inlined_content = target_content.replace replacement.placeholder, input_content_stringified
-            grunt.file.write(target_filename, target_with_inlined_content)
+      replacements.forEach (replacement) ->
+        input_filename = file_variant_func(replacement.content_file)
+        input_content = grunt.file.read(input_filename, 'utf8')
+        input_content_stringified = JSON.stringify(input_content)
+        target_filename = file_variant_func 'build/js/loader/loader_common.js'
 
-  grunt.registerTask 'preprocessor',  [
-    'clean', 'copy:build', 'copy:extension_events', 'coffee', 'sass', 'cssUrlEmbed', 'cssmin', ]
+        grunt.log.writeln "Inlining '#{input_filename}' into '#{target_filename}' where  '#{replacement.placeholder}'."
+        target_content = grunt.file.read target_filename, 'utf8'
+        target_with_inlined_content = target_content.replace replacement.placeholder, input_content_stringified
+        grunt.file.write(target_filename, target_with_inlined_content)
+
+  grunt.registerTask 'preprocessor', [
+    'clean', 'copy:build', 'coffee', 'sass', 'cssUrlEmbed', 'cssmin', ]
 
   grunt.registerTask 'postprocessor', [
-    'concat', 'mocha', 'uglify', 'code_inliner', 'shell:gzip_js_files', 'copy:dist' ]
+    'concat', 'mocha', 'uglify', 'code_inliner', 'shell:gzip_js_files', 'copy:dist_loader_aliases', 'copy:dist_static_content' ]
 
   grunt.registerTask 'compile_development', [ 'preprocessor', 'copy:config_development', 'postprocessor' ]
   grunt.registerTask 'compile_staging',     [ 'preprocessor', 'copy:config_staging',     'postprocessor' ]
