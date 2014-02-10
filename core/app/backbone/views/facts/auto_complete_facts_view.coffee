@@ -103,9 +103,6 @@ class window.AutoCompleteFactsView extends Backbone.Marionette.Layout
 
     @trigger 'insert', selected_fact.friendly_fact_url()
 
-  reset: ->
-    # @model.set text: ''
-
   queryChanges: ->
     unless @query_has_changed
       @query_has_changed = true
