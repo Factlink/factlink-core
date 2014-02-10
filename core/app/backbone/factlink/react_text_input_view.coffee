@@ -2,7 +2,7 @@ Backbone.Factlink ||= {}
 Backbone.Factlink.ReactTextInputView = React.createBackboneClass
 
   getInitialState: ->
-    text: @props.defaultValue
+    text: ''
 
   focusInput: ->
     @refs.input.getDOMNode().focus()
