@@ -4,7 +4,7 @@
 set -e
 sfextfile=$1
 
-if [ ! -d "$sfextfile" ]; then
+if [ ! -f "$sfextfile" ]; then
   echo "First argument must be the file of the safari extension (factlink.safariext)"
   exit 1
 fi
