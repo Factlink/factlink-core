@@ -31,7 +31,7 @@ describe 'evidence' do
 
         evidence = pavlov.interactor :'comments/for_fact_id', fact_id: fact.id.to_s, type: :believes
 
-        expect(evidence.map(&:content)).to eq ['Gekke Gerrit', 'Handige Harrie']
+        expect(evidence.map(&:formatted_content)).to eq ['Gekke Gerrit', 'Handige Harrie']
       end
     end
   end
