@@ -38,8 +38,8 @@ class IconButton
     @$el.removeClass 'factlink-control-visible'
 
   _setStylesFromElement: (element) ->
-    $element = $(element)
-    targetColor = $element.css('color')
+    style = window.getComputedStyle(element)
+    targetColor = style.color
 
     # See https://gamedev.stackexchange.com/questions/38536/given-a-rgb-color-x-how-to-find-the-most-contrasting-color-y/38561#38561
     targetRGB = targetColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
@@ -47,8 +47,8 @@ class IconButton
     targetBrightness = 0.2126*r*r + 0.7152*g*g + 0.0722*b*b
 
     @$el.css
-      'line-height': $element.css('line-height')
-      'font-size': Math.max 15, Math.min 20, parseInt $element.css('font-size')
+      'line-height': style.lineHeight
+      'font-size': Math.max 15, Math.min 20, parseInt style.fontSize
       'color': if targetBrightness > 0.5 then 'black' else 'white'
 
     @$el.find('factlink-icon-button-bubble').css

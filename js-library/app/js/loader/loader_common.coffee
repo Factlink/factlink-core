@@ -78,9 +78,18 @@ whenHasBody = ->
   style_tag = mkEl 'style', null, document.createTextNode(style_code)
   document.getElementsByTagName('head')[0].appendChild style_tag
 
-  #### Create iframe so jslib's namespace (window) doesn't collide with any content window.
+  # Create iframe so jslib's namespace (window) doesn't collide with any content window.
   jslib_jail_iframe = mkEl 'iframe', 'factlink_jail_iframe'
-  jslib_jail_iframe.style.display = 'none';
+  # in FF, a display none iframe cannot access getComputedStyle
+  # in iOS, a hidden, opacity 0 iframe is still visible.
+  jslib_jail_iframe.style.visibility = 'hidden';
+  jslib_jail_iframe.style.position = 'absolute';
+  jslib_jail_iframe.style.width = '0';
+  jslib_jail_iframe.style.height = '0';
+  jslib_jail_iframe.style.opacity = '0';
+  jslib_jail_iframe.style.marginLeft = '-10000px';
+
+
   document.body.appendChild(jslib_jail_iframe)
 
   load_time_before_jail = new Date().getTime()
@@ -88,7 +97,7 @@ whenHasBody = ->
   jail_window = jslib_jail_iframe.contentWindow
   jail_window.FrameCss = frame_style_code
 
-  #### Load iframe with script tag
+  # Load iframe with script tag
   jslib_jail_doc = jail_window.document
 
   jslib_jail_doc.open()
