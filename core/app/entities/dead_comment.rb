@@ -23,13 +23,5 @@ DeadComment = StrictStruct.new(
     res
   end
 
-  def serializable_hash(*args)
-    to_h
-  end
-  def to_hash(*args)
-    to_h
-  end
-  def as_json(*args)
-    to_h
-  end
+  alias :to_hash :to_h
 end
