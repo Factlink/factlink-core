@@ -3,8 +3,9 @@ DeadFact = StrictStruct.new(
   :site_url,
   :displaystring,
   :created_at,
-  :title,
+  :site_title,
 ) do
+
   def to_s
     displaystring || ""
   end
@@ -21,4 +22,5 @@ DeadFact = StrictStruct.new(
     URI.parse(site_url).host
   end
 
+  alias :to_hash :to_h
 end

@@ -7,7 +7,7 @@ class window.ClientController
     fact = new Fact
       displaystring: params.displaystring
       url: params.url
-      fact_title: params.fact_title
+      site_title: params.site_title
 
     if Factlink.Global.signed_in
       fact.save {},

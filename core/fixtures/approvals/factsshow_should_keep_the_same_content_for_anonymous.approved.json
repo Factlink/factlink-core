@@ -1,9 +1,9 @@
 {
-  "displaystring": "displaystring",
   "id": "<id>",
-  "url": "/f/1",
+  "site_url": "url",
+  "displaystring": "displaystring",
   "created_at": "<created_at>",
-  "fact_title": "title",
-  "fact_url": "url",
+  "site_title": "title",
+  "url": "/f/1",
   "proxy_open_url": "http://localhost:8080/?url=url#factlink-open-1"
 }

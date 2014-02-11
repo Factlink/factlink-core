@@ -5,11 +5,11 @@ window.initClientCommunicator = ->
   local =
     showFactlink: (id) -> showUrl "/client/facts/#{id}"
 
-    prepareNewFactlink: (displaystring, url, fact_title, current_user_opinion='no_vote') ->
+    prepareNewFactlink: (displaystring, url, site_title, current_user_opinion='no_vote') ->
       showUrl "/client/facts/new" +
         "?displaystring=" + encodeURIComponent(displaystring) +
         "&url=" + encodeURIComponent(url) +
-        "&fact_title=" + encodeURIComponent(fact_title) +
+        "&site_title=" + encodeURIComponent(site_title) +
         "&current_user_opinion=" + encodeURIComponent(current_user_opinion)
 
   showUrl = (url) ->

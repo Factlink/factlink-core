@@ -12,7 +12,7 @@ module Queries
                      site_url: site_url,
                      displaystring: fact.data.displaystring,
                      created_at: fact.data.created_at,
-                     title: fact.data.title
+                     site_title: fact.data.title
       end
 
       def fact

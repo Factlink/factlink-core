@@ -8,7 +8,7 @@ ReactFactBody = React.createBackboneClass
 ReactProxyLink = React.createBackboneClass
   _onClick: ->
     mp_track "Factlink: Open proxy link",
-      site_url: @model().get("fact_url")
+      site_url: @model().get("site_url")
 
   render: ->
     fact_url_host = @model().factUrlHost()
