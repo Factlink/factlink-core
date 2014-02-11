@@ -69,11 +69,12 @@ FactVoteAmountGraph = React.createClass
     disbelieve_percentage = 100-believe_percentage
 
     _table ["fact-vote-amount-graph"],
-      _tr [],
-        _td ["vote-amount-graph-believers"
-             style: {width: "#{believe_percentage}%"}]
-        _td ["vote-amount-graph-disbelievers"
-             style: {width: "#{disbelieve_percentage}%"}]
+      _tbody [],
+        _tr [],
+          _td ["vote-amount-graph-believers"
+               style: {width: "#{believe_percentage}%"}]
+          _td ["vote-amount-graph-disbelievers"
+               style: {width: "#{disbelieve_percentage}%"}]
 
 FactVoteStatsTable = React.createBackboneClass
   displayName: 'FactVoteStatsTable'
