@@ -37,10 +37,6 @@ class SitesController < ApplicationController
     render_jsonp facts
   end
 
-  def blacklisted
-    render_jsonp is_blacklisted ? { blacklisted: 'This site is not supported' } : {}
-  end
-
   private
 
   def render_jsonp json_able
