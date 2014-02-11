@@ -93,10 +93,10 @@ function getServer(config) {
   function renderProxiedPage(res, site, original_html) {
     "use strict";
 
-    if (/factlink_loader_publishers.min.js/.test(original_html)) {
-      if (config.ENV === "development" ) {
+    if (/factlink_loader(_publishers)?\.min\.js/.test(original_html)) {
+      if (config.ENV === "development" || config.ENV === "staging" ) {
         // Disable publisher's script in development mode
-        original_html = original_html.replace(/factlink_loader_publishers.min.js/g, 'factlink_loader_publishers_DEACTIVATED.min.js');
+        original_html = original_html.replace(/factlink_loader(_publishers)?\.min\.js/g, 'factlink_loader.min.js.DEACTIVATED');
       } else {
         res.setHeader('Cache-Control','max-age=86400');// expires in 1 day
         res.redirect(site,301);
