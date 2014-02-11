@@ -1,5 +1,3 @@
-Backbone.Factlink ||= {}
-
 window.ReactPopover = React.createBackboneClass
   displayName: 'ReactPopover'
 
