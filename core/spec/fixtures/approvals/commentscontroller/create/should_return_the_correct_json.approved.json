@@ -10,10 +10,10 @@
   "created_at": "<created_at>",
   "sub_comments_count": 0,
   "is_deletable": true,
-  "formatted_content": "Gerard is een gekke meneer",
   "tally": {
     "believes": 1,
     "disbelieves": 0,
     "current_user_opinion": "believes"
-  }
+  },
+  "formatted_content": "Gerard is een gekke meneer"
 }

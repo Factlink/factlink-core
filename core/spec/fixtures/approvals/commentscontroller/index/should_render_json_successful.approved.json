@@ -11,12 +11,12 @@
     "created_at": "<created_at>",
     "sub_comments_count": 0,
     "is_deletable": true,
-    "formatted_content": "a comment",
     "tally": {
       "believes": 1,
       "disbelieves": 0,
       "current_user_opinion": "no_vote"
-    }
+    },
+    "formatted_content": "a comment"
   },
   {
     "id": "<id>",
@@ -30,11 +30,11 @@
     "created_at": "<created_at>",
     "sub_comments_count": 0,
     "is_deletable": true,
-    "formatted_content": "a comment",
     "tally": {
       "believes": 0,
       "disbelieves": 1,
       "current_user_opinion": "disbelieves"
-    }
+    },
+    "formatted_content": "a comment"
   }
 ]
