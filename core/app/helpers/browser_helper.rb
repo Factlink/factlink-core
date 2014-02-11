@@ -7,7 +7,7 @@ module BrowserHelper
   end
 
   def browser_preferred?
-    browser.chrome? or browser.firefox? or browser.phantom_js?
+    browser.chrome? or browser.firefox? or browser.safari? or browser.phantom_js?
   end
 
   def browser_class_name
@@ -15,6 +15,8 @@ module BrowserHelper
       'chrome'
     elsif browser.firefox?
       'firefox'
+    elsif browser.safari?
+      'safari'
     elsif browser.phantom_js?
       'phantom_js unsupported-browser'
     else
