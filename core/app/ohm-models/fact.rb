@@ -60,13 +60,13 @@ class Fact < OurOhm
   end
 
   def delete
-    data.destroy
-    believable.delete
+    raise unless deletable?
     super
   end
 
   def deletable?
-    opinionated_users_ids == []
+    opinionated_users_ids.length == 0 &&
+      Comment.where(fact_data_id: data_id).length == 0
   end
 
   # For compatibility with DeadFact

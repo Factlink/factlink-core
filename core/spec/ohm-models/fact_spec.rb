@@ -12,18 +12,6 @@ describe Fact do
     Activity.stub(:create)
   end
 
-  describe ".delete" do
-    it "works" do
-      old_id = fact.id
-      data_id = fact.data.id
-
-      fact.delete
-
-      expect(Fact[old_id]).to be_nil
-      expect(FactData.find(data_id)).to be_nil
-    end
-  end
-
   it "has the GraphUser set when a opinion is added" do
     parent = create :fact
     parent.add_opinion(:believes, graph_user)
@@ -57,20 +45,6 @@ describe Fact do
     end
   end
 
-  describe "people believes redis keys" do
-    it "should be cleaned up after delete" do
-      fact = create :fact
-      key = fact.key['people_believes'].to_s
-      fact.add_opinion(:believes, graph_user)
-      redis = Redis.current
-      expect(redis.smembers(key)).to eq [graph_user.id]
-
-      fact.delete
-
-      expect(redis.smembers(key)).to eq []
-    end
-  end
-
   describe '#deletable?' do
     let(:graph_user) { create :graph_user }
     let(:other_graph_user) { create :graph_user }
@@ -84,6 +58,14 @@ describe Fact do
       fact = create :fact
 
       fact.add_opiniated :believes, other_graph_user
+
+      expect(fact.deletable?).to be_false
+    end
+
+    it "is false when a comment has been given" do
+      fact = create :fact
+
+      Pavlov.command(:'comments/create', fact_id: fact.id, content: 'foo', user_id: (create :user).id)
 
       expect(fact.deletable?).to be_false
     end
