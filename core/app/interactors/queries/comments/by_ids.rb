@@ -29,7 +29,6 @@ module Queries
           created_by: query(:dead_users_by_ids, user_ids: comment.created_by_id).first,
           created_at: comment.created_at.utc.iso8601,
           content: comment.content,
-          created_by_id: comment.created_by_id,
           sub_comments_count: Backend::SubComments.count(parent_id: comment.id),
           votes: votes(believable),
           is_deletable: deletable?(comment, believable),
