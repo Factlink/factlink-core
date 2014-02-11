@@ -70,4 +70,14 @@ describe Fact do
       expect(fact.deletable?).to be_false
     end
   end
+
+  describe 'delete' do
+    it "raises when deletable? is false" do
+      fact = create :fact
+      fact.stub deletable?: false
+      expect do
+        fact.delete
+      end.to raise_error
+    end
+  end
 end
