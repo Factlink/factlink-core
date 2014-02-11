@@ -14,8 +14,6 @@ class SitesController < ApplicationController
       facts_count = site ? site.facts.count : 0
       response = { count: facts_count }
     end
-    response[:jslib_url] = FactlinkUI::Application.config.jslib_url
-
     render_jsonp response
   end
 
