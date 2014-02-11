@@ -80,14 +80,9 @@ whenHasBody = ->
 
   # Create iframe so jslib's namespace (window) doesn't collide with any content window.
   jslib_jail_iframe = mkEl 'iframe', 'factlink_jail_iframe'
-  # in FF, a display none iframe cannot access getComputedStyle
+  # warning: in FF, a display none iframe cannot access getComputedStyle
   # in iOS, a hidden, opacity 0 iframe is still visible.
-  jslib_jail_iframe.style.visibility = 'hidden';
-  jslib_jail_iframe.style.position = 'absolute';
-  jslib_jail_iframe.style.width = '0';
-  jslib_jail_iframe.style.height = '0';
-  jslib_jail_iframe.style.opacity = '0';
-  jslib_jail_iframe.style.marginLeft = '-10000px';
+  jslib_jail_iframe.style.display = 'none';
 
 
   document.body.appendChild(jslib_jail_iframe)

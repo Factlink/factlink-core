@@ -1,5 +1,6 @@
 // FACTLINK PATCH (JP)
 (function(document) {
+  var getComputedStyle = window.parent.getComputedStyle;
 
 /*! tether 0.5.2 */
 (function() {
