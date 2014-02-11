@@ -58,13 +58,13 @@ class FactsController < ApplicationController
     evidence = interactor(:'search_evidence', keywords: search_for, fact_id: @fact.id)
     @facts = evidence.map { |fd| fd.fact }
 
-    render 'facts/index', formats: [:json]
+    render json: @facts.map { |f| query(:'facts/get_dead', id: f.id.to_s) }
   end
 
   def recently_viewed
     @facts = interactor :"facts/recently_viewed"
 
-    render 'facts/index', formats: [:json]
+    render json: @facts.map { |f| query(:'facts/get_dead', id: f.id.to_s) }
   end
 
   def share
