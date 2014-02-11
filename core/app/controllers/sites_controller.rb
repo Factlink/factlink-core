@@ -13,7 +13,7 @@ class SitesController < ApplicationController
   def facts_for_url
     url = params[:url]
 
-    if is_blacklisted
+    if Blacklist.default.matches?(url)
       render_jsonp blacklisted: 'This site is not supported'
       return
     end
@@ -45,9 +45,5 @@ class SitesController < ApplicationController
     else
       render json: json_able
     end
-  end
-
-  def is_blacklisted
-    Blacklist.default.matches? params[:url]
   end
 end
