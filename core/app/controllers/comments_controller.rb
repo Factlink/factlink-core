@@ -8,7 +8,6 @@ class CommentsController < ApplicationController
   def create
     fact_id = Integer(params[:id])
     comment = interactor(:'comments/create', fact_id: fact_id, content: params[:content])
-
     render json: comment
   rescue Pavlov::ValidationError
     render text: 'something went wrong', :status => 400
