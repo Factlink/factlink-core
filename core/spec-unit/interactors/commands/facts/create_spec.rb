@@ -40,7 +40,7 @@ describe Commands::Facts::Create do
       fact_data = double
       fact = double(id: double)
 
-      Fact.should_receive(:new).with({created_by: graph_user, site: site}).and_return(fact)
+      Fact.should_receive(:new).with(site: site).and_return(fact)
       command.should_receive(:create_fact_data).and_return(fact_data)
       fact.should_receive(:data=).with(fact_data)
       fact.should_receive(:data).twice.and_return(fact_data)

@@ -1,0 +1,68 @@
+@import "bootstrap/mixins";
+
+.fact-search-input-container {
+  background: white;
+  border: 1px solid @baseBorderColor;
+  .box-sizing(border-box);
+  color: @baseFontColor;
+  line-height: 18px;
+  padding: 7px 9px 5px;
+  position: relative;
+  border-radius: @baseBorderRadius;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 3px, 0.10);
+
+  input.typeahead {
+    padding: 5px;
+    margin: -5px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    font-weight: normal;
+  }
+}
+
+.fact-search-loading-indicator {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+}
+
+.fact-search-results {
+  position: relative;
+  margin-top: -3px;
+  background: white;
+  border: 1px solid @baseBorderColor;
+  .box-sizing(border-box);
+  .border-bottom-radius(@baseBorderRadius);
+
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .17);
+
+  overflow-y: auto;
+  max-height: 155px;
+}
+
+.fact-search-result {
+  cursor: pointer;
+  font-weight: 200;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  overflow: hidden;
+
+  padding: 5px 10px 3px;
+  .ellipsis(100%);
+  text-shadow: 0 1px 0 rgba(255,255,255, 0.5);
+
+  &.fact-search-result-selected {
+    background-color: #ebf3f9;
+
+    border-top: 1px solid #d9e5ef;
+    border-bottom: 1px solid #d9e5ef;
+  }
+
+  em {
+    color: @linkColor;
+    font-style: normal;
+    font-weight: bold;
+  }
+}

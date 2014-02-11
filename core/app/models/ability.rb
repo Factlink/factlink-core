@@ -57,9 +57,7 @@ class Ability
     can :index, Fact
     can :read, Fact
     can :opinionate, Fact
-    can :manage, Fact do |f|
-      f.created_by_id == user.graph_user_id
-    end
+    can :create, Fact
     cannot :update, Fact
   end
 

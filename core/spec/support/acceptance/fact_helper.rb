@@ -12,16 +12,12 @@ module Acceptance
     end
 
     def backend_create_fact
-      backend_create_fact_of_user @user
+      create :fact
     end
 
     def backend_create_fact_with_long_text
       fact_data = create :fact_data, displaystring: 'long'*30
-      create :fact, created_by: @user.graph_user, data: fact_data
-    end
-
-    def backend_create_fact_of_user user
-      create :fact, created_by: user.graph_user
+      create :fact, data: fact_data
     end
 
     def click_agree fact, user

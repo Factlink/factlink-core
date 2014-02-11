@@ -22,8 +22,6 @@ class window.FactsController extends Backbone.Marionette.Controller
       @showStream()
       url = Backbone.history.getFragment currentUser.streamLink()
     else
-      user = fact.user()
-      @options.showProfile user.get('username')
-      url = user.link()
+      url = 'search'
 
     FactlinkApp.DiscussionSidebarOnFrontend.setBackgroundPageUrlFromShowFact url

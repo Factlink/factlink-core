@@ -27,10 +27,16 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   _openSearchFacts: ->
     @ui.openSearchFactsLink.hide()
 
-    auto_complete_facts_view = new AutoCompleteFactsView
-      collection: new Backbone.Collection
-      fact_id: @collection.fact.id
+    recently_viewed_facts = new RecentlyViewedFacts
+    recently_viewed_facts.fetch()
 
-    @listenTo auto_complete_facts_view, 'insert', (text) -> @_addCommentView.insert text
+    react_fact_search = ReactFactSearch
+      model: new FactSearchResults [],
+        fact_id: @collection.fact.id
+        recently_viewed_facts: recently_viewed_facts
+      onInsert: (text) => @_addCommentView.insert text
 
-    @searchFactsRegion.show auto_complete_facts_view
+    @searchFactsRegion.show new ReactView
+      component: react_fact_search
+
+    react_fact_search.focus()

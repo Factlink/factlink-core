@@ -120,7 +120,7 @@ describe UsersController do
 
       it 'created sub comment' do
         current_user = create(:full_user)
-        fact = create :fact, created_by: current_user.graph_user
+        fact = create :fact
 
         comment = {}
         as(current_user) do |pavlov|

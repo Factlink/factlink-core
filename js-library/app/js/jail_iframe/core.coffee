@@ -1,6 +1,7 @@
 window.FactlinkJailRoot =
   $.extend(
     can_haz: {}
+    public_events: window.Events
     core_loaded_promise: $.Deferred()
     host_ready_promise: $.Deferred()
     host_loaded_promise: $.Deferred()
