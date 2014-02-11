@@ -18,11 +18,6 @@ class SitesController < ApplicationController
       return
     end
 
-    unless can? :index, Fact
-      render_jsonp error: 'Unauthorized'
-      return
-    end
-
     site = Site.find(url: url).first
     facts = site ? site.facts.to_a : []
 
