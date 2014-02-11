@@ -50,7 +50,8 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @inputRegion.show @_textAreaView
 
     if Factlink.Global.signed_in
-      @shareFactSelectionRegion.show @_shareFactSelectionView()
+      @shareFactSelectionRegion.show new ReactView
+        component: @_reactShareFactSelection()
 
   addComment: ->
     return if @submitting
@@ -79,7 +80,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   _shareFactlink: (model) ->
     return unless Factlink.Global.signed_in
 
-    @_shareFactSelectionView().submit model.get('content')
+    @_reactShareFactSelection().submit model.get('content')
 
   addModelError: ->
     @enableSubmit()
@@ -98,6 +99,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   _textModel: -> @__textModel ?= new Backbone.Factlink.SemiPersistentTextModel {},
     key: "add_comment_to_fact_#{@options.addToCollection.fact.id}"
 
-  _shareFactSelectionView: ->
-    @___shareFactSelectionView ?= new ShareFactSelectionView
+  _reactShareFactSelection: ->
+    @___reactShareFactSelection ?= ReactShareFactSelection
       model: @options.addToCollection.fact

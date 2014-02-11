@@ -1,66 +1,76 @@
-class window.ShareFactSelectionView extends Backbone.Marionette.Layout
-  className: 'share-fact-selection'
-  template: 'comments/share_fact_selection'
+ReactShareButton = React.createBackboneClass
+  displayName: 'ReactShareButton'
 
-  ui:
-    twitterCheckbox: '.js-share-twitter input'
-    facebookCheckbox: '.js-share-facebook input'
+  getInitialState: ->
+    hovered: false
+    checked: false
 
-  templateHelpers: ->
-    connected_twitter: currentUser.serviceConnected 'twitter'
-    connected_facebook: currentUser.serviceConnected 'facebook'
-    submitting: @_submitting
+  checked: -> @state.checked
 
-  initialize: ->
-    @listenTo currentUser, 'change:services', @render
+  render: ->
+    _label ['pull-right share-button-container'
+      onMouseEnter: => @setState(hovered: true)
+      onMouseLeave: => @setState(hovered: false)
+    ],
+      if @model().serviceConnected @props.provider_name
+        [
+          _input [type: 'checkbox', checked: @state.checked,
+            onChange: (event) => @setState checked: event.target.checked]
+          _span ["share-button share-button-#{@props.provider_name}"]
+          if @state.hovered
+            ReactPopover {},
+              _div [],
+                "Share to #{@props.provider_name.capitalize()}"
+        ]
+      else
+        _a ["share-button share-button-#{@props.provider_name} js-accounts-popup-link",
+          href: "/auth/#{@props.provider_name}?use_authorize=true&x_auth_access_type=write"
+        ],
+          if @state.hovered
+            ReactPopover {},
+              _div [],
+                "Connect with #{@props.provider_name.capitalize()}"
 
-  onRender: ->
-    @trigger 'removeTooltips'
 
-    Backbone.Factlink.makeTooltipForView @,
-      positioning:
-        side: 'top'
-        popover_className: 'translucent-popover'
-      selector: '.js-connect-twitter'
-      tooltipViewFactory: => new TextView text: 'Connect with Twitter'
+window.ReactShareFactSelection = React.createBackboneClass
+  displayName: 'ReactShareFactSelection'
 
-    Backbone.Factlink.makeTooltipForView @,
-      positioning:
-        side: 'top'
-        popover_className: 'translucent-popover'
-      selector: '.js-connect-facebook'
-      tooltipViewFactory: => new TextView text: 'Connect with Facebook'
+  getInitialState: ->
+    submitting: false
 
-    Backbone.Factlink.makeTooltipForView @,
-      positioning:
-        side: 'top'
-        popover_className: 'translucent-popover'
-      selector: '.js-share-twitter'
-      tooltipViewFactory: => new TextView text: 'Share to Twitter'
+  componentDidMount: ->
+    currentUser.on 'change:services', @forceUpdate, @
 
-    Backbone.Factlink.makeTooltipForView @,
-      positioning:
-        side: 'top'
-        popover_className: 'translucent-popover'
-      selector: '.js-share-facebook'
-      tooltipViewFactory: => new TextView text: 'Share to Facebook'
+  componentWillUnmount: ->
+    currentUser.off 'change:services', @forceUpdate, @
+
+  _connectedButton: ->
+    _label ['pull-right share-button-container'],
+      _input [type: 'checkbox'],
+      _span ['share-button share-button-facebook']
+
+  render: ->
+    if @state.submitting
+      _div ['share-fact-selection'],
+        _div ['share-fact-selection-loading-indicator'],
+          ReactLoadingIndicator()
+    else
+      _div ['share-fact-selection'],
+        ReactShareButton provider_name: 'facebook', ref: 'facebook', model: currentUser
+        ReactShareButton provider_name: 'twitter', ref: 'twitter', model: currentUser
 
   submit: (message) ->
-    # TODO: storing provider names in a model, so we don't necessarily
-    # have to execute in this order
     provider_names = @_selectedProviderNames()
     return if provider_names.length == 0
 
-    @_submitting = true
-    @render()
-
-    @model.share provider_names, message,
-      complete: => @_submitting = false; @render()
+    @setState submitting: true
+    @model().share provider_names, message,
+      complete: => @setState submitting: false
       error: =>
         FactlinkApp.NotificationCenter.error "Error when sharing"
 
   _selectedProviderNames: ->
     names = []
-    names.push 'twitter' if @ui.twitterCheckbox.prop('checked')
-    names.push 'facebook' if @ui.facebookCheckbox.prop('checked')
+    names.push 'twitter' if @refs.twitter.checked()
+    names.push 'facebook' if @refs.facebook.checked()
     names
