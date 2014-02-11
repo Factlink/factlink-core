@@ -17,8 +17,8 @@ class FactsController < ApplicationController
 
   def show
     authorize! :show, @fact
-
-    render 'facts/show', formats: [:json]
+    dead_fact = query(:'facts/get_dead', id: @fact.id.to_s)
+    render json: dead_fact
   end
 
   def discussion_page
@@ -41,9 +41,9 @@ class FactsController < ApplicationController
                            displaystring: params[:displaystring].to_s,
                            url: params[:url].to_s,
                            title: params[:site_title].to_s)
-    @site = @fact.site
 
-    render 'facts/show', formats: [:json]
+    dead_fact = query(:'facts/get_dead', id: @fact.id.to_s)
+    render json: dead_fact
   end
 
   # TODO: This search is way to simple now, we need to make sure already
