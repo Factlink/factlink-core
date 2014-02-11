@@ -1,10 +1,13 @@
 @import "bootstrap/mixins";
 
+.share-button-container {
+  margin-right: 3px;
+}
+
 .share-button {
   display: inline-block;
   width: 24px;
   height: 24px;
-  margin-right: 3px;
   cursor: pointer;
   overflow: hidden;
   text-indent: 100%;
@@ -25,7 +28,7 @@
   }
 }
 
-.share-button-container > input {
+.share-button-container input {
   display: none;
 }
 
@@ -33,7 +36,7 @@
   background-image: asset-data-url("sharing_icons/twitter_disabled.png");
 }
 
-.share-button-container > input:checked + .share-button-twitter {
+.share-button-container input:checked + .share-button-twitter {
   background-image: asset-data-url("sharing_icons/twitter.png");
 }
 
@@ -41,6 +44,6 @@
   background-image: asset-data-url("sharing_icons/facebook_disabled.png");
 }
 
-.share-button-container > input:checked + .share-button-facebook {
+.share-button-container input:checked + .share-button-facebook {
   background-image: asset-data-url("sharing_icons/facebook.png");
 }

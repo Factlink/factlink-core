@@ -1,3 +1,37 @@
+ReactShareButton = React.createBackboneClass
+  displayName: 'ReactShareButton'
+
+  getInitialState: ->
+    hovered: false
+    checked: false
+
+  checked: -> @state.checked
+
+  render: ->
+    _label ['pull-right share-button-container'
+      onMouseEnter: => @setState(hovered: true)
+      onMouseLeave: => @setState(hovered: false)
+    ],
+      if @model().serviceConnected @props.provider_name
+        [
+          _input [type: 'checkbox', checked: @state.checked,
+            onChange: (event) => @setState checked: event.target.checked]
+          _span ["share-button share-button-#{@props.provider_name}"]
+          if @state.hovered
+            ReactPopover {},
+              _div [],
+                "Share to #{@props.provider_name.capitalize()}"
+        ]
+      else
+        _a ["share-button share-button-#{@props.provider_name} js-accounts-popup-link",
+          href: "/auth/#{@props.provider_name}?use_authorize=true&x_auth_access_type=write"
+        ],
+          if @state.hovered
+            ReactPopover {},
+              _div [],
+                "Connect with #{@props.provider_name.capitalize()}"
+
+
 window.ReactShareFactSelection = React.createBackboneClass
   displayName: 'ReactShareFactSelection'
 
@@ -15,16 +49,6 @@ window.ReactShareFactSelection = React.createBackboneClass
       _input [type: 'checkbox'],
       _span ['share-button share-button-facebook']
 
-  _socialButton: (provider_name) ->
-    if currentUser.serviceConnected provider_name
-      _label ['pull-right share-button-container'],
-        _input [type: 'checkbox', checked: @state.twitterChecked,
-                onChange: (event) => @setState twitterChecked: event.target.checked]
-        _span ["share-button share-button-#{provider_name}"]
-    else
-      _a ["share-button share-button-#{provider_name} pull-right js-accounts-popup-link",
-        href: "/auth/#{provider_name}?use_authorize=true&x_auth_access_type=write"]
-
   render: ->
     if @state.submitting
       _div ['share-fact-selection'],
@@ -32,39 +56,8 @@ window.ReactShareFactSelection = React.createBackboneClass
           ReactLoadingIndicator()
     else
       _div ['share-fact-selection'],
-        @_socialButton('facebook'),
-        @_socialButton('twitter')
-
-    # @trigger 'removeTooltips'
-
-    # Backbone.Factlink.makeTooltipForView @,
-    #   positioning:
-    #     side: 'top'
-    #     popover_className: 'translucent-popover'
-    #   selector: '.js-connect-twitter'
-    #   tooltipViewFactory: => new TextView text: 'Connect with Twitter'
-
-    # Backbone.Factlink.makeTooltipForView @,
-    #   positioning:
-    #     side: 'top'
-    #     popover_className: 'translucent-popover'
-    #   selector: '.js-connect-facebook'
-    #   tooltipViewFactory: => new TextView text: 'Connect with Facebook'
-
-    # Backbone.Factlink.makeTooltipForView @,
-    #   positioning:
-    #     side: 'top'
-    #     popover_className: 'translucent-popover'
-    #   selector: '.js-share-twitter'
-    #   tooltipViewFactory: => new TextView text: 'Share to Twitter'
-
-    # Backbone.Factlink.makeTooltipForView @,
-    #   positioning:
-    #     side: 'top'
-    #     popover_className: 'translucent-popover'
-    #   selector: '.js-share-facebook'
-    #   tooltipViewFactory: => new TextView text: 'Share to Facebook'
-
+        ReactShareButton provider_name: 'facebook', ref: 'facebook', model: currentUser
+        ReactShareButton provider_name: 'twitter', ref: 'twitter', model: currentUser
 
   submit: (message) ->
     provider_names = @_selectedProviderNames()
@@ -78,6 +71,6 @@ window.ReactShareFactSelection = React.createBackboneClass
 
   _selectedProviderNames: ->
     names = []
-    names.push 'twitter' if @state.twitterChecked
-    names.push 'facebook' if @state.facebookChecked
+    names.push 'twitter' if @refs.twitter.checked()
+    names.push 'facebook' if @refs.facebook.checked()
     names
