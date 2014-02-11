@@ -26,7 +26,7 @@ module Queries
 
         DeadComment.new(
           id: comment.id,
-          created_by: query(:users_by_ids, user_ids: comment.created_by_id).first,
+          created_by: query(:dead_users_by_ids, user_ids: comment.created_by_id).first,
           created_at: comment.created_at.utc.iso8601,
           content: comment.content,
           created_by_id: comment.created_by_id,
