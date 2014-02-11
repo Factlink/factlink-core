@@ -23,7 +23,7 @@ var configs = {
     proxy_hostname: 'localhost',
     proxy_uri: 'http://localhost:8080/',
     internal_proxy_port: 8080,
-    jslib_uri: 'http://localhost:8000/lib/dist/factlink_loader_basic.js'
+    jslib_uri: 'http://localhost:8000/lib/dist/factlink_loader.js?o=proxy'
   },
 
   staging:{
@@ -31,7 +31,7 @@ var configs = {
     proxy_hostname: 'staging.fct.li',
     proxy_uri: 'http://staging.fct.li/',
     internal_proxy_port: 8080,
-    jslib_uri: 'https://factlink-static-staging.inverselink.com/lib/dist/factlink_loader_basic.min.js'
+    jslib_uri: 'https://factlink-static-staging.inverselink.com/lib/dist/factlink_loader.min.js?o=proxy'
 
   },
 
@@ -40,7 +40,7 @@ var configs = {
     proxy_hostname: 'fct.li',
     proxy_uri: 'http://fct.li/',
     internal_proxy_port: 8080,
-    jslib_uri: 'https://static.factlink.com/lib/dist/factlink_loader_basic.min.js'
+    jslib_uri: 'https://static.factlink.com/lib/dist/factlink_loader.min.js?o=proxy'
   }
 };
 

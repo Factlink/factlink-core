@@ -2,13 +2,13 @@
 (function(){
   var script = document.createElement("script");
   script.src = "<%=
-    FactlinkUI::Application.config.jslib_url + '/factlink_loader_bookmarklet' +
+    FactlinkUI::Application.config.jslib_url + '/factlink_loader' +
       if 'development' == Rails.env
         '.js'
       else
         '.min.js';
       end
-  %>";
+  %>?o=bookmarklet";
   script.onload = function(){ __internalFactlinkState("bookmarkletLoaded"); }
   document.head.appendChild(script);
 })();
