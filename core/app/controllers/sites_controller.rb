@@ -4,17 +4,10 @@ class SitesController < ApplicationController
   # not counted in apdex
   newrelic_ignore_apdex only: [:facts_count_for_url] if defined?(NewRelic)
 
+  # OBSOLETE
+  # TODO REMOVE MARCH 15 2014
   def facts_count_for_url
-    authorize! :get_fact_count, Site
-    url = params[:url]
-    if is_blacklisted
-      response = { blacklisted: 'This site is not supported' }
-    else
-      site = Site.find(:url => url).first
-      facts_count = site ? site.facts.count : 0
-      response = { count: facts_count }
-    end
-    render_jsonp response
+    render_jsonp({ count: 0 })
   end
 
   def facts_for_url
