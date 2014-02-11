@@ -65,19 +65,23 @@ module.exports = (grunt) ->
       dist_loader_aliases:
         files: [
           { src: 'build/js/loader/loader_common.js', dest: 'output/dist/factlink_loader.js' }
-          { src: 'build/js/loader/loader_common.js', dest: 'output/dist/factlink_loader_publishers.js' }
+          { src: 'build/js/loader/loader_common.js', dest: 'output/dist/factlink_loader_publishers.js' } #obsolete; support for legacy publishers
+          { src: 'build/js/loader/loader_common.js', dest: 'output/dist/factlink_loader_basic.js' } #obsolete; support for legacy extensions
           { src: 'build/js/loader/loader_common.js', dest: 'output/dist/factlink_loader_bookmarklet.js' } #obsolete; support for legacy bookmarklets
 
           { src: 'build/js/loader/loader_common.min.js', dest: 'output/dist/factlink_loader.min.js' }
           { src: 'build/js/loader/loader_common.min.js', dest: 'output/dist/factlink_loader_publishers.min.js' }
+          { src: 'build/js/loader/loader_common.min.js', dest: 'output/dist/factlink_loader_basic.min.js' }
           { src: 'build/js/loader/loader_common.min.js', dest: 'output/dist/factlink_loader_bookmarklet.min.js' }
 
           { src: 'build/js/loader/loader_common.js.gz', dest: 'output/dist/factlink_loader.js.gz' }
           { src: 'build/js/loader/loader_common.js.gz', dest: 'output/dist/factlink_loader_publishers.js.gz' }
+          { src: 'build/js/loader/loader_common.js.gz', dest: 'output/dist/factlink_loader_basic.js.gz' }
           { src: 'build/js/loader/loader_common.js.gz', dest: 'output/dist/factlink_loader_bookmarklet.js.gz' }
 
           { src: 'build/js/loader/loader_common.min.js.gz', dest: 'output/dist/factlink_loader.min.js.gz' }
           { src: 'build/js/loader/loader_common.min.js.gz', dest: 'output/dist/factlink_loader_publishers.min.js.gz' }
+          { src: 'build/js/loader/loader_common.min.js.gz', dest: 'output/dist/factlink_loader_basic.min.js.gz' }
           { src: 'build/js/loader/loader_common.min.js.gz', dest: 'output/dist/factlink_loader_bookmarklet.min.js.gz' }
         ]
 
