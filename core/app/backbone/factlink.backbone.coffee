@@ -5,6 +5,15 @@
 #= require backbone.marionette
 #= require react
 #= require react.backbone
+
+# Replace by just 'require tether' when
+# this has been merged: https://github.com/HubSpot/tether/pull/25
+#= require tether/utils
+#= require tether/tether
+#= require tether/constraint
+#= require tether/abutment
+#= require tether/shift
+
 #= require_tree ../templates
 #= require_self
 
