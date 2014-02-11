@@ -1,38 +1,40 @@
 [
   {
     "id": "<id>",
-    "created_at": "<created_at>",
-    "formatted_content": "a comment",
-    "tally": {
-      "believes": 1,
-      "disbelieves": 0,
-      "current_user_opinion": "no_vote"
-    },
-    "is_deletable": true,
-    "sub_comments_count": 0,
     "created_by": {
       "id": "<id>",
       "name": "John1 Doe1",
       "username": "johndoe1",
-      "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900"
+      "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+      "deleted": false
+    },
+    "created_at": "<created_at>",
+    "formatted_content": "a comment",
+    "sub_comments_count": 0,
+    "is_deletable": true,
+    "tally": {
+      "believes": 1,
+      "disbelieves": 0,
+      "current_user_opinion": "no_vote"
     }
   },
   {
     "id": "<id>",
-    "created_at": "<created_at>",
-    "formatted_content": "a comment",
-    "tally": {
-      "believes": 0,
-      "disbelieves": 1,
-      "current_user_opinion": "disbelieves"
-    },
-    "is_deletable": true,
-    "sub_comments_count": 0,
     "created_by": {
       "id": "<id>",
       "name": "John2 Doe2",
       "username": "johndoe2",
-      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734"
+      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
+      "deleted": false
+    },
+    "created_at": "<created_at>",
+    "formatted_content": "a comment",
+    "sub_comments_count": 0,
+    "is_deletable": true,
+    "tally": {
+      "believes": 0,
+      "disbelieves": 1,
+      "current_user_opinion": "disbelieves"
     }
   }
 ]

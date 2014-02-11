@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'evidence' do
+describe 'comments' do
   include PavlovSupport
 
   let(:current_user) { create :full_user }
@@ -10,13 +10,13 @@ describe 'evidence' do
   end
 
   describe 'initially' do
-    it 'a fact has no evidence' do
+    it 'a fact has no comments' do
       as(current_user) do |pavlov|
         fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', title: ''
 
-        evidence = pavlov.interactor :'comments/for_fact_id', fact_id: fact.id.to_s, type: :believes
+        comments = pavlov.interactor :'comments/for_fact_id', fact_id: fact.id.to_s, type: :believes
 
-        expect(evidence).to eq []
+        expect(comments).to eq []
       end
     end
   end
@@ -29,9 +29,9 @@ describe 'evidence' do
         pavlov.interactor :'comments/create', fact_id: fact.id.to_i, type: 'believes', content: 'Gekke Gerrit'
         pavlov.interactor :'comments/create', fact_id: fact.id.to_i, type: 'believes', content: 'Handige Harrie'
 
-        evidence = pavlov.interactor :'comments/for_fact_id', fact_id: fact.id.to_s, type: :believes
+        comments = pavlov.interactor :'comments/for_fact_id', fact_id: fact.id.to_s, type: :believes
 
-        expect(evidence.map(&:content)).to eq ['Gekke Gerrit', 'Handige Harrie']
+        expect(comments.map(&:formatted_content)).to eq ['Gekke Gerrit', 'Handige Harrie']
       end
     end
   end

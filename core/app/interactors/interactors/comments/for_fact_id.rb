@@ -25,7 +25,7 @@ module Interactors
       end
 
       def relevance_of comment
-        comment.votes[:believes] - comment.votes[:disbelieves]
+        comment.tally[:believes] - comment.tally[:disbelieves]
       end
     end
   end
