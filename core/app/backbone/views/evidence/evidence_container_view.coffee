@@ -29,8 +29,9 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
 
   onRender: ->
     if Factlink.Global.signed_in
-      @_addEvidenceFormView = new AddEvidenceFormView collection: @collection
-      @formRegion.show @_addEvidenceFormView
+      @formRegion.show new ReactView
+        component: new ReactAddComment
+          model: @collection
     else
       @opinionHelpRegion.show new ReactView
         component: ReactOpinionHelp
