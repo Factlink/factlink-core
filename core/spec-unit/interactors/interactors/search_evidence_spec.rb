@@ -37,7 +37,6 @@ describe Interactors::SearchEvidence do
 
   describe '#call' do
     it 'returns a empty array when the keyword string is empty' do
-      keywords = 'zoeken interessante dingen'
       interactor = described_class.new keywords: '', fact_id: '1',
                                        pavlov_options: { ability: relaxed_ability }
 
@@ -49,15 +48,13 @@ describe Interactors::SearchEvidence do
       interactor = described_class.new keywords: keywords, fact_id: '2',
                                        pavlov_options: { ability: relaxed_ability }
 
-      result = [get_fact_data('2')]
+      result = [double(:fact, id: '2')]
 
       Pavlov.should_receive(:query)
             .with(:'elastic_search_fact_data',
                       keywords: keywords, page: 1, row_count: 20,
                       pavlov_options: { ability: relaxed_ability })
             .and_return(result)
-
-      FactData.stub :valid => true
 
       expect( interactor.call ).to eq []
     end
@@ -67,7 +64,7 @@ describe Interactors::SearchEvidence do
       interactor = described_class.new keywords: keywords, fact_id: '1',
                                        pavlov_options: { ability: relaxed_ability }
 
-      result = [get_fact_data('2')]
+      result = [double(:fact, id: '2')]
 
       Pavlov.should_receive(:query)
             .with(:'elastic_search_fact_data',
@@ -75,40 +72,7 @@ describe Interactors::SearchEvidence do
                       pavlov_options: { ability: relaxed_ability })
             .and_return(result)
 
-      FactData.stub :valid => true
-
       expect( interactor.call ).to eq result
     end
-
-    it 'shouldn\'t return invalid results' do
-      keywords = 'zoeken interessante dingen'
-      interactor = described_class.new keywords: keywords, fact_id: '1',
-                                       pavlov_options: { ability: relaxed_ability }
-      fact_data = get_fact_data '2'
-      fact_data2 = get_fact_data '3'
-
-      result = [fact_data, fact_data2]
-
-      Pavlov.should_receive(:query)
-            .with(:'elastic_search_fact_data',
-                      keywords: 'zoeken interessante dingen', page: 1,
-                      row_count: 20, pavlov_options: { ability: relaxed_ability })
-            .and_return(result)
-
-      FactData.should_receive(:valid).with(fact_data).and_return(false)
-      FactData.should_receive(:valid).with(fact_data2).and_return(true)
-
-      interactor.call.should eq [fact_data2]
-    end
-  end
-
-  private
-  def get_fact_data id
-    fact = double
-    fact.stub :id => id
-    fact_data = double
-    fact_data.stub :fact => fact
-
-    fact_data
   end
 end
