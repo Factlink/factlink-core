@@ -31,7 +31,7 @@ describe Queries::ElasticSearch do
         and_return(results)
 
       Pavlov.stub(:query)
-            .with(:'users_by_ids', user_ids: [1])
+            .with(:'dead_users_by_ids', user_ids: [1])
             .and_return([return_object])
 
       query.call.should eq [return_object]
@@ -58,7 +58,7 @@ describe Queries::ElasticSearch do
       results = double(parsed_response: response, code: 200)
 
       Pavlov.stub(:query)
-            .with(:'users_by_ids', user_ids: [1])
+            .with(:'dead_users_by_ids', user_ids: [1])
             .and_return []
 
       HTTParty.should_receive(:get).

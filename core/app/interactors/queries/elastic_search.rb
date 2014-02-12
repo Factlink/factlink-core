@@ -73,7 +73,7 @@ module Queries
       when'factdata'
         FactData.find(id)
       when 'user'
-        query(:'users_by_ids', user_ids: [id]).first
+        query(:'dead_users_by_ids', user_ids: [id]).first
       when 'test_class'
         TestClass.new(id)
       else

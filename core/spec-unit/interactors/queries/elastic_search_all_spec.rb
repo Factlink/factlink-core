@@ -35,8 +35,8 @@ describe Queries::ElasticSearchAll do
         when 'user'
           # Cannot stub Pavlov.query because this query uses another query
           users_by_ids = double call: [return_object]
-          stub_classes 'Queries::UsersByIds'
-          Queries::UsersByIds
+          stub_classes 'Queries::DeadUsersByIds'
+          Queries::DeadUsersByIds
             .stub(:new)
             .with(user_ids: [1])
             .and_return(users_by_ids)
