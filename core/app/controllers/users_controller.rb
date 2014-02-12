@@ -55,17 +55,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def activities
-    authorize! :see_activities, @user
-    @activities = @user.graph_user.notifications.below('inf', count: 10, reversed: true, withscores: true )
-
-    @activities.select! { |a| a[:item] && a[:item].still_valid? }
-    @showing_notifications = true
-    respond_to do |format|
-      format.json { render 'notifications/index' }
-    end
-  end
-
   def notification_settings
     authorize! :edit_settings, @user
     authorize! :access, Ability::FactlinkWebapp
