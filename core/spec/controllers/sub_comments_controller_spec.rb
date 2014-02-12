@@ -8,6 +8,8 @@ describe SubCommentsController do
   describe "#index" do
     include PavlovSupport
     before do
+      FactoryGirl.reload
+
       as(user) do |p|
         @fact = create :fact
         @comment = p.interactor(:'comments/create', fact_id: @fact.id.to_i, content:'yo')
