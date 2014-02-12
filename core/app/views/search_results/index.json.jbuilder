@@ -1,9 +1,7 @@
 json.array!(@results) do |result|
-
-  if result.class == FactData
+  if result.class == DeadFact
     json.the_class "FactData"
-    dead_fact = query(:'facts/get_dead', id: result.fact.id.to_s)
-    json.the_object dead_fact
+    json.the_object result
   elsif result.class == DeadUser
     json.the_class "FactlinkUser"
     json.the_object result

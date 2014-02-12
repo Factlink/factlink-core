@@ -55,10 +55,9 @@ class FactsController < ApplicationController
     search_for = params[:s]
 
     raise_404 if Fact.invalid(@fact)
-    evidence = interactor(:'search_evidence', keywords: search_for, fact_id: @fact.id)
-    @facts = evidence.map { |fd| fd.fact }
+    facts = interactor(:'search_evidence', keywords: search_for, fact_id: @fact.id)
 
-    render json: @facts.map { |f| query(:'facts/get_dead', id: f.id.to_s) }
+    render json: facts
   end
 
   def recently_viewed

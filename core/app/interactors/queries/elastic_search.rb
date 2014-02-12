@@ -71,7 +71,8 @@ module Queries
     def get_object id, type
       case type
       when'factdata'
-        FactData.find(id)
+        fd = FactData.find(id)
+        query(:'facts/get_dead', id: fd.fact_id)
       when 'user'
         query(:'dead_users_by_ids', user_ids: [id]).first
       when 'test_class'

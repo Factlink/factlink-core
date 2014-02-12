@@ -5,7 +5,7 @@ describe Queries::ElasticSearchFactData do
   include PavlovSupport
 
   before do
-    stub_classes 'HTTParty', 'FactData', 'FactlinkUI::Application'
+    stub_classes 'HTTParty', 'FactData', 'FactlinkUI::Application', 'Queries::Facts::GetDead'
   end
 
   it 'raises when initialized with an empty keywords string' do
@@ -35,7 +35,12 @@ describe Queries::ElasticSearchFactData do
       HTTParty.should_receive(:get).
         with("http://#{base_url}/factdata/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
-      FactData.should_receive(:find).with(1).and_return(return_object)
+
+      fd = double fact_id: 1
+      FactData.stub(:find).with(1).and_return(fd)
+      get_dead_fact = double call: return_object
+      Queries::Facts::GetDead.stub(:new).with(id: fd.fact_id).and_return(get_dead_fact)
+      FactData.should_receive(:find).with(1).and_return(fd)
 
       expect(query.call).to eq [return_object]
     end
@@ -76,7 +81,11 @@ describe Queries::ElasticSearchFactData do
       HTTParty.stub(:get)
         .with("http://#{base_url}/factdata/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true")
         .and_return(results)
-      FactData.stub(:find).with(1).and_return(return_object)
+
+      fd = double fact_id: 1
+      FactData.stub(:find).with(1).and_return(fd)
+      get_dead_fact = double call: return_object
+      Queries::Facts::GetDead.stub(:new).with(id: fd.fact_id).and_return(get_dead_fact)
 
       expect(query.call).to eq [return_object]
     end
