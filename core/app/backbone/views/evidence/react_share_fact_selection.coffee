@@ -51,15 +51,7 @@ window.ReactShareFactSelection = React.createBackboneClass
       ReactShareButton provider_name: 'facebook', ref: 'facebook', model: currentUser
       ReactShareButton provider_name: 'twitter', ref: 'twitter', model: currentUser
 
-  submit: (message) ->
-    provider_names = @_selectedProviderNames()
-    return if provider_names.length == 0
-
-    @model().share provider_names, message,
-      error: =>
-        FactlinkApp.NotificationCenter.error "Error when sharing"
-
-  _selectedProviderNames: ->
+  selectedProviderNames: ->
     names = []
     names.push 'twitter' if @refs.twitter.checked()
     names.push 'facebook' if @refs.facebook.checked()
