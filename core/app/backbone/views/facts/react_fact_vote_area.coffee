@@ -13,7 +13,7 @@ ReactOpinionatorsAvatars = React.createBackboneClass
 
   _opinionators: ->
     @model()
-      .filter( (vote) => vote.get('type') == @props.type)
+      .filter( (opinionator) => opinionator.get('type') == @props.opinion)
 
   render: ->
     number_of_places = 5
@@ -25,13 +25,13 @@ ReactOpinionatorsAvatars = React.createBackboneClass
       take = number_of_places - 1
       show_plus = true
 
-    _div ["fact-vote-people-#{@props.type}"],
+    _div ["fact-vote-people-#{@props.opinion}"],
       @_opinionators()
         .slice(0,take)
-        .map (vote) ->
+        .map (opinionator) ->
           ReactOpinionatorsAvatar
-            model: vote.user()
-            key: vote.get('username') + '-' + vote.get('type')
+            model: opinionator.user()
+            key: opinionator.get('username') + '-' + opinionator.get('type')
 
       if show_plus
         _span ["opinionators-more"],
@@ -43,20 +43,20 @@ FactVoteButton = React.createBackboneClass
   changeOptions: 'add remove reset sort' + ' change'
 
   _onClick: ->
-    @model().clickCurrentUserOpinion @props.type
+    @model().clickCurrentUserOpinion @props.opinion
 
   render: ->
-    is_opinion = @model().opinion_for_current_user() == @props.type
+    is_opinion = @model().opinion_for_current_user() == @props.opinion
     _div ["fact-vote-button"],
       if Factlink.Global.signed_in
-        _button ["button fact-vote-button-#{@props.type}",
-                 "spec-button-#{@props.type}",
+        _button ["button fact-vote-button-#{@props.opinion}",
+                 "spec-button-#{@props.opinion}",
                  'fact-vote-button-active' if is_opinion,
                  onClick: @_onClick],
-           _i ["icon-thumbs-#{@props.type}"]
+           _i ["icon-thumbs-#{@props.opinion}"]
       else
         _span ["fact-vote-indicator"],
-          _i ["icon-thumbs-#{@props.type}"]
+          _i ["icon-thumbs-#{@props.opinion}"]
 
 
 FactVoteAmountGraph = React.createClass
@@ -102,22 +102,22 @@ window.ReactVoteArea = React.createBackboneClass
   _voting: ->
     _div className: 'fact-vote',
       FactVoteButton
-        model: @model().getVotes()
-        type: 'believes'
+        model: @model().getOpinionators()
+        opinion: 'believes'
       FactVoteStatsTable
-        model: @model().getVotes()
+        model: @model().getOpinionators()
       FactVoteButton
-        model: @model().getVotes()
-        type: 'disbelieves'
+        model: @model().getOpinionators()
+        opinion: 'disbelieves'
 
   _voters: ->
     _div ["fact-vote-people"],
       ReactOpinionatorsAvatars
-        model: @model().getVotes()
-        type: 'believes'
+        model: @model().getOpinionators()
+        opinion: 'believes'
       ReactOpinionatorsAvatars
-        model: @model().getVotes()
-        type: 'disbelieves'
+        model: @model().getOpinionators()
+        opinion: 'disbelieves'
 
   render: ->
     _div [''],

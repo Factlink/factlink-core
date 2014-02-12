@@ -11,4 +11,4 @@ class window.TopFactView extends Backbone.Marionette.Layout
       @factVoteTableRegion.show new ReactView
         component: ReactVoteArea
           model: @model
-      @model.getVotes().fetch()
+      @model.getOpinionators().fetch()

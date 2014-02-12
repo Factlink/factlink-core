@@ -13,7 +13,7 @@ class window.ClientController
       fact.save {},
         success: =>
           if params.current_user_opinion && params.current_user_opinion != 'no_vote'
-            fact.getVotes().clickCurrentUserOpinion params.current_user_opinion
+            fact.getOpinionators().clickCurrentUserOpinion params.current_user_opinion
 
           @annotatedSiteEnvoy 'highlightNewFactlink', params.displaystring, fact.id
 

@@ -1,4 +1,4 @@
-class window.Votes extends Backbone.Factlink.Collection
+class window.Opinionators extends Backbone.Factlink.Collection
   model: Vote
 
   initialize: (models, options) ->
