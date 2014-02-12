@@ -7,7 +7,7 @@ class SubCommentsController < ApplicationController
   def create
     sub_comment = interactor(:'sub_comments/create_for_comment',
                                   comment_id: comment_id, content: params[:content])
-    render sub_comment
+    render json: sub_comment
   rescue Pavlov::ValidationError
     render text: 'something went wrong', status: 400
   end
