@@ -4,7 +4,7 @@
 <% end %>
 
 <% content_for :main do %>
-  <div class="container fixed">
+  <div class="container">
     <section id="main-column">
       <%= render 'flash/simple', notice: notice, alert: alert %>
 
@@ -21,6 +21,5 @@
 <% end %>
 
 <%= render template: 'layouts/base', locals: {
-  fixed_topbar: true,
   show_footer: false
 } %>

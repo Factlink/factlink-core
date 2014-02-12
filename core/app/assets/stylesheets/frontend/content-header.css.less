@@ -1,12 +1,19 @@
 @import "bootstrap/mixins";
 
+@titleHeight: 40px;
+
 .content-header {
   border-bottom: 1px solid @baseBorderColor;
-  padding-bottom: 5px;
   .reset-main-padding();
   .clearfix();
 }
 
 .content-title {
+  margin: 0;
+  padding: 0;
+  height: 100%;
   float: left;
+  height: @titleHeight;
+  line-height: @titleHeight;
 }
+
