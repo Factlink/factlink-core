@@ -1,7 +1,4 @@
-require 'pavlov_helper'
-require_relative '../../../app/interactors/kill_object.rb'
-require_relative '../../../app/interactors/queries/users_by_ids.rb'
-require 'approvals/rspec'
+require 'spec_helper'
 
 describe Queries::UsersByIds do
   include PavlovSupport
