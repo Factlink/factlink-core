@@ -11,5 +11,5 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 (./start-db.sh ; kill $$) &
 (./start-web.sh ; kill $$) &
-(cd js-library; grunt default watch ; kill $$) &
+(cd js-library; grunt && grunt watch; kill $$) &
 wait
