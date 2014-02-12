@@ -5,8 +5,7 @@ ReactSubCommentsAdd = React.createBackboneClass
     text: sessionStorage?["add_subcomment_to_comment_#{@model().parentModel.id}"] || ''
     opened: false
 
-  _changeText: (text, opened) ->
-    @setState text: text, opened: opened
+  _storeText: (text) ->
     if sessionStorage?
       sessionStorage["add_subcomment_to_comment_#{@model().parentModel.id}"] = text
 
@@ -21,7 +20,10 @@ ReactSubCommentsAdd = React.createBackboneClass
 
     @model().add(sub_comment)
     sub_comment.saveWithState()
-    @_changeText '', false
+
+    @refs.textarea.updateText ''
+    @_storeText ''
+    @setState opened: false
 
   is_valid: ->
     @_subComment().isValid()
@@ -29,14 +31,17 @@ ReactSubCommentsAdd = React.createBackboneClass
   render: ->
     _div ['sub-comment-add', 'spec-sub-comments-form'],
       ReactTextArea
+        ref: 'textarea'
         placeholder: 'Leave a reply'
-        onChange: (text) => @_changeText text, true
-        value: @state.text
-        ref: 'text_area'
-        onSubmit: @_submit
+        onChange: (text) =>
+          @setState(text: text)
+          @setState(opened: true) if text.length > 0
+          @_storeText text
+        defaultValue: @state.text
+        onSubmit: => @_submit()
       if @state.opened
         _button ["button-confirm button-small spec-submit",
-          onClick: @_submit
+          onClick: => @_submit()
           disabled: !@_subComment().isValid()
         ],
           Factlink.Global.t.post_subcomment
