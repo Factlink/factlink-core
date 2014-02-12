@@ -21,16 +21,12 @@ json.activity do
   # These tags come from Activity::ListenerCreator and Activity::Listener::Stream (sigh)
   # Try to keep 'em in sync
 
-  # notifications, stream_activities
+  # stream_activities
   when "created_comment", "created_sub_comment"
     json.target_url FactUrl.new(object).proxy_open_url
     json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
-
-    if showing_notifications
-      json.fact truncate("#{object}", length: 85, separator: " ")
-    else
-      dead_fact = query(:'facts/get_dead', id: object.id.to_s)
-      json.fact dead_fact
+    dead_fact = query(:'facts/get_dead', id: object.id.to_s)
+    json.fact dead_fact
     end
 
   # stream_activities
@@ -38,7 +34,7 @@ json.activity do
     dead_fact = query(:'facts/get_dead', id: subject.id.to_s)
     json.fact dead_fact
 
-  # notifications, stream_activities
+  # stream_activities
   when "followed_user"
     json.target_url user_profile_path(user.username)
     json.followed_user do
