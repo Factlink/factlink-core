@@ -4,7 +4,6 @@ window.FactlinkAppMode.coreInSite = (app) ->
   app.linkTarget = '_self'
   app.startSiteRegions()
   app.automaticLogoutInitializer()
-  app.notificationsInitializer()
   app.scrollToTopInitializer()
   declareSiteRoutes()
 
