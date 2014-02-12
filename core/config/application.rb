@@ -130,6 +130,7 @@ module FactlinkUI
     # we only cache very little, so memory_store is fine for now
     config.cache_store = :memory_store
 
+    config.i18n.enforce_available_locales = true
   end
 end
 begin
