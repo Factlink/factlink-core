@@ -19,7 +19,12 @@ window.ReactTextArea = React.createClass
   displayName: 'ReactTextArea'
 
   getInitialState: ->
-    text: @props.defaultValue || ''
+    text: ''
+
+  componentDidMount: ->
+    if @props.storageKey?
+      storedText = sessionStorage?[@props.storageKey]
+      @updateText storedText if storedText
 
   _onChange: (e)->
     @updateText e.target.value
@@ -27,6 +32,7 @@ window.ReactTextArea = React.createClass
   updateText: (text, callback) ->
     @setState text: text, callback
     @props.onChange?(text)
+    sessionStorage?[@props.storageKey] = text if @props.storageKey?
 
   focusInput: ->
     @refs.textarea.getDOMNode().focus()

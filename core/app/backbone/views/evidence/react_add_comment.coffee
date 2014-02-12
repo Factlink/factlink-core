@@ -2,13 +2,9 @@ window.ReactAddComment = React.createBackboneClass
   displayName: 'ReactAddComment'
 
   getInitialState: ->
-    text: sessionStorage?["add_comment_to_fact_#{@model().fact.id}"] || ''
+    text: ''
     controlsOpened: false
     searchOpened: false
-
-  _storeText: (text) ->
-    if sessionStorage?
-      sessionStorage["add_comment_to_fact_#{@model().fact.id}"] = text
 
   render: ->
     _div ['add-comment-container'],
@@ -18,11 +14,10 @@ window.ReactAddComment = React.createBackboneClass
           'What do you think?'
         ReactTextArea
           ref: 'textarea'
-          defaultValue: @state.text
+          storageKey: "add_comment_to_fact_#{@model().fact.id}"
           onChange: (text) =>
             @setState(text: text)
             @setState(controlsOpened: true) if text.length > 0
-            @_storeText text
           onSubmit: => @_submit()
         _div [
           'add-comment-controls'
@@ -74,7 +69,6 @@ window.ReactAddComment = React.createBackboneClass
         FactlinkApp.NotificationCenter.error "Error when sharing"
 
     @refs.textarea.updateText ''
-    @_storeText ''
     @setState controlsOpened: false
 
   _comment: ->
