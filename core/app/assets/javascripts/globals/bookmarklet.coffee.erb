@@ -2,12 +2,13 @@
 
 <%
   bookmarklet_url = FactlinkUI::Application.config.jslib_url +
-                    '/factlink_loader_bookmarklet' +
+                    '/factlink_loader' +
                     if 'development' == Rails.env
                       '.js'
                     else
                       '.min.js';
-                    end
+                    end +
+                    '?o=bookmarklet'
 
   def minify_js(s)
     res = s
@@ -20,7 +21,7 @@
     (function(){
       var script = document.createElement("script");
       script.src = "' + bookmarklet_url + '";
-      script.onload = function(){ window.FACTLINK.loadedBookmarklet();};
+      script.onload = function(){ __internalFactlinkState("bookmarkletLoaded"); };
       document.head.appendChild(script);
     })();'
 
