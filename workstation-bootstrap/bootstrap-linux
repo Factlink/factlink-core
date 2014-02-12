@@ -40,6 +40,7 @@ sudo apt-get -y install \
            libxml2-dev \
            sublime-text \
            google-chrome-stable \
+           chromium-chromedriver \
            openvpn \
            phantomjs \
            mongodb \
@@ -109,6 +110,10 @@ RBENV_INIT
 
   if [[ ! -f $shell_init_file ]] || ! grep -q 'PATH=~/.node/bin' $shell_init_file; then
     echo -e '\nexport PATH=~/.node/bin:$PATH\n' >> $shell_init_file
+  fi
+
+  if [[ ! -f $shell_init_file ]] || ! grep -q '/usr/lib/chromium-browser/' $shell_init_file; then
+    echo -e '\nexport PATH=$PATH:/usr/lib/chromium-browser/\n' >> $shell_init_file
   fi
 
   if [[ ! -f $shell_init_file ]] || ! grep -q '/usr/share/elasticsearch/bin/' $shell_init_file; then
