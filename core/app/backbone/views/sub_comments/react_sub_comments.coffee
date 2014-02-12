@@ -3,6 +3,7 @@ ReactSubCommentsAdd = React.createClass
 
   getInitialState: ->
     text: ''
+    opened: false
 
   _subComment: ->
     new SubComment
@@ -15,7 +16,7 @@ ReactSubCommentsAdd = React.createClass
 
     @props.addToCollection.add(sub_comment)
     sub_comment.saveWithState()
-    @setState text: ''
+    @setState text: '', opened: false
 
   is_valid: ->
     @_subComment().isValid()
@@ -24,12 +25,15 @@ ReactSubCommentsAdd = React.createClass
     R.div className: 'sub-comment-add spec-sub-comments-form',
       ReactTextArea
         placeholder: 'Leave a reply'
-        onChange: (text) => @setState text: text
+        onChange: (text) => @setState text: text, opened: true
         value: @state.text
         ref: 'text_area'
         onSubmit: @_submit
-      if @_subComment().isValid()
-        _button ["button-confirm button-small spec-submit", onClick: @_submit],
+      if @state.opened
+        _button ["button-confirm button-small spec-submit",
+          onClick: @_submit
+          disabled: !@_subComment().isValid()
+        ],
           Factlink.Global.t.post_subcomment
 
 window.ReactSubCommentList = React.createBackboneClass

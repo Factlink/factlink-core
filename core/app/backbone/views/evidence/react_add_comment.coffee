@@ -3,10 +3,11 @@ window.ReactAddComment = React.createBackboneClass
 
   getInitialState: ->
     text: sessionStorage?["add_comment_to_fact_#{@model().fact.id}"] || ''
+    controlsOpened: false
     searchOpened: false
 
-  _changeText: (text) ->
-    @setState text: text
+  _changeText: (text, controlsOpened) ->
+    @setState text: text, controlsOpened: controlsOpened
     if sessionStorage?
       sessionStorage["add_comment_to_fact_#{@model().fact.id}"] = text
 
@@ -19,14 +20,15 @@ window.ReactAddComment = React.createBackboneClass
         ReactTextArea
           ref: 'textarea'
           value: @state.text
-          onChange: (text) => @_changeText text
+          onChange: (text) => @_changeText text, true
           onSubmit: => @_submit()
         _div [
           'add-comment-controls'
-          'add-comment-controls-visible' if @_comment().isValid()
+          'add-comment-controls-visible' if @state.controlsOpened
         ],
           _button ['button-confirm button-small add-comment-post-button'
             onClick: => @_submit()
+            disabled: !@_comment().isValid()
           ],
             Factlink.Global.t.post_argument
           ReactShareFactSelection
@@ -56,8 +58,6 @@ window.ReactAddComment = React.createBackboneClass
     comment = @_comment()
     return unless comment.isValid()
 
-    @_changeText ''
-
     @model().unshift(comment)
     comment.save {},
       success: =>
@@ -70,6 +70,8 @@ window.ReactAddComment = React.createBackboneClass
     comment.share @refs.share_fact_selection.selectedProviderNames(),
       error: =>
         FactlinkApp.NotificationCenter.error "Error when sharing"
+
+    @_changeText '', false
 
   _comment: ->
     new Comment
