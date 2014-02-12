@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   def params_for_interactor(interactor_class)
     needed = (interactor_class.attribute_set.to_a.map(&:name) - [:pavlov_options]).map(&:to_s)
-    Hash[params.map { |key, val| [key, val] }.select {|k,v| needed.include? k}]
+    Hash[params.select {|k,_| needed.include? k}]
   end
 
   def self.pavlov_action name, interactor_class
