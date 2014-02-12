@@ -16,7 +16,6 @@ json.array!(@activities) do |activity_hash|
   json.activity do
     case action
     when "created_comment", "created_sub_comment"
-      json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
       json.fact query(:'facts/get_dead', id: object.id.to_s)
     when "followed_user"
       json.followed_user do
