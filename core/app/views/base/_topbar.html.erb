@@ -17,7 +17,15 @@
     <% if @step_in_signup_process %>
       <%= render "base/topbar/sign_up_steps" %>
     <% elsif current_user %>
-      <%= render "base/topbar/signed_in" %>
+      <ul class="topbar-menu">
+        <li class="topbar-menu-item">
+          <%= link_to "Home", home_path, class: 'js-potential-backbone topbar-menu-link' %>
+        </li>
+        <li class="topbar-divider"></li>
+        <%= render "base/topbar/user_profile" %>
+        <li class="topbar-divider"></li>
+        <%= render "base/topbar/topbar_menu" %>
+      </ul>
     <% else %>
       <div class="topbar-connect">
         <strong>Connect with:</strong>
