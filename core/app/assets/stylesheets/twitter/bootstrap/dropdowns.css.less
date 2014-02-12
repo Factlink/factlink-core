@@ -29,7 +29,7 @@
   z-index: @zindexDropdown;
   display: none; // none by default, but block on "open" of the menu
   padding: 5px 0;
-  background-color: @dropdownBackground;
+  background-color: white;
   border: 1px solid @dropdownBorder;
   *border-right-width: 2px;
   *border-bottom-width: 2px;
@@ -55,7 +55,7 @@
     display: inline-block;
     border-left:   6px solid transparent;
     border-right:  6px solid transparent;
-    border-bottom: 6px solid @dropdownBackground;
+    border-bottom: 6px solid white;
     position: absolute;
     top: -6px;
     right: 13px;
@@ -72,15 +72,15 @@
 
 .dropdown-menu-item:hover a, .dropdown-menu-item:focus a {
   text-decoration: none;
-  color: @dropdownLinkColorHover;
   background-color: @dropdownLinkBackgroundHover;
+  color: white;
 }
 
 .divider {
   height: 2px;
   margin: 8px 1px;
   background-color: @dropdownDividerTop;
-  border-bottom: 1px solid @dropdownDividerBottom;
+  border-bottom: 1px solid white;
 }
 
 // Open state for the dropdown
