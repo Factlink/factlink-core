@@ -9,7 +9,7 @@ module Queries
 
       def execute
         opinionator_ids = fact.opiniated(type).ids
-        query :users_by_ids, user_ids: opinionator_ids, by: :graph_user_id
+        query :dead_users_by_ids, user_ids: opinionator_ids, by: :graph_user_id
       end
     end
   end

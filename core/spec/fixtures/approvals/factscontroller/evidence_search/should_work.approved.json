@@ -1,0 +1,20 @@
+[
+  {
+    "id": "<id>",
+    "site_url": "url",
+    "displaystring": "oil dobedoo",
+    "created_at": "<created_at>",
+    "site_title": "title",
+    "url": "/f/2",
+    "proxy_open_url": "http://localhost:8080/?url=url#factlink-open-2"
+  },
+  {
+    "id": "<id>",
+    "site_url": "url",
+    "displaystring": "you got oil mister?",
+    "created_at": "<created_at>",
+    "site_title": "title",
+    "url": "/f/3",
+    "proxy_open_url": "http://localhost:8080/?url=url#factlink-open-3"
+  }
+]
