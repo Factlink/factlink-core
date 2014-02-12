@@ -35,7 +35,9 @@ class window.SearchResultView extends Backbone.Marionette.CompositeView
           component: ReactFact
             model: new Fact(options.model.get("the_object"))
       when "User"
-        new UserSearchView(model: new User(options.model.get("the_object")))
+        new ReactView
+          component: ReactUserSearch
+            model: new User(options.model.get("the_object"))
       else
         console.info "Unknown class of searchresult: ", options.model.get("the_class")
         new Backbone.View
