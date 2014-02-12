@@ -14,7 +14,7 @@ window.ReactAddComment = React.createBackboneClass
   render: ->
     _div ['add-comment-container'],
       _span ['add-comment-arrow']
-      _div ['add-comment'],
+      _div ['add-comment spec-add-comment-form'],
         _div ['add-comment-question'],
           'What do you think?'
         ReactTextArea
@@ -41,7 +41,7 @@ window.ReactAddComment = React.createBackboneClass
             ],
               'Close search'
           else
-            _a [
+            _a ['spec-open-search-facts-link'
               href: 'javascript:0'
               onClick: => @setState searchOpened: true
             ],
