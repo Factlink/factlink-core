@@ -87,6 +87,9 @@ describe FactsController do
   end
 
   describe :evidence_search do
+    before do
+      ElasticSearch.stub synchronous: true
+    end
     it "should work" do
       authenticate_user!(user)
       fact = nil
@@ -96,10 +99,22 @@ describe FactsController do
                                      displaystring: 'displaystring',
                                      url: 'url',
                                      title: 'title')
+
+        pavlov.interactor(:'facts/create',
+                              displaystring: 'oil dobedoo',
+                              url: 'url',
+                              title: 'title')
+        pavlov.interactor(:'facts/create',
+                              displaystring: 'you got oil mister?',
+                              url: 'url',
+                              title: 'title')
+
       end
 
-      get :evidence_search, id: fact.id, s: "Baron"
+      get :evidence_search, id: fact.id, s: "oil"
       response.should be_success
+
+      verify(format: :json) { response.body }
     end
   end
 
