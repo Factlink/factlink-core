@@ -1,4 +1,4 @@
-OpinionIndicator = React.createBackboneClass
+window.OpinionIndicator = React.createBackboneClass
   displayName: 'OpinionIndicator'
   changeOptions: 'add remove reset sort' + ' change'
 
@@ -35,6 +35,9 @@ ReactCommentHeading = React.createBackboneClass
 
 window.ReactComment = React.createBackboneClass
   displayName: 'ReactComment'
+  propTypes:
+    fact_opinionators: React.PropTypes.instanceOf(Opinionators).isRequired
+    model: React.PropTypes.instanceOf(Comment).isRequired
 
   getInitialState: ->
     show_subcomments: false
@@ -63,7 +66,10 @@ window.ReactComment = React.createBackboneClass
           _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments],
             "(#{sub_comment_count}) Comment"
       if @state.show_subcomments
-        ReactSubComments(model: @model().sub_comments())
+        ReactSubComments
+          model: @model().sub_comments()
+          fact_opinionators: @props.fact_opinionators
+
     ]
 
   render: ->

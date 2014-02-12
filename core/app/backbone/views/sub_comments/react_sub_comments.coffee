@@ -37,6 +37,9 @@ ReactSubCommentsAdd = React.createClass
 window.ReactSubComments = React.createBackboneClass
   displayName: 'ReactSubComments'
   changeOptions: 'add remove reset sort' + ' sync request'
+  propTypes:
+    fact_opinionators: React.PropTypes.instanceOf(Opinionators).isRequired
+    model: React.PropTypes.instanceOf(SubComments).isRequired
 
   componentWillMount: ->
     @model().fetch()
@@ -47,6 +50,10 @@ window.ReactSubComments = React.createBackboneClass
     else
       _div [],
         @model().map (sub_comment) =>
-          ReactSubComment(model: sub_comment)
+          ReactSubComment
+            model: sub_comment
+            key: sub_comment.get('id')
+            fact_opinionators: @props.fact_opinionators
+
         if Factlink.Global.signed_in
           ReactSubCommentsAdd(addToCollection: @model())
