@@ -19,7 +19,17 @@ class SearchController < ApplicationController
         @results = interactor(:'search', keywords: search_for, page: page, row_count: row_count)
       end
 
-      render 'search_results/index'
+      real_results = @results.map do |result|
+        the_class = case result
+                    when DeadFact then "Annotation"
+                    when DeadUser then "User"
+                    end
+        {
+          the_class: the_class,
+          the_object: result
+        }
+      end
+      render json: real_results
     end
   end
 end

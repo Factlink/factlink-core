@@ -27,7 +27,7 @@ ReactSubCommentsAdd = React.createBackboneClass
     @_subComment().isValid()
 
   render: ->
-    R.div className: 'sub-comment-add spec-sub-comments-form',
+    _div ['sub-comment-add', 'spec-sub-comments-form'],
       ReactTextArea
         placeholder: 'Leave a reply'
         onChange: (text) => @_changeText text, true
@@ -41,8 +41,8 @@ ReactSubCommentsAdd = React.createBackboneClass
         ],
           Factlink.Global.t.post_subcomment
 
-window.ReactSubCommentList = React.createBackboneClass
-  displayName: 'ReactSubCommentList'
+window.ReactSubComments = React.createBackboneClass
+  displayName: 'ReactSubComments'
   changeOptions: 'add remove reset sort' + ' sync request'
 
   componentWillMount: ->
@@ -52,14 +52,8 @@ window.ReactSubCommentList = React.createBackboneClass
     if @model().size() == 0 && @model().loading()
       ReactLoadingIndicator()
     else
-      R.div {},
+      _div [],
         @model().map (sub_comment) =>
           ReactSubComment model: sub_comment
         if Factlink.Global.signed_in
           ReactSubCommentsAdd model: @model()
-
-window.ReactSubComments = React.createClass
-  displayName: 'ReactSubComments'
-
-  render: ->
-    ReactSubCommentList model: @props.model.sub_comments()

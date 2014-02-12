@@ -1,9 +1,7 @@
 class UserFollowingController < ApplicationController
   def index
-    @users = interactor(:'users/following', user_name: params[:username])
-    # TODO: this is unnecessarily inefficient: we're getting a list of full users we're
-    # following when in fact the backbone model only cares about the list of usernames.
-    render 'users/following/index', format: 'json'
+    users = interactor(:'users/following', user_name: params[:username])
+    render json: users
   end
 
   def update

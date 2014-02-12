@@ -1,5 +1,5 @@
 // Factlink configuration
-//= require globals/globals
+//= require_tree ./globals
 
 // All the default libraries/files needed for all pages on Factlink
 //= require jquery_ujs
