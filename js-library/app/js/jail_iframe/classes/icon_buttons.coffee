@@ -49,10 +49,10 @@ class IconButton
     @$el.css
       'line-height': style.lineHeight
       'font-size': Math.max 15, Math.min 20, parseInt style.fontSize
-      'color': if targetBrightness > 0.5 then 'black' else 'white'
 
     @$el.find('factlink-icon-button-bubble').css
       'background-color': targetColor
+      'color': if targetBrightness > 0.5 then 'black' else 'white'
 
     @$el.find('factlink-icon-button-bubble-triangle').css
       'border-top-color': targetColor
