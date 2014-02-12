@@ -29,7 +29,6 @@ describe Backend::SubComments do
       [
         double(
           id: '2a',
-          created_by: double,
           created_by_id: double,
           created_at: double,
           content: 'bar',
@@ -37,7 +36,6 @@ describe Backend::SubComments do
         ),
         double(
           id: '2b',
-          created_by: double,
           created_by_id: double,
           created_at: double,
           content: 'foo',
@@ -48,6 +46,18 @@ describe Backend::SubComments do
 
     let(:dead_sub_comments) do
       sub_comments.map { |c| Backend::SubComments.dead_for(c) }
+    end
+
+    let(:dead_users) do
+      sub_comments.map { |sub_comment| double :dead_user }
+    end
+
+    before do
+      sub_comments.each_with_index do |sub_comment, index|
+        allow(Pavlov).to receive(:query)
+          .with(:dead_users_by_ids, user_ids: [sub_comment.created_by_id])
+          .and_return([dead_users[index]])
+      end
     end
 
     it 'no subcomments' do
