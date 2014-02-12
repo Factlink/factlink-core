@@ -97,9 +97,8 @@ class UsersController < ApplicationController
   def tour_users
     authorize! :access, Ability::FactlinkWebapp
     # TODO add proper authorization check
-    @tour_users = interactor :"users/tour_users"
 
-    render :tour_users, formats: [:json]
+    render json: interactor(:"users/tour_users")
   end
 
   private
