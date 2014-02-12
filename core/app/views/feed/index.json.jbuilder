@@ -16,11 +16,9 @@ json.array!(@activities) do |activity_hash|
   json.activity do
     case action
     when "created_comment", "created_sub_comment"
-      json.target_url FactUrl.new(object).proxy_open_url
       json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
       json.fact query(:'facts/get_dead', id: object.id.to_s)
     when "followed_user"
-      json.target_url user_profile_path(user.username)
       json.followed_user do
         subject_user = Queries::UsersByIds.new(user_ids: [subject.user_id]).call.first
         json.partial! 'users/user_partial', user: subject_user
