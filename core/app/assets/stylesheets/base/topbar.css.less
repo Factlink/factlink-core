@@ -4,7 +4,6 @@
 
 .topbar {
   height: 42px;
-  position: fixed;
   top: 0; right: 0; left: 0;
   z-index: @zindexFixedNavbar;
   background-color: white;
@@ -14,10 +13,6 @@
   // fixes mobile behaviour, as the width of <body> is unreliable
   // Top-level position: absolute; is relative to *viewport*, not to <body>
   min-width: @siteWidth;
-}
-
-.topbar-non-fixed {
-  position: absolute;
 }
 
 .topbar-inner {
