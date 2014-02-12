@@ -1,34 +1,6 @@
 # ensure we update this file when we update the locales
 # SHASUM of locales: 598acbeccc1d284c4b23152236b713b6957a8b4f
 
-<%
-  bookmarklet_url = FactlinkUI::Application.config.jslib_url +
-                    '/factlink_loader_bookmarklet' +
-                    if 'development' == Rails.env
-                      '.js'
-                    else
-                      '.min.js';
-                    end
-
-  def minify_js(s)
-    res = s
-    res = res.gsub(/^\s*\/\/[^\n]*\n/, '')
-    res = res.gsub(/\s+/, ' ')
-    res.html_safe
-  end
-
-  bookmarklet = minify_js '
-    (function(){
-      var script = document.createElement("script");
-      script.src = "' + bookmarklet_url + '";
-      script.onload = function(){ window.FACTLINK.loadedBookmarklet();};
-      document.head.appendChild(script);
-    })();'
-
-  fail "Please do not use single quotes here" if bookmarklet.match(/'/)
-%>
-
-
 window.Factlink ||= {}
 
 Factlink.Global =
