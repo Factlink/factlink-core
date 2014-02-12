@@ -1,6 +1,6 @@
 [
   {
-    "the_class": "FactlinkUser",
+    "the_class": "User",
     "the_object": {
       "id": "<id>",
       "name": "John1 Doe1",
@@ -10,7 +10,7 @@
     }
   },
   {
-    "the_class": "FactData",
+    "the_class": "Annotation",
     "the_object": {
       "id": "<id>",
       "site_url": "http://example.org/1.html",
