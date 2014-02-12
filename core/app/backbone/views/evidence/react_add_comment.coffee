@@ -1,3 +1,20 @@
+ReactSearchLink = React.createClass
+  displayName: 'ReactSearchLink'
+
+  render: ->
+    if @props.opened
+      _a [
+        href: 'javascript:0'
+        onClick: => @props.onToggle?(false)
+      ],
+        'Close search'
+    else
+      _a ['spec-open-search-facts-link'
+        href: 'javascript:0'
+        onClick: => @props.onToggle?(true)
+      ],
+        "Search for #{Factlink.Global.t.factlinks} (beta)"
+
 window.ReactAddComment = React.createBackboneClass
   displayName: 'ReactAddComment'
 
@@ -35,18 +52,9 @@ window.ReactAddComment = React.createBackboneClass
             onChange: (providerName, checked) =>
               @state.shareProviders[providerName] = checked
               @forceUpdate()
-          if @state.searchOpened
-            _a [
-              href: 'javascript:0'
-              onClick: => @setState searchOpened: false
-            ],
-              'Close search'
-          else
-            _a ['spec-open-search-facts-link'
-              href: 'javascript:0'
-              onClick: => @setState searchOpened: true
-            ],
-              "Search for #{Factlink.Global.t.factlinks} (beta)"
+          ReactSearchLink
+            opened: @state.searchOpened
+            onToggle: (opened) => @setState searchOpened: opened
           if @state.searchOpened
             _div ['add-comment-search-facts'],
               ReactFactSearch
