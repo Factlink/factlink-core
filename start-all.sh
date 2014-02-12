@@ -9,7 +9,7 @@ onexit() {
 trap onexit SIGINT SIGTERM EXIT INT QUIT TERM
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
-./start-db.sh &
-./start-web.sh &
-(cd js-library; grunt default watch) &
+(./start-db.sh ; kill $$) &
+(./start-web.sh ; kill $$) &
+(cd js-library; grunt default watch ; kill $$) &
 wait
