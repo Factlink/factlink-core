@@ -2,7 +2,7 @@
   <a class="dropdown-toggle topbar-menu-link" data-toggle="dropdown" href="#">
     <b class="caret"></b>
   </a>
-  <ul class="dropdown-menu js-topbar-dropdown-menu">
+  <ul class="dropdown-menu">
     <li class="visible-when-chrome should-install-chrome-extension">
       <%= chrome_extension_link do %>
         <i class='icon-chrome'></i>
@@ -19,14 +19,7 @@
       </a>
     </li>
 
-    <li>
-      <a class="topbar-menu-bookmarklet js-topbar-dropdown-menu-bookmarklet"
-           <%# here we need singlequotes kthxbye: %>
-           href='javascript:<%= minify_js(ensure_no_single_quotes(render(:partial => 'home/bookmarklet', :formats => [:js]))) %>'>
-         <i class='icon-bookmark'></i><!--
-         --><span class="bookmarklettext" style="display: none">Factlink</span><!--
-      --></a>
-    </li>
+    <li class="js-topbar-dropdown-menu-bookmarklet"></li>
 
     <li class="divider"></li>
 

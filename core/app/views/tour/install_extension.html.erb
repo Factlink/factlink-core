@@ -42,9 +42,7 @@
         Fortunately we have a bookmarklet which you can add to your bookmarks. Then click it to create <%= t(:factlinks) %> on all websites!<br />
 
         <div class="dashed-border">
-          <a id="bookmarklet-button" class="bookmarklet button-confirm" onclick="return false"
-               <%# here we need singlequotes kthxbye: %>
-               href='javascript:<%= minify_js(ensure_no_single_quotes(render(:partial => 'home/bookmarklet', :formats => [:js]))) %>'><span style="display: none">Factlink</span></a>
+          <a id="bookmarklet-button" class="bookmarklet button-confirm" onclick="return false"><span style="display: none">Factlink</span></a>
         </div>
       </div>
     </div>
@@ -103,6 +101,8 @@
       $('#chrome-extension-button').mousedown(function() {
         showNextButtonForClient('chrome');
       });
+
+      $('#bookmarklet-button').attr('href', Factlink.Global.bookmarklet_link);
 
       $('#bookmarklet-button').mousedown(function() {
         mp_track("Bookmarklet: Clicked the Bookmarklet #almost-ready");

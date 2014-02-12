@@ -1,12 +1,41 @@
 # ensure we update this file when we update the locales
 # SHASUM of locales: 598acbeccc1d284c4b23152236b713b6957a8b4f
 
+<%
+  bookmarklet_url = FactlinkUI::Application.config.jslib_url +
+                    '/factlink_loader_bookmarklet' +
+                    if 'development' == Rails.env
+                      '.js'
+                    else
+                      '.min.js';
+                    end
+
+  def minify_js(s)
+    res = s
+    res = res.gsub(/^\s*\/\/[^\n]*\n/, '')
+    res = res.gsub(/\s+/, ' ')
+    res.html_safe
+  end
+
+  bookmarklet = minify_js '
+    (function(){
+      var script = document.createElement("script");
+      script.src = "' + bookmarklet_url + '";
+      script.onload = function(){ window.FACTLINK.loadedBookmarklet();};
+      document.head.appendChild(script);
+    })();'
+
+  fail "Please do not use single quotes here" if bookmarklet.match(/'/)
+%>
+
+
 window.Factlink ||= {}
 
 Factlink.Global =
   ajax_loader_image: '<%= image_path("ajax-loader.gif") %>'
   browser_icons_chrome_16x16: '<%= image_path("browser-icons/chrome-16x16.png") %>'
   warning_sign_image: '<%= image_path("warning-sign.png") %>'
+  bookmarklet_link: null # Set in bookmarklet.coffee.erb
 
   core_url: "<%= URI.parse(FactlinkUI::Application.config.core_url).to_s %>"
   environment: "<%= Rails.env %>"
