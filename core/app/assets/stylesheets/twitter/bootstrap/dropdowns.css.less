@@ -77,12 +77,6 @@
   }
 }
 
-.divider {
-  height: 2px;
-  margin: 8px 1px;
-  background-color: @dropdownDividerTop;
-  border-bottom: 1px solid @dropdownDividerBottom;
-}
 .dropdown-menu-item:hover a, .dropdown-menu-item:focus a {
   text-decoration: none;
   color: @dropdownLinkColorHover;
@@ -99,6 +93,11 @@
   outline: 0;
   background-color: @dropdownLinkBackgroundActive;
   .gradient-vertical(@dropdownLinkBackgroundActive, darken(@dropdownLinkBackgroundActive, 5%));
+.divider {
+  height: 2px;
+  margin: 8px 1px;
+  background-color: @dropdownDividerTop;
+  border-bottom: 1px solid @dropdownDividerBottom;
 }
 
 // Open state for the dropdown
