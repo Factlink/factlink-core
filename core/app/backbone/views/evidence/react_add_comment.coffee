@@ -67,7 +67,7 @@ window.ReactAddComment = React.createBackboneClass
         @model().remove(comment)
         FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
 
-    @model().fact.share @refs.share_fact_selection.selectedProviderNames(), comment.get('content'),
+    comment.share @refs.share_fact_selection.selectedProviderNames(),
       error: =>
         FactlinkApp.NotificationCenter.error "Error when sharing"
 
