@@ -58,22 +58,21 @@ FactOpinionateButton = React.createBackboneClass
         _span ["fact-opinion-indicator"],
           _i ["icon-thumbs-#{@props.opinion}"]
 
-
-FactVoteAmountGraph = React.createClass
-  displayName: 'FactVoteAmountGraph'
+FactOpinionTallyChart = React.createClass
+  displayName: 'FactOpinionTallyChart'
 
   render: ->
-    vote_padding = 0.2
-    total = @props.believes + @props.disbelieves + 2*vote_padding
-    believe_percentage = Math.ceil(100 * (@props.believes + vote_padding)/ total)
-    disbelieve_percentage = 100-believe_percentage
+    tally_offset = 0.2
+    total = @props.believes + @props.disbelieves + 2*tally_offset
+    believe_percentage = 100 * (@props.believes + tally_offset) / total
+    disbelieve_percentage = 100 * (@props.disbelieves + tally_offset) / total
 
-    _table ["fact-vote-amount-graph"],
+    _table ["fact-opinion-tally-chart"],
       _tbody [],
         _tr [],
-          _td ["vote-amount-graph-believers"
+          _td ["fact-opinion-tally-chart-believers"
                style: {width: "#{believe_percentage}%"}]
-          _td ["vote-amount-graph-disbelievers"
+          _td ["fact-opinion-tally-chart-disbelievers"
                style: {width: "#{disbelieve_percentage}%"}]
 
 FactOpinionatorsTable = React.createBackboneClass
@@ -89,18 +88,18 @@ FactOpinionatorsTable = React.createBackboneClass
     _div ["fact-opinionators-table"],
       _table ["fact-opinionators-table-table"],
         _tr [],
-          _td ["fact-vote-amount-believes"], opinionTally.believes
+          _td ["fact-opinionators-table-believes"], opinionTally.believes
           _td [],
-            FactVoteAmountGraph
+            FactOpinionTallyChart
               believes: opinionTally.believes
               disbelieves: opinionTally.disbelieves
-          _td ["fact-vote-amount-disbelieves"], opinionTally.disbelieves
+          _td ["fact-opinionators-table-disbelieves"], opinionTally.disbelieves
 
 window.ReactOpinionateArea = React.createBackboneClass
   displayName: 'ReactOpinionateArea'
 
   _opinionate: ->
-    _div className: 'fact-vote',
+    _div className: 'fact-opinionate',
       FactOpinionateButton
         model: @model().getOpinionators()
         opinion: 'believes'
