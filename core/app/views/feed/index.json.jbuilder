@@ -4,6 +4,4 @@ json.array!(@activities) do |activity_hash|
 
   json.partial! 'activities/activity',
     activity: activity,
-    showing_notifications: false
-
 end
