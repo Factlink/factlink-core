@@ -6,12 +6,54 @@
   Factlink &mdash; On your site
 <% end %>
 
-<% content_for :left_column do %>
-  <%= render "home/static_pages_menu", active: :site %>
-<% end %>
-
 <% content_for :content do %>
+<div class="publisher-container">
+  <div class="publisher-animation-area">
+    <!-- SIDEBAR Animation -->
+    <div class="animation-sidebar-text">
 
-<p>Publisher page</p>
+      <ul class="animation-sidebar-paragraph">
+        <li></li>
+        <li></li>
+      </ul>
 
+      <div style="float:right; margin-right: 25px;">
+        <factlink-icon-button class="factlink-tether-element factlink-tether-enabled factlink-tether-element-attached-top factlink-tether-element-attached-left factlink-tether-target-attached-top factlink-tether-target-attached-right factlink-control-visible">
+          <factlink-icon-button-bubble style="background-color: rgb(0, 0, 0);">
+          <factlink-icon-button-bubble-triangle style="border-top-color: rgb(0, 0, 0);">
+          </factlink-icon-button-bubble-triangle>
+          </factlink-icon-button-bubble>
+        </factlink-icon-button>
+      </div>
+
+      <ul class="animation-sidebar-paragraph">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+
+      <div style="float:right; margin-right: 25px;">
+        <factlink-icon-button class="factlink-tether-element factlink-tether-enabled factlink-tether-element-attached-top factlink-tether-element-attached-left factlink-tether-target-attached-top factlink-tether-target-attached-right factlink-control-visible">
+          <factlink-icon-button-bubble style="background-color: rgb(0, 0, 0);">
+          <factlink-icon-button-bubble-triangle style="border-top-color: rgb(0, 0, 0);">
+          </factlink-icon-button-bubble-triangle>
+          </factlink-icon-button-bubble>
+        </factlink-icon-button>
+      </div>
+
+      <ul class="animation-sidebar-paragraph">
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="publisher-content-area">
+    <h1>More engagement</h1>
+    <p>It’s easy for your audience to participate and get engaged with the content you post online. They can leave their opinion and comment directly within context. Direct interaction with your audience.</p>
+  </div>
+</div>
 <% end %>
