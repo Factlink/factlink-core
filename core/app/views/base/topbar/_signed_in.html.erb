@@ -3,10 +3,6 @@
     <%= link_to "Home", home_path, class: 'js-potential-backbone topbar-menu-link' %>
   </li>
 
-  <li class="topbar-divider"></li>
-
-  <li class="dropdown topbar-menu-item topbar-menu-link" id="notifications">
-
   <% if can? :access, Ability::FactlinkWebapp %>
     <li class="topbar-divider"></li>
     <%= render "base/topbar/user_profile" %>
