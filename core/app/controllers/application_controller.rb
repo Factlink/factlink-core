@@ -14,6 +14,19 @@ class ApplicationController < ActionController::Base
     Util::PavlovContextSerialization.pavlov_context_by_user current_user, current_ability
   end
 
+  def params_for_interactor(interactor_class)
+    needed = (interactor_class.attribute_set.to_a.map(&:name) - [:pavlov_options]).map(&:to_s)
+    Hash[params.map { |key, val| [key, val] }.select {|k,v| needed.include? k}]
+  end
+
+  def self.pavlov_action name, interactor_class
+    define_method(name) do
+      interactor_params = params_for_interactor(interactor_class).merge(pavlov_options: pavlov_options)
+
+      render json: interactor_class.new(interactor_params).call
+    end
+  end
+
   # expose query to views, so we can rewrite inline
   # retrieval to proper queries. The queries should
   # be pulled back to controllers, and then to interactors
