@@ -62,10 +62,10 @@ FactOpinionTallyChart = React.createClass
   displayName: 'FactOpinionTallyChart'
 
   render: ->
-    tally_offset = 0.2
-    total = @props.believes + @props.disbelieves + 2*tally_offset
-    believe_percentage = 100 * (@props.believes + tally_offset) / total
-    disbelieve_percentage = 100 * (@props.disbelieves + tally_offset) / total
+    laplace_smoothing_offset = 0.2
+    total = @props.believes + @props.disbelieves + 2*laplace_smoothing_offset
+    believe_percentage = 100 * (@props.believes + laplace_smoothing_offset) / total
+    disbelieve_percentage = 100 * (@props.disbelieves + laplace_smoothing_offset) / total
 
     _table ["fact-opinion-tally-chart"],
       _tbody [],
