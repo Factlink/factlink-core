@@ -13,7 +13,7 @@ ReactOpinionatorsAvatars = React.createBackboneClass
 
   _opinionators: ->
     @model()
-      .filter( (opinionator) => opinionator.get('type') == @props.opinion)
+      .filter( (opinionator) => opinionator.get('type') == @props.opinion_type)
 
   render: ->
     number_of_places = 5
@@ -25,7 +25,7 @@ ReactOpinionatorsAvatars = React.createBackboneClass
       take = number_of_places - 1
       show_plus = true
 
-    _div ["fact-opinionators-#{@props.opinion}"],
+    _div ["fact-opinionators-#{@props.opinion_type}"],
       @_opinionators()
         .slice(0,take)
         .map (opinionator) ->
@@ -43,20 +43,20 @@ FactOpinionateButton = React.createBackboneClass
   changeOptions: 'add remove reset sort' + ' change'
 
   _onClick: ->
-    @model().clickCurrentUserOpinion @props.opinion
+    @model().clickCurrentUserOpinion @props.opinion_type
 
   render: ->
-    is_opinion = @model().opinion_for_current_user() == @props.opinion
+    is_opinion = @model().opinion_for_current_user() == @props.opinion_type
     _div ["fact-opinionate-button"],
       if Factlink.Global.signed_in
-        _button ["button fact-opinionate-button-#{@props.opinion}",
-                 "spec-button-#{@props.opinion}",
+        _button ["button fact-opinionate-button-#{@props.opinion_type}",
+                 "spec-button-#{@props.opinion_type}",
                  'fact-opinionate-button-active' if is_opinion,
                  onClick: @_onClick],
-           _i ["icon-thumbs-#{@props.opinion}"]
+           _i ["icon-thumbs-#{@props.opinion_type}"]
       else
         _span ["fact-opinion-indicator"],
-          _i ["icon-thumbs-#{@props.opinion}"]
+          _i ["icon-thumbs-#{@props.opinion_type}"]
 
 FactOpinionTallyChart = React.createClass
   displayName: 'FactOpinionTallyChart'
@@ -102,21 +102,21 @@ window.ReactOpinionateArea = React.createBackboneClass
     _div className: 'fact-opinionate',
       FactOpinionateButton
         model: @model().getOpinionators()
-        opinion: 'believes'
+        opinion_type: 'believes'
       FactOpinionatorsTable
         model: @model().getOpinionators()
       FactOpinionateButton
         model: @model().getOpinionators()
-        opinion: 'disbelieves'
+        opinion_type: 'disbelieves'
 
   _opinionators: ->
     _div ["fact-opinionators"],
       ReactOpinionatorsAvatars
         model: @model().getOpinionators()
-        opinion: 'believes'
+        opinion_type: 'believes'
       ReactOpinionatorsAvatars
         model: @model().getOpinionators()
-        opinion: 'disbelieves'
+        opinion_type: 'disbelieves'
 
   render: ->
     _div [''],
