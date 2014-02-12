@@ -17,11 +17,6 @@ json.activity do
 
   case action
 
-  # For easier refactoring we note where each activity is used.
-  # These tags come from Activity::ListenerCreator and Activity::Listener::Stream (sigh)
-  # Try to keep 'em in sync
-
-  # stream_activities
   when "created_comment", "created_sub_comment"
     json.target_url FactUrl.new(object).proxy_open_url
     json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
@@ -29,12 +24,10 @@ json.activity do
     json.fact dead_fact
     end
 
-  # stream_activities
   when "believes", "doubts", "disbelieves"
     dead_fact = query(:'facts/get_dead', id: subject.id.to_s)
     json.fact dead_fact
 
-  # stream_activities
   when "followed_user"
     json.target_url user_profile_path(user.username)
     json.followed_user do
