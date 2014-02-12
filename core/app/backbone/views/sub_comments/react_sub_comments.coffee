@@ -4,35 +4,33 @@ ReactSubCommentsAdd = React.createClass
   getInitialState: ->
     text: ''
 
-  model_for_text: ->
-    model = new SubComment
-      content: @state.text
+  _subComment: ->
+    new SubComment
+      content: $.trim(@state.text)
       created_by: currentUser.toJSON()
 
-  submit: ->
-    model = @model_for_text()
-    @props.addToCollection.add(model)
-    model.saveWithState()
-    @refs.text_area.updateText ''
+  _submit: ->
+    sub_comment = @_subComment()
+    return unless sub_comment.isValid()
 
-  updateText: (text)->
-    @setState text: $.trim(text)
+    @props.addToCollection.add(sub_comment)
+    sub_comment.saveWithState()
+    @setState text: ''
 
   is_valid: ->
-    @model_for_text().isValid()
+    @_subComment().isValid()
 
   render: ->
     R.div className: 'sub-comment-add spec-sub-comments-form',
       ReactTextArea
         placeholder: 'Leave a reply'
-        onChange: @updateText
-        defaultValue: ''
+        onChange: (text) => @setState text: text
+        value: @state.text
         ref: 'text_area'
-        onSubmit: @submit
-      _button ["button-confirm button-small spec-submit",
-               disabled: !@is_valid(),
-               onClick: @submit],
-        Factlink.Global.t.post_subcomment
+        onSubmit: @_submit
+      if @_subComment().isValid()
+        _button ["button-confirm button-small spec-submit", onClick: @_submit],
+          Factlink.Global.t.post_subcomment
 
 window.ReactSubCommentList = React.createBackboneClass
   displayName: 'ReactSubCommentList'

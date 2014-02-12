@@ -19,12 +19,15 @@ window.ReactTextArea = React.createClass
   displayName: 'ReactTextArea'
 
   getInitialState: ->
-    text: @props.defaultValue
+    text: @props.value
+
+  componentWillReceiveProps: (nextProps) ->
+    @setState text: nextProps.value
 
   _onChange: (e)->
-    @updateText e.target.value
+    @_updateText e.target.value
 
-  updateText: (text, callback) ->
+  _updateText: (text, callback) ->
     @setState text: text, callback
     @props.onChange?(text)
 
@@ -36,7 +39,7 @@ window.ReactTextArea = React.createClass
 
   insert: (text) ->
     cursorPos =  @$_textarea().prop('selectionStart')
-    @updateText insertTextInto(@state.text, cursorPos, text), =>
+    @_updateText insertTextInto(@state.text, cursorPos, text), =>
       @focusInput()
 
   _handleSubmit: (e)->
