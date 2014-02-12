@@ -142,25 +142,6 @@ describe UsersController do
     end
   end
 
-  describe :mark_as_read do
-    render_views
-    it "should update last read timestamp on the user" do
-      datetime = DateTime.parse("2001-02-03T04:05:06+01:00")
-
-      authenticate_user!(user)
-
-      should_check_can :mark_activities_as_read, user
-
-      DateTime.stub(:now).and_return datetime
-
-      post :mark_activities_as_read, username: user.username, format: :json
-
-      response.should be_success
-
-      User.find(user.id).last_read_activities_on.to_i.should == datetime.to_i
-    end
-  end
-
   describe :update do
     render_views
     before do
