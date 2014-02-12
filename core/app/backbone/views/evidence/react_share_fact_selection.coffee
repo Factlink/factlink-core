@@ -35,9 +35,6 @@ ReactShareButton = React.createBackboneClass
 window.ReactShareFactSelection = React.createBackboneClass
   displayName: 'ReactShareFactSelection'
 
-  getInitialState: ->
-    submitting: false
-
   componentDidMount: ->
     currentUser.on 'change:services', @forceUpdate, @
 
@@ -50,22 +47,15 @@ window.ReactShareFactSelection = React.createBackboneClass
       _span ['share-button share-button-facebook']
 
   render: ->
-    if @state.submitting
-      _div ['share-fact-selection'],
-        _div ['share-fact-selection-loading-indicator'],
-          ReactLoadingIndicator()
-    else
-      _div ['share-fact-selection'],
-        ReactShareButton provider_name: 'facebook', ref: 'facebook', model: currentUser
-        ReactShareButton provider_name: 'twitter', ref: 'twitter', model: currentUser
+    _div ['share-fact-selection'],
+      ReactShareButton provider_name: 'facebook', ref: 'facebook', model: currentUser
+      ReactShareButton provider_name: 'twitter', ref: 'twitter', model: currentUser
 
   submit: (message) ->
     provider_names = @_selectedProviderNames()
     return if provider_names.length == 0
 
-    @setState submitting: true
     @model().share provider_names, message,
-      complete: => @setState submitting: false
       error: =>
         FactlinkApp.NotificationCenter.error "Error when sharing"
 
