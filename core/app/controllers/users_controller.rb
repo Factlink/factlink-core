@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout "frontend"
 
-  before_filter :load_user, except: [:tour_users, :seen_messages]
+  before_filter :load_user, except: [:tour_users]
 
   def show
     authorize! :show, @user
@@ -85,13 +85,6 @@ class UsersController < ApplicationController
         format.json { render json: { :status => :unprocessable_entity } }
       end
     end
-  end
-
-  def seen_messages
-    authorize! :update, current_user
-    fail HackAttempt unless params[:message] =~ /\A\w+\Z/
-    current_user.seen_messages << params[:message]
-    render json: {}, status: :ok
   end
 
   def tour_users

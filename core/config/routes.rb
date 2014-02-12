@@ -124,7 +124,6 @@ FactlinkUI::Application.routes.draw do
   # Scope for user specific actions
   # I made this scope so we don't always have to know the current users username in de frontend
   scope "/u" do
-    put "/seen_messages" => "users#seen_messages", as: 'see_messages'
     get "/tour_users" => "users#tour_users", as: 'tour_users'
     get "/unsubscribe/:token/:type" => 'mail_subscriptions#update', subscribe_action: 'unsubscribe', as: :unsubscribe
     get "/subscribe/:token/:type" => 'mail_subscriptions#update', subscribe_action: 'subscribe', as: :subscribe

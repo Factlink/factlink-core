@@ -280,8 +280,6 @@ class User
     social_accounts.find_or_initialize_by(provider_name: provider_name)
   end
 
-  set :seen_messages
-
   # Override login mechanism to allow username or email logins
   def self.find_for_database_authentication(conditions)
     login = conditions.delete(:login)
