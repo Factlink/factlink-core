@@ -46,6 +46,15 @@ RSpec.configure do |config|
     Capybara::Poltergeist::Driver.new(app, options)
   end
 
+  Capybara.register_driver :selenium do |app|
+    browser = if ENV["USE_SELENIUM"].nil? || ENV["USE_SELENIUM"].empty?
+                :firefox
+              else
+                ENV["USE_SELENIUM"].to_sym
+              end
+    Capybara::Selenium::Driver.new(app, browser: browser)
+  end
+
   driver = if ENV["USE_SELENIUM"]
              :selenium
            else
