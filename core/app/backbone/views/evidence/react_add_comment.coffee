@@ -61,9 +61,9 @@ window.ReactAddComment = React.createBackboneClass
 
     @model().unshift(comment)
     comment.save {},
-      success: =>
+      success: ->
         mp_track "Factlink: Added comment",
-          factlink_id: @model().fact.id
+          factlink_id: comment.collection.fact.id
       error: =>
         @model().remove(comment)
         FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
