@@ -19,7 +19,22 @@ class SearchController < ApplicationController
         @results = interactor(:'search', keywords: search_for, page: page, row_count: row_count)
       end
 
-      render 'search_results/index'
+      real_results = @results.map do |result|
+        if result.class == DeadFact
+          {
+            the_class: "FactData",
+            the_object: result
+          }
+        elsif result.class == DeadUser
+          {
+            the_class: "FactlinkUser",
+            the_object: result
+          }
+        else
+          raise "Error: SearchResults::SearchResultItem#the_object: No match on class."
+        end
+      end
+      render json: real_results
     end
   end
 end
