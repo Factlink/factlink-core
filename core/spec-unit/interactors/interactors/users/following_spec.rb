@@ -38,7 +38,7 @@ describe Interactors::Users::Following do
               graph_user_id: followed_user.graph_user_id.to_s, pavlov_options: pavlov_options)
         .and_return(graph_user_ids)
       allow(Pavlov).to receive(:query)
-        .with(:'users_by_ids',
+        .with(:'dead_users_by_ids',
               user_ids: anything,
               by: :graph_user_id,
               pavlov_options: pavlov_options) do |cmd, options|

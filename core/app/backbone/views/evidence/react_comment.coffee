@@ -63,7 +63,7 @@ window.ReactComment = React.createBackboneClass
           _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments],
             "(#{sub_comment_count}) Comment"
       if @state.show_subcomments
-        ReactSubCommentList(model: @model().sub_comments())
+        ReactSubComments(model: @model().sub_comments())
     ]
 
   render: ->

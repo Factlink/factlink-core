@@ -34,8 +34,8 @@ ReactSubCommentsAdd = React.createClass
                onClick: @submit],
         Factlink.Global.t.post_subcomment
 
-window.ReactSubCommentList = React.createBackboneClass
-  displayName: 'ReactSubCommentList'
+window.ReactSubComments = React.createBackboneClass
+  displayName: 'ReactSubComments'
   changeOptions: 'add remove reset sort' + ' sync request'
 
   componentWillMount: ->

@@ -18,7 +18,7 @@ module Interactors
       end
 
       def fact
-        @fact ||= query(:'facts/get', id: fact_id.to_s)
+        @fact ||= query(:'facts/get', id: fact_id)
       end
 
       def authorized?
@@ -26,7 +26,7 @@ module Interactors
       end
 
       def validate
-        validate_integer :fact_id, fact_id
+        validate_integer_string :fact_id, fact_id
       end
     end
   end
