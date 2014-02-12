@@ -40,6 +40,8 @@
   box-shadow: 0 5px 10px rgba(0,0,0,.2);
   background-clip: padding-box;
   text-align: left;
+  left: auto;
+  right: 0;
 
   &:before {
     content: '';
@@ -50,7 +52,8 @@
     border-bottom-color: @dropdownBorder;
     position: absolute;
     top: -7px;
-    left: 9px;
+    left: auto;
+    right: 12px;
   }
 
   &:after {
@@ -61,7 +64,8 @@
     border-bottom: 6px solid @dropdownBackground;
     position: absolute;
     top: -6px;
-    left: 10px;
+    left: auto;
+    right: 13px;
   }
 
   a {
@@ -126,25 +130,4 @@ li.dropdown.active > .dropdown-toggle .caret,
 li.dropdown.open.active > .dropdown-toggle .caret {
   border-top-color: @linkColorHover;
   border-bottom-color: @linkColorHover;
-}
-
-//Right aligned menus need alt position
-li > .dropdown-menu {
-  left: auto;
-  right: 0;
-  &:before {
-    left: auto;
-    right: 12px;
-  }
-  &:after {
-    left: auto;
-    right: 13px;
-  }
-  .dropdown-menu {
-    left: auto;
-    right: 100%;
-    margin-left: 0;
-    margin-right: -1px;
-    border-radius: 6px 0 6px 6px;
-  }
 }
