@@ -9,6 +9,8 @@ describe UserFollowingController do
   describe "#index" do
     include PavlovSupport
     before do
+      FactoryGirl.reload
+
       user2 = create :user
       user3 = create :user
 
