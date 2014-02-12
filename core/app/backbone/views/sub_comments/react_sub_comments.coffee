@@ -1,9 +1,14 @@
-ReactSubCommentsAdd = React.createClass
+ReactSubCommentsAdd = React.createBackboneClass
   displayName: 'ReactSubCommentsAdd'
 
   getInitialState: ->
-    text: ''
+    text: sessionStorage?["add_subcomment_to_comment_#{@model().parentModel.id}"] || ''
     opened: false
+
+  _changeText: (text, opened) ->
+    @setState text: text, opened: opened
+    if sessionStorage?
+      sessionStorage["add_subcomment_to_comment_#{@model().parentModel.id}"] = text
 
   _subComment: ->
     new SubComment
@@ -14,9 +19,9 @@ ReactSubCommentsAdd = React.createClass
     sub_comment = @_subComment()
     return unless sub_comment.isValid()
 
-    @props.addToCollection.add(sub_comment)
+    @model().add(sub_comment)
     sub_comment.saveWithState()
-    @setState text: '', opened: false
+    @_changeText '', false
 
   is_valid: ->
     @_subComment().isValid()
@@ -25,7 +30,7 @@ ReactSubCommentsAdd = React.createClass
     R.div className: 'sub-comment-add spec-sub-comments-form',
       ReactTextArea
         placeholder: 'Leave a reply'
-        onChange: (text) => @setState text: text, opened: true
+        onChange: (text) => @_changeText text, true
         value: @state.text
         ref: 'text_area'
         onSubmit: @_submit
@@ -49,9 +54,9 @@ window.ReactSubCommentList = React.createBackboneClass
     else
       R.div {},
         @model().map (sub_comment) =>
-          ReactSubComment(model: sub_comment)
+          ReactSubComment model: sub_comment
         if Factlink.Global.signed_in
-          ReactSubCommentsAdd(addToCollection: @model())
+          ReactSubCommentsAdd model: @model()
 
 window.ReactSubComments = React.createClass
   displayName: 'ReactSubComments'
