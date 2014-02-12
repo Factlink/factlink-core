@@ -21,7 +21,7 @@ module Commands
 
       def caption
         em_dash = "\u2014"
-        "#{fact.host} #{em_dash} #{fact.title}"
+        "#{fact.host} #{em_dash} #{fact.site_title}"
       end
 
       def url

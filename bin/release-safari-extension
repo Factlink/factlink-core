@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#abort this script on any error:
+set -e
+sfextfile=$1
+
+if [ ! -f "$sfextfile" ]; then
+  echo "First argument must be the file of the safari extension (factlink.safariextz)"
+  exit 1
+fi
+
+scp $sfextfile deploy@static.factlink.com:/applications/firefox-extension/shared/releases/factlink.safariextz

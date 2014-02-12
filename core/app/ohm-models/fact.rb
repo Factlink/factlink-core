@@ -7,7 +7,6 @@ class Fact < OurOhm
            :to => :believable
 
   def validate
-    assert_present :created_by
     assert_present :site
   end
 
@@ -16,13 +15,10 @@ class Fact < OurOhm
 
     result = super
 
-    add_to_created_facts
     set_own_id_on_saved_data
 
     result
   end
-
-  reference :created_by, GraphUser
 
   def to_s
     data.displaystring || ""
@@ -64,14 +60,13 @@ class Fact < OurOhm
   end
 
   def delete
-    data.destroy
-    believable.delete
-    remove_from_created_facts
+    raise unless deletable?
     super
   end
 
   def deletable?
-    opinionated_users_ids - [created_by_id] == []
+    opinionated_users_ids.length == 0 &&
+      Comment.where(fact_data_id: data_id).length == 0
   end
 
   # For compatibility with DeadFact
@@ -80,15 +75,6 @@ class Fact < OurOhm
   end
 
   private
-
-  # TODO: dirty, please decouple
-  def add_to_created_facts
-    created_by.sorted_created_facts.add self
-  end
-
-  def remove_from_created_facts
-    created_by.sorted_created_facts.delete self
-  end
 
   def set_own_id_on_saved_data
     data.fact_id = id

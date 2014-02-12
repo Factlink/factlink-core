@@ -3,19 +3,27 @@
     <b class="caret"></b>
   </a>
   <ul class="dropdown-menu">
-    <li class="visible-when-chrome should-install-chrome-extension">
+    <li class="visible-when-chrome">
       <%= chrome_extension_link do %>
         <i class='icon-chrome'></i>
         Chrome extension
-        <span class="label label-warning should-install-chrome-extension">Install</span>
+        <span class="label label-warning">Install</span>
       <% end %>
     </li>
 
-    <li class="visible-when-firefox should-install-firefox-extension">
-      <a href="<%= "#{FactlinkUI::Application.config.static_url}/extension/firefox/factlink-latest.xpi" %>">
+    <li class="visible-when-firefox">
+      <a href="https://static.factlink.com/extension/firefox/factlink-latest.xpi">
         <i class='icon-firefox'></i>
         Firefox extension
-        <span class="label label-warning should-install-chrome-extension">Install</span>
+        <span class="label label-warning">Install</span>
+      </a>
+    </li>
+
+    <li class="visible-when-safari">
+      <a href="https://static.factlink.com/extension/firefox/factlink.safariextz">
+        <i class='icon-apple'></i>
+        Safari extension
+        <span class="label label-warning">Install</span>
       </a>
     </li>
 

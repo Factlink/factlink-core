@@ -1,18 +1,19 @@
 {
   "id": "<id>",
-  "created_at": "<created_at>",
-  "formatted_content": "Gerard is een gekke meneer",
-  "tally": {
-    "believes": 1,
-    "disbelieves": 0,
-    "current_user_opinion": "believes"
-  },
-  "is_deletable": true,
-  "sub_comments_count": 0,
   "created_by": {
     "id": "<id>",
     "name": "John1 Doe1",
     "username": "johndoe1",
-    "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900"
+    "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+    "deleted": false
+  },
+  "created_at": "<created_at>",
+  "formatted_content": "Gerard is een gekke meneer",
+  "sub_comments_count": 0,
+  "is_deletable": true,
+  "tally": {
+    "believes": 1,
+    "disbelieves": 0,
+    "current_user_opinion": "believes"
   }
 }

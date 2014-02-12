@@ -57,9 +57,7 @@ class Ability
     can :index, Fact
     can :read, Fact
     can :opinionate, Fact
-    can :manage, Fact do |f|
-      f.created_by_id == user.graph_user_id
-    end
+    can :create, Fact
     cannot :update, Fact
   end
 
@@ -69,7 +67,7 @@ class Ability
     can :read, Comment
     can :destroy, Comment do |comment|
       dead_comment = Pavlov.query(:'comments/by_ids', ids: comment.id.to_s, pavlov_options: {}).first
-      comment.created_by_id == user.id && dead_comment.is_deletable
+      comment.created_by.id == user.id && dead_comment.is_deletable
     end
   end
 

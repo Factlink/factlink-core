@@ -3,9 +3,9 @@ DeadFact = StrictStruct.new(
   :site_url,
   :displaystring,
   :created_at,
-  :title,
-  :deletable?
+  :site_title,
 ) do
+
   def to_s
     displaystring || ""
   end
@@ -22,4 +22,12 @@ DeadFact = StrictStruct.new(
     URI.parse(site_url).host
   end
 
+  alias :old_to_h :to_h
+  def to_h
+    old_to_h.merge \
+      url: url.friendly_fact_path,
+      proxy_open_url: url.proxy_open_url
+  end
+
+  alias :to_hash :to_h
 end

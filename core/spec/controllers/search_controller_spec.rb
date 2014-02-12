@@ -13,7 +13,7 @@ describe SearchController do
       ElasticSearch.stub synchronous: true
 
       user = create(:full_user, username: "Baron")
-      fact = create(:fact, data: create(:fact_data, displaystring: "Baron"), created_by: user.graph_user)
+      fact = create(:fact, data: create(:fact_data, displaystring: "Baron"))
 
       authenticate_user!(user)
       get :search, s: "Baron", format: :json

@@ -5,7 +5,7 @@
 # both because we want it to have an index, and because we don't want to
 # leak too much of the internals
 module Queries
-  class UsersByIds # Returns Killobject.user
+  class DeadUsersByIds # Returns DeadUser
     include Pavlov::Query
 
     attribute :user_ids, Array
@@ -19,7 +19,12 @@ module Queries
 
     def execute
       User.any_in(by => user_ids).map do |user|
-        KillObject.user user
+        DeadUser.new \
+          id: user.id.to_s,
+          name: user.name,
+          username: user.username,
+          gravatar_hash: user.gravatar_hash,
+          deleted: user.deleted
       end
     end
   end

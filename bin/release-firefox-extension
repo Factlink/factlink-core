@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#abort this script on any error:
+set -e
+ffextdir=$1
+
+if [ ! -d "$ffextdir" ]; then
+  echo "First argument must be the directory of the firefox extension"
+  exit 1
+fi
+
+cd "$ffextdir"
+
+./build.sh
+
+scp factlink-extension.xpi deploy@static.factlink.com:/applications/firefox-extension/shared/releases/factlink-latest.xpi
+
+scp factlink-extension.update.rdf deploy@static.factlink.com:/applications/firefox-extension/shared/releases/updates.rdf

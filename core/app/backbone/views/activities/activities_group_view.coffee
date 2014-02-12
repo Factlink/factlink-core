@@ -79,7 +79,11 @@ class UserFactActivitiesGroupView extends UserActivitiesGroupView
   onClose: ->
     @factView().close()
 
-  factView: -> @_factView ?= new FactView model: @fact()
+  factView: ->
+    @_factView ?= new ReactView
+      component: ReactFact
+        model: @fact()
+
   fact: -> new Fact @model.get("activity").fact
 
   sameFact: (model) ->

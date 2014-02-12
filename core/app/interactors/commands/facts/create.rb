@@ -6,7 +6,7 @@ module Commands
       arguments :displaystring, :title, :creator, :site
 
       def execute
-        fact = Fact.new created_by: creator.graph_user, site: site
+        fact = Fact.new site: site
         fact.data = create_fact_data
         fact.save
         fact.data.fact_id = fact.id

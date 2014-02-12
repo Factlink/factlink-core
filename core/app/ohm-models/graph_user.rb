@@ -12,5 +12,4 @@ class GraphUser < OurOhm
 
   timestamped_set :notifications, Activity
   timestamped_set :stream_activities, Activity
-  timestamped_set :sorted_created_facts, Fact
 end

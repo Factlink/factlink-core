@@ -29,7 +29,6 @@ describe Queries::Facts::GetDead do
         id: '2',
         site: site,
         data: fact_data,
-        deletable?: false,
         believable: believable
     end
 
@@ -47,8 +46,7 @@ describe Queries::Facts::GetDead do
       expect(dead_fact.id).to eq live_fact.id
       expect(dead_fact.displaystring).to eq live_fact.data.displaystring
       expect(dead_fact.created_at).to eq live_fact.data.created_at
-      expect(dead_fact.title).to eq live_fact.data.title
-      expect(dead_fact.deletable?).to eq live_fact.deletable?
+      expect(dead_fact.site_title).to eq live_fact.data.title
       expect(dead_fact.site_url).to eq site.url
     end
   end

@@ -3,37 +3,34 @@
 
   <div class="install-extension-middle">
     <div class="install-extension-picture">
-      <%= image_tag("icon-client-chrome.png", class: "visible-when-chrome") %>
-      <%= image_tag("icon-client-firefox.png", class: "visible-when-firefox") %>
+      <%= image_tag("icon-client-extension.png", class: "visible-when-chrome client-extension-image") %>
+      <%= image_tag("icon-client-extension.png", class: "visible-when-firefox client-extension-image") %>
+      <%= image_tag("icon-client-extension.png", class: "visible-when-safari client-extension-image") %>
       <%= image_tag("icon-client-bookmarklet.png", class: "visible-when-unsupported-browser") %>
     </div>
 
     <div class="install-extension-text">
       <div class="visible-when-chrome">
-        Next, add a button to your browser to create <%= t(:factlinks) %> on all websites!
+        Next, add Factlink to create <%= t(:factlinks) %> on all websites!
 
         <div class="transparent-border">
-          <% if FactlinkUI::Application.config.use_chrome_webstore %>
-            <a id="chrome-extension-webstore-button" class="button-confirm">Add Factlink to Chrome</a>
-          <% else %>
-            <!-- for staging downloads of the Chrome Extension -->
-            <iframe id="ce-download" name="ce-download" height=0 width=0 border=0 style="display:none;"></iframe>
-            <a id="chrome-extension-button" target="ce-download" class="button-confirm" href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx">Add Factlink to Chrome (<%= Rails.env %>)</a>
-          <% end %>
+          <a id="chrome-extension-webstore-button" class="button-confirm">Add Factlink to Chrome</a>
         </div>
       </div>
 
       <div class="visible-when-firefox">
-        Next, add a button to your browser to create <%= t(:factlinks) %> on all websites!
+        Next, add Factlink to create <%= t(:factlinks) %> on all websites!
 
         <div class="transparent-border">
-          <div class="should-install-firefox-extension">
-            <a id="firefox-extension-button" class="button-confirm" href="<%= "#{FactlinkUI::Application.config.static_url}/extension/firefox/factlink-latest.xpi" %>">Add Factlink to Firefox</a>
-          </div>
+          <a id="firefox-extension-button" class="button-confirm" href="https://static.factlink.com/extension/firefox/factlink-latest.xpi">Add Factlink to Firefox</a>
+        </div>
+      </div>
 
-          <div class="firefox-extension-installed">
-            <button class="button" disabled >Factlink added to Firefox</button>
-          </div>
+      <div class="visible-when-safari">
+        Next, add Factlink to create <%= t(:factlinks) %> on all websites!
+
+        <div class="transparent-border">
+          <a id="safari-extension-button" class="button-confirm" href="https://static.factlink.com/extension/firefox/factlink.safariextz">Add Factlink to Safari</a>
         </div>
       </div>
 
@@ -47,68 +44,13 @@
       </div>
     </div>
   </div>
-
-  <div class="install-extension-bottom">
-    <div class="visible-when-chrome">
-      <div class="should-install-chrome-extension">
-        <a href="<%= next_tourstep_path(ref: 'chrome_extension_skip') %>">Skip this step</a>
-      </div>
-
-      <div class="chrome-extension-installed">
-        <a class="button-confirm" href="<%= next_tourstep_path(ref: 'chrome_extension_next') %>" data-disable-with="Loading...">Next step</a>
-      </div>
-    </div>
-
-    <div class="visible-when-firefox">
-      <div class="should-install-firefox-extension">
-        <a href="<%= next_tourstep_path(ref: 'firefox_extension_skip') %>">Skip this step</a>
-      </div>
-
-      <div class="firefox-extension-installed">
-        <a class="button-confirm" href="<%= next_tourstep_path(ref: 'firefox_extension_next') %>" data-disable-with="Loading...">Next step</a>
-      </div>
-    </div>
-
-    <div class="visible-when-unsupported-browser">
-      <div class="should-install-unsupported-browser-extension">
-        <a href="<%= next_tourstep_path(ref: 'bookmarklet_skip') %>">Skip step</a>
-      </div>
-
-      <div class="unsupported-browser-extension-installed">
-        <a class="button-confirm" href="<%= next_tourstep_path(ref: 'bookmarklet_next') %>" data-disable-with="Loading...">Next step</a>
-      </div>
-    </div>
-  </div>
+  <a href="<%= next_tourstep_path %>" class="button-confirm extension-next-step-button" data-disable-with="Loading...">Next step</a>
 </div>
 
 <% content_for :tour_javascript do %>
   <script>
     $(function() {
-
-      var notClicked = true;
-
-      function showNextButtonForClient(identifier) {
-        setTimeout(function (){
-          if (notClicked) {
-            $('.visible-when-' + identifier +' .should-install-' + identifier + '-extension').fadeOut(600, function() {
-              $('.visible-when-' + identifier + ' .' + identifier + '-extension-installed').fadeIn(600);
-            });
-            notClicked = false;
-          }
-        }, 1800);
-      }
-
-      $('#chrome-extension-button').mousedown(function() {
-        showNextButtonForClient('chrome');
-      });
-
       $('#bookmarklet-button').attr('href', Factlink.Global.bookmarklet_link);
-
-      $('#bookmarklet-button').mousedown(function() {
-        mp_track("Bookmarklet: Clicked the Bookmarklet #almost-ready");
-        showNextButtonForClient('unsupported-browser');
-      });
-
 
       <% if FactlinkUI::Application.config.use_chrome_webstore %>
         $('#chrome-extension-webstore-button').on('click', function() {

@@ -1,32 +1,12 @@
 .visible-when-chrome,
 .visible-when-firefox,
+.visible-when-safari,
 .visible-when-unsupported-browser { display: none; }
 
-html {
-  &.chrome              { .visible-when-chrome              { display: block; } }
-  &.firefox             { .visible-when-firefox             { display: block; } }
-  &.unsupported-browser { .visible-when-unsupported-browser { display: block; } }
-}
-
-
-html.chrome {
-  .should-install-chrome-extension { display: inline-block; }
-  .chrome-extension-installed { display: none; }
-
-  &.chrome_extension_installed {
-    .should-install-chrome-extension { display: none; }
-    .chrome-extension-installed { display: inline-block; }
-  }
-}
-
-
-html.firefox {
-  .should-install-firefox-extension { display: inline-block; }
-  .firefox-extension-installed      { display: none; }
-
-  &.firefox_extension_installed {
-    .should-install-firefox-extension { display: none; }
-    .firefox-extension-installed      { display: inline-block; }
-  }
+html.chrome .visible-when-chrome,
+html.firefox .visible-when-firefox,
+html.safari .visible-when-safari ,
+html.unsupported-browser .visible-when-unsupported-browser {
+  display:block;
 }
 
