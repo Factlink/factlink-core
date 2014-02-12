@@ -1,6 +1,10 @@
 window.ReactPopover = React.createBackboneClass
   displayName: 'ReactPopover'
 
+  getDefaultProps: ->
+    vertical: "bottom"
+    horizontal: "center"
+
   componentWillMount: ->
     @_tooltipElement = $("""<span style="position: absolute;
                             display: inline-block;
@@ -14,7 +18,10 @@ window.ReactPopover = React.createBackboneClass
     @_renderTooltip()
 
   _popoverComponent: ->
-    _div ['translucent-popover top'],
+    _div ['translucent-popover',
+          @props.vertical unless @props.vertical == 'middle'
+          @props.horizontal unless @props.horizontal == 'center'
+        ],
       _div ['factlink-popover-content'],
         @props.children
       _div ['factlink-popover-arrow']
@@ -22,7 +29,7 @@ window.ReactPopover = React.createBackboneClass
   _tetherOptions: ->
     element: @_tooltipElement
     target: @getDOMNode().parentElement
-    attachment: 'bottom center'
+    attachment: @props.vertical + ' ' + @props.horizontal
     optimizations:
       moveElement: false # Warning: always moves to <body> anyway!
 

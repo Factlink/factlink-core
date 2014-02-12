@@ -14,7 +14,7 @@ ReactBookmarklet = React.createBackboneClass
       _span [style: {display: 'none'}],
         'Factlink' # Caption of the link in the bookmarks bar
       if @state.hovered
-        ReactPopover {},
+        ReactPopover {vertical: 'middle', horizontal: 'right'},
           _div [],
             "You can drag this Bookmarklet to your bookmarks bar."
 
