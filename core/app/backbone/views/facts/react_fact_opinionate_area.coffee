@@ -47,15 +47,15 @@ FactOpinionateButton = React.createBackboneClass
 
   render: ->
     is_opinion = @model().opinion_for_current_user() == @props.opinion
-    _div ["fact-vote-button"],
+    _div ["fact-opinionate-button"],
       if Factlink.Global.signed_in
-        _button ["button fact-vote-button-#{@props.opinion}",
+        _button ["button fact-opinionate-button-#{@props.opinion}",
                  "spec-button-#{@props.opinion}",
-                 'fact-vote-button-active' if is_opinion,
+                 'fact-opinionate-button-active' if is_opinion,
                  onClick: @_onClick],
            _i ["icon-thumbs-#{@props.opinion}"]
       else
-        _span ["fact-vote-indicator"],
+        _span ["fact-opinion-indicator"],
           _i ["icon-thumbs-#{@props.opinion}"]
 
 
