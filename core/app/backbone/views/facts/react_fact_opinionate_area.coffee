@@ -38,8 +38,8 @@ ReactOpinionatorsAvatars = React.createBackboneClass
           "+" + (@_opinionators().length - number_of_places + 1)
 
 
-FactVoteButton = React.createBackboneClass
-  displayName: 'FactVoteButton'
+FactOpinionateButton = React.createBackboneClass
+  displayName: 'FactOpinionateButton'
   changeOptions: 'add remove reset sort' + ' change'
 
   _onClick: ->
@@ -76,8 +76,8 @@ FactVoteAmountGraph = React.createClass
           _td ["vote-amount-graph-disbelievers"
                style: {width: "#{disbelieve_percentage}%"}]
 
-FactVoteStatsTable = React.createBackboneClass
-  displayName: 'FactVoteStatsTable'
+FactOpinionatorsTable = React.createBackboneClass
+  displayName: 'FactOpinionatorsTable'
   changeOptions: 'add remove reset sort' + ' change'
 
   render: ->
@@ -96,17 +96,17 @@ FactVoteStatsTable = React.createBackboneClass
               disbelieves: votes.disbelieves
           _td ["fact-vote-amount-disbelieves"], votes.disbelieves
 
-window.ReactVoteArea = React.createBackboneClass
-  displayName: 'ReactVoteArea'
+window.ReactOpinionateArea = React.createBackboneClass
+  displayName: 'ReactOpinionateArea'
 
   _opinionate: ->
     _div className: 'fact-vote',
-      FactVoteButton
+      FactOpinionateButton
         model: @model().getOpinionators()
         opinion: 'believes'
-      FactVoteStatsTable
+      FactOpinionatorsTable
         model: @model().getOpinionators()
-      FactVoteButton
+      FactOpinionateButton
         model: @model().getOpinionators()
         opinion: 'disbelieves'
 
