@@ -104,9 +104,6 @@ class Ability
     return unless signed_in?
 
     can :index, Activity
-    can :mark_activities_as_read, User do |u|
-      u.id == user.id
-    end
     can :see_activities, User do |u|
       u.id == user.id
     end

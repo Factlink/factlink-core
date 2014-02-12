@@ -73,20 +73,6 @@ class UsersController < ApplicationController
     backbone_responder
   end
 
-  def mark_activities_as_read
-    authorize! :mark_activities_as_read, @user
-
-    @user.last_read_activities_on = DateTime.now
-
-    respond_to do |format|
-      if @user.save
-        format.json { head :no_content }
-      else
-        format.json { render json: { :status => :unprocessable_entity } }
-      end
-    end
-  end
-
   def tour_users
     authorize! :access, Ability::FactlinkWebapp
     # TODO add proper authorization check

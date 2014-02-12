@@ -9,19 +9,6 @@ class Ohm::Model::TimestampedSet < Ohm::Model::SortedSet
     end
   end
 
-  def unread_count
-    last_read = key['last_read'].get
-    if last_read
-      key.zcount(last_read,'+inf')
-    else
-      key.zcard
-    end
-  end
-
-  def mark_as_read
-    key['last_read'].set(self.class.current_time)
-  end
-
   alias :until :below
 
   def inspect
