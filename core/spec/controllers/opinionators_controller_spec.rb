@@ -20,7 +20,7 @@ describe OpinionatorsController do
 
       get :index, fact_id: fact.id
 
-      Approvals.verify(response.body, format: :json, name: 'opinionators#index should keep the same content')
+      verify(format: :json) { response.body }
     end
   end
 end

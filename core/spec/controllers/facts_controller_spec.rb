@@ -27,7 +27,7 @@ describe FactsController do
 
       get :show, id: fact.id, format: :json
 
-      Approvals.verify(response.body, format: :json, name: 'facts#show should keep the same content')
+      verify(format: :json) { response.body }
     end
 
     it "should render json successful for non-logged in users" do
@@ -48,7 +48,7 @@ describe FactsController do
 
       get :show, id: fact.id, format: :json
 
-      Approvals.verify(response.body, format: :json, name: 'facts#show should keep the same content for anonymous')
+      verify(format: :json) { response.body }
     end
   end
 

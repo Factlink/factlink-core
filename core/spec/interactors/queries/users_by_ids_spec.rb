@@ -1,7 +1,7 @@
 require 'pavlov_helper'
 require_relative '../../../app/interactors/kill_object.rb'
 require_relative '../../../app/interactors/queries/users_by_ids.rb'
-require 'approvals'
+require 'approvals/rspec'
 
 describe Queries::UsersByIds do
   include PavlovSupport
@@ -25,9 +25,7 @@ describe Queries::UsersByIds do
         .with(user.graph_user_id)
         .and_return(following_info)
 
-      result = query.call
-
-      Approvals.verify(result.to_json, format: :json, name: 'query-users_by_ids')
+      verify(format: :json) { query.call.to_json }
     end
 
     it 'can search by graph_user ids' do
