@@ -50,9 +50,3 @@ window.ReactSubCommentList = React.createBackboneClass
           ReactSubComment(model: sub_comment)
         if Factlink.Global.signed_in
           ReactSubCommentsAdd(addToCollection: @model())
-
-window.ReactSubComments = React.createClass
-  displayName: 'ReactSubComments'
-
-  render: ->
-    ReactSubCommentList model: @props.model.sub_comments()
