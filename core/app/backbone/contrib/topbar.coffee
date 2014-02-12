@@ -12,7 +12,7 @@ ReactBookmarklet = React.createBackboneClass
     ],
       _i ['icon-bookmark']
       _span [style: {display: 'none'}],
-        'Factlink'
+        'Factlink' # Caption of the link in the bookmarks bar
       if @state.hovered
         ReactPopover {},
           _div [],
