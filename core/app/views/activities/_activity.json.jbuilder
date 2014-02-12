@@ -22,7 +22,6 @@ json.activity do
     json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
     dead_fact = query(:'facts/get_dead', id: object.id.to_s)
     json.fact dead_fact
-    end
 
   when "believes", "doubts", "disbelieves"
     dead_fact = query(:'facts/get_dead', id: subject.id.to_s)
