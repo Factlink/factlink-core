@@ -25,7 +25,7 @@ ReactOpinionatorsAvatars = React.createBackboneClass
       take = number_of_places - 1
       show_plus = true
 
-    _div ["fact-vote-people-#{@props.opinion}"],
+    _div ["fact-opinionators-#{@props.opinion}"],
       @_opinionators()
         .slice(0,take)
         .map (opinionator) ->
@@ -99,7 +99,7 @@ FactVoteStatsTable = React.createBackboneClass
 window.ReactVoteArea = React.createBackboneClass
   displayName: 'ReactVoteArea'
 
-  _voting: ->
+  _opinionate: ->
     _div className: 'fact-vote',
       FactVoteButton
         model: @model().getOpinionators()
@@ -110,8 +110,8 @@ window.ReactVoteArea = React.createBackboneClass
         model: @model().getOpinionators()
         opinion: 'disbelieves'
 
-  _voters: ->
-    _div ["fact-vote-people"],
+  _opinionators: ->
+    _div ["fact-opinionators"],
       ReactOpinionatorsAvatars
         model: @model().getOpinionators()
         opinion: 'believes'
@@ -121,5 +121,5 @@ window.ReactVoteArea = React.createBackboneClass
 
   render: ->
     _div [''],
-      @_voting()
-      @_voters()
+      @_opinionate()
+      @_opinionators()
