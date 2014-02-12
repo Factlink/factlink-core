@@ -10,14 +10,7 @@
                     end +
                     '?o=bookmarklet'
 
-  def minify_js(s)
-    res = s
-    res = res.gsub(/^\s*\/\/[^\n]*\n/, '')
-    res = res.gsub(/\s+/, ' ')
-    res.html_safe
-  end
-
-  bookmarklet = minify_js '
+  bookmarklet = '
     (function(){
       var script = document.createElement("script");
       script.src = "' + bookmarklet_url + '";
@@ -25,7 +18,16 @@
       document.head.appendChild(script);
     })();'
 
-  fail "Please do not use single quotes here" if bookmarklet.match(/'/)
+  def minify_js(s)
+    res = s
+    res = res.gsub(/^\s*\/\/[^\n]*\n/, '')
+    res = res.gsub(/\s+/, ' ')
+    res
+  end
+
+  javascript_helper = Class.new.extend(ActionView::Helpers::JavaScriptHelper)
+
+  escaped_bookmarklet = javascript_helper.escape_javascript(minify_js(bookmarklet))
 %>
 
-Factlink.Global.bookmarklet_link = 'javascript:<%= bookmarklet %>'
+Factlink.Global.bookmarklet_link = 'javascript:<%= escaped_bookmarklet %>'
