@@ -3,12 +3,14 @@
     "id": "<id>",
     "name": "John4 Doe4",
     "username": "johndoe3",
-    "gravatar_hash": "4a44954117cfc0852a0cbd709a634789"
+    "gravatar_hash": "4a44954117cfc0852a0cbd709a634789",
+    "deleted": false
   },
   {
     "id": "<id>",
     "name": "John5 Doe5",
     "username": "johndoe4",
-    "gravatar_hash": "34175a5e546d03f7bc3c2d42ddb4b9cc"
+    "gravatar_hash": "34175a5e546d03f7bc3c2d42ddb4b9cc",
+    "deleted": false
   }
 ]
