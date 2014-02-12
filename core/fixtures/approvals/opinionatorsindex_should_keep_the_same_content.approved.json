@@ -5,7 +5,8 @@
       "id": "<id>",
       "name": "John1 Doe1",
       "username": "johndoe1",
-      "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900"
+      "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+      "deleted": false
     },
     "type": "believes"
   },
@@ -15,7 +16,8 @@
       "id": "<id>",
       "name": "John2 Doe2",
       "username": "johndoe2",
-      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734"
+      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
+      "deleted": false
     },
     "type": "disbelieves"
   },
@@ -25,7 +27,8 @@
       "id": "<id>",
       "name": "John3 Doe3",
       "username": "johndoe3",
-      "gravatar_hash": "0c0b78bf3bb3107091bdb93c94ba73a3"
+      "gravatar_hash": "0c0b78bf3bb3107091bdb93c94ba73a3",
+      "deleted": false
     },
     "type": "disbelieves"
   }

@@ -13,7 +13,7 @@ describe Interactors::Facts::Votes do
       ability = double
       ability.should_receive(:can?).with(:show, Fact).and_return(false)
 
-      interactor = described_class.new(fact_id: 0, pavlov_options: { ability: ability } )
+      interactor = described_class.new(fact_id: '0', pavlov_options: { ability: ability } )
 
       expect { interactor.call }
         .to raise_error(Pavlov::AccessDenied)
@@ -23,13 +23,13 @@ describe Interactors::Facts::Votes do
   describe '#validate' do
     it 'requires fact_id to be a integer string' do
       expect_validating( fact_id: 'a')
-        .to fail_validation('fact_id should be an integer.')
+        .to fail_validation('fact_id should be an integer string.')
     end
   end
 
   describe '#call' do
     it 'correctly' do
-      fact = double id: 1
+      fact = double id: "1"
       u1, u2, u3 = double, double, double
 
       pavlov_options = { ability: double(can?: true)}
