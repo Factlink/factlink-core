@@ -3,5 +3,5 @@ json.array!(@activities) do |activity_hash|
   json.timestamp activity_hash[:score]
 
   json.partial! 'activities/activity',
-    activity: activity,
+    activity: activity
 end
