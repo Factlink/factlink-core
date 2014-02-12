@@ -10,14 +10,6 @@
                     end +
                     '?o=bookmarklet'
 
-  bookmarklet = '
-    (function(){
-      var script = document.createElement("script");
-      script.src = "' + bookmarklet_url + '";
-      script.onload = function(){ __internalFactlinkState("bookmarkletLoaded"); };
-      document.head.appendChild(script);
-    })();'
-
   def minify_js(s)
     res = s
     res = res.gsub(/^\s*\/\/[^\n]*\n/, '')
@@ -25,9 +17,13 @@
     res
   end
 
-  javascript_helper = Class.new.extend(ActionView::Helpers::JavaScriptHelper)
-
-  escaped_bookmarklet = javascript_helper.escape_javascript(minify_js(bookmarklet))
+  bookmarklet = minify_js '
+    (function(){
+      var script = document.createElement("script");
+      script.src = "' + bookmarklet_url + '";
+      script.onload = function(){ __internalFactlinkState("bookmarkletLoaded"); };
+      document.head.appendChild(script);
+    })();'
 %>
 
-Factlink.Global.bookmarklet_link = 'javascript:<%= escaped_bookmarklet %>'
+Factlink.Global.bookmarklet_link = 'javascript:' + <%= bookmarklet.to_json %>
