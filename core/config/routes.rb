@@ -100,11 +100,6 @@ FactlinkUI::Application.routes.draw do
 
     get 'notification-settings' => "users#notification_settings", as: "user_notification_settings"
 
-    scope "/activities" do
-      get "/" => "users#activities", as: "activities"
-      post "/mark_as_read" => "users#mark_activities_as_read", as: "mark_activities_as_read"
-    end
-
     resources :following, only: [:destroy, :update, :index], controller: 'user_following'
   end
 

@@ -107,8 +107,6 @@ facts_promise = null
 FactlinkJailRoot.jail_ready_promise.done( -> facts_promise = fetchFacts FactlinkJailRoot.siteUrl())
 
 FactlinkJailRoot.host_ready_promise.done ->
-  FactlinkJailRoot.initializeFactlinkButton()
-
   console.info "FactlinkJailRoot:", "startHighlighting"
   facts_promise.done(highlightFacts)
 

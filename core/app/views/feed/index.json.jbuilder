@@ -1,9 +1,32 @@
 json.array!(@activities) do |activity_hash|
   activity = activity_hash[:item]
+  subject = activity.subject
+  object = activity.object
+  action = activity.action
+  created_at = activity.created_at
+  user =  activity.user.user
+  dead_user = Queries::UsersByIds.new(user_ids: [user.id]).call.first
+
   json.timestamp activity_hash[:score]
+  json.user {json.partial! 'users/user_partial', user: dead_user }
+  json.action action
+  json.time_ago TimeFormatter.as_time_ago(created_at.to_time)
+  json.id activity.id
 
-  json.partial! 'activities/activity',
-    activity: activity,
-    showing_notifications: false
-
+  json.activity do
+    case action
+    when "created_comment", "created_sub_comment"
+      json.target_url FactUrl.new(object).proxy_open_url
+      json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
+      json.fact query(:'facts/get_dead', id: object.id.to_s)
+    when "believes", "doubts", "disbelieves"
+      json.fact query(:'facts/get_dead', id: subject.id.to_s)
+    when "followed_user"
+      json.target_url user_profile_path(user.username)
+      json.followed_user do
+        subject_user = Queries::UsersByIds.new(user_ids: [subject.user_id]).call.first
+        json.partial! 'users/user_partial', user: subject_user
+      end
+    end
+  end
 end
