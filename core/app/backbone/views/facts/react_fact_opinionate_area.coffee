@@ -81,20 +81,20 @@ FactOpinionatorsTable = React.createBackboneClass
   changeOptions: 'add remove reset sort' + ' change'
 
   render: ->
-    votes = @model().countBy (vote) -> vote.get('type')
-    _.defaults votes,
+    opinionTally = @model().countBy (opinionator) -> opinionator.get('type')
+    _.defaults opinionTally,
       believes: 0,
       disbelieves: 0
 
-    _div ["fact-vote-stats"],
-      _table ["fact-vote-stats-table"],
+    _div ["fact-opinionators-table"],
+      _table ["fact-opinionators-table-table"],
         _tr [],
-          _td ["fact-vote-amount-believes"], votes.believes
+          _td ["fact-vote-amount-believes"], opinionTally.believes
           _td [],
             FactVoteAmountGraph
-              believes: votes.believes
-              disbelieves: votes.disbelieves
-          _td ["fact-vote-amount-disbelieves"], votes.disbelieves
+              believes: opinionTally.believes
+              disbelieves: opinionTally.disbelieves
+          _td ["fact-vote-amount-disbelieves"], opinionTally.disbelieves
 
 window.ReactOpinionateArea = React.createBackboneClass
   displayName: 'ReactOpinionateArea'
