@@ -19,8 +19,6 @@ json.array!(@activities) do |activity_hash|
       json.target_url FactUrl.new(object).proxy_open_url
       json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
       json.fact query(:'facts/get_dead', id: object.id.to_s)
-    when "believes", "doubts", "disbelieves"
-      json.fact query(:'facts/get_dead', id: subject.id.to_s)
     when "followed_user"
       json.target_url user_profile_path(user.username)
       json.followed_user do
