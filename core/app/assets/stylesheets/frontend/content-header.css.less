@@ -1,9 +1,6 @@
 @import "bootstrap/mixins";
 
-@contentHeaderHeigth: 40px;
-
 .content-header {
-  height: @contentHeaderHeigth;
   border-bottom: 1px solid @baseBorderColor;
   .reset-main-padding();
 }
@@ -12,5 +9,6 @@
   margin: 0;
   padding: 0;
   height: 100%;
-  line-height: @contentHeaderHeigth;
+  float: left;
 }
+
