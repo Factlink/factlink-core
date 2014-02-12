@@ -7,7 +7,7 @@ class window.Fact extends Backbone.Model
   clientLink: -> "/client/facts/#{@id}"
 
   factUrlHost: ->
-    fact_url = @get('fact_url')
+    fact_url = @get('site_url')
     return '' unless fact_url
 
     new Backbone.Factlink.Url(fact_url).host()
@@ -28,4 +28,4 @@ class window.Fact extends Backbone.Model
     Factlink.Global.core_url + '/f/' + @id
 
   factUrlTitle: ->
-    @get('fact_title') || @factUrlHost()
+    @get('site_title') || @factUrlHost()

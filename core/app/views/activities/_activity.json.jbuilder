@@ -29,12 +29,14 @@ json.activity do
     if showing_notifications
       json.fact truncate("#{object}", length: 85, separator: " ")
     else
-      json.fact { json.partial! 'facts/fact', fact: object }
+      dead_fact = query(:'facts/get_dead', id: object.id.to_s)
+      json.fact dead_fact
     end
 
   # stream_activities
   when "believes", "doubts", "disbelieves"
-    json.fact { json.partial! 'facts/fact', fact: subject}
+    dead_fact = query(:'facts/get_dead', id: subject.id.to_s)
+    json.fact dead_fact
 
   # notifications, stream_activities
   when "followed_user"
