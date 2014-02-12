@@ -5,6 +5,7 @@ window.ReactAddComment = React.createBackboneClass
     text: ''
     controlsOpened: false
     searchOpened: false
+    shareProviders: {facebook: false, twitter: false}
 
   render: ->
     _div ['add-comment-container'],
@@ -29,8 +30,11 @@ window.ReactAddComment = React.createBackboneClass
           ],
             Factlink.Global.t.post_argument
           ReactShareFactSelection
-            ref: 'share_fact_selection'
             model: @model().fact
+            providers: @state.shareProviders
+            onChange: (providerName, checked) =>
+              @state.shareProviders[providerName] = checked
+              @forceUpdate()
           if @state.searchOpened
             _a [
               href: 'javascript:0'
@@ -64,12 +68,10 @@ window.ReactAddComment = React.createBackboneClass
         @model().remove(comment)
         FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
 
-    comment.share @refs.share_fact_selection.selectedProviderNames(),
-      error: =>
-        FactlinkApp.NotificationCenter.error "Error when sharing"
+    comment.share @state.shareProviders
 
+    @setState @getInitialState()
     @refs.textarea.updateText ''
-    @setState controlsOpened: false
 
   _comment: ->
     new Comment
