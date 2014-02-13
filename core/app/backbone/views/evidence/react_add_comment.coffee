@@ -15,6 +15,30 @@ ReactSearchLink = React.createClass
       ],
         "Search for #{Factlink.Global.t.factlinks} (beta)"
 
+
+ReactSearchFacts = React.createClass
+  displayName: 'ReactSearchFacts'
+
+  render: ->
+    return _div() unless @props.opened
+
+    _div ['add-comment-search-facts'],
+      ReactFactSearch
+        model: @_factSearchResults()
+        onInsert: @props.onInsert
+
+  _factSearchResults: ->
+    unless @____factSearchResults
+      recently_viewed_facts = new RecentlyViewedFacts
+      recently_viewed_facts.fetch()
+
+      @____factSearchResults = new FactSearchResults [],
+        fact_id: @props.fact.id
+        recently_viewed_facts: recently_viewed_facts
+
+    @____factSearchResults
+
+
 window.ReactAddComment = React.createBackboneClass
   displayName: 'ReactAddComment'
 
@@ -51,11 +75,10 @@ window.ReactAddComment = React.createBackboneClass
           ReactSearchLink
             opened: @state.searchOpened
             onToggle: (opened) => @setState searchOpened: opened
-          if @state.searchOpened
-            _div ['add-comment-search-facts'],
-              ReactFactSearch
-                model: @_factSearchResults()
-                onInsert: @_onSearchInsert
+          ReactSearchFacts
+            opened: @state.searchOpened
+            fact: @model()
+            onInsert: @_onSearchInsert
 
   _onTextareaChange: (text) ->
     @setState(text: text)
@@ -65,7 +88,7 @@ window.ReactAddComment = React.createBackboneClass
     @state.shareProviders[providerName] = checked
     @forceUpdate()
 
-  _onSearchInsert: (text) =>
+  _onSearchInsert: (text) ->
     @refs.textarea.insert text
     @setState searchOpened: false
 
@@ -92,13 +115,3 @@ window.ReactAddComment = React.createBackboneClass
       content: $.trim(@state.text)
       created_by: currentUser.toJSON()
 
-  _factSearchResults: ->
-    unless @____factSearchResults
-      recently_viewed_facts = new RecentlyViewedFacts
-      recently_viewed_facts.fetch()
-
-      @____factSearchResults = new FactSearchResults [],
-        fact_id: @model().fact.id
-        recently_viewed_facts: recently_viewed_facts
-
-    @____factSearchResults
