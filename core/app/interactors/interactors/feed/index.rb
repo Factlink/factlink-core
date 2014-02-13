@@ -35,6 +35,11 @@ module Interactors
       end
 
       def retrieved_activities
+        count = if timestamp
+                  11
+                else
+                  20
+                end
         activities.below(timestamp || 'inf',
                          count: 20,
                          reversed: true,
