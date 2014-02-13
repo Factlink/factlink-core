@@ -1,3 +1,6 @@
+@import "bootstrap/mixins";
+@import "twitter/bootstrap/variables";
+
 .publisher-container {
   display: table;
 }
@@ -35,8 +38,13 @@
   }
 }
 
+.animation-sidebar-paragraph:hover li{
+  background: @lightYellow;
+}
+
 .animation-sidebar-paragraph li{
   background: lightgrey;
   margin: 10px;
   padding: 4px;
+  transition: background 0.5s ease;
 }
