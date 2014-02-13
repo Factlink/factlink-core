@@ -19,7 +19,12 @@
 .dropdown-menu {
   position: absolute;
   z-index: @zindexDropdown;
-  display: none; // none by default, but block on "open" of the menu
+  visibility: hidden;
+  opacity:0;
+  transition: visibility 0s 0.6s, opacity 0.2s 0.4s;
+
+
+
   padding: 5px 0;
   background-color: white;
   border: 1px solid @dropdownBorder;
@@ -79,6 +84,9 @@
   *z-index: @zindexDropdown;
 
   & > .dropdown-menu {
-    display: block;
+    visibility: visible;
+    opacity:1;
+    transition: visibility 0s, opacity 0.2s 0s;
+
   }
 }
