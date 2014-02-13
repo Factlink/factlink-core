@@ -27,11 +27,10 @@ window.ReactDiscussion = React.createBackboneClass
         if Factlink.Global.can_haz.opinions_of_users_and_comments
           ReactOpinionateArea
             model: @model().getOpinionators()
-      _div ['evidence-container']
-        if Factlink.Global.signed_in
-          ReactAddComment
-            model: @model().comments()
-        else
-          ReactOpinionHelp()
-        ReactComments
+      if Factlink.Global.signed_in
+        ReactAddComment
           model: @model().comments()
+      else
+        ReactOpinionHelp()
+      ReactComments
+        model: @model().comments()
