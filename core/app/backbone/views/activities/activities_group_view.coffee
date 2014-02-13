@@ -7,18 +7,11 @@ class window.ActivitiesGroupView extends Backbone.Marionette.CompositeView
     new (@classForModel(options.model))(options)
 
   @classForModel: (model) ->
-    action = model.get("action")
-
-    specialized_group_views = [
-      UserFactActivitiesGroupView,
-      UsersFollowedGroupView
-    ]
-
-    for group_view in specialized_group_views
-      if action in group_view.actions
-        return group_view
-
-    return ActivitiesGroupView
+    switch model.get("action")
+      when "created_comment", "created_sub_comment"
+        UserFactActivitiesGroupView
+      when "followed_user"
+        UsersFollowedGroupView
 
   templateHelpers: ->
     user: @user?.toJSON()
@@ -28,18 +21,23 @@ class window.ActivitiesGroupView extends Backbone.Marionette.CompositeView
     super(options)
     @user = new User @collection.first().get('user')
 
-  actions: -> []
-
   tryAppend: (model) -> return false
 
-  buildItemView: (item, ItemView, itemViewOptions) ->
-    options = _.extend({model: item}, itemViewOptions)
-    @lastView = ActivityItemView.for(options)
+class window.CreatedCommentView extends Backbone.Marionette.ItemView
+  template: "activities/created_comment"
+
+class window.FollowedUserView extends Backbone.Marionette.ItemView
+  tagName: 'span'
+  className: 'separator-list-item'
+  template: "activities/followed_user"
+  templateHelpers: =>
+    followed_user: @user().toJSON()
+
+  user: -> @_user ?= new User(@model.get('activity').followed_user)
 
 class UserFactActivitiesGroupView extends ActivitiesGroupView
   template: 'activities/user_fact_activities_group'
-
-  @actions: ["created_comment", "created_sub_comment"]
+  itemView: CreatedCommentView
 
   onRender: ->
     @$('.js-region-fact').html @factView().render().el
@@ -56,6 +54,5 @@ class UserFactActivitiesGroupView extends ActivitiesGroupView
 
 class UsersFollowedGroupView extends ActivitiesGroupView
   template: 'activities/users_followed_group'
-
-  @actions: ["followed_user"]
+  itemView: FollowedUserView
 
