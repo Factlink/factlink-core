@@ -1,9 +1,17 @@
+convertToTetherAttachment =
+  left: 'middle left'
+  right: 'middle right'
+  top: 'top center'
+  bottom: 'bottom center'
+
 window.ReactPopover = React.createBackboneClass
   displayName: 'ReactPopover'
 
+  propTypes:
+    attachment: React.PropTypes.oneOf(['top','right', 'bottom', 'left'])
+
   getDefaultProps: ->
-    vertical: "bottom"
-    horizontal: "center"
+    attachment: 'bottom'
 
   componentWillMount: ->
     @_tooltipElement = $("""<span style="position: absolute;
@@ -18,10 +26,7 @@ window.ReactPopover = React.createBackboneClass
     @_renderTooltip()
 
   _popoverComponent: ->
-    _div ['translucent-popover',
-          @props.vertical unless @props.vertical == 'middle'
-          @props.horizontal unless @props.horizontal == 'center'
-        ],
+    _div ['translucent-popover', @props.attachment  ],
       _div ['factlink-popover-content'],
         @props.children
       _div ['factlink-popover-arrow']
@@ -29,7 +34,7 @@ window.ReactPopover = React.createBackboneClass
   _tetherOptions: ->
     element: @_tooltipElement
     target: @getDOMNode().parentElement
-    attachment: @props.vertical + ' ' + @props.horizontal
+    attachment: convertToTetherAttachment[@props.attachment]
     optimizations:
       moveElement: false # Warning: always moves to <body> anyway!
 
