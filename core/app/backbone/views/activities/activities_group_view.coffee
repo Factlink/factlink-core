@@ -1,17 +1,13 @@
 class window.ActivitiesGroupView extends Backbone.Marionette.CompositeView
-  className: 'activity-group'
   itemView: Backbone.View
   itemViewContainer: ".js-region-activities"
 
   @new: (options)->
-    new (@classForModel(options.model))(options)
-
-  @classForModel: (model) ->
-    switch model.get("action")
+    switch options.model.get("action")
       when "created_comment", "created_sub_comment"
-        UserFactActivitiesGroupView
+        new CreatedCommentView options
       when "followed_user"
-        UsersFollowedGroupView
+        new FollowedUserView options
 
   templateHelpers: ->
     user: @user?.toJSON()
@@ -23,36 +19,38 @@ class window.ActivitiesGroupView extends Backbone.Marionette.CompositeView
 
   tryAppend: (model) -> return false
 
-class window.CreatedCommentView extends Backbone.Marionette.ItemView
+class window.CreatedCommentView extends Backbone.Marionette.Layout
+  className: 'activity-group'
   template: "activities/created_comment"
+  templateHelpers: ->
+    user: @user()?.toJSON()
 
-class window.FollowedUserView extends Backbone.Marionette.ItemView
-  tagName: 'span'
-  className: 'separator-list-item'
-  template: "activities/followed_user"
-  templateHelpers: =>
-    followed_user: @user().toJSON()
+  regions:
+    factRegion: '.js-region-fact'
 
-  user: -> @_user ?= new User(@model.get('activity').followed_user)
-
-class UserFactActivitiesGroupView extends ActivitiesGroupView
-  template: 'activities/user_fact_activities_group'
-  itemView: CreatedCommentView
+  user: ->
+    new User @model.get('user')
 
   onRender: ->
-    @$('.js-region-fact').html @factView().render().el
-
-  onClose: ->
-    @factView().close()
-
-  factView: ->
-    @_factView ?= new ReactView
+    console.info @fact()
+    @factRegion.show new ReactView
       component: ReactFact
         model: @fact()
 
-  fact: -> new Fact @model.get("activity").fact
+  fact: ->
+    new Fact @model.get("activity").fact
 
-class UsersFollowedGroupView extends ActivitiesGroupView
-  template: 'activities/users_followed_group'
-  itemView: FollowedUserView
+
+class window.FollowedUserView extends Backbone.Marionette.ItemView
+  className: 'activity-group'
+  template: "activities/followed_user"
+  templateHelpers: =>
+    followed_user: @followed_user().toJSON()
+    user: @user()?.toJSON()
+
+  user: ->
+    new User @model.get('user')
+
+  followed_user: ->
+    new User @model.get('activity').followed_user
 
