@@ -31,15 +31,6 @@ window.ReactSubComment = React.createBackboneClass
           model: @model()
           onDelete: -> @model.destroy wait: true
 
-ReactAvatar = React.createBackboneClass
-  displayName: 'ReactAvatar'
-
-  render: ->
-    _a [href: @props.user.link()],
-      _img [ "avatar-image",
-        src: @props.user.avatar_url(@props.size)
-      ]
-
 
 ReactSubCommentHeading = React.createBackboneClass
   displayName: 'ReactSubCommentHeading'

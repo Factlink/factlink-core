@@ -49,25 +49,6 @@ window.ReactComment = React.createBackboneClass
         @_content()
         @_bottom()...
 
-
-window.OpinionIndicator = React.createBackboneClass
-  displayName: 'OpinionIndicator'
-  changeOptions: 'add remove reset sort' + ' change'
-
-  _type: ->
-    @model().vote_for(@props.username)?.get('type')
-
-  _typeCss: ->
-    return 'comment-unsure' unless Factlink.Global.can_haz.opinions_of_users_and_comments
-
-    switch @_type()
-      when 'believes' then 'comment-believes'
-      when 'disbelieves' then 'comment-disbelieves'
-      else 'comment-unsure'
-
-  render: ->
-    _span [@_typeCss()]
-
 ReactCommentHeading = React.createBackboneClass
   displayName: 'ReactCommentHeading'
   propTypes:
@@ -89,8 +70,6 @@ ReactCommentHeading = React.createBackboneClass
         TimeAgo
           className: "comment-post-time"
           time: @model().get('created_at')
-
-
 
 window.OpinionatedAvatar = React.createBackboneClass
   displayName: "OpinionatedAvatar"
