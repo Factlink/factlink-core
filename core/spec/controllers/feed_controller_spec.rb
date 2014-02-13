@@ -10,8 +10,10 @@ describe FeedController do
       authenticate_user!(user)
       should_check_can :access, Ability::FactlinkWebapp
       should_check_can :show, user
-      get :index, username: user.username
+      get :index, format: :json, username: user.username
+
       response.should be_success
+      verify(format: :json) { response.body }
     end
   end
 
