@@ -61,6 +61,7 @@ FactlinkUI::Application.routes.draw do
   authenticated :user do
     namespace :admin, path: 'a' do
       get 'info'
+      get 'clean'
       get 'cause_error'
       resource :global_feature_toggles,
             controller: :global_feature_toggles,
