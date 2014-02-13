@@ -2,7 +2,7 @@
 <html>
   <head>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
-    <%= stylesheet_link_tag "base" %>
+    <%= stylesheet_link_tag "frontend" %>
     <%= javascript_include_base %>
     <%= inject_special_test_code %>
   </head>
@@ -43,14 +43,9 @@
     </p>
 
     <% if params[:state] %>
-      <% if params[:state] == "success" %>
-        <div class="alert alert-success">
-          <a class="close" href="#" data-dismiss="alert">x</a>
-          Your feedback has successfully been submitted.
-        </div>
-      <% elsif params[:state] == "error" %>
-        <div class="alert alert-error">
-          <a class="close" href="#" data-dismiss="alert">x</a>
+      <% if params[:state] == "error" %>
+        <div class="alert-error">
+          <a class="alert-close" href="#" data-dismiss="alert">&times;</a>
           Something went wrong while submitting your feedback, did you fill in all the fields?
         </div>
       <% end %>
