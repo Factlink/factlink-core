@@ -36,7 +36,7 @@ module Interactors
 
       def retrieved_activities
         activities.below(timestamp || 'inf',
-                         count: 11,
+                         count: 20,
                          reversed: true,
                          withscores: true).compact
       end
