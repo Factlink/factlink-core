@@ -21,8 +21,8 @@ window.ReactDiscussion = React.createBackboneClass
 
   render: ->
     _div ['discussion'],
-      _div ['top-fact'],
-        _div ['top-fact-text'],
+      _div ['top-annotation'],
+        _div ['top-annotation-text'],
           @model().get('displaystring')
         if Factlink.Global.can_haz.opinions_of_users_and_comments
           ReactOpinionateArea
