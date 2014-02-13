@@ -35,7 +35,6 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     else
       @opinionHelpRegion.show new ReactView
         component: ReactOpinionHelp
-          collection: @collection
 
     @collectionRegion.show new ReactView
       component: ReactComments
