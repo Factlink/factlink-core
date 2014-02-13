@@ -18,6 +18,18 @@ class AdminController < ApplicationController
     raise 'This is an intentional error'
   end
 
+  # GET /a/cleanup_feed
+  def cleanup_feed
+    Resque.enqueue CleanupActivitiesWorker
+    render text: 'Cleaned invalid activities'
+  end
+
+  # GET /a/remove_empty_facts
+  def remove_empty_facts
+    Resque.enqueue CleanupFactsWithoutInteraction
+    render text: 'Removed facts without interaction'
+  end
+
   before_filter :set_cache_buster
   def set_cache_buster
      response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
