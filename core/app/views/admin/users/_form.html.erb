@@ -55,7 +55,7 @@
         <%= f.label :biography, "Bio" %>
       </th>
       <td>
-        <%= f.text_area :biography %>
+        <%= f.text_area :biography, class: "admin-form-textarea" %>
       </td>
     </tr>
 
@@ -83,15 +83,6 @@
       </th>
       <td>
         <%= f.check_box :suspended %> (doesn't really do anything, just showing who we don't want to invite yet)
-      </td>
-    </tr>
-
-    <tr>
-      <th class="form-label-column">
-        <%= f.label :registration_code %>
-      </th>
-      <td>
-        <%= f.text_field :registration_code %>
       </td>
     </tr>
 

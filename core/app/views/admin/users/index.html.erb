@@ -32,30 +32,30 @@
         </td>
         <td><%= user.email %></td>
         <td>
-          <span class="label label-<%= sign_in_count_class_for user %>"><%= user.sign_in_count || 0 %></span>
+          <span class="admin-label admin-label-<%= sign_in_count_class_for user %>"><%= user.sign_in_count || 0 %></span>
         </td>
 
         <td>
-          <span class="label label-<%= features_count_class_for user %>"><%= user.features_count %></span>
+          <span class="admin-label admin-label-<%= features_count_class_for user %>"><%= user.features_count %></span>
         </td>
 
         <td>
           <% if (!user.confirmed?) %>
-            <span class="label label-warning">unconfirmed</span>
+            <span class="admin-label admin-label-warning">unconfirmed</span>
           <% elsif (!user.set_up?) %>
-            <span class="label label-warning">not set up</span>
+            <span class="admin-label admin-label-warning">not set up</span>
           <% end %>
 
           <% if (user.suspended) %>
-            <span class="label label-warning">suspended</span>
+            <span class="admin-label admin-label-warning">suspended</span>
           <% end %>
 
           <% if (user.deleted) %>
-            <span class="label label-warning">deleted</span>
+            <span class="admin-label admin-label-warning">deleted</span>
           <% end %>
 
           <% if (user.hidden?) %>
-            <span class="label label-danger">hidden</span>
+            <span class="admin-label admin-label-danger">hidden</span>
           <% end %>
         </td>
 
