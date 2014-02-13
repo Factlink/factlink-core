@@ -31,8 +31,10 @@ class window.ClientController
 
     fact.on 'destroy', => @annotatedSiteEnvoy 'deleteFactlink', fact.id
 
+    FactlinkApp.discussionSidebarContainer.slideIn new ReactView
+      component: ReactDiscussion
+        model: fact
+
     fact.fetch
       success: =>
-        view = new DiscussionView model: fact
-        view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
-        FactlinkApp.discussionSidebarContainer.slideIn view
+        @annotatedSiteEnvoy 'openModalOverlay'
