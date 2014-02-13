@@ -1,16 +1,16 @@
 class window.ActivityItemView extends Backbone.Marionette.ItemView
   tryAppend: (model) -> false
 
-  @classForModel: (model) ->
-    switch model.get("action")
+  @for: (options) ->
+    switch options.model.get("action")
       when "created_comment"
-        CreatedCommentView
+        new CreatedCommentView
       when "created_sub_comment"
-        CreatedSubCommentView
+        new CreatedSubCommentView options
       when "believes", "disbelieves", "doubts"
-        AddedOpinionView
+        new AddedOpinionView options
       when 'followed_user'
-        FollowedUserView
+        new FollowedUserView options
       else
         throw new Error 'Unknown activity action: ' + model.get("action")
 

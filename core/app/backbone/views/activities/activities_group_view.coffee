@@ -53,9 +53,9 @@ class UserActivitiesGroupView extends ActivitiesGroupView
 
   appendable: (model) -> super(model) and @sameUser(model)
 
-  buildItemView: (item, ItemView, options) ->
-    NewItemView = ActivityItemView.classForModel(item)
-    @lastView = super(item, NewItemView, options)
+  buildItemView: (item, ItemView, itemViewOptions) ->
+    options = _.extend({model: item}, itemViewOptions)
+    @lastView = ActivityItemView.for(options)
 
   activityMadeRedundantBy: (newActivity, oldActivity) -> false
   newActivityIsRedundant: (newActivity) ->
