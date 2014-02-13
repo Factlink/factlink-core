@@ -46,7 +46,6 @@ ReactSubCommentsAdd = React.createBackboneClass
     @setState(opened: true) if text.length > 0
 
   render: ->
-    x="as"
     _div ['sub-comment-add', 'spec-sub-comments-form'],
       ReactTextArea
         ref: 'textarea'
