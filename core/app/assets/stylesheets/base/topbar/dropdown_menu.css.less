@@ -26,33 +26,11 @@
   padding: 5px 0;
   background-color: white;
   border: 1px solid @dropdownBorder;
-  border-radius: 6px;
+  border-top:none;
+  border-radius: 0 0 6px 6px;
   box-shadow: 0 5px 10px rgba(0,0,0,.2);
   text-align: left;
   right: 0;
-
-  &:before {
-    content: '';
-    display: inline-block;
-    border-left:   7px solid transparent;
-    border-right:  7px solid transparent;
-    border-bottom: 7px solid #ccc;
-    border-bottom-color: @dropdownBorder;
-    position: absolute;
-    top: -7px;
-    right: 12px;
-  }
-
-  &:after {
-    content: '';
-    display: inline-block;
-    border-left:   6px solid transparent;
-    border-right:  6px solid transparent;
-    border-bottom: 6px solid white;
-    position: absolute;
-    top: -6px;
-    right: 13px;
-  }
 
   a {
     display: block;
