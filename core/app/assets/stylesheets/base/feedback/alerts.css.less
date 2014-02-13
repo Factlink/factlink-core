@@ -8,11 +8,24 @@
   border-radius: @baseBorderRadius;
   background-color: @errorBackground;
   color: @errorText;
+}
 
-  > .close {
-    position: relative;
-    top: -2px;
-    right: -21px;
-    line-height: @baseLineHeight;
+.alert-close {
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  color: @black;
+  text-shadow: 0 1px 0 rgba(255,255,255,1);
+  opacity: .2;
+  position: relative;
+  top: -2px;
+  right: -21px;
+  line-height: @baseLineHeight;
+
+  &:hover {
+    color: @black;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 0.4;
   }
 }
