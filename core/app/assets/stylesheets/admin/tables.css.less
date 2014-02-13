@@ -3,6 +3,10 @@
 .table {
   width: 100%;
   margin-bottom: @baseLineHeight;
+  background-color: @backgroundGray;
+  border-collapse: collapse;
+  border-spacing: 0;
+  max-width: 100%;
   // Cells
   th,
   td {
@@ -19,12 +23,6 @@
   thead th {
     vertical-align: bottom;
   }
-}
-.table {
-  background-color: @backgroundGray;
-  border-collapse: collapse;
-  border-spacing: 0;
-  max-width: 100%;
 }
 
 .table-bordered {
