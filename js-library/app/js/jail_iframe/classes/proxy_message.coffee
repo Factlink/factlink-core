@@ -1,10 +1,10 @@
 FactlinkJailRoot.public_events.on 'proxyLoaded', ->
   content = """
-    <div class="proxy-message" style="">
-        <span class="close">&times;</span>
+    <div class="proxy-message">
+      <span class="close">&times;</span>
 
-        You're looking at this page through <a href="https://factlink.com/">Factlink</a><br>
-        (visit <a target="_blank" href="#{FactlinkJailRoot.siteUrl()}">original page</a>)
+      You're looking at this page through <a href="https://factlink.com/">Factlink</a> <!--Keep the space here to allow for a browser rounding error!--><br>
+      (visit <a target="_blank" href="#{FactlinkJailRoot.siteUrl()}">original page</a>)
     </div>
   """
 
