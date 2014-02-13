@@ -7,7 +7,8 @@ ReactComments = React.createBackboneClass
 
   render: ->
     _div [],
-      ReactLoadingIndicator() if @model().loading()
+      ReactLoadingIndicator
+        model: @model()
       @model().map (comment) =>
         ReactComment
           model: comment
