@@ -43,14 +43,9 @@
     </p>
 
     <% if params[:state] %>
-      <% if params[:state] == "success" %>
-        <div class="alert alert-success">
-          <a class="close" href="#" data-dismiss="alert">x</a>
-          Your feedback has successfully been submitted.
-        </div>
-      <% elsif params[:state] == "error" %>
-        <div class="alert alert-error">
-          <a class="close" href="#" data-dismiss="alert">x</a>
+      <% if params[:state] == "error" %>
+        <div class="alert-error">
+          <a class="alert-close" href="#" data-dismiss="alert">&times;</a>
           Something went wrong while submitting your feedback, did you fill in all the fields?
         </div>
       <% end %>
