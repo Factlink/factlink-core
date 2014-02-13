@@ -4,6 +4,9 @@ class window.Fact extends Backbone.Model
   getOpinionators: ->
     @_opinionators ?= new Opinionators [], fact: @
 
+  comments: ->
+    @_comments ?= new Comments null, fact: @
+
   clientLink: -> "/client/facts/#{@id}"
 
   factUrlHost: ->

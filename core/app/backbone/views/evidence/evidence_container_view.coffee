@@ -1,8 +1,13 @@
 window.ReactComments = React.createBackboneClass
   displayName: 'ReactComments'
+  changeOptions: 'add remove reset sort sync request'
+
+  componentWillMount: ->
+    @model().fetchIfUnloaded()
 
   render: ->
-    R.div {},
+    _div [],
+      ReactLoadingIndicator() if @model().loading()
       @model().map (comment) =>
         ReactComment
           model: comment
@@ -18,9 +23,6 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     collectionRegion: '.js-collection-region'
     opinionHelpRegion: '.js-opinion-help-region'
     formRegion: '.js-form-region'
-
-  collectionEvents:
-    'request sync': '_updateLoading'
 
   ui:
     loading: '.js-evidence-loading'
@@ -39,8 +41,3 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     @collectionRegion.show new ReactView
       component: ReactComments
         model: @collection
-
-    @_updateLoading()
-
-  _updateLoading: ->
-    @ui.loading.toggle @collection.loading()
