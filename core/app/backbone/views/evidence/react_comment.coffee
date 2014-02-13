@@ -23,7 +23,7 @@ ReactCommentHeading = React.createBackboneClass
     _div ['comment-post-heading'],
       OpinionIndicator
         username: @model().creator().get('username')
-        model: @props.votes
+        model: @props.fact_opinionators
       _span ["comment-post-creator-avatar"],
         _img ["avatar-image", src: @model().creator().avatar_url(32)] #has to be kept in sync with the css variable: @commentCreatorAvatarSize
       _span ["comment-post-creator"],
@@ -63,7 +63,7 @@ window.ReactComment = React.createBackboneClass
           _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments],
             "(#{sub_comment_count}) Comment"
       if @state.show_subcomments
-        ReactSubComments(model: @model())
+        ReactSubComments(model: @model().sub_comments())
     ]
 
   render: ->
@@ -74,7 +74,7 @@ window.ReactComment = React.createBackboneClass
         ReactEvidenceVote model: @model().argumentTally()
       _div ["comment-content-container"],
         ReactCommentHeading
-          votes: @props.votes
+          fact_opinionators: @props.fact_opinionators
           model: @model()
         @_content()
         @_bottom()...

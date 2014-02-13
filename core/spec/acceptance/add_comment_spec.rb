@@ -35,9 +35,7 @@ feature "adding comments to a fact", type: :feature do
 
     go_to_discussion_page_of factlink
 
-    within_evidence_list do
-      find('.spec-evidence-relevance').should have_content 1
-    end
+    find('.spec-evidence-relevance').should have_content 1
   end
 
   scenario 'after adding a comment, the user should be able to reset his opinion' do
@@ -47,18 +45,14 @@ feature "adding comments to a fact", type: :feature do
     add_comment comment
     assert_comment_exists comment
 
-    within_evidence_list do
-      # there is just one factlink in the list
-      find('.spec-evidence-relevance', text: "1")
-      find('.spec-evidence-vote-up').click
-      find('.spec-evidence-relevance', text: "0")
-    end
+    # there is just one factlink in the list
+    find('.spec-evidence-relevance', text: "1")
+    find('.spec-evidence-vote-up').click
+    find('.spec-evidence-relevance', text: "0")
 
     go_to_discussion_page_of factlink
 
-    within_evidence_list do
-      find('.spec-evidence-relevance', text: "0")
-    end
+    find('.spec-evidence-relevance', text: "0")
   end
 
   scenario "after adding multiple comments they should show up and persist" do
@@ -100,12 +94,10 @@ feature "adding comments to a fact", type: :feature do
     #may not have been completed yet.
     assert_comment_exists comment1
 
-    within_evidence_list do
-      items = all '.comment-container', visible: false
-      expect(items[0].text).to match (Regexp.new factlink2.to_s)
-      expect(items[1].text).to match (Regexp.new comment3)
-      expect(items[2].text).to match (Regexp.new comment1)
-    end
+    items = all '.spec-evidence-box'
+    expect(items[0].text).to match (Regexp.new factlink2.to_s)
+    expect(items[1].text).to match (Regexp.new comment3)
+    expect(items[2].text).to match (Regexp.new comment1)
   end
 
   scenario "after adding it can be removed" do
@@ -116,10 +108,8 @@ feature "adding comments to a fact", type: :feature do
     add_comment comment
     assert_comment_exists comment
 
-    within_evidence_list do
-      find('.delete-button-first').click
-      find('.delete-button-second').click
-    end
+    find('.spec-evidence-box .delete-button-first').click
+    find('.spec-evidence-box .delete-button-second').click
 
     page.should_not have_content comment
 

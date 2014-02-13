@@ -1,5 +1,5 @@
 // Factlink configuration
-//= require globals/globals
+//= require_tree ./globals
 
 // All the default libraries/files needed for all pages on Factlink
 //= require jquery_ujs
@@ -7,7 +7,7 @@
 //= require hogan
 //= require console_polyfill
 //= require function_bind_polyfill
-//= require twitter/bootstrap
+//= require twitter/bootstrap-alert
 //= require jquery.color
 //= require jquery.placeholder
 //= require raven

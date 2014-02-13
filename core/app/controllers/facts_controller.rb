@@ -17,8 +17,8 @@ class FactsController < ApplicationController
 
   def show
     authorize! :show, @fact
-
-    render 'facts/show', formats: [:json]
+    dead_fact = query(:'facts/get_dead', id: @fact.id.to_s)
+    render json: dead_fact
   end
 
   def discussion_page
@@ -40,10 +40,10 @@ class FactsController < ApplicationController
     @fact = interactor(:'facts/create',
                            displaystring: params[:displaystring].to_s,
                            url: params[:url].to_s,
-                           title: params[:fact_title].to_s)
-    @site = @fact.site
+                           title: params[:site_title].to_s)
 
-    render 'facts/show', formats: [:json]
+    dead_fact = query(:'facts/get_dead', id: @fact.id.to_s)
+    render json: dead_fact
   end
 
   # TODO: This search is way to simple now, we need to make sure already
@@ -55,16 +55,15 @@ class FactsController < ApplicationController
     search_for = params[:s]
 
     raise_404 if Fact.invalid(@fact)
-    evidence = interactor(:'search_evidence', keywords: search_for, fact_id: @fact.id)
-    @facts = evidence.map { |fd| fd.fact }
+    facts = interactor(:'search_evidence', keywords: search_for, fact_id: @fact.id)
 
-    render 'facts/index', formats: [:json]
+    render json: facts
   end
 
   def recently_viewed
     @facts = interactor :"facts/recently_viewed"
 
-    render 'facts/index', formats: [:json]
+    render json: @facts.map { |f| query(:'facts/get_dead', id: f.id.to_s) }
   end
 
   def share
@@ -79,10 +78,7 @@ class FactsController < ApplicationController
   private
 
   def load_fact
+    fact_id = params[:fact_id] || params[:id]
     @fact = interactor(:'facts/get', id: fact_id) or raise_404
-  end
-
-  def fact_id
-    params[:fact_id] || params[:id]
   end
 end

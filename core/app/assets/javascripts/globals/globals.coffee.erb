@@ -7,6 +7,7 @@ Factlink.Global =
   ajax_loader_image: '<%= image_path("ajax-loader.gif") %>'
   browser_icons_chrome_16x16: '<%= image_path("browser-icons/chrome-16x16.png") %>'
   warning_sign_image: '<%= image_path("warning-sign.png") %>'
+  bookmarklet_link: null # Set in bookmarklet.coffee.erb
 
   core_url: "<%= URI.parse(FactlinkUI::Application.config.core_url).to_s %>"
   environment: "<%= Rails.env %>"
@@ -40,7 +41,7 @@ Factlink.Global.t.<%= translation.to_s %> = "<%= I18n.t(translation) %>"
 <% end %>
 
 Factlink.Timeout =
-  stream_refresh: 10*1000
+  stream_refresh: 60*1000
 
 Factlink.allowFeatures = (list = [])->
   Factlink.Global.can_haz[feature] = true for feature in list

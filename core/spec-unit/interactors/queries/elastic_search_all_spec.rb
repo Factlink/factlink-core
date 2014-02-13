@@ -8,7 +8,7 @@ describe Queries::ElasticSearchAll do
 
   before do
     stub_classes 'HTTParty', 'FactData', 'User',
-      'FactlinkUI::Application', 'KillObject'
+      'FactlinkUI::Application', 'KillObject', 'Queries::Facts::GetDead'
     FactlinkUI::Application.stub(config: double(elasticsearch_url: base_url))
   end
 
@@ -16,7 +16,6 @@ describe Queries::ElasticSearchAll do
     ['user', 'factdata'].each do |type|
       it "correctly with return value of #{type} class" do
         keywords = 'searching for this channel'
-        wildcard_keywords = '(searching*%20OR%20searching)+(for*%20OR%20for)+(this*%20OR%20this)+(channel*%20OR%20channel)'
         query = described_class.new keywords: keywords, page: 1, row_count: 20
         hit = {
           '_id' => 1,
@@ -35,15 +34,18 @@ describe Queries::ElasticSearchAll do
         when 'user'
           # Cannot stub Pavlov.query because this query uses another query
           users_by_ids = double call: [return_object]
-          stub_classes 'Queries::UsersByIds'
-          Queries::UsersByIds
+          stub_classes 'Queries::DeadUsersByIds'
+          Queries::DeadUsersByIds
             .stub(:new)
             .with(user_ids: [1])
             .and_return(users_by_ids)
         when 'factdata'
+          fd = double fact_id: 1
           FactData.should_receive(:find).
             with(1).
-            and_return(return_object)
+            and_return(fd)
+          get_dead_fact = double call: return_object
+          Queries::Facts::GetDead.stub(:new).with(id: fd.fact_id).and_return(get_dead_fact)
         end
 
         expect(query.call).to eq [return_object]

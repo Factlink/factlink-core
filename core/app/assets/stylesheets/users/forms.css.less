@@ -1,0 +1,28 @@
+@import "bootstrap/mixins";
+
+.control-label {
+  float: left;
+  width: 160px;
+  padding-top: 5px;
+  padding-right: 1em;
+  text-align: right;
+}
+
+.controls-information-item {
+  margin-left: 160px;
+}
+
+.control-group {
+  margin-bottom: @baseLineHeight;
+  .clearfix();
+}
+
+.form-actions {
+  background-color: transparent;
+  padding: 15px 0;
+  margin-top: @baseLineHeight;
+  margin-bottom: @baseLineHeight;
+  border-top: 1px solid #e5e5e5;
+  padding-left: @horizontalComponentOffset;
+  .clearfix(); // Adding clearfix to allow for .pull-right button containers
+}

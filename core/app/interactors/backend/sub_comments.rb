@@ -27,8 +27,9 @@ module Backend
     end
 
     def self.dead_for(sub_comment)
+      created_by = Pavlov.query(:dead_users_by_ids, user_ids: [sub_comment.created_by_id]).first
       DeadSubComment.new id: sub_comment.id,
-                         created_by: sub_comment.created_by,
+                         created_by: created_by,
                          created_by_id: sub_comment.created_by_id,
                          created_at: sub_comment.created_at,
                          content: sub_comment.content,

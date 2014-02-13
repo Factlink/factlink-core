@@ -18,8 +18,8 @@ describe "searching", type: :feature do
 
   it "should find a just created factlink" do
     # create factlink:
-    fact_title = "fact to be found"
-    visit new_fact_path displaystring: fact_title
+    fact_text = "fact to be found"
+    visit new_fact_path displaystring: fact_text
 
     eventually_succeeds do
       fail StandardError, "Fact not created" unless Fact.all.to_a.last
@@ -27,8 +27,8 @@ describe "searching", type: :feature do
 
     # and search for it:
     visit root_path
-    fill_in "factlink_search", with: fact_title
+    fill_in "factlink_search", with: fact_text
     page.execute_script("$('#factlink_search').parent().submit()")
-    page.should have_content(fact_title)
+    page.should have_content(fact_text)
   end
 end

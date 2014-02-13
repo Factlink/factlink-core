@@ -1,0 +1,9 @@
+{
+  "id": "<id>",
+  "site_url": "url",
+  "displaystring": "displaystring",
+  "created_at": "<created_at>",
+  "site_title": "title",
+  "url": "/f/1",
+  "proxy_open_url": "http://localhost:8080/?url=url#factlink-open-1"
+}

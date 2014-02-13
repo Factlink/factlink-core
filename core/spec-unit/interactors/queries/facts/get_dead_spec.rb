@@ -46,7 +46,7 @@ describe Queries::Facts::GetDead do
       expect(dead_fact.id).to eq live_fact.id
       expect(dead_fact.displaystring).to eq live_fact.data.displaystring
       expect(dead_fact.created_at).to eq live_fact.data.created_at
-      expect(dead_fact.title).to eq live_fact.data.title
+      expect(dead_fact.site_title).to eq live_fact.data.title
       expect(dead_fact.site_url).to eq site.url
     end
   end

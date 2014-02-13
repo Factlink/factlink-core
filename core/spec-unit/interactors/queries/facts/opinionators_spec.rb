@@ -20,7 +20,7 @@ describe Queries::Facts::Opinionators do
           .and_return double(ids: opinionator_ids)
 
       Pavlov.stub(:query)
-            .with(:users_by_ids, user_ids: opinionator_ids, by: :graph_user_id)
+            .with(:dead_users_by_ids, user_ids: opinionator_ids, by: :graph_user_id)
             .and_return [user]
 
       result = query.call

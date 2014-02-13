@@ -1,21 +1,48 @@
 @import "bootstrap/mixins";
 
-.add-evidence-form .add-comment {
-  .add-comment-container {
-    box-sizing: border-box;
-  }
-
-  .alert {
-    margin-bottom: 15px;
-  }
+.add-comment-container {
+  position: relative;
+  .block-box-shadow();
+  background: white;
+  margin-top: 12px;
+  margin-bottom: @sidebarMarginBetween;
 }
 
-.post-comment-button {
+.add-comment {
+  padding: @votePadding;
+}
+
+.add-comment-arrow {
+  position: absolute;
+  left: 50%;
+  .triangle-arrow-up();
+}
+
+.add-comment-controls {
+  overflow: hidden; // new block formatting context
+  margin-top: 10px;
+  line-height: @baseButtonHeight;
+  display: none;
+}
+
+.add-comment-controls-visible {
+  display: block;
+}
+
+.add-comment-post-button {
   display: inline-block;
   width: 105px;
   float: right;
 }
 
-.add-comment-posting-controls {
+.add-comment-question {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.add-comment-search-facts {
+  box-shadow: 0px -1px @mutedBorderBottomColor, 0px -2px @mutedBorderTopColor;
+  overflow: hidden; // new block formatting context
   margin-top: 10px;
+  padding-top: 5px;
 }

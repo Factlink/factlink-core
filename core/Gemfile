@@ -96,6 +96,7 @@ group :assets do
   gem "rails-assets-react"
   gem "rails-assets-react.backbone"
   gem "rails-assets-jquery-autosize"
+  gem 'rails-assets-tether'
 
   # Rails 4 pipline
   gem 'sprockets', '2.2.2.backport2' #upgrade awaiting rails 4

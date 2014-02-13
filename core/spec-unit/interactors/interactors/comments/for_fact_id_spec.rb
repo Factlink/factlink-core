@@ -44,8 +44,8 @@ describe Interactors::Comments::ForFactId do
       interactor = described_class.new fact_id: fact.id, type: type,
                                        pavlov_options: pavlov_options
 
-      comment1 = double :comment1, votes: {believes: 2, disbelieves: 1}
-      comment2 = double :comment2, votes: {believes: 4, disbelieves: 0}
+      comment1 = double :comment1, tally: {believes: 2, disbelieves: 1}
+      comment2 = double :comment2, tally: {believes: 4, disbelieves: 0}
 
       type = :disbelieves
 

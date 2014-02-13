@@ -67,7 +67,7 @@ class Ability
     can :read, Comment
     can :destroy, Comment do |comment|
       dead_comment = Pavlov.query(:'comments/by_ids', ids: comment.id.to_s, pavlov_options: {}).first
-      comment.created_by_id == user.id && dead_comment.is_deletable
+      comment.created_by.id == user.id && dead_comment.is_deletable
     end
   end
 
@@ -104,9 +104,6 @@ class Ability
     return unless signed_in?
 
     can :index, Activity
-    can :mark_activities_as_read, User do |u|
-      u.id == user.id
-    end
     can :see_activities, User do |u|
       u.id == user.id
     end

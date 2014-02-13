@@ -13,7 +13,7 @@
     <meta name="description" content="">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
-    <%= stylesheet_link_tag "base" %>
+    <%= stylesheet_link_tag "frontend" %>
 
     <%= yield :specific_stylesheet_tag %>
 
@@ -23,7 +23,6 @@
       <!-- Speciaal voor jou Joel! -->
       <style>
         #feedback_button {background: #e6007e;}
-        #notifications span.unread.active {background: #e6007e; text-shadow: rgba(0,0,0,0.25);}
       </style>
     <% end %>
 
@@ -38,7 +37,7 @@
 
     <%= render 'home/browser_support_message' %>
 
-    <%= render "base/topbar", fixed_topbar: fixed_topbar %>
+    <%= render "base/topbar" %>
 
     <%= yield :main %>
 

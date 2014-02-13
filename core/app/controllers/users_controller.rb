@@ -55,36 +55,11 @@ class UsersController < ApplicationController
     end
   end
 
-  def activities
-    authorize! :see_activities, @user
-    @activities = @user.graph_user.notifications.below('inf', count: 10, reversed: true, withscores: true )
-
-    @activities.select! { |a| a[:item] && a[:item].still_valid? }
-    @showing_notifications = true
-    respond_to do |format|
-      format.json { render 'notifications/index' }
-    end
-  end
-
   def notification_settings
     authorize! :edit_settings, @user
     authorize! :access, Ability::FactlinkWebapp
 
     backbone_responder
-  end
-
-  def mark_activities_as_read
-    authorize! :mark_activities_as_read, @user
-
-    @user.last_read_activities_on = DateTime.now
-
-    respond_to do |format|
-      if @user.save
-        format.json { head :no_content }
-      else
-        format.json { render json: { :status => :unprocessable_entity } }
-      end
-    end
   end
 
   def seen_messages
@@ -97,9 +72,8 @@ class UsersController < ApplicationController
   def tour_users
     authorize! :access, Ability::FactlinkWebapp
     # TODO add proper authorization check
-    @tour_users = interactor :"users/tour_users"
 
-    render :tour_users, formats: [:json]
+    render json: interactor(:"users/tour_users")
   end
 
   private

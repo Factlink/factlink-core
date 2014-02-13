@@ -1,13 +1,16 @@
 class window.Fact extends Backbone.Model
   urlRoot: "/facts"
 
-  getVotes: ->
-    @_votes ?= new Votes [], fact: @
+  getOpinionators: ->
+    @_opinionators ?= new Opinionators [], fact: @
+
+  comments: ->
+    @_comments ?= new Comments null, fact: @
 
   clientLink: -> "/client/facts/#{@id}"
 
   factUrlHost: ->
-    fact_url = @get('fact_url')
+    fact_url = @get('site_url')
     return '' unless fact_url
 
     new Backbone.Factlink.Url(fact_url).host()
@@ -18,14 +21,21 @@ class window.Fact extends Backbone.Model
 
     minutes_ago < 5
 
-  share: (provider_names, message=null, options={}) ->
-    Backbone.ajax _.extend {}, options,
+  share: (providers, message=null) ->
+    provider_names = []
+    provider_names.push 'twitter' if providers.twitter
+    provider_names.push 'facebook' if providers.facebook
+    return unless provider_names.length > 0
+
+    Backbone.ajax
       type: 'post'
       url: "#{@url()}/share"
       data: {provider_names, message}
+      error: ->
+        FactlinkApp.NotificationCenter.error "Error when sharing"
 
   friendly_fact_url: ->
     Factlink.Global.core_url + '/f/' + @id
 
   factUrlTitle: ->
-    @get('fact_title') || @factUrlHost()
+    @get('site_title') || @factUrlHost()

@@ -5,7 +5,7 @@
 # both because we want it to have an index, and because we don't want to
 # leak too much of the internals
 module Queries
-  class UsersByIds
+  class UsersByIds # Returns Killobject.user
     include Pavlov::Query
 
     attribute :user_ids, Array

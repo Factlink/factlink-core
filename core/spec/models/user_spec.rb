@@ -19,17 +19,6 @@ describe User do
     end
   end
 
-  describe "last_read_activities_on" do
-    it "sets the correct DateTime in the database" do
-      datetime = DateTime.parse("2001-02-03T04:05:06+01:00")
-
-      subject.last_read_activities_on = datetime
-      subject.save
-
-      expect(subject.last_read_activities_on).to eq datetime
-    end
-  end
-
   describe :assign_attributes do
     let (:valid_attributes) do
       {

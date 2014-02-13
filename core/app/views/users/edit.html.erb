@@ -52,7 +52,7 @@
         <% end %>
 
         <div class="control-group">
-          <div class="controls">
+          <div class="controls controls-information-item">
             Note: We will not publish anything without your permission.
           </div>
         </div>
@@ -71,12 +71,12 @@
           <div class="controls">
             <%= f.text_field :email, autocomplete: "off", disabled: true, class: "disabled-email" %>
 
-            <span class="help-inline">To change your email address, please <a href="mailto:support@factlink.com">contact us</a>.</span>
+            <span class="help-inline controls-information-item">To change your email address, please <a href="mailto:support@factlink.com">contact us</a>.</span>
           </div>
         </div>
 
         <div class="controls">
-          <button type="submit" class="button-confirm" data-disable-with="Saving...">Save settings</button>
+          <button type="submit" class="button-confirm controls-information-item" data-disable-with="Saving...">Save settings</button>
         </div>
       </fieldset>
     <% end %>
@@ -93,7 +93,7 @@
       </div>
 
       <fieldset class="js-delete-form hide">
-        <div class="controls">
+        <div class="controls controls-information-item">
           Fill in your password to confirm deleting your account.
         </div>
 
@@ -105,8 +105,8 @@
         </div>
 
         <div class="controls">
-          <button type="submit" class="button-danger">Delete my entire account</button>
-          <span class="help-inline">Warning: all your data will be deleted</span>
+          <button type="submit" class="button-danger controls-information-item">Delete my entire account</button>
+          <span class="help-inline controls-information-item">Warning: all your data will be deleted</span>
         </div>
       </fieldset>
     <% end %>

@@ -1,14 +1,8 @@
 DeadComment = StrictStruct.new(
-  :id, :created_by, :created_at, :content,
-  :sub_comments_count, :created_by_id,
-  :votes, :is_deletable
+  :id, :created_by, :created_at, :formatted_content,
+  :sub_comments_count,
+  :tally, :is_deletable
 ) do
 
-  def formatted_content
-    FormattedCommentContent.new(content).html
-  end
-
-  def tally
-    votes.slice(:believes, :disbelieves, :current_user_opinion)
-  end
+  alias :to_hash :to_h
 end

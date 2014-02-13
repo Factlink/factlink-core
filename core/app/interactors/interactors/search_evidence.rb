@@ -20,7 +20,7 @@ module Interactors
     end
 
     def valid_result? result
-      FactData.valid(result) and result.fact.id != @fact_id
+      result.id != @fact_id
     end
 
     def authorized?

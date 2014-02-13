@@ -1,11 +1,11 @@
-require_relative '../../../../app/interactors/queries/activities/graph_user_ids_following_comments'
 require 'pavlov_helper'
+require_relative '../../../../app/interactors/queries/activities/graph_user_ids_following_comments'
 
 describe Queries::Activities::GraphUserIdsFollowingComments do
   include PavlovSupport
 
   before do
-    stub_classes 'SubComment'
+    stub_classes 'Backend::SubComments', 'Believable::Commentje', 'User'
   end
 
   describe '#call' do
@@ -20,10 +20,20 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
         double(opinionated_users_ids: 3),
       ]
 
-      sub_comments = [
-        double( created_by: double( graph_user_id: 3 )),
-        double( created_by: double( graph_user_id: 4 ))
+      sub_comment_posters = [
+        double( id: '3a', graph_user_id: 3 ),
+        double( id: '4a', graph_user_id: 4 )
       ]
+
+      sub_comment_posters.each do |user|
+        User.stub(:where).with(id: user.id).and_return [user]
+      end
+
+      sub_comments = [
+        double( created_by: double( id: sub_comment_posters[0].id )),
+        double( created_by: double( id: sub_comment_posters[1].id ))
+      ]
+
 
       Believable::Commentje.stub(:new).with(comments[0].id).and_return(believables[0])
       Believable::Commentje.stub(:new).with(comments[1].id).and_return(believables[1])

@@ -2,8 +2,8 @@
   <a class="dropdown-toggle topbar-menu-link" data-toggle="dropdown" href="#">
     <b class="caret"></b>
   </a>
-  <ul class="dropdown-menu js-topbar-dropdown-menu">
-    <li class="visible-when-chrome">
+  <ul class="dropdown-menu">
+    <li class="dropdown-menu-item visible-when-chrome">
       <%= chrome_extension_link do %>
         <i class='icon-chrome'></i>
         Chrome extension
@@ -11,7 +11,7 @@
       <% end %>
     </li>
 
-    <li class="visible-when-firefox">
+    <li class="dropdown-menu-item visible-when-firefox">
       <a href="https://static.factlink.com/extension/firefox/factlink-latest.xpi">
         <i class='icon-firefox'></i>
         Firefox extension
@@ -19,7 +19,7 @@
       </a>
     </li>
 
-    <li class="visible-when-safari">
+    <li class="dropdown-menu-item visible-when-safari">
       <a href="https://static.factlink.com/extension/firefox/factlink.safariextz">
         <i class='icon-apple'></i>
         Safari extension
@@ -27,37 +27,24 @@
       </a>
     </li>
 
-    <li>
-      <a class="topbar-menu-bookmarklet js-topbar-dropdown-menu-bookmarklet"
-           <%# here we need singlequotes kthxbye: %>
-           href='javascript:<%= minify_js(ensure_no_single_quotes(render(:partial => 'home/bookmarklet', :formats => [:js]))) %>'>
-         <i class='icon-bookmark'></i><!--
-         --><span class="bookmarklettext" style="display: none">Factlink</span><!--
-      --></a>
-    </li>
-
+    <li class="dropdown-menu-item js-topbar-dropdown-menu-bookmarklet"></li>
     <li class="divider"></li>
-
-    <li>
-      <%= link_to("<i class='icon-cog'></i> Settings".html_safe, edit_user_path(current_user)) %>
-    </li>
-
-    <li>
-      <%= link_to "<i class='icon-question-sign'></i> Help".html_safe, pages_path("help") %>
-    </li>
-
-    <%= render "base/topbar/pages_menu" %>
-
+    <li class="dropdown-menu-item"><%= link_to("<i class='icon-cog'></i> Settings".html_safe, edit_user_path(current_user)) %></li>
+    <li class="dropdown-menu-item"><%= link_to "<i class='icon-question-sign'></i> Help".html_safe, pages_path("help") %></li>
+    <li class="dropdown-menu-item"><%= link_to("<i class='icon-info-sign'></i> About Factlink".html_safe, pages_path('about')) %></li>
     <li class="divider"></li>
-
-    <li>
-      <%= link_to("<i class='icon-off'></i> Sign out".html_safe, destroy_user_session_path) %>
-    </li>
+    <li class="dropdown-menu-item"><%= link_to("<i class='icon-off'></i> Sign out".html_safe, destroy_user_session_path) %></li>
 
     <% if can? :access, Ability::AdminArea %>
       <li class="divider"></li>
-      <%= render "base/topbar/admin_menu" %>
+      <li class="dropdown-menu-item"><%= link_to("Users", admin_users_path) %></li>
+      <li class="dropdown-menu-item"><%= link_to("Feature Toggles", admin_global_feature_toggles_path) %></li>
+      <li class="dropdown-menu-item"><%= link_to("Info", admin_info_path) %></li>
+      <li class="dropdown-menu-item"><%= link_to("Cause Error", admin_cause_error_path) %></li>
+      <li class="dropdown-menu-item"><%= link_to("Resque", '/a/resque') %></li>
+      <% if can_haz :memory_profiling %>
+        <li class="dropdown-menu-item divider"><a onclick="FactlinkApp.MemoryProfiler.showModal()">Memory</a></li>
+      <% end %>
     <% end %>
-
   </ul>
 </li>

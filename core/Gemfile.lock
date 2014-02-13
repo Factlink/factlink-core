@@ -326,6 +326,7 @@ GEM
       rails-assets-jquery (>= 1.7)
     rails-assets-react (0.8.0)
     rails-assets-react.backbone (0.1.2)
+    rails-assets-tether (0.5.2)
     rails-dev-tweaks (0.6.1)
       actionpack (~> 3.1)
       railties (~> 3.1)
@@ -541,6 +542,7 @@ DEPENDENCIES
   rails-assets-jquery-autosize
   rails-assets-react
   rails-assets-react.backbone
+  rails-assets-tether
   rails-dev-tweaks (~> 0)
   rails_best_practices (~> 1)
   rake (~> 10.1.0)

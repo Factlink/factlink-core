@@ -21,7 +21,7 @@ describe UsersController do
 
       get :show, username: user.username, format: :json
 
-      Approvals.verify(response.body, format: :json, name: 'users#show should keep the same content')
+      verify(format: :json) { response.body }
     end
 
     it "should render json successful for deleted users" do
@@ -38,7 +38,7 @@ describe UsersController do
 
       get :show, username: deleted_user.username, format: :json
 
-      Approvals.verify(response.body, format: :json, name: 'users#show should keep the same content for deleted users')
+      verify(format: :json) { response.body }
     end
   end
 
@@ -68,96 +68,7 @@ describe UsersController do
       response_body = JSON.parse(response_body).sort do |a,b|
         a["username"] <=> b["username"]
       end.to_json
-      Approvals.verify(response_body, format: :json, name: 'users#tour_users should keep the same content')
-    end
-  end
-
-  describe :activities do
-    render_views
-    it "should render succesful" do
-      authenticate_user!(user)
-
-      should_check_can :see_activities, user
-
-      get :activities, username: user.username, format: :json
-
-      response.should be_success
-    end
-  end
-
-  describe :activities do
-    render_views
-    include PavlovSupport
-
-    describe :activity_approval do
-      before do
-        # Don't send a mail for these activity tests
-        stub_const 'Interactors::SendMailForActivity', Class.new
-        Interactors::SendMailForActivity.stub(new: double(call: nil),
-                                              attribute_set: [double(name:'pavlov_options'),double(name: 'activity')])
-
-        FactoryGirl.reload
-      end
-
-      it 'created comment' do
-        current_user = create(:full_user)
-        fact = create(:fact)
-        fact.add_opinion(:believes, current_user.graph_user)
-
-        interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
-                                                       type: 'believes', content: 'tex message',
-                                                       pavlov_options: { current_user: user })
-        comment = interactor.call
-
-        authenticate_user!(current_user)
-
-        should_check_can :see_activities, current_user
-
-        get :activities, username: current_user.username, format: :json
-
-        Approvals.verify(response.body, format: :json, name: "users#activities should keep the same created comment activity")
-      end
-
-      it 'created sub comment' do
-        current_user = create(:full_user)
-        fact = create :fact
-
-        comment = {}
-        as(current_user) do |pavlov|
-          comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'disbelieves', content: 'content')
-        end
-
-        as(user) do |pavlov|
-          sub_comment = pavlov.interactor(:'sub_comments/create_for_comment', comment_id: comment.id.to_s, content: 'content')
-        end
-
-        authenticate_user!(current_user)
-
-        should_check_can :see_activities, current_user
-
-        get :activities, username: current_user.username, format: :json
-
-        Approvals.verify(response.body, format: :json, name: "users#activities should keep the same created sub comment activity")
-      end
-    end
-  end
-
-  describe :mark_as_read do
-    render_views
-    it "should update last read timestamp on the user" do
-      datetime = DateTime.parse("2001-02-03T04:05:06+01:00")
-
-      authenticate_user!(user)
-
-      should_check_can :mark_activities_as_read, user
-
-      DateTime.stub(:now).and_return datetime
-
-      post :mark_activities_as_read, username: user.username, format: :json
-
-      response.should be_success
-
-      User.find(user.id).last_read_activities_on.to_i.should == datetime.to_i
+      verify(format: :json) { response.body }
     end
   end
 
