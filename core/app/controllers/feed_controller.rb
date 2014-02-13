@@ -16,7 +16,37 @@ class FeedController < ApplicationController
                                               withscores: true)
 
       @activities = sanitize retrieved_activities, activities.key
-      render 'feed/index'
+      actts = @activities.map do |activity_hash|
+        activity = activity_hash[:item]
+        subject = activity.subject
+        object = activity.object
+        action = activity.action
+        created_at = activity.created_at
+        user =  activity.user.user
+        dead_user = Queries::DeadUsersByIds.new(user_ids: [user.id]).call.first
+
+        h = {
+          timestamp: activity_hash[:score],
+          user: dead_user,
+          action: action,
+          time_ago: TimeFormatter.as_time_ago(created_at.to_time),
+          id: activity.id
+        }
+        case action
+        when "created_comment", "created_sub_comment"
+          h[:activity] = {
+            fact: query(:'facts/get_dead', id: object.id.to_s)
+          }
+        when "followed_user"
+          subject_user = Queries::DeadUsersByIds.new(user_ids: [subject.user_id]).call.first
+          h[:activity] = {
+            followed_user: subject_user
+          }
+        end
+
+        h
+      end
+      render json: actts
     end
   end
 
