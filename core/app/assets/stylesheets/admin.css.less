@@ -23,31 +23,21 @@
   border: 1px solid @errorBorder;
 }
 
-.table {
+.admin-table {
   width: 100%;
   margin-bottom: @baseLineHeight;
   background-color: @backgroundGray;
   border-collapse: collapse;
   border-spacing: 0;
   border: 1px solid @tableBorder;
-  border-left: 0;
   max-width: 100%;
-  // Cells
-  th,
-  td {
+
+  th, td {
     padding: 8px;
     line-height: @baseLineHeight;
     text-align: left;
     vertical-align: top;
     border-top: 1px solid @tableBorder;
-    border-left: 1px solid @tableBorder;
-  }
-  th {
-    font-weight: bold;
-  }
-  // Bottom align for column headings
-  thead th {
-    vertical-align: bottom;
   }
 }
 
