@@ -51,11 +51,10 @@ ReactSubCommentHeading = React.createBackboneClass
     creator = @model().creator()
     created_at = @model().get('created_at')
     _div ['sub-comment-post-heading'],
-      OpinionIndicator
-        username: creator.get('username')
+      OpinionatedAvatar
+        user: creator
         model: @props.fact_opinionators
-      _span ["sub-comment-post-creator-avatar"],
-        _img ["avatar-image", src: creator.avatar_url(28)] #has to be kept in sync with the css variable: @commentCreatorAvatarSize
+        size: 28
       _span ["sub-comment-post-creator"],
         _a ["sub-comment-post-creator-name", href: creator.link(), rel: "backbone"],
           creator.get('name')

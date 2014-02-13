@@ -4,6 +4,10 @@
 @impactColouredBorderWidth: 3px;
 @commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 
+.opinionated-avatar,
+.post-creator-avatar {
+  display: inline-block;
+}
 .comment-container {
   position: relative;
   background: white;
@@ -25,7 +29,7 @@
 .comment-believes,
 .comment-disbelieves,
 .comment-unsure {
-  height: @commentCreatorAvatarSize;
+  height: 100%;
   display: inline-block;
   vertical-align: middle;
   border-radius: 4px;

@@ -2,10 +2,10 @@
 @import "bootstrap/mixins";
 
 .sub-comment {
-  margin-top: 15px;
-  padding-left: 10px;
-  border-left: 1px solid @grayLighter;
+  padding: 15px 0 0 10px;
+  border-left: 1px solid #ddd;
   .clearfix();
+  font-size:11px;
 }
 
 .sub-comment-creator {
@@ -27,4 +27,13 @@
 
 .sub-comment-add .text_area_view {
   margin: 10px 0px;
+}
+
+.sub-comment-post-heading > .opinionated-avatar {
+  float:left;
+  margin: 3px 9px 3px 0;
+}
+.sub-comment-post-time {
+  float: right;
+  color: @grayLight;
 }

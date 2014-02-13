@@ -1,3 +1,27 @@
+window.ReactSubComments = React.createBackboneClass
+  displayName: 'ReactSubComments'
+  changeOptions: 'add remove reset sort' + ' sync request'
+  propTypes:
+    fact_opinionators: React.PropTypes.instanceOf(Opinionators).isRequired
+    model: React.PropTypes.instanceOf(SubComments).isRequired
+
+  componentWillMount: ->
+    @model().fetch()
+
+  render: ->
+    if @model().size() == 0 && @model().loading()
+      ReactLoadingIndicator()
+    else
+      _div [],
+        @model().map (sub_comment) =>
+          ReactSubComment
+            model: sub_comment
+            key: sub_comment.get('id')
+            fact_opinionators: @props.fact_opinionators
+        if Factlink.Global.signed_in
+          ReactSubCommentsAdd model: @model()
+
+
 ReactSubCommentsAdd = React.createBackboneClass
   displayName: 'ReactSubCommentsAdd'
 
@@ -25,6 +49,7 @@ ReactSubCommentsAdd = React.createBackboneClass
     @setState(opened: true) if text.length > 0
 
   render: ->
+    x="as"
     _div ['sub-comment-add', 'spec-sub-comments-form'],
       ReactTextArea
         ref: 'textarea'
@@ -39,25 +64,3 @@ ReactSubCommentsAdd = React.createBackboneClass
         ],
           Factlink.Global.t.post_subcomment
 
-window.ReactSubComments = React.createBackboneClass
-  displayName: 'ReactSubComments'
-  changeOptions: 'add remove reset sort' + ' sync request'
-  propTypes:
-    fact_opinionators: React.PropTypes.instanceOf(Opinionators).isRequired
-    model: React.PropTypes.instanceOf(SubComments).isRequired
-
-  componentWillMount: ->
-    @model().fetch()
-
-  render: ->
-    if @model().size() == 0 && @model().loading()
-      ReactLoadingIndicator()
-    else
-      _div [],
-        @model().map (sub_comment) =>
-          ReactSubComment
-            model: sub_comment
-            key: sub_comment.get('id')
-            fact_opinionators: @props.fact_opinionators
-        if Factlink.Global.signed_in
-          ReactSubCommentsAdd model: @model()
