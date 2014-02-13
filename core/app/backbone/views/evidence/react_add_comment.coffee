@@ -33,7 +33,7 @@ ReactSearchFacts = React.createClass
       recently_viewed_facts.fetch()
 
       @____factSearchResults = new FactSearchResults [],
-        fact_id: @props.fact.id
+        fact_id: @props.fact_id
         recently_viewed_facts: recently_viewed_facts
 
     @____factSearchResults
@@ -77,7 +77,7 @@ window.ReactAddComment = React.createBackboneClass
             onToggle: (opened) => @setState searchOpened: opened
           ReactSearchFacts
             opened: @state.searchOpened
-            fact: @model()
+            fact_id: @model().fact.id
             onInsert: @_onSearchInsert
 
   _onTextareaChange: (text) ->
