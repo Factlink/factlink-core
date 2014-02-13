@@ -33,25 +33,21 @@ window.ReactAddComment = React.createBackboneClass
         ReactTextArea
           ref: 'textarea'
           storageKey: "add_comment_to_fact_#{@model().fact.id}"
-          onChange: (text) =>
-            @setState(text: text)
-            @setState(controlsOpened: true) if text.length > 0
-          onSubmit: => @_submit()
+          onChange: @_onTextareaChange
+          onSubmit: @_submit
         _div [
           'add-comment-controls'
           'add-comment-controls-visible' if @state.controlsOpened
         ],
           _button ['button-confirm button-small add-comment-post-button'
-            onClick: => @_submit()
+            onClick: @_submit
             disabled: !@_comment().isValid()
           ],
             Factlink.Global.t.post_argument
           ReactShareFactSelection
             model: @model().fact
             providers: @state.shareProviders
-            onChange: (providerName, checked) =>
-              @state.shareProviders[providerName] = checked
-              @forceUpdate()
+            onChange: @_onShareFactSelectionChange
           ReactSearchLink
             opened: @state.searchOpened
             onToggle: (opened) => @setState searchOpened: opened
@@ -59,9 +55,19 @@ window.ReactAddComment = React.createBackboneClass
             _div ['add-comment-search-facts'],
               ReactFactSearch
                 model: @_factSearchResults()
-                onInsert: (text) =>
-                  @refs.textarea.insert text
-                  @setState searchOpened: false
+                onInsert: @_onSearchInsert
+
+  _onTextareaChange: (text) ->
+    @setState(text: text)
+    @setState(controlsOpened: true) if text.length > 0
+
+  _onShareFactSelectionChange: (providerName, checked) ->
+    @state.shareProviders[providerName] = checked
+    @forceUpdate()
+
+  _onSearchInsert: (text) =>
+    @refs.textarea.insert text
+    @setState searchOpened: false
 
   _submit: ->
     comment = @_comment()
