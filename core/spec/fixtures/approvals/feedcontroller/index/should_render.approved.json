@@ -11,14 +11,12 @@
     "action": "followed_user",
     "time_ago": "1 minute",
     "id": "<id>",
-    "activity": {
-      "followed_user": {
-        "id": "<id>",
-        "name": "John4 Doe4",
-        "username": "johndoe4",
-        "gravatar_hash": "4a44954117cfc0852a0cbd709a634789",
-        "deleted": false
-      }
+    "followed_user": {
+      "id": "<id>",
+      "name": "John4 Doe4",
+      "username": "johndoe4",
+      "gravatar_hash": "4a44954117cfc0852a0cbd709a634789",
+      "deleted": false
     }
   },
   {
@@ -33,14 +31,12 @@
     "action": "followed_user",
     "time_ago": "1 minute",
     "id": "<id>",
-    "activity": {
-      "followed_user": {
-        "id": "<id>",
-        "name": "John3 Doe3",
-        "username": "johndoe3",
-        "gravatar_hash": "0c0b78bf3bb3107091bdb93c94ba73a3",
-        "deleted": false
-      }
+    "followed_user": {
+      "id": "<id>",
+      "name": "John3 Doe3",
+      "username": "johndoe3",
+      "gravatar_hash": "0c0b78bf3bb3107091bdb93c94ba73a3",
+      "deleted": false
     }
   },
   {
@@ -55,16 +51,14 @@
     "action": "created_sub_comment",
     "time_ago": "1 minute",
     "id": "<id>",
-    "activity": {
-      "fact": {
-        "id": "<id>",
-        "site_url": "http://example.org/2.html",
-        "displaystring": "Fact 2",
-        "created_at": "<created_at>",
-        "site_title": "Fact title 2",
-        "url": "/f/2",
-        "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html#factlink-open-2"
-      }
+    "fact": {
+      "id": "<id>",
+      "site_url": "http://example.org/2.html",
+      "displaystring": "Fact 2",
+      "created_at": "<created_at>",
+      "site_title": "Fact title 2",
+      "url": "/f/2",
+      "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html#factlink-open-2"
     }
   },
   {
@@ -79,16 +73,14 @@
     "action": "created_comment",
     "time_ago": "1 minute",
     "id": "<id>",
-    "activity": {
-      "fact": {
-        "id": "<id>",
-        "site_url": "http://example.org/1.html",
-        "displaystring": "Fact 1",
-        "created_at": "<created_at>",
-        "site_title": "Fact title 1",
-        "url": "/f/1",
-        "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html#factlink-open-1"
-      }
+    "fact": {
+      "id": "<id>",
+      "site_url": "http://example.org/1.html",
+      "displaystring": "Fact 1",
+      "created_at": "<created_at>",
+      "site_title": "Fact title 1",
+      "url": "/f/1",
+      "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html#factlink-open-1"
     }
   }
 ]

@@ -1,6 +1,5 @@
 window.ReactSubComments = React.createBackboneClass
   displayName: 'ReactSubComments'
-  changeOptions: 'add remove reset sort' + ' sync request'
   propTypes:
     fact_opinionators: React.PropTypes.instanceOf(Opinionators).isRequired
     model: React.PropTypes.instanceOf(SubComments).isRequired
@@ -9,18 +8,16 @@ window.ReactSubComments = React.createBackboneClass
     @model().fetch()
 
   render: ->
-    if @model().size() == 0 && @model().loading()
-      ReactLoadingIndicator()
-    else
-      _div [],
-        @model().map (sub_comment) =>
-          ReactSubComment
-            model: sub_comment
-            key: sub_comment.get('id')
-            fact_opinionators: @props.fact_opinionators
-        if Factlink.Global.signed_in
-          ReactSubCommentsAdd model: @model()
-
+    _div [],
+      ReactLoadingIndicator
+        model: @model()
+      @model().map (sub_comment) =>
+        ReactSubComment
+          model: sub_comment
+          key: sub_comment.get('id')
+          fact_opinionators: @props.fact_opinionators
+      if Factlink.Global.signed_in
+        ReactSubCommentsAdd model: @model()
 
 ReactSubCommentsAdd = React.createBackboneClass
   displayName: 'ReactSubCommentsAdd'

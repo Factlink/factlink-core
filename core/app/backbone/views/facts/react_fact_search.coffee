@@ -71,9 +71,8 @@ ReactFactSearchResults = React.createBackboneClass
   moveSelectionDown: ->
     @_select if @state.hasModelSelected then @state.selectedModelIndex+1 else 0
 
-window.ReactFactSearch = React.createBackboneClass
+window.ReactFactSearch = React.createClass
   displayName: 'ReactFactSearch'
-  changeOptions: 'request sync'
 
   render: ->
     _div [],
@@ -82,17 +81,17 @@ window.ReactFactSearch = React.createBackboneClass
           ref: 'text'
           placeholder: 'Search discussion link to insert...'
           onChange: (value) =>
-            @model().searchFor value
+            @props.model.searchFor value
             @_queryChanges()
           onUp: => @refs.search.moveSelectionUp()
           onDown: => @refs.search.moveSelectionDown()
           onReturn: => @addSelectedModel()
-        if @model().loading()
-          _div ['fact-search-loading-indicator'],
-            ReactLoadingIndicator()
+        _div ['fact-search-loading-indicator'],
+          ReactLoadingIndicator
+            model: @props.model
       ReactFactSearchResults
         ref: 'search'
-        model: @model()
+        model: @props.model
         onSelect: => @addSelectedModel()
 
   focus: ->
