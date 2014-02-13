@@ -67,19 +67,7 @@ module Acceptance
       end
 
       def assert_comment_exists comment
-        within_evidence_list do
-          find('.spec-comment-content', text: comment)
-        end
-      end
-
-      def within_evidence_list &block
-        wait_until_evidence_list_loaded
-        within '.evidence-container', visible: false, &block
-      end
-
-      def wait_until_evidence_list_loaded
-        # this only shows after the discussion list has fully loaded
-        find('.opinion-help, .spec-add-comment-form')
+        find('.spec-comment-content', text: comment)
       end
 
       def vote_comment direction, comment
