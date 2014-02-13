@@ -10,5 +10,4 @@ class window.TopFactView extends Backbone.Marionette.Layout
     if Factlink.Global.can_haz.opinions_of_users_and_comments
       @factVoteTableRegion.show new ReactView
         component: ReactOpinionateArea
-          model: @model
-      @model.getOpinionators().fetch()
+          model: @model.getOpinionators()
