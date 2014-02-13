@@ -26,10 +26,10 @@ window.ReactPopover = React.createBackboneClass
     @_renderTooltip()
 
   _popoverComponent: ->
-    _div ['translucent-popover', @props.attachment  ],
-      _div ['factlink-popover-content'],
+    _div ['translucent-popover-' + @props.attachment  ],
+      _div ['translucent-popover-content'],
         @props.children
-      _div ['factlink-popover-arrow']
+      _div ['translucent-popover-arrow']
 
   _tetherOptions: ->
     element: @_tooltipElement
