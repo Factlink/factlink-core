@@ -35,17 +35,9 @@ describe 'user following' do
 
     describe 'stream activities' do
       it "adds relevant activities" do
-        a1, a2, a3, a4 = ()
+        a4 = nil
 
         as(user2) do |pavlov|
-          fact = pavlov.interactor(:'facts/create', displaystring: 'test', url: 'http://example.org', title: '')
-
-          a1 = Activity.create user: user2.graph_user,
-            action: :believes, subject: fact
-
-          a3 = Activity.create user: user2.graph_user,
-            action: :disbelieves, subject: fact
-
           a4 = Activity.create user: user2.graph_user,
             action: :followed_user, subject: user3.graph_user
         end
