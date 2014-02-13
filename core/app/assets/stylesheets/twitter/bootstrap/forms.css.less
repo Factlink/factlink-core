@@ -106,36 +106,3 @@ textarea:focus:required:invalid {
     box-shadow: 0 0 6px lighten(#ee5f5b, 20%);
   }
 }
-
-// FORM ACTIONS
-// ------------
-
-.form-actions {
-  background-color: transparent;
-  padding: 15px 0;
-  margin-top: @baseLineHeight;
-  margin-bottom: @baseLineHeight;
-  border-top: 1px solid #e5e5e5;
-  .clearfix(); // Adding clearfix to allow for .pull-right button containers
-}
-
-// Margin to space out fieldsets
-.control-group {
-  margin-bottom: @baseLineHeight / 2;
-}
-
-// Horizontal-specific styles
-// --------------------------
-
-.form-horizontal {
-  // Increase spacing between groups
-  .control-group {
-    margin-bottom: @baseLineHeight;
-    .clearfix();
-  }
-
-  // Move over buttons in .form-actions to align with .controls
-  .form-actions {
-    padding-left: @horizontalComponentOffset;
-  }
-}
