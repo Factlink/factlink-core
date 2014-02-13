@@ -31,7 +31,7 @@ describe SitesController do
         get :facts_for_url, url: url, format: :json
         response.should be_success
 
-        Approvals.verify(response.body.to_s, format: :json, name: 'sites#facts_for_url_should_keep_the_same_content')
+        verify(format: :json) { response.body }
       end
     end
   end
