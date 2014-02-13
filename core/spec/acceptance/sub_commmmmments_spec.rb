@@ -42,9 +42,7 @@ feature "sub_comments", type: :feature do
 
     go_to_discussion_page_of @factlink_user_a
 
-    within_evidence_list do
-      page.should have_selector('.spec-evidence-box .delete-button-first')
-    end
+    page.should have_selector('.spec-evidence-box .delete-button-first')
 
     click_link 'Comment'
 
@@ -52,14 +50,10 @@ feature "sub_comments", type: :feature do
     assert_sub_comment_exists sub_comment_text
 
 
-    within_evidence_list do
-      page.should have_no_selector('.spec-evidence-box .delete-button-first')
-    end
+    page.should have_no_selector('.spec-evidence-box .delete-button-first')
 
     go_to_discussion_page_of @factlink_user_a
 
-    within_evidence_list do
-      page.should have_no_selector('.spec-evidence-box .delete-button-first')
-    end
+    page.should have_no_selector('.spec-evidence-box .delete-button-first')
   end
 end

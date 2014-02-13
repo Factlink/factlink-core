@@ -63,7 +63,9 @@ FactlinkApp.module "DiscussionSidebarOnFrontend", (DiscussionSidebarOnFrontend, 
     fragment == background_page_url
 
   DiscussionSidebarOnFrontend.openDiscussion = (fact) ->
-    discussionSidebarContainer.slideIn new DiscussionView model: fact
+    discussionSidebarContainer.slideIn new ReactView
+      component: ReactDiscussion
+        model: fact
     Backbone.history.navigate fact.get('url'), false
 
   DiscussionSidebarOnFrontend.closeDiscussion = ->

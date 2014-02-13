@@ -41,17 +41,15 @@ ReactSubCommentsAdd = React.createBackboneClass
 
 window.ReactSubComments = React.createBackboneClass
   displayName: 'ReactSubComments'
-  changeOptions: 'add remove reset sort' + ' sync request'
 
   componentWillMount: ->
     @model().fetch()
 
   render: ->
-    if @model().size() == 0 && @model().loading()
-      ReactLoadingIndicator()
-    else
-      _div [],
-        @model().map (sub_comment) =>
-          ReactSubComment model: sub_comment
-        if Factlink.Global.signed_in
-          ReactSubCommentsAdd model: @model()
+    _div [],
+      ReactLoadingIndicator
+        model: @model()
+      @model().map (sub_comment) =>
+        ReactSubComment model: sub_comment
+      if Factlink.Global.signed_in
+        ReactSubCommentsAdd model: @model()

@@ -98,24 +98,27 @@ FactOpinionatorsTable = React.createBackboneClass
 window.ReactOpinionateArea = React.createBackboneClass
   displayName: 'ReactOpinionateArea'
 
+  componentWillMount: ->
+    @model().fetchIfUnloaded()
+
   _opinionate: ->
     _div className: 'fact-opinionate',
       FactOpinionateButton
-        model: @model().getOpinionators()
+        model: @model()
         opinion_type: 'believes'
       FactOpinionatorsTable
-        model: @model().getOpinionators()
+        model: @model()
       FactOpinionateButton
-        model: @model().getOpinionators()
+        model: @model()
         opinion_type: 'disbelieves'
 
   _opinionators: ->
     _div ["fact-opinionators"],
       ReactOpinionatorsAvatars
-        model: @model().getOpinionators()
+        model: @model()
         opinion_type: 'believes'
       ReactOpinionatorsAvatars
-        model: @model().getOpinionators()
+        model: @model()
         opinion_type: 'disbelieves'
 
   render: ->
