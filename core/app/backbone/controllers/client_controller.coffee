@@ -33,6 +33,7 @@ class window.ClientController
 
     fact.fetch
       success: =>
-        view = new DiscussionView model: fact
-        view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
-        FactlinkApp.discussionSidebarContainer.slideIn view
+        @annotatedSiteEnvoy 'openModalOverlay'
+        FactlinkApp.discussionSidebarContainer.slideIn new ReactView
+          component: ReactDiscussion
+            model: fact
