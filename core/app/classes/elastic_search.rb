@@ -15,7 +15,7 @@ class ElasticSearch
   def self.refresh
     refresh_url = ElasticSearch.url + "/_refresh"
     response = HTTParty.post refresh_url
-    unless response["ok"]
+    unless response["ok"] || response["_shards"]["failed"] == 0
       fail "Something went wrong while refreshing #{refresh_url}: #{response}"
     end
   end
