@@ -37,10 +37,7 @@ class window.ActivitiesView extends AutoloadingView
     @renderChildren()
 
   add: (model, collection, options) ->
-    lastChildView = _.last(@childViews)
-
-    unless lastChildView?.tryAppend(model)
-      @createNewChildView(model)
+    @createNewChildView(model)
 
   createNewChildView: (model) ->
     appendTo = @newChildView(model)
