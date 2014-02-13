@@ -3,6 +3,7 @@
 
 .publisher-container {
   display: table;
+  margin: 40px 0;
 }
 
 .publisher-animation-area {
@@ -13,9 +14,13 @@
   vertical-align: top;
 }
 
+.publisher-content-heading {
+  margin-bottom: 20px;
+}
+
 .publisher-content-area {
   display: table-cell;
-  vertical-align: top;
+  vertical-align: middle;
   padding: 10px;
 }
 
@@ -47,4 +52,35 @@
   margin: 10px;
   padding: 4px;
   transition: background 0.5s ease;
+}
+
+.discuss-icon {
+  float: right;
+  position: relative;
+  right: -30px;
+  top: -4px;
+
+}
+
+.discuss-icon-body {
+  font-size: 10px;
+  line-height: 12px;
+  color: white;
+  font-weight: 600;
+  display: block;
+  width: 16px;
+  height: 12px;
+  border-radius: 3px;
+  background: grey;
+}
+
+.discuss-icon-arrow {
+  position: absolute;
+  top: 12px;
+  left: 5px;
+  border-top: 2px grey solid;
+  border-left: 2px grey solid;
+  border-right: 2px white solid;
+  border-bottom: 2px white solid;
+  display: inline-block;
 }
