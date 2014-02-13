@@ -1,13 +1,10 @@
 class SubCommentsController < ApplicationController
-  def index
-    @sub_comments = interactor(:'sub_comments/index_for_comment', comment_id: comment_id)
-    render 'sub_comments/index', formats: [:json]
-  end
+  pavlov_action :index, Interactors::SubComments::IndexForComment
 
   def create
-    @sub_comment = interactor(:'sub_comments/create_for_comment',
+    sub_comment = interactor(:'sub_comments/create_for_comment',
                                   comment_id: comment_id, content: params[:content])
-    render 'sub_comments/show', formats: [:json]
+    render json: sub_comment
   rescue Pavlov::ValidationError
     render text: 'something went wrong', status: 400
   end

@@ -1,8 +1,8 @@
 class window.Fact extends Backbone.Model
   urlRoot: "/facts"
 
-  getVotes: ->
-    @_votes ?= new Votes [], fact: @
+  getOpinionators: ->
+    @_opinionators ?= new Opinionators [], fact: @
 
   clientLink: -> "/client/facts/#{@id}"
 

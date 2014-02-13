@@ -30,7 +30,8 @@ module Queries
 
       def sub_comments_on_comments_creators_ids
         sub_comments.map(&:created_by)
-                    .map(&:graph_user_id)
+                    .map(&:id)
+                    .map {|id| User.where(id: id).first.graph_user_id}
       end
 
       def comment_ids

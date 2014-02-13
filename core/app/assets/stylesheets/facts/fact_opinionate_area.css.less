@@ -5,30 +5,30 @@
 
 @avatarSize: 24px;
 
-.fact-vote {
+.fact-opinionate {
   display: table;
   margin: 10px 0px;
 }
 
-.fact-vote-button {
+.fact-opinionate-button {
   display: table-cell;
 }
 
-.fact-vote-button-active {
-  &.fact-vote-button-believes {
+.fact-opinionate-button-active {
+  &.fact-opinionate-button-believes {
     background: @green;
     border-bottom-color: darken(@green, 10%);
     color: darken(@green, 30%);
   }
-  &.fact-vote-button-disbelieves {
+  &.fact-opinionate-button-disbelieves {
     background: @red;
     border-bottom-color: darken(@red, 10%);
     color: darken(@red, 30%);
   }
 }
 
-.fact-vote-button-believes,
-.fact-vote-button-disbelieves {
+.fact-opinionate-button-believes,
+.fact-opinionate-button-disbelieves {
   text-shadow: none;
   padding: 0px 5px;
   font-size: 14px;
@@ -36,65 +36,65 @@
   color: @grayLight;
 }
 
-.fact-vote-indicator {
+.fact-opinion-indicator {
   font-size: 16px;
   color: @grayLight;
 }
 
-.fact-vote-stats {
+.fact-opinionators-table {
   vertical-align: middle;
   text-align: center;
   display: table-cell;
   width: 100%;
 }
 
-.fact-vote-stats-table {
+.fact-opinionators-table-table {
   width: 100%;
 }
 
-.fact-vote-amount-graph {
+.fact-opinion-tally-chart {
   height: 14px;
   width: 100%;
 }
 
-.fact-vote-amount-believes, .fact-vote-amount-disbelieves {
+.fact-opinionators-table-believes, .fact-opinionators-table-disbelieves {
   font-size: 18px;
   width: 20px;
   display: table-cell;
 }
 
-.vote-amount-graph-believers{
+.fact-opinion-tally-chart-believers{
   background: @green;
   transition: all 0.5s;
 }
 
-.vote-amount-graph-disbelievers {
+.fact-opinion-tally-chart-disbelievers {
   background: @red;
   transition: all 0.5s;
 }
 
-.fact-vote-amount-believes {
+.fact-opinionators-table-believes {
   color: @green;
   padding-left: 10px;
 }
 
-.fact-vote-amount-disbelieves {
+.fact-opinionators-table-disbelieves {
   color: @red;
   padding-right: 10px;
 }
 
-.fact-vote-people {
+.fact-opinionators {
   display: table;
   width: 100%;
 }
 
-.fact-vote-people-believes, .fact-vote-people-disbelieves {
+.fact-opinionators-believes, .fact-opinionators-disbelieves {
   display: table-cell;
   vertical-align: middle;
   width: 50%;
 }
 
-.fact-vote-people-believes {
+.fact-opinionators-believes {
   .opinionators-avatar,
   .opinionators-more {
     float: left;
@@ -102,7 +102,7 @@
   }
 }
 
-.fact-vote-people-disbelieves {
+.fact-opinionators-disbelieves {
   .opinionators-avatar,
   .opinionators-more {
     float: right;
@@ -110,11 +110,11 @@
   }
 }
 
-.fact-vote-people-believes .opinionators-more {
+.fact-opinionators-believes .opinionators-more {
   background: @green;
 }
 
-.fact-vote-people-disbelieves .opinionators-more {
+.fact-opinionators-disbelieves .opinionators-more {
   background: @red;
 }
 

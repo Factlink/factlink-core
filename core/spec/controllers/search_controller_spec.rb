@@ -13,12 +13,12 @@ describe SearchController do
       ElasticSearch.stub synchronous: true
 
       user = create(:full_user, username: "Baron")
-      fact = create(:fact, data: create(:fact_data, displaystring: "Baron"))
+      create(:fact, data: create(:fact_data, displaystring: "Baron"))
 
       authenticate_user!(user)
       get :search, s: "Baron", format: :json
 
-      Approvals.verify(response.body, format: :json, name: 'search#search should keep the same content')
+      verify(format: :json) { response.body }
     end
   end
 end
