@@ -38,7 +38,7 @@ class window.CreatedCommentView extends Backbone.Marionette.Layout
         model: @fact()
 
   fact: ->
-    new Fact @model.get("activity").fact
+    new Fact @model.get("fact")
 
 
 class window.FollowedUserView extends Backbone.Marionette.ItemView
@@ -52,5 +52,5 @@ class window.FollowedUserView extends Backbone.Marionette.ItemView
     new User @model.get('user')
 
   followed_user: ->
-    new User @model.get('activity').followed_user
+    new User @model.get('followed_user')
 
