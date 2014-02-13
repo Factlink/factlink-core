@@ -32,7 +32,6 @@ class window.CreatedCommentView extends Backbone.Marionette.Layout
     new User @model.get('user')
 
   onRender: ->
-    console.info @fact()
     @factRegion.show new ReactView
       component: ReactFact
         model: @fact()
