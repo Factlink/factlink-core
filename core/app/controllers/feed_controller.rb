@@ -7,7 +7,7 @@ class FeedController < ApplicationController
     authorize! :access, Ability::FactlinkWebapp
 
     backbone_responder do
-      render json: interactor(:'feed/index')
+      render json: interactor(:'feed/index', timestamp: params[:timestamp])
     end
   end
 

@@ -21,14 +21,10 @@ module Interactors
             }
             case activity.action
             when "created_comment", "created_sub_comment"
-              h[:activity] = {
-                fact: query(:'facts/get_dead', id: activity.object.id.to_s)
-              }
+              h[:fact] = query(:'facts/get_dead', id: activity.object.id.to_s)
             when "followed_user"
               subject_user = query(:dead_users_by_ids, user_ids: activity.subject.user_id).first
-              h[:activity] = {
-                followed_user: subject_user
-              }
+              h[:followed_user] = subject_user
             end
 
             h
@@ -39,8 +35,13 @@ module Interactors
       end
 
       def retrieved_activities
+        count = if timestamp
+                  11
+                else
+                  20
+                end
         activities.below(timestamp || 'inf',
-                         count: 11,
+                         count: 20,
                          reversed: true,
                          withscores: true).compact
       end

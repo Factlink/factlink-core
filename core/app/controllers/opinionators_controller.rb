@@ -20,7 +20,6 @@ class OpinionatorsController < ApplicationController
 
     type = params[:type]
     @fact.add_opinion(type, current_user.graph_user)
-    Activity.create user: current_user.graph_user, action: type, subject: @fact
 
     render json: {}
   end
