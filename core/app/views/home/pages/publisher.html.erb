@@ -1,7 +1,9 @@
 <% content_for :header do %>
-  <h1>Great discussions on your site</h1>
-  <p>Readers join discussions inside your articles and invite their friends. You get engaged users, and more of them.</p>
-  <button class="button">Get started</button>
+  <div class="publisher-header">
+    <h1>Great discussions on your site</h1>
+    <p>Readers join discussions inside your articles and invite their friends.</br> You get engaged users, and more of them.</p>
+    <button class="button">Get started</button>
+  </div>
 <% end %>
 
 <% content_for :title do %>
@@ -12,6 +14,8 @@
 <%= render "home/pages/partials/focussed_discussions" %>
 <%= render "home/pages/partials/higher_engagement" %>
 <%= render "home/pages/partials/social_reach" %>
-<%= render "home/pages/partials/discuss_with_readers" %>
 <%= render "home/pages/partials/easy_integration" %>
+
+<p style="text-align: center; font-style: italic; ">Fair use conditions apply. Please <%= link_to "contact", pages_path("contact") %> us for large scale and custom solutions.</p>
+
 <% end %>

@@ -1,11 +1,38 @@
 @import "bootstrap/mixins";
 @import "twitter/bootstrap/variables";
 
-.publisher-container {
-  display: table;
-  width: 100%;
+.publisher-header {
+  padding: 40px 0px;
+  text-align: center;
+  h1 {
+    margin: 0 0 25px;
+    font-weight: 400;
+    font-size: 30px;
+    height: 36px;
+    line-height: 36px;
+    font-family: @sansFontFamily;
+    color: white;
+    text-shadow: none;
+  }
+
+  > p {
+    color: #c9dcfb;
+    font-weight: 100;
+    font-size: 18px;
+    line-height: 28px;
+    text-shadow: 0 1px 0 #000;
+  }
 }
 
+.publisher-container {
+  border-top: 1px lightgrey solid;
+  padding: 20px 0px;
+  &:first-child {
+    padding: 0px 0px 20px;
+    border-top: none;
+  }
+
+}
 .publisher-animation-area {
   display: table-cell;
   width: 400px;
@@ -147,6 +174,10 @@
   font-size: 12px;
 }
 
+.animation-sidebar-comment-reply {
+  font-size: 12px;
+}
+
 .animation-sidebar-vote-arrow {
   color: lightgrey;
 }
@@ -161,8 +192,7 @@
 }
 
 .animation-social-logo {
-  height: 25px;
-  margin: 20px 20px 20px 0;
+  height: 100px;
 }
 .publisher-animation-social-column {
   display: inline-block;
@@ -178,7 +208,7 @@
   display: inline-block;
   height: 45px;
   width: 45px;
-  margin: 13px;
+  margin: 12px;
   border-radius: 50%;
   transform:rotate(-45deg);
   -ms-transform:rotate(-45deg); /* IE 9 */
