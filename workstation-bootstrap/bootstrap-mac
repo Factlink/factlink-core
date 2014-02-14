@@ -28,7 +28,7 @@ else
   #do brew install before all other slow things so that the user doesn't need to wait
   #brew install requires user interaction (sudo)
     echo "Installing brew: brew will ask for confirmation."
-    ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 fi
 
 ensureBrew mongo
