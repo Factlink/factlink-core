@@ -22,7 +22,7 @@ describe Queries::UsersByIds do
         .with(user.graph_user_id)
         .and_return(following_info)
 
-      verify(format: :json) { query.call.to_json }
+      verify { query.call.to_json }
     end
 
     it 'can search by graph_user ids' do

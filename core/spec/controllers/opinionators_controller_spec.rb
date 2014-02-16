@@ -20,7 +20,7 @@ describe OpinionatorsController do
 
       get :index, fact_id: fact.id
 
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
   end
 end

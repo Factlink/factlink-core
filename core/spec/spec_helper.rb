@@ -24,6 +24,8 @@ RSpec.configure do |config|
   config.filter_run_excluding type: :feature
   config.mock_with :rspec
 
+  config.approvals_default_format = :json
+
   config.include FactoryGirl::Syntax::Methods
   config.include ControllerMethods, type: :controller
 
