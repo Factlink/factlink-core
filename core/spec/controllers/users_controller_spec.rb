@@ -21,7 +21,7 @@ describe UsersController do
 
       get :show, username: user.username, format: :json
 
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
 
     it "should render json successful for deleted users" do
@@ -38,7 +38,7 @@ describe UsersController do
 
       get :show, username: deleted_user.username, format: :json
 
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
   end
 
@@ -68,7 +68,7 @@ describe UsersController do
       response_body = JSON.parse(response_body).sort do |a,b|
         a["username"] <=> b["username"]
       end.to_json
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
   end
 

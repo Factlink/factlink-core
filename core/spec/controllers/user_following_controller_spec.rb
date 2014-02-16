@@ -26,7 +26,7 @@ describe UserFollowingController do
       get :index, username: user.username
 
       expect(response).to be_success
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
   end
 end
