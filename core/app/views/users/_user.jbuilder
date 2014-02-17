@@ -22,9 +22,8 @@ json.graph_id graph_user.id
 json.location nil_if_empty user.location
 json.biography nil_if_empty user.biography
 
-is_current_user = (user == current_user)
-json.is_current_user is_current_user
-if is_current_user
+if user == current_user
+  json.is_current_user true
   json.receives_mailed_notifications user.receives_mailed_notifications
   json.receives_digest user.receives_digest
   json.confirmed user.confirmed?
