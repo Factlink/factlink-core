@@ -12,6 +12,10 @@ class FactlinkJailRoot.Highlight
   highlight:   -> $(@elements).addClass('fl-core-highlight')
   dehighlight: -> $(@elements).removeClass('fl-core-highlight')
 
+  destroy: ->
+    $(@elements).contents().unwrap()
+    @show_button.destroy()
+
 FactlinkJailRoot.showCoreHighlight = (factId) ->
   for highlight in highlightsByFactIds[highlightedFactId] || []
     highlight.dehighlight()
@@ -20,3 +24,10 @@ FactlinkJailRoot.showCoreHighlight = (factId) ->
 
   for highlight in highlightsByFactIds[highlightedFactId] || []
     highlight.highlight()
+
+
+FactlinkJailRoot.destroyCoreHighlight = (factId) ->
+  for fact in highlightsByFactIds[factId] || []
+    fact.destroy()
+  delete highlightsByFactIds[factId]
+
