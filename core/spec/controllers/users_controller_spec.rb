@@ -90,14 +90,13 @@ describe UsersController do
       old_user = User.find(user.id)
 
       encrypted_password = old_user.encrypted_password
-      old_username = old_user.username
 
       put :update, id: user.username, user: {'encrypted_password' => "blaat_password", "username" => "new_username"}
 
       new_user = User.find(user.id)
 
-      new_user.encrypted_password.should == encrypted_password
-      new_user.username.should == "new_username"
+      expect(new_user.encrypted_password).to eq encrypted_password
+      expect(new_user.username).to eq "new_username"
     end
   end
 end
