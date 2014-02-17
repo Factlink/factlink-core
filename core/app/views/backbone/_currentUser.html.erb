@@ -1,3 +1,7 @@
 <% if current_user %>
-  window.currentUser = new User(<%= render('users/user', user: current_user).html_safe %>);
+  <%
+    user_hash = interactor(:'users/get_full', username: current_user.username)
+    user_json = user_hash.to_json.html_safe
+  %>
+  window.currentUser = new User(<%= user_json %>);
 <% end %>
