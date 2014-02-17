@@ -1,8 +1,12 @@
-@import "twitter/bootstrap/variables";
-@import "bootstrap/mixins";
+@import "mixins/mixins";
 
 @impactColouredBorderWidth: 3px;
 @commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
+
+.opinionated-avatar,
+.post-creator-avatar {
+  display: inline-block;
+}
 
 .comment-container {
   position: relative;
@@ -25,7 +29,7 @@
 .comment-believes,
 .comment-disbelieves,
 .comment-unsure {
-  height: @commentCreatorAvatarSize;
+  height: 100%;
   display: inline-block;
   vertical-align: middle;
   border-radius: 4px;
@@ -65,12 +69,6 @@
   display: inline-block;
   vertical-align: middle;
   .ellipsis(200px);
-}
-
-.comment-post-creator-avatar {
-  display: inline-block;
-  height: @commentCreatorAvatarSize;
-  width: @commentCreatorAvatarSize;
 }
 
 .comment-post-bottom {

@@ -16,7 +16,7 @@ class FactlinkJailRoot.Highlight
     $(@elements).contents().unwrap()
     @show_button.destroy()
 
-FactlinkJailRoot.showCoreHighlight = (factId) ->
+FactlinkJailRoot.highlightAnnotation = (factId) ->
   for highlight in highlightsByFactIds[highlightedFactId] || []
     highlight.dehighlight()
 
@@ -26,7 +26,7 @@ FactlinkJailRoot.showCoreHighlight = (factId) ->
     highlight.highlight()
 
 
-FactlinkJailRoot.destroyCoreHighlight = (factId) ->
+FactlinkJailRoot.removeAnnotation = (factId) ->
   for fact in highlightsByFactIds[factId] || []
     fact.destroy()
   delete highlightsByFactIds[factId]

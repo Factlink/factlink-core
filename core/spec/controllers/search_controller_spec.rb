@@ -18,7 +18,7 @@ describe SearchController do
       authenticate_user!(user)
       get :search, s: "Baron", format: :json
 
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
   end
 end

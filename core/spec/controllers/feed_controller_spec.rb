@@ -43,7 +43,7 @@ describe FeedController do
       get :index, format: :json, username: user.username
 
       response.should be_success
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
   end
 

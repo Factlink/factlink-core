@@ -7,5 +7,13 @@
   "statistics_follower_count": 0,
   "statistics_following_count": 0,
   "location": null,
-  "biography": null
+  "biography": null,
+  "is_current_user": true,
+  "receives_mailed_notifications": true,
+  "receives_digest": true,
+  "confirmed": false,
+  "created_at": "<created_at>",
+  "services": {
+    "twitter": true
+  }
 }

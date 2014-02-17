@@ -1,3 +1,24 @@
+window.ReactSubComments = React.createBackboneClass
+  displayName: 'ReactSubComments'
+  propTypes:
+    fact_opinionators: React.PropTypes.instanceOf(Opinionators).isRequired
+    model: React.PropTypes.instanceOf(SubComments).isRequired
+
+  componentWillMount: ->
+    @model().fetch()
+
+  render: ->
+    _div [],
+      ReactLoadingIndicator
+        model: @model()
+      @model().map (sub_comment) =>
+        ReactSubComment
+          model: sub_comment
+          key: sub_comment.get('id')
+          fact_opinionators: @props.fact_opinionators
+      if Factlink.Global.signed_in
+        ReactSubCommentsAdd model: @model()
+
 ReactSubCommentsAdd = React.createBackboneClass
   displayName: 'ReactSubCommentsAdd'
 
@@ -39,17 +60,3 @@ ReactSubCommentsAdd = React.createBackboneClass
         ],
           Factlink.Global.t.post_subcomment
 
-window.ReactSubComments = React.createBackboneClass
-  displayName: 'ReactSubComments'
-
-  componentWillMount: ->
-    @model().fetch()
-
-  render: ->
-    _div [],
-      ReactLoadingIndicator
-        model: @model()
-      @model().map (sub_comment) =>
-        ReactSubComment model: sub_comment
-      if Factlink.Global.signed_in
-        ReactSubCommentsAdd model: @model()

@@ -31,7 +31,7 @@ describe SitesController do
         get :facts_for_url, url: url, format: :json
         response.should be_success
 
-        verify(format: :json) { response.body }
+        verify { response.body }
       end
     end
   end
