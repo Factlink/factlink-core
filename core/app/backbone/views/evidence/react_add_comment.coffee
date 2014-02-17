@@ -43,7 +43,7 @@ window.ReactAddComment = React.createBackboneClass
   displayName: 'ReactAddComment'
 
   componentDidMount: ->
-    @refs.textarea.focusInput()
+    @refs.textarea.focusInput() if @props.initiallyFocus
 
   getInitialState: ->
     text: ''

@@ -33,7 +33,7 @@ window.ReactDiscussion = React.createBackboneClass
       if Factlink.Global.signed_in
         ReactAddComment
           model: @model().comments()
-          focus: @props.focusAddComment
+          initiallyFocus: @props.initiallyFocusAddComment
       else
         ReactOpinionHelp()
       ReactComments

@@ -34,7 +34,7 @@ class window.ClientController
     FactlinkApp.discussionSidebarContainer.slideIn new ReactView
       component: ReactDiscussion
         model: fact
-        focusAddComment: true
+        initiallyFocusAddComment: true
 
     @annotatedSiteEnvoy 'openModalOverlay'
 
