@@ -28,7 +28,6 @@ module Interactors
         x.blank? ? nil : x
       end
 
-
       def normal_properties
         {
           id:                            user.id.to_s,
@@ -48,25 +47,27 @@ module Interactors
       def current_user_properties
         return {} unless user == current_user
 
-        properties = {}
-        properties[:is_current_user] = true
-        properties[:receives_mailed_notifications] = user.receives_mailed_notifications
-        properties[:receives_digest] = user.receives_digest
-        properties[:confirmed] = user.confirmed?
-        properties[:created_at] = user.created_at
+        {
+          is_current_user: true,
+          receives_mailed_notifications: user.receives_mailed_notifications,
+          receives_digest: user.receives_digest,
+          confirmed: user.confirmed?,
+          created_at: user.created_at,
+          services: services
+        }
+      end
 
-        services = {}
-        if can?(:share_to, user.social_account('twitter'))
-          services[:twitter] = true
+      def services
+        {}.tap do |services|
+          if can?(:share_to, user.social_account('twitter'))
+            services[:twitter] = true
+          end
+
+          if can?(:share_to, user.social_account('facebook'))
+            services[:facebook] = true
+            services[:facebook_expires_at] = user.social_account('facebook').expires_at
+          end
         end
-
-        if can?(:share_to, user.social_account('facebook'))
-          services[:facebook] = true
-          services[:facebook_expires_at] = user.social_account('facebook').expires_at
-        end
-
-        properties[:services] = services
-        return properties
       end
 
       def validate
