@@ -30,7 +30,7 @@ class FactsController < ApplicationController
   def discussion_page_redirect
     authorize! :show, @fact
 
-    redirect_to FactUrl.new(@fact).friendly_fact_path, status: :moved_permanently
+    redirect_to FactUrl.new(@fact).proxy_open_url, status: :moved_permanently
   end
 
   def create
