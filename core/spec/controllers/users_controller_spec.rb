@@ -24,6 +24,17 @@ describe UsersController do
       verify { response.body }
     end
 
+    it "should render json successful for current user" do
+      FactoryGirl.reload
+      authenticate_user!(user)
+
+      should_check_can :show, user
+
+      get :show, username: user.username, format: :json
+
+      verify { response.body }
+    end
+
     it "should render json successful for deleted users" do
       FactoryGirl.reload
       SecureRandom.stub(:hex).and_return('b01dfacedeadbeefbabb1e0123456789')
