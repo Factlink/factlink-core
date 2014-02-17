@@ -13,10 +13,9 @@ describe OpinionatorsController do
 
       fact = create :fact
 
-      fact.add_opiniated :believes, (create :user).graph_user
-      2.times do
-        fact.add_opiniated :disbelieves, (create :user).graph_user
-      end
+      fact.add_opiniated :believes,    (create :user).graph_user
+      fact.add_opiniated :disbelieves, (create :user).graph_user
+      fact.add_opiniated :disbelieves, (create :user).graph_user
 
       get :index, fact_id: fact.id
 
