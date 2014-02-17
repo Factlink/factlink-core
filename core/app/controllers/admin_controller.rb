@@ -22,14 +22,14 @@ class AdminController < ApplicationController
   def cleanup_feed
     Resque.enqueue CleanupActivitiesWorker
     flash[:notice] = "Scheduled Clean invalid activities"
-    redirect_to request.env["HTTP_REFERER"]
+    redirect_to :back
   end
 
   # GET /a/remove_empty_facts
   def remove_empty_facts
     Resque.enqueue CleanupFactsWithoutInteraction
     flash[:notice] = "Scheduled Remov facts without interaction"
-    redirect_to request.env["HTTP_REFERER"]
+    redirect_to :back
   end
 
   before_filter :set_cache_buster
