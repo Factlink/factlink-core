@@ -58,7 +58,7 @@ ReactCommentHeading = React.createBackboneClass
   render: ->
     creator = @model().creator()
     _div ['comment-post-heading'],
-      OpinionatedAvatar(
+      ReactOpinionatedAvatar(
         user: creator
         model: @props.fact_opinionators
         size: 32
@@ -71,8 +71,8 @@ ReactCommentHeading = React.createBackboneClass
           className: "comment-post-time"
           time: @model().get('created_at')
 
-window.OpinionatedAvatar = React.createBackboneClass
-  displayName: "OpinionatedAvatar"
+window.ReactOpinionatedAvatar = React.createBackboneClass
+  displayName: "ReactOpinionatedAvatar"
 
   changeOptions: 'add remove reset sort' + ' change'
 

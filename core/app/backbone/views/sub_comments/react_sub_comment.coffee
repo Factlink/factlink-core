@@ -42,7 +42,7 @@ ReactSubCommentHeading = React.createBackboneClass
     creator = @model().creator()
     created_at = @model().get('created_at')
     _div ['sub-comment-post-heading'],
-      OpinionatedAvatar
+      ReactOpinionatedAvatar
         user: creator
         model: @props.fact_opinionators
         size: 28
