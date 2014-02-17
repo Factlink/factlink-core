@@ -1,0 +1,32 @@
+$darkred: rgb(128,0,0);
+$black:   rgb(48,48,48);
+
+.environment-message {
+  @extend %default-font;
+
+  background: repeating-linear-gradient(-45deg, $darkred,$darkred 14px, $black 14px,$black 28px,$darkred 28px) ;
+  background-size:300% 100%;
+
+  border-radius: 5px;
+  border:1px solid rgba(0,0,0,0.5);
+  box-shadow: 0 1px 4px black;
+  color: black;
+  padding: 5px;
+  margin:5px;
+  color: rgb(255,255,128);
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-animation: annoyingbg 2s infinite linear;
+  animation: annoyingbg 2s infinite linear;
+}
+
+
+@keyframes annoyingbg {
+  from { background-position: 0px 0px }
+  to { background-position: -198px 0; }
+}
+
+@-webkit-keyframes annoyingbg {
+  from { background-position: 0px 0px }
+  to { background-position: -198px 0; }
+}
