@@ -17,8 +17,6 @@ json.deleted true if user.deleted
 json.statistics_follower_count UserFollowingUsers.new(user.graph_user_id).followers_count
 json.statistics_following_count UserFollowingUsers.new(user.graph_user_id).following_count
 
-json.graph_id graph_user.id
-
 json.location nil_if_empty user.location
 json.biography nil_if_empty user.biography
 
