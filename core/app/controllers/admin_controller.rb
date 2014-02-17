@@ -21,13 +21,13 @@ class AdminController < ApplicationController
   # GET /a/cleanup_feed
   def cleanup_feed
     Resque.enqueue CleanupActivitiesWorker
-    render text: 'Cleaned invalid activities'
+    flash[:notice] = "Scheduled Clean invalid activities"
   end
 
   # GET /a/remove_empty_facts
   def remove_empty_facts
     Resque.enqueue CleanupFactsWithoutInteraction
-    render text: 'Removed facts without interaction'
+    flash[:notice] = "Scheduled Remov facts without interaction"
   end
 
   before_filter :set_cache_buster
