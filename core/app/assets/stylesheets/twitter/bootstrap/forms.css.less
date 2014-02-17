@@ -59,26 +59,6 @@ input[type="checkbox"], input[type="radio"] {
   }
 }
 
-// FORM FIELD FEEDBACK STATES
-// --------------------------
-
-// Warning
-.control-group.warning {
-  .formFieldState(@warningText, @warningText, @warningBackground);
-}
-// Error
-.control-group.error {
-  .formFieldState(@errorText, @errorText, @errorBackground);
-}
-// Success
-.control-group.success {
-  .formFieldState(@successText, @successText, @successBackground);
-}
-// Success
-.control-group.info {
-  .formFieldState(@infoText, @infoText, @infoBackground);
-}
-
 // HTML5 invalid states
 // Shares styles with the .control-group.error above
 input:focus:required:invalid,
