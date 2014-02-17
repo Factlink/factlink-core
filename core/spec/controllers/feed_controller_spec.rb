@@ -26,7 +26,7 @@ describe FeedController do
         comment2 = p.interactor :'comments/create', fact_id: fact2.id.to_i, content: 'hoi'
       end
       as(other_user) do |p|
-        p.interactor :'sub_comments/create_for_comment', comment_id: comment2.id.to_s, content: 'hoi'
+        p.interactor :'sub_comments/create', comment_id: comment2.id.to_s, content: 'hoi'
       end
 
       as(other_user) do |p|
