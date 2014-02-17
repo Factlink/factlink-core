@@ -9,9 +9,9 @@
 
 <div class="narrow-indented-block edit-user-delete-container">
 
-  <%= form_for(@user, url: [:admin, @user], method: :delete, html: { class: "form-horizontal" }) do |f| %>
+  <%= form_for(@user, url: [:admin, @user], method: :delete) do |f| %>
 
-    <fieldset class="admin-dangerous-area">
+    <div class="admin-dangerous-area">
       <div class="controls">
         Fill in your admin password to confirm deleting this account:
       </div>
@@ -27,6 +27,6 @@
         <button type="submit" class="button-danger">Delete user <%= @user.username %></button>
         <span class="help-inline">Warning: all data will be deleted</span>
       </div>
-    </fieldset>
+    </div>
   <% end %>
 </div>
