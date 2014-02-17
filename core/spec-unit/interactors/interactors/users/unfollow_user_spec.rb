@@ -11,8 +11,8 @@ describe Interactors::Users::UnfollowUser do
 
     it 'throws when no current_user' do
       expect do
-        described_class.new(user_name: double,
-                            user_to_unfollow_user_name: double).call
+        described_class.new(username: double,
+                            user_to_unfollow_username: double).call
       end.to raise_error Pavlov::AccessDenied, 'Unauthorized'
     end
 
@@ -22,7 +22,7 @@ describe Interactors::Users::UnfollowUser do
       current_user = double(username: username)
 
       expect do
-        described_class.new(user_name: other_username, user_to_unfollow_user_name: double, pavlov_options:  {current_user: current_user}).call
+        described_class.new(username: other_username, user_to_unfollow_username: double, pavlov_options:  {current_user: current_user}).call
       end.to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
   end
@@ -33,20 +33,20 @@ describe Interactors::Users::UnfollowUser do
     end
 
     it 'calls a command to unfollow' do
-      user_name = double
-      user_to_unfollow_user_name = double
+      username = double
+      user_to_unfollow_username = double
       user = double(graph_user_id: double)
       user_to_unfollow = double(graph_user_id: double)
-      interactor = described_class.new user_name: user_name,
-                                       user_to_unfollow_user_name: user_to_unfollow_user_name
+      interactor = described_class.new username: username,
+                                       user_to_unfollow_username: user_to_unfollow_username
 
       Pavlov.should_receive(:query)
             .with(:'user_by_username',
-                      username: user_name)
+                      username: username)
             .and_return(user)
       Pavlov.should_receive(:query)
             .with(:'user_by_username',
-                      username: user_to_unfollow_user_name)
+                      username: user_to_unfollow_username)
             .and_return(user_to_unfollow)
       Pavlov.should_receive(:command)
             .with(:'users/unfollow_user',
@@ -58,14 +58,14 @@ describe Interactors::Users::UnfollowUser do
   end
 
   describe 'validations' do
-    it 'validates user_name' do
-      expect_validating(user_name: 12, user_to_unfollow_user_name: 'name')
-        .to fail_validation 'user_name should be a nonempty string.'
+    it 'validates username' do
+      expect_validating(username: 12, user_to_unfollow_username: 'name')
+        .to fail_validation 'username should be a nonempty string.'
     end
 
-    it 'validates user_name' do
-      expect_validating(user_name: 'name', user_to_unfollow_user_name: 12)
-        .to fail_validation 'user_to_unfollow_user_name should be a nonempty string.'
+    it 'validates username' do
+      expect_validating(username: 'name', user_to_unfollow_username: 12)
+        .to fail_validation 'user_to_unfollow_username should be a nonempty string.'
     end
   end
 end

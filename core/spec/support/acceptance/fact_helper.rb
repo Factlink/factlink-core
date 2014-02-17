@@ -3,7 +3,7 @@ module Acceptance
     include ::FactHelper
 
     def go_to_discussion_page_of factlink
-      visit friendly_fact_path factlink
+      visit "/client/facts/#{factlink.id}"
       find('.spec-button-believes')
     end
 

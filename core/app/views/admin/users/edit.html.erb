@@ -11,6 +11,7 @@
 
   <%= form_for(@user, url: [:admin, @user], method: :delete) do |f| %>
 
+<<<<<<< HEAD
     <div class="control-group">
       <div class="controls">
         <a class="admin-edit-user-delete-link" href="javascript:$('.js-delete-form').toggle();">Delete this account</a>
@@ -18,6 +19,9 @@
     </div>
 
     <div class="js-delete-form hide admin-dangerous-area">
+=======
+    <fieldset class="admin-dangerous-area">
+>>>>>>> master
       <div class="controls">
         Fill in your admin password to confirm deleting this account:
       </div>

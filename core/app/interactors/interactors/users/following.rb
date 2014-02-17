@@ -3,14 +3,14 @@ module Interactors
     class Following
       include Pavlov::Interactor
 
-      arguments :user_name
+      arguments :username
 
       def authorized?
         !!pavlov_options[:current_user]
       end
 
       def validate
-        validate_nonempty_string :user_name, user_name
+        validate_nonempty_string :username, username
       end
 
       def execute
@@ -19,7 +19,7 @@ module Interactors
 
       def graph_user_ids
         @graph_user_ids ||= begin
-          user = query(:'user_by_username', username: user_name)
+          user = query(:'user_by_username', username: username)
 
           query(:'users/following_graph_user_ids', graph_user_id: user.graph_user_id.to_s)
         end

@@ -57,8 +57,8 @@ describe EvidenceDeletable do
         ability: Ability.new(comment.created_by)
       }
 
-      interactor = Interactors::SubComments::CreateForComment.new(comment_id: comment.id.to_s,
-                                                                  content: 'hoi', pavlov_options: pavlov_options)
+      interactor = Interactors::SubComments::Create.new(comment_id: comment.id.to_s,
+                                                        content: 'hoi', pavlov_options: pavlov_options)
       interactor.execute
       deletable(comment).should be_false
     end

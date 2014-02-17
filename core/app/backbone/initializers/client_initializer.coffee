@@ -1,6 +1,5 @@
 window.FactlinkAppMode ?= {}
 window.FactlinkAppMode.coreInClient = (app) ->
-  app.onClientApp = true
   app.startClientRegions()
 
   annotatedSiteEnvoy = window.initClientCommunicator()
