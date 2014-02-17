@@ -2,31 +2,15 @@
 @import "bootstrap/mixins";
 
 .sub-comment {
-  margin-top: 15px;
-  padding-left: 10px;
-  border-left: 1px solid @grayLighter;
+  padding: 15px 0 0 10px;
+  border-left: 1px solid #ddd;
   .clearfix();
+  font-size:@metaFontSize;
 }
-
-.sub-comment-avatar {
-  float: left;
-  margin: 3px 9px 3px 0px;
-  width: 28px;
-  height: 28px;
+.sub-comment-post-creator-name {
+  display: inline-block;
+  .ellipsis(200px);
 }
-
-.sub-comment-creator {
-  font-size: @metaFontSize;
-  white-space: nowrap;
-}
-
-.sub-comment-time {
-  float: right;
-  font-size: @metaFontSize;
-  color: @grayLight;
-  white-space: nowrap;
-}
-
 
 .sub-comment-add {
   text-align: right;
@@ -34,4 +18,14 @@
 
 .sub-comment-add .text_area_view {
   margin: 10px 0px;
+}
+
+.sub-comment-post-heading > .opinionated-avatar {
+  float:left;
+  margin: 3px 9px 3px 0;
+}
+
+.sub-comment-post-time {
+  float: right;
+  color: @grayLight;
 }
