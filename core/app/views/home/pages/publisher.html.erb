@@ -1,5 +1,5 @@
 <% content_for :header do %>
-  <div class="publisher-header">
+  <div class="publisher-page-header">
     <h1>Great discussions on your site</h1>
     <p>Readers join discussions inside your articles and invite their friends.</br> You get engaged users, and more of them.</p>
   </div>
@@ -15,6 +15,6 @@
 <%= render "home/pages/partials/social_reach" %>
 <%= render "home/pages/partials/easy_integration" %>
 
-<p style="text-align: center; font-style: italic; ">Fair use conditions apply. Please <%= link_to "contact", pages_path("contact") %> us for large scale and custom solutions.</p>
+<p class="publisher-page-conditions">Fair use conditions apply. Please <%= link_to "contact", pages_path("contact") %> us for large scale and custom solutions.</p>
 
 <% end %>
