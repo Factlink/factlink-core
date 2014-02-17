@@ -15,4 +15,10 @@ window.FactlinkAppMode.coreInClient = (app) ->
     FactlinkApp.discussionSidebarContainer.slideOut ->
       annotatedSiteEnvoy 'closeModal'
 
+  window.addEventListener 'keydown', (e) ->
+    if e.keyCode == 27
+      e.preventDefault()
+      e.stopPropagation()
+      app.vent.trigger 'close_discussion_sidebar'
+
   annotatedSiteEnvoy 'modalFrameReady', Factlink.Global.can_haz
