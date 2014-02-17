@@ -33,8 +33,6 @@ class Blacklist
       domain('newrelic.com'),
       domain('mixpanel.com'),
       domain('facebook.com'),
-      domain('mail.google.com'),
-      domain('dropbox.com'),
     ]
   end
 
