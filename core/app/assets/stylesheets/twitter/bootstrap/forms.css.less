@@ -1,9 +1,5 @@
 @import "mixins/mixins";
 
-// Form controls
-// -------------------------
-
-// Shared size and type resets
 textarea,
 input[type="text"],
 input[type="email"],
@@ -11,38 +7,20 @@ input[type="password"] {
   display: inline-block;
   padding: 4px 6px;
   margin-bottom: 9px;
-  color: @gray;
   border-radius: @baseBorderRadius;
   line-height: 20px;
   height: 30px;
-
-  background-color: @inputBackground;
   border: 1px solid @inputBorder;
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
   .transition(~"border linear .2s, box-shadow linear .2s");
 
-  // Focus state
   &:focus {
     border-color: rgba(82,168,236,.8);
     outline: 0;
-    outline: thin dotted \9; /* IE6-9 */
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
   }
 }
 
-// Reset appearance properties for textual inputs and textarea
-// Declare width for legacy (can't be on input[type=*] selectors or it's too specific)
-input,
-textarea {
-  width: 206px; // plus 12px padding and 2px border
-  .placeholder();
-}
-// Reset height since textareas have rows
-textarea {
-  height: auto;
-}
-
-// Position radios and checkboxes better
 input[type="checkbox"], input[type="radio"] {
   margin: 4px 0 0;
   margin-top: 1px \9; /* IE8-9 */
@@ -60,7 +38,6 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 // HTML5 invalid states
-// Shares styles with the .control-group.error above
 input:focus:required:invalid,
 textarea:focus:required:invalid {
   color: #b94a48;
