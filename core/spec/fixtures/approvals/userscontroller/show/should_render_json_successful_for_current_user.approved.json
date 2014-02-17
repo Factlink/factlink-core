@@ -14,5 +14,6 @@
   "confirmed": false,
   "created_at": "<created_at>",
   "services": {
+    "twitter": true
   }
 }

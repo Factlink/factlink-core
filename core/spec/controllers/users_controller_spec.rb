@@ -26,9 +26,15 @@ describe UsersController do
 
     it "should render json successful for current user" do
       FactoryGirl.reload
+      twitter = create :social_account, :twitter, user: user
+      facebook = create :social_account, :facebook, user: user
+      user.save!
+
       authenticate_user!(user)
 
       should_check_can :show, user
+      ability.should_receive(:can?).with(:share_to, twitter).once.and_return(true)
+      ability.should_receive(:can?).with(:share_to, facebook).and_return(false)
 
       get :show, username: user.username, format: :json
 
