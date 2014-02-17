@@ -7,16 +7,16 @@ describe Interactors::Users::Following do
   describe '#authorized?' do
     it 'throws when no current_user' do
       expect do
-        interactor = described_class.new(user_name: 'gerard')
+        interactor = described_class.new(username: 'gerard')
         interactor.call
       end.to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
   end
 
   describe 'validations' do
-    it 'invalid user_name doesn\t validate' do
-      expect_validating(user_name: 1)
-        .to fail_validation('user_name should be a nonempty string.')
+    it 'invalid username doesn\t validate' do
+      expect_validating(username: 1)
+        .to fail_validation('username should be a nonempty string.')
     end
   end
 
@@ -28,7 +28,7 @@ describe Interactors::Users::Following do
       followed_user = double(graph_user_id: double, username: 'henk')
 
       pavlov_options = { current_user: double}
-      interactor = described_class.new user_name: followed_user.username, pavlov_options: pavlov_options
+      interactor = described_class.new username: followed_user.username, pavlov_options: pavlov_options
 
       allow(Pavlov).to receive(:query)
         .with(:'user_by_username', username: followed_user.username, pavlov_options: pavlov_options)

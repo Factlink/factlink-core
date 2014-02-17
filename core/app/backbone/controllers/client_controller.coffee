@@ -32,7 +32,8 @@ class window.ClientController
     FactlinkApp.discussionSidebarContainer.slideIn new ReactView
       component: ReactDiscussion
         model: fact
+        initiallyFocusAddComment: true
 
-    fact.fetch
-      success: =>
-        @annotatedSiteEnvoy 'openModalOverlay'
+    @annotatedSiteEnvoy 'openModalOverlay'
+
+    fact.fetch()

@@ -1,7 +1,7 @@
-<ul class="nav nav-tabs nav-stacked">
-  <%= menu_item "about", "About us" %>
-  <%= menu_item "on-your-site", "On your site" %>
-  <%= menu_item "team", "Team" %>
-  <%= menu_item "jobs", "Jobs" %>
-  <%= menu_item "contact", "Contact" %>
+<ul class="nav-tabs">
+  <li class="nav-tabs-item"><%= link_to "About us", pages_path("about") %></li>
+  <li class="nav-tabs-item"><%= link_to "On your site", pages_path("on-your-site") %></li>
+  <li class="nav-tabs-item"><%= link_to "Team", pages_path("team") %></li>
+  <li class="nav-tabs-item"><%= link_to "Jobs", pages_path("jobs") %></li>
+  <li class="nav-tabs-item"><%= link_to "Contact", pages_path("contact") %></li>
 </ul>

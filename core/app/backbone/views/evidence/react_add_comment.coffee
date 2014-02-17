@@ -42,6 +42,9 @@ ReactSearchFacts = React.createClass
 window.ReactAddComment = React.createBackboneClass
   displayName: 'ReactAddComment'
 
+  componentDidMount: ->
+    @refs.textarea.focusInput() if @props.initiallyFocus
+
   getInitialState: ->
     text: ''
     controlsOpened: false

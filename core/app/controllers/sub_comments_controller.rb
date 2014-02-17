@@ -2,7 +2,7 @@ class SubCommentsController < ApplicationController
   pavlov_action :index, Interactors::SubComments::IndexForComment
 
   def create
-    sub_comment = interactor(:'sub_comments/create_for_comment',
+    sub_comment = interactor(:'sub_comments/create',
                                   comment_id: comment_id, content: params[:content])
     render json: sub_comment
   rescue Pavlov::ValidationError
