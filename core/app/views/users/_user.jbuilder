@@ -10,7 +10,11 @@ graph_user = user.graph_user
 
 
 dead_user = Queries::UsersByIds.new(user_ids: [user.id]).call.first
-json.partial! 'users/user_partial', user: dead_user
+json.id                            dead_user.id.to_s
+json.name                          dead_user.name
+json.username                      dead_user.username
+json.gravatar_hash                 dead_user.gravatar_hash
+json.deleted true if dead_user.deleted
 
 json.statistics_follower_count UserFollowingUsers.new(user.graph_user_id).followers_count
 json.statistics_following_count UserFollowingUsers.new(user.graph_user_id).following_count
