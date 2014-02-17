@@ -5,6 +5,4 @@ DeadUser = StrictStruct.new(
   :gravatar_hash,
   :deleted,
 ) do
-
-  alias :to_hash :to_h
 end
