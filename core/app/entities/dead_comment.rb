@@ -4,5 +4,4 @@ DeadComment = StrictStruct.new(
   :tally, :is_deletable
 ) do
 
-  alias :to_hash :to_h
 end

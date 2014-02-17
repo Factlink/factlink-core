@@ -7,7 +7,8 @@ class UsersController < ApplicationController
     authorize! :show, @user
 
     backbone_responder do
-      render 'users/_user', user: @user
+      full_user = interactor :'users/get_full', username: params[:username]
+      render json: full_user
     end
   end
 

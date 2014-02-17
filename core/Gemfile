@@ -12,7 +12,7 @@ gem 'mongoid', '~> 3.1.6'
 gem 'pavlov', '= 0.1.9.0'
 
 # Simple value objects
-gem 'strict_struct', '= 0.0.3' # by @markijbema, ask him if he pushed breaking changes in new versions
+gem 'strict_struct', '= 0.0.4' # by @markijbema, ask him if he pushed breaking changes in new versions
 
 # Redis
 gem 'redis', '~> 2.2.1'
@@ -33,7 +33,6 @@ gem "resque-sentry", '~> 0.1.0'
 
 # Everyone loves JSON
 gem 'json', '~> 1.8'
-gem 'jbuilder', '~> 2.0'
 
 # Needed for migrations to be compatible when no sql backend is available
 gem 'mongoid_rails_migrations', '1.0.1' # TODO look if this needs to be pinned

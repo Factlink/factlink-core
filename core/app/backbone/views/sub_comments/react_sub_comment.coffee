@@ -1,14 +1,8 @@
-window.ReactAvatar = React.createBackboneClass
-  displayName: 'ReactAvatar'
-
-  render: ->
-    _a [href: @props.user.link()],
-      _img [ "avatar-image",
-          src: @props.user.avatar_url(@props.size)
-        ]
-
 window.ReactSubComment = React.createBackboneClass
   displayName: 'ReactSubComment'
+  propTypes:
+    fact_opinionators: React.PropTypes.instanceOf(Opinionators).isRequired
+    model: React.PropTypes.instanceOf(SubComment).isRequired
 
   _save: ->
     @model().saveWithState()
@@ -22,18 +16,10 @@ window.ReactSubComment = React.createBackboneClass
         @model().get('content')
 
   render: ->
-    creator = @model().creator()
-    R.div className: "sub-comment",
-      R.span className: "sub-comment-avatar",
-        ReactAvatar user: creator, size: 28
-      R.div "",
-        R.a className: "sub-comment-creator", href: creator.link(),
-          creator.get("name")
-
-        if @model().get('created_at')
-          TimeAgo
-            className: "sub-comment-time"
-            time: @model().get('created_at')
+    _div ["sub-comment"],
+      ReactSubCommentHeading
+        fact_opinionators: @props.fact_opinionators
+        model: @model()
 
       @_content_tag()
 
@@ -44,3 +30,26 @@ window.ReactSubComment = React.createBackboneClass
         window.ReactDeleteButton
           model: @model()
           onDelete: -> @model.destroy wait: true
+
+
+ReactSubCommentHeading = React.createBackboneClass
+  displayName: 'ReactSubCommentHeading'
+  propTypes:
+    fact_opinionators: React.PropTypes.instanceOf(Opinionators).isRequired
+    model: React.PropTypes.instanceOf(SubComment).isRequired
+
+  render: ->
+    creator = @model().creator()
+    created_at = @model().get('created_at')
+    _div ['sub-comment-post-heading'],
+      ReactOpinionatedAvatar
+        user: creator
+        model: @props.fact_opinionators
+        size: 28
+      _span ["sub-comment-post-creator"],
+        _a ["sub-comment-post-creator-name", href: creator.link(), rel: "backbone"],
+          creator.get('name')
+        if created_at
+          TimeAgo
+            className: "sub-comment-post-time"
+            time: @model().get('created_at')
