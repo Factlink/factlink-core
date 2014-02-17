@@ -42,6 +42,9 @@ ReactSearchFacts = React.createClass
 window.ReactAddComment = React.createBackboneClass
   displayName: 'ReactAddComment'
 
+  componentDidMount: ->
+    @refs.textarea.focusInput()
+
   getInitialState: ->
     text: ''
     controlsOpened: false
@@ -59,6 +62,7 @@ window.ReactAddComment = React.createBackboneClass
           storageKey: "add_comment_to_fact_#{@model().fact.id}"
           onChange: @_onTextareaChange
           onSubmit: @_submit
+          focus: @props.focus
         _div [
           'add-comment-controls'
           'add-comment-controls-visible' if @state.controlsOpened

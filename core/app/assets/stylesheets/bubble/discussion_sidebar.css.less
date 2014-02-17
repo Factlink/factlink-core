@@ -18,7 +18,6 @@ body.discussion-sidebar-open {
   cursor: pointer;
 
   background: transparent;
-  visibility: hidden;
   transition: background-color @discussionSidebarTransitionTime,
               visibility 0s @discussionSidebarTransitionTime;
 }
@@ -39,7 +38,6 @@ body.discussion-sidebar-open {
 
 .discussion-sidebar-container-visible {
   background-color: fade(@semiTransparentLayerColor, 20%);
-  visibility: visible;
   transition: background-color @discussionSidebarTransitionTime;
 
   .discussion-sidebar {
