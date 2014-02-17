@@ -24,6 +24,23 @@ describe UsersController do
       verify { response.body }
     end
 
+    it "should render json successful for current user" do
+      FactoryGirl.reload
+      twitter = create :social_account, :twitter, user: user
+      facebook = create :social_account, :facebook, user: user
+      user.save!
+
+      authenticate_user!(user)
+
+      should_check_can :show, user
+      ability.should_receive(:can?).with(:share_to, twitter).once.and_return(true)
+      ability.should_receive(:can?).with(:share_to, facebook).and_return(false)
+
+      get :show, username: user.username, format: :json
+
+      verify { response.body }
+    end
+
     it "should render json successful for deleted users" do
       FactoryGirl.reload
       SecureRandom.stub(:hex).and_return('b01dfacedeadbeefbabb1e0123456789')
@@ -90,14 +107,13 @@ describe UsersController do
       old_user = User.find(user.id)
 
       encrypted_password = old_user.encrypted_password
-      old_username = old_user.username
 
       put :update, id: user.username, user: {'encrypted_password' => "blaat_password", "username" => "new_username"}
 
       new_user = User.find(user.id)
 
-      new_user.encrypted_password.should == encrypted_password
-      new_user.username.should == "new_username"
+      expect(new_user.encrypted_password).to eq encrypted_password
+      expect(new_user.username).to eq "new_username"
     end
   end
 end

@@ -1,9 +1,14 @@
 FactlinkApp.module "FacebookRenewal", (FacebookRenewal, FactlinkApp, Backbone, Marionette, $, _) ->
 
+  if Factlink.Global.environment == 'test'
+    renewal_url = "about:blank"
+  else
+    renewal_url = "/auth/facebook"
+
   class IframeView extends Backbone.Marionette.ItemView
     template:
       text: """
-        <iframe class="facebook_renewal_iframe" src="/auth/facebook" style="height: 0; width: 0; border: 0;"></iframe>
+        <iframe class="facebook_renewal_iframe" src="#{renewal_url}" style="height: 0; width: 0; border: 0;"></iframe>
       """
 
   FacebookRenewal.addInitializer ->

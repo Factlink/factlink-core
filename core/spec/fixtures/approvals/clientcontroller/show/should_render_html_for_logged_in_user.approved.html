@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="unsupported-browser">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Factlink modal window</title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1">
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet" type="text/css">
+        <link href="/assets/frontend.css" media="screen" rel="stylesheet" />
+        <style type="text/css">
+    html, body{
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
+  </style>
+      </link>
+      <body class="client">
+        <div class="notification-center-alerts js-notification-center-alerts"></div>
+        <div class="js-discussion-sidebar-region"></div>
+        <div id="modal_region"></div>
+        <div id="js-facebook-renewal-region"></div>
+        <script src="/assets/jquery.js"></script>
+        <script src="/assets/application.js"></script>
+        <script src="/assets/frontend.js"></script>
+        <script type="text/javascript">
+(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length></i.length>;g++)f(c,i[g]);
+b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+
+mixpanel.init("none");
+
+  mixpanel.name_tag("johndoe1");
+  mixpanel.identify("#IDENTITY#");
+</script>
+        <script type="text/javascript">
+      window.currentUser = new User({"id: "#ID#","name":"John1 Doe1","username":"johndoe1","gravatar_hash":"bdcf52014be3eaaf4c83248bc7229900","deleted":false,"statistics_follower_count":0,"statistics_following_count":0,"location":null,"biography":null,"is_current_user":true,"receives_mailed_notifications":true,"receives_digest":true,"confirmed":false,"created_at: "#CREATED_AT#","services":{}});
+
+
+    Factlink.allowFeatures([]);
+    Factlink.setSignedIn(true);
+
+    FactlinkApp.start({factlinkAppMode: FactlinkAppMode.coreInClient});
+
+    Backbone.history.start({pushState: Modernizr.history});
+  </script>
+      </body>
+    </meta>
+  </head>
+</html>
