@@ -35,7 +35,7 @@ describe CommentsController do
 
       get :index, id: fact.id, format: :json
 
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
   end
 
@@ -55,7 +55,7 @@ describe CommentsController do
 
       post :create, id: fact.id, type: 'doubts', content: 'Gerard is een gekke meneer', format: :json
 
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
   end
 end

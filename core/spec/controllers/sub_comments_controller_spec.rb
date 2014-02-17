@@ -28,7 +28,7 @@ describe SubCommentsController do
       get :index, id: @fact.id, comment_id: @comment.id
 
       expect(response).to be_success
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
   end
 end

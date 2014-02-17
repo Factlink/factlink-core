@@ -27,7 +27,7 @@ describe FactsController do
 
       get :show, id: fact.id, format: :json
 
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
 
     it "should render json successful for non-logged in users" do
@@ -48,7 +48,7 @@ describe FactsController do
 
       get :show, id: fact.id, format: :json
 
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
   end
 
@@ -114,7 +114,7 @@ describe FactsController do
       get :evidence_search, id: fact.id, s: "oil"
       response.should be_success
 
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
   end
 
