@@ -6,13 +6,12 @@
 #      -- mark (noted down because I thought initially it wasn't used)
 
 user ||= @user
-graph_user = user.graph_user
 
 json.id                            user.id.to_s
 json.name                          user.name
 json.username                      user.username
 json.gravatar_hash                 user.gravatar_hash
-json.deleted true if user.deleted
+json.deleted user.deleted
 
 json.statistics_follower_count UserFollowingUsers.new(user.graph_user_id).followers_count
 json.statistics_following_count UserFollowingUsers.new(user.graph_user_id).following_count
