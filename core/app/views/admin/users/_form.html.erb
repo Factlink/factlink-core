@@ -1,4 +1,4 @@
-<%= form_for(user, :url => [:admin, user], class: "form-horizontal") do |f| %>
+<%= form_for(user, :url => [:admin, user]) do |f| %>
 <div class="top-aligned-inline-block">
   <table class="admin-form">
     <% if user.errors.any? %>
