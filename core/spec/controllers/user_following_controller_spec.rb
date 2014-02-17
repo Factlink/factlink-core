@@ -15,8 +15,8 @@ describe UserFollowingController do
       user3 = create :user
 
       as(user) do |p|
-        p.interactor(:'users/follow_user', user_name: user.username, user_to_follow_user_name: user2.username)
-        p.interactor(:'users/follow_user', user_name: user.username, user_to_follow_user_name: user3.username)
+        p.interactor(:'users/follow_user', username: user.username, user_to_follow_username: user2.username)
+        p.interactor(:'users/follow_user', username: user.username, user_to_follow_username: user3.username)
       end
     end
 
@@ -26,7 +26,7 @@ describe UserFollowingController do
       get :index, username: user.username
 
       expect(response).to be_success
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
   end
 end

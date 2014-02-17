@@ -29,10 +29,11 @@ class window.ClientController
   _renderDiscussion: (fact) ->
     @annotatedSiteEnvoy 'highlightExistingFactlink', fact.id
 
-    fact.on 'destroy', => @annotatedSiteEnvoy 'deleteFactlink', fact.id
+    FactlinkApp.discussionSidebarContainer.slideIn new ReactView
+      component: ReactDiscussion
+        model: fact
+        initiallyFocusAddComment: true
 
-    fact.fetch
-      success: =>
-        view = new DiscussionView model: fact
-        view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
-        FactlinkApp.discussionSidebarContainer.slideIn view
+    @annotatedSiteEnvoy 'openModalOverlay'
+
+    fact.fetch()

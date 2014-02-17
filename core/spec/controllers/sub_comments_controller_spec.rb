@@ -13,11 +13,11 @@ describe SubCommentsController do
       as(user) do |p|
         @fact = create :fact
         @comment = p.interactor(:'comments/create', fact_id: @fact.id.to_i, content:'yo')
-        p.interactor(:'sub_comments/create_for_comment',
+        p.interactor(:'sub_comments/create',
                       comment_id: @comment.id.to_s, content: 'hey')
       end
       as(create :user) do |p|
-        p.interactor(:'sub_comments/create_for_comment',
+        p.interactor(:'sub_comments/create',
                       comment_id: @comment.id.to_s, content: 'meh')
       end
     end
@@ -28,7 +28,7 @@ describe SubCommentsController do
       get :index, id: @fact.id, comment_id: @comment.id
 
       expect(response).to be_success
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
   end
 end

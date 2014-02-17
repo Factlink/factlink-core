@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   # expose query to views, so we can rewrite inline
   # retrieval to proper queries. The queries should
   # be pulled back to controllers, and then to interactors
-  helper_method :query # TODO: remove me ASAP
+  helper_method :query, :interactor # TODO: remove me ASAP
 
   rescue_from CanCan::AccessDenied, Pavlov::AccessDenied do |exception|
     respond_to do |format|

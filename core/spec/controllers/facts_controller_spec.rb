@@ -27,7 +27,7 @@ describe FactsController do
 
       get :show, id: fact.id, format: :json
 
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
 
     it "should render json successful for non-logged in users" do
@@ -48,33 +48,7 @@ describe FactsController do
 
       get :show, id: fact.id, format: :json
 
-      verify(format: :json) { response.body }
-    end
-  end
-
-  describe :discussion_page do
-    it "should escape html in fields" do
-      authenticate_user!(user)
-      fact = nil
-
-      as(user) do |pavlov|
-        fact = pavlov.interactor(:'facts/create',
-                                     displaystring: 'displaystring',
-                                     url: 'url',
-                                     title: 'title')
-      end
-
-      fact.data.displaystring = "baas<xss> of niet"
-      fact.data.title = "baas<xss> of niet"
-      fact.data.save
-
-      ability.stub can?: false
-      ability.stub(:can?).with(:show, Fact).and_return(true)
-
-      should_check_can :show, fact
-
-      get :discussion_page, id: fact.id, fact_slug: 'hoi'
-      response.body.should_not match(/<xss>/)
+      verify { response.body }
     end
   end
 
@@ -114,7 +88,7 @@ describe FactsController do
       get :evidence_search, id: fact.id, s: "oil"
       response.should be_success
 
-      verify(format: :json) { response.body }
+      verify { response.body }
     end
   end
 

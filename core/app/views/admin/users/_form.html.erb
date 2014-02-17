@@ -15,7 +15,7 @@
     <% end %>
 
     <tr>
-      <th class="form-label-column">
+      <th class="admin-form-label-column">
         <%= f.label :username %>
       </th>
       <td>
@@ -24,7 +24,7 @@
     </tr>
 
     <tr>
-      <th class="form-label-column">
+      <th class="admin-form-label-column">
         <%= f.label :email %>
       </th>
       <td>
@@ -33,7 +33,7 @@
     </tr>
 
     <tr>
-      <th class="form-label-column">
+      <th class="admin-form-label-column">
         <%= f.label :full_name %>
       </th>
       <td>
@@ -42,7 +42,7 @@
     </tr>
 
     <tr>
-      <th class="form-label-column">
+      <th class="admin-form-label-column">
         <%= f.label :location %>
       </th>
       <td>
@@ -51,16 +51,16 @@
     </tr>
 
     <tr>
-      <th class="form-label-column">
+      <th class="admin-form-label-column">
         <%= f.label :biography, "Bio" %>
       </th>
       <td>
-        <%= f.text_area :biography %>
+        <%= f.text_area :biography, class: "admin-form-textarea" %>
       </td>
     </tr>
 
     <tr>
-      <th class="form-label-column">
+      <th class="admin-form-label-column">
         <%= f.label :password %>
       </th>
       <td>
@@ -69,7 +69,7 @@
     </tr>
 
     <tr>
-      <th class="form-label-column">
+      <th class="admin-form-label-column">
         <%= f.label :password_confirmation %>
       </th>
       <td>
@@ -78,7 +78,7 @@
     </tr>
 
     <tr>
-      <th class="form-label-column">
+      <th class="admin-form-label-column">
         <%= f.label :suspended %>
       </th>
       <td>
@@ -86,17 +86,8 @@
       </td>
     </tr>
 
-    <tr>
-      <th class="form-label-column">
-        <%= f.label :registration_code %>
-      </th>
-      <td>
-        <%= f.text_field :registration_code %>
-      </td>
-    </tr>
-
     <tr class="alert-error">
-      <th class="form-label-column">
+      <th class="admin-form-label-column">
         <%= f.label :admin %>
       </th>
       <td>
@@ -116,7 +107,7 @@
   </table>
 </div>
 <!-- Feature toggle -->
-<div class="sunken-embossed-well top-aligned-inline-block" style="margin-left:2em">
+<div class="admin-dangerous-area top-aligned-inline-block" style="margin-left:2em">
   <h1>Features</h1>
 
   <ul>

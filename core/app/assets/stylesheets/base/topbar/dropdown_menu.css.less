@@ -1,4 +1,4 @@
-@import "bootstrap/mixins";
+@import "mixins/mixins";
 
 .dropdown {
   position: relative;
@@ -55,8 +55,6 @@
 }
 
 .dropdown:hover {
-  *z-index: @zindexDropdown;
-
   & > .dropdown-menu {
     visibility: visible;
     opacity:1;

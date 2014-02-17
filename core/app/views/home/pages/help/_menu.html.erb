@@ -1,7 +1,7 @@
-<ul class="nav nav-tabs nav-stacked">
-  <%= menu_item('help', 'Frequently Asked Questions')%>
-  <%= menu_item('help/chrome-extension', 'Chrome extension')%>
-  <%= menu_item('help/firefox-extension', 'Firefox extension') %>
-  <%= menu_item('help/supported-browsers', 'Supported browsers')%>
-  <%= menu_item('help/unsupported-websites', 'Unsupported websites')%>
+<ul class="nav-tabs">
+  <li class="nav-tabs-item"><%= link_to "Frequently Asked Questions", pages_path("help") %></li>
+  <li class="nav-tabs-item"><%= link_to "Chrome extension", pages_path("help/chrome-extension") %></li>
+  <li class="nav-tabs-item"><%= link_to "Firefox extension", pages_path("help/firefox-extension")  %></li>
+  <li class="nav-tabs-item"><%= link_to "Supported browsers", pages_path("help/supported-browsers") %></li>
+  <li class="nav-tabs-item"><%= link_to "Unsupported websites", pages_path("help/unsupported-websites") %></li>
 </ul>

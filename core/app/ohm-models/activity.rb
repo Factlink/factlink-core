@@ -24,8 +24,7 @@ class Activity < OurOhm
   end
 
   def self.valid_actions_in_stream_activities
-     %w(created_comment created_sub_comment followed_user
-        believes doubts disbelieves)
+     %w(created_comment created_sub_comment followed_user)
   end
 
   def self.valid_actions

@@ -3,16 +3,16 @@ module Interactors
     class UnfollowUser
       include Pavlov::Interactor
 
-      arguments :user_name, :user_to_unfollow_user_name
+      arguments :username, :user_to_unfollow_username
 
       def authorized?
-        pavlov_options[:current_user] and (pavlov_options[:current_user].username == user_name)
+        pavlov_options[:current_user] and (pavlov_options[:current_user].username == username)
       end
 
       def execute
-        user = query(:'user_by_username', username: user_name)
+        user = query(:'user_by_username', username: username)
         user_to_unfollow = query(:'user_by_username',
-                                    username: user_to_unfollow_user_name)
+                                    username: user_to_unfollow_username)
 
         command(:'users/unfollow_user',
                     graph_user_id: user.graph_user_id,
@@ -21,8 +21,8 @@ module Interactors
       end
 
       def validate
-        validate_nonempty_string :user_name, user_name
-        validate_nonempty_string :user_to_unfollow_user_name, user_to_unfollow_user_name
+        validate_nonempty_string :username, username
+        validate_nonempty_string :user_to_unfollow_username, user_to_unfollow_username
       end
     end
   end

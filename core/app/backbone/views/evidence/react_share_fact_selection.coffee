@@ -3,9 +3,6 @@ ReactShareButton = React.createBackboneClass
 
   getInitialState: ->
     hovered: false
-    checked: false
-
-  checked: -> @state.checked
 
   render: ->
     _label ['pull-right share-button-container'
@@ -14,8 +11,8 @@ ReactShareButton = React.createBackboneClass
     ],
       if @model().serviceConnected @props.provider_name
         [
-          _input [type: 'checkbox', checked: @state.checked,
-            onChange: (event) => @setState checked: event.target.checked]
+          _input [type: 'checkbox', checked: @props.checked,
+            onChange: (event) => @props.onChange? event.target.checked]
           _span ["share-button share-button-#{@props.provider_name}"]
           if @state.hovered
             ReactPopover {},
@@ -35,9 +32,6 @@ ReactShareButton = React.createBackboneClass
 window.ReactShareFactSelection = React.createBackboneClass
   displayName: 'ReactShareFactSelection'
 
-  getInitialState: ->
-    submitting: false
-
   componentDidMount: ->
     currentUser.on 'change:services', @forceUpdate, @
 
@@ -50,27 +44,14 @@ window.ReactShareFactSelection = React.createBackboneClass
       _span ['share-button share-button-facebook']
 
   render: ->
-    if @state.submitting
-      _div ['share-fact-selection'],
-        _div ['share-fact-selection-loading-indicator'],
-          ReactLoadingIndicator()
-    else
-      _div ['share-fact-selection'],
-        ReactShareButton provider_name: 'facebook', ref: 'facebook', model: currentUser
-        ReactShareButton provider_name: 'twitter', ref: 'twitter', model: currentUser
-
-  submit: (message) ->
-    provider_names = @_selectedProviderNames()
-    return if provider_names.length == 0
-
-    @setState submitting: true
-    @model().share provider_names, message,
-      complete: => @setState submitting: false
-      error: =>
-        FactlinkApp.NotificationCenter.error "Error when sharing"
-
-  _selectedProviderNames: ->
-    names = []
-    names.push 'twitter' if @refs.twitter.checked()
-    names.push 'facebook' if @refs.facebook.checked()
-    names
+    _div ['share-fact-selection'],
+      ReactShareButton
+        provider_name: 'facebook'
+        model: currentUser
+        checked: @props.providers.facebook
+        onChange: (checked) => @props.onChange?('facebook', checked)
+      ReactShareButton
+        provider_name: 'twitter'
+        model: currentUser
+        checked: @props.providers.twitter
+        onChange: (checked) => @props.onChange?('twitter', checked)

@@ -1,5 +1,4 @@
-@import "twitter/bootstrap/variables.less";
-@import "twitter/bootstrap/mixins.less";
+@import "mixins/mixins";
 
 // GENERAL STYLES
 // --------------
@@ -65,14 +64,17 @@ textarea {
 // Position radios and checkboxes better
 input[type="checkbox"], input[type="radio"] {
   margin: 4px 0 0;
-  *margin-top: 0; /* IE7 */
   margin-top: 1px \9; /* IE8-9 */
   line-height: normal;
   cursor: pointer;
   width: auto;
 
   &:focus {
-    .tab-focus();
+    // Default
+    outline: thin dotted #333;
+    // Webkit
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
   }
 }
 
@@ -105,57 +107,5 @@ textarea:focus:required:invalid {
   &:focus {
     border-color: darken(#ee5f5b, 10%);
     box-shadow: 0 0 6px lighten(#ee5f5b, 20%);
-  }
-}
-
-// FORM ACTIONS
-// ------------
-
-.form-actions {
-  background-color: transparent;
-  padding: 15px 0;
-  margin-top: @baseLineHeight;
-  margin-bottom: @baseLineHeight;
-  border-top: 1px solid #e5e5e5;
-  .clearfix(); // Adding clearfix to allow for .pull-right button containers
-}
-
-// Margin to space out fieldsets
-.control-group {
-  margin-bottom: @baseLineHeight / 2;
-}
-
-// Horizontal-specific styles
-// --------------------------
-
-.form-horizontal {
-  // Increase spacing between groups
-  .control-group {
-    margin-bottom: @baseLineHeight;
-    .clearfix();
-  }
-  // Float the labels left
-  .control-label {
-    float: left;
-    width: @horizontalComponentOffset - 20;
-    padding-top: 5px;
-    text-align: right;
-  }
-  // Move over all input controls and content
-  .controls {
-    // Super jank IE7 fix to ensure the inputs in .input-append and input-prepend
-    // don't inherit the margin of the parent, in this case .controls
-    *display: inline-block;
-    *padding-left: 20px;
-    margin-left: @horizontalComponentOffset;
-    *margin-left: 0;
-    &:first-child {
-      *padding-left: @horizontalComponentOffset;
-    }
-  }
-
-  // Move over buttons in .form-actions to align with .controls
-  .form-actions {
-    padding-left: @horizontalComponentOffset;
   }
 }

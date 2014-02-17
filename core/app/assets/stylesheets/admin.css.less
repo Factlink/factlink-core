@@ -1,52 +1,58 @@
-@import "bootstrap/mixins";
+@import "mixins/mixins";
 
-.form-label-column {
+.admin-form-label-column {
   text-align: right;
   padding-right:1em;
 }
 
-.admin-form {
-  line-height: 1.44;
-  * { line-height: 1.44; }
-
-  input[type=text], textarea {
-    border-radius: @baseBorderRadius;
-    border: 1px solid #ccc;
-    padding: 2px 5px;
-    width: 380px;
-    height: 20px;
-  }
-
-  textarea {
-    height: 60px !important;
-  }
-  label {
-    display: inline; // WTFBBQ bootstrap;revert to default.
-  }
-  input[type=checkbox] {
-    margin:0;
-    vertical-align: baseline;
-  }
+.admin-form-textarea {
+  height: 60px;
 }
 
 .admin-form-irrelevant-feature {
   color: @mutedFontColor;
 }
 
-.actions {
-  margin-left: 410px;
+.admin-edit-user-delete-link {
+  color: rgb(206, 0, 0);
+}
 
-  a {
-    opacity: .6;
-    margin-left: -12px;
-    padding-right: 12px;
+.admin-dangerous-area {
+  padding: 20px;
+  background-color: @errorBackground;
+  border: 1px solid @errorBorder;
+}
 
-    &:hover {
-      opacity: 1;
-    }
+.admin-table {
+  width: 100%;
+  margin-bottom: @baseLineHeight;
+  background-color: @backgroundGray;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid @tableBorder;
+  max-width: 100%;
+
+  th, td {
+    padding: 8px;
+    line-height: @baseLineHeight;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid @tableBorder;
   }
 }
 
-.edit-user-delete-link {
-  color: rgb(206, 0, 0);
+.admin-label {
+  font-weight: bold;
+  line-height: 14px; // ensure proper line-height if floated
+  color: white;
+  vertical-align: baseline;
+  white-space: nowrap;
+  background-color: @grayLight;
+  padding: 1px 4px 2px;
+  border-radius: @baseBorderRadius;
+
+  &-important         { background-color: @errorText; }
+  &-warning           { background-color: @orange; }
+  &-success           { background-color: @successText; }
+  &-danger            { background-color: #d9534f; }
 }
