@@ -125,6 +125,7 @@ class Ability
     paragraph_icons
     log_jslib_loading_performance
     opinions_of_users_and_comments
+    sidebar_manual_reload
   )
 
   def enabled_global_features
