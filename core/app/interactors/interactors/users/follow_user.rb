@@ -9,7 +9,7 @@ module Interactors
 
 
       def authorized?
-        (!!pavlov_options[:current_user])
+        pavlov_options[:current_user]
       end
 
       def execute
