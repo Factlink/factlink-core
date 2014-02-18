@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout "frontend"
 
-  before_filter :load_user, except: [:tour_users, :seen_messages]
+  before_filter :load_user, except: [:current, :tour_users, :seen_messages]
 
   def show
     authorize! :show, @user
@@ -9,6 +9,15 @@ class UsersController < ApplicationController
     backbone_responder do
       full_user = interactor :'users/get_full', username: params[:username]
       render json: full_user
+    end
+  end
+
+  def current
+    if current_user
+      full_user = interactor :'users/get_full', username: current_user.username
+      render json: full_user
+    else
+      render json: {}
     end
   end
 

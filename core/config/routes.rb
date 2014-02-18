@@ -11,6 +11,9 @@ FactlinkUI::Application.routes.draw do
   # Web Front-end
   root :to => "home#index"
 
+  scope '/api/beta' do
+    get '/current_user' => 'users#current'
+  end
 
   # Javascript Client calls
   # TODO: replace /site/ gets with scoped '/sites/', and make it a resource (even if it only has show)
@@ -127,5 +130,4 @@ FactlinkUI::Application.routes.draw do
     get "/unsubscribe/:token/:type" => 'mail_subscriptions#update', subscribe_action: 'unsubscribe', as: :unsubscribe
     get "/subscribe/:token/:type" => 'mail_subscriptions#update', subscribe_action: 'subscribe', as: :subscribe
   end
-
 end
