@@ -22,7 +22,7 @@ describe Queries::Users::UserFollowsUser do
       to_user = create :full_user
 
       as(from_user) do |pavlov|
-        pavlov.interactor(:'users/follow_user', username: from_user.username, user_to_follow_username: to_user.username)
+        pavlov.interactor(:'users/follow_user', user_to_follow_username: to_user.username)
 
         result = pavlov.query 'users/user_follows_user', from_graph_user_id: from_user.graph_user_id,
                                                          to_graph_user_id: to_user.graph_user_id
@@ -36,7 +36,7 @@ describe Queries::Users::UserFollowsUser do
       to_user = create :full_user
 
       as(from_user) do |pavlov|
-        pavlov.interactor(:'users/follow_user', username: from_user.username, user_to_follow_username: to_user.username)
+        pavlov.interactor(:'users/follow_user', user_to_follow_username: to_user.username)
         pavlov.interactor(:'users/unfollow_user', username: from_user.username, user_to_unfollow_username: to_user.username)
 
         result = pavlov.query 'users/user_follows_user', from_graph_user_id: from_user.graph_user_id,

@@ -11,8 +11,8 @@ describe 'user following' do
     describe 'following' do
       before do
         as(user1) do |pavlov|
-          pavlov.interactor(:'users/follow_user', username: user1.username, user_to_follow_username: user2.username)
-          pavlov.interactor(:'users/follow_user', username: user1.username, user_to_follow_username: user3.username)
+          pavlov.interactor(:'users/follow_user', user_to_follow_username: user2.username)
+          pavlov.interactor(:'users/follow_user', user_to_follow_username: user3.username)
         end
       end
 
@@ -43,7 +43,7 @@ describe 'user following' do
         end
 
         as(user1) do |pavlov|
-          pavlov.interactor(:'users/follow_user', username: user1.username, user_to_follow_username: user2.username)
+          pavlov.interactor(:'users/follow_user', user_to_follow_username: user2.username)
         end
 
         expect(user1.graph_user.stream_activities.ids)
@@ -55,7 +55,7 @@ describe 'user following' do
   describe 'unfollowing a user' do
     before do
       as(user1) do |pavlov|
-        pavlov.interactor(:'users/follow_user', username: user1.username, user_to_follow_username: user2.username)
+        pavlov.interactor(:'users/follow_user', user_to_follow_username: user2.username)
         pavlov.interactor(:'users/unfollow_user', username: user1.username, user_to_unfollow_username: user2.username)
       end
     end
@@ -81,8 +81,8 @@ describe 'user following' do
     before do
       as(user1) do |pavlov|
         pavlov.interactor(:'users/unfollow_user', username: user1.username, user_to_unfollow_username: user2.username)
-        pavlov.interactor(:'users/follow_user', username: user1.username, user_to_follow_username: user2.username)
-        pavlov.interactor(:'users/follow_user', username: user1.username, user_to_follow_username: user2.username)
+        pavlov.interactor(:'users/follow_user', user_to_follow_username: user2.username)
+        pavlov.interactor(:'users/follow_user', user_to_follow_username: user2.username)
       end
     end
 
@@ -108,7 +108,7 @@ describe 'user following' do
     it 'should not be allowed' do
       as(user1) do |pavlov|
         expect do
-          pavlov.interactor(:'users/follow_user', username: user1.username, user_to_follow_username: user1.username)
+          pavlov.interactor(:'users/follow_user', user_to_follow_username: user1.username)
         end.to raise_error
       end
     end
@@ -116,7 +116,7 @@ describe 'user following' do
     it 'should have no followers and following' do
       as(user1) do |pavlov|
         begin
-          pavlov.interactor(:'users/follow_user', username: user1.username, user_to_follow_username: user1.username)
+          pavlov.interactor(:'users/follow_user', user_to_follow_username: user1.username)
         rescue
         end
 
@@ -126,24 +126,5 @@ describe 'user following' do
     end
   end
 
-  describe 'posing as someone else' do
-    it 'should not be allowed' do
-      as(user1) do |pavlov|
-        expect do
-          pavlov.interactor(:'users/follow_user', username: user2.username, user_to_follow_username: user3.username)
-        end.to raise_error
-      end
-    end
 
-    it 'should have no followers and following' do
-      as(user1) do |pavlov|
-        expect do
-          pavlov.interactor(:'users/follow_user', username: user2.username, user_to_follow_username: user3.username)
-        end.to raise_error
-
-        following = pavlov.interactor(:'users/following', username: user2.username)
-        expect(following.size).to eq 0
-      end
-    end
-  end
 end
