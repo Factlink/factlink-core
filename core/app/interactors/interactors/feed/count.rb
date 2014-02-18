@@ -6,7 +6,15 @@ module Interactors
       arguments :timestamp
 
       def execute
-        query :"feed/count", timestamp: timestamp
+        count = query :"feed/count", timestamp: get_timestamp
+        {
+          count: count,
+          timestamp: get_timestamp
+        }
+      end
+
+      def get_timestamp
+        (timestamp || 0).to_i
       end
 
       def authorized?

@@ -13,6 +13,8 @@ FactlinkUI::Application.routes.draw do
 
   scope '/api/beta' do
     get '/current_user' => 'users#current'
+    get '/feed' => "api/feed#index"
+    get '/feed/count' => "api/feed#count"
   end
 
   # Javascript Client calls
@@ -61,6 +63,20 @@ FactlinkUI::Application.routes.draw do
   # Search
   get "/search" => "search#search", as: "search"
 
+  scope "/p/tour" do
+    get 'setup-account' => 'users/setup#edit', as: 'setup_account'
+    put 'setup-account' => 'users/setup#update'
+    get "install-extension" => "tour#install_extension", as: "install_extension"
+    get "interests" => "tour#interests", as: "interests"
+    get "tour-done" => "tour#tour_done", as: "tour_done"
+  end
+
+  scope "/p" do
+    get ":name" => "home#pages", as: "pages",  constraints: {name: /([-a-zA-Z_\/]+)/}
+  end
+
+  get "/publisher" => "home#pages", as: "publisher_page", defaults: {name: "publisher"}
+
   authenticated :user do
     namespace :admin, path: 'a' do
       get 'info'
@@ -96,31 +112,19 @@ FactlinkUI::Application.routes.draw do
   post "/users/sign_in_or_up/in" => "accounts/factlink_accounts#create_session", as: 'factlink_accounts_create_session'
   post "/users/sign_in_or_up/up" => "accounts/factlink_accounts#create_account", as: 'factlink_accounts_create_account'
 
+  get '/feed' => "frontend#show", as: 'feed'
+  get '/:unused/feed', to: redirect("/feed")
+
   scope "/:username" do
     get "/" => "users#show", as: "user_profile"
     put "/" => "users#update"
     delete "/" => "users#destroy"
 
-    get '/feed' => "feed#index", as: 'feed'
-    get '/feed/count' => "feed#count", as: 'feed_count'
 
     get 'notification-settings' => "users#notification_settings", as: "user_notification_settings"
 
     resources :following, only: [:destroy, :update, :index], controller: 'user_following'
   end
-
-  scope "/p/tour" do
-    get 'setup-account' => 'users/setup#edit', as: 'setup_account'
-    put 'setup-account' => 'users/setup#update'
-    get "install-extension" => "tour#install_extension", as: "install_extension"
-    get "interests" => "tour#interests", as: "interests"
-    get "tour-done" => "tour#tour_done", as: "tour_done"
-  end
-
-  scope "/p" do
-    get ":name" => "home#pages", as: "pages",  constraints: {name: /([-a-zA-Z_\/]+)/}
-  end
-
 
   # Scope for user specific actions
   # I made this scope so we don't always have to know the current users username in de frontend

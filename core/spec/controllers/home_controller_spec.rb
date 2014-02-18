@@ -9,7 +9,7 @@ describe HomeController do
     it "should work" do
       authenticate_user!(user)
       get :index
-      response.should redirect_to(feed_path user)
+      response.should redirect_to(feed_path)
     end
 
     it "renders the index template" do

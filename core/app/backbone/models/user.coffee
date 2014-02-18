@@ -20,8 +20,6 @@ class window.User extends Backbone.Model
       md5d_email = @get('gravatar_hash')
       "https://secure.gravatar.com/avatar/#{md5d_email}?size=#{size}&rating=PG&default=retro"
 
-  streamLink: -> "/#{@get('username')}/feed"
-
   link: -> "/#{@get('username')}"
 
   toJSON: ->
@@ -36,7 +34,6 @@ class window.User extends Backbone.Model
       avatar_url_32: @avatar_url(32)
       avatar_url_48: @avatar_url(48)
       avatar_url_80: @avatar_url(80)
-      stream_path: @streamLink()
 
   is_following_users: ->
     !@following.isEmpty()
