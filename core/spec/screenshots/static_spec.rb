@@ -15,4 +15,12 @@ describe "Static pages:", type: :feature, driver: :poltergeist_slow do
       assume_unchanged_screenshot "static_homepage_with_feedback"
     end
   end
+
+  describe "Publisher landing page" do
+    it "renders correct" do
+      visit "/publisher"
+
+      assume_unchanged_screenshot "static_publisher_page"
+    end
+  end
 end

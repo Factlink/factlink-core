@@ -58,6 +58,20 @@ FactlinkUI::Application.routes.draw do
   # Search
   get "/search" => "search#search", as: "search"
 
+  scope "/p/tour" do
+    get 'setup-account' => 'users/setup#edit', as: 'setup_account'
+    put 'setup-account' => 'users/setup#update'
+    get "install-extension" => "tour#install_extension", as: "install_extension"
+    get "interests" => "tour#interests", as: "interests"
+    get "tour-done" => "tour#tour_done", as: "tour_done"
+  end
+
+  scope "/p" do
+    get ":name" => "home#pages", as: "pages",  constraints: {name: /([-a-zA-Z_\/]+)/}
+  end
+
+  get "/publisher" => "home#pages", as: "publisher_page", defaults: {name: "publisher"}
+
   authenticated :user do
     namespace :admin, path: 'a' do
       get 'info'
@@ -106,19 +120,6 @@ FactlinkUI::Application.routes.draw do
 
     resources :following, only: [:destroy, :update, :index], controller: 'user_following'
   end
-
-  scope "/p/tour" do
-    get 'setup-account' => 'users/setup#edit', as: 'setup_account'
-    put 'setup-account' => 'users/setup#update'
-    get "install-extension" => "tour#install_extension", as: "install_extension"
-    get "interests" => "tour#interests", as: "interests"
-    get "tour-done" => "tour#tour_done", as: "tour_done"
-  end
-
-  scope "/p" do
-    get ":name" => "home#pages", as: "pages",  constraints: {name: /([-a-zA-Z_\/]+)/}
-  end
-
 
   # Scope for user specific actions
   # I made this scope so we don't always have to know the current users username in de frontend

@@ -121,10 +121,10 @@ class Ability
 
   FEATURES = %w(
     pink_feedback_button
-    memory_profiling
     paragraph_icons
     log_jslib_loading_performance
     opinions_of_users_and_comments
+    sidebar_manual_reload
   )
 
   def enabled_global_features
