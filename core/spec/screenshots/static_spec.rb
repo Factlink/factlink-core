@@ -17,7 +17,7 @@ describe "Static pages:", type: :feature, driver: :poltergeist_slow do
   end
 
   describe "Publisher landing page" do
-    it "with open feedback as expected" do
+    it "renders correct" do
       visit "/p/publisher"
 
       assume_unchanged_screenshot "static_publisher_page"
