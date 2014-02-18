@@ -1,0 +1,20 @@
+<% content_for :header do %>
+  <div class="publisher-page-header">
+    <h1>Great discussions on your site</h1>
+    <p class="publisher-page-paragraph">Readers join discussions inside your articles and invite their friends.</br> You get engaged users, and more of them.</p>
+  </div>
+<% end %>
+
+<% content_for :title do %>
+  Great discussions on your site
+<% end %>
+
+<% content_for :content do %>
+  <%= render "home/pages/partials/focussed_discussions" %>
+  <%= render "home/pages/partials/higher_engagement" %>
+  <%= render "home/pages/partials/social_reach" %>
+  <%= render "home/pages/partials/easy_integration" %>
+
+  <p class="publisher-page-conditions">Fair use conditions apply. Please <%= link_to "contact", pages_path("contact") %> us for large scale and custom solutions.</p>
+  <%= render "home/pages/partials/manual_installation" %>
+<% end %>
