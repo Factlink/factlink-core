@@ -2,38 +2,38 @@
 @import "mixins/triangle_arrows";
 @import "mixins/blocks";
 
-.ellipsis(@max-width) {
+@mixin ellipsis(@max-width){
   max-width: @max-width;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.reset-main-padding() {
+@mixin reset-main-padding(){
   margin-left: -@mainLeftPadding;
   margin-right: -@mainRightPadding;
   padding-left: @mainLeftPadding;
   padding-right: @mainRightPadding;
 }
 
-.fading-border(@color) {
+@mixin fading-border(@color){
   -webkit-border-image: -webkit-linear-gradient(90deg, @color, fade(@color, 0)) 1 100%;
   -moz-border-image:    -moz-linear-gradient(90deg, @color, fade(@color, 0)) 1 100%;
   -ms-border-image:     -ms-linear-gradient(90deg, @color, fade(@color, 0)) 1 100%;
 }
 
 // keep in sync with jslib
-.striped(@angle: 45deg, @stripeColor: rgba(255,255,255,.15)) {
+@mixin striped(@angle: 45deg, @stripeColor: rgba(255,255,255,.15)){
   background-image: -webkit-linear-gradient(@angle, @stripeColor 25%, transparent 25%, transparent 50%, @stripeColor 50%, @stripeColor 75%, transparent 75%, transparent);
   background-image: linear-gradient(@angle, @stripeColor 25%, transparent 25%, transparent 50%, @stripeColor 50%, @stripeColor 75%, transparent 75%, transparent);
 }
 
-.loading-stripes-keyframes() {
+@mixin loading-stripes-keyframes(){
     from  { background-position: 40px 0; }
     to    { background-position: 0 0; }
 }
 
-.animate-stripes(@seconds: 2s) {
+@mixin animate-stripes(@seconds: 2s){
   @-webkit-keyframes loading-stripes { .loading-stripes-keyframes(); }
 
   // IE9
@@ -46,7 +46,7 @@
   animation:          loading-stripes @seconds linear infinite;
 }
 
-.zoom-out-cursor() {
+@mixin zoom-out-cursor(){
   cursor: pointer; cursor: -webkit-zoom-out; cursor: -moz-zoom-out;
 }
 
@@ -64,7 +64,7 @@
   }
 }
 
-.placeholder(@color: @placeholderText) {
+@mixin placeholder(@color: @placeholderText){
   &:-moz-placeholder {
     color: @color;
   }
@@ -76,16 +76,16 @@
   }
 }
 
-.border-top-radius(@radius) {
+@mixin border-top-radius(@radius){
   border-top-right-radius: @radius;
   border-top-left-radius: @radius;
 }
-.border-bottom-radius(@radius) {
+@mixin border-bottom-radius(@radius){
   border-bottom-right-radius: @radius;
   border-bottom-left-radius: @radius;
 }
 
-.rotate(@degrees) {
+@mixin rotate(@degrees){
   -webkit-transform: rotate(@degrees);
      -moz-transform: rotate(@degrees);
       -ms-transform: rotate(@degrees);
@@ -93,13 +93,13 @@
           transform: rotate(@degrees);
 }
 
-.background-clip(@clip) {
+@mixin background-clip(@clip){
   -webkit-background-clip: @clip;
      -moz-background-clip: @clip;
           background-clip: @clip;
 }
 
-.box-sizing(@boxmodel) {
+@mixin box-sizing(@boxmodel){
      -moz-box-sizing: @boxmodel;
           box-sizing: @boxmodel;
 }
