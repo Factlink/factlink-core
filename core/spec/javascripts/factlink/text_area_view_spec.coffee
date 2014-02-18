@@ -1,6 +1,5 @@
 #= require jquery
 #= require application
-#= require frontend
 
 describe "Backbone.Factlink.TextAreaView", ->
   initialText = 'something.'

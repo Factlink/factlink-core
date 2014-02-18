@@ -1,6 +1,5 @@
 #= require jquery
 #= require application
-#= require frontend
 
 describe 'window.collectionDifference', ->
   type = Backbone.Collection
