@@ -19,8 +19,18 @@ ReactComments = React.createBackboneClass
 window.ReactDiscussion = React.createBackboneClass
   displayName: 'ReactDiscussion'
 
+  getInitialState: ->
+    step: 0
+
   render: ->
-    _div ['discussion'],
+    _div ['discussion'
+          key: @state.step],
+      if Factlink.Global.can_haz.sidebar_manual_reload?
+        _div [],
+          _span [style: {float: 'right'}],
+            "##{@state.step}"
+          _button [onClick: => @setState step: @state.step + 1],
+            'Refresh'
       _div ['top-annotation'],
         _div ['top-annotation-text'],
           if @model().get('displaystring')
