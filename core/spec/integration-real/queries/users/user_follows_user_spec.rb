@@ -37,7 +37,7 @@ describe Queries::Users::UserFollowsUser do
 
       as(from_user) do |pavlov|
         pavlov.interactor(:'users/follow_user', username: to_user.username)
-        pavlov.interactor(:'users/unfollow_user', user_to_unfollow_username: to_user.username)
+        pavlov.interactor(:'users/unfollow_user', username: to_user.username)
 
         result = pavlov.query 'users/user_follows_user', from_graph_user_id: from_user.graph_user_id,
                                                          to_graph_user_id: to_user.graph_user_id
