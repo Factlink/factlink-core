@@ -1,7 +1,4 @@
 <% if current_user %>
-  <%
-    user_hash = interactor(:'users/get_full', username: current_user.username)
-    user_json = user_hash.to_json.html_safe
-  %>
-  window.currentUser = new User(<%= user_json %>);
+  window.currentUser = new CurrentUser;
+  window.currentUser.fetch()
 <% end %>

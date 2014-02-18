@@ -69,7 +69,7 @@ class window.User extends Backbone.Model
     minutes_ago < 10
 
   serviceConnected: (provider_name) ->
-    @get('services')[provider_name]
+    @get('services')?[provider_name]
 
   setServiceConnected: (provider_name) ->
     services = _.clone @get('services')
