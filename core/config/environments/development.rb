@@ -29,9 +29,7 @@ FactlinkUI::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  # set environment variable ASSETS_DEBUG to true to enable
-  enable_assets_debug = ENV["ASSETS_DEBUG"]
-  config.assets.debug = !!(enable_assets_debug =~ /^true$/i)
+  config.assets.debug = true
 
   config.logger = Logger.new(STDOUT)
 
@@ -48,6 +46,7 @@ FactlinkUI::Application.configure do
   config.dev_tweaks.log_autoload_notice = false
 
   config.middleware.use PrettyJsonResponse
+  config.middleware.insert_before(ActionDispatch::Static, TurboDev)
 end
 
 
