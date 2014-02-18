@@ -13,22 +13,23 @@ describe Interactors::SendMailForActivity do
       dead_user = double(id: 1)
       activity = double(id: 2)
       graph_user_ids = ['1', '2']
+      pavlov_options = { current_user: double }
 
-      described_class.any_instance.stub(authorized?: true)
-      interactor = described_class.new activity: activity
+      interactor = described_class.new activity: activity, pavlov_options: pavlov_options
 
       Pavlov.stub(:query)
             .with(:'object_ids_by_activity',
                       activity: activity, class_name: 'GraphUser',
-                      list: :notifications)
+                      list: :notifications,
+                      pavlov_options: pavlov_options)
             .and_return(graph_user_ids)
 
       Pavlov.stub(:query)
-        .with(:'users/filter_mail_subscribers', graph_user_ids: graph_user_ids, type: 'mailed_notifications')
+        .with(:'users/filter_mail_subscribers', graph_user_ids: graph_user_ids, type: 'mailed_notifications', pavlov_options: pavlov_options)
         .and_return([dead_user])
 
       Resque.should_receive(:enqueue).with(Commands::SendActivityMailToUser,
-        user_id: dead_user.id, activity_id: activity.id, pavlov_options: {})
+        user_id: dead_user.id, activity_id: activity.id, pavlov_options: pavlov_options)
 
       interactor.call
     end
