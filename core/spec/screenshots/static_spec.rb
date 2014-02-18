@@ -19,7 +19,7 @@ describe "Static pages:", type: :feature, driver: :poltergeist_slow do
   describe "Publisher landing page" do
     it "renders correct" do
       visit "/publisher"
-      click_button "Manual installation"
+      find('a', text: 'Manual installation').click
 
       assume_unchanged_screenshot "static_publisher_page"
     end
