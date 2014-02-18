@@ -1,7 +1,5 @@
-class window.FactsController extends Backbone.Marionette.Controller
-  constructor: (@options) ->
-
-  showStream: ->
+class window.FeedsController extends Backbone.Marionette.Controller
+  showFeed: ->
     FactlinkApp.mainRegion.show new FeedActivitiesView
       collection: new FeedActivities
 
