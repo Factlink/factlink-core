@@ -14,6 +14,7 @@ FactlinkApp.module "NotificationCenter", (NotificationCenter, FactlinkApp, Backb
 
     _autoHide: ->
       return unless @model.get('type') == 'success'
+      return if Factlink.Global.enviroment == 'test'
 
       setTimeout (=> @_destroy()), @_autoHideTime()
 
