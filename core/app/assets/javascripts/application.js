@@ -15,4 +15,8 @@
 
 //= require_tree ./base
 //= require_tree ./lib
-//= require ./frontend
+//= require jquery.scrollTo
+//= require lib/prevent_scroll_propagation
+//= require postFactlinkObject
+//= require_tree ./frontend
+//= require factlink.backbone
