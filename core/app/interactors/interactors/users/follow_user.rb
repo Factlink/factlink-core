@@ -5,16 +5,16 @@ module Interactors
 
       private
 
-      arguments :username, :user_to_follow_username
+      arguments :username
 
 
       def authorized?
-        (!!pavlov_options[:current_user]) and (pavlov_options[:current_user].username == username)
+        pavlov_options[:current_user]
       end
 
       def execute
-        unless user.id.to_s == pavlov_options[:current_user].id.to_s
-          throw "Only supporting user == current_user when following user"
+        if user.username == username
+          raise "You cannot follow yourself."
         end
 
         return if already_following
@@ -28,12 +28,11 @@ module Interactors
       end
 
       def user
-        @user ||= query(:'user_by_username', username: username)
+        @pavlov_options[:current_user]
       end
 
       def user_to_follow
-        @user_to_follow ||= query(:'user_by_username',
-                                  username: user_to_follow_username)
+        @user_to_follow ||= query(:'user_by_username', username: username)
       end
 
       def follow_user
@@ -53,11 +52,6 @@ module Interactors
 
       def validate
         validate_nonempty_string :username, username
-        validate_nonempty_string :user_to_follow_username, user_to_follow_username
-
-        if username == user_to_follow_username
-          errors.add :username, "You cannot follow yourself."
-        end
       end
     end
   end
