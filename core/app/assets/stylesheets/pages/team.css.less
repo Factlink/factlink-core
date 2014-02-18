@@ -21,7 +21,7 @@
   width: 104.25px;
 }
 
-@mixin team-name(){
+$mixin team-name(){
   position: relative;
   margin: 0;
   text-align: center;
@@ -29,7 +29,7 @@
 
 }
 .team-member-name {
-  @include team-name();
+  $include team-name();
   font-size: 15px;
   width: 150px;
   line-height: 18px;
@@ -37,8 +37,8 @@
 }
 
 .team-advisor-name {
-  @include team-name();
-  font-size: @heading4FontSize;
+  $include team-name();
+  font-size: $heading4FontSize;
   width: 95px;
   line-height: 16px;
   left: -7px;

@@ -1,9 +1,9 @@
 @import "mixins/mixins";
 
 .profile-user-social-statistics {
-  @include clearfix();
+  $include clearfix();
   margin: 0 0 10px;
-  border-bottom: 1px solid @baseBorderColor;
+  border-bottom: 1px solid $baseBorderColor;
 }
 
 .profile-social-statistic-block {
@@ -12,10 +12,10 @@
   text-align: center;
   width: 50%;
 
-  border-left:  1px solid @baseBorderColor;
+  border-left:  1px solid $baseBorderColor;
   border-right: 0px;
 
-  @include fading-border(@baseBorderColor);
+  $include fading-border($baseBorderColor);
 
   &:first-child {
     border-left: 0px solid transparent;
@@ -25,8 +25,8 @@
     margin: 0;
     padding: 0;
     font-size: 22px;
-    font-weight: @baseFontBoldWeight;
-    font-family: @sansFontFamily;
+    font-weight: $baseFontBoldWeight;
+    font-family: $sansFontFamily;
   }
 }
 
@@ -36,7 +36,7 @@
 }
 
 .avatar-container--large-name {
-  font-size: @heading1FontSize;
+  font-size: $heading1FontSize;
   word-wrap: break-word;
   max-width: 200px;
   margin-bottom: 7px;

@@ -4,8 +4,8 @@
   position: relative;
   display: inline-block;
   width: 2.5em;
-  height: @baseButtonHeight;
-  line-height: @baseButtonHeight;
+  height: $baseButtonHeight;
+  line-height: $baseButtonHeight;
   vertical-align: middle;
   margin-top: -3px;
   cursor: pointer;
@@ -15,26 +15,26 @@
   display: inline-block;
   border-radius: 3px;
   width: 2.5em;
-  height: @baseButtonHeight;
+  height: $baseButtonHeight;
   transition: all 0.1s;
   text-align: center;
 
   border: none;
-  border-bottom: @baseButtonBorderWidth solid transparent;
+  border-bottom: $baseButtonBorderWidth solid transparent;
 
   &:active {
-    background-color: @buttonBackground;
-    border-top: @baseButtonBorderWidth solid @buttonBorder;
+    background-color: $buttonBackground;
+    border-top: $baseButtonBorderWidth solid $buttonBorder;
     border-bottom: 0px;
   }
 }
 
 .delete-button-open .delete-button-first,
 .delete-button-first:hover {
-  background: @buttonBackground;
-  border-color: @buttonBorder;
+  background: $buttonBackground;
+  border-color: $buttonBorder;
   text-shadow: 0 1px 0 rgba(255,255,255,0.35);
-  color: @linkColor;
+  color: $linkColor;
 }
 
 .delete-button-open .delete-button-first {
@@ -47,8 +47,8 @@
   display: inline-block;
   right: 2.5em;
   top: 0px;
-  height: @baseButtonHeight + 3px;
-  line-height: @baseButtonHeight;
+  height: $baseButtonHeight + 3px;
+  line-height: $baseButtonHeight;
   overflow: hidden;
   visibility: hidden;
 }
@@ -67,15 +67,15 @@
   white-space: nowrap;
 }
 
-@arrowSize: 5px;
+$arrowSize: 5px;
 .delete-button-arrow {
   position: absolute;
-  border: @arrowSize solid transparent;
+  border: $arrowSize solid transparent;
   border-left: none;
-  border-right-color: @buttonBackground;
-  margin-top: -@arrowSize - 2px;
+  border-right-color: $buttonBackground;
+  margin-top: -$arrowSize - 2px;
   top: 50%;
-  right: -@arrowSize;
+  right: -$arrowSize;
 }
 
 .delete-button-open .delete-button-second,

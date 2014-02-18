@@ -1,10 +1,10 @@
 @import "mixins/mixins";
 
-@mixin paragraph-icon-arrow(@arrowWidth){
-  border-top: @arrowWidth grey solid;
-  border-left: @arrowWidth grey solid;
-  border-right: @arrowWidth white solid;
-  border-bottom: @arrowWidth white solid;
+$mixin paragraph-icon-arrow($arrowWidth){
+  border-top: $arrowWidth grey solid;
+  border-left: $arrowWidth grey solid;
+  border-right: $arrowWidth white solid;
+  border-bottom: $arrowWidth white solid;
 }
 
 .publisher-page-header {
@@ -71,7 +71,7 @@
 }
 
 .focussed-discussion-list:hover .focussed-discussion-list-item {
-  background: @lightYellow;
+  background: $lightYellow;
 }
 
 .focussed-discussion-paragraph {
@@ -97,13 +97,13 @@
     top: 12px;
     left: 5px;
     display: inline-block;
-    @include paragraph-icon-arrow(2px);
+    $include paragraph-icon-arrow(2px);
   }
 }
 
 .higher-engagement {
   text-align: left;
-  background-color: fade(@semiTransparentLayerColor, 100%);
+  background-color: fade($semiTransparentLayerColor, 100%);
   border: 1px lightgrey solid;
   border-radius: 4px;
   padding-top: 3px;
@@ -146,12 +146,12 @@
     top: 17px;
     right: 45%;
     display: inline-block;
-    @include paragraph-icon-arrow(4px);
+    $include paragraph-icon-arrow(4px);
   }
 }
 
 .easy-integration {
-  background: @lightYellow;
+  background: $lightYellow;
   padding: 20px 15px;
   position: relative;
   text-align: left;
@@ -172,7 +172,7 @@
 }
 
 .publisher-page-code-line {
-  background:@lightYellow;
+  background:$lightYellow;
   padding: 3px;
   word-wrap: break-word;
 }

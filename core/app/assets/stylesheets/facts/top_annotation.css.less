@@ -1,13 +1,13 @@
 @import "mixins/mixins";
 
 .top-annotation {
-  @include block-box-shadow();
+  $include block-box-shadow();
   background: white;
   position: relative;
-  padding: @votePadding;
+  padding: $votePadding;
 }
 
 .top-annotation-text {
-  line-height: @baseFontSize * 1.5;
+  line-height: $baseFontSize * 1.5;
   word-break: break-word;
 }

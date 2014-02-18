@@ -5,19 +5,19 @@
 .topbar {
   height: 42px;
   background-color: white;
-  border-bottom: 1px solid @baseBorderColor;
+  border-bottom: 1px solid $baseBorderColor;
   box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
 
   // fixes mobile behaviour, as the width of <body> is unreliable
   // Top-level position: absolute; is relative to *viewport*, not to <body>
-  min-width: @siteWidth;
+  min-width: $siteWidth;
   text-align: center;
 }
 
 .topbar-inner {
-  width: @siteWidth;
+  width: $siteWidth;
   display: inline-block;
-  padding-left: @mainLeftPadding;
+  padding-left: $mainLeftPadding;
 }
 
 .topbar-logo {
@@ -70,7 +70,7 @@
 }
 
 .topbar-profile-link {
-  @include ellipsis(220px);
+  $include ellipsis(220px);
 }
 
 .topbar-profile-image {

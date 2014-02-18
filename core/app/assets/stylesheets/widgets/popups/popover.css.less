@@ -9,129 +9,129 @@
 
 //   > .factlink-popover-content {
 //     display: inline-block;
-//     @include background-clip(padding-box);
+//     $include background-clip(padding-box);
 //     background: white;
-//     border-radius: @baseBorderRadius;
-//     box-shadow: @blockBorder, 0 @factlinkPopoverShadowBottomSize 5px @factlinkPopoverShadowBottomColor;
+//     border-radius: $baseBorderRadius;
+//     box-shadow: $blockBorder, 0 $factlinkPopoverShadowBottomSize 5px $factlinkPopoverShadowBottomColor;
 
 //     // some basic resets
-//     line-height: @baseLineHeight;
+//     line-height: $baseLineHeight;
 //     text-align: left;
 //   }
 
 //   &.top {
 //     > .factlink-popover-content {
-//       margin-top: @triangleSize;
+//       margin-top: $triangleSize;
 //     }
 //     > .factlink-popover-arrow {
-//       @include triangle-arrow-up(@factlinkPopoverArrowTopBorderColor);
-//       top: @triangleSize;
+//       $include triangle-arrow-up($factlinkPopoverArrowTopBorderColor);
+//       top: $triangleSize;
 //       left: 50%;
 //     }
 //   }
 
 //   &.bottom {
 //     > .factlink-popover-content {
-//       margin-bottom: @triangleSize;
+//       margin-bottom: $triangleSize;
 //     }
 //     > .factlink-popover-arrow {
-//       @include triangle-arrow-down(@factlinkPopoverArrowBorderColor, @factlinkPopoverArrowBorderOffset);
-//       bottom: @triangleSize;
+//       $include triangle-arrow-down($factlinkPopoverArrowBorderColor, $factlinkPopoverArrowBorderOffset);
+//       bottom: $triangleSize;
 //       left: 50%;
 //     }
 //   }
 
 //   &.right {
 //     > .factlink-popover-content {
-//       margin-right: @triangleSize;
+//       margin-right: $triangleSize;
 //     }
 //     > .factlink-popover-arrow {
-//       @include triangle-arrow-right(@factlinkPopoverArrowBorderColor, @factlinkPopoverArrowBorderOffset);
-//       right: @triangleSize;
+//       $include triangle-arrow-right($factlinkPopoverArrowBorderColor, $factlinkPopoverArrowBorderOffset);
+//       right: $triangleSize;
 //       top: 50%;
 //     }
 //   }
 
 //   &.left {
 //     > .factlink-popover-content {
-//       margin-left: @triangleSize;
+//       margin-left: $triangleSize;
 //     }
 //     > .factlink-popover-arrow {
-//       @include triangle-arrow-left(@factlinkPopoverArrowBorderColor, @factlinkPopoverArrowBorderOffset);
-//       left: @triangleSize;
+//       $include triangle-arrow-left($factlinkPopoverArrowBorderColor, $factlinkPopoverArrowBorderOffset);
+//       left: $triangleSize;
 //       top: 50%;
 //     }
 //   }
 // }
 
-@mixin translucent-popover(){
+$mixin translucent-popover(){
   position: relative;
   visibility: visible;
   display: inline-block;
 }
 
 .translucent-popover-bottom {
-  @include translucent-popover();
+  $include translucent-popover();
 
   > .translucent-popover-content {
-    margin-bottom: @triangleSize;
+    margin-bottom: $triangleSize;
   }
   > .translucent-popover-arrow {
     top: 100%;
     left: 50%;
-    margin-top: -@triangleSize;
+    margin-top: -$triangleSize;
     border-bottom: none;
-    border-top-color: @darkTranslucentGrey;
+    border-top-color: $darkTranslucentGrey;
   }
 }
 
 .translucent-popover-left {
-  @include translucent-popover();
+  $include translucent-popover();
 
   > .translucent-popover-content {
-    margin-left: @triangleSize;
+    margin-left: $triangleSize;
   }
   > .translucent-popover-arrow {
     right: 100%;
     top: 50%;
-    margin-right: -@triangleSize;
+    margin-right: -$triangleSize;
     border-left: none;
-    border-right-color: @darkTranslucentGrey;
+    border-right-color: $darkTranslucentGrey;
   }
 }
 
 .translucent-popover-top {
-  @include translucent-popover();
+  $include translucent-popover();
 
   > .translucent-popover-content {
-    margin-top: @triangleSize;
+    margin-top: $triangleSize;
   }
   > .translucent-popover-arrow {
     bottom: 100%;
     left: 50%;
-    margin-bottom: -@triangleSize;
+    margin-bottom: -$triangleSize;
     border-top: none;
-    border-bottom-color: @darkTranslucentGrey;
+    border-bottom-color: $darkTranslucentGrey;
   }
 }
 
 .translucent-popover-right {
-  @include translucent-popover();
+  $include translucent-popover();
 
   > .translucent-popover-content {
-    margin-right: @triangleSize;
+    margin-right: $triangleSize;
   }
   > .translucent-popover-arrow {
     left: 100%;
     top: 50%;
-    margin-left: -@triangleSize;
+    margin-left: -$triangleSize;
     border-right: none;
-    border-left-color: @darkTranslucentGrey;
+    border-left-color: $darkTranslucentGrey;
   }
 }
 
 .translucent-popover-content {
-  background: @darkTranslucentGrey;
+  background: $darkTranslucentGrey;
   color: white;
   display: inline-block;
   border-radius: 2px;
@@ -139,10 +139,10 @@
   text-align: center;
 }
 .translucent-popover-arrow {
-  border: floor(@triangleSize) solid transparent;
+  border: floor($triangleSize) solid transparent;
   position: absolute;
   width: 2px;
   height: 2px;
   margin: -8px;
-  @include box-sizing(content-box);
+  $include box-sizing(content-box);
 }

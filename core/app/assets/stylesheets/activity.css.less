@@ -7,14 +7,14 @@
   }
 
   .activity-group {
-    border-bottom: solid 1px @mutedBorderColor;
-    @include reset-main-padding();
+    border-bottom: solid 1px $mutedBorderColor;
+    $include reset-main-padding();
     padding-top: 10px;
     padding-bottom: 10px;
-    @include box-sizing(border-box);
-    @include clearfix();
+    $include box-sizing(border-box);
+    $include clearfix();
     position: relative;
-    color: @mutedFontColor;
+    color: $mutedFontColor;
 
     &:last-child {
       border-bottom: solid 1px transparent;
@@ -25,7 +25,7 @@
       float: left;
 
       > a > img {
-        border-radius: @baseBorderRadius;
+        border-radius: $baseBorderRadius;
         float: left;
         margin: 0 8px 0 0;
       }
@@ -34,8 +34,8 @@
     .activity-group-time, .activity-group-link,
     .activity-group-activities, .activity-description,
     .activity-inline-group-activities {
-      line-height: @baseLineHeight;
-      font-size: @metaFontSize;
+      line-height: $baseLineHeight;
+      font-size: $metaFontSize;
     }
 
     .activity-group-link {
@@ -44,7 +44,7 @@
     }
 
     .activity-group-activities {
-      @include box-sizing(border-box);
+      $include box-sizing(border-box);
       padding: 0 0 0 32px;
     }
 
@@ -60,7 +60,7 @@
 
   .activities-bottom > div > div {
     margin: 0 -15px;
-    border-top: 1px solid @baseBorderColor;
+    border-top: 1px solid $baseBorderColor;
   }
 
   .fact-view {

@@ -1,19 +1,19 @@
 @import "mixins/mixins";
 
 body {
-  font-family: @baseFontFamily;
-  font-size: @baseFontSize;
-  line-height: @baseLineHeight;
+  font-family: $baseFontFamily;
+  font-size: $baseFontSize;
+  line-height: $baseLineHeight;
 }
 
 h1, h2, h3, h4, h5 {
-  margin: (@baseLineHeight / 2) 0;
-  font-weight: @headingsFontWeight;
+  margin: ($baseLineHeight / 2) 0;
+  font-weight: $headingsFontWeight;
   text-rendering: optimizeLegibility; // Fix the character spacing for headings
 }
 
 h1 {
-  font-size: @heading1FontSize;
+  font-size: $heading1FontSize;
   margin-bottom: 6px;
   line-height: 21px;
   text-shadow: #fff 0 1px 0;
@@ -26,7 +26,7 @@ h4 { font-size: 18px; line-height: 20px; }
 h5 { font-size: 14px; line-height: 20px; }
 
 strong {
-  color: @baseFontColor;
+  color: $baseFontColor;
   font-weight: bold;
 }
 
@@ -35,28 +35,28 @@ em {
 }
 
 a {
-  color: @linkColor;
+  color: $linkColor;
   text-decoration: none;
   cursor: pointer;
 
   &:hover {
     cursor: pointer;
-    color: @linkColorHover;
+    color: $linkColorHover;
     text-decoration: none;
   }
 }
 
 p {
-  margin: 0 0 @baseLineHeight / 2;
+  margin: 0 0 $baseLineHeight / 2;
 }
 
 hr {
-  margin: @baseLineHeight 0;
+  margin: $baseLineHeight 0;
   border: 0;
-  border-top: 1px solid @hrBorder;
+  border-top: 1px solid $hrBorder;
   border-bottom: 1px solid white;
 }
 
 li {
-  line-height: @baseLineHeight;
+  line-height: $baseLineHeight;
 }

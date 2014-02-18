@@ -1,7 +1,7 @@
 @import "mixins/mixins";
 
 * {
-  @include box-sizing(border-box);
+  $include box-sizing(border-box);
 }
 
 html, body {
@@ -15,12 +15,12 @@ body {
 }
 
 .factlink-site {
-  min-width: @siteWidth; // Only on the body because it's breaking the feedback modal when set on the html too.
+  min-width: $siteWidth; // Only on the body because it's breaking the feedback modal when set on the html too.
 }
 
 .container {
   height: 100%;
-  width: @siteWidth;
+  width: $siteWidth;
   margin-right: auto;
   margin-left: auto;
 }
@@ -32,16 +32,16 @@ body {
 #main-column {
   background: white;
   min-height: 100%;
-  border-left: 1px solid @baseBorderColor;
-  border-right: 1px solid @baseBorderColor;
-  padding: 0 @mainRightPadding @mainBottomPadding @mainLeftPadding;
-  width: @mainColumnWidth;
+  border-left: 1px solid $baseBorderColor;
+  border-right: 1px solid $baseBorderColor;
+  padding: 0 $mainRightPadding $mainBottomPadding $mainLeftPadding;
+  width: $mainColumnWidth;
   box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.07);
   display: inline-block;
 }
 
 .main-wrapper {
-  width: @mainColumnWidth;
+  width: $mainColumnWidth;
 }
 
 .pull-right {

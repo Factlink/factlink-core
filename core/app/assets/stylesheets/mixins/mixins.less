@@ -1,52 +1,52 @@
-@import "variables";
-@import "mixins/triangle_arrows";
-@import "mixins/blocks";
+$import "variables";
+$import "mixins/triangle_arrows";
+$import "mixins/blocks";
 
-@mixin ellipsis(@max-width){
-  max-width: @max-width;
+$mixin ellipsis($max-width){
+  max-width: $max-width;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-@mixin reset-main-padding(){
-  margin-left: -@mainLeftPadding;
-  margin-right: -@mainRightPadding;
-  padding-left: @mainLeftPadding;
-  padding-right: @mainRightPadding;
+$mixin reset-main-padding(){
+  margin-left: -$mainLeftPadding;
+  margin-right: -$mainRightPadding;
+  padding-left: $mainLeftPadding;
+  padding-right: $mainRightPadding;
 }
 
-@mixin fading-border(@color){
-  -webkit-border-image: -webkit-linear-gradient(90deg, @color, fade(@color, 0)) 1 100%;
-  -moz-border-image:    -moz-linear-gradient(90deg, @color, fade(@color, 0)) 1 100%;
-  -ms-border-image:     -ms-linear-gradient(90deg, @color, fade(@color, 0)) 1 100%;
+$mixin fading-border($color){
+  -webkit-border-image: -webkit-linear-gradient(90deg, $color, fade($color, 0)) 1 100%;
+  -moz-border-image:    -moz-linear-gradient(90deg, $color, fade($color, 0)) 1 100%;
+  -ms-border-image:     -ms-linear-gradient(90deg, $color, fade($color, 0)) 1 100%;
 }
 
 // keep in sync with jslib
-@mixin striped(@angle: 45deg, @stripeColor: rgba(255,255,255,.15)){
-  background-image: -webkit-linear-gradient(@angle, @stripeColor 25%, transparent 25%, transparent 50%, @stripeColor 50%, @stripeColor 75%, transparent 75%, transparent);
-  background-image: linear-gradient(@angle, @stripeColor 25%, transparent 25%, transparent 50%, @stripeColor 50%, @stripeColor 75%, transparent 75%, transparent);
+$mixin striped($angle: 45deg, $stripeColor: rgba(255,255,255,.15)){
+  background-image: -webkit-linear-gradient($angle, $stripeColor 25%, transparent 25%, transparent 50%, $stripeColor 50%, $stripeColor 75%, transparent 75%, transparent);
+  background-image: linear-gradient($angle, $stripeColor 25%, transparent 25%, transparent 50%, $stripeColor 50%, $stripeColor 75%, transparent 75%, transparent);
 }
 
-@mixin loading-stripes-keyframes(){
+$mixin loading-stripes-keyframes(){
     from  { background-position: 40px 0; }
     to    { background-position: 0 0; }
 }
 
-@mixin animate-stripes(@seconds: 2s){
-  @-webkit-keyframes loading-stripes { @include loading-stripes-keyframes(); }
+$mixin animate-stripes($seconds: 2s){
+  $-webkit-keyframes loading-stripes { $include loading-stripes-keyframes(); }
 
   // IE9
-  @-ms-keyframes loading-stripes { @include loading-stripes-keyframes(); }
+  $-ms-keyframes loading-stripes { $include loading-stripes-keyframes(); }
 
   // Spec
-  @keyframes loading-stripes { @include loading-stripes-keyframes(); }
+  $keyframes loading-stripes { $include loading-stripes-keyframes(); }
 
-  -webkit-animation:  loading-stripes @seconds linear infinite;
-  animation:          loading-stripes @seconds linear infinite;
+  -webkit-animation:  loading-stripes $seconds linear infinite;
+  animation:          loading-stripes $seconds linear infinite;
 }
 
-@mixin zoom-out-cursor(){
+$mixin zoom-out-cursor(){
   cursor: pointer; cursor: -webkit-zoom-out; cursor: -moz-zoom-out;
 }
 
@@ -64,42 +64,42 @@
   }
 }
 
-@mixin placeholder(@color: @placeholderText){
+$mixin placeholder($color: $placeholderText){
   &:-moz-placeholder {
-    color: @color;
+    color: $color;
   }
   &:-ms-input-placeholder {
-    color: @color;
+    color: $color;
   }
   &::-webkit-input-placeholder {
-    color: @color;
+    color: $color;
   }
 }
 
-@mixin border-top-radius(@radius){
-  border-top-right-radius: @radius;
-  border-top-left-radius: @radius;
+$mixin border-top-radius($radius){
+  border-top-right-radius: $radius;
+  border-top-left-radius: $radius;
 }
-@mixin border-bottom-radius(@radius){
-  border-bottom-right-radius: @radius;
-  border-bottom-left-radius: @radius;
-}
-
-@mixin rotate(@degrees){
-  -webkit-transform: rotate(@degrees);
-     -moz-transform: rotate(@degrees);
-      -ms-transform: rotate(@degrees);
-       -o-transform: rotate(@degrees);
-          transform: rotate(@degrees);
+$mixin border-bottom-radius($radius){
+  border-bottom-right-radius: $radius;
+  border-bottom-left-radius: $radius;
 }
 
-@mixin background-clip(@clip){
-  -webkit-background-clip: @clip;
-     -moz-background-clip: @clip;
-          background-clip: @clip;
+$mixin rotate($degrees){
+  -webkit-transform: rotate($degrees);
+     -moz-transform: rotate($degrees);
+      -ms-transform: rotate($degrees);
+       -o-transform: rotate($degrees);
+          transform: rotate($degrees);
 }
 
-@mixin box-sizing(@boxmodel){
-     -moz-box-sizing: @boxmodel;
-          box-sizing: @boxmodel;
+$mixin background-clip($clip){
+  -webkit-background-clip: $clip;
+     -moz-background-clip: $clip;
+          background-clip: $clip;
+}
+
+$mixin box-sizing($boxmodel){
+     -moz-box-sizing: $boxmodel;
+          box-sizing: $boxmodel;
 }

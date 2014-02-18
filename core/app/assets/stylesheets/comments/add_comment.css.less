@@ -2,26 +2,26 @@
 
 .add-comment-container {
   position: relative;
-  @include block-box-shadow();
+  $include block-box-shadow();
   background: white;
   margin-top: 12px;
-  margin-bottom: @sidebarMarginBetween;
+  margin-bottom: $sidebarMarginBetween;
 }
 
 .add-comment {
-  padding: @votePadding;
+  padding: $votePadding;
 }
 
 .add-comment-arrow {
   position: absolute;
   left: 50%;
-  @include triangle-arrow-up();
+  $include triangle-arrow-up();
 }
 
 .add-comment-controls {
   overflow: hidden; // new block formatting context
   margin-top: 10px;
-  line-height: @baseButtonHeight;
+  line-height: $baseButtonHeight;
   display: none;
 }
 
@@ -41,7 +41,7 @@
 }
 
 .add-comment-search-facts {
-  box-shadow: 0px -1px @mutedBorderBottomColor, 0px -2px @mutedBorderTopColor;
+  box-shadow: 0px -1px $mutedBorderBottomColor, 0px -2px $mutedBorderTopColor;
   overflow: hidden; // new block formatting context
   margin-top: 10px;
   padding-top: 5px;

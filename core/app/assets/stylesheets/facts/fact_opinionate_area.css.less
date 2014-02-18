@@ -3,7 +3,7 @@
 // TODO: we shouldn't call this "voting" but opinionating, polling, or something else
 //       since it's quite distinct from voting (on comments)
 
-@avatarSize: 24px;
+$avatarSize: 24px;
 
 .fact-opinionate {
   display: table;
@@ -16,14 +16,14 @@
 
 .fact-opinionate-button-active {
   &.fact-opinionate-button-believes {
-    background: @green;
-    border-bottom-color: darken(@green, 10%);
-    color: darken(@green, 30%);
+    background: $green;
+    border-bottom-color: darken($green, 10%);
+    color: darken($green, 30%);
   }
   &.fact-opinionate-button-disbelieves {
-    background: @red;
-    border-bottom-color: darken(@red, 10%);
-    color: darken(@red, 30%);
+    background: $red;
+    border-bottom-color: darken($red, 10%);
+    color: darken($red, 30%);
   }
 }
 
@@ -33,12 +33,12 @@
   padding: 0px 5px;
   font-size: 14px;
   height: auto;
-  color: @grayLight;
+  color: $grayLight;
 }
 
 .fact-opinion-indicator {
   font-size: 16px;
-  color: @grayLight;
+  color: $grayLight;
 }
 
 .fact-opinionators-table {
@@ -64,22 +64,22 @@
 }
 
 .fact-opinion-tally-chart-believers{
-  background: @green;
+  background: $green;
   transition: all 0.5s;
 }
 
 .fact-opinion-tally-chart-disbelievers {
-  background: @red;
+  background: $red;
   transition: all 0.5s;
 }
 
 .fact-opinionators-table-believes {
-  color: @green;
+  color: $green;
   padding-left: 10px;
 }
 
 .fact-opinionators-table-disbelieves {
-  color: @red;
+  color: $red;
   padding-right: 10px;
 }
 
@@ -111,11 +111,11 @@
 }
 
 .fact-opinionators-believes .opinionators-more {
-  background: @green;
+  background: $green;
 }
 
 .fact-opinionators-disbelieves .opinionators-more {
-  background: @red;
+  background: $red;
 }
 
 .opinionators-avatar-image {
@@ -127,5 +127,5 @@
   color: white;
   padding: 0px 5px;
   border-radius: 3px;
-  line-height: @avatarSize;
+  line-height: $avatarSize;
 }

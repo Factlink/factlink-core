@@ -1,7 +1,7 @@
 @import "mixins/mixins";
 
-@user-width: 200px;
-@user-height: 90px;
+$user-width: 200px;
+$user-height: 90px;
 
 .tour-interesting-users {
   position: relative;
@@ -10,7 +10,7 @@
     position: relative;
     overflow: hidden;
     width: 100%;
-    height: 80px + 2*@user-height;
+    height: 80px + 2*$user-height;
 
     .tour-interesting-users-scrolling-inner {
       position: absolute;
@@ -39,7 +39,7 @@
 
 .tour-interesting-users-arrow-left,
 .tour-interesting-users-arrow-right {
-  top: 120px + @user-height;
+  top: 120px + $user-height;
   font-size: 30px;
   opacity: 0;
   position: absolute;
@@ -70,8 +70,8 @@
 
 .tour-interesting-user {
   margin: 20px;
-  width: @user-width;
-  height: @user-height;
+  width: $user-width;
+  height: $user-height;
   display: inline-block;
   &.loaded{
     cursor: pointer;
@@ -84,7 +84,7 @@
 }
 
 .tour-follow-user-heading-text {
-  .ellipsis(@user-width - 40)
+  .ellipsis($user-width - 40)
 }
 
 .tour-user-button-region > button {

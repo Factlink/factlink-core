@@ -1,7 +1,7 @@
 @import "mixins/mixins";
 
-@impactColouredBorderWidth: 3px;
-@commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
+$impactColouredBorderWidth: 3px;
+$commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 
 .opinionated-avatar,
 .post-creator-avatar {
@@ -11,8 +11,8 @@
 .comment-container {
   position: relative;
   background: white;
-  @include block-box-shadow();
-  margin-bottom: @sidebarMarginBetween;
+  $include block-box-shadow();
+  margin-bottom: $sidebarMarginBetween;
 }
 
 .comment-container:hover .comment-post-bottom {
@@ -22,7 +22,7 @@
 .comment-content-container {
   display: table-cell;
   width: 100%;
-  padding: @votePadding;
+  padding: $votePadding;
   padding-left: 0px;
 }
 
@@ -38,15 +38,15 @@
 }
 
 .comment-believes {
-  background: @believesEvidenceImpactColor;
+  background: $believesEvidenceImpactColor;
 }
 
 .comment-disbelieves {
-  background: @disbelievesEvidenceImpactColor;
+  background: $disbelievesEvidenceImpactColor;
 }
 
 .comment-unsure {
-  background: @doubtsEvidenceImpactColor;
+  background: $doubtsEvidenceImpactColor;
 }
 
 .comment-post-heading {
@@ -54,9 +54,9 @@
 }
 
 .comment-post-time {
-  line-height: @commentCreatorAvatarSize;
+  line-height: $commentCreatorAvatarSize;
   float: right;
-  color: @grayLight;
+  color: $grayLight;
   font-size: 11px;
 }
 
@@ -65,17 +65,17 @@
 }
 
 .comment-post-creator-name {
-  line-height: @commentCreatorAvatarSize;
+  line-height: $commentCreatorAvatarSize;
   display: inline-block;
   vertical-align: middle;
-  @include ellipsis(200px);
+  $include ellipsis(200px);
 }
 
 .comment-post-bottom {
   opacity: 0.4;
   transition: opacity 0.5s ease;
-  color: @mutedFontColor;
-  font-size: @metaFontSize;
+  color: $mutedFontColor;
+  font-size: $metaFontSize;
   margin: 0;
   padding: 0;
 }

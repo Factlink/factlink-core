@@ -7,21 +7,21 @@
   font-family: inherit;
   font-size: 13px;
   border-radius: 3px;
-  height: @largeButtonHeight;
-  line-height: @largeButtonHeight;
-  padding: 0 @largeButtonPadding;
+  height: $largeButtonHeight;
+  line-height: $largeButtonHeight;
+  padding: 0 $largeButtonPadding;
   transition: all 0.1s;
   vertical-align: middle;
   cursor: pointer;
   border: solid 0px rgba(0,0,0,0.1);
-  border-bottom-width: @largeButtonBorderWidth;
+  border-bottom-width: $largeButtonBorderWidth;
 
   &:before { // This resolved a weird bug in Chrome where an area between the text and the border bottom was not clickable. (issue 1029)
     content: '';
     position: absolute;
     top: 0;
     right: 0;
-    bottom: -@largeButtonBorderWidth;
+    bottom: -$largeButtonBorderWidth;
     left: 0;
     border-radius: inherit;
   }
@@ -35,72 +35,72 @@
   }
 
   &:disabled {
-    color: @mutedFontColor;;
+    color: $mutedFontColor;;
     cursor: not-allowed;
   }
 
   &:active {
     outline: none; //prevents ugly webkit active state
     border-bottom-width: 0px;
-    border-top-width: @largeButtonBorderWidth;
+    border-top-width: $largeButtonBorderWidth;
   }
 
   &.button-loading {
     background-size: 40px 40px;
     text-shadow: none;
-    @include striped(45deg, rgba(0,0,0,0.07));
-    @include animate-stripes(1.5s);
+    $include striped(45deg, rgba(0,0,0,0.07));
+    $include animate-stripes(1.5s);
   }
 }
 
 .button {
-  @include button-base();
-  background-color: @buttonBackground;
-  color: @linkColor;
+  $include button-base();
+  background-color: $buttonBackground;
+  color: $linkColor;
   text-shadow: 0 1px 0 rgba(255,255,255,0.35);
 
   &:hover {
-    color: @linkColor;
+    color: $linkColor;
   }
 }
 
 .button-confirm {
-  @include button-base();
-  background-color: @buttonConfirmBackground;
+  $include button-base();
+  background-color: $buttonConfirmBackground;
   text-shadow: 0 1px 0 rgba(0,0,0,0.35);
 }
 
 .button-danger {
-  @include button-base();
+  $include button-base();
   text-shadow: 0 1px 0 rgba(0,0,0,0.35);
-  background-color: @buttonDangerBackground;
+  background-color: $buttonDangerBackground;
 }
 
 .button-twitter {
-  @include button-base();
+  $include button-base();
   background-color: #52a1dc;
 }
 
 .button-facebook {
-  @include button-base();
+  $include button-base();
   background-color: #335292;
 }
 
 .button-small {
   font-size: 12px;
-  height: @baseButtonHeight;
-  line-height: @baseButtonHeight;
-  padding: 0 @baseButtonPadding;
-  border-bottom-width: @baseButtonBorderWidth;
+  height: $baseButtonHeight;
+  line-height: $baseButtonHeight;
+  padding: 0 $baseButtonPadding;
+  border-bottom-width: $baseButtonBorderWidth;
 
   &:active {
     padding-top: 1px;
-    border-top-width: @baseButtonBorderWidth;
+    border-top-width: $baseButtonBorderWidth;
   }
 }
 
 .button-action-checked {
-  color: @greenLabelColor;
+  color: $greenLabelColor;
 
   .icon-ok {
     font-weight: lighter;

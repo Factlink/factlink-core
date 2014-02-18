@@ -1,21 +1,21 @@
-@mixin triangle-arrow(@borderExtraWidth){
+$mixin triangle-arrow($borderExtraWidth){
   &, &:before {
-    @include box-sizing(content-box);
+    $include box-sizing(content-box);
     position: absolute;
-    border: @triangleSize solid transparent;
+    border: $triangleSize solid transparent;
   }
 
   &:before {
     content: '';
     z-index: -1;
-    border-width: @triangleSize + @borderExtraWidth;
+    border-width: $triangleSize + $borderExtraWidth;
   }
 }
 
-@mixin triangle-arrow-down(@color: @blockShadowBottomColor, @borderExtraWidth: @blockShadowBottomSize){
-  @include triangle-arrow(@borderExtraWidth);
-  margin-bottom: -@triangleSize;
-  margin-left: -@triangleSize;
+$mixin triangle-arrow-down($color: $blockShadowBottomColor, $borderExtraWidth: $blockShadowBottomSize){
+  $include triangle-arrow($borderExtraWidth);
+  margin-bottom: -$triangleSize;
+  margin-left: -$triangleSize;
 
   &, &:before {
     height: 0;
@@ -25,16 +25,16 @@
   }
 
   &:before {
-    bottom: -@blockBorderSize - @borderExtraWidth;
-    left: -@triangleSize - @borderExtraWidth;
-    border-top-color: @color;
+    bottom: -$blockBorderSize - $borderExtraWidth;
+    left: -$triangleSize - $borderExtraWidth;
+    border-top-color: $color;
   }
 }
 
-@mixin triangle-arrow-up(@color: @triangleArrowBorderColor, @borderExtraWidth: 0px){
-  @include triangle-arrow(@borderExtraWidth);
-  margin-top: -@triangleSize;
-  margin-left: -@triangleSize;
+$mixin triangle-arrow-up($color: $triangleArrowBorderColor, $borderExtraWidth: 0px){
+  $include triangle-arrow($borderExtraWidth);
+  margin-top: -$triangleSize;
+  margin-left: -$triangleSize;
 
   &, &:before {
     height: 0;
@@ -44,16 +44,16 @@
   }
 
   &:before {
-    top: -@blockBorderSize - @borderExtraWidth;
-    left: -@triangleSize - @borderExtraWidth;
-    border-bottom-color: @color;
+    top: -$blockBorderSize - $borderExtraWidth;
+    left: -$triangleSize - $borderExtraWidth;
+    border-bottom-color: $color;
   }
 }
 
-@mixin triangle-arrow-left(@color: @triangleArrowBorderColor, @borderExtraWidth: 0px){
-  @include triangle-arrow(@borderExtraWidth);
-  margin-left: -@triangleSize;
-  margin-top: -@triangleSize;
+$mixin triangle-arrow-left($color: $triangleArrowBorderColor, $borderExtraWidth: 0px){
+  $include triangle-arrow($borderExtraWidth);
+  margin-left: -$triangleSize;
+  margin-top: -$triangleSize;
 
   &, &:before {
     width: 0;
@@ -63,16 +63,16 @@
   }
 
   &:before {
-    left: -@blockBorderSize - @borderExtraWidth;
-    top: -@triangleSize - @borderExtraWidth;
-    border-right-color: @color;
+    left: -$blockBorderSize - $borderExtraWidth;
+    top: -$triangleSize - $borderExtraWidth;
+    border-right-color: $color;
   }
 }
 
-@mixin triangle-arrow-right(@color: @triangleArrowBorderColor, @borderExtraWidth: 0px){
-  @include triangle-arrow(@borderExtraWidth);
-  margin-right: -@triangleSize;
-  margin-top: -@triangleSize;
+$mixin triangle-arrow-right($color: $triangleArrowBorderColor, $borderExtraWidth: 0px){
+  $include triangle-arrow($borderExtraWidth);
+  margin-right: -$triangleSize;
+  margin-top: -$triangleSize;
 
   &, &:before {
     width: 0;
@@ -82,8 +82,8 @@
   }
 
   &:before {
-    right: -@blockBorderSize - @borderExtraWidth;
-    top: -@triangleSize - @borderExtraWidth;
-    border-left-color: @color;
+    right: -$blockBorderSize - $borderExtraWidth;
+    top: -$triangleSize - $borderExtraWidth;
+    border-left-color: $color;
   }
 }

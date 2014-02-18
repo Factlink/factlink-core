@@ -20,8 +20,8 @@ e.g. https://github.com/Factlink/core/blob/40d54edf2e51e38e048c8cf25f485c655b19a
   text-align: center;
   visibility: visible;
   z-index: 1040;
-  background: @semiTransparentLayerColor;
-  @include zoom-out-cursor();
+  background: $semiTransparentLayerColor;
+  $include zoom-out-cursor();
   display:none;
 }
 
@@ -43,20 +43,20 @@ e.g. https://github.com/Factlink/core/blob/40d54edf2e51e38e048c8cf25f485c655b19a
   min-width: 340px;
   cursor: auto;
   display: inline-block;
-  @include white-block-with-shadow();
+  $include white-block-with-shadow();
 }
 
 .modal-window-header {
-  @include background-clip(padding-box);
-  @include border-top-radius(5px);
-  color: @baseFontColor;
+  $include background-clip(padding-box);
+  $include border-top-radius(5px);
+  color: $baseFontColor;
   background: #f8f8f8;
   padding: 10px 15px 7px;
   text-shadow: 0 1px 0 #fff;
-  border-bottom: 1px solid @mutedBorderColor;
-  font-size: @heading3FontSize;
+  border-bottom: 1px solid $mutedBorderColor;
+  font-size: $heading3FontSize;
   line-height: 25px;
-  font-weight: @headingsFontWeight;
+  font-weight: $headingsFontWeight;
 }
 
 .modal-window-body {
@@ -70,7 +70,7 @@ e.g. https://github.com/Factlink/core/blob/40d54edf2e51e38e048c8cf25f485c655b19a
   margin-bottom: 0;
   text-align: right;
   background-color: #f8f8f8;
-  border-top: 1px solid @mutedBorderColor;
+  border-top: 1px solid $mutedBorderColor;
   border-radius: 0 0 6px 6px;
   box-shadow: inset 0 1px 0 white;
 }

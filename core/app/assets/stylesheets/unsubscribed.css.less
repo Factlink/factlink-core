@@ -1,7 +1,7 @@
 @import "mixins/mixins";
 
 body {
-  font-family: @baseFontFamily;
+  font-family: $baseFontFamily;
   padding-top: 20px;
   min-width: 1px; // to overwrite our base rule of 960px
 }
@@ -13,7 +13,7 @@ body {
 }
 
 .container-box {
-  @include white-block-with-shadow();
+  $include white-block-with-shadow();
   padding: 10px;
   text-align: center;
 }

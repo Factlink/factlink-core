@@ -1,4 +1,4 @@
-@import "email/email_variables";
+$import "email/email_variables";
 
 body {
   width: 100% !important;
@@ -7,19 +7,19 @@ body {
   margin: 0;
   padding: 0;
 
-  font-size: @emailBaseFontSize;
-  font-family: @emailBaseFontFamily;
+  font-size: $emailBaseFontSize;
+  font-family: $emailBaseFontFamily;
   font-style: normal;
-  color: @emailBaseFontColor;
+  color: $emailBaseFontColor;
 }
 
 a {
-  color: @emailBaseLinkColor;
+  color: $emailBaseLinkColor;
   text-decoration: none;
   font-weight: bold;
 
   &:hover {
-    color: darken(@emailBaseLinkColor, 10%);
+    color: darken($emailBaseLinkColor, 10%);
   }
 }
 
@@ -65,27 +65,27 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header-title {
-  font-size: @emailTitleFontSize;
+  font-size: $emailTitleFontSize;
   margin-bottom: 5px;
 }
 
 .header-subtitle {
-  font-size: @emailSubTitleFontSize;
+  font-size: $emailSubTitleFontSize;
   font-weight: normal;
-  color: @emailSubTitleFontColor;
+  color: $emailSubTitleFontColor;
 }
 
 .header-column {
   padding: 10px 0;
-  border-bottom: @emailBaseBorderStyling;
+  border-bottom: $emailBaseBorderStyling;
   &.no-border {
     padding-bottom: 0;
   }
 }
 
 .muted {
-  color: @emailMutedFontColor;
-  font-size: @emailMutedFontSize;
+  color: $emailMutedFontColor;
+  font-size: $emailMutedFontSize;
 }
 
 #content {
@@ -124,7 +124,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .footer-column {
   padding: 10px 0;
-  border-top: @emailBaseBorderStyling;
+  border-top: $emailBaseBorderStyling;
 }
 
 .footer-logo {
@@ -134,11 +134,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .unsubscribe-container {
   float: right;
-  color: @emailMutedFontColor;
+  color: $emailMutedFontColor;
 }
 
 .unsubscribe-link {
-    color: @emailMutedFontColor;
+    color: $emailMutedFontColor;
     font-weight: normal;
     font-size: 12px;
     text-decoration: underline;

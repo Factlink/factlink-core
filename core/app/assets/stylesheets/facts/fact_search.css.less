@@ -2,13 +2,13 @@
 
 .fact-search-input-container {
   background: white;
-  border: 1px solid @baseBorderColor;
-  @include box-sizing(border-box);
-  color: @baseFontColor;
+  border: 1px solid $baseBorderColor;
+  $include box-sizing(border-box);
+  color: $baseFontColor;
   line-height: 18px;
   padding: 7px 9px 5px;
   position: relative;
-  border-radius: @baseBorderRadius;
+  border-radius: $baseBorderRadius;
   box-shadow: inset 0 1px 1px rgba(0, 0, 3px, 0.10);
 
   input.typeahead {
@@ -32,9 +32,9 @@
   position: relative;
   margin-top: -3px;
   background: white;
-  border: 1px solid @baseBorderColor;
-  @include box-sizing(border-box);
-  @include border-bottom-radius(@baseBorderRadius);
+  border: 1px solid $baseBorderColor;
+  $include box-sizing(border-box);
+  $include border-bottom-radius($baseBorderRadius);
 
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .17);
 
@@ -50,7 +50,7 @@
   overflow: hidden;
 
   padding: 5px 10px 3px;
-  @include ellipsis(100%);
+  $include ellipsis(100%);
   text-shadow: 0 1px 0 rgba(255,255,255, 0.5);
 
   &.fact-search-result-selected {
@@ -61,7 +61,7 @@
   }
 
   em {
-    color: @linkColor;
+    color: $linkColor;
     font-style: normal;
     font-weight: bold;
   }

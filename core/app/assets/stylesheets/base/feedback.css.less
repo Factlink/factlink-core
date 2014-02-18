@@ -2,10 +2,10 @@
 
 @import "mixins/mixins";
 
-@feedback_frame_width: 430px;
+$feedback_frame_width: 430px;
 
 .modal-window.feedback-modal-window {
-  width: @feedback_frame_width;
+  width: $feedback_frame_width;
 
   .modal-window-body {
     max-height: none;
@@ -25,7 +25,7 @@
   height:auto;
 
   form {
-    @include clearfix();
+    $include clearfix();
     margin: 0;
 
     input[type=text], textarea {

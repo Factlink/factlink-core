@@ -10,7 +10,7 @@
 }
 
 .admin-form-irrelevant-feature {
-  color: @mutedFontColor;
+  color: $mutedFontColor;
 }
 
 .admin-edit-user-delete-link {
@@ -19,25 +19,25 @@
 
 .admin-dangerous-area {
   padding: 20px;
-  background-color: @errorBackground;
-  border: 1px solid @errorBorder;
+  background-color: $errorBackground;
+  border: 1px solid $errorBorder;
 }
 
 .admin-table {
   width: 100%;
-  margin-bottom: @baseLineHeight;
-  background-color: @backgroundGray;
+  margin-bottom: $baseLineHeight;
+  background-color: $backgroundGray;
   border-collapse: collapse;
   border-spacing: 0;
-  border: 1px solid @tableBorder;
+  border: 1px solid $tableBorder;
   max-width: 100%;
 
   th, td {
     padding: 8px;
-    line-height: @baseLineHeight;
+    line-height: $baseLineHeight;
     text-align: left;
     vertical-align: top;
-    border-top: 1px solid @tableBorder;
+    border-top: 1px solid $tableBorder;
   }
 }
 
@@ -47,12 +47,12 @@
   color: white;
   vertical-align: baseline;
   white-space: nowrap;
-  background-color: @grayLight;
+  background-color: $grayLight;
   padding: 1px 4px 2px;
-  border-radius: @baseBorderRadius;
+  border-radius: $baseBorderRadius;
 
-  &-important         { background-color: @errorText; }
-  &-warning           { background-color: @orange; }
-  &-success           { background-color: @successText; }
+  &-important         { background-color: $errorText; }
+  &-warning           { background-color: $orange; }
+  &-success           { background-color: $successText; }
   &-danger            { background-color: #d9534f; }
 }
