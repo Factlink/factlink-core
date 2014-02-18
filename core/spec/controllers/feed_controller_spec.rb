@@ -12,7 +12,7 @@ describe FeedController do
       FactoryGirl.reload
       other_user = create :user
       as(user) do |p|
-        p.interactor :'users/follow_user', user_name: user.username, user_to_follow_user_name: other_user.username
+        p.interactor :'users/follow_user', username: other_user.username
       end
 
       fact = create :fact
@@ -26,12 +26,12 @@ describe FeedController do
         comment2 = p.interactor :'comments/create', fact_id: fact2.id.to_i, content: 'hoi'
       end
       as(other_user) do |p|
-        p.interactor :'sub_comments/create_for_comment', comment_id: comment2.id.to_s, content: 'hoi'
+        p.interactor :'sub_comments/create', comment_id: comment2.id.to_s, content: 'hoi'
       end
 
       as(other_user) do |p|
-        p.interactor :'users/follow_user', user_name: other_user.username, user_to_follow_user_name: (create :user).username
-        p.interactor :'users/follow_user', user_name: other_user.username, user_to_follow_user_name: (create :user).username
+        p.interactor :'users/follow_user', username: (create :user).username
+        p.interactor :'users/follow_user', username: (create :user).username
       end
     end
 

@@ -34,7 +34,7 @@ describe "factlink", type: :feature do
   it "a non logged user can log in now" do
     factlink = backend_create_fact
 
-    visit friendly_fact_path(factlink)
+    go_to_fact_show_of factlink
 
     page.should have_content 'sign in/up with email'
   end

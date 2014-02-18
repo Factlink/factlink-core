@@ -1,6 +1,6 @@
 module Interactors
   module SubComments
-    class CreateForComment
+    class Create
       include Pavlov::Interactor
       include Util::CanCan
 

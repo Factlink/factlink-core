@@ -17,7 +17,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
     factlink.add_opiniated :believes, @user2.graph_user
 
     # user2 follow user
-    Pavlov.interactor(:'users/follow_user', user_name: @user2.username, user_to_follow_user_name: @user.username, pavlov_options: {current_user: @user2})
+    Pavlov.interactor(:'users/follow_user', username: @user.username, pavlov_options: {current_user: @user2})
 
     visit feed_path(@user.username)
 

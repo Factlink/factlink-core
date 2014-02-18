@@ -52,7 +52,7 @@ describe 'activity queries' do
         user = create(:full_user)
 
         as(gu1.user) do |pavlov|
-          pavlov.interactor(:'users/follow_user', user_name: gu1.user.username, user_to_follow_user_name: user.username)
+          pavlov.interactor(:'users/follow_user', username: user.username)
         end
 
         interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
@@ -85,7 +85,7 @@ describe 'activity queries' do
           fact.add_opinion :believes, gu1
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor(:'sub_comments/create_for_comment', comment_id: comment.id.to_s, content: 'content')
+            sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
           end
 
           gu1.stream_activities.map(&:to_hash_without_time).should == [
@@ -105,7 +105,7 @@ describe 'activity queries' do
           fact.add_opinion :believes, gu1
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor(:'sub_comments/create_for_comment', comment_id: comment.id.to_s, content: 'content')
+            sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
           end
 
           gu1.notifications.map(&:to_hash_without_time).should == [
@@ -122,11 +122,11 @@ describe 'activity queries' do
           end
 
           as(gu1.user) do |pavlov|
-            pavlov.interactor(:'users/follow_user', user_name: gu1.user.username, user_to_follow_user_name: current_user.username)
+            pavlov.interactor(:'users/follow_user', username: current_user.username)
           end
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor(:'sub_comments/create_for_comment', comment_id: comment.id.to_s, content: 'content')
+            sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
           end
 
           gu1.stream_activities.map(&:to_hash_without_time).should == [
@@ -150,7 +150,7 @@ describe 'activity queries' do
           end
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor(:'sub_comments/create_for_comment', comment_id: comment.id.to_s, content: 'content')
+            sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
           end
 
           gu1.stream_activities.map(&:to_hash_without_time).should == [
@@ -172,7 +172,7 @@ describe 'activity queries' do
           end
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor(:'sub_comments/create_for_comment', comment_id: comment.id.to_s, content: 'content')
+            sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
           end
 
           gu1.notifications.map(&:to_hash_without_time).should == [
@@ -192,11 +192,11 @@ describe 'activity queries' do
           end
 
           as(gu1.user) do |pavlov|
-            pavlov.interactor(:'sub_comments/create_for_comment', comment_id: comment.id.to_s, content: 'content')
+            pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
           end
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor(:'sub_comments/create_for_comment', comment_id: comment.id.to_s, content: 'content')
+            sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
           end
 
           gu1.stream_activities.map(&:to_hash_without_time).should == [
@@ -214,11 +214,11 @@ describe 'activity queries' do
           end
 
           as(gu1.user) do |pavlov|
-            pavlov.interactor(:'sub_comments/create_for_comment', comment_id: comment.id.to_s, content: 'content')
+            pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
           end
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor(:'sub_comments/create_for_comment', comment_id: comment.id.to_s, content: 'content')
+            sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
           end
 
           gu1.notifications.map(&:to_hash_without_time).should == [
@@ -234,7 +234,7 @@ describe 'activity queries' do
     let(:followee) { create(:full_user) }
     it 'creates a notification for the followed person' do
       as(user) do |pavlov|
-        pavlov.interactor(:'users/follow_user', user_name: user.username, user_to_follow_user_name: followee.username)
+        pavlov.interactor(:'users/follow_user', username: followee.username)
       end
       followee_notifications = followee.graph_user.notifications.map(&:to_hash_without_time)
       expect(followee_notifications).to eq [
@@ -245,10 +245,10 @@ describe 'activity queries' do
       follower = create(:full_user)
 
       as(follower) do |pavlov|
-        pavlov.interactor(:'users/follow_user', user_name: follower.username, user_to_follow_user_name: user.username)
+        pavlov.interactor(:'users/follow_user', username: user.username)
       end
       as(user) do |pavlov|
-        pavlov.interactor(:'users/follow_user', user_name: user.username, user_to_follow_user_name: followee.username)
+        pavlov.interactor(:'users/follow_user', username: followee.username)
       end
       follower_stream_activities = follower.graph_user.stream_activities.map(&:to_hash_without_time)
       expect(follower_stream_activities).to eq [
