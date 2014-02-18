@@ -1,21 +1,24 @@
-//= require_tree ./pages
-//= require_tree ./base
+@import "variables";
+@import "mixins/**/*";
 
-//= require browser_detection
-//= require mobile_hacks
-//= require search
-//= require activity
-//= require ie_warning_modal
-//= require devise_form
-//= require fontello
-//= require environment_warning
+@import "pages/**/*";
+@import "base/**/*";
 
-//= require_tree ./bubble
-//= require_tree ./users
-//= require_tree ./tour
-//= require_tree ./buttons
-//= require_tree ./facts
-//= require_tree ./comments
-//= require_tree ./widgets
-//= require_tree ./share
-//= require_tree ./frontend
+@import "browser_detection";
+@import "mobile_hacks";
+@import "search";
+@import "activity";
+@import "ie_warning_modal";
+@import "devise_form";
+@import "fontello";
+@import "environment_warning";
+
+@import "bubble/**/*";
+@import "users/**/*";
+@import "tour/**/*";
+@import "buttons/**/*";
+@import "facts/**/*";
+@import "comments/**/*";
+@import "widgets/**/*";
+@import "share/**/*";
+@import "frontend/**/*";
