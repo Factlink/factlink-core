@@ -47,4 +47,4 @@ FactlinkApp.module "FacebookRenewal", (FacebookRenewal, FactlinkApp, Backbone, M
     clearTimeout timeout
     timeout      = null
     justRenewed  = true
-    currentUser.fetch()
+    currentUser?.fetch()

@@ -10,6 +10,7 @@
       window.opener.document.dispatchEvent(evt);
       window.close();
     } else if (eventName !== 'account_error' && window.parent && window.parent.FactlinkApp && window.parent.FactlinkApp.FacebookRenewal) {
+      // TODO Fix this, this shouldn't always be called. This makes no difference between a regular login and a facebook renewal
       window.parent.FactlinkApp.FacebookRenewal.success();
     } else {
       origin = '<%= request.env['omniauth.origin'] %>'
