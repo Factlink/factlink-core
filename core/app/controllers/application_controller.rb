@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
     return setup_account_path unless user.set_up
     return start_the_tour_path unless seen_the_tour(user)
 
-    safe_return_to_path || feed_path(current_user.username)
+    safe_return_to_path || feed_path
   end
 
   def safe_return_to_path

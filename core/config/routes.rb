@@ -107,13 +107,14 @@ FactlinkUI::Application.routes.draw do
   post "/users/sign_in_or_up/in" => "accounts/factlink_accounts#create_session", as: 'factlink_accounts_create_session'
   post "/users/sign_in_or_up/up" => "accounts/factlink_accounts#create_account", as: 'factlink_accounts_create_account'
 
+  get '/feed' => "frontend#show", as: 'feed'
+  get '/:unused/feed', to: redirect("/feed")
+
   scope "/:username" do
     get "/" => "users#show", as: "user_profile"
     put "/" => "users#update"
     delete "/" => "users#destroy"
 
-    get '/feed' => "feed#index", as: 'feed'
-    get '/feed/count' => "feed#count", as: 'feed_count'
 
     get 'notification-settings' => "users#notification_settings", as: "user_notification_settings"
 
@@ -127,6 +128,11 @@ FactlinkUI::Application.routes.draw do
     get "/tour_users" => "users#tour_users", as: 'tour_users'
     get "/unsubscribe/:token/:type" => 'mail_subscriptions#update', subscribe_action: 'unsubscribe', as: :unsubscribe
     get "/subscribe/:token/:type" => 'mail_subscriptions#update', subscribe_action: 'subscribe', as: :subscribe
+  end
+
+  scope "/api/beta" do
+    get '/feed' => "api/feed#index"
+    get '/feed/count' => "api/feed#count"
   end
 
 end

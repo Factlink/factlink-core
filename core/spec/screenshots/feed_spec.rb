@@ -19,7 +19,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
     # user2 follow user
     Pavlov.interactor(:'users/follow_user', username: @user.username, pavlov_options: {current_user: @user2})
 
-    visit feed_path(@user.username)
+    visit feed_path
 
     assume_unchanged_screenshot 'feed'
   end
