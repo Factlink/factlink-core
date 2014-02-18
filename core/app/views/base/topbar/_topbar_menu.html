@@ -43,9 +43,6 @@
       <li class="dropdown-menu-item"><%= link_to("Info", admin_info_path) %></li>
       <li class="dropdown-menu-item"><%= link_to("Cause Error", admin_cause_error_path) %></li>
       <li class="dropdown-menu-item"><%= link_to("Resque", '/a/resque') %></li>
-      <% if can_haz :memory_profiling %>
-        <li class="dropdown-menu-item divider"><a onclick="FactlinkApp.MemoryProfiler.showModal()">Memory</a></li>
-      <% end %>
     <% end %>
   </ul>
 </li>
