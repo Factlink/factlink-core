@@ -6,7 +6,7 @@
   margin-top: -20px;
   background: @linkColor;
   cursor: pointer;
-  .rotate(270deg);
+  @include rotate(270deg);
   z-index: 1031; // above discussion-sidebar-container, below modal-layer
   outline: none;
 
@@ -21,7 +21,7 @@
   border: 3px solid #fff;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.18);
 
-  .border-bottom-radius(8px);
+  @include border-bottom-radius(8px);
 
   a {
     display: block;

@@ -1,6 +1,6 @@
 @mixin triangle-arrow(@borderExtraWidth){
   &, &:before {
-    .box-sizing(content-box);
+    @include box-sizing(content-box);
     position: absolute;
     border: @triangleSize solid transparent;
   }
@@ -13,7 +13,7 @@
 }
 
 @mixin triangle-arrow-down(@color: @blockShadowBottomColor, @borderExtraWidth: @blockShadowBottomSize){
-  .triangle-arrow(@borderExtraWidth);
+  @include triangle-arrow(@borderExtraWidth);
   margin-bottom: -@triangleSize;
   margin-left: -@triangleSize;
 
@@ -32,7 +32,7 @@
 }
 
 @mixin triangle-arrow-up(@color: @triangleArrowBorderColor, @borderExtraWidth: 0px){
-  .triangle-arrow(@borderExtraWidth);
+  @include triangle-arrow(@borderExtraWidth);
   margin-top: -@triangleSize;
   margin-left: -@triangleSize;
 
@@ -51,7 +51,7 @@
 }
 
 @mixin triangle-arrow-left(@color: @triangleArrowBorderColor, @borderExtraWidth: 0px){
-  .triangle-arrow(@borderExtraWidth);
+  @include triangle-arrow(@borderExtraWidth);
   margin-left: -@triangleSize;
   margin-top: -@triangleSize;
 
@@ -70,7 +70,7 @@
 }
 
 @mixin triangle-arrow-right(@color: @triangleArrowBorderColor, @borderExtraWidth: 0px){
-  .triangle-arrow(@borderExtraWidth);
+  @include triangle-arrow(@borderExtraWidth);
   margin-right: -@triangleSize;
   margin-top: -@triangleSize;
 

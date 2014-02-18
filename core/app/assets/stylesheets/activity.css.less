@@ -8,11 +8,11 @@
 
   .activity-group {
     border-bottom: solid 1px @mutedBorderColor;
-    .reset-main-padding();
+    @include reset-main-padding();
     padding-top: 10px;
     padding-bottom: 10px;
-    .box-sizing(border-box);
-    .clearfix();
+    @include box-sizing(border-box);
+    @include clearfix();
     position: relative;
     color: @mutedFontColor;
 
@@ -44,7 +44,7 @@
     }
 
     .activity-group-activities {
-      .box-sizing(border-box);
+      @include box-sizing(border-box);
       padding: 0 0 0 32px;
     }
 

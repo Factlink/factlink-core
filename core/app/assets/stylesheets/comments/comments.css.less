@@ -11,7 +11,7 @@
 .comment-container {
   position: relative;
   background: white;
-  .block-box-shadow();
+  @include block-box-shadow();
   margin-bottom: @sidebarMarginBetween;
 }
 
@@ -68,7 +68,7 @@
   line-height: @commentCreatorAvatarSize;
   display: inline-block;
   vertical-align: middle;
-  .ellipsis(200px);
+  @include ellipsis(200px);
 }
 
 .comment-post-bottom {

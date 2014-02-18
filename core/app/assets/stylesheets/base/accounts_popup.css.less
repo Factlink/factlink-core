@@ -30,7 +30,7 @@
 }
 
 .accounts-popup-form {
-  .white-block-with-shadow();
+  @include white-block-with-shadow();
   width: 450px;
   margin: auto;
   padding: 20px;
@@ -52,7 +52,7 @@
 }
 
 .accounts-popup-half-form {
-  .white-block-with-shadow();
+  @include white-block-with-shadow();
   width: (@popupWidth - @separatorWidth)/2 - 20px;
   padding: 20px;
   display: inline-block;

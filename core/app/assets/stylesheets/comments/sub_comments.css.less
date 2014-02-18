@@ -3,12 +3,12 @@
 .sub-comment {
   padding: 15px 0 0 10px;
   border-left: 1px solid #ddd;
-  .clearfix();
+  @include clearfix();
   font-size:@metaFontSize;
 }
 .sub-comment-post-creator-name {
   display: inline-block;
-  .ellipsis(200px);
+  @include ellipsis(200px);
 }
 
 .sub-comment-add {
