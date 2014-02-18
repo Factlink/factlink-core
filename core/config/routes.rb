@@ -130,8 +130,8 @@ FactlinkUI::Application.routes.draw do
   end
 
   scope "/api/beta" do
-    get '/feed' => "api/feed#index", as: 'feed'
-    get '/feed/count' => "api/feed#count", as: 'feed_count'
+    get '/feed' => "api/feed#index"
+    get '/feed/count' => "api/feed#count"
   end
 
 end
