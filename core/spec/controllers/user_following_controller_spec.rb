@@ -15,8 +15,8 @@ describe UserFollowingController do
       user3 = create :user
 
       as(user) do |p|
-        p.interactor(:'users/follow_user', user_to_follow_username: user2.username)
-        p.interactor(:'users/follow_user', user_to_follow_username: user3.username)
+        p.interactor(:'users/follow_user', username: user2.username)
+        p.interactor(:'users/follow_user', username: user3.username)
       end
     end
 

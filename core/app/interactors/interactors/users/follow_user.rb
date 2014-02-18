@@ -5,7 +5,7 @@ module Interactors
 
       private
 
-      arguments :user_to_follow_username
+      arguments :username
 
 
       def authorized?
@@ -13,7 +13,7 @@ module Interactors
       end
 
       def execute
-        if user.username == user_to_follow_username
+        if user.username == username
           raise "You cannot follow yourself."
         end
 
@@ -32,7 +32,7 @@ module Interactors
       end
 
       def user_to_follow
-        @user_to_follow ||= query(:'user_by_username', username: user_to_follow_username)
+        @user_to_follow ||= query(:'user_by_username', username: username)
       end
 
       def follow_user
@@ -51,7 +51,7 @@ module Interactors
 
 
       def validate
-        validate_nonempty_string :user_to_follow_username, user_to_follow_username
+        validate_nonempty_string :username, username
       end
     end
   end

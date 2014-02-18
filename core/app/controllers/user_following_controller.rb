@@ -6,7 +6,7 @@ class UserFollowingController < ApplicationController
 
   def update
     following_username = params[:id]
-    interactor :'users/follow_user', user_to_follow_username: following_username
+    interactor :'users/follow_user', username: following_username
     render json: {}
   end
 

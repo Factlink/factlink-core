@@ -8,7 +8,7 @@ describe Interactors::Users::FollowUser do
     it 'throws when no current_user' do
       pavlov_options = {}
       expect do
-        described_class.new(user_to_follow_username: 'foo', pavlov_options: pavlov_options).call
+        described_class.new(username: 'foo', pavlov_options: pavlov_options).call
       end.to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
   end
@@ -18,7 +18,7 @@ describe Interactors::Users::FollowUser do
       user = double(id: '1a', graph_user_id: '10', graph_user: double, username: 'user')
       user_to_follow = double(graph_user_id: '20', graph_user: double, username: 'user_to_follow')
       options = {current_user: user}
-      interactor = described_class.new(user_to_follow_username: user_to_follow.username, pavlov_options: options)
+      interactor = described_class.new(username: user_to_follow.username, pavlov_options: options)
 
       Pavlov.stub(:query)
             .with(:'user_by_username',
@@ -51,8 +51,7 @@ describe Interactors::Users::FollowUser do
       user = double(id: '1a', graph_user_id: '10', graph_user: double, username: 'user')
       user_to_follow = double(graph_user_id: '20', graph_user: double, username: 'user_to_follow')
       options = {current_user: user}
-      interactor = described_class.new(username: user.username,
-                                       user_to_follow_username: user_to_follow.username, pavlov_options: options)
+      interactor = described_class.new(username: user_to_follow.username, pavlov_options: options)
 
       Pavlov.stub(:query)
             .with(:'user_by_username', username: user_to_follow.username, pavlov_options: options)
@@ -70,14 +69,14 @@ describe Interactors::Users::FollowUser do
     let(:pavlov_options) do
       { current_user: double(username: 'karel') }
     end
-    it 'with a invalid user_to_follow_username doesn\t validate' do
-      expect_validating(user_to_follow_username: 12, pavlov_options: pavlov_options)
-        .to fail_validation('user_to_follow_username should be a nonempty string.')
+    it 'with a invalid username doesn\t validate' do
+      expect_validating(username: 12, pavlov_options: pavlov_options)
+        .to fail_validation('username should be a nonempty string.')
     end
 
     it 'you don\'t try to follow yourself' do
       expect do
-        described_class.new(user_to_follow_username: 'karel', pavlov_options: pavlov_options).call
+        described_class.new(username: 'karel', pavlov_options: pavlov_options).call
       end.to raise_error
     end
   end
