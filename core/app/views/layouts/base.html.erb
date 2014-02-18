@@ -13,11 +13,8 @@
     <meta name="description" content="">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
-    <%= stylesheet_link_tag "frontend" %>
-
+    <%= stylesheet_link_tag "application" %>
     <%= yield :specific_stylesheet_tag %>
-
-    <%= yield :stylesheets %>
 
     <% if can_haz :pink_feedback_button %>
       <!-- Speciaal voor jou Joel! -->
