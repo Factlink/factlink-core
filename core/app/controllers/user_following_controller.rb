@@ -13,9 +13,7 @@ class UserFollowingController < ApplicationController
   def destroy
     username = params[:username]
     following_username = params[:id]
-    interactor :'users/unfollow_user',
-               username: username,
-               user_to_unfollow_username: following_username
+    interactor :'users/unfollow_user', user_to_unfollow_username: following_username
     render json: {}
   end
 end

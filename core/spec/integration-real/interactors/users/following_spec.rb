@@ -56,7 +56,7 @@ describe 'user following' do
     before do
       as(user1) do |pavlov|
         pavlov.interactor(:'users/follow_user', username: user2.username)
-        pavlov.interactor(:'users/unfollow_user', username: user1.username, user_to_unfollow_username: user2.username)
+        pavlov.interactor(:'users/unfollow_user', user_to_unfollow_username: user2.username)
       end
     end
 
@@ -80,7 +80,7 @@ describe 'user following' do
   describe 'unfollowing, following multiple times' do
     before do
       as(user1) do |pavlov|
-        pavlov.interactor(:'users/unfollow_user', username: user1.username, user_to_unfollow_username: user2.username)
+        pavlov.interactor(:'users/unfollow_user', user_to_unfollow_username: user2.username)
         pavlov.interactor(:'users/follow_user', username: user2.username)
         pavlov.interactor(:'users/follow_user', username: user2.username)
       end

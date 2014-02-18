@@ -7,34 +7,20 @@ describe Interactors::Users::UnfollowUser do
   describe '#authorized?' do
     it 'throws when no current_user' do
       expect do
-        described_class.new(username: 'foo',
-                            user_to_unfollow_username: 'bar').call
+        described_class.new(user_to_unfollow_username: 'bar').call
       end.to raise_error Pavlov::AccessDenied, 'Unauthorized'
-    end
-
-    it 'throws when updating someone else\'s follow' do
-      current_user = double(username: 'username')
-
-      expect do
-        described_class.new(username: 'other_username', user_to_unfollow_username: 'gerard', pavlov_options:  {current_user: current_user}).call
-      end.to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
   end
 
   describe '#call' do
     it 'calls a command to unfollow' do
-      username = 'jan'
       user_to_unfollow_username = 'henk'
       user = double(graph_user_id: double, username: 'jan')
       pavlov_options = { current_user: user }
       user_to_unfollow = double(graph_user_id: double)
-      interactor = described_class.new username: username,
-                                       user_to_unfollow_username: user_to_unfollow_username,
+      interactor = described_class.new user_to_unfollow_username: user_to_unfollow_username,
                                        pavlov_options: pavlov_options
 
-      Pavlov.should_receive(:query)
-            .with(:'user_by_username', username: username, pavlov_options: pavlov_options)
-            .and_return(user)
       Pavlov.should_receive(:query)
             .with(:'user_by_username',
                       username: user_to_unfollow_username, pavlov_options: pavlov_options)
@@ -51,12 +37,7 @@ describe Interactors::Users::UnfollowUser do
 
   describe 'validations' do
     it 'validates username' do
-      expect_validating(username: 12, user_to_unfollow_username: 'name')
-        .to fail_validation 'username should be a nonempty string.'
-    end
-
-    it 'validates username' do
-      expect_validating(username: 'name', user_to_unfollow_username: 12)
+      expect_validating(user_to_unfollow_username: 12)
         .to fail_validation 'user_to_unfollow_username should be a nonempty string.'
     end
   end
