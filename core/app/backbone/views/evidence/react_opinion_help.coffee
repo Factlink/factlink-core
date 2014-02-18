@@ -2,7 +2,7 @@ window.ReactOpinionHelp = React.createClass
   displayName: 'ReactOpinionHelp'
 
   render: ->
-    _div ['add-comment-container'],
+    _div ['add-comment-container comment-container'],
       _span ['add-comment-arrow']
       _div ['opinion-help'],
         _span ["opinion-help-question"],
