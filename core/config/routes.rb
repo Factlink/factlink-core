@@ -70,6 +70,8 @@ FactlinkUI::Application.routes.draw do
     get ":name" => "home#pages", as: "pages",  constraints: {name: /([-a-zA-Z_\/]+)/}
   end
 
+  get "/publisher" => "home#pages", as: "publisher_page", defaults: {name: "publisher"}
+
   authenticated :user do
     namespace :admin, path: 'a' do
       get 'info'
