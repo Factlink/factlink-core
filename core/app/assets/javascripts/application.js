@@ -15,4 +15,4 @@
 
 //= require_tree ./base
 //= require_tree ./lib
-
+//= require ./frontend
