@@ -13,6 +13,10 @@ module Interactors
       end
 
       def execute
+        if user.username == user_to_follow_username
+          raise "You cannot follow yourself."
+        end
+
         return if already_following
 
         follow_user
@@ -47,12 +51,7 @@ module Interactors
 
 
       def validate
-        #validate_nonempty_string :username, username
         validate_nonempty_string :user_to_follow_username, user_to_follow_username
-
-        if user.username == user_to_follow_username
-          errors.add :user_to_follow_username, "You cannot follow yourself."
-        end
       end
     end
   end
