@@ -36,10 +36,6 @@
   animation:          loading-stripes $seconds linear infinite;
 }
 
-@mixin zoom-out-cursor(){
-  cursor: pointer; cursor: -webkit-zoom-out; cursor: -moz-zoom-out;
-}
-
 %clearfix {
   &:before,
   &:after {
