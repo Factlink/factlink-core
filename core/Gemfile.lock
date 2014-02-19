@@ -28,13 +28,6 @@ GIT
       addressable
 
 GIT
-  remote: git@github.com:logdown/compass-rails.git
-  revision: 67779b4f388ff4d56f7683c18c4e24d2ad2ecf78
-  specs:
-    compass-rails (1.1.2)
-      compass (>= 0.12.2)
-
-GIT
   remote: git@github.com:logdown/sass-rails.git
   revision: 8e23667f86e3b3669835957bb6604ab06eb9256b
   specs:
@@ -143,10 +136,6 @@ GEM
     coffee-script-source (1.7.0)
     colored (1.2)
     colorize (0.6.0)
-    compass (0.12.2)
-      chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.1)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     css_parser (1.3.5)
@@ -174,7 +163,6 @@ GEM
     fastercsv (1.5.5)
     ffi (1.9.3)
     formatador (0.2.4)
-    fssm (0.2.10)
     guard (2.4.0)
       formatador (>= 0.2.4)
       listen (~> 2.1)
@@ -520,7 +508,6 @@ DEPENDENCIES
   capybara-email (~> 2.0)
   capybara-screenshot (~> 0.3)
   coffee-script (~> 2.2)
-  compass-rails (~> 1.1.2)!
   database_cleaner (~> 1.0)
   devise (~> 2.2.3)
   factory_girl_rails (~> 4.2)

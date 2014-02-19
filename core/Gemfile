@@ -100,7 +100,6 @@ group :assets do
   gem 'sprockets-rails', :require => 'sprockets/railtie', :git => "git@github.com:logdown/sprockets-rails.git"
 
   gem 'sass-rails',   '~> 4.0.1', :git => "git@github.com:logdown/sass-rails.git"
-  gem "compass-rails", "~> 1.1.2", :git => "git@github.com:logdown/compass-rails.git"
 end
 
 group :development do
