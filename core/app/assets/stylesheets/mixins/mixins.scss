@@ -18,26 +18,18 @@
   background-image: linear-gradient($angle, $stripeColor 25%, transparent 25%, transparent 50%, $stripeColor 50%, $stripeColor 75%, transparent 75%, transparent);
 }
 
-@mixin loading-stripes-keyframes(){
+@mixin loading-stripes-keyframes() {
     from  { background-position: 40px 0; }
     to    { background-position: 0 0; }
 }
 
-@mixin animate-stripes($seconds: 2s){
+@mixin animate-stripes($seconds){
   @-webkit-keyframes loading-stripes { @include loading-stripes-keyframes(); }
-
-  // IE9
   @-ms-keyframes loading-stripes { @include loading-stripes-keyframes(); }
-
-  // Spec
   @keyframes loading-stripes { @include loading-stripes-keyframes(); }
 
   -webkit-animation:  loading-stripes $seconds linear infinite;
   animation:          loading-stripes $seconds linear infinite;
-}
-
-@mixin zoom-out-cursor(){
-  cursor: pointer; cursor: -webkit-zoom-out; cursor: -moz-zoom-out;
 }
 
 %clearfix {
