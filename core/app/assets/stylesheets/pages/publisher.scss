@@ -101,7 +101,7 @@
 
 .higher-engagement {
   text-align: left;
-  background-color: #e9eaee; //TODO LESS -> SASS Workaround
+  background-color: #e9eaee; //TODO LESS -> SASS Workaround fade(@semiTransparentLayerColor, 100%);
   border: 1px lightgrey solid;
   border-radius: 4px;
   padding-top: 3px;

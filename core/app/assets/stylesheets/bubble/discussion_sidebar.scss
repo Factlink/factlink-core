@@ -27,7 +27,7 @@ body.discussion-sidebar-open {
   width: 25%;
   cursor: auto;
   min-height: 100%;
-  background-color: #e9eaee; //TODO LESS -> SASS Workaround
+  background-color: #e9eaee; //TODO LESS -> SASS Workaround fade(@semiTransparentLayerColor, 100%);
 
   // slide out a bit further than necessary for a more natural animation
   right: -$discussionSidebarMaxWidth - 100px;
