@@ -62,14 +62,14 @@
 //   }
 // }
 
-@mixin translucent-popover(){
+%translucent-popover(){
   position: relative;
   visibility: visible;
   display: inline-block;
 }
 
 .translucent-popover-bottom {
-  @include translucent-popover();
+  @extend %translucent-popover;
 
   > .translucent-popover-content {
     margin-bottom: $triangleSize;
@@ -84,7 +84,7 @@
 }
 
 .translucent-popover-left {
-  @include translucent-popover();
+  @extend %translucent-popover;
 
   > .translucent-popover-content {
     margin-left: $triangleSize;
@@ -99,7 +99,7 @@
 }
 
 .translucent-popover-top {
-  @include translucent-popover();
+  @extend %translucent-popover;
 
   > .translucent-popover-content {
     margin-top: $triangleSize;
@@ -114,7 +114,7 @@
 }
 
 .translucent-popover-right {
-  @include translucent-popover();
+  @extend %translucent-popover;
 
   > .translucent-popover-content {
     margin-right: $triangleSize;
