@@ -13,7 +13,7 @@
   border-left:  1px solid $baseBorderColor;
   border-right: 0px;
 
-  -webkit-border-image: -webkit-linear-gradient(90deg, $baseBorderColor, rgba(202,202,202,0)) 1 100%;
+  -webkit-border-image: -webkit-linear-gradient(90deg, $baseBorderColor, rgba(202,202,202,0)) 1 100%; //TODO LESS -> SASS Workaround fade(@color, 0)
   -moz-border-image:    -moz-linear-gradient(90deg, $baseBorderColor, rgba(202,202,202,0)) 1 100%;
   -ms-border-image:     -ms-linear-gradient(90deg, $baseBorderColor, rgba(202,202,202,0)) 1 100%;
 
