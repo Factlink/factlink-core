@@ -9,7 +9,7 @@ class window.ClientController
       url: params.url
       site_title: params.site_title
 
-    if Factlink.Global.signed_in
+    if FactlinkApp.signedIn()
       fact.save {},
         success: =>
           if params.current_user_opinion && params.current_user_opinion != 'no_vote'

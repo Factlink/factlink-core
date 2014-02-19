@@ -43,7 +43,7 @@ window.ReactDiscussion = React.createBackboneClass
         if Factlink.Global.can_haz.opinions_of_users_and_comments
           ReactOpinionateArea
             model: @model().getOpinionators()
-      if Factlink.Global.signed_in
+      if FactlinkApp.signedIn()
         ReactAddComment
           model: @model().comments()
           initiallyFocus: @props.initiallyFocusAddComment
