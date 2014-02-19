@@ -17,6 +17,7 @@ describe ClientController do
         .gsub(/"id":"[^"]*"/, '"id: "#ID#"')
         .gsub(/"created_at":"[^"]*"/, '"created_at: "#CREATED_AT#"')
         .gsub(/mixpanel.identify\("[^"]*"\)/, 'mixpanel.identify("#IDENTITY#")')
+        .gsub(/localStorage.factlink_csrf_token\s+=\s+"[^"]*"/, 'localStorage.factlink_csrf_token = "#CSRF_TOKEN#"')
 
       verify(format: :html) { response_body }
     end
