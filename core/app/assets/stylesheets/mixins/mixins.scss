@@ -40,7 +40,7 @@
   cursor: pointer; cursor: -webkit-zoom-out; cursor: -moz-zoom-out;
 }
 
-@mixin clearfix {
+%clearfix {
   &:before,
   &:after {
     display: table;

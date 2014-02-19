@@ -1,5 +1,5 @@
 .profile-user-social-statistics {
-  @include clearfix();
+  @extend %clearfix;
   margin: 0 0 10px;
   border-bottom: 1px solid $baseBorderColor;
 }
