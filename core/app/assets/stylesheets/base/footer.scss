@@ -23,6 +23,7 @@ div.footer {
 
   .bottom_links {
     margin: 20px 0 0;
+    @include clearfix();
   }
 
   ul {
@@ -62,6 +63,10 @@ div.footer {
       }
     }
   }
+}
+
+.footer-right {
+  @include clearfix();
 }
 
 .mixpanel-logo {
