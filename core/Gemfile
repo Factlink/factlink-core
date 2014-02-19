@@ -73,7 +73,6 @@ group :production, :development do
 end
 
 group :assets do
-  gem 'sass-rails'
   gem 'uglifier', '~> 2.0'
   gem "yui-compressor", '~> 0.12.0'
   gem 'hogan_assets', '~> 1.1.0' #1.2 or later include hogan 3.0 and somehow only generate empty templates.
@@ -97,9 +96,11 @@ group :assets do
   gem "rails-assets-jquery-autosize"
   gem 'rails-assets-tether'
 
-  # Rails 4 pipline
-  gem 'sprockets', '2.2.2.backport2' #upgrade awaiting rails 4
-  gem 'sprockets-rails', '2.0.0.backport1'  #upgrade awaiting rails 4
+  gem 'sprockets', '2.2.2.backport2'
+  gem 'sprockets-rails', :require => 'sprockets/railtie', :git => "git@github.com:logdown/sprockets-rails.git"
+
+  gem 'sass-rails',   '~> 4.0.1', :git => "git@github.com:logdown/sass-rails.git"
+  gem "compass-rails", "~> 1.1.2", :git => "git@github.com:logdown/compass-rails.git"
 end
 
 group :development do
