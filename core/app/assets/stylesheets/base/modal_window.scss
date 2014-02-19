@@ -21,7 +21,7 @@ e.g. https://github.com/Factlink/core/blob/40d54edf2e51e38e048c8cf25f485c655b19a
   visibility: visible;
   z-index: 1040;
   background: $semiTransparentLayerColor;
-  $include zoom-out-cursor();
+  @include zoom-out-cursor();
   display:none;
 }
 
@@ -43,12 +43,12 @@ e.g. https://github.com/Factlink/core/blob/40d54edf2e51e38e048c8cf25f485c655b19a
   min-width: 340px;
   cursor: auto;
   display: inline-block;
-  $include white-block-with-shadow();
+  @include white-block-with-shadow();
 }
 
 .modal-window-header {
-  $include background-clip(padding-box);
-  $include border-top-radius(5px);
+  @include background-clip(padding-box);
+  @include border-top-radius(5px);
   color: $baseFontColor;
   background: #f8f8f8;
   padding: 10px 15px 7px;

@@ -4,12 +4,12 @@ div.fact-view {
   color: $baseFontColor;
   line-height: 19px;
 
-  $include reset-main-padding();
+  @include reset-main-padding();
   padding-top: 20px;
   padding-bottom: 10px;
 
   position: relative;
-  $include clearfix();
+  @include clearfix();
 
   border-bottom: 1px solid $mutedBorderColor;
 }

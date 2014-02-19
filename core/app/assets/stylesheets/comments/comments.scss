@@ -11,7 +11,7 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 .comment-container {
   position: relative;
   background: white;
-  $include block-box-shadow();
+  @include block-box-shadow();
   margin-bottom: $sidebarMarginBetween;
 }
 
@@ -68,7 +68,7 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
   line-height: $commentCreatorAvatarSize;
   display: inline-block;
   vertical-align: middle;
-  $include ellipsis(200px);
+  @include ellipsis(200px);
 }
 
 .comment-post-bottom {

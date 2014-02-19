@@ -48,13 +48,13 @@
   &.button-loading {
     background-size: 40px 40px;
     text-shadow: none;
-    $include striped(45deg, rgba(0,0,0,0.07));
-    $include animate-stripes(1.5s);
+    @include striped(45deg, rgba(0,0,0,0.07));
+    @include animate-stripes(1.5s);
   }
 }
 
 .button {
-  $include button-base();
+  @include button-base();
   background-color: $buttonBackground;
   color: $linkColor;
   text-shadow: 0 1px 0 rgba(255,255,255,0.35);
@@ -65,24 +65,24 @@
 }
 
 .button-confirm {
-  $include button-base();
+  @include button-base();
   background-color: $buttonConfirmBackground;
   text-shadow: 0 1px 0 rgba(0,0,0,0.35);
 }
 
 .button-danger {
-  $include button-base();
+  @include button-base();
   text-shadow: 0 1px 0 rgba(0,0,0,0.35);
   background-color: $buttonDangerBackground;
 }
 
 .button-twitter {
-  $include button-base();
+  @include button-base();
   background-color: #52a1dc;
 }
 
 .button-facebook {
-  $include button-base();
+  @include button-base();
   background-color: #335292;
 }
 

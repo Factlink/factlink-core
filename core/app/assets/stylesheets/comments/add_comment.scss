@@ -2,7 +2,7 @@
 
 .add-comment-container {
   position: relative;
-  $include block-box-shadow();
+  @include block-box-shadow();
   background: white;
   margin-top: 12px;
   margin-bottom: $sidebarMarginBetween;
@@ -15,7 +15,7 @@
 .add-comment-arrow {
   position: absolute;
   left: 50%;
-  $include triangle-arrow-up();
+  @include triangle-arrow-up();
 }
 
 .add-comment-controls {

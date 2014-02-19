@@ -29,7 +29,7 @@ $mixin team-name(){
 
 }
 .team-member-name {
-  $include team-name();
+  @include team-name();
   font-size: 15px;
   width: 150px;
   line-height: 18px;
@@ -37,7 +37,7 @@ $mixin team-name(){
 }
 
 .team-advisor-name {
-  $include team-name();
+  @include team-name();
   font-size: $heading4FontSize;
   width: 95px;
   line-height: 16px;

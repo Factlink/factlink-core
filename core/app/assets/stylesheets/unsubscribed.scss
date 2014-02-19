@@ -13,7 +13,7 @@ body {
 }
 
 .container-box {
-  $include white-block-with-shadow();
+  @include white-block-with-shadow();
   padding: 10px;
   text-align: center;
 }

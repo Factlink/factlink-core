@@ -6,5 +6,5 @@ $mixin block-box-shadow(){
 $mixin white-block-with-shadow(){
   background: white;
   border-radius: $baseBorderRadius;
-  $include block-box-shadow();
+  @include block-box-shadow();
 }

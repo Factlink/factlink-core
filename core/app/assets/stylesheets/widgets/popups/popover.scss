@@ -9,7 +9,7 @@
 
 //   > .factlink-popover-content {
 //     display: inline-block;
-//     $include background-clip(padding-box);
+//     @include background-clip(padding-box);
 //     background: white;
 //     border-radius: $baseBorderRadius;
 //     box-shadow: $blockBorder, 0 $factlinkPopoverShadowBottomSize 5px $factlinkPopoverShadowBottomColor;
@@ -24,7 +24,7 @@
 //       margin-top: $triangleSize;
 //     }
 //     > .factlink-popover-arrow {
-//       $include triangle-arrow-up($factlinkPopoverArrowTopBorderColor);
+//       @include triangle-arrow-up($factlinkPopoverArrowTopBorderColor);
 //       top: $triangleSize;
 //       left: 50%;
 //     }
@@ -35,7 +35,7 @@
 //       margin-bottom: $triangleSize;
 //     }
 //     > .factlink-popover-arrow {
-//       $include triangle-arrow-down($factlinkPopoverArrowBorderColor, $factlinkPopoverArrowBorderOffset);
+//       @include triangle-arrow-down($factlinkPopoverArrowBorderColor, $factlinkPopoverArrowBorderOffset);
 //       bottom: $triangleSize;
 //       left: 50%;
 //     }
@@ -46,7 +46,7 @@
 //       margin-right: $triangleSize;
 //     }
 //     > .factlink-popover-arrow {
-//       $include triangle-arrow-right($factlinkPopoverArrowBorderColor, $factlinkPopoverArrowBorderOffset);
+//       @include triangle-arrow-right($factlinkPopoverArrowBorderColor, $factlinkPopoverArrowBorderOffset);
 //       right: $triangleSize;
 //       top: 50%;
 //     }
@@ -57,7 +57,7 @@
 //       margin-left: $triangleSize;
 //     }
 //     > .factlink-popover-arrow {
-//       $include triangle-arrow-left($factlinkPopoverArrowBorderColor, $factlinkPopoverArrowBorderOffset);
+//       @include triangle-arrow-left($factlinkPopoverArrowBorderColor, $factlinkPopoverArrowBorderOffset);
 //       left: $triangleSize;
 //       top: 50%;
 //     }
@@ -71,7 +71,7 @@ $mixin translucent-popover(){
 }
 
 .translucent-popover-bottom {
-  $include translucent-popover();
+  @include translucent-popover();
 
   > .translucent-popover-content {
     margin-bottom: $triangleSize;
@@ -86,7 +86,7 @@ $mixin translucent-popover(){
 }
 
 .translucent-popover-left {
-  $include translucent-popover();
+  @include translucent-popover();
 
   > .translucent-popover-content {
     margin-left: $triangleSize;
@@ -101,7 +101,7 @@ $mixin translucent-popover(){
 }
 
 .translucent-popover-top {
-  $include translucent-popover();
+  @include translucent-popover();
 
   > .translucent-popover-content {
     margin-top: $triangleSize;
@@ -116,7 +116,7 @@ $mixin translucent-popover(){
 }
 
 .translucent-popover-right {
-  $include translucent-popover();
+  @include translucent-popover();
 
   > .translucent-popover-content {
     margin-right: $triangleSize;
@@ -144,5 +144,5 @@ $mixin translucent-popover(){
   width: 2px;
   height: 2px;
   margin: -8px;
-  $include box-sizing(content-box);
+  @include box-sizing(content-box);
 }

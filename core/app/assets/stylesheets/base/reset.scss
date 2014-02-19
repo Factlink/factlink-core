@@ -15,7 +15,7 @@ input, textarea {
   font-family: inherit;
   font-size: inherit;
   color: $gray;
-  $include placeholder();
+  @include placeholder();
   padding: 4px 6px;
   border-radius: $baseBorderRadius;
   border: 1px solid $inputBorder;
