@@ -16,8 +16,6 @@
   -webkit-border-image: -webkit-linear-gradient(90deg, $baseBorderColor, rgba(202,202,202,0)) 1 100%;
   -moz-border-image:    -moz-linear-gradient(90deg, $baseBorderColor, rgba(202,202,202,0)) 1 100%;
   -ms-border-image:     -ms-linear-gradient(90deg, $baseBorderColor, rgba(202,202,202,0)) 1 100%;
-  }
-
 
   &:first-child {
     border-left: 0px solid transparent;
