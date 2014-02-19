@@ -1,4 +1,4 @@
-@mixin button-base {
+%button-base {
   color: white;
   display: inline-block;
   position: relative;
@@ -52,7 +52,7 @@
 }
 
 .button {
-  @include button-base();
+  @extend %button-base;
   background-color: $buttonBackground;
   color: $linkColor;
   text-shadow: 0 1px 0 rgba(255,255,255,0.35);
@@ -63,24 +63,24 @@
 }
 
 .button-confirm {
-  @include button-base();
+  @extend %button-base;
   background-color: $buttonConfirmBackground;
   text-shadow: 0 1px 0 rgba(0,0,0,0.35);
 }
 
 .button-danger {
-  @include button-base();
+  @extend %button-base;
   text-shadow: 0 1px 0 rgba(0,0,0,0.35);
   background-color: $buttonDangerBackground;
 }
 
 .button-twitter {
-  @include button-base();
+  @extend %button-base;
   background-color: #52a1dc;
 }
 
 .button-facebook {
-  @include button-base();
+  @extend %button-base;
   background-color: #335292;
 }
 
