@@ -12,12 +12,6 @@
   padding-right: $mainRightPadding;
 }
 
-@mixin fading-border($color){
-  -webkit-border-image: -webkit-linear-gradient(90deg, $color, rgba(202,202,202,0)) 1 100%;
-  -moz-border-image:    -moz-linear-gradient(90deg, $color, rgba(202,202,202,0)) 1 100%;
-  -ms-border-image:     -ms-linear-gradient(90deg, $color, rgba(202,202,202,0)) 1 100%;
-}
-
 // keep in sync with jslib
 @mixin striped($angle: 45deg, $stripeColor: rgba(255,255,255,.15)){
   background-image: -webkit-linear-gradient($angle, $stripeColor 25%, transparent 25%, transparent 50%, $stripeColor 50%, $stripeColor 75%, transparent 75%, transparent);
