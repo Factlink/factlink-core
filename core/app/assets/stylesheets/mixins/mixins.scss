@@ -13,9 +13,9 @@
 }
 
 @mixin fading-border($color){
-  -webkit-border-image: -webkit-linear-gradient(90deg, $color, fade($color, 0)) 1 100%;
-  -moz-border-image:    -moz-linear-gradient(90deg, $color, fade($color, 0)) 1 100%;
-  -ms-border-image:     -ms-linear-gradient(90deg, $color, fade($color, 0)) 1 100%;
+  -webkit-border-image: -webkit-linear-gradient(90deg, $color, rgba(202,202,202,0)) 1 100%;
+  -moz-border-image:    -moz-linear-gradient(90deg, $color, rgba(202,202,202,0)) 1 100%;
+  -ms-border-image:     -ms-linear-gradient(90deg, $color, rgba(202,202,202,0)) 1 100%;
 }
 
 // keep in sync with jslib
