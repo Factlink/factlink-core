@@ -21,7 +21,7 @@ $feedback_frame_width: 430px;
   height:auto;
 
   form {
-    @include clearfix();
+    @extend %clearfix;
     margin: 0;
 
     input[type=text], textarea {

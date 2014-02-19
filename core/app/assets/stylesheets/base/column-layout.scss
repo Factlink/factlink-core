@@ -11,12 +11,12 @@
 }
 .row {
  margin-left: -20px;
- @include clearfix();
+ @extend %clearfix;
 }
 
 .grid-row {
   margin-left: -20px;
-  @include clearfix();
+  @extend %clearfix;
 }
 
 .grid-3-col {
