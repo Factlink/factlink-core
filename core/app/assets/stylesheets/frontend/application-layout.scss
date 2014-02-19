@@ -1,3 +1,4 @@
 .content-region {
   margin-top: 20px;
+  @include clearfix();
 }
