@@ -1,5 +1,4 @@
-// Hack for bootstrap, remove the "div >" part when removing bootstrap
-html > body .text_area_view {
+.text_area_view {
   @include box-sizing(border-box);
   width: 100%;
   padding: 7px 9px 5px;
