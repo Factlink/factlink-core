@@ -1,0 +1,95 @@
+@mixin ellipsis($max-width){
+  max-width: $max-width;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin reset-main-padding(){
+  margin-left: -$mainLeftPadding;
+  margin-right: -$mainRightPadding;
+  padding-left: $mainLeftPadding;
+  padding-right: $mainRightPadding;
+}
+
+// keep in sync with jslib
+@mixin striped($angle: 45deg, $stripeColor: rgba(255,255,255,.15)){
+  background-image: -webkit-linear-gradient($angle, $stripeColor 25%, transparent 25%, transparent 50%, $stripeColor 50%, $stripeColor 75%, transparent 75%, transparent);
+  background-image: linear-gradient($angle, $stripeColor 25%, transparent 25%, transparent 50%, $stripeColor 50%, $stripeColor 75%, transparent 75%, transparent);
+}
+
+@mixin loading-stripes-keyframes(){
+    from  { background-position: 40px 0; }
+    to    { background-position: 0 0; }
+}
+
+@mixin animate-stripes($seconds: 2s){
+  @-webkit-keyframes loading-stripes { @include loading-stripes-keyframes(); }
+
+  // IE9
+  @-ms-keyframes loading-stripes { @include loading-stripes-keyframes(); }
+
+  // Spec
+  @keyframes loading-stripes { @include loading-stripes-keyframes(); }
+
+  -webkit-animation:  loading-stripes $seconds linear infinite;
+  animation:          loading-stripes $seconds linear infinite;
+}
+
+@mixin zoom-out-cursor(){
+  cursor: pointer; cursor: -webkit-zoom-out; cursor: -moz-zoom-out;
+}
+
+%clearfix {
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+    // Fixes Opera/contenteditable bug:
+    // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin placeholder($color: $placeholderText){
+  &:-moz-placeholder {
+    color: $color;
+  }
+  &:-ms-input-placeholder {
+    color: $color;
+  }
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+}
+
+@mixin border-top-radius($radius){
+  border-top-right-radius: $radius;
+  border-top-left-radius: $radius;
+}
+@mixin border-bottom-radius($radius){
+  border-bottom-right-radius: $radius;
+  border-bottom-left-radius: $radius;
+}
+
+@mixin rotate($degrees){
+  -webkit-transform: rotate($degrees);
+     -moz-transform: rotate($degrees);
+      -ms-transform: rotate($degrees);
+       -o-transform: rotate($degrees);
+          transform: rotate($degrees);
+}
+
+@mixin background-clip($clip){
+  -webkit-background-clip: $clip;
+     -moz-background-clip: $clip;
+          background-clip: $clip;
+}
+
+@mixin box-sizing($boxmodel){
+     -moz-box-sizing: $boxmodel;
+          box-sizing: $boxmodel;
+}

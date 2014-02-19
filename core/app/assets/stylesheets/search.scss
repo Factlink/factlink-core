@@ -1,0 +1,24 @@
+.search-results-capped-message {
+  padding-top: 10px;
+  width: 100%;
+  text-align: center;
+  color: $metaFontColor;
+}
+
+.search-result {
+  @include reset-main-padding();
+  &:first-child {
+    border-top: 1px solid $baseBorderColor;
+  }
+  border-bottom: 1px solid $baseBorderColor;
+  overflow: hidden;
+}
+
+.search-result-statistics {
+  float: right;
+  margin-top: 5px;
+}
+
+.user-search-result {
+  padding: 10px 0 10px 20px;
+}

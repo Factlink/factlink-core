@@ -1,0 +1,46 @@
+.user-header {
+  padding: 0 0 0.5em 21px;
+}
+
+.user-image, .user-name {
+  display: inline;
+}
+
+.user-name {
+  height: 32px;
+  line-height: 32px;
+  vertical-align: top;
+  margin-left: 0.5em;
+  font-size: $emailTitleFontSize;
+}
+
+.user-info-stat {
+  border-right: $emailBaseBorderStyling;
+  padding-top: 0;
+}
+
+.user-info-value {
+  padding-top: 0.5em;
+}
+
+.user-info-description {
+  padding-bottom: 0;
+}
+
+#user-info {
+  border-radius: 3px;
+  border: $emailBaseBorderStyling;
+  border-collapse: separate;
+  width: 100%;
+}
+
+.message-title {
+  font-weight: normal;
+  line-height: 1.25em;
+  color: $emailMutedFontColor;
+}
+
+.message-user-image {
+  width: 32px;
+  padding-right: 0;
+}

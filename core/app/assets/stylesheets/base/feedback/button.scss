@@ -1,0 +1,33 @@
+#feedback_button {
+  position: fixed;
+  top: 50%;
+  margin-top: -20px;
+  background: $linkColor;
+  cursor: pointer;
+  @include rotate(270deg);
+  z-index: 1031; // above discussion-sidebar-container, below modal-layer
+  outline: none;
+
+  width: 80px;
+  height: 40px;
+  left: -34px;
+  line-height: 40px;
+  text-align: center;
+
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0);
+
+  border: 3px solid #fff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.18);
+
+  @include border-bottom-radius(8px);
+
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

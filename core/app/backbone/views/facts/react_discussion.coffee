@@ -1,3 +1,4 @@
+new_comment_id = 0
 ReactComments = React.createBackboneClass
   displayName: 'ReactComments'
   changeOptions: 'add remove reset sort sync request'
@@ -13,7 +14,7 @@ ReactComments = React.createBackboneClass
       @model().map (comment) =>
         ReactComment
           model: comment
-          key: comment.get('id')
+          key: comment.get('id') || ('new' + new_comment_id++)
           fact_opinionators: @model().fact.getOpinionators()
 
 
