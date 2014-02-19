@@ -1,5 +1,5 @@
 .top-annotation {
-  @include block-box-shadow();
+  @extend %block-box-shadow;
   background: white;
   position: relative;
   padding: $votePadding;

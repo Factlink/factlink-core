@@ -1,6 +1,6 @@
 .add-comment-container {
   position: relative;
-  @include block-box-shadow();
+  @extend %block-box-shadow;
   background: white;
   margin-top: 12px;
   margin-bottom: $sidebarMarginBetween;
