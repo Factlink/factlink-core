@@ -35,7 +35,7 @@ body.discussion-sidebar-open {
 }
 
 .discussion-sidebar-container-visible {
-  background-color: fade($semiTransparentLayerColor, 20%);
+  background-color: rgba(233,234,238,0.2); //TODO LESS -> SASS Workaround fade($semiTransparentLayerColor, 20%);
   transition: background-color $discussionSidebarTransitionTime;
 
   .discussion-sidebar {
