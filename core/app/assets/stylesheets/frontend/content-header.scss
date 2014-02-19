@@ -2,8 +2,8 @@ $titleHeight: 40px;
 
 .content-header {
   border-bottom: 1px solid $baseBorderColor;
-  @include reset-main-padding();
   @extend %clearfix;
+  @extend %reset-main-padding;
 }
 
 .content-title {

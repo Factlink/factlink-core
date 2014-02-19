@@ -2,7 +2,7 @@ div.fact-view {
   color: $baseFontColor;
   line-height: 19px;
 
-  @include reset-main-padding();
+  @extend %reset-main-padding;
   padding-top: 20px;
   padding-bottom: 10px;
 

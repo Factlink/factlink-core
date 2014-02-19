@@ -6,7 +6,7 @@
 
   .activity-group {
     border-bottom: solid 1px $mutedBorderColor;
-    @include reset-main-padding();
+    @extend %reset-main-padding;
     padding-top: 10px;
     padding-bottom: 10px;
     @include box-sizing(border-box);
