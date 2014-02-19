@@ -128,13 +128,11 @@ $successBorder:           #c2d3a5;
 $infoText:                #3a87ad;
 $infoBackground:          #d9edf7;
 
-// Our own poovers
-// Rename to $popover... once we get rid over Twitter popovers
-$factlinkPopoverShadowBottomColor:   rgba(0,0,0,0.4);
-$factlinkPopoverShadowBottomSize:    1px;
-$factlinkPopoverArrowBorderColor:    rgba(0,0,0,0.17);
-$factlinkPopoverArrowTopBorderColor: rgba(0,0,0,0.25);
-$factlinkPopoverArrowBorderOffset:   1px;
+$PopoverShadowBottomColor:   rgba(0,0,0,0.4);
+$PopoverShadowBottomSize:    1px;
+$PopoverArrowBorderColor:    rgba(0,0,0,0.17);
+$PopoverArrowTopBorderColor: rgba(0,0,0,0.25);
+$PopoverArrowBorderOffset:   1px;
 $darkTranslucentGrey:     rgba(32,32,32,0.6);
 
 // Styling
