@@ -1,4 +1,4 @@
-
+@import "variables";
 
 .admin-form-label-column {
   text-align: right;
@@ -50,9 +50,9 @@
   background-color: $grayLight;
   padding: 1px 4px 2px;
   border-radius: $baseBorderRadius;
-
-  &-important         { background-color: $errorText; }
-  &-warning           { background-color: $orange; }
-  &-success           { background-color: $successText; }
-  &-danger            { background-color: #d9534f; }
 }
+
+.admin-label-important         { background-color: $errorText; }
+.admin-label-warning           { background-color: $orange; }
+.admin-label-success           { background-color: $successText; }
+.admin-label-danger            { background-color: #d9534f; }
