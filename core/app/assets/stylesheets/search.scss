@@ -6,7 +6,7 @@
 }
 
 .search-result {
-  @include reset-main-padding();
+  @extend %reset-main-padding;
   &:first-child {
     border-top: 1px solid $baseBorderColor;
   }
