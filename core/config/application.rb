@@ -114,12 +114,11 @@ module FactlinkUI
       /\w+\.(?!js|css|less).+/,
 
       'admin.css',
-      'frontend.css',
+      'application.css',
       'base.css',
       'unsubscribed.css',
 
       'application.js',
-      'frontend.js',
       'admin.js',
       'jquery.js',
     ]

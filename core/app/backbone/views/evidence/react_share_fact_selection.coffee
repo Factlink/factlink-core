@@ -33,10 +33,10 @@ window.ReactShareFactSelection = React.createBackboneClass
   displayName: 'ReactShareFactSelection'
 
   componentDidMount: ->
-    currentUser.on 'change:services', @forceUpdate, @
+    currentUser.on 'change:services', => @forceUpdate()
 
   componentWillUnmount: ->
-    currentUser.off 'change:services', @forceUpdate, @
+    currentUser.off 'change:services'
 
   _connectedButton: ->
     _label ['pull-right share-button-container'],

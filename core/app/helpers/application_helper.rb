@@ -21,7 +21,7 @@ module ApplicationHelper
 
   def home_path
     if user_signed_in?
-      feed_path(current_user.username)
+      feed_path
     else
       '/'
     end

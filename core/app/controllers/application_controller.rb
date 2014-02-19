@@ -27,11 +27,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # expose query to views, so we can rewrite inline
-  # retrieval to proper queries. The queries should
-  # be pulled back to controllers, and then to interactors
-  helper_method :query, :interactor # TODO: remove me ASAP
-
   rescue_from CanCan::AccessDenied, Pavlov::AccessDenied do |exception|
     respond_to do |format|
       if not current_user
@@ -66,7 +61,7 @@ class ApplicationController < ActionController::Base
     return setup_account_path unless user.set_up
     return start_the_tour_path unless seen_the_tour(user)
 
-    safe_return_to_path || feed_path(current_user.username)
+    safe_return_to_path || feed_path
   end
 
   def safe_return_to_path

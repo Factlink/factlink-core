@@ -1,0 +1,57 @@
+.faces-list {
+  margin-right:-20px;
+  clear:both;
+  &:after {
+    content:''; display:table; clear:both;
+  }
+}
+
+.team-member-block, .team-advisor-block {
+  position: relative;
+  float: left;
+  margin-right: 14.9px;
+  margin-bottom: 22px;
+}
+.team-member-block {
+  width: 163.817px;
+}
+.team-advisor-block {
+  width: 104.25px;
+}
+
+@mixin team-name(){
+  position: relative;
+  margin: 0;
+  text-align: center;
+  font-weight: bold;
+
+}
+.team-member-name {
+  @include team-name();
+  font-size: 15px;
+  width: 150px;
+  line-height: 18px;
+  left: -10px;
+}
+
+.team-advisor-name {
+  @include team-name();
+  font-size: $heading4FontSize;
+  width: 95px;
+  line-height: 16px;
+  left: -7px;
+}
+
+
+.team-photo {
+  width: 135px;
+  height: 135px;
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 1), 0 0 0 6px #cbcbcb, 0 7px 3px 0 rgba(0, 0, 0, .15);
+  margin-bottom: 15px;
+  border-radius: 1000px;
+
+  &.advisor {
+    width: 80px;
+    height: 80px;
+  }
+}

@@ -4,7 +4,7 @@
   <title>Factlink modal window</title>
   <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
-  <%= stylesheet_link_tag "frontend" %>
+  <%= stylesheet_link_tag "application" %>
   <%# TODO: move this style to the css %>
   <style type="text/css">
     html, body{
@@ -25,7 +25,6 @@
   <div id='modal_region'></div>
   <div id="js-facebook-renewal-region"></div>
   <%= javascript_include_base %>
-  <%= javascript_include_extended %>
   <%= render 'snippets/raven_js' %>
   <%= render 'snippets/mixpanel' %>
 

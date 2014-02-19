@@ -25,6 +25,6 @@ describe 'Password recovery', type: :feature do
     fill_in "user_password_confirmation", with: "our_house"
     click_button "Change my password"
 
-    page.should have_content("Your password was changed successfully. You are now signed in.")
+    find('.notification-center-alert-container', text: 'Your password was changed successfully. You are now signed in.')
   end
 end

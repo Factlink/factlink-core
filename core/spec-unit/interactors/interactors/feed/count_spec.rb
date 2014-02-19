@@ -8,17 +8,17 @@ describe Interactors::Feed::Count do
   describe '#call' do
     it 'correctly' do
       channel_id = '1'
-      timestamp = 'inf'
+      timestamp = '2345678'
       count = 15
 
       pavlov_options = {current_user: double}
       interactor = described_class.new timestamp: timestamp, pavlov_options: pavlov_options
 
       Pavlov.should_receive(:query)
-            .with(:"feed/count", timestamp: timestamp, pavlov_options: pavlov_options)
+            .with(:"feed/count", timestamp: timestamp.to_i, pavlov_options: pavlov_options)
             .and_return count
 
-      expect(interactor.call).to eq count
+      expect(interactor.call).to eq({count: count, timestamp: timestamp.to_i})
     end
   end
 

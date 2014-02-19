@@ -74,7 +74,7 @@ feature 'the profile page', type: :feature do
       backend.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'believes', content: "so true")
     end
 
-    visit feed_path(following_user.username)
+    visit feed_path
 
     page.should have_content displaystring
   end
