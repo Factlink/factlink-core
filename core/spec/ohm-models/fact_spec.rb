@@ -72,12 +72,36 @@ describe Fact do
   end
 
   describe 'delete' do
+    include PavlovSupport
+
     it "raises when deletable? is false" do
       fact = create :fact
       fact.stub deletable?: false
       expect do
         fact.delete
       end.to raise_error
+    end
+
+    it "deletes the fact data" do
+      fact = create :fact, data: (create :fact_data)
+      fact_data_id = fact.data.id
+      fact.delete
+      expect(FactData.find(fact_data_id)).to be_nil
+    end
+
+    it "deletes the fact from the search" do
+      ElasticSearch.stub synchronous: true
+
+      fact = create :fact, data: (create :fact_data, displaystring: 'gekke gerrit is een hond')
+      as(create :user) do |p|
+        results = p.query(:elastic_search_fact_data, keywords: 'gerrit', page: 1, row_count: 10)
+        expect(results.length).to eq 1
+      end
+      fact.delete
+      as(create :user) do |p|
+        results = p.query(:elastic_search_fact_data, keywords: 'gerrit', page: 1, row_count: 10)
+        expect(results.length).to eq 0
+      end
     end
   end
 end

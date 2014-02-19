@@ -61,6 +61,7 @@ class Fact < OurOhm
 
   def delete
     raise unless deletable?
+    data.destroy
     super
   end
 
