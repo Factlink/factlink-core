@@ -8,8 +8,9 @@ ReactComments = React.createBackboneClass
 
   render: ->
     _div [],
-      ReactLoadingIndicator
-        model: @model()
+      _div ['loading-indicator-centered'],
+        ReactLoadingIndicator
+          model: @model()
       @model().map (comment) =>
         ReactComment
           model: comment
@@ -37,7 +38,8 @@ window.ReactDiscussion = React.createBackboneClass
           if @model().get('displaystring')
             @model().get('displaystring')
           else
-            ReactLoadingIndicator()
+            _div ["loading-indicator-centered"],
+              ReactLoadingIndicator()
         if Factlink.Global.can_haz.opinions_of_users_and_comments
           ReactOpinionateArea
             model: @model().getOpinionators()

@@ -52,7 +52,7 @@ window.ReactAddComment = React.createBackboneClass
     shareProviders: {facebook: false, twitter: false}
 
   render: ->
-    _div ['add-comment-container'],
+    _div ['add-comment-container comment-container'],
       _span ['add-comment-arrow']
       _div ['add-comment spec-add-comment-form'],
         _div ['add-comment-question'],
