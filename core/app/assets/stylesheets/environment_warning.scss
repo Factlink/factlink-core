@@ -22,12 +22,12 @@ $black:   rgb(48,48,48);
   left:5px;
 }
 
-$keyframes annoyingbg {
+@keyframes annoyingbg {
   from { background-position: 0px 0px }
   to { background-position: -198px 0; }
 }
 
-$-webkit-keyframes annoyingbg {
+@-webkit-keyframes annoyingbg {
   from { background-position: 0px 0px }
   to { background-position: -198px 0; }
 }

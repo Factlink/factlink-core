@@ -21,7 +21,7 @@
   width: 104.25px;
 }
 
-$mixin team-name(){
+@mixin team-name(){
   position: relative;
   margin: 0;
   text-align: center;

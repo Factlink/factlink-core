@@ -84,7 +84,7 @@ $user-height: 90px;
 }
 
 .tour-follow-user-heading-text {
-  .ellipsis($user-width - 40)
+  @include ellipsis($user-width - 40)
 }
 
 .tour-user-button-region > button {

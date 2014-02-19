@@ -1,6 +1,4 @@
-
-
-.button-base {
+@mixin button-base {
   color: white;
   display: inline-block;
   position: relative;

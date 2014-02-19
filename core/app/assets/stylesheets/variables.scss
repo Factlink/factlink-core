@@ -16,7 +16,6 @@ $orange:                #f89406;
 $blue:                  #3D75A3;
 
 $lightYellow:           #fdfad9;
-$itemHoverColor:        lighten($linkColor, 51%);
 $backgroundGray:        #f9f9f9;
 $greenLabelColor:       #359e7f;
 
@@ -27,7 +26,7 @@ $bodyBackground:        white;
 // Links
 // -------------------------
 $linkColor:             $blue;
-$linkColorHover:        darken($blue, 20);
+$linkColorHover:        #214059;
 
 // Typography
 // -------------------------
