@@ -3,7 +3,7 @@
               0 $blockShadowBottomSize 1px 0 $blockShadowBottomColor;
 }
 
-@mixin white-block-with-shadow(){
+%white-block-with-shadow {
   background: white;
   border-radius: $baseBorderRadius;
   @extend %block-box-shadow;
