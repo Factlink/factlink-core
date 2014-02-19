@@ -10,7 +10,7 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
   position: relative;
   background: white;
   border-bottom: 1px lightgrey solid;
-  margin-bottom: @sidebarMarginBetween;
+  margin-bottom: $sidebarMarginBetween;
 }
 
 .comment-container:hover .comment-post-bottom {
