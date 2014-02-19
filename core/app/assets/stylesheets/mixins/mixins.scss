@@ -5,7 +5,7 @@
   text-overflow: ellipsis;
 }
 
-%reset-main-padding(){
+%reset-main-padding {
   margin-left: -$mainLeftPadding;
   margin-right: -$mainRightPadding;
   padding-left: $mainLeftPadding;
