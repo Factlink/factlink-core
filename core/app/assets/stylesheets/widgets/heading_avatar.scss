@@ -26,7 +26,7 @@
 
   &:after {
     z-index: -1;
-    @extend %block-box-shadow;
+    @extend %white-block-with-shadow;
   }
 }
 
