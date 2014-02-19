@@ -1,0 +1,58 @@
+@import "variables";
+
+.admin-form-label-column {
+  text-align: right;
+  padding-right:1em;
+}
+
+.admin-form-textarea {
+  height: 60px;
+}
+
+.admin-form-irrelevant-feature {
+  color: $mutedFontColor;
+}
+
+.admin-edit-user-delete-link {
+  color: rgb(206, 0, 0);
+}
+
+.admin-dangerous-area {
+  padding: 20px;
+  background-color: $errorBackground;
+  border: 1px solid $errorBorder;
+}
+
+.admin-table {
+  width: 100%;
+  margin-bottom: $baseLineHeight;
+  background-color: $backgroundGray;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid $tableBorder;
+  max-width: 100%;
+
+  th, td {
+    padding: 8px;
+    line-height: $baseLineHeight;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid $tableBorder;
+  }
+}
+
+.admin-label {
+  font-weight: bold;
+  line-height: 14px; // ensure proper line-height if floated
+  color: white;
+  vertical-align: baseline;
+  white-space: nowrap;
+  background-color: $grayLight;
+  padding: 1px 4px 2px;
+  border-radius: $baseBorderRadius;
+}
+
+.admin-label-important         { background-color: $errorText; }
+.admin-label-warning           { background-color: $orange; }
+.admin-label-success           { background-color: $successText; }
+.admin-label-danger            { background-color: #d9534f; }

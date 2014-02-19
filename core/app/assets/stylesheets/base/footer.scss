@@ -1,0 +1,82 @@
+
+
+div.footer {
+  border-top: 1px solid $baseBorderColor;
+  box-shadow: inset 0px 1px 3px rgba(0,0,0,0.1);
+  padding-bottom: 50px;
+
+  .large_arrow {
+    background: image-url('landing/sign_up/arrow.png') no-repeat top center;
+    height: 55px;
+    width: 297px;
+    position: relative;
+    top: -1px;
+    margin: 0 auto;
+  }
+
+  hr {
+    background: image-url('base/footer/hr.png') repeat-x top;
+    border: none;
+    height: 3px;
+    margin: 0;
+  }
+
+  .bottom_links {
+    margin: 20px 0 0;
+    @include clearfix();
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      float: left;
+      padding: 0 9px 0 0;
+
+      &:after {
+        content: "·"
+      }
+
+      &.last {
+        padding: 0;
+        &:after {
+          content: ""
+        }
+      }
+
+      &.copy {
+        color: #777;
+        font-size: 12px;
+      }
+
+      a {
+        margin: 0 5px 0 0;
+        color: $linkColor;
+        font-weight: bold;
+        text-decoration: none;
+        transition: color .15s ease-in-out;
+        &:hover {
+          color: $linkColorHover;
+        }
+      }
+    }
+  }
+}
+
+.footer-right {
+  @include clearfix();
+}
+
+.mixpanel-logo {
+  opacity: 0.50;
+  margin-top: -5px;
+  &:hover {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+  }
+  > img {
+    width: 60px;
+  }
+}

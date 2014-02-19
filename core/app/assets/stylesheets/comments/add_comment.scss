@@ -1,0 +1,46 @@
+.add-comment-container {
+  position: relative;
+  @include block-box-shadow();
+  background: white;
+  margin-top: 12px;
+  margin-bottom: $sidebarMarginBetween;
+}
+
+.add-comment {
+  padding: $votePadding;
+}
+
+.add-comment-arrow {
+  position: absolute;
+  left: 50%;
+  @include triangle-arrow-up();
+}
+
+.add-comment-controls {
+  overflow: hidden; // new block formatting context
+  margin-top: 10px;
+  line-height: $baseButtonHeight;
+  display: none;
+}
+
+.add-comment-controls-visible {
+  display: block;
+}
+
+.add-comment-post-button {
+  display: inline-block;
+  width: 105px;
+  float: right;
+}
+
+.add-comment-question {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.add-comment-search-facts {
+  box-shadow: 0px -1px $mutedBorderBottomColor, 0px -2px $mutedBorderTopColor;
+  overflow: hidden; // new block formatting context
+  margin-top: 10px;
+  padding-top: 5px;
+}

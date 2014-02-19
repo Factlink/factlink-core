@@ -1,0 +1,25 @@
+.activities-more {
+  @include reset-main-padding();
+  padding: 15px 0;
+  border-bottom: 1px solid $baseBorderColor;
+  display: none;
+
+  > .activities-more-button {
+    border: 1px solid #dee5ef;
+    background: #f3f6fa;
+    border-radius: $baseBorderRadius;
+    text-align: center;
+    line-height: 40px;
+    display: block;
+    margin: 0 $mainRightPadding 0 $mainLeftPadding;
+
+    &:hover {
+      text-decoration: none;
+      border: 1px solid darken(#dee5ef, 10%);
+    }
+
+    > .unread_count {
+      color: #555;
+    }
+  }
+}
