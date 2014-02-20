@@ -8,7 +8,7 @@ if FactlinkEnvironment != 'production'
 
   frame = new FactlinkJailRoot.ControlIframe content
 
-  frame.$el.addClass 'factlink-control-frame-proxy-message'
+  frame.$el.addClass 'factlink-control-frame-environment-message'
 
   frame.$frameBody.on 'click', =>
     frame.fadeOut().then(->frame.destroy())
