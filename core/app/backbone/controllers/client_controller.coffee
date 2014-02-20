@@ -28,7 +28,7 @@ class window.ClientController
       onChange = =>
         currentUser.off 'change', onChange
         @showNewFact(params)
-      currentUser.on 'change', onChange
+      currentUser?.on 'change', onChange
 
       view = new NewFactLoginView model: fact
       view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
