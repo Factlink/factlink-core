@@ -1,16 +1,15 @@
-// drop `factlink-` prefix when getting rid of Bootstrap popovers
-// .factlink-popover {
+// .popover {
 //   position: relative;
 //   visibility: visible;
 //   display: inline-block;
 //   z-index: 1; // force new stacking context for arrow shadow
 
-//   > .factlink-popover-content {
+//   > .popover-content {
 //     display: inline-block;
 //     @include background-clip(padding-box);
 //     background: white;
 //     border-radius: $baseBorderRadius;
-//     box-shadow: $blockBorder, 0 $factlinkPopoverShadowBottomSize 5px $factlinkPopoverShadowBottomColor;
+//     box-shadow: $blockBorder, 0 $PopoverShadowBottomSize 5px $PopoverShadowBottomColor;
 
 //     // some basic resets
 //     line-height: $baseLineHeight;
@@ -18,44 +17,44 @@
 //   }
 
 //   &.top {
-//     > .factlink-popover-content {
+//     > .popover-content {
 //       margin-top: $triangleSize;
 //     }
-//     > .factlink-popover-arrow {
-//       @include triangle-arrow-up($factlinkPopoverArrowTopBorderColor);
+//     > .popover-arrow {
+//       @include triangle-arrow-up($PopoverArrowTopBorderColor);
 //       top: $triangleSize;
 //       left: 50%;
 //     }
 //   }
 
 //   &.bottom {
-//     > .factlink-popover-content {
+//     > .popover-content {
 //       margin-bottom: $triangleSize;
 //     }
-//     > .factlink-popover-arrow {
-//       @include triangle-arrow-down($factlinkPopoverArrowBorderColor, $factlinkPopoverArrowBorderOffset);
+//     > .popover-arrow {
+//       @include triangle-arrow-down($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
 //       bottom: $triangleSize;
 //       left: 50%;
 //     }
 //   }
 
 //   &.right {
-//     > .factlink-popover-content {
+//     > .popover-content {
 //       margin-right: $triangleSize;
 //     }
-//     > .factlink-popover-arrow {
-//       @include triangle-arrow-right($factlinkPopoverArrowBorderColor, $factlinkPopoverArrowBorderOffset);
+//     > .popover-arrow {
+//       @include triangle-arrow-right($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
 //       right: $triangleSize;
 //       top: 50%;
 //     }
 //   }
 
 //   &.left {
-//     > .factlink-popover-content {
+//     > .popover-content {
 //       margin-left: $triangleSize;
 //     }
-//     > .factlink-popover-arrow {
-//       @include triangle-arrow-left($factlinkPopoverArrowBorderColor, $factlinkPopoverArrowBorderOffset);
+//     > .popover-arrow {
+//       @include triangle-arrow-left($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
 //       left: $triangleSize;
 //       top: 50%;
 //     }
