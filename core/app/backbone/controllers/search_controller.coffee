@@ -15,6 +15,7 @@ class window.SearchController extends Backbone.Marionette.Controller
       collection: results
 
     results.fetch()
-    mp_track 'Search: Top bar search'
+    mp_track 'Search: Top bar search',
+      query: query
 
   onClose: -> $('.js-navbar-search-box').val('')
