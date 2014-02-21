@@ -1,0 +1,40 @@
+.feed-activity {
+  padding: 5px 0;
+}
+
+.feed-activity-user {
+  display: table-cell;
+  vertical-align: top;
+  width: 48px;
+  padding-right: 10px;
+}
+
+.feed-activity-user-avatar {
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+.feed-activity-user-avatar.image-32px {
+  margin: 0 5px;
+}
+
+.feed-activity-container {
+  display: table-cell;
+  vertical-align: top;
+  width: 100%;
+  padding: 8px;
+  background: white;
+  border-radius: 4px;
+  border-bottom: 1px lightgrey solid;
+}
+
+.feed-activity-heading {
+  min-height: 32px;
+  line-height: 32px;
+}
+
+.feed-activity-time {
+  font-size: 11px;
+  float: right;
+  color: #999;
+}
