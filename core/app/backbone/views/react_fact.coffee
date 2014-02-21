@@ -15,8 +15,6 @@ ReactProxyLink = React.createBackboneClass
           target:"_blank"],
         _img ["proxy-link-favicon",
               src:"https://www.google.com/s2/u/0/favicons?domain=#{fact_url_host}"],
-          @model().factUrlTitle()
-      _i ["proxy-link-overflow"]
 
 window.ReactFact = React.createBackboneClass
   render: ->
