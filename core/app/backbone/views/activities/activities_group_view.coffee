@@ -20,7 +20,7 @@ class window.ActivitiesGroupView extends Backbone.Marionette.CompositeView
   tryAppend: (model) -> return false
 
 class window.CreatedCommentView extends Backbone.Marionette.Layout
-  className: 'activity-group'
+  className: 'feed-activity'
   template: "activities/created_comment"
   templateHelpers: ->
     user: @user()?.toJSON()
