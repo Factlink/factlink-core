@@ -29,13 +29,19 @@
 }
 
 .feed-activity-heading {
-  min-height: 32px;
-  line-height: 32px;
+  display: table;
+  width: 100%;
+}
+
+.feed-activity-action {
+  display: table-cell;
+  text-align: left;
 }
 
 .feed-activity-time {
   font-size: 11px;
-  float: right;
+  display: table-cell;
+  text-align: right;
   color: #999;
 }
 

@@ -6,9 +6,11 @@
 
 <div class="feed-activity-container">
   <div class="feed-activity-heading">
-    <a class="feed-activity-username" href="{{ user.link }}" rel="backbone">{{ user.name }} </a>
-    <span class="feed-activity-description">commented on </span>
-    <span class="feed-activity-time">{{ time_ago }} {{ global.t.ago }}</span>
+    <div class="feed-activity-action">
+      <a class="feed-activity-username" href="{{ user.link }}" rel="backbone">{{ user.name }} </a>
+      <span class="feed-activity-description">commented on </span>
+    </div>
+    <div class="feed-activity-time">{{ time_ago }} {{ global.t.ago }}</div>
   </div>
   <div class="js-region-fact"></div>
   <div class="feed-activity-content">

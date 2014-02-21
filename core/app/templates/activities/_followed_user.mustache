@@ -6,13 +6,15 @@
 
 <div class="feed-activity-container">
   <div class="feed-activity-heading">
-    <a class="feed-activity-username" href="{{ user.link }}" rel="backbone"> {{ user.name }} </a>
-    <span class="feed-activity-description"> {{global.t.followed}} </span>
-    <a class="feed-activity-username" href="{{followed_user.link}}" rel="backbone">
-    <img class="feed-activity-user-avatar image-32px" src="{{ followed_user.avatar_url_32 }}">
-    {{ followed_user.name }}
-    </a>
-    <span class="feed-activity-time">{{ time_ago }} {{ global.t.ago }}</span>
+    <div class="feed-activity-action">
+      <a class="feed-activity-username" href="{{ user.link }}" rel="backbone"> {{ user.name }} </a>
+      <span class="feed-activity-description"> {{global.t.followed}} </span>
+      <a class="feed-activity-username" href="{{followed_user.link}}" rel="backbone">
+      <img class="feed-activity-user-avatar image-32px" src="{{ followed_user.avatar_url_32 }}">
+      {{ followed_user.name }}
+      </a>
+    </div>
+    <div class="feed-activity-time">{{ time_ago }} {{ global.t.ago }}</div>
   </div>
 </div>
 
