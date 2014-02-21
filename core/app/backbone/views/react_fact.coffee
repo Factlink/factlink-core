@@ -20,6 +20,6 @@ ReactProxyLink = React.createBackboneClass
 
 window.ReactFact = React.createBackboneClass
   render: ->
-    _div ['fact-view'],
+    _div ['feed-activity-annotation'],
       ReactFactBody(model: @model())
       ReactProxyLink(model: @model())
