@@ -1,6 +1,6 @@
 ReactFactBody = React.createBackboneClass
   render: ->
-    _a ["fact-body",
+    _a ["annotation-body",
         href: @model().get('proxy_open_url'),
         target: '_blank'],
       @model().get('displaystring')
