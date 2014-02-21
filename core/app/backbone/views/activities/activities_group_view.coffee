@@ -41,7 +41,7 @@ class window.CreatedCommentView extends Backbone.Marionette.Layout
 
 
 class window.FollowedUserView extends Backbone.Marionette.ItemView
-  className: 'activity-group'
+  className: 'feed-activity'
   template: "activities/followed_user"
   templateHelpers: =>
     followed_user: @followed_user().toJSON()
