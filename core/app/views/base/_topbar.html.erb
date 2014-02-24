@@ -19,7 +19,7 @@
     <% elsif current_user %>
       <ul class="topbar-menu">
         <li class="topbar-menu-item">
-          <%= link_to "Home", home_path, class: 'js-potential-backbone topbar-menu-link' %>
+          <%= link_to "Home", home_path, class: 'js-potential-backbone topbar-menu-link topbar-home' %>
         </li>
         <li class="topbar-divider"></li>
         <%= render "base/topbar/user_profile" %>

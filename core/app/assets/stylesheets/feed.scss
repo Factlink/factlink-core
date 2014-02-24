@@ -12,6 +12,13 @@
 .feed-activity-user-avatar {
   border-radius: 4px;
   vertical-align: middle;
+  height: 48px;
+  width: 48px;
+
+  @include respond-to(600) {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .feed-activity-user-avatar.image-32px {
@@ -25,6 +32,7 @@
   padding: 7px 10px;
   background: white;
   border-bottom: 1px lightgrey solid;
+  border-radius: 4px;
 }
 
 .feed-activity-heading {
@@ -51,6 +59,10 @@
   display: table-cell;
   text-align: right;
   color: #999;
+
+  @include respond-to(400) {
+    display: none;
+  }
 }
 
 .feed-activity-annotation {

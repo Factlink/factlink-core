@@ -11,15 +11,14 @@ body {
   background-color: $semiTransparentLayerColor;
 }
 
-.factlink-site {
-  min-width: $siteWidth; // Only on the body because it's breaking the feedback modal when set on the html too.
-}
-
 .container {
   height: 100%;
-  width: $siteWidth;
+  min-width: 320px;
+  max-width: $siteWidth;
   margin-right: auto;
   margin-left: auto;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .one-column-container {
@@ -28,6 +27,7 @@ body {
 
 #main-column {
   min-height: 100%;
+  width: 100%;
   display: inline-block;
 }
 
