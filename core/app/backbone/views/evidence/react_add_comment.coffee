@@ -50,6 +50,7 @@ window.ReactAddComment = React.createBackboneClass
     controlsOpened: false
     searchOpened: false
     shareProviders: {facebook: false, twitter: false}
+    signinPopoverOpened: false
 
   render: ->
     _div ['add-comment-container comment-container'],
@@ -62,26 +63,48 @@ window.ReactAddComment = React.createBackboneClass
           storageKey: "add_comment_to_fact_#{@model().fact.id}"
           onChange: @_onTextareaChange
           onSubmit: @_submit
-        _div [
-          'add-comment-controls'
-          'add-comment-controls-visible' if @state.controlsOpened
-        ],
-          _button ['button-confirm button-small add-comment-post-button'
-            onClick: @_submit
-            disabled: !@_comment().isValid()
+        if FactlinkApp.signedIn()
+          _div [
+            'add-comment-controls'
+            'add-comment-controls-visible' if @state.controlsOpened
           ],
-            Factlink.Global.t.post_argument
-          ReactShareFactSelection
-            model: @model().fact
-            providers: @state.shareProviders
-            onChange: @_onShareFactSelectionChange
-          ReactSearchLink
-            opened: @state.searchOpened
-            onToggle: (opened) => @setState searchOpened: opened
-          ReactSearchFacts
-            opened: @state.searchOpened
-            fact_id: @model().fact.id
-            onInsert: @_onSearchInsert
+            _button ['button-confirm button-small add-comment-post-button'
+              onClick: @_submit
+              disabled: !@_comment().isValid()
+            ],
+              Factlink.Global.t.post_argument
+            ReactShareFactSelection
+              model: @model().fact
+              providers: @state.shareProviders
+              onChange: @_onShareFactSelectionChange
+            ReactSearchLink
+              opened: @state.searchOpened
+              onToggle: (opened) => @setState searchOpened: opened
+            ReactSearchFacts
+              opened: @state.searchOpened
+              fact_id: @model().fact.id
+              onInsert: @_onSearchInsert
+        else
+          _div [
+            'add-comment-controls'
+            'add-comment-controls-visible' if @state.controlsOpened
+          ],
+            _button ['button-confirm button-small add-comment-post-button'
+              onClick: => @setState(signinPopoverOpened: true)
+              disabled: !@_comment().isValid()
+            ],
+              Factlink.Global.t.post_argument
+              if @state.signinPopoverOpened
+                ReactPopover className: 'white-popover', attachment: 'right',
+                  _span ["signin-popover"],
+                    _a ["button-twitter small-connect-button signin-popover-button js-accounts-popup-link",
+                      href: "/auth/twitter"],
+                        _i ["icon-twitter"]
+                    _a ["button-facebook small-connect-button signin-popover-button js-accounts-popup-link",
+                      href: "/auth/facebook"],
+                      _i ["icon-facebook"]
+                    _a ["js-accounts-popup-link", href: "/users/sign_in_or_up"],
+                      "or sign in/up with email."
 
   _onTextareaChange: (text) ->
     @setState(text: text)
