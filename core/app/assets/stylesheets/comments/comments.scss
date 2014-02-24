@@ -1,0 +1,93 @@
+$impactColouredBorderWidth: 3px;
+$commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
+
+.opinionated-avatar,
+.post-creator-avatar {
+  display: inline-block;
+}
+
+.comment-container {
+  position: relative;
+  background: white;
+  border-bottom: 1px lightgrey solid;
+  margin-bottom: $sidebarMarginBetween;
+}
+
+.comment-container:hover .comment-post-bottom {
+  opacity: 1.0;
+}
+
+.comment-content-container {
+  display: table-cell;
+  width: 100%;
+  padding: $votePadding;
+  padding-left: 0px;
+}
+
+.comment-believes,
+.comment-disbelieves,
+.comment-unsure {
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 4px;
+  width: 3px;
+  margin-right: 1px;
+}
+
+.comment-believes {
+  background: $believesEvidenceImpactColor;
+}
+
+.comment-disbelieves {
+  background: $disbelievesEvidenceImpactColor;
+}
+
+.comment-unsure {
+  background: $doubtsEvidenceImpactColor;
+}
+
+.comment-post-heading {
+  margin-bottom: 5px;
+}
+
+.comment-post-time {
+  line-height: $commentCreatorAvatarSize;
+  float: right;
+  color: $grayLight;
+  font-size: 11px;
+}
+
+.comment-post-creator {
+  padding: 0px 7px;
+}
+
+.comment-post-creator-name {
+  line-height: $commentCreatorAvatarSize;
+  display: inline-block;
+  vertical-align: middle;
+  @include ellipsis(200px);
+}
+
+.comment-post-bottom {
+  opacity: 0.4;
+  transition: opacity 0.5s ease;
+  color: $mutedFontColor;
+  font-size: $metaFontSize;
+  margin: 0;
+  padding: 0;
+}
+
+.comment-post-delete {
+  float: right;
+}
+
+// Irrelevant (faded out)
+.comment-irrelevant {
+  opacity: 0.6;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

@@ -2,13 +2,13 @@ window.ReactEvidenceVote = React.createBackboneClass
   displayName: 'ReactEvidenceVote'
 
   _on_up_vote: ->
-    return unless Factlink.Global.signed_in
+    return unless FactlinkApp.signedIn()
 
     mp_track "Factlink: Upvote evidence click"
     @model().clickCurrentUserOpinion 'believes'
 
   _on_down_vote: ->
-    return unless Factlink.Global.signed_in
+    return unless FactlinkApp.signedIn()
 
     mp_track "Factlink: Downvote evidence click"
     @model().clickCurrentUserOpinion 'disbelieves'
@@ -30,7 +30,7 @@ window.ReactEvidenceVote = React.createBackboneClass
       R.span className:"comment-vote-amount spec-evidence-relevance",
         format_as_short_number(@model().relevance())
 
-    if Factlink.Global.signed_in
+    if FactlinkApp.signedIn()
       R.div className: 'comment-votes',
         R.a
           className: up_classes

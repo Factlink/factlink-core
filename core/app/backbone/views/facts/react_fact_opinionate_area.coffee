@@ -48,7 +48,7 @@ FactOpinionateButton = React.createBackboneClass
   render: ->
     is_opinion = @model().opinion_for_current_user() == @props.opinion_type
     _div ["fact-opinionate-button"],
-      if Factlink.Global.signed_in
+      if FactlinkApp.signedIn()
         _button ["button fact-opinionate-button-#{@props.opinion_type}",
                  "spec-button-#{@props.opinion_type}",
                  'fact-opinionate-button-active' if is_opinion,

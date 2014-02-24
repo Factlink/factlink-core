@@ -18,7 +18,6 @@
     <%= render 'backbone/currentUser' %>
 
     Factlink.allowFeatures(<%= current_ability.feature_toggles.to_json.html_safe %>);
-    Factlink.setSignedIn(<%= current_ability.signed_in?.to_json.html_safe %>);
 
     FactlinkApp.start({factlinkAppMode: FactlinkAppMode.coreInSite});
   </script>

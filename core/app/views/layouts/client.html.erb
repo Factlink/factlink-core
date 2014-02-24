@@ -14,7 +14,10 @@
     }
   </style>
 
-  <%= csrf_meta_tag %>
+    <script>
+      localStorage.factlink_csrf_param = "<%= request_forgery_protection_token %>";
+      localStorage.factlink_csrf_token = "<%= form_authenticity_token %>";
+    </script>
   <%= inject_special_test_code %>
 </head>
 <body class="client">
@@ -32,7 +35,6 @@
     <%= render 'backbone/currentUser' %>
 
     Factlink.allowFeatures(<%= current_ability.feature_toggles.to_json.html_safe %>);
-    Factlink.setSignedIn(<%= current_ability.signed_in?.to_json.html_safe %>);
 
     FactlinkApp.start({factlinkAppMode: FactlinkAppMode.coreInClient});
 

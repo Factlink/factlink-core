@@ -1,3 +1,4 @@
+new_comment_id = 0
 ReactComments = React.createBackboneClass
   displayName: 'ReactComments'
   changeOptions: 'add remove reset sort sync request'
@@ -7,13 +8,33 @@ ReactComments = React.createBackboneClass
 
   render: ->
     _div [],
-      ReactLoadingIndicator
-        model: @model()
+      _div ['loading-indicator-centered'],
+        ReactLoadingIndicator
+          model: @model()
       @model().map (comment) =>
         ReactComment
           model: comment
-          key: comment.get('id')
+          key: comment.get('id') || ('new' + new_comment_id++)
           fact_opinionators: @model().fact.getOpinionators()
+
+window.RefreshIfCurrentUserChanges = React.createClass
+  getInitialState: ->
+    step: 0
+
+  componentDidMount: ->
+    window.curentUser?.on 'change', @onChange, @
+
+  componentWillUnmount: ->
+    window.currentUser?.off null, null, @
+
+  onChange: ->
+    console.info 're-re-refresh'
+    @setState step: @state.step + 1
+
+  render: ->
+    _div ['refresh-on-current-user-changes', key: @state.step],
+      @props.children
+
 
 
 window.ReactDiscussion = React.createBackboneClass
@@ -23,28 +44,23 @@ window.ReactDiscussion = React.createBackboneClass
     step: 0
 
   render: ->
-    _div ['discussion'
-          key: @state.step],
-      if Factlink.Global.can_haz.sidebar_manual_reload?
-        _div [],
-          _span [style: {float: 'right'}],
-            "##{@state.step}"
-          _button [onClick: => @setState step: @state.step + 1],
-            'Refresh'
-      _div ['top-annotation'],
-        _div ['top-annotation-text'],
-          if @model().get('displaystring')
-            @model().get('displaystring')
-          else
-            ReactLoadingIndicator()
-        if Factlink.Global.can_haz.opinions_of_users_and_comments
-          ReactOpinionateArea
-            model: @model().getOpinionators()
-      if Factlink.Global.signed_in
-        ReactAddComment
+    RefreshIfCurrentUserChanges {},
+      _div ['discussion'],
+        _div ['top-annotation'],
+          _div ['top-annotation-text'],
+            if @model().get('displaystring')
+              @model().get('displaystring')
+            else
+              _div ["loading-indicator-centered"],
+                ReactLoadingIndicator()
+          if Factlink.Global.can_haz.opinions_of_users_and_comments
+            ReactOpinionateArea
+              model: @model().getOpinionators()
+        if FactlinkApp.signedIn()
+          ReactAddComment
+            model: @model().comments()
+            initiallyFocus: @props.initiallyFocusAddComment
+        else
+          ReactOpinionHelp()
+        ReactComments
           model: @model().comments()
-          initiallyFocus: @props.initiallyFocusAddComment
-      else
-        ReactOpinionHelp()
-      ReactComments
-        model: @model().comments()

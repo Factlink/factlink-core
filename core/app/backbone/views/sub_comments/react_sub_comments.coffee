@@ -9,14 +9,15 @@ window.ReactSubComments = React.createBackboneClass
 
   render: ->
     _div [],
-      ReactLoadingIndicator
-        model: @model()
+      _div ['loading-indicator-centered'],
+        ReactLoadingIndicator
+          model: @model()
       @model().map (sub_comment) =>
         ReactSubComment
           model: sub_comment
           key: sub_comment.get('id')
           fact_opinionators: @props.fact_opinionators
-      if Factlink.Global.signed_in
+      if FactlinkApp.signedIn()
         ReactSubCommentsAdd model: @model()
 
 ReactSubCommentsAdd = React.createBackboneClass

@@ -1,0 +1,129 @@
+// TODO: we shouldn't call this "voting" but opinionating, polling, or something else
+//       since it's quite distinct from voting (on comments)
+
+$avatarSize: 24px;
+
+.fact-opinionate {
+  display: table;
+  margin: 10px 0px;
+}
+
+.fact-opinionate-button {
+  display: table-cell;
+}
+
+.fact-opinionate-button-active {
+  &.fact-opinionate-button-believes {
+    background: $green;
+    border-bottom-color: darken($green, 10%);
+    color: darken($green, 30%);
+  }
+  &.fact-opinionate-button-disbelieves {
+    background: $red;
+    border-bottom-color: darken($red, 10%);
+    color: darken($red, 30%);
+  }
+}
+
+.fact-opinionate-button-believes,
+.fact-opinionate-button-disbelieves {
+  text-shadow: none;
+  padding: 0px 5px;
+  font-size: 14px;
+  height: auto;
+  color: $grayLight;
+}
+
+.fact-opinion-indicator {
+  font-size: 16px;
+  color: $grayLight;
+}
+
+.fact-opinionators-table {
+  vertical-align: middle;
+  text-align: center;
+  display: table-cell;
+  width: 100%;
+}
+
+.fact-opinionators-table-table {
+  width: 100%;
+}
+
+.fact-opinion-tally-chart {
+  height: 14px;
+  width: 100%;
+}
+
+.fact-opinionators-table-believes, .fact-opinionators-table-disbelieves {
+  font-size: 18px;
+  width: 20px;
+  display: table-cell;
+}
+
+.fact-opinion-tally-chart-believers{
+  background: $green;
+  transition: all 0.5s;
+}
+
+.fact-opinion-tally-chart-disbelievers {
+  background: $red;
+  transition: all 0.5s;
+}
+
+.fact-opinionators-table-believes {
+  color: $green;
+  padding-left: 10px;
+}
+
+.fact-opinionators-table-disbelieves {
+  color: $red;
+  padding-right: 10px;
+}
+
+.fact-opinionators {
+  display: table;
+  width: 100%;
+}
+
+.fact-opinionators-believes, .fact-opinionators-disbelieves {
+  display: table-cell;
+  vertical-align: middle;
+  width: 50%;
+}
+
+.fact-opinionators-believes {
+  .opinionators-avatar,
+  .opinionators-more {
+    float: left;
+    margin-right: 4px;
+  }
+}
+
+.fact-opinionators-disbelieves {
+  .opinionators-avatar,
+  .opinionators-more {
+    float: right;
+    margin-left: 4px;
+  }
+}
+
+.fact-opinionators-believes .opinionators-more {
+  background: $green;
+}
+
+.fact-opinionators-disbelieves .opinionators-more {
+  background: $red;
+}
+
+.opinionators-avatar-image {
+  border-radius: 3px;
+}
+
+.opinionators-more {
+  font-weight: 600;
+  color: white;
+  padding: 0px 5px;
+  border-radius: 3px;
+  line-height: $avatarSize;
+}

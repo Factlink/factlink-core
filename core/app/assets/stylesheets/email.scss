@@ -1,0 +1,17 @@
+$emailBaseFontFamily:        "Open Sans", sans-serif;
+$emailBackgroundColor:       #e9eaee;
+
+$emailTitleFontSize:         17px;
+$emailBaseFontSize:          $emailTitleFontSize - 2;
+$emailSubTitleFontSize:      $emailBaseFontSize - 2;
+$emailMutedFontSize:         $emailBaseFontSize - 2;
+
+$emailBaseLinkColor:         #3d75a3;
+$emailBaseFontColor:         #333;
+$emailSubTitleFontColor:     #777;
+$emailMutedFontColor:        #999;
+
+$emailBaseBorderColor:       #e4e4e4;
+$emailBaseBorderStyling:     1px solid $emailBaseBorderColor;
+
+@import "email/**/*";

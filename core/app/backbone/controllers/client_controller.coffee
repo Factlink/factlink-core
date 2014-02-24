@@ -9,7 +9,7 @@ class window.ClientController
       url: params.url
       site_title: params.site_title
 
-    if Factlink.Global.signed_in
+    if FactlinkApp.signedIn()
       fact.save {},
         success: =>
           if params.current_user_opinion && params.current_user_opinion != 'no_vote'
@@ -21,6 +21,15 @@ class window.ClientController
           Backbone.history.navigate "/client/facts/#{fact.id}", trigger: false
           mp_track 'Factlink: Created'
     else
+      # if we're not logged in because we are still loading, log in
+      # normally this shouldn't happen often, because blank already loads
+      # the user, but it's still good to allow this case, and the acceptance
+      # tests also need it
+      onChange = =>
+        currentUser.off 'change', onChange
+        @showNewFact(params)
+      currentUser?.on 'change', onChange
+
       view = new NewFactLoginView model: fact
       view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
 

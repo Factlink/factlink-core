@@ -1,0 +1,90 @@
+$user-width: 200px;
+$user-height: 90px;
+
+.tour-interesting-users {
+  position: relative;
+
+  .tour-interesting-users-scrolling-outer {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 80px + 2*$user-height;
+
+    .tour-interesting-users-scrolling-inner {
+      position: absolute;
+      top: 0px;
+      transition: left 0.6s;
+      min-width: 100%;
+    }
+  }
+
+  .tour-interesting-users-footer {
+    margin: 20px 0 150px;
+    padding: 0 20px;
+    text-align: center;
+    min-height: 30px;
+  }
+
+  .tour-interesting-users-finish {
+    margin-top: -6px;
+    display: inline-block;
+    color: white;
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+.tour-interesting-users-arrow-left,
+.tour-interesting-users-arrow-right {
+  top: 120px + $user-height;
+  font-size: 30px;
+  opacity: 0;
+  position: absolute;
+
+  &.enabled {
+    cursor: pointer;
+    opacity: 0.4;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+}
+
+.tour-interesting-users-arrow-left {
+  left: -30px;
+}
+
+.tour-interesting-users-arrow-right {
+  right: -30px;
+}
+
+.tour-interesting-users-list-empty {
+  width: 100%;
+  text-align: center;
+  margin-top: 200px;
+}
+
+.tour-interesting-user {
+  margin: 20px;
+  width: $user-width;
+  height: $user-height;
+  display: inline-block;
+  &.loaded{
+    cursor: pointer;
+  }
+}
+
+.tour-follow-user-heading {
+  margin-bottom: 10px;
+  margin-left: 2px; // needed to compensate for user-heading-avatar before border
+}
+
+.tour-follow-user-heading-text {
+  @include ellipsis($user-width - 40)
+}
+
+.tour-user-button-region > button {
+  width: 100%;
+}

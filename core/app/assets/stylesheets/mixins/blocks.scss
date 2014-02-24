@@ -1,0 +1,6 @@
+%white-block-with-shadow {
+  background: white;
+  border-radius: $baseBorderRadius;
+  box-shadow: $blockBorder,
+              0 $blockShadowBottomSize 1px 0 $blockShadowBottomColor;
+}

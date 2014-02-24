@@ -1,0 +1,42 @@
+$feedback_frame_width: 430px;
+
+.modal-window.feedback-modal-window {
+  width: $feedback_frame_width;
+
+  .modal-window-body {
+    max-height: none;
+    overflow: hidden;
+  }
+}
+
+.feedback-iframe {
+  width: 100%;
+  border: none;
+  display: block;
+}
+
+.feedback_form { //within an iframe!
+  background: #fff;
+  min-width: 0;
+  height:auto;
+
+  form {
+    @extend %clearfix;
+    margin: 0;
+
+    input[type=text], textarea {
+      display: block;
+      width: 100%;
+    }
+
+    textarea {
+      height: 145px;
+      margin-bottom: 10px;
+    }
+
+    .submit {
+      float: right;
+      max-width: 150px;
+    }
+  }
+}
