@@ -17,25 +17,6 @@ ReactComments = React.createBackboneClass
           key: comment.get('id') || ('new' + new_comment_id++)
           fact_opinionators: @model().fact.getOpinionators()
 
-window.RefreshIfCurrentUserChanges = React.createClass
-  getInitialState: ->
-    step: 0
-
-  componentDidMount: ->
-    window.currentUser?.on 'change:username', @onChange, @
-
-  componentWillUnmount: ->
-    window.currentUser?.off null, null, @
-
-  onChange: ->
-    console.info 're-re-refresh'
-    @setState step: @state.step + 1
-
-  render: ->
-    _div ['refresh-on-current-user-changes', key: @state.step],
-      @props.children
-
-
 
 window.ReactDiscussion = React.createBackboneClass
   displayName: 'ReactDiscussion'
@@ -43,24 +24,33 @@ window.ReactDiscussion = React.createBackboneClass
   getInitialState: ->
     step: 0
 
+  onChange: ->
+    console.info 're-re-refresh'
+    @setState step: @state.step + 1
+
+  componentDidMount: ->
+    window.currentUser?.on 'change:username', @onChange, @
+
+  componentWillUnmount: ->
+    window.currentUser?.off null, null, @
+
   render: ->
-    RefreshIfCurrentUserChanges {},
-      _div ['discussion'],
-        _div ['top-annotation'],
-          _div ['top-annotation-text'],
-            if @model().get('displaystring')
-              @model().get('displaystring')
-            else
-              _div ["loading-indicator-centered"],
-                ReactLoadingIndicator()
-          if Factlink.Global.can_haz.opinions_of_users_and_comments
-            ReactOpinionateArea
-              model: @model().getOpinionators()
-        if FactlinkApp.signedIn()
-          ReactAddComment
-            model: @model().comments()
-            initiallyFocus: @props.initiallyFocusAddComment
-        else
-          ReactOpinionHelp()
-        ReactComments
+    _div ['discussion', key: @state.step],
+      _div ['top-annotation'],
+        _div ['top-annotation-text'],
+          if @model().get('displaystring')
+            @model().get('displaystring')
+          else
+            _div ["loading-indicator-centered"],
+              ReactLoadingIndicator()
+        if Factlink.Global.can_haz.opinions_of_users_and_comments
+          ReactOpinionateArea
+            model: @model().getOpinionators()
+      if FactlinkApp.signedIn()
+        ReactAddComment
           model: @model().comments()
+          initiallyFocus: @props.initiallyFocusAddComment
+      else
+        ReactOpinionHelp()
+      ReactComments
+        model: @model().comments()
