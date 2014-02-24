@@ -18,7 +18,7 @@ $(document).on 'signed_in', ->
 
 $(document).on 'authorized', (e) ->
   provider_name = e.originalEvent.detail
-  currentUser?.setServiceConnected provider_name
+  currentUser.setServiceConnected provider_name
 
 $(document).on 'account_error', (e) ->
   if typeof FactlinkApp == 'object'

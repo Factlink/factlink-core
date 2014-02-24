@@ -8,7 +8,7 @@ class window.Comment extends Backbone.Model
 
   creator: -> new User(@get('created_by'))
 
-  _is_mine: -> @creator().is_current_user()
+  _is_mine: -> FactlinkApp.isCurrentUser(@creator())
 
   can_destroy: -> @_is_mine() && @get('is_deletable')
 
