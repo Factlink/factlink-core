@@ -9,7 +9,7 @@ FactlinkApp.module "NonConfirmedEmailWarning", (NonConfirmedEmailWarning, Factli
 
   checkConfirmedEmail = ->
     return if inTour()
-    return unless currentUser? && currentUser.get('id')
+    return unless FactlinkApp.signedIn()
     return if currentUser.get('confirmed')
     return if currentUser.justCreated()
 
