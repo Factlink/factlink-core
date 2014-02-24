@@ -52,6 +52,7 @@ class window.ActivitiesView extends AutoloadingView
 
   appendHtml: (collectionView, childView, index) ->
     @$(".js-activities-list").append childView.render().el
+    childView.trigger 'show'
 
   newChildView: (model) ->
     ActivitiesGroupView.new
