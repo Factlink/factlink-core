@@ -1,14 +1,6 @@
-window.ActivitiesGroupView =
-  new: (options)->
-    switch options.model.get("action")
-      when "created_comment", "created_sub_comment"
-        new ReactView
-          component: ReactCreatedComment(options)
-      when "followed_user"
-        new ReactView
-          component: ReactFollowedUser(options)
+window.ReactCreatedComment = React.createBackboneClass
+  displayName: 'ReactCreatedComment'
 
-ReactCreatedComment = React.createBackboneClass
   render: ->
     user = new User @model().get('user')
     fact = new Fact @model().get("fact")
@@ -34,7 +26,7 @@ ReactCreatedComment = React.createBackboneClass
           '' #still needs the actual comment here
 
 
-ReactFollowedUser = React.createBackboneClass
+window.ReactFollowedUser = React.createBackboneClass
   displayName: 'ReactFollowedUser'
 
   render: ->

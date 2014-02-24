@@ -55,8 +55,15 @@ class window.ActivitiesView extends AutoloadingView
     childView.trigger 'show'
 
   newChildView: (model) ->
-    ActivitiesGroupView.new
-      model: model
+    component = switch model.get("action")
+      when "created_comment", "created_sub_comment"
+        ReactCreatedComment
+      when "followed_user"
+        ReactFollowedUser
+
+    new ReactView
+      component: component
+        model: model
 
   emptyViewOn: ->
     unless @options.disableEmptyView
