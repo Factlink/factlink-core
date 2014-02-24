@@ -1,5 +1,5 @@
 .feed-activity {
-  padding: 5px 0;
+  padding: 2px 0;
 }
 
 .feed-activity-user {
@@ -22,7 +22,7 @@
   display: table-cell;
   vertical-align: top;
   width: 100%;
-  padding: 8px;
+  padding: 7px 10px;
   background: white;
   border-bottom: 1px lightgrey solid;
 }
@@ -30,6 +30,7 @@
 .feed-activity-heading {
   display: table;
   width: 100%;
+  line-height: 32px;
 }
 
 .feed-activity-action {
@@ -50,10 +51,6 @@
   display: table-cell;
   text-align: right;
   color: #999;
-}
-
-.feed-activity-content {
-  margin-top: 10px;
 }
 
 .feed-activity-annotation {
