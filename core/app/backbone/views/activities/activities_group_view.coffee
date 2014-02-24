@@ -1,42 +1,52 @@
-window.ActivitiesGroupView =
-  new: (options)->
-    switch options.model.get("action")
-      when "created_comment", "created_sub_comment"
-        new CreatedCommentView options
-      when "followed_user"
-        new FollowedUserView options
+window.ReactCreatedComment = React.createBackboneClass
+  displayName: 'ReactCreatedComment'
 
-class window.CreatedCommentView extends Backbone.Marionette.Layout
-  className: 'feed-activity'
-  template: "activities/created_comment"
-  templateHelpers: ->
-    user: @user()?.toJSON()
+  render: ->
+    user = new User @model().get('user')
+    fact = new Fact @model().get("fact")
 
-  regions:
-    factRegion: '.js-region-fact'
+    _div ["feed-activity"],
+      _div ["feed-activity-user"],
+        _a [href: user.link(), rel:"backbone"],
+          _img ["image-48px feed-activity-user-avatar", alt:" ", src: user.avatar_url(48)]
 
-  user: ->
-    new User @model.get('user')
+      _div ["feed-activity-container"],
+        _div ["feed-activity-heading"],
+          _div ["feed-activity-action"],
+            _a ["feed-activity-username", href: user.link(), rel:"backbone"]
+              user.get('name')
+            ' '
+            _span ["feed-activity-description"],
+              "commented on"
+          _div ["feed-activity-time"],
+            TimeAgo(time: @model().get('created_at'))
+        _div [],
+          ReactFact model: fact
+        _div ["feed-activity-content"],
+          '' #still needs the actual comment here
 
-  onRender: ->
-    @factRegion.show new ReactView
-      component: ReactFact
-        model: @fact()
 
-  fact: ->
-    new Fact @model.get("fact")
+window.ReactFollowedUser = React.createBackboneClass
+  displayName: 'ReactFollowedUser'
 
+  render: ->
+    user = new User @model().get('user')
+    followed_user = new User @model().get('followed_user')
 
-class window.FollowedUserView extends Backbone.Marionette.ItemView
-  className: 'feed-activity'
-  template: "activities/followed_user"
-  templateHelpers: =>
-    followed_user: @followed_user().toJSON()
-    user: @user()?.toJSON()
+    _div ['feed-activity'],
+      _div ["feed-activity-user"],
+        _a [href: user.link(), rel:"backbone"],
+          _img ["image-48px feed-activity-user-avatar", src: user.avatar_url(48)]
 
-  user: ->
-    new User @model.get('user')
-
-  followed_user: ->
-    new User @model.get('followed_user')
-
+      _div ["feed-activity-container"],
+        _div ["feed-activity-heading"],
+          _div ["feed-activity-action"],
+            _a ["feed-activity-username", href: user.link(), rel:"backbone"],
+                user.name
+            _span ["feed-activity-description"],
+              Factlink.Global.t.followed
+            _a ["feed-activity-username", href: followed_user.link(), rel:"backbone"],
+              _img ["feed-activity-user-avatar image-32px", src: followed_user.avatar_url(32)]
+              followed_user.get('name')
+          _div ["feed-activity-time"],
+            TimeAgo(time: @model().get('created_at'))
