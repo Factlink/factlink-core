@@ -33,17 +33,17 @@ window.ReactFollowedUser = React.createBackboneClass
     user = new User @model().get('user')
     followed_user = new User @model().get('followed_user')
 
-    _div [className: 'feed-activity'],
-      _div [className: "feed-activity-user"],
+    _div ['feed-activity'],
+      _div ["feed-activity-user"],
         _a [href: user.link(), rel:"backbone"],
-          _img [className:"image-48px feed-activity-user-avatar", src: user.avatar_url(48)]
+          _img ["image-48px feed-activity-user-avatar", src: user.avatar_url(48)]
 
-      _div [className:"feed-activity-container"],
-        _div [className:"feed-activity-heading"],
-          _div [className:"feed-activity-action"],
-            _a [className:"feed-activity-username", href: user.link(), rel:"backbone"],
+      _div ["feed-activity-container"],
+        _div ["feed-activity-heading"],
+          _div ["feed-activity-action"],
+            _a ["feed-activity-username", href: user.link(), rel:"backbone"],
                 user.name
-            _span [className:"feed-activity-description"],
+            _span ["feed-activity-description"],
               Factlink.Global.t.followed
             _a ["feed-activity-username", href: followed_user.link(), rel:"backbone"],
               _img ["feed-activity-user-avatar image-32px", src: followed_user.avatar_url(32)]
