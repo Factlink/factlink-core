@@ -5,20 +5,7 @@
   color: $metaFontColor;
 }
 
-.search-result {
-  @extend %reset-main-padding;
-  &:first-child {
-    border-top: 1px solid $baseBorderColor;
-  }
-  border-bottom: 1px solid $baseBorderColor;
-  overflow: hidden;
-}
-
-.search-result-statistics {
-  float: right;
-  margin-top: 5px;
-}
-
-.user-search-result {
-  padding: 10px 0 10px 20px;
+.feed-activity-container.search-results {
+  display: block;
+  margin: 7px 0px;
 }
