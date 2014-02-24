@@ -16,11 +16,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag "application" %>
     <%= stylesheet_link_tag "unsubscribed" %>
-
-    <script>
-      localStorage.factlink_csrf_param = "<%= request_forgery_protection_token %>";
-      localStorage.factlink_csrf_token = "<%= form_authenticity_token %>";
-    </script>
+    <%= render 'snippets/csrf' %>
   </head>
   <body>
     <div class="fluid-container">
