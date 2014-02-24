@@ -22,4 +22,4 @@ FactlinkApp.module "NonConfirmedEmailWarning", (NonConfirmedEmailWarning, Factli
 
   NonConfirmedEmailWarning.addInitializer ->
     checkConfirmedEmail()
-    currentUser?.on 'change', checkConfirmedEmail
+    currentUser.on 'change', checkConfirmedEmail

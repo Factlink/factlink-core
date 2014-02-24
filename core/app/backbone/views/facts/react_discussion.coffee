@@ -29,10 +29,10 @@ window.ReactDiscussion = React.createBackboneClass
     @setState step: @state.step + 1
 
   componentDidMount: ->
-    window.currentUser?.on 'change:username', @onChange, @
+    window.currentUser.on 'change:username', @onChange, @
 
   componentWillUnmount: ->
-    window.currentUser?.off null, null, @
+    window.currentUser.off null, null, @
 
   render: ->
     _div ['discussion', key: @state.step],
