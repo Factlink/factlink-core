@@ -1,13 +1,62 @@
+# TODO: refactor this as a mixin which uses events instead of method overloading
+window.extendWithAutoloading = (superclass) ->
+  superclass.extend
+    constructor: (args...) ->
+      result = superclass::constructor.apply(this, args)
+
+      @collection.loadMore()
+      @collection.on "add", @emptyViewOffWrapper, @
+      @collection.on "remove stopLoading", @afterLoad, @
+
+      result
+
+    bottomOfViewReached: ->
+      bottomOfTheViewport = window.pageYOffset + window.innerHeight
+      bottomOfEl = @$el.offset().top + @$el.outerHeight()
+
+      if bottomOfEl < bottomOfTheViewport
+        true
+      else if $(document).height() - ($(window).scrollTop() + $(window).height()) < 700
+        true
+      else
+        false
+
+    # this function sets the correct state after loading is done, tries to load more if applicable
+    # and sets empty state if we are not loading and we have no items
+    afterLoad: ->
+      unless @collection._loading or not @$el.is(":visible")
+        @emptyViewOnWrapper()  if @collection.length is 0
+        @collection.loadMore() if @bottomOfViewReached()
+
+    bindScroll: ->
+      @unbindScroll()
+
+      $(window).on "scroll.#{@cid}", =>
+        @afterLoad()
+
+    unbindScroll: ->
+      $(window).off "scroll.#{@cid}"
+
+    close: (args...) ->
+      result = superclass::close.apply(this, args)
+      @unbindScroll()
+      result
+
+    render: (args...) ->
+      result = superclass::render.apply(this, args)
+      @bindScroll()
+      result
+
+    reset: (args...) ->
+      @collection.stopLoading()
+      superclass::reset.apply(this, args)
+
+    emptyViewOnWrapper: ->
+    emptyViewOffWrapper: ->
+
 AutoloadingView = extendWithAutoloading(Backbone.Marionette.Layout);
 
-class FeedEmptyView extends Backbone.Marionette.ItemView
-  className: 'empty_stream_content'
-  template:
-    text: "Currently there are no activities in your #{Factlink.Global.t.stream} yet. Please use the search in the top bar to find interesting users and #{Factlink.Global.t.factlinks}."
-
 class window.ActivitiesView extends AutoloadingView
-  _.extend @prototype, ToggleMixin
-
   template: 'activities/list'
 
   regions:
@@ -16,10 +65,6 @@ class window.ActivitiesView extends AutoloadingView
   initialize: (opts) ->
     @collection.on 'reset remove', @reset, @
     @collection.on 'add', @add, @
-
-    @addShowHideToggle 'loadingIndicator', 'div.loading'
-    @collection.on 'startLoading', @loadingIndicatorOn, @
-    @collection.on 'stopLoading', @loadingIndicatorOff, @
 
     @childViews = []
 
@@ -64,15 +109,5 @@ class window.ActivitiesView extends AutoloadingView
     new ReactView
       component: component
         model: model
-
-  emptyViewOn: ->
-    unless @options.disableEmptyView
-      @someEmptyView = new FeedEmptyView
-      @$('.js-empty-stream').html @someEmptyView.render().el
-
-  emptyViewOff: ->
-    if @someEmptyView?
-      @someEmptyView.close()
-      delete @someEmptyView
 
   addAtBottom:(view) -> @bottomRegion.show view

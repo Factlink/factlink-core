@@ -50,7 +50,7 @@ class window.FeedActivitiesView extends Backbone.Marionette.Layout
     e.stopPropagation()
 
   getActivitiesView: ->
-    new ActivitiesView collection: @collection, disableEmptyView: @options.disableEmptyView
+    new ActivitiesView collection: @collection
 
   onRender: ->
     @activityList.show @getActivitiesView()
