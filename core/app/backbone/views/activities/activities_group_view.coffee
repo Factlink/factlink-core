@@ -20,7 +20,7 @@ window.ReactCreatedComment = React.createBackboneClass
               "commented on"
           _div ["feed-activity-time"],
             TimeAgo(time: @model().get('created_at'))
-        _div ["js-region-fact"],
+        _div [],
           ReactFact model: fact
         _div ["feed-activity-content"],
           '' #still needs the actual comment here
