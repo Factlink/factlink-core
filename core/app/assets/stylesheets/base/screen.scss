@@ -8,8 +8,7 @@ html, body {
 
 body {
   margin: 0;
-  background-color: #ecedef;
-  background-image: image-url('background.png');
+  background-color: $semiTransparentLayerColor;
 }
 
 .factlink-site {
