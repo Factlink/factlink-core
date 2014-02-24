@@ -10,9 +10,6 @@ class window.User extends Backbone.Model
     else
       '/' + @get('username')
 
-  is_current_user: ->
-    currentUser?.get('username') == @get('username')
-
   avatar_url: (size) ->
     if(window.test_counter)
       'about:blank'
@@ -25,7 +22,7 @@ class window.User extends Backbone.Model
   toJSON: ->
     username = @get('username')
     _.extend super(),
-      is_current_user: @is_current_user(),
+      is_current_user: FactlinkApp.isCurrentUser(this),
       edit_path: "/#{username}/edit",
       change_password_path: "/#{username}/password/edit"
       notifications_settings_path: "/#{username}/notification-settings"

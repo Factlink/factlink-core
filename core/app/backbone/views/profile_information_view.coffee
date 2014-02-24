@@ -47,6 +47,6 @@ class window.ProfileInformationView extends Backbone.Marionette.Layout
 
   _showFollowUserButton: ->
     return unless FactlinkApp.signedIn()
-    return if @model.is_current_user()
+    return if FactlinkApp.isCurrentUser(@model)
 
     @followUserButtonRegion.show new FollowUserButtonView(user: @model)

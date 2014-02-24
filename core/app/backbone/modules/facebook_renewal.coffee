@@ -13,7 +13,7 @@ FactlinkApp.module "FacebookRenewal", (FacebookRenewal, FactlinkApp, Backbone, M
 
   FacebookRenewal.addInitializer ->
     tryRenewal()
-    currentUser?.on 'change', tryRenewal
+    currentUser.on 'change', tryRenewal
 
   timeout     = null
   justRenewed = false
@@ -27,7 +27,7 @@ FactlinkApp.module "FacebookRenewal", (FacebookRenewal, FactlinkApp, Backbone, M
     not justRenewed and timeToExpiry < 14*days
 
   tryRenewal = ->
-    return unless currentUser?.get('services')?['facebook']
+    return unless currentUser.get('services')?['facebook']
     return unless almostExpired()
     return if timeout?
     timeout = setTimeout tryManualRenewal, 10000
@@ -47,4 +47,4 @@ FactlinkApp.module "FacebookRenewal", (FacebookRenewal, FactlinkApp, Backbone, M
     clearTimeout timeout
     timeout      = null
     justRenewed  = true
-    currentUser?.fetch()
+    currentUser.fetch()
