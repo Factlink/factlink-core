@@ -2,30 +2,37 @@ window.ActivitiesGroupView =
   new: (options)->
     switch options.model.get("action")
       when "created_comment", "created_sub_comment"
-        new CreatedCommentView options
+        new ReactView
+          component: ReactCreatedComment(options)
       when "followed_user"
         new ReactView
           component: ReactFollowedUser(options)
 
-class window.CreatedCommentView extends Backbone.Marionette.Layout
-  className: 'feed-activity'
-  template: "activities/created_comment"
-  templateHelpers: ->
-    user: @user()?.toJSON()
+ReactCreatedComment = React.createBackboneClass
+  render: ->
+    user = new User @model().get('user')
+    fact = new Fact @model().get("fact")
 
-  regions:
-    factRegion: '.js-region-fact'
+    _div ["feed-activity"],
+      _div ["feed-activity-user"],
+        _a [href: user.link(), rel:"backbone"],
+          _img ["image-48px feed-activity-user-avatar", alt:" ", src: user.avatar_url(48)]
 
-  user: ->
-    new User @model.get('user')
+      _div ["feed-activity-container"],
+        _div ["feed-activity-heading"],
+          _div ["feed-activity-action"],
+            _a ["feed-activity-username", href: user.link(), rel:"backbone"]
+              user.get('name')
+            ' '
+            _span ["feed-activity-description"],
+              "commented on"
+          _div ["feed-activity-time"],
+            TimeAgo(time: @model().get('created_at'))
+        _div ["js-region-fact"],
+          ReactFact model: fact
+        _div ["feed-activity-content"],
+          '' #still needs the actual comment here
 
-  onRender: ->
-    @factRegion.show new ReactView
-      component: ReactFact
-        model: @fact()
-
-  fact: ->
-    new Fact @model.get("fact")
 
 ReactFollowedUser = React.createBackboneClass
   displayName: 'ReactFollowedUser'
