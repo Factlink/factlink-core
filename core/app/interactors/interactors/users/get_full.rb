@@ -53,7 +53,8 @@ module Interactors
           receives_digest: user.receives_digest,
           confirmed: user.confirmed?,
           created_at: user.created_at,
-          services: services
+          services: services,
+          features: user.features
         }
       end
 

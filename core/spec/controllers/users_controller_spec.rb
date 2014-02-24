@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe UsersController do
   include PavlovSupport
-  let(:user) { create(:full_user) }
+  let(:user) { create(:full_user, features: ['some_feature']) }
 
   describe :show do
     render_views

@@ -2,3 +2,8 @@
 
 class window.CurrentUser extends User
   url: -> '/api/beta/current_user'
+
+  initialize: ->
+    super
+
+    @on 'change:features', -> Factlink.allowFeatures @get('features')
