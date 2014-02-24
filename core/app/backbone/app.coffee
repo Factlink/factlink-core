@@ -8,3 +8,6 @@ window.FactlinkApp = new FactlinkAppClass
 
 FactlinkApp.addInitializer (options) ->
   options.factlinkAppMode @, options
+
+  window.currentUser = new CurrentUser
+  window.currentUser.fetch()

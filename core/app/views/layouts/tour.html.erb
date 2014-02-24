@@ -2,8 +2,6 @@
     <%= yield :template %>
     <%= yield :tour_javascript %>
     <script>
-      <%= render 'backbone/currentUser' %>
-
       window.next_tourstep_path = '<%=next_tourstep_path%>';
 
       $(function() {

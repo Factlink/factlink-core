@@ -32,8 +32,6 @@
   <%= render 'snippets/mixpanel' %>
 
   <script type="text/javascript">
-    <%= render 'backbone/currentUser' %>
-
     Factlink.allowFeatures(<%= current_ability.feature_toggles.to_json.html_safe %>);
 
     FactlinkApp.start({factlinkAppMode: FactlinkAppMode.coreInClient});
