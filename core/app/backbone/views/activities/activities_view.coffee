@@ -59,9 +59,6 @@ AutoloadingView = extendWithAutoloading(Backbone.Marionette.Layout);
 class window.ActivitiesView extends AutoloadingView
   template: 'activities/list'
 
-  regions:
-    bottomRegion: '.js-region-bottom'
-
   initialize: (opts) ->
     @collection.on 'reset remove', @reset, @
     @collection.on 'add', @add, @
@@ -109,5 +106,3 @@ class window.ActivitiesView extends AutoloadingView
     new ReactView
       component: component
         model: model
-
-  addAtBottom:(view) -> @bottomRegion.show view
