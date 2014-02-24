@@ -10,7 +10,6 @@
   float: left;
 }
 .row {
- margin-left: -20px;
  @extend %clearfix;
  @extend %white-block-with-shadow;
 }
