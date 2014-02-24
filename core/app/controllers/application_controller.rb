@@ -112,11 +112,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def can_haz feature
-    can? :"see_feature_#{feature}", Ability::FactlinkWebapp
-  end
-  helper_method :can_haz
-
   def inject_special_test_code
     # this method is used by the test to inject things like the
     # test_counter (aka cross-test-request-forgery prevention), and

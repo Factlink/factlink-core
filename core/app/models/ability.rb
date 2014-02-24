@@ -29,8 +29,6 @@ class Ability
 
     define_anonymous_user_abilities
 
-    define_feature_toggles
-
     define_fact_abilities
     define_comment_abilities
     define_sub_comment_abilities
@@ -125,28 +123,4 @@ class Ability
     log_jslib_loading_performance
     opinions_of_users_and_comments
   )
-
-  def enabled_global_features
-    Pavlov.interactor :'global_features/all'
-  end
-
-  def enable_features list
-    list.each do |feature|
-      can :"see_feature_#{feature}", FactlinkWebapp
-      @features << feature.to_s
-    end
-  end
-
-  def define_feature_toggles
-    @features ||= []
-    enable_features enabled_global_features
-    if signed_in?
-      enable_features user.features
-    end
-  end
-
-  def feature_toggles
-    return @features
-  end
-
 end

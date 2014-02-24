@@ -16,13 +16,6 @@
     <%= stylesheet_link_tag "application" %>
     <%= yield :specific_stylesheet_tag %>
 
-    <% if can_haz :pink_feedback_button %>
-      <!-- Speciaal voor jou Joel! -->
-      <style>
-        #feedback_button {background: #e6007e;}
-      </style>
-    <% end %>
-
     <link rel="chrome-webstore-item"
       href="https://chrome.google.com/webstore/detail/<%=FactlinkUI::Application.config.chrome_extension_id%>">
 
