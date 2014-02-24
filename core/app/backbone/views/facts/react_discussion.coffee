@@ -22,7 +22,7 @@ window.RefreshIfCurrentUserChanges = React.createClass
     step: 0
 
   componentDidMount: ->
-    window.currentUser?.on 'change', @onChange, @
+    window.currentUser?.on 'change:username', @onChange, @
 
   componentWillUnmount: ->
     window.currentUser?.off null, null, @
