@@ -8,6 +8,7 @@ class FactlinkAppClass extends Backbone.Marionette.Application
     if @mode == FactlinkAppMode.coreInClient
       currentUser.fetch()
     else
+      # We still have some static user-dependent stuff on the site (not client)
       window.location.reload(true)
 
 window.FactlinkApp = new FactlinkAppClass
