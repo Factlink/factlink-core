@@ -12,8 +12,7 @@ body {
 }
 
 .factlink-site {
-  min-width: $siteWidth;
-  // Only on the body because it's breaking the feedback modal when set on the html too.
+  min-width: $siteWidth; // Only on the body because it's breaking the feedback modal when set on the html too.
 }
 
 .container {
