@@ -1,7 +1,8 @@
 .edit-user-container {
- @extend %clearfix;
- @extend %white-block-with-shadow;
- min-height: 300px;
+  @extend %clearfix;
+  @extend %white-block-with-shadow;
+  min-height: 300px;
+  margin-bottom: 10px;
 }
 
 #edit_user {
