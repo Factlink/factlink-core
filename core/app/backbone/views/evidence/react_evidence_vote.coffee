@@ -1,5 +1,6 @@
 window.ReactEvidenceVote = React.createBackboneClass
   displayName: 'ReactEvidenceVote'
+  mixins: [UpdateOnSignInMixin]
 
   _on_up_vote: ->
     return unless FactlinkApp.signedIn()

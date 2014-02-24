@@ -21,21 +21,8 @@ ReactComments = React.createBackboneClass
 window.ReactDiscussion = React.createBackboneClass
   displayName: 'ReactDiscussion'
 
-  getInitialState: ->
-    step: 0
-
-  onChange: ->
-    console.info 're-re-refresh'
-    @setState step: @state.step + 1
-
-  componentDidMount: ->
-    window.currentUser.on 'change:username', @onChange, @
-
-  componentWillUnmount: ->
-    window.currentUser.off null, null, @
-
   render: ->
-    _div ['discussion', key: @state.step],
+    _div ['discussion'],
       _div ['top-annotation'],
         _div ['top-annotation-text'],
           if @model().get('displaystring')
