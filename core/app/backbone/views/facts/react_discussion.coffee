@@ -21,21 +21,8 @@ ReactComments = React.createBackboneClass
 window.ReactDiscussion = React.createBackboneClass
   displayName: 'ReactDiscussion'
 
-  getInitialState: ->
-    step: 0
-
-  onChange: ->
-    console.info 're-re-refresh'
-    @setState step: @state.step + 1
-
-  componentDidMount: ->
-    window.currentUser.on 'change:username', @onChange, @
-
-  componentWillUnmount: ->
-    window.currentUser.off null, null, @
-
   render: ->
-    _div ['discussion', key: @state.step],
+    _div ['discussion'],
       _div ['top-annotation'],
         _div ['top-annotation-text'],
           if @model().get('displaystring')
@@ -46,11 +33,8 @@ window.ReactDiscussion = React.createBackboneClass
         if Factlink.Global.can_haz.opinions_of_users_and_comments
           ReactOpinionateArea
             model: @model().getOpinionators()
-      if FactlinkApp.signedIn()
-        ReactAddComment
-          model: @model().comments()
-          initiallyFocus: @props.initiallyFocusAddComment
-      else
-        ReactOpinionHelp()
+      ReactAddComment
+        model: @model().comments()
+        initiallyFocus: @props.initiallyFocusAddComment
       ReactComments
         model: @model().comments()

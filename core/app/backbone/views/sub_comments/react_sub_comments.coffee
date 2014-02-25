@@ -1,5 +1,6 @@
 window.ReactSubComments = React.createBackboneClass
   displayName: 'ReactSubComments'
+  mixins: [UpdateOnSignInOrOutMixin]
   propTypes:
     fact_opinionators: React.PropTypes.instanceOf(Opinionators).isRequired
     model: React.PropTypes.instanceOf(SubComments).isRequired

@@ -1,79 +1,79 @@
-// .popover {
-//   position: relative;
-//   visibility: visible;
-//   display: inline-block;
-//   z-index: 1; // force new stacking context for arrow shadow
+.white-popover {
+  position: relative;
+  visibility: visible;
+  display: inline-block;
 
-//   > .popover-content {
-//     display: inline-block;
-//     @include background-clip(padding-box);
-//     background: white;
-//     border-radius: $baseBorderRadius;
-//     box-shadow: $blockBorder, 0 $PopoverShadowBottomSize 5px $PopoverShadowBottomColor;
+  // force new stacking context for arrow shadow
+  z-index: 1;
+}
 
-//     // some basic resets
-//     line-height: $baseLineHeight;
-//     text-align: left;
-//   }
+.white-popover > .popover-content {
+  display: inline-block;
+  @include background-clip(padding-box);
+  background: white;
+  border-radius: $baseBorderRadius;
+  box-shadow: $blockBorder, 0 $PopoverShadowBottomSize 5px $PopoverShadowBottomColor;
 
-//   &.top {
-//     > .popover-content {
-//       margin-top: $triangleSize;
-//     }
-//     > .popover-arrow {
-//       @include triangle-arrow-up($PopoverArrowTopBorderColor);
-//       top: $triangleSize;
-//       left: 50%;
-//     }
-//   }
+  // some basic resets
+  line-height: $baseLineHeight;
+  text-align: left;
+}
 
-//   &.bottom {
-//     > .popover-content {
-//       margin-bottom: $triangleSize;
-//     }
-//     > .popover-arrow {
-//       @include triangle-arrow-down($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
-//       bottom: $triangleSize;
-//       left: 50%;
-//     }
-//   }
+.white-popover.popover-top {
+  > .popover-content {
+    margin-top: $triangleSize + 1px;
+  }
+  > .popover-arrow {
+    @include triangle-arrow-up($PopoverArrowTopBorderColor);
+    top: $triangleSize + 1px;
+    left: 50%;
+  }
+}
 
-//   &.right {
-//     > .popover-content {
-//       margin-right: $triangleSize;
-//     }
-//     > .popover-arrow {
-//       @include triangle-arrow-right($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
-//       right: $triangleSize;
-//       top: 50%;
-//     }
-//   }
+.white-popover.popover-bottom {
+  > .popover-content {
+    margin-bottom: $triangleSize + 1px;
+  }
+  > .popover-arrow {
+    @include triangle-arrow-down($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
+    bottom: $triangleSize + 1px;
+    left: 50%;
+  }
+}
 
-//   &.left {
-//     > .popover-content {
-//       margin-left: $triangleSize;
-//     }
-//     > .popover-arrow {
-//       @include triangle-arrow-left($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
-//       left: $triangleSize;
-//       top: 50%;
-//     }
-//   }
-// }
+.white-popover.popover-right {
+  > .popover-content {
+    margin-right: $triangleSize + 1px;
+  }
+  > .popover-arrow {
+    @include triangle-arrow-right($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
+    right: $triangleSize + 1px;
+    top: 50%;
+  }
+}
 
-%translucent-popover {
+.white-popover.popover-left {
+  > .popover-content {
+    margin-left: $triangleSize + 1px;
+  }
+  > .popover-arrow {
+    @include triangle-arrow-left($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
+    left: $triangleSize + 1px;
+    top: 50%;
+  }
+}
+
+.translucent-popover {
   position: relative;
   visibility: visible;
   display: inline-block;
 }
 
-.translucent-popover-bottom {
-  @extend %translucent-popover;
-
-  > .translucent-popover-content {
+.translucent-popover.popover-bottom {
+  > .popover-content {
     margin-bottom: $triangleSize;
   }
-  > .translucent-popover-arrow {
+  > .popover-arrow {
     top: 100%;
     left: 50%;
     margin-top: -$triangleSize;
@@ -82,13 +82,11 @@
   }
 }
 
-.translucent-popover-left {
-  @extend %translucent-popover;
-
-  > .translucent-popover-content {
+.translucent-popover.popover-left {
+  > .popover-content {
     margin-left: $triangleSize;
   }
-  > .translucent-popover-arrow {
+  > .popover-arrow {
     right: 100%;
     top: 50%;
     margin-right: -$triangleSize;
@@ -97,13 +95,11 @@
   }
 }
 
-.translucent-popover-top {
-  @extend %translucent-popover;
-
-  > .translucent-popover-content {
+.translucent-popover.popover-top {
+  > .popover-content {
     margin-top: $triangleSize;
   }
-  > .translucent-popover-arrow {
+  > .popover-arrow {
     bottom: 100%;
     left: 50%;
     margin-bottom: -$triangleSize;
@@ -112,13 +108,11 @@
   }
 }
 
-.translucent-popover-right {
-  @extend %translucent-popover;
-
-  > .translucent-popover-content {
+.translucent-popover.popover-right {
+  > .popover-content {
     margin-right: $triangleSize;
   }
-  > .translucent-popover-arrow {
+  > .popover-arrow {
     left: 100%;
     top: 50%;
     margin-left: -$triangleSize;
@@ -127,7 +121,7 @@
   }
 }
 
-.translucent-popover-content {
+.translucent-popover > .popover-content {
   background: $darkTranslucentGrey;
   color: white;
   display: inline-block;
@@ -135,7 +129,8 @@
   padding: 9px 18px;
   text-align: center;
 }
-.translucent-popover-arrow {
+
+.translucent-popover > .popover-arrow {
   border: floor($triangleSize) solid transparent;
   position: absolute;
   width: 2px;

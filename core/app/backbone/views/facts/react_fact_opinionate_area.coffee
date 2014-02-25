@@ -41,6 +41,7 @@ ReactOpinionatorsAvatars = React.createBackboneClass
 FactOpinionateButton = React.createBackboneClass
   displayName: 'FactOpinionateButton'
   changeOptions: 'add remove reset sort' + ' change'
+  mixins: [UpdateOnSignInOrOutMixin]
 
   _onClick: ->
     @model().clickCurrentUserOpinion @props.opinion_type

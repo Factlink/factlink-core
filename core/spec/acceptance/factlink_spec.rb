@@ -36,6 +36,9 @@ describe "factlink", type: :feature do
 
     go_to_fact_show_of factlink
 
+    fill_in_comment_textarea 'Some text to show Post button'
+    click_button 'Post'
+
     page.should have_content 'sign in/up with email'
   end
 end

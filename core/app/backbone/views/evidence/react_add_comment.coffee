@@ -38,9 +38,9 @@ ReactSearchFacts = React.createClass
 
     @____factSearchResults
 
-
 window.ReactAddComment = React.createBackboneClass
   displayName: 'ReactAddComment'
+  mixins: [UpdateOnSignInOrOutMixin]
 
   componentDidMount: ->
     @refs.textarea.focusInput() if @props.initiallyFocus
@@ -50,6 +50,7 @@ window.ReactAddComment = React.createBackboneClass
     controlsOpened: false
     searchOpened: false
     shareProviders: {facebook: false, twitter: false}
+    signinPopoverOpened: false
 
   render: ->
     _div ['add-comment-container comment-container'],
@@ -61,27 +62,33 @@ window.ReactAddComment = React.createBackboneClass
           ref: 'textarea'
           storageKey: "add_comment_to_fact_#{@model().fact.id}"
           onChange: @_onTextareaChange
-          onSubmit: @_submit
+          onSubmit: => @refs.signinPopover.submit()
         _div [
           'add-comment-controls'
           'add-comment-controls-visible' if @state.controlsOpened
         ],
           _button ['button-confirm button-small add-comment-post-button'
-            onClick: @_submit
+            onClick: => @refs.signinPopover.submit()
             disabled: !@_comment().isValid()
+            ref: 'post'
           ],
             Factlink.Global.t.post_argument
-          ReactShareFactSelection
-            model: @model().fact
-            providers: @state.shareProviders
-            onChange: @_onShareFactSelectionChange
-          ReactSearchLink
-            opened: @state.searchOpened
-            onToggle: (opened) => @setState searchOpened: opened
-          ReactSearchFacts
-            opened: @state.searchOpened
-            fact_id: @model().fact.id
-            onInsert: @_onSearchInsert
+            ReactSigninPopover
+              ref: 'signinPopover'
+              onSubmit: @_submit
+          if FactlinkApp.signedIn()
+            _div [],
+              ReactShareFactSelection
+                model: @model().fact
+                providers: @state.shareProviders
+                onChange: @_onShareFactSelectionChange
+              ReactSearchLink
+                opened: @state.searchOpened
+                onToggle: (opened) => @setState searchOpened: opened
+              ReactSearchFacts
+                opened: @state.searchOpened
+                fact_id: @model().fact.id
+                onInsert: @_onSearchInsert
 
   _onTextareaChange: (text) ->
     @setState(text: text)
