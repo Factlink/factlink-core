@@ -18,11 +18,9 @@ window.ReactFeedActivities = React.createBackboneClass
 
   render: ->
     _div [id:"feed_activity_list"],
-      _div ["js-activities-list"],
-        @model().map (model) =>
-          switch model.get("action")
-            when "created_comment", "created_sub_comment"
-              ReactCreatedComment(model: model)
-            when "followed_user"
-              ReactFollowedUser(model: model)
-      _div ["empty-stream js-empty-stream"]
+      @model().map (model) =>
+        switch model.get("action")
+          when "created_comment", "created_sub_comment"
+            ReactCreatedComment(model: model)
+          when "followed_user"
+            ReactFollowedUser(model: model)
