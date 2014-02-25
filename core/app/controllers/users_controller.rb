@@ -13,13 +13,13 @@ class UsersController < ApplicationController
   end
 
   def current
-    if current_user
-      full_user = interactor :'users/get_full', username: current_user.username
-      render json: full_user
-    else
-      non_signed_in_user = interactor :'users/get_non_signed_in'
-      render json: non_signed_in_user
-    end
+    user = if current_user
+        interactor :'users/get_full', username: current_user.username
+      else
+        interactor :'users/get_non_signed_in'
+      end
+
+    render json: user
   end
 
   # TODO: convert this page to backbone
