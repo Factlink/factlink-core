@@ -1,20 +1,13 @@
-class window.FeedActivitiesView extends Backbone.Marionette.Layout
-  template: 'feed/feed'
+window.ReactFeedActivities = React.createBackboneClass
+  render: ->
+    _div [],
+      _header ["content-header"],
+        _h1 ["content-title"],
+          Factlink.Global.t.stream.capitalize()
 
-  regions:
-    activityList: '.js-region-activity-list'
-
-  events:
-    "click .js-activities-refresh": "refresh"
-
-  templateHelpers: ->
-    title: Factlink.Global.t.stream.capitalize()
-
-  onRender: ->
-    @collection.loadMore()
-    @activityList.show new ReactView
-      component: ReactActivities
-        model: @collection
+      _div [id:"feed_activity_list"],
+        ReactActivities
+          model: @model()
 
 ReactActivities = React.createBackboneClass
   displayName: 'ReactActivities'
@@ -28,6 +21,7 @@ ReactActivities = React.createBackboneClass
     console.info 'yo'
 
   componentDidMount: ->
+    @model().loadMore()
     @model().on "remove stopLoading", @checkScrolledPosition, @
     $(window).on "scroll", @checkScrolledPosition
 
