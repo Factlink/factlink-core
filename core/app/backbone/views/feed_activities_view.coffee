@@ -13,6 +13,7 @@ window.ReactFeedActivities = React.createBackboneClass
     $(window).on "scroll", @checkScrolledPosition
 
   componentWillUnmount: ->
+    # createBackboneClass unbinds model
     $(window).off "scroll", @checkScrolledPosition
 
   render: ->
