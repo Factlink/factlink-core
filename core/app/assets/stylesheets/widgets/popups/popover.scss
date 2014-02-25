@@ -21,44 +21,44 @@
 
 .white-popover.popover-top {
   > .popover-content {
-    margin-top: $triangleSize;
+    margin-top: $triangleSize + 1px;
   }
   > .popover-arrow {
     @include triangle-arrow-up($PopoverArrowTopBorderColor);
-    top: $triangleSize;
+    top: $triangleSize + 1px;
     left: 50%;
   }
 }
 
 .white-popover.popover-bottom {
   > .popover-content {
-    margin-bottom: $triangleSize;
+    margin-bottom: $triangleSize + 1px;
   }
   > .popover-arrow {
     @include triangle-arrow-down($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
-    bottom: $triangleSize;
+    bottom: $triangleSize + 1px;
     left: 50%;
   }
 }
 
 .white-popover.popover-right {
   > .popover-content {
-    margin-right: $triangleSize;
+    margin-right: $triangleSize + 1px;
   }
   > .popover-arrow {
     @include triangle-arrow-right($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
-    right: $triangleSize;
+    right: $triangleSize + 1px;
     top: 50%;
   }
 }
 
 .white-popover.popover-left {
   > .popover-content {
-    margin-left: $triangleSize;
+    margin-left: $triangleSize + 1px;
   }
   > .popover-arrow {
     @include triangle-arrow-left($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
-    left: $triangleSize;
+    left: $triangleSize + 1px;
     top: 50%;
   }
 }
