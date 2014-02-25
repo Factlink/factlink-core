@@ -11,6 +11,9 @@ class window.DiscussionSidebarContainer extends Backbone.Marionette.Layout
   ui:
     close: '.js-client-html-close'
 
+  initialize: (options) ->
+    @_annotatedSiteEnvoy = options.annotatedSiteEnvoy
+
   _closeModal: (event) ->
     return unless @$el.is(event.target) || @ui.close.is(event.target)
 
@@ -20,12 +23,16 @@ class window.DiscussionSidebarContainer extends Backbone.Marionette.Layout
     @$el.preventScrollPropagation()
 
   slideIn: (view) ->
-    @mainRegion.show view
-    _.defer => @$el.addClass 'discussion-sidebar-container-visible'
-    $('body').addClass 'discussion-sidebar-open'
+    @_annotatedSiteEnvoy 'openModalOverlay'
 
-    @opened = true
-    mp_track 'Discussion Sidebar: Open'
+    # Wait until overlay frame is visible
+    _.defer =>
+      @$el.addClass 'discussion-sidebar-container-visible'
+      @mainRegion.show view
+      $('body').addClass 'discussion-sidebar-open'
+
+      @opened = true
+      mp_track 'Discussion Sidebar: Open'
 
   slideOut: (callback=->) ->
     @$el.removeClass 'discussion-sidebar-container-visible'
