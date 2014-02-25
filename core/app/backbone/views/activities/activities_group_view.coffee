@@ -8,7 +8,7 @@ window.ReactCreatedComment = React.createBackboneClass
     _div ["feed-activity"],
       _div ["feed-activity-user"],
         _a [href: user.link(), rel:"backbone"],
-          _img ["image-48px feed-activity-user-avatar", alt:" ", src: user.avatar_url(48)]
+          _img ["feed-activity-user-avatar", alt:" ", src: user.avatar_url(48)]
 
       _div ["feed-activity-container"],
         _div ["feed-activity-heading"],
@@ -36,7 +36,7 @@ window.ReactFollowedUser = React.createBackboneClass
     _div ['feed-activity'],
       _div ["feed-activity-user"],
         _a [href: user.link(), rel:"backbone"],
-          _img ["image-48px feed-activity-user-avatar", src: user.avatar_url(48)]
+          _img ["feed-activity-user-avatar", src: user.avatar_url(48)]
 
       _div ["feed-activity-container"],
         _div ["feed-activity-heading"],
