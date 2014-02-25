@@ -1,0 +1,80 @@
+.feed-activity {
+  padding: 5px 0;
+}
+
+.feed-activity-user {
+  display: table-cell;
+  vertical-align: top;
+  width: 48px;
+  padding-right: 10px;
+}
+
+.feed-activity-user-avatar {
+  border-radius: 4px;
+  vertical-align: middle;
+  height: 48px;
+  width: 48px;
+
+  @include respond-to(600) {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.feed-activity-user-avatar.image-32px {
+  margin: 0 5px;
+}
+
+.feed-activity-container {
+  display: table-cell;
+  vertical-align: top;
+  width: 100%;
+  padding: 7px 10px;
+  background: white;
+  border-bottom: 1px lightgrey solid;
+  border-radius: 4px;
+}
+
+.feed-activity-heading {
+  display: table;
+  width: 100%;
+  line-height: 32px;
+}
+
+.feed-activity-action {
+  display: table-cell;
+  text-align: left;
+}
+
+.feed-activity-username {
+  font-weight: 600;
+}
+
+.feed-activity-description {
+  color: #999;
+}
+
+.feed-activity-time {
+  font-size: 11px;
+  display: table-cell;
+  text-align: right;
+  color: #999;
+}
+
+.feed-activity-annotation {
+  display: table;
+  min-height: 16px;
+  vertical-align: top;
+}
+
+#feed_activity_list {
+  .empty-stream {
+    margin-top: 24px;
+    text-align: center;
+  }
+
+  .activities-bottom > div > div {
+    margin: 0 -15px;
+    border-top: 1px solid $baseBorderColor;
+  }
+}

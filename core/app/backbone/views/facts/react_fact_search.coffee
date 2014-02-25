@@ -9,7 +9,6 @@ ReactFactSearchResult = React.createBackboneClass
     displaystring = @model().get('displaystring')
 
     _div [
-      'fact-search-result'
       'spec-fact-search-result'
       'fact-search-result-selected' if @props.selected
       title: displaystring

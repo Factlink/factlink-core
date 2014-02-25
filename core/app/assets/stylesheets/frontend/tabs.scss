@@ -1,6 +1,11 @@
 .main-region-tabs {
   float: right;
   margin-top: 10px;
+
+  @include respond-to(400) {
+    display: none;
+  }
+
   ul > li {
     float: left;
     &:before {

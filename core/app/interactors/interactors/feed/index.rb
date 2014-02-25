@@ -16,6 +16,7 @@ module Interactors
               timestamp: activity_hash[:score],
               user: query(:dead_users_by_ids, user_ids: activity.user.user_id).first,
               action: activity.action,
+              created_at: activity.created_at.to_time,
               time_ago: TimeFormatter.as_time_ago(activity.created_at.to_time),
               id: activity.id
             }
