@@ -58,7 +58,7 @@ ReactFollowedUserActivity = React.createBackboneClass
               Factlink.Global.t.followed
             " "
             _a ["feed-activity-username", href: followed_user.link(), rel:"backbone"],
-              _img ["avatar-image", src: followed_user.avatar_url(32), style: {height: '32px', width: '32px'}]
+              _img ["avatar-image feed-activity-followed-avatar", src: followed_user.avatar_url(32), style: {height: '32px', width: '32px'}]
               " "
               followed_user.get('name')
           ]

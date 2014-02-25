@@ -1,46 +1,46 @@
-.feed-activity {
-  padding: 5px 0;
-}
+$feedPadding: 5px;
+$headerHeight: 48px;
+$headerInnerHeight: 32px;
+$avatarSmallHeight: 32px;
+$headerBorder: 1px;
 
-.feed-activity-user {
-  vertical-align: baseline;
-  width: 48px;
-  padding-right: 10px;
+.feed-activity {
+  padding: $feedPadding 0;
 }
 
 .feed-activity-user-avatar {
   position: absolute;
-  border-radius: 4px;
+  border-radius: $baseBorderRadius;
   vertical-align: middle;
-  height: 48px;
-  width: 48px;
+  height: $headerHeight;
+  width: $headerHeight;
 
   @include respond-to(600) {
-    margin-top: 8px;
-    width: 32px;
-    height: 32px;
+    margin-top: ($headerHeight - $avatarSmallHeight)/2;
+    width: $avatarSmallHeight;
+    height: $avatarSmallHeight;
   }
 }
 
-.feed-activity-user-avatar.image-32px {
-  margin: 0 5px;
+.feed-activity-followed-avatar {
+  margin: 0 3px;
 }
 
 .feed-activity-container {
   vertical-align: top;
-  margin-left: 48px + 2*5px;
-  padding: ((48px - 32px)/2 - 1px) 10px;
+  margin-left: $headerHeight + 2*$feedPadding;
+  padding: (($headerHeight - $headerInnerHeight)/2 - $headerBorder) 10px;
   background: white;
-  border-bottom: 1px lightgrey solid;
-  border-radius: 4px;
+  border-bottom: $headerBorder lightgrey solid;
+  border-radius: $baseBorderRadius;
 
   @include respond-to(600) {
-    margin-left: 32px + 2*5px;
+    margin-left: $avatarSmallHeight + 2*$feedPadding;
   }
 }
 
 .feed-activity-heading {
-  line-height: 32px;
+  line-height: $headerInnerHeight;
 }
 
 .feed-activity-description {
@@ -50,7 +50,6 @@
 .feed-activity-username {
   font-weight: 600;
 }
-
 
 .feed-activity-time {
   float: right;
