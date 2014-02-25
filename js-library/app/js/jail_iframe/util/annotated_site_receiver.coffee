@@ -2,18 +2,18 @@
 
 modalOpen = false
 
+FactlinkJailRoot.openModalOverlay = ->
+  if modalOpen
+    console.error 'trying to open an already open modal: bug?'
+    return
+  FactlinkJailRoot.$sidebarFrame.addClass 'factlink-sidebar-frame-visible'
+  modalOpen = true
+  FactlinkJailRoot.trigger 'modalOpened'
+
 FactlinkJailRoot.annotatedSiteReceiver =
   modalFrameReady: (featureToggles) ->
     FactlinkJailRoot.can_haz = featureToggles
     FactlinkJailRoot.core_loaded_promise.resolve()
-
-  openModalOverlay: ->
-    if modalOpen
-      console.error 'trying to open an already open modal: bug?'
-      return
-    FactlinkJailRoot.$sidebarFrame.addClass 'factlink-sidebar-frame-visible'
-    modalOpen = true
-    FactlinkJailRoot.trigger 'modalOpened'
 
   highlightNewFactlink: (displaystring, id) ->
     FactlinkJailRoot.highlightFact(displaystring, id)

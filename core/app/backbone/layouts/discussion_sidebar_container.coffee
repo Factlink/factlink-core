@@ -23,16 +23,12 @@ class window.DiscussionSidebarContainer extends Backbone.Marionette.Layout
     @$el.preventScrollPropagation()
 
   slideIn: (view) ->
-    @_annotatedSiteEnvoy 'openModalOverlay'
+    _.defer => @$el.addClass 'discussion-sidebar-container-visible'
+    @mainRegion.show view
+    $('body').addClass 'discussion-sidebar-open'
 
-    # Wait until overlay frame is visible
-    _.defer =>
-      @$el.addClass 'discussion-sidebar-container-visible'
-      @mainRegion.show view
-      $('body').addClass 'discussion-sidebar-open'
-
-      @opened = true
-      mp_track 'Discussion Sidebar: Open'
+    @opened = true
+    mp_track 'Discussion Sidebar: Open'
 
   slideOut: (callback=->) ->
     @$el.removeClass 'discussion-sidebar-container-visible'

@@ -8,6 +8,9 @@ FactlinkJailRoot.$factlinkCoreContainer[0].appendChild(iframe)
 real_envoy =  FactlinkJailRoot.createSenderEnvoy iframe.contentWindow
 FactlinkJailRoot.factlinkCoreEnvoy = (args...) -> FactlinkJailRoot.core_loaded_promise.done -> real_envoy(args...)
 FactlinkJailRoot.perf.add_timing_event('inserted core iframe')
-FactlinkJailRoot.openFactlinkModal = (id) -> FactlinkJailRoot.factlinkCoreEnvoy 'showFactlink', id
+
+FactlinkJailRoot.openFactlinkModal = (id) ->
+  FactlinkJailRoot.openModalOverlay()
+  FactlinkJailRoot.factlinkCoreEnvoy 'showFactlink', id
 
 FactlinkJailRoot.$sidebarFrame = $(iframe)
