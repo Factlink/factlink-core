@@ -11,8 +11,7 @@ FactlinkJailRoot.openModalOverlay = ->
   FactlinkJailRoot.trigger 'modalOpened'
 
 FactlinkJailRoot.annotatedSiteReceiver =
-  modalFrameReady: (featureToggles) ->
-    FactlinkJailRoot.can_haz = featureToggles
+  modalFrameReady: ->
     FactlinkJailRoot.core_loaded_promise.resolve()
 
   highlightNewFactlink: (displaystring, id) ->

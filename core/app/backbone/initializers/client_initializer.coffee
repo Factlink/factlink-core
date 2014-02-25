@@ -22,4 +22,4 @@ window.FactlinkAppMode.coreInClient = (app) ->
       e.stopPropagation()
       app.vent.trigger 'close_discussion_sidebar'
 
-  annotatedSiteEnvoy 'modalFrameReady', Factlink.Global.can_haz
+  annotatedSiteEnvoy 'modalFrameReady'

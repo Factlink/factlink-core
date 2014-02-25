@@ -61,8 +61,6 @@ class ParagraphButtons
     FactlinkJailRoot.perf.add_timing_event 'paragraph buttons added'
 
 FactlinkJailRoot.host_ready_promise
-  .then(-> FactlinkJailRoot.core_loaded_promise) #wait due to FactlinkJailRoot.can_haz.paragraph_icons
   .then ->
-    if  FactlinkJailRoot.can_haz.paragraph_icons
-      paragraphButtons = new ParagraphButtons
-      paragraphButtons.addParagraphButtons()
+    paragraphButtons = new ParagraphButtons
+    paragraphButtons.addParagraphButtons()
