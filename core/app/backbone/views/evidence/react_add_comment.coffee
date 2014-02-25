@@ -70,6 +70,7 @@ window.ReactAddComment = React.createBackboneClass
           _button ['button-confirm button-small add-comment-post-button'
             onClick: @_onPostClicked
             disabled: !@_comment().isValid()
+            ref: 'post'
           ],
             Factlink.Global.t.post_argument
             ReactSigninPopover
@@ -90,6 +91,7 @@ window.ReactAddComment = React.createBackboneClass
                 onInsert: @_onSearchInsert
 
   _onPostClicked: ->
+    @refs.post.getDOMNode().blur()
     if FactlinkApp.signedIn()
       @_submit()
     else

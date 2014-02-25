@@ -14,14 +14,14 @@
 }
 
 .add-comment-controls {
-  overflow: hidden; // new block formatting context
   margin-top: 10px;
   line-height: $baseButtonHeight;
   display: none;
+  width: 100%;
 }
 
 .add-comment-controls-visible {
-  display: block;
+  display: inline-block; // new block formatting context
 }
 
 .add-comment-post-button {
