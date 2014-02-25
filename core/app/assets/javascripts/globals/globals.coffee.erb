@@ -43,5 +43,6 @@ Factlink.Global.t.<%= translation.to_s %> = "<%= I18n.t(translation) %>"
 Factlink.Timeout =
   stream_refresh: 60*1000
 
-Factlink.allowFeatures = (list = [])->
+Factlink.setFeatures = (list = [])->
+  Factlink.Global.can_haz = {}
   Factlink.Global.can_haz[feature] = true for feature in list

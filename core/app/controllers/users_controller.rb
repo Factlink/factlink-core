@@ -17,7 +17,8 @@ class UsersController < ApplicationController
       full_user = interactor :'users/get_full', username: current_user.username
       render json: full_user
     else
-      render json: {}
+      non_signed_in_user = interactor :'users/get_non_signed_in'
+      render json: non_signed_in_user
     end
   end
 

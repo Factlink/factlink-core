@@ -54,7 +54,7 @@ module Interactors
           confirmed: user.confirmed?,
           created_at: user.created_at,
           services: services,
-          features: user.features
+          features: interactor(:'global_features/all') + user.features.to_a
         }
       end
 

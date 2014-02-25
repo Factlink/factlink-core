@@ -59,6 +59,20 @@ describe UsersController do
     end
   end
 
+  describe :current do
+    render_views
+
+    it "should render json successful for non signed in user" do
+      FactoryGirl.reload
+
+      Pavlov.command(:'global_features/set', features: [:some_global_feature])
+
+      get :current, format: :json
+
+      verify { response.body }
+    end
+  end
+
   describe :tour_users do
     render_views
     include PavlovSupport

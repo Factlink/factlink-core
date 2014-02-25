@@ -32,8 +32,6 @@
   <%= render 'snippets/mixpanel' %>
 
   <script type="text/javascript">
-    Factlink.allowFeatures(<%= Pavlov.interactor(:'global_features/all').to_json.html_safe %>);
-
     FactlinkApp.start({factlinkAppMode: FactlinkAppMode.coreInClient});
 
     Backbone.history.start({pushState: Modernizr.history});

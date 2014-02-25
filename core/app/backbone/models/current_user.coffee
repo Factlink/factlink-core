@@ -6,4 +6,4 @@ class window.CurrentUser extends User
   initialize: ->
     super
 
-    @on 'change:features', -> Factlink.allowFeatures @get('features')
+    @on 'change:features', -> Factlink.setFeatures @get('features')
