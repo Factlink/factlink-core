@@ -93,7 +93,7 @@ window.ReactAddComment = React.createBackboneClass
     if FactlinkApp.signedIn()
       @_submit()
     else
-      @setState signinPopoverOpened: true
+      @setState signinPopoverOpened: !@state.signinPopoverOpened
 
   _onTextareaChange: (text) ->
     @setState(text: text)
