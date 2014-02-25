@@ -12,7 +12,7 @@ window.ReactSigninPopover = React.createClass
     @setState opened: true
 
   _onSignedInChange: ->
-    if FactlinkApp.signedIn() && @state.opened
+    if FactlinkApp.signedIn() && @_pendingState.opened
       @props.onSubmit?()
       @setState opened: false
 
@@ -22,7 +22,7 @@ window.ReactSigninPopover = React.createClass
     if FactlinkApp.signedIn()
       @props.onSubmit?()
     else
-      @setState opened: !@state.opened
+      @setState opened: !@_pendingState.opened
 
   render: ->
     if @state.opened && !FactlinkApp.signedIn()
