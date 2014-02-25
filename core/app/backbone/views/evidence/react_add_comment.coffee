@@ -40,7 +40,7 @@ ReactSearchFacts = React.createClass
 
 window.ReactAddComment = React.createBackboneClass
   displayName: 'ReactAddComment'
-  mixins: [UpdateOnSignInMixin]
+  mixins: [UpdateOnSignInOrOutMixin]
 
   componentDidMount: ->
     @refs.textarea.focusInput() if @props.initiallyFocus

@@ -1,4 +1,4 @@
-window.UpdateOnSignInMixin =
+window.UpdateOnSignInOrOutMixin =
   componentDidMount: ->
     window.currentUser.on 'change:username', (-> @forceUpdate()), @
 
