@@ -1,80 +1,64 @@
-.feed-activity {
-  padding: 5px 0;
-}
+$feedPadding: 5px;
+$headerHeight: 48px;
+$headerInnerHeight: 32px;
+$avatarSmallHeight: 32px;
+$headerBorder: 1px;
 
-.feed-activity-user {
-  display: table-cell;
-  vertical-align: top;
-  width: 48px;
-  padding-right: 10px;
+.feed-activity {
+  padding: $feedPadding 0;
 }
 
 .feed-activity-user-avatar {
-  border-radius: 4px;
+  position: absolute;
+  border-radius: $baseBorderRadius;
   vertical-align: middle;
-  height: 48px;
-  width: 48px;
+  height: $headerHeight;
+  width: $headerHeight;
 
   @include respond-to(600) {
-    width: 32px;
-    height: 32px;
+    margin-top: ($headerHeight - $avatarSmallHeight)/2;
+    width: $avatarSmallHeight;
+    height: $avatarSmallHeight;
   }
 }
 
-.feed-activity-user-avatar.image-32px {
-  margin: 0 5px;
+.feed-activity-followed-avatar {
+  margin: 0 3px;
 }
 
 .feed-activity-container {
-  display: table-cell;
   vertical-align: top;
-  width: 100%;
-  padding: 7px 10px;
+  margin-left: $headerHeight + 2*$feedPadding;
+  padding: (($headerHeight - $headerInnerHeight)/2 - $headerBorder) 10px;
   background: white;
-  border-bottom: 1px lightgrey solid;
-  border-radius: 4px;
+  border-bottom: $headerBorder lightgrey solid;
+  border-radius: $baseBorderRadius;
+
+  @include respond-to(600) {
+    margin-left: $avatarSmallHeight + 2*$feedPadding;
+  }
 }
 
 .feed-activity-heading {
-  display: table;
-  width: 100%;
-  line-height: 32px;
-}
-
-.feed-activity-action {
-  display: table-cell;
-  text-align: left;
-}
-
-.feed-activity-username {
-  font-weight: 600;
+  line-height: $headerInnerHeight;
 }
 
 .feed-activity-description {
   color: #999;
 }
 
+.feed-activity-username {
+  font-weight: 600;
+}
+
 .feed-activity-time {
+  float: right;
   font-size: 11px;
-  display: table-cell;
   text-align: right;
   color: #999;
 }
 
 .feed-activity-annotation {
-  display: table;
   min-height: 16px;
   vertical-align: top;
-}
-
-#feed_activity_list {
-  .empty-stream {
-    margin-top: 24px;
-    text-align: center;
-  }
-
-  .activities-bottom > div > div {
-    margin: 0 -15px;
-    border-top: 1px solid $baseBorderColor;
-  }
 }

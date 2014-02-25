@@ -1,6 +1,7 @@
 class window.FeedsController extends Backbone.Marionette.Controller
   showFeed: ->
-    FactlinkApp.mainRegion.show new FeedActivitiesView
-      collection: new FeedActivities
+    FactlinkApp.mainRegion.show new ReactView
+      component: ReactFeedActivities
+        model: new FeedActivities
 
     mp_track 'Viewed feed'
