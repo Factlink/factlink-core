@@ -1,13 +1,8 @@
 window.ReactFeedActivities = React.createBackboneClass
   render: ->
-    _div [],
-      _header ["content-header"],
-        _h1 ["content-title"],
-          Factlink.Global.t.stream.capitalize()
-
-      _div [id:"feed_activity_list"],
-        ReactActivities
-          model: @model()
+    _div [id:"feed_activity_list"],
+      ReactActivities
+        model: @model()
 
 ReactActivities = React.createBackboneClass
   displayName: 'ReactActivities'
