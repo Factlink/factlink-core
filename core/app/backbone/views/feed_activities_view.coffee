@@ -6,7 +6,6 @@ window.ReactFeedActivities = React.createBackboneClass
     pixels_under_fold = $(document).height() - ($(window).scrollTop() + $(window).height())
 
     @model().loadMore() if pixels_under_fold < 700
-    console.info 'yo'
 
   componentDidMount: ->
     @model().loadMore()
