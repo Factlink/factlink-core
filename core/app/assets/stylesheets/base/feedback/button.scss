@@ -21,6 +21,10 @@
 
   @include border-bottom-radius(8px);
 
+  @include respond-to(400) {
+    display: none;
+  }
+
   a {
     display: block;
     width: 100%;
