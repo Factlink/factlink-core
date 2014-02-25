@@ -1,14 +1,7 @@
 window.ReactFeedActivities = React.createBackboneClass
-  render: ->
-    _div [id:"feed_activity_list"],
-      ReactActivities
-        model: @model()
+  displayName: 'ReactFeedActivities'
 
-ReactActivities = React.createBackboneClass
-  displayName: 'ReactActivities'
-
-  # this function sets the correct state after loading is done, tries to load more if applicable
-  # and sets empty state if we are not loading and we have no items
+  # this function loads more activities, if we're almost at the bottom of the list
   checkScrolledPosition: ->
     pixels_under_fold = $(document).height() - ($(window).scrollTop() + $(window).height())
 
@@ -24,7 +17,7 @@ ReactActivities = React.createBackboneClass
     $(window).off "scroll", @checkScrolledPosition
 
   render: ->
-    _div [],
+    _div [id:"feed_activity_list"],
       _div ["js-activities-list"],
         @model().map (model) =>
           switch model.get("action")
