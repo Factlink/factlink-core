@@ -43,7 +43,11 @@ window.ReactAddComment = React.createBackboneClass
   mixins: [UpdateOnSignInOrOutMixin]
 
   componentDidMount: ->
-    @refs.textarea.focusInput() if @props.initiallyFocus
+    if @props.initiallyFocus
+      @refs.textarea.focusInput()
+
+      # For some crazy reason, the overflow-x: hidden; is scrolled!
+      FactlinkApp.discussionSidebarContainer.el.scrollLeft = 0
 
   getInitialState: ->
     text: ''

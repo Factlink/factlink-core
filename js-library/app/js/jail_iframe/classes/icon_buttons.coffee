@@ -167,5 +167,6 @@ class FactlinkJailRoot.ParagraphIconButtonContainer
     siteTitle = document.title
     siteUrl = FactlinkJailRoot.siteUrl()
 
+    FactlinkJailRoot.openModalOverlay()
     FactlinkJailRoot.factlinkCoreEnvoy 'prepareNewFactlink',
       text, siteUrl, siteTitle, null

@@ -30,19 +30,14 @@ class window.ClientController
         @showNewFact(params)
       currentUser.on 'change', onChange
 
-      view = new NewFactLoginView model: fact
-      view.on 'render', => @annotatedSiteEnvoy 'openModalOverlay'
-
-      FactlinkApp.discussionSidebarContainer.slideIn view
+      FactlinkApp.discussionSidebarContainer.slideIn new NewFactLoginView
+        model: fact
 
   _renderDiscussion: (fact) ->
     @annotatedSiteEnvoy 'highlightExistingFactlink', fact.id
+    fact.fetch()
 
     FactlinkApp.discussionSidebarContainer.slideIn new ReactView
       component: ReactDiscussion
         model: fact
         initiallyFocusAddComment: true
-
-    @annotatedSiteEnvoy 'openModalOverlay'
-
-    fact.fetch()

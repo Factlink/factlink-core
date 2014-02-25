@@ -1,15 +1,11 @@
 FactlinkJailRoot.createFactFromSelection = (current_user_opinion) ->
-  success = ->
-    window.document.getSelection().removeAllRanges()
-    FactlinkJailRoot.createButton.stopLoading()
-    FactlinkJailRoot.createButton.hide()
-    FactlinkJailRoot.off 'modalOpened', success
-
   text = window.document.getSelection().toString().trim()
   siteTitle = window.document.title
   siteUrl = FactlinkJailRoot.siteUrl()
+  window.document.getSelection().removeAllRanges()
+  FactlinkJailRoot.createButton.hide()
 
-  FactlinkJailRoot.on 'modalOpened', success
+  FactlinkJailRoot.openModalOverlay()
   FactlinkJailRoot.factlinkCoreEnvoy 'prepareNewFactlink',
     text, siteUrl, siteTitle, current_user_opinion
 
