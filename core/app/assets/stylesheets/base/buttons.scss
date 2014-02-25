@@ -38,9 +38,12 @@
   }
 
   &:active {
-    outline: none; //prevents ugly webkit active state
     border-bottom-width: 0px;
     border-top-width: $largeButtonBorderWidth;
+  }
+
+  &:active, &:focus {
+    outline: none; //prevents ugly webkit active state
   }
 
   &.button-loading {
