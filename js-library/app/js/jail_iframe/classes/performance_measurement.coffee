@@ -36,7 +36,7 @@ FactlinkJailRoot.core_loaded_promise
     'fetchStart responseEnd domLoading domInteractive domContentLoadedEventStart domContentLoadedEventEnd domComplete loadEventEnd'
     .split(' ').forEach (timing_event) ->
       add_existing_timing_event timing_event, window.performance.timing[timing_event]
-  if FactlinkJailRoot.can_haz.log_jslib_loading_performance
+  if localStorage.log_jslib_loading_performance
     console.log get_perf_summary()
 )
 

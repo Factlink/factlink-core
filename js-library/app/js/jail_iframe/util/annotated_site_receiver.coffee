@@ -3,8 +3,7 @@
 modalOpen = false
 
 FactlinkJailRoot.annotatedSiteReceiver =
-  modalFrameReady: (featureToggles) ->
-    FactlinkJailRoot.can_haz = featureToggles
+  modalFrameReady: ->
     FactlinkJailRoot.core_loaded_promise.resolve()
 
   openModalOverlay: ->
