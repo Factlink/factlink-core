@@ -6,6 +6,10 @@ $headerBorder: 1px;
 
 .feed-activity {
   padding: $feedPadding 0;
+
+  &:first-child {
+    padding-top: 0;
+  }
 }
 
 .feed-activity-user-avatar {
