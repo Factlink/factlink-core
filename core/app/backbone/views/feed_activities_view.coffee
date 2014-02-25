@@ -58,7 +58,7 @@ ReactFollowedUserActivity = React.createBackboneClass
               Factlink.Global.t.followed
             " "
             _a ["feed-activity-username", href: followed_user.link(), rel:"backbone"],
-              _img ["feed-activity-user-avatar image-32px", src: followed_user.avatar_url(32)]
+              _img ["avatar-image", src: followed_user.avatar_url(32), style: {height: '32px', width: '32px'}]
               " "
               followed_user.get('name')
           ]
@@ -76,13 +76,14 @@ ReactActivity = React.createBackboneClass
       _div ["feed-activity-container"],
         _div ["feed-activity-heading"],
           _div ["feed-activity-action"],
+            _div ["feed-activity-time"],
+              TimeAgo(time: this.props.time)
+
             _a ["feed-activity-username", href: user.link(), rel:"backbone"]
               user.get('name')
             ' '
 
             this.props.activity_header_action
 
-          _div ["feed-activity-time"],
-            TimeAgo(time: this.props.time)
         _div ["feed-activity-content"],
            this.props.children

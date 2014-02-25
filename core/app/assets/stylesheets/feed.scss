@@ -3,19 +3,20 @@
 }
 
 .feed-activity-user {
-  display: table-cell;
-  vertical-align: top;
+  vertical-align: baseline;
   width: 48px;
   padding-right: 10px;
 }
 
 .feed-activity-user-avatar {
+  position: absolute;
   border-radius: 4px;
   vertical-align: middle;
   height: 48px;
   width: 48px;
 
   @include respond-to(600) {
+    margin-top: 8px;
     width: 32px;
     height: 32px;
   }
@@ -26,43 +27,39 @@
 }
 
 .feed-activity-container {
-  display: table-cell;
   vertical-align: top;
-  width: 100%;
-  padding: 7px 10px;
+  margin-left: 48px + 2*5px;
+  padding: ((48px - 32px)/2 - 1px) 10px;
   background: white;
   border-bottom: 1px lightgrey solid;
   border-radius: 4px;
+
+  @include respond-to(600) {
+    margin-left: 32px + 2*5px;
+  }
 }
 
 .feed-activity-heading {
-  display: table;
-  width: 100%;
   line-height: 32px;
-}
-
-.feed-activity-action {
-  display: table-cell;
-  text-align: left;
-}
-
-.feed-activity-username {
-  font-weight: 600;
 }
 
 .feed-activity-description {
   color: #999;
 }
 
+.feed-activity-username {
+  font-weight: 600;
+}
+
+
 .feed-activity-time {
+  float: right;
   font-size: 11px;
-  display: table-cell;
   text-align: right;
   color: #999;
 }
 
 .feed-activity-annotation {
-  display: table;
   min-height: 16px;
   vertical-align: top;
 }
