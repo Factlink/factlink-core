@@ -13,7 +13,7 @@
   </div>
 </header>
 
-<div class="row" id="edit_user">
+<div class="edit-user-container" id="edit_user">
   <div class="narrow-indented-block content-region">
     <%= form_for(@user, :url => { action: :update, id: (@user.errors[:username].any? ? @user.username_was : @user.username) }, validate: true) do |f| %>
       <div class="edit-user-form">

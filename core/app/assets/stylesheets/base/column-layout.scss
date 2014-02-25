@@ -9,10 +9,6 @@
   margin-left: 20px;
   float: left;
 }
-.row {
- margin-left: -20px;
- @extend %clearfix;
-}
 
 .grid-row {
   margin-left: -20px;

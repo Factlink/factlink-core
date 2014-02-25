@@ -13,7 +13,7 @@ $('html').on 'click', '.js-accounts-popup-link', (e) ->
   e.preventDefault()
 
 $(document).on 'signed_in', ->
-  window.location.reload(true)
+  FactlinkApp.refreshCurrentUser()
   mp_track 'User: Sign in'
 
 $(document).on 'authorized', (e) ->

@@ -32,10 +32,14 @@ class window.SearchResultView extends Backbone.Marionette.CompositeView
     switch options.model.get("the_class")
       when "Annotation"
         new ReactView
+          tagName: 'div'
+          className: 'feed-activity-container search-results'
           component: ReactFact
             model: new Fact(options.model.get("the_object"))
       when "User"
         new ReactView
+          tagName: 'div'
+          className: 'feed-activity-container search-results'
           component: ReactUserSearch
             model: new User(options.model.get("the_object"))
       else
