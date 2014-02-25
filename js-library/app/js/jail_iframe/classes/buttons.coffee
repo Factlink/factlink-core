@@ -8,7 +8,6 @@ class FactlinkJailRoot.CreateButton
         <span class="icon-comment"></span>
         <span class="fl-button-sub-button" data-opinion="believes"><span class="icon-thumbs-up"></span></span><span class="fl-button-sub-button" data-opinion="disbelieves"><span class="icon-thumbs-down"></span></span>
       </div>
-      <div class="fl-button-content-loading">Loading...</div>
     </div>
   """
 
@@ -25,11 +24,7 @@ class FactlinkJailRoot.CreateButton
     @$el.on 'mousedown', (event) -> event.preventDefault() # To prevent de-selecting text
     @$el.on 'click', @_onClick
 
-  startLoading: => @frame.addClass 'loading'
-  stopLoading: => @frame.removeClass 'loading hovered'
-
   _onClick: (event) =>
-    @startLoading()
     current_user_opinion = $(event.target).closest('[data-opinion]').data('opinion')
     FactlinkJailRoot.createFactFromSelection(current_user_opinion)
 
