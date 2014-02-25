@@ -26,7 +26,7 @@ module Acceptance
           click_button "Post"
         end
 
-        wait_until_argument_has_one_vote comment
+        wait_until_argument_has_one_vote text
       end
 
       def add_existing_factlink evidence_factlink
