@@ -6,7 +6,7 @@ module Acceptance
         page.find('.spec-open-search-facts-link').click
       end
 
-      def add_comment comment
+      def fill_in_comment_textarea text
         within '.spec-add-comment-form' do
           comment_input = find('.text_area_view')
           comment_input.click
@@ -14,9 +14,15 @@ module Acceptance
           comment_input = find('.text_area_view')
           comment_input.value.should eq ''
           comment_input.click
-          comment_input.set comment
-          comment_input.value.should eq comment
+          comment_input.set text
+          comment_input.value.should eq text
+        end
+      end
 
+      def add_comment text
+        fill_in_comment_textarea text
+
+        within '.spec-add-comment-form' do
           click_button "Post"
         end
 
