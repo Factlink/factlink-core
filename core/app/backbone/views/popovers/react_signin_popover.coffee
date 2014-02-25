@@ -1,6 +1,6 @@
 window.ReactSigninPopover = React.createClass
   getInitialState: ->
-    buttonHasBeenClicked: false
+    opened: false
 
   componentDidMount: ->
     window.currentUser.on 'change:username', @_onSignedInChange, @
@@ -9,17 +9,23 @@ window.ReactSigninPopover = React.createClass
     window.currentUser.off null, null, @
 
   _onButtonClicked: (e) ->
-    @setState buttonHasBeenClicked: true
+    @setState opened: true
 
   _onSignedInChange: ->
-    if FactlinkApp.signedIn() && @state.buttonHasBeenClicked
-      @props.onSignIn?()
-      @setState buttonHasBeenClicked: false
+    if FactlinkApp.signedIn() && @state.opened
+      @props.onSubmit?()
+      @setState opened: false
 
     @forceUpdate()
 
+  submit: ->
+    if FactlinkApp.signedIn()
+      @props.onSubmit?()
+    else
+      @setState opened: !@state.opened
+
   render: ->
-    if @props.signinPopoverOpened && !FactlinkApp.signedIn()
+    if @state.opened && !FactlinkApp.signedIn()
       ReactPopover className: 'white-popover', attachment: 'right',
         _span ["signin-popover"],
           _a ["button-twitter small-connect-button signin-popover-button js-accounts-popup-link",

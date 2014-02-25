@@ -62,20 +62,20 @@ window.ReactAddComment = React.createBackboneClass
           ref: 'textarea'
           storageKey: "add_comment_to_fact_#{@model().fact.id}"
           onChange: @_onTextareaChange
-          onSubmit: @_onPostClicked
+          onSubmit: => @refs.signinPopover.submit()
         _div [
           'add-comment-controls'
           'add-comment-controls-visible' if @state.controlsOpened
         ],
           _button ['button-confirm button-small add-comment-post-button'
-            onClick: @_onPostClicked
+            onClick: => @refs.signinPopover.submit()
             disabled: !@_comment().isValid()
             ref: 'post'
           ],
             Factlink.Global.t.post_argument
             ReactSigninPopover
-              signinPopoverOpened: @state.signinPopoverOpened
-              onSignIn: @_submit
+              ref: 'signinPopover'
+              onSubmit: @_submit
           if FactlinkApp.signedIn()
             _div [],
               ReactShareFactSelection
@@ -89,13 +89,6 @@ window.ReactAddComment = React.createBackboneClass
                 opened: @state.searchOpened
                 fact_id: @model().fact.id
                 onInsert: @_onSearchInsert
-
-  _onPostClicked: ->
-    @refs.post.getDOMNode().blur()
-    if FactlinkApp.signedIn()
-      @_submit()
-    else
-      @setState signinPopoverOpened: !@state.signinPopoverOpened
 
   _onTextareaChange: (text) ->
     @setState(text: text)
