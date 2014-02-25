@@ -1,4 +1,9 @@
 @import "variables";
+@import "mixins/blocks";
+
+#main-wrapper {
+  @extend %white-block-with-shadow;
+}
 
 .admin-form-label-column {
   text-align: right;
@@ -29,7 +34,6 @@
   background-color: $backgroundGray;
   border-collapse: collapse;
   border-spacing: 0;
-  border: 1px solid $tableBorder;
   max-width: 100%;
 
   th, td {
