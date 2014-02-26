@@ -80,4 +80,8 @@ $headerBorder: 1px;
   min-height: 16px;
   margin: (($headerHeight - $headerInnerHeight)/2 - $headerBorder) 0px;
   vertical-align: top;
+
+  @include respond-to(600) {
+    margin-bottom: 0px;
+  }
 }
