@@ -3,6 +3,7 @@
 
 // All the default libraries/files needed for all pages on Factlink
 //= require jquery_ujs
+//= require local_storage_polyfill
 //= require jquery_ujs_override
 
 //= require underscore
