@@ -5,7 +5,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
   include Acceptance::FactHelper
   include Acceptance::CommentHelper
 
-  background do
+  before do
     @user_1 = sign_in_user create :full_user, :confirmed
     @user_2 = create :full_user, :confirmed
   end
