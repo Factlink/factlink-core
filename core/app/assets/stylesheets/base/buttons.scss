@@ -4,22 +4,21 @@
   position: relative;
   font-family: inherit;
   font-size: 13px;
-  border-radius: 3px;
+  border-radius: $baseBorderRadius;
   height: $largeButtonHeight;
   line-height: $largeButtonHeight;
   padding: 0 $largeButtonPadding;
   transition: all 0.1s;
   vertical-align: middle;
   cursor: pointer;
-  border: solid 0px rgba(0,0,0,0.1);
-  border-bottom-width: $largeButtonBorderWidth;
+  border: none;
 
   &:before { // This resolved a weird bug in Chrome where an area between the text and the border bottom was not clickable. (issue 1029)
     content: '';
     position: absolute;
     top: 0;
     right: 0;
-    bottom: -$largeButtonBorderWidth;
+    bottom: 0;
     left: 0;
     border-radius: inherit;
   }
@@ -33,14 +32,12 @@
   }
 
   &:disabled {
-    color: $mutedFontColor;;
+    color: $mutedFontColor;
     cursor: not-allowed;
   }
 
   &:active {
     outline: none; //prevents ugly webkit active state
-    border-bottom-width: 0px;
-    border-top-width: $largeButtonBorderWidth;
   }
 
   &.button-loading {
