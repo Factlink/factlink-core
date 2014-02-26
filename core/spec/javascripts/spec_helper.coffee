@@ -1,1 +1,1 @@
-csrfDataForLocalStorage = {}
+window.csrfDataForLocalStorage = {}
