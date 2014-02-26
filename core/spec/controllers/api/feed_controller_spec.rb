@@ -9,6 +9,7 @@ describe Api::FeedController do
     include PavlovSupport
 
     before do
+      # Keep in sync with screenshots/feed_spec
       FactoryGirl.reload
       other_user = create :user
       as(user) do |p|
