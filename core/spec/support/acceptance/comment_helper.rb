@@ -41,7 +41,7 @@ module Acceptance
           # Open search by entering something
           comment_input.set 'something'
           comment_input.set ''
-          find('.spec-open-search-facts-link').click
+          open_search_factlink
 
           page.find("input[type=text]").click
           page.find("input[type=text]").set(text)

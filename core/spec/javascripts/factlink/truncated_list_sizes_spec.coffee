@@ -1,3 +1,4 @@
+#= require ../spec_helper
 #= require lib/truncated_list_sizes
 
 describe 'window.truncatedListSizes', ->
