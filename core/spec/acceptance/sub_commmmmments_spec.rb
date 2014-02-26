@@ -6,7 +6,7 @@ feature "sub_comments", type: :feature do
   include Pavlov::Helpers
   include Acceptance::CommentHelper
 
-  background do
+  before do
     @user_a = sign_in_user create :full_user, :confirmed
     @user_b = create :full_user, :confirmed
 
