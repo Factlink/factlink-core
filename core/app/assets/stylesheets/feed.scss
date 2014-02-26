@@ -78,6 +78,6 @@ $headerBorder: 1px;
 
 .feed-activity-annotation {
   min-height: 16px;
-  margin-top: 7px;
+  margin: (($headerHeight - $headerInnerHeight)/2 - $headerBorder) 0px;
   vertical-align: top;
 }
