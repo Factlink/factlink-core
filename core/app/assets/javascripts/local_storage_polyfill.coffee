@@ -1,3 +1,4 @@
+"use strict"
 try
   # raises exception if security prevents us from using localStorage
   # this happens when the user blocks third party cookies, and tries
