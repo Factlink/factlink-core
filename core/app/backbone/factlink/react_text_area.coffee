@@ -23,7 +23,7 @@ window.ReactTextArea = React.createClass
 
   componentDidMount: ->
     if @props.storageKey?
-      storedText = sessionStorage?[@props.storageKey]
+      storedText = safeLocalStorage.getItem(@props.storageKey)
       @updateText storedText if storedText
 
   _onChange: (e)->
@@ -32,7 +32,7 @@ window.ReactTextArea = React.createClass
   updateText: (text, callback) ->
     @setState text: text, callback
     @props.onChange?(text)
-    sessionStorage?[@props.storageKey] = text if @props.storageKey?
+    safeLocalStorage.setItem(@props.storageKey, text) if @props.storageKey?
 
   focusInput: ->
     @refs.textarea.getDOMNode().focus()

@@ -1,2 +1,2 @@
 window.getSetting = (str) ->
-  localStorage?[str]
+  safeLocalStorage?[str]
