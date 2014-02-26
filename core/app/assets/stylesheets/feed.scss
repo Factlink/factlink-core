@@ -32,6 +32,10 @@ $headerBorder: 1px;
 
 .feed-activity-followed-avatar {
   margin: 0 3px;
+
+  @include respond-to(600) {
+    display: none;
+  }
 }
 
 .feed-activity-container {
