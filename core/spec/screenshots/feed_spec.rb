@@ -5,9 +5,9 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
   include Acceptance::FactHelper
   include Acceptance::CommentHelper
 
-  before do
-    @user = sign_in_user create :full_user
-    @user2 = create :full_user
+  background do
+    @user_1 = sign_in_user create :full_user, :confirmed
+    @user_2 = create :full_user, :confirmed
   end
 
   let(:factlink) { create :fact }
@@ -20,10 +20,10 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
     add_comment comment
 
     # user2 follow user
-    Pavlov.interactor(:'users/follow_user', username: @user.username, pavlov_options: {current_user: @user2})
+    Pavlov.interactor(:'users/follow_user', username: @user_1.username, pavlov_options: {current_user: @user2})
     switch_to_user(@user_2)
-    visit feed_path
 
+    visit feed_path
     assume_unchanged_screenshot 'feed'
   end
 end
