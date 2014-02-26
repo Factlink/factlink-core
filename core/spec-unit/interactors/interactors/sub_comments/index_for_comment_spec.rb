@@ -4,8 +4,7 @@ require_relative '../../../../app/interactors/interactors/sub_comments/index_for
 describe Interactors::SubComments::IndexForComment do
   include PavlovSupport
   before do
-    stub_classes 'SubComment', 'Comment', 'KillObject',
-                 'Queries::SubComments::Index'
+    stub_classes 'SubComment', 'Comment', 'Queries::SubComments::Index'
   end
 
   describe '#authorized?' do
