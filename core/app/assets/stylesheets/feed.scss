@@ -20,7 +20,6 @@ $headerBorder: 1px;
   width: $headerHeight;
 
   @include respond-to(600) {
-    margin-top: ($headerHeight - $avatarSmallHeight)/2;
     width: $avatarSmallHeight;
     height: $avatarSmallHeight;
   }
