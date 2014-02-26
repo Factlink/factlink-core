@@ -5,7 +5,7 @@ describe Queries::Users::FilterMailSubscribers do
   include PavlovSupport
 
   before do
-    stub_classes 'UserNotification', 'KillObject'
+    stub_classes 'UserNotification'
   end
 
   describe '#call' do
@@ -19,8 +19,6 @@ describe Queries::Users::FilterMailSubscribers do
 
       UserNotification.stub(:users_receiving).with('digest').and_return(scope)
       scope.stub(:any_in).with(graph_user_id: graph_user_ids).and_return([user])
-
-      KillObject.stub(:user).with(user).and_return(dead_user)
 
       expect(query.call).to eq([dead_user])
     end
