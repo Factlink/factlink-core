@@ -1,4 +1,5 @@
 $feedPadding: 5px;
+$smallFeedPadding: 3px;
 $headerHeight: 48px;
 $headerInnerHeight: 32px;
 $avatarSmallHeight: 32px;
@@ -9,6 +10,10 @@ $headerBorder: 1px;
 
   &:first-child {
     padding-top: 0;
+  }
+
+  @include respond-to(600) {
+    padding: $smallFeedPadding 0;
   }
 }
 
@@ -38,7 +43,7 @@ $headerBorder: 1px;
   border-radius: $baseBorderRadius;
 
   @include respond-to(600) {
-    margin-left: $avatarSmallHeight + 2*$feedPadding;
+    margin-left: $avatarSmallHeight + 2*$smallFeedPadding;
   }
 }
 
