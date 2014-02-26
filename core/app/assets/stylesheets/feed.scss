@@ -39,6 +39,7 @@ $headerBorder: 1px;
 }
 
 .feed-activity-container {
+  min-height: $headerHeight;
   vertical-align: top;
   margin-left: $headerHeight + 2*$feedPadding;
   padding: (($headerHeight - $headerInnerHeight)/2 - $headerBorder) 10px;
@@ -48,11 +49,16 @@ $headerBorder: 1px;
 
   @include respond-to(600) {
     margin-left: $avatarSmallHeight + 2*$smallFeedPadding;
+    min-height: $avatarSmallHeight;
   }
 }
 
 .feed-activity-heading {
   line-height: $headerInnerHeight;
+
+  @include respond-to(600) {
+    line-height: $avatarSmallHeight - (($headerHeight - $headerInnerHeight) - (2 * $headerBorder));
+  }
 }
 
 .feed-activity-description {
@@ -72,5 +78,6 @@ $headerBorder: 1px;
 
 .feed-activity-annotation {
   min-height: 16px;
+  margin-top: 7px;
   vertical-align: top;
 }
