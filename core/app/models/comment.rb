@@ -16,6 +16,6 @@ class Comment
   end
 
   after_destroy do |comment|
-    SubComment.delete_all(parent_id: comment.id.to_s)
+    SubComment.destroy_all(parent_id: comment.id.to_s) #delete_all doesn't work?
   end
 end
