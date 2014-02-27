@@ -31,7 +31,7 @@ module Commands
 
         user.social_accounts.each do |social_account|
           # TODO: properly deauthorize facebook here
-          social_account.delete #TODO:otherdelete?
+          social_account.destroy
         end
       end
 
