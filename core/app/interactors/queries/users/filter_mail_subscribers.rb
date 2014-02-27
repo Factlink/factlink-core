@@ -9,9 +9,7 @@ module Queries
       attribute :type, String
 
       def execute
-        recipients.map do |user|
-          KillObject.user user
-        end
+        recipients
       end
 
       def recipients
