@@ -4,8 +4,6 @@ describe EvidenceDeletable do
 
   context 'Comment' do
     let(:created_by_user) { create :full_user }
-    let(:other_user)      { create :full_user }
-    let(:fact_user)       { create :full_user }
     let(:fact)            { create :fact }
 
     let(:comment) do
@@ -19,21 +17,13 @@ describe EvidenceDeletable do
       Comment.find(dead_comment.id)
     end
 
-    def add_opinion comment, opinion, graph_user
-      believable_of(comment).add_opiniated(opinion, graph_user)
-    end
-
-    def believable_of comment
-      Believable::Commentje.new(comment)
-    end
-
     it "should be true initially" do
       EvidenceDeletable.deletable?(comment).should be_true
     end
     it "should be false after someone comments on it" do
       pavlov_options = {
-        current_user: comment.created_by,
-        ability: Ability.new(comment.created_by)
+        current_user: created_by_user,
+        ability: Ability.new(created_by_user)
       }
 
       interactor = Interactors::SubComments::Create.new(comment_id: comment.id.to_s,
