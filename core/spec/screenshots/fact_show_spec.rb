@@ -46,8 +46,8 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
 
     page.should have_content @factlink.data.displaystring
 
-    first('.spec-sub-comments-link').click
-    first('.sub-comment-container') # wait for subcomments to appear
+    find_link('(2) Comment').click
+    find('.spec-sub-comments-form') # wait for subcomments to appear
 
     assume_unchanged_screenshot "fact_show"
   end
