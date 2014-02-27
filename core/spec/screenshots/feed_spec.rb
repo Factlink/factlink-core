@@ -5,10 +5,10 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
   include PavlovSupport
 
   let(:user) { create :user }
+  let(:other_user) { create :user }
 
   before do
     # Keep in sync with controllers/api/feed_controller_spec
-    other_user = create :user
     as(user) do |p|
       p.interactor :'users/follow_user', username: other_user.username
     end
