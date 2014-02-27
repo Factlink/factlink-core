@@ -36,7 +36,7 @@ class Believable
 
   def remove_opinionateds(graph_user)
     OpinionType.types.each do |type|
-      opiniated(type).delete(graph_user)
+      opiniated(type).delete(graph_user) #TODO:otherdelete? ohmset, prob OK.
     end
   end
 

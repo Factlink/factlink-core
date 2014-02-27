@@ -14,7 +14,7 @@ class Accounts::SocialConnectionsController < Accounts::BaseController
     end
 
     if social_account # spurious or already connected account
-      social_account.delete
+      social_account.delete #TODO:otherdelete?  social_account is mongoid.
     end
 
     current_user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
@@ -50,7 +50,7 @@ class Accounts::SocialConnectionsController < Accounts::BaseController
     uid = social_account.omniauth_obj['uid']
     token = social_account.omniauth_obj['credentials']['token']
 
-    social_account.delete
+    social_account.delete #TODO:otherdelete?
 
     response = HTTParty.delete("https://graph.facebook.com/#{uid}/permissions?access_token=#{token}")
     if response.code == 200 || response.code == 400
@@ -61,7 +61,7 @@ class Accounts::SocialConnectionsController < Accounts::BaseController
   end
 
   def deauthorize_twitter social_account
-    social_account.delete
+    social_account.delete #TODO:otherdelete?
     flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
   end
 end

@@ -11,7 +11,7 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
       render_trigger_event 'signed_in', ''
     else
       if social_account # spurious account
-        social_account.delete
+        social_account.delete #TODO:otherdelete?
       end
 
       @social_account = SocialAccount.create! provider_name: provider_name, omniauth_obj: omniauth_obj

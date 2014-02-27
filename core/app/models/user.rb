@@ -282,7 +282,7 @@ class User
 
   # Override login mechanism to allow username or email logins
   def self.find_for_database_authentication(conditions)
-    login = conditions.delete(:login)
+    login = conditions.delete(:login) #TODO:otherdelete? unlikely, devise
     any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
   end
 

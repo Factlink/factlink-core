@@ -7,7 +7,7 @@ module Interactors
       arguments :comment_id
 
       def execute
-        comment.delete
+        comment.delete #TODO:otherdelete? mongoid
       end
 
       def comment
