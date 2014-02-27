@@ -1,21 +1,24 @@
-.small-connect-buttons {
-  display: inline-block;
-  padding: 0px 5px;
-}
-
 .small-connect-button {
-  padding: 1px 5px 0 6px;
-  line-height: $smallConnectButtonHeight;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+  height: 32px;
+  width: 32px;
+  padding: 0px;
+  text-align: center;
   font-size: 11px;
-  margin-top: -2px;
+  border: none;
 
   .icon-twitter, .icon-facebook {
-    margin: 0;
+    position: relative;
+    top: 1px;
   }
-}
 
-.small-connect-button-factlink {
-  padding: 0 2px;
+  .icon-twitter, .icon-facebook, .icon-factlink {
+    margin: 0;
+    vertical-align: middle;
+    line-height: 32px;
+  }
 }
 
 .small-connect-separator {
