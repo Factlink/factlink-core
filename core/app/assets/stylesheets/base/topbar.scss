@@ -36,19 +36,20 @@
 
 .topbar-menu {
   float: right;
-  line-height: $topbarHeight;
 }
 
 .topbar-menu-item {
   float: left;
-  line-height: $topbarHeight;
   vertical-align: middle;
   font-weight: bold;
+  height:100%;
 }
 
 .topbar-menu-link {
   padding: 0px 15px;
   display: block;
+  height:$topbarHeight;
+  line-height:$topbarHeight;
 }
 
 .topbar-divider {
@@ -74,7 +75,11 @@
 }
 
 .topbar-profile-link {
+  @extend %centering-y;
   @include ellipsis(220px);
+  display:inline-block;
+  height:$topbarHeight;
+
 
   @include respond-to(600) {
     @include ellipsis(100px);
@@ -82,8 +87,12 @@
 }
 
 .topbar-profile-image {
+  @extend %centering-inner;
   border-radius: 2px;
   vertical-align: middle;
+}
+.topbar-profile-username {
+  @extend %centering-inner;
 }
 
 .topbar-menu-bookmarklet::after {
