@@ -1,7 +1,7 @@
 class EvidenceDeletable
   attr_reader :evidence, :believable, :creator_id
 
-  def initialize evidence, type, believable, creator_id
+  def initialize evidence, believable, creator_id
     @evidence = evidence
     @type = type
     @believable = believable
