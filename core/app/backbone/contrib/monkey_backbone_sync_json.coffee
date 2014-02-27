@@ -27,7 +27,7 @@ wrap_success_and_error = (options) ->
     jqXHR.abort = -> clearTimeout timeout
 
 get_sync_delay = ->
-  sync_delay = getSetting("sync_delay")
+  sync_delay = safeLocalStorage.getItem("sync_delay")
 
   if not sync_delay
     0

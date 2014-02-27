@@ -12,7 +12,7 @@ catch e
     getItem: (key)->
       @[key]
     setItem: (key, item) ->
-      @[key] = item
+      @[key] = String(item)
     removeItem: (key)->
       delete @[key]
   }
