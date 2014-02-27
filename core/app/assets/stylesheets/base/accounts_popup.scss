@@ -11,7 +11,8 @@ $separatorWidth: 35px;
 }
 
 .accounts-popup-logo {
-  margin-top: 9px;
+  line-height: $topbarHeight;
+  vertical-align: middle;
 }
 
 .accounts-popup-content {
