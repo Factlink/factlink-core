@@ -4,7 +4,8 @@
 }
 
 .topbar-inner {
-  line-height: $topbarHeight;
+  @extend %centering-y;
+  height: $topbarHeight;
   margin-left: auto;
   margin-right: auto;
   max-width: $siteWidth;
@@ -12,20 +13,17 @@
 }
 
 .topbar-logo {
-  display: inline-block;
+  @extend %centering-inner;
   margin-right: 20px;
 }
 
 .topbar-logo-img{
   vertical-align: middle;
-  position: relative;
-  top: -2px;
   height: 20px;
 }
 
 .topbar-search {
-  display: inline-block;
-
+  @extend %centering-inner;
   @include respond-to(600) {
     display: none;
   }
