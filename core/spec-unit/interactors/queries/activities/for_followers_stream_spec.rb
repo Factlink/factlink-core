@@ -4,51 +4,30 @@ require_relative '../../../../app/interactors/queries/activities/for_followers_s
 describe Queries::Activities::ForFollowersStream do
   include PavlovSupport
   before do
-    stub_classes 'Activity', 'Activity::Listener::Stream'
+    stub_classes 'GraphUser'
   end
 
   describe '#call' do
     it 'filters the recent_activities using the Stream listener' do
       graph_user_id = 3
-      activities = [double, double, double]
-      filtered_activities = [activities[0], activities[2]]
-      listener = double
+      activities = [double, nil, double, nil, double]
+      graph_user = double :graph_user
+      sorted_set = double :sorted_set
       query = described_class.new(graph_user_id: graph_user_id)
 
-      query.stub recent_activities: activities
+      allow(GraphUser)
+        .to receive(:[])
+        .with(graph_user_id)
+        .and_return(graph_user)
+      allow(graph_user)
+        .to receive(:own_activities)
+        .and_return(sorted_set)
+      allow(sorted_set)
+        .to receive(:below)
+        .with('inf', count: 7, reversed: true, withscores: false)
+        .and_return(activities)
 
-      Activity::Listener::Stream.should_receive(:new)
-                                .and_return(listener)
-
-      listener.should_receive(:matches_any?)
-              .with(activities[0])
-              .and_return true
-      listener.should_receive(:matches_any?)
-              .with(activities[1])
-              .and_return false
-      listener.should_receive(:matches_any?)
-              .with(activities[2])
-              .and_return true
-
-      expect(query.call).to eq filtered_activities
-    end
-  end
-
-  describe '#recent_activities' do
-    it 'returns recent activities this user created' do
-      graph_user_id = 3
-      activity_ids = double
-      activity_set = double
-      query = described_class.new(graph_user_id: graph_user_id)
-
-      Activity.stub(:find)
-              .with({user_id: graph_user_id})
-              .and_return(activity_set)
-      activity_set.stub(:sort)
-                  .with(order: 'DESC', limit: 40)
-                  .and_return(activity_ids)
-
-      expect(query.recent_activities).to eq activity_ids
+      expect(query.call).to eq [activities[0], activities[2], activities[4]]
     end
   end
 end
