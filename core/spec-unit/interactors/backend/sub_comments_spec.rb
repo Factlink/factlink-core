@@ -112,7 +112,7 @@ describe Backend::SubComments do
       SubComment.should_receive(:find).with(sub_comment.id)
                 .and_return(sub_comment)
 
-      sub_comment.should_receive(:delete)
+      sub_comment.should_receive(:destroy)
 
       Backend::SubComments.destroy!(id: sub_comment.id)
     end
