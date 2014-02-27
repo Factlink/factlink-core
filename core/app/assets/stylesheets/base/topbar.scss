@@ -54,12 +54,10 @@
 }
 
 .topbar-divider {
-  margin: 0 -3px 0 0;
-  border: none;
-  background: image-url('base/topbar/divider.png') repeat-y center;
+  border-right: 1px lightgrey solid;
   display: block;
-  width: 3px;
-  height: 42px;
+  width: 0px;
+  height: $topbarHeight;
   float: left;
 }
 
