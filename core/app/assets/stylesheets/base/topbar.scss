@@ -101,6 +101,9 @@
 }
 
 .topbar-connect {
+  @extend %centering-y;
   float: right;
+  line-height: 1.2; //anything significantly smaller than 42px.
+  height:100%;
 }
 
