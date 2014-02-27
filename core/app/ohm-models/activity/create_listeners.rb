@@ -127,7 +127,7 @@ class Activity < OurOhm
 
       stream_activities.map{ |a| a[:action] }.flatten.map(&:to_s).each do |action|
         unless Activity.valid_actions_in_stream_activities.include? action
-          fail "Invalid activity action for notifications: #{action}"
+          fail "Invalid activity action for stream: #{action}"
         end
       end
 
@@ -136,6 +136,17 @@ class Activity < OurOhm
         named :stream_activities
         stream_activities.each { |a| activity a }
       end
+
+      Activity::Listener.register do
+        activity_for "GraphUser"
+        named :own_activities
+        stream_activities.each do |a|
+          activity a.merge({
+            write_ids: ->(a) {[a.user_id]}
+          })
+        end
+      end
+
     end
   end
 end
