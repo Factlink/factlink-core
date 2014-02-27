@@ -20,6 +20,5 @@ module Backend
     def believable(comment_id)
       ::Believable::Commentje.new(comment_id)
     end
-
   end
 end
