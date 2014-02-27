@@ -6,7 +6,7 @@ describe Interactors::SubComments::Create do
   include PavlovSupport
 
   before do
-    stub_classes 'Comment', 'SubComment', 'Commands::SubComments::CreateXxx'
+    stub_classes 'Comment', 'SubComment'
   end
 
   it '.authorized denied the user cannot show the comment' do
