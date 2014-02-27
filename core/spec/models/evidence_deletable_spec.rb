@@ -35,22 +35,6 @@ describe EvidenceDeletable do
     it "should be true initially" do
       deletable(comment).should be_true
     end
-    it "should be true if only the creator believes it" do
-      add_opinion(comment, :believes, comment.created_by.graph_user)
-      deletable(comment).should be_true
-    end
-    it "should be false after someone else believes the relation" do
-      add_opinion(comment, :believes, other_user.graph_user)
-      deletable(comment).should be_false
-    end
-    it "should be true if only the creator believes it" do
-      add_opinion(comment, :disbelieves, other_user.graph_user)
-      deletable(comment).should be_true
-    end
-    it "should be true if only the creator believes it" do
-      add_opinion(comment, :doubts, other_user.graph_user)
-      deletable(comment).should be_true
-    end
     it "should be false after someone comments on it" do
       pavlov_options = {
         current_user: comment.created_by,

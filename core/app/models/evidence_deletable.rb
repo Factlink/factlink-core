@@ -9,27 +9,7 @@ class EvidenceDeletable
   end
 
   def deletable?
-    (has_no_believers or creator_is_only_believer) and has_no_sub_comments
-  end
-
-  private
-  def people_believes_ids
-    @people_believes_ids ||= believable.opiniated(:believes).ids
-  end
-
-  def has_no_believers
-    people_believes_ids == []
-  end
-
-  def creator_is_only_believer
-    people_believes_ids.map { |i| i.to_i } == [creator_id.to_i]
-  end
-
-  def sub_comment_count
-    Backend::SubComments.count(parent_id: evidence.id.to_s)
-  end
-
-  def has_no_sub_comments
-    sub_comment_count == 0
+    has_subcomments = SubComment.where(parent_id: evidence.id.to_s).exists?
+    !has_subcomments
   end
 end
