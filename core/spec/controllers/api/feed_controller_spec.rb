@@ -4,6 +4,7 @@ describe Api::FeedController do
   render_views
 
   let(:user) { create :user }
+  let(:other_user) {create :user}
 
   describe "#index" do
     include PavlovSupport
@@ -11,7 +12,6 @@ describe Api::FeedController do
     before do
       # Keep in sync with screenshots/feed_spec
       FactoryGirl.reload
-      other_user = create :user
       as(user) do |p|
         p.interactor :'users/follow_user', username: other_user.username
       end
