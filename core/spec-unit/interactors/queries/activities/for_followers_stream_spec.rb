@@ -8,7 +8,7 @@ describe Queries::Activities::ForFollowersStream do
   end
 
   describe '#call' do
-    it 'filters the recent_activities using the Stream listener' do
+    it 'filters the activities using the Stream listener' do
       graph_user_id = 3
       activities = [double, nil, double, nil, double]
       graph_user = double :graph_user
