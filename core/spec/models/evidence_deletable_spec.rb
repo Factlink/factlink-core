@@ -20,8 +20,7 @@ describe EvidenceDeletable do
     end
 
     def deletable comment
-      EvidenceDeletable.new(comment, believable_of(comment),
-        comment.created_by.graph_user_id).deletable?
+      EvidenceDeletable.new(comment).deletable?
     end
 
     def add_opinion comment, opinion, graph_user
