@@ -1,9 +1,13 @@
 <div class="topbar">
   <div class="topbar-inner">
     <% if @step_in_signup_process %>
-      <%= link_to "Home", home_path, class: 'topbar-logo' %>
+      <div class="topbar-logo-container">
+        <%= link_to image_tag('base/topbar/logo.svg', class: 'topbar-logo-img'), home_path, class: 'topbar-logo' %>
+      </div>
     <% else %>
-      <%= link_to "Home", home_path, class: 'topbar-logo js-potential-backbone' %>
+      <div class="topbar-logo-container">
+        <%= link_to image_tag('base/topbar/logo.svg', class: 'topbar-logo-img'), home_path, class: 'topbar-logo js-potential-backbone' %>
+      </div>
     <% end %>
 
     <% unless @step_in_signup_process %>
