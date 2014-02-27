@@ -77,6 +77,16 @@ class Activity < OurOhm
       }
     end
 
+    def followed_someone_else
+      # If you follow someone, you get activities when they follow someone,
+      # except when they follow you
+      {
+        subject_class: 'GraphUser',
+        action: 'followed_user',
+        write_ids: ->(a) { followers_for_graph_user(a.user_id) - [a.subject_id] }
+      }
+    end
+
     def create_activity_listeners
       Activity::Listener.reset
       # TODO clear activity listeners for develop
@@ -106,10 +116,9 @@ class Activity < OurOhm
     end
 
     def create_stream_activities
-      Activity::Listener.register_listener Activity::Listener::Stream.new
-
       # NOTE: Please update the tags above and in _activity.json.jbuilder when changing this!!
       stream_activities = [
+        followed_someone_else,
         forGraphUser_comment_was_added_to_a_fact_you_follow,
         forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow,
         forGraphUser_follower_created_comment,
@@ -128,6 +137,5 @@ class Activity < OurOhm
         stream_activities.each { |a| activity a }
       end
     end
-
   end
 end
