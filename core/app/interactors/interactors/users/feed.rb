@@ -10,7 +10,7 @@ module Interactors
       end
 
       def execute
-        Backend::Activities.activities_below(activities_set: activities, timestamp: timestamp)
+        Backend::Activities.activities_older_than(activities_set: activities, timestamp: timestamp)
       end
 
       def activities
