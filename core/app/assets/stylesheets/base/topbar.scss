@@ -43,11 +43,13 @@
 
 .topbar-menu-item {
   float: left;
+  line-height: $topbarHeight;
+  vertical-align: middle;
   font-weight: bold;
 }
 
 .topbar-menu-link {
-  padding: 12px 15px;
+  padding: 0px 15px;
   display: block;
 }
 
@@ -68,7 +70,7 @@
 }
 
 .topbar-profile-name {
-  padding: 6px 15px;
+  padding: 0px 15px;
 
   @include respond-to(400) {
     display: none;
