@@ -1,26 +1,21 @@
 module Interactors
-  module Feed
-    class Index
+  module Users
+    class Feed
       include Pavlov::Interactor
 
-      arguments :timestamp
+      arguments :timestamp, :username
 
       def authorized?
         true
       end
 
       def execute
-        return [] unless current_user
-
         Backend::Activities.activities_older_than(activities_set: activities, timestamp: timestamp)
       end
 
       def activities
-        current_user.graph_user.stream_activities
-      end
-
-      def current_user
-        pavlov_options[:current_user]
+        user = User.where(username: username).first
+        user.graph_user.own_activities
       end
     end
   end

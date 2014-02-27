@@ -9,7 +9,12 @@ class window.ProfileView extends Backbone.Marionette.Layout
     profileInformationRegion: '.js-profile-information-region'
     profileBioRegion: '.js-bio-region'
     factRegion: '.fact-region'
+    feedRegion: '.js-feed'
 
   onRender: ->
     @profileInformationRegion.show new ProfileInformationView model: @model
     @profileBioRegion.show  new ProfileBioView model: @model
+    @feedRegion.show new ReactView
+      component: ReactFeedActivities
+        model: @model.feed_activities()
+

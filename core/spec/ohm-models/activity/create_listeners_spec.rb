@@ -117,7 +117,7 @@ describe 'activity queries' do
 
           fact = create :fact
 
-          as(current_user) do |pavlov|
+          as(create :user) do |pavlov|
             comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'disbelieves', content: 'content')
           end
 
