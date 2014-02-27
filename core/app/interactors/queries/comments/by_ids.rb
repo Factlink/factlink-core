@@ -30,7 +30,7 @@ module Queries
           created_at: comment.created_at.utc.iso8601,
           formatted_content: FormattedCommentContent.new(comment.content).html,
           sub_comments_count: Backend::SubComments.count(parent_id: comment.id),
-          is_deletable: deletable?(comment, believable),
+          is_deletable: EvidenceDeletable.deletable?(comment),
           tally: votes(believable).slice(:believes, :disbelieves, :current_user_opinion)
         )
       end
@@ -44,10 +44,6 @@ module Queries
         return :no_vote unless current_user
 
         believable.opinion_of_graph_user current_user.graph_user
-      end
-
-      def deletable?(comment, believable)
-        EvidenceDeletable.new(comment).deletable?
       end
     end
   end
