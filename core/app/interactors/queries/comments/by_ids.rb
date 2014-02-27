@@ -47,7 +47,7 @@ module Queries
       end
 
       def deletable?(comment, believable)
-        EvidenceDeletable.new(comment, believable, comment.created_by.graph_user_id).deletable?
+        EvidenceDeletable.new(comment).deletable?
       end
     end
   end
