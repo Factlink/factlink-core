@@ -1,9 +1,11 @@
+$smallConnectButtonSize: 32px;
+
 .small-connect-button {
   vertical-align: middle;
   position: relative;
   top: -2px;
-  height: 32px;
-  width: 32px;
+  height: $smallConnectButtonSize;
+  width: $smallConnectButtonSize;
   padding: 0px;
   text-align: center;
   font-size: 11px;
@@ -17,7 +19,7 @@
   .icon-twitter, .icon-facebook, .icon-factlink {
     margin: 0;
     vertical-align: middle;
-    line-height: 32px;
+    line-height: $smallConnectButtonSize;
   }
 }
 
