@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe CommentDeletable do
+describe Backend::Comments do
   include PavlovSupport
 
   context 'Comment' do
     let(:user) { create :full_user }
-    let(:fact)            { create :fact }
+    let(:fact) { create :fact }
 
     let(:comment) do
       dead_comment = as(user) do |context|
@@ -18,7 +18,7 @@ describe CommentDeletable do
     end
 
     it "should be true initially" do
-      CommentDeletable.deletable?(comment).should be_true
+      Backend::Comments.deletable?(comment.id).should be_true
     end
 
     it "should be false after someone comments on it" do
@@ -27,7 +27,7 @@ describe CommentDeletable do
                            comment_id: comment.id.to_s,
                            content: 'hoi')
       end
-      CommentDeletable.deletable?(comment).should be_false
+      Backend::Comments.deletable?(comment.id).should be_false
     end
   end
 
