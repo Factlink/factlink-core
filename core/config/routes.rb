@@ -14,7 +14,7 @@ FactlinkUI::Application.routes.draw do
   scope '/api/beta' do
     get '/current_user' => 'users#current'
     get '/feed' => "api/feed#index"
-    get '/users/:user/feed' => 'api/users#feed'
+    get '/users/:username/feed' => 'api/users#feed'
   end
 
   # Javascript Client calls
