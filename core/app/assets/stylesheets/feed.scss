@@ -1,4 +1,5 @@
 $feedPadding: 5px;
+$smallFeedPadding: 3px;
 $headerHeight: 48px;
 $headerInnerHeight: 32px;
 $avatarSmallHeight: 32px;
@@ -10,6 +11,10 @@ $headerBorder: 1px;
   &:first-child {
     padding-top: 0;
   }
+
+  @include respond-to(600) {
+    padding: $smallFeedPadding 0;
+  }
 }
 
 .feed-activity-user-avatar {
@@ -20,7 +25,6 @@ $headerBorder: 1px;
   width: $headerHeight;
 
   @include respond-to(600) {
-    margin-top: ($headerHeight - $avatarSmallHeight)/2;
     width: $avatarSmallHeight;
     height: $avatarSmallHeight;
   }
@@ -28,9 +32,14 @@ $headerBorder: 1px;
 
 .feed-activity-followed-avatar {
   margin: 0 3px;
+
+  @include respond-to(600) {
+    display: none;
+  }
 }
 
 .feed-activity-container {
+  min-height: $headerHeight;
   vertical-align: top;
   margin-left: $headerHeight + 2*$feedPadding;
   padding: (($headerHeight - $headerInnerHeight)/2 - $headerBorder) 10px;
@@ -39,12 +48,17 @@ $headerBorder: 1px;
   border-radius: $baseBorderRadius;
 
   @include respond-to(600) {
-    margin-left: $avatarSmallHeight + 2*$feedPadding;
+    margin-left: $avatarSmallHeight + 2*$smallFeedPadding;
+    min-height: $avatarSmallHeight;
   }
 }
 
 .feed-activity-heading {
   line-height: $headerInnerHeight;
+
+  @include respond-to(600) {
+    line-height: $avatarSmallHeight - (($headerHeight - $headerInnerHeight) - (2 * $headerBorder));
+  }
 }
 
 .feed-activity-description {
@@ -64,5 +78,10 @@ $headerBorder: 1px;
 
 .feed-activity-annotation {
   min-height: 16px;
+  margin: (($headerHeight - $headerInnerHeight)/2 - $headerBorder) 0px;
   vertical-align: top;
+
+  @include respond-to(600) {
+    margin-bottom: 0px;
+  }
 }

@@ -21,7 +21,7 @@
 
   @include border-bottom-radius(8px);
 
-  @include respond-to(400) {
+  @include respond-to(600) {
     display: none;
   }
 
