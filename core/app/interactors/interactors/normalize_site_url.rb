@@ -25,7 +25,7 @@ module Interactors
     end
 
     def cleanup_site_if_empty site
-      site.delete if site.facts.count == 0 #TODO:otherdelete?  ourohm object
+      site.delete if site.facts.count == 0
     end
 
     def save_site_with_new_url site, url
