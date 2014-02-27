@@ -30,7 +30,7 @@ module Queries
           created_at: comment.created_at.utc.iso8601,
           formatted_content: FormattedCommentContent.new(comment.content).html,
           sub_comments_count: Backend::SubComments.count(parent_id: comment.id),
-          is_deletable: EvidenceDeletable.deletable?(comment),
+          is_deletable: CommentDeletable.deletable?(comment),
           tally: votes(believable).slice(:believes, :disbelieves, :current_user_opinion)
         )
       end
