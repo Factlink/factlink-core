@@ -13,7 +13,7 @@ module Backend
     end
 
     def self.destroy!(id:)
-      SubComment.find(id).delete #TODO:otherdelete?
+      SubComment.find(id).destroy
     end
 
     def self.create!(parent_id:, content:, user:)
