@@ -5,7 +5,7 @@ describe Interactors::Users::TourUsers do
   include PavlovSupport
 
   before do
-    stub_classes 'User', 'KillObject'
+    stub_classes 'User'
   end
 
   describe '#authorized?' do

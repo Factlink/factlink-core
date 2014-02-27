@@ -4,7 +4,7 @@ require_relative '../../../app/interactors/backend/sub_comments'
 describe Backend::SubComments do
   include PavlovSupport
   before do
-    stub_classes 'SubComment', 'KillObject'
+    stub_classes 'SubComment'
   end
 
   describe '#count' do
