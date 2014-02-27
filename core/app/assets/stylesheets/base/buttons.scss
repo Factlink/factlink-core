@@ -6,12 +6,13 @@
   font-size: 13px;
   border-radius: $baseBorderRadius;
   height: $largeButtonHeight;
-  line-height: $largeButtonHeight;
+  line-height: $largeButtonHeight - 1px;
   padding: 0 $largeButtonPadding;
   transition: all 0.1s;
   vertical-align: middle;
   cursor: pointer;
-  border: none;
+  border: 1px solid;
+  border-bottom: 2px solid;
 
   &:before { // This resolved a weird bug in Chrome where an area between the text and the border bottom was not clickable. (issue 1029)
     content: '';
@@ -51,6 +52,7 @@
 .button {
   @extend %button-base;
   background-color: $buttonBackground;
+  border-color: darken($buttonBackground, 10);
   color: $linkColor;
   text-shadow: 0 1px 0 rgba(255,255,255,0.35);
 
@@ -62,6 +64,7 @@
 .button-confirm {
   @extend %button-base;
   background-color: $buttonConfirmBackground;
+  border-color: darken($buttonConfirmBackground, 10);
   text-shadow: 0 1px 0 rgba(0,0,0,0.35);
 }
 
@@ -69,16 +72,19 @@
   @extend %button-base;
   text-shadow: 0 1px 0 rgba(0,0,0,0.35);
   background-color: $buttonDangerBackground;
+  border-color: darken($buttonDangerBackground, 10);
 }
 
 .button-twitter {
   @extend %button-base;
   background-color: #52a1dc;
+  border-color: darken(#52a1dc, 10);
 }
 
 .button-facebook {
   @extend %button-base;
   background-color: #335292;
+  border-color: darken(#335292, 10);
 }
 
 .button-small {
