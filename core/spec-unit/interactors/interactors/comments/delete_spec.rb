@@ -42,7 +42,7 @@ describe Interactors::Comments::Delete do
 
       Comment.stub(:find).with(comment_id).and_return(comment)
 
-      comment.should_receive(:delete)
+      comment.should_receive(:destroy)
 
       interactor.call
     end

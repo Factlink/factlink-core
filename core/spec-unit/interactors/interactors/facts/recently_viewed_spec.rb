@@ -5,7 +5,7 @@ describe Interactors::Facts::RecentlyViewed do
   include PavlovSupport
 
   before do
-    stub_classes 'RecentlyViewedFacts', 'KillObject', 'Fact'
+    stub_classes 'RecentlyViewedFacts', 'Fact'
   end
 
   describe 'authorization' do

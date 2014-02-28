@@ -188,7 +188,7 @@ module ScreenshotTest
     end
 
     def take
-      sleep 0.5 #wait for page re-render
+      #sleep 0.5 #wait for page re-render
       @page.driver.save_screenshot new_file, full: true
       @old_image = ChunkyPNG::Image.from_file(old_file)
       @new_image = ChunkyPNG::Image.from_file(new_file)
@@ -216,10 +216,10 @@ module ScreenshotTest
   def assume_unchanged_screenshot(title)
     Capybara::Screenshot.autosave_on_failure = false
 
-    shot = Screenshot.new page, title
-    shot.take
     t0 = Time.now
     begin
+      shot = Screenshot.new page, title
+      shot.take
       if shot.changed?
         if shot.size_changed?
           fail "Screenshot #{title} changed (also size)"

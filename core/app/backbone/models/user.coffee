@@ -19,6 +19,9 @@ class window.User extends Backbone.Model
 
   link: -> "/#{@get('username')}"
 
+  feed_activities: ->
+    @_feed_activities ?= new UserActivities null, user: @
+
   toJSON: ->
     username = @get('username')
     _.extend super(),

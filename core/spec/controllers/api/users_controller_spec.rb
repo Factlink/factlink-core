@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe Api::FeedController do
+describe Api::UsersController do
   render_views
 
   let(:user) { create :user }
   let(:other_user) {create :user}
 
-  describe "#index" do
+  describe "#feed" do
     include PavlovSupport
 
     before do
@@ -38,7 +38,7 @@ describe Api::FeedController do
 
     it "should render" do
       authenticate_user!(user)
-      get :index, format: :json, username: user.username
+      get :feed, format: :json, username: other_user.username
 
       response.should be_success
       verify { response.body }
