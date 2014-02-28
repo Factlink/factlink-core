@@ -1,28 +1,18 @@
 %button-base {
-  color: white;
-  display: inline-block;
   position: relative;
+  display: inline-block;
+  height: $largeButtonHeight;
+  line-height: $largeButtonHeight - 3px;
+  vertical-align: middle;
   font-family: inherit;
   font-size: 13px;
+  color: white;
   border-radius: $baseBorderRadius;
-  height: $largeButtonHeight;
-  line-height: $largeButtonHeight - 1px;
   padding: 0 $largeButtonPadding;
   transition: all 0.1s;
-  vertical-align: middle;
-  cursor: pointer;
   border: 1px solid;
   border-bottom: 2px solid;
-
-  &:before { // This resolved a weird bug in Chrome where an area between the text and the border bottom was not clickable. (issue 1029)
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-radius: inherit;
-  }
+  cursor: pointer;
 
   &:hover {
     color: white;
@@ -54,7 +44,6 @@
   background-color: $buttonBackground;
   border-color: darken($buttonBackground, 10);
   color: $linkColor;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.35);
 
   &:hover {
     color: $linkColor;
@@ -65,12 +54,10 @@
   @extend %button-base;
   background-color: $buttonConfirmBackground;
   border-color: darken($buttonConfirmBackground, 10);
-  text-shadow: 0 1px 0 rgba(0,0,0,0.35);
 }
 
 .button-danger {
   @extend %button-base;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.35);
   background-color: $buttonDangerBackground;
   border-color: darken($buttonDangerBackground, 10);
 }
@@ -92,11 +79,9 @@
   height: $baseButtonHeight;
   line-height: $baseButtonHeight;
   padding: 0 $baseButtonPadding;
-  border-bottom-width: $baseButtonBorderWidth;
 
   &:active {
     padding-top: 1px;
-    border-top-width: $baseButtonBorderWidth;
   }
 }
 
@@ -114,5 +99,25 @@
     .icon-remove {
       font-weight: lighter;
     }
+  }
+}
+
+.button-opinion-believes, .button-opinion-disbelieves {
+  @extend .button;
+  padding: 0px 4px;
+  transition: background-color 0.5s ease;
+}
+
+.button-opinion-active {
+  &.button-opinion-believes {
+    background: $green;
+    border-color: darken($green, 10);
+    color: darken($green, 30)
+  }
+
+  &.button-opinion-disbelieves {
+    background: $red;
+    border-color: darken($red, 30);
+    color: darken($red, 45);
   }
 }
