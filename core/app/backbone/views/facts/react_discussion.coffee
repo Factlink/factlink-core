@@ -20,6 +20,7 @@ ReactComments = React.createBackboneClass
 
 window.ReactDiscussion = React.createBackboneClass
   displayName: 'ReactDiscussion'
+  mixins: [UpdateOnFeaturesChangeMixin] # opinions_of_users_and_comments
 
   render: ->
     _div ['discussion'],

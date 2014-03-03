@@ -73,6 +73,7 @@ ReactCommentHeading = React.createBackboneClass
 
 window.ReactOpinionatedAvatar = React.createBackboneClass
   displayName: "ReactOpinionatedAvatar"
+  mixins: [UpdateOnFeaturesChangeMixin] # opinions_of_users_and_comments
 
   changeOptions: 'add remove reset sort' + ' change'
 
