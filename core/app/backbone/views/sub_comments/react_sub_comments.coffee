@@ -1,6 +1,5 @@
 window.ReactSubComments = React.createBackboneClass
   displayName: 'ReactSubComments'
-  mixins: [UpdateOnSignInOrOutMixin]
   propTypes:
     fact_opinionators: React.PropTypes.instanceOf(Opinionators).isRequired
     model: React.PropTypes.instanceOf(SubComments).isRequired
@@ -18,8 +17,7 @@ window.ReactSubComments = React.createBackboneClass
           model: sub_comment
           key: sub_comment.get('id')
           fact_opinionators: @props.fact_opinionators
-      if FactlinkApp.signedIn()
-        ReactSubCommentsAdd model: @model()
+      ReactSubCommentsAdd model: @model()
 
 ReactSubCommentsAdd = React.createBackboneClass
   displayName: 'ReactSubCommentsAdd'
@@ -54,11 +52,14 @@ ReactSubCommentsAdd = React.createBackboneClass
         placeholder: 'Leave a reply'
         storageKey: "add_subcomment_to_comment_#{@model().parentModel.id}"
         onChange: @_onTextareaChange
-        onSubmit: @_submit
+        onSubmit: => @refs.signinPopover.submit()
       if @state.opened
         _button ["button-confirm button-small spec-submit",
           disabled: !@_subComment().isValid()
-          onClick: @_submit
+          onClick: => @refs.signinPopover.submit()
         ],
           Factlink.Global.t.post_subcomment
+          ReactSigninPopover
+            ref: 'signinPopover'
+            onSubmit: @_submit
 
