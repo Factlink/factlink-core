@@ -39,6 +39,9 @@
   }
 
   &:active {
+    transition: none;
+    padding-top: 1px;
+    border-bottom: 1px solid;
     outline: none; //prevents ugly webkit active state
   }
 
