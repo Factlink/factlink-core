@@ -46,6 +46,7 @@
   color: $linkColor;
 
   &:hover {
+    background-color: darken($buttonBackground, 5);
     color: $linkColor;
   }
 }
@@ -54,24 +55,40 @@
   @extend %button-base;
   background-color: $buttonConfirmBackground;
   border-color: darken($buttonConfirmBackground, 10);
+
+  &:hover {
+    background-color: darken($buttonConfirmBackground, 5);
+  }
 }
 
 .button-danger {
   @extend %button-base;
   background-color: $buttonDangerBackground;
   border-color: darken($buttonDangerBackground, 10);
+
+  &:hover {
+    background-color: darken($buttonDangerBackground, 5);
+  }
 }
 
 .button-twitter {
   @extend %button-base;
   background-color: #52a1dc;
   border-color: darken(#52a1dc, 10);
+
+  &:hover {
+    background-color: darken(#52a1dc, 5);
+  }
 }
 
 .button-facebook {
   @extend %button-base;
   background-color: #335292;
   border-color: darken(#335292, 10);
+
+  &:hover {
+    background-color: darken(#335292, 5);
+  }
 }
 
 .button-small {
@@ -79,10 +96,6 @@
   height: $baseButtonHeight;
   line-height: $baseButtonHeight;
   padding: 0 $baseButtonPadding;
-
-  &:active {
-    padding-top: 1px;
-  }
 }
 
 .button-action-checked {
