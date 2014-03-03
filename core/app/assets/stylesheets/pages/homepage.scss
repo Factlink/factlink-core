@@ -1,3 +1,12 @@
+.homepage-header {
+  padding: 20px 0 10px;
+  text-align: center;
+}
+
+.homepage-header-button {
+  margin-top: 30px;
+}
+
 .homepage-horizontal {
   text-align: center;
 }
@@ -9,9 +18,18 @@
   vertical-align: top;
 }
 
-.homepage-header {
+.homepage-heading {
   margin: 10px 0 20px;
 }
+
+.homepage-dashed-border {
+  display: inline-block;
+  border: 3px dotted #c9c9c9;
+  border-radius: 8px;
+}
+
+a.homepage-bookmarklet { cursor: move !important; }
+a.homepage-bookmarklet::after { content: 'Factlink bookmarklet'; }
 
 i.homepage-icon-layer,
 i.homepage-icon-social {
