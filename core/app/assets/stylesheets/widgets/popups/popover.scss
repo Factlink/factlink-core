@@ -130,3 +130,21 @@
   margin: -8px;
   @include box-sizing(content-box);
 }
+
+$pinMargin: 5px;
+.tether-pinned-left .white-popover,
+.tether-pinned-left .translucent-popover {
+  left: $pinMargin;
+}
+.tether-pinned-right .white-popover,
+.tether-pinned-right .translucent-popover {
+  left: -$pinMargin;
+}
+.tether-pinned-top .white-popover,
+.tether-pinned-top .translucent-popover {
+  top: $pinMargin;
+}
+.tether-pinned-bottom .white-popover,
+.tether-pinned-bottom .translucent-popover {
+  top: -$pinMargin;
+}
