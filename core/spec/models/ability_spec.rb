@@ -86,8 +86,8 @@ describe Ability do
     describe "without logging in" do
       it { anonymous.should      be_able_to :index, Fact }
       it { anonymous.should      be_able_to :read, fact }
+      it { anonymous.should      be_able_to :create, Fact }
 
-      it { anonymous.should_not  be_able_to :create, Fact }
       it { anonymous.should_not  be_able_to :update, fact }
       it { anonymous.should_not  be_able_to :opinionate, Fact }
       it { anonymous.should_not  be_able_to :add_evidence, fact }

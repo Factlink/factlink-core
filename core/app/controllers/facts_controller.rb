@@ -34,7 +34,6 @@ class FactsController < ApplicationController
   end
 
   def create
-    authenticate_user!
     authorize! :create, Fact
 
     @fact = interactor(:'facts/create',
