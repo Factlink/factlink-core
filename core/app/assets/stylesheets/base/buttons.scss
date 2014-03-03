@@ -65,7 +65,7 @@
   }
 
   &:focus {
-    border-color: darken($buttonBackground,30);
+    border-color: darken($buttonBackground,30); //A bit softer grey active color
   }
 }
 
