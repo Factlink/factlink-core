@@ -14,5 +14,5 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 (cd core && redis-server config/developmentservers/redis-for-tests.conf  || kill $$)  2>&1| perl -pe "s/^/\x1b[0;33m[redisfortests] \x1b[0m/" &
 (cd core && redis-server config/developmentservers/redis-resque.conf  || kill $$)  2>&1| perl -pe "s/^/\x1b[0;34m[resqueredis] \x1b[0m/" &
 (cd core && mongod --config config/developmentservers/mongo.conf  || kill $$)  2>&1| perl -pe "s/^/\x1b[0;35m[mongo] \x1b[0m/" &
-(cd core && bundle exec mailcatcher -fv || kill $$) 2>&1| perl -pe "s/^/\x1b[0;36m[mailcatcher] \x1b[0m/" &
+(cd core && mailcatcher -fv || kill $$) 2>&1| perl -pe "s/^/\x1b[0;36m[mailcatcher] \x1b[0m/" &
 wait
