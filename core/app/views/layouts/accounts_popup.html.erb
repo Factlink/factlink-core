@@ -19,7 +19,9 @@
     <%= inject_special_test_code %>
   </head>
   <body class="accounts-popup-body">
-    <div class="accounts-popup-topbar"><%= image_tag "factlink-logo-beta.png", class: "accounts-popup-logo" %></div>
+    <div class="accounts-popup-topbar">
+      <div class="accounts-popup-logo"><%= image_tag "base/topbar/logo.svg", class: "topbar-logo-img" %></div>
+    </div>
 
     <div class="accounts-popup-content">
       <%= yield :account_popup_content %>

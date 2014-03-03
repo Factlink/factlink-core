@@ -2,16 +2,15 @@ $popupWidth: 640px;
 $separatorWidth: 35px;
 
 .accounts-popup-topbar {
+  @extend %centering;
   background: white;
   z-index: 1;
-  height: 40px;
-  position: relative;
+  height: $topbarHeight;
   border-bottom: 1px solid $baseBorderColor;
-  text-align: center;
 }
 
 .accounts-popup-logo {
-  margin-top: 9px;
+  @extend %centering-inner;
 }
 
 .accounts-popup-content {

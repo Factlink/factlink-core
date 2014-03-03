@@ -48,4 +48,4 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  mailcatcher (~> 0.5.12)
+  mailcatcher
