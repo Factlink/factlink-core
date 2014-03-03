@@ -43,18 +43,10 @@
   background-color: $linkColor;
 }
 
-.divider {
-  height: 2px;
-  margin: 8px 1px;
-  background-color: #e5e5e5;
-  border-bottom: 1px solid white;
-}
-
 .dropdown:hover {
   & > .dropdown-menu {
     visibility: visible;
     opacity:1;
     transition: visibility 0s, opacity 0.2s 0s;
-
   }
 }
