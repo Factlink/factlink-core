@@ -8,7 +8,7 @@ showPopup = (url) ->
   popup_window.focus()
 
 $('html').on 'click', '.js-accounts-popup-link', (e) ->
-  showPopup($(e.target).attr("href"))
+  showPopup($(e.target).closest('.js-accounts-popup-link').attr("href"))
   e.stopPropagation()
   e.preventDefault()
 
