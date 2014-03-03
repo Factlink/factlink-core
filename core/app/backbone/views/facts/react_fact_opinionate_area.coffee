@@ -41,7 +41,6 @@ ReactOpinionatorsAvatars = React.createBackboneClass
 FactOpinionateButton = React.createBackboneClass
   displayName: 'FactOpinionateButton'
   changeOptions: 'add remove reset sort' + ' change'
-  mixins: [UpdateOnSignInOrOutMixin]
 
   _onClick: ->
     @model().clickCurrentUserOpinion @props.opinion_type
@@ -49,15 +48,16 @@ FactOpinionateButton = React.createBackboneClass
   render: ->
     is_opinion = @model().opinion_for_current_user() == @props.opinion_type
     _div ["fact-opinionate-button"],
-      if FactlinkApp.signedIn()
-        _button ["button-opinion-#{@props.opinion_type}",
-                 "spec-button-#{@props.opinion_type}",
-                 'button-opinion-active' if is_opinion,
-                 onClick: @_onClick],
-           _i ["icon-thumbs-#{@props.opinion_type}"]
-      else
-        _span ["fact-opinion-indicator"],
-          _i ["icon-thumbs-#{@props.opinion_type}"]
+      _button [
+            "button button-opinion-#{@props.opinion_type}"
+            "spec-button-#{@props.opinion_type}"
+            'button-opinion-active' if is_opinion
+            onClick: => @refs.signinPopover.submit(=> @_onClick())
+          ],
+         _i ["icon-thumbs-#{@props.opinion_type}"]
+        ReactSigninPopover
+          ref: 'signinPopover'
+
 
 FactOpinionTallyChart = React.createClass
   displayName: 'FactOpinionTallyChart'

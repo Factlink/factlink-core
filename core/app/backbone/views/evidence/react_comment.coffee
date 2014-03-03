@@ -41,7 +41,7 @@ window.ReactComment = React.createBackboneClass
 
     _div ["comment-container", "spec-evidence-box", "comment-irrelevant" unless relevant],
       _div ["comment-votes-container"],
-        ReactEvidenceVote model: @model().argumentTally()
+        ReactCommentVote model: @model().argumentTally()
       _div ["comment-content-container"],
         ReactCommentHeading
           fact_opinionators: @props.fact_opinionators

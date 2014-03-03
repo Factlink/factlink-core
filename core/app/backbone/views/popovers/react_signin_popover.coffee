@@ -13,32 +13,36 @@ window.ReactSigninPopover = React.createClass
 
   _onSignedInChange: ->
     if FactlinkApp.signedIn() && @state.opened
-      @props.onSubmit?()
+      @_callback()
       @setState opened: false
 
     @forceUpdate()
 
-  submit: ->
+  submit: (callback) ->
     if FactlinkApp.signedIn()
-      @props.onSubmit?()
+      callback()
     else
       @setState opened: !@state.opened
+      @_callback = callback
 
   render: ->
     if @state.opened && !FactlinkApp.signedIn()
       if window.localStorageIsEnabled
         ReactPopover className: 'white-popover', attachment: 'right',
           _span ["signin-popover"],
-            _a ["button-twitter small-connect-button signin-popover-button js-accounts-popup-link",
+            'Sign in with: ',
+            _a ["button-twitter small-connect-button js-accounts-popup-link",
               href: "/auth/twitter"
               onMouseDown: @_onButtonClicked
             ],
               _i ["icon-twitter"]
-            _a ["button-facebook small-connect-button signin-popover-button js-accounts-popup-link",
+            ' ',
+            _a ["button-facebook small-connect-button js-accounts-popup-link",
               href: "/auth/facebook"
               onMouseDown: @_onButtonClicked
             ],
               _i ["icon-facebook"]
+            ' ',
             _a ["js-accounts-popup-link",
               href: "/users/sign_in_or_up"
               onMouseDown: @_onButtonClicked
