@@ -4,7 +4,7 @@
   </a>
   <ul class="dropdown-menu">
     <li class="dropdown-menu-item visible-when-chrome">
-      <%= chrome_extension_link do %>
+      <%= link_to "#", onclick: "chrome.webstore.install();return false;".html_safe do %>
         <i class='icon-chrome'></i>
         Chrome extension
       <% end %>
