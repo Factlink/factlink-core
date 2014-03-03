@@ -9,7 +9,7 @@
 
   &:focus {
     border-color: darken($button-color,45);
-    outline: none; //prevents ugly webkit focus state
+    outline: none;
   }
 }
 
