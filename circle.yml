@@ -1,3 +1,6 @@
+general:
+  build_dir: core
+
 machine:
   services:
     - elasticsearch

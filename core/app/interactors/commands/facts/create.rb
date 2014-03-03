@@ -3,7 +3,7 @@ module Commands
     class Create
       include Pavlov::Command
 
-      arguments :displaystring, :title, :creator, :site
+      arguments :displaystring, :title, :site
 
       def execute
         fact = Fact.new site: site
