@@ -6,6 +6,11 @@
     background-color: darken($button-color,5);
     border-color: darken($button-color,25);
   }
+
+  &:focus {
+    border-color: darken($button-color,45);
+    outline: none;
+  }
 }
 
 %button-base {
@@ -53,6 +58,10 @@
 
   &:hover {
     color: $linkColor;
+  }
+
+  &:focus {
+    border-color: darken($buttonBackground,30); //A bit softer grey active color
   }
 }
 
@@ -115,14 +124,13 @@
 
 .button-opinion-active {
   &.button-opinion-believes {
-    background: $green;
-    border-color: darken($green, 10);
+    @include button-color($green);
     color: darken($green, 30)
   }
 
   &.button-opinion-disbelieves {
-    background: $red;
-    border-color: darken($red, 30);
+    @include button-color($red);
+    border-color: darken($red, 30); //A darker red for sufficient contrast
     color: darken($red, 45);
   }
 }
