@@ -25,14 +25,11 @@
     </li>
 
     <li class="dropdown-menu-item js-topbar-dropdown-menu-bookmarklet"></li>
-    <li class="divider"></li>
     <li class="dropdown-menu-item"><%= link_to("<i class='icon-cog'></i> Settings".html_safe, edit_user_path(current_user)) %></li>
     <li class="dropdown-menu-item"><%= link_to("<i class='icon-info-sign'></i> About Factlink".html_safe, pages_path('about')) %></li>
-    <li class="divider"></li>
     <li class="dropdown-menu-item"><%= link_to("<i class='icon-off'></i> Sign out".html_safe, destroy_user_session_path) %></li>
 
     <% if can? :access, Ability::AdminArea %>
-      <li class="divider"></li>
       <li class="dropdown-menu-item"><%= link_to("Users", admin_users_path) %></li>
       <li class="dropdown-menu-item"><%= link_to("Clean actions", admin_clean_path) %></li>
       <li class="dropdown-menu-item"><%= link_to("Feature Toggles", admin_global_feature_toggles_path) %></li>
