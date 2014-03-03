@@ -6,6 +6,11 @@
     background-color: darken($button-color,5);
     border-color: darken($button-color,25);
   }
+
+  &:focus {
+  border-color: darken($button-color,45);
+  outline: none;
+  }
 }
 
 %button-base {
@@ -57,6 +62,10 @@
 
   &:hover {
     color: $linkColor;
+  }
+
+  &:focus {
+  border-color: darken($buttonBackground,30);
   }
 }
 
