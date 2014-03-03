@@ -24,13 +24,8 @@ div.content {
   text-align: center;
   height: 300px;
 
-  h2 {
-    font-family: $sansFontFamily;
-    font-size: 20px;
-    color: $headingFontColor;
-    margin: 0;
-    line-height: 36px;
-    height: 36px;
+  h1 {
+    margin-bottom: 20px;
   }
 
   p {
@@ -45,20 +40,12 @@ div.content {
     height: 145px;
   }
 
-  &.social i {
-    background-position: 0 0;
-  }
-
-  &.curation i {
-    background-position: 0 -145px;
-  }
-
-  &.authority i {
-    background-position: -157px 0;
-  }
-
   &.web i {
     background-position: -157px -145px;
+  }
+
+  &.social i {
+    background-position: 0 0;
   }
 }
 
