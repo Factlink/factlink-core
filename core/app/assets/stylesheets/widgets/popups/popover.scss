@@ -20,7 +20,7 @@
 }
 
 .tether-element-attached-top .white-popover {
-  margin-top: $triangleSize + 1px;
+  top: $triangleSize + 1px;
 
   > .popover-arrow {
     @include triangle-arrow-up($PopoverArrowTopBorderColor);
@@ -30,7 +30,7 @@
 }
 
 .tether-element-attached-bottom .white-popover {
-  margin-top: -($triangleSize + 1px);
+  top: -($triangleSize + 1px);
 
   > .popover-arrow {
     @include triangle-arrow-down($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
@@ -40,7 +40,7 @@
 }
 
 .tether-element-attached-right .white-popover {
-  margin-left: -($triangleSize + 1px);
+  left: -($triangleSize + 1px);
 
   > .popover-arrow {
     @include triangle-arrow-right($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
@@ -50,7 +50,7 @@
 }
 
 .tether-element-attached-left .white-popover {
-  margin-left: $triangleSize + 1px;
+  left: $triangleSize + 1px;
 
   > .popover-arrow {
     @include triangle-arrow-left($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
@@ -66,7 +66,7 @@
 }
 
 .tether-element-attached-bottom .translucent-popover {
-  margin-top: -$triangleSize;
+  top: -$triangleSize;
 
   > .popover-arrow {
     top: 100%;
@@ -78,7 +78,7 @@
 }
 
 .tether-element-attached-left .translucent-popover {
-  margin-left: $triangleSize;
+  left: $triangleSize;
 
   > .popover-arrow {
     right: 100%;
@@ -90,7 +90,7 @@
 }
 
 .tether-element-attached-top .translucent-popover {
-  margin-top: $triangleSize;
+  top: $triangleSize;
 
   > .popover-arrow {
     bottom: 100%;
@@ -102,7 +102,7 @@
 }
 
 .tether-element-attached-right .translucent-popover {
-  margin-left: -$triangleSize;
+  left: -$triangleSize;
 
   > .popover-arrow {
     left: 100%;
