@@ -54,7 +54,6 @@ window.ReactAddComment = React.createBackboneClass
     controlsOpened: false
     searchOpened: false
     shareProviders: {facebook: false, twitter: false}
-    signinPopoverOpened: false
 
   render: ->
     _div ['add-comment-container comment-container'],
