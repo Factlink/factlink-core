@@ -127,7 +127,7 @@
 
   &.button-opinion-disbelieves {
     @include button-color($red);
-    border-color: darken($red, 30);
+    border-color: darken($red, 30); //A darker red for sufficient contrast
     color: darken($red, 45);
   }
 }
