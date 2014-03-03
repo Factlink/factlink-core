@@ -14,19 +14,7 @@
 
   <div class="content">
     <div class="container">
-      <% if content_for?(:left_column) %>
-        <div class="grid-row">
-          <div class="left-column-container">
-            <%= yield :left_column %>
-          </div>
-          <div class="right-content-container">
-            <%= yield :content %>
-            <%= yield %>
-          </div>
-        </div>
-      <% else %>
-        <%= yield :content %>
-      <% end %>
+      <%= yield :content %>
     </div>
   </div>
 <% end %>
