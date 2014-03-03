@@ -1,9 +1,15 @@
+.about-header {
+  margin: 10px 0 20px;
+}
+
+.about-contact {
+  float: right;
+  width: 200px
+}
+
 .faces-list {
-  margin-right:-20px;
-  clear:both;
-  &:after {
-    content:''; display:table; clear:both;
-  }
+  display: inline-block; // new block formatting context
+  width: 600px;
 }
 
 .team-member-block, .team-advisor-block {

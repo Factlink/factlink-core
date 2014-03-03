@@ -1,37 +1,66 @@
 <% content_for :header do %>
   <h1>About Factlink</h1>
   <p>
-    We’re making the web more open and credible. Working at Factlink means to have freedom in your work and collaborating with the brightest people.
+    We’re making the web more open and credible.
   </p>
-<% end %>
-
-<% content_for :left_column do %>
-  <%= render "home/static_pages_menu", active: :about %>
 <% end %>
 
 <% content_for :content do %>
-  <h1>Share your knowledge for a better world</h1>
+  <div class="about-contact">
+    <h1 class="about-header">Contact</h1>
 
-  <a href="#" class="video-framed">
-    <iframe src="<%=
-      if browser.phantom_js? then
-        "about:blank"
-      else
-        "https://player.vimeo.com/video/39821677"
-      end
-      %>" style="width:690px; height:388px; border: 0px;"></iframe>
-  </a>
+    <p>
+      <b>General enquiries</b><br>
+      <a href="mailto:info@factlink.com">info@factlink.com</a>
+    </p>
 
-  <p>
-    The new web inspires us to bring together the content of billions of users in one simple and elegant perspective that shows what people know.
-  </p>
+    <p>
+      <b>Feedback (thanks!)</b><br>
+      <a href="mailto:support@factlink.com">support@factlink.com</a>
+    </p>
 
-  <p>
-    Factlink works on helping people understand how credible the information is that they’re reading. The service is built on the belief that information should be openly shared, accessible, and transparent.
-  </p>
+    <p class="address">
+      <b>US: Alameda</b><br>
+      Factlink Inc.<br>
+      1309 Santa Clara Ave #4<br>
+      CA 94501 Alameda<br>
+      United States of America<br>
+      +1 650 646 3697
+    </p>
 
-  <p>
-    Factlink is located in both the San Francisco Bay Area and the Netherlands.
-  </p>
+    <p class="address">
+      <b>NL: Groningen</b><br>
+      Factlink B.V.<br>
+      Prinsenstraat 9B<br>
+      9711 CL Groningen<br>
+      The Netherlands<br>
+      +31 50 8512915
+    </p>
+  </div>
 
+  <h1 class="about-header">Team</h1>
+  <div class="faces-list">
+    <%= team_photo_tag "eamon", "Eamon Nerbonne", "eamonnerbonne" %>
+    <%= team_photo_tag "janpaul", "Jan Paul Posma", "janpaul123" %>
+    <%= team_photo_tag "luuk", "Luuk Hartsema", "hartsema" %>
+  </div>
+  <div class="faces-list">
+    <%= team_photo_tag "mark", "Mark IJbema", "mark" %>
+    <%= team_photo_tag "martijn", "Martijn Russchen", "martijn" %>
+    <%= team_photo_tag "merijn", "Merijn Terheggen", "merijn" %>
+  </div>
+
+  <h1 class="about-header">Advisors and Collaborators</h1>
+  <div class="faces-list">
+    <%= advisor_photo_tag "anne", "Anne Vrolyk" %>
+    <%= advisor_photo_tag "colin", "Colin Crawford" %>
+    <%= advisor_photo_tag "gordon", "Gordon Rios" %>
+    <%= advisor_photo_tag "knud", "Knud Balslev" %>
+  </div>
+  <div class="faces-list">
+    <%= advisor_photo_tag "michael", "Michael Lopez" %>
+    <%= advisor_photo_tag "roger", "Roger Magoulas" %>
+    <%= advisor_photo_tag "scott", "Scott Waterman" %>
+    <%= advisor_photo_tag "tonie", "Tonie Broekhuijsen" %>
+  </div>
 <% end %>
