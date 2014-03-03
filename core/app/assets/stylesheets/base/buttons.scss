@@ -1,3 +1,13 @@
+@mixin button-color($button-color) {
+  background-color: $button-color;
+  border-color: darken($button-color,10);
+
+  &:hover {
+    background-color: darken($button-color,5);
+    border-color: darken($button-color,25);
+  }
+}
+
 %button-base {
   position: relative;
   display: inline-block;
@@ -13,6 +23,7 @@
   border: 1px solid;
   border-bottom: 2px solid;
   cursor: pointer;
+  transition: 0.5s ease;
 
   &:hover {
     color: white;
@@ -41,54 +52,31 @@
 
 .button {
   @extend %button-base;
-  background-color: $buttonBackground;
-  border-color: darken($buttonBackground, 10);
-  color: $linkColor;
+  @include button-color($buttonBackground);
 
   &:hover {
-    background-color: darken($buttonBackground, 5);
     color: $linkColor;
   }
 }
 
 .button-confirm {
   @extend %button-base;
-  background-color: $buttonConfirmBackground;
-  border-color: darken($buttonConfirmBackground, 10);
-
-  &:hover {
-    background-color: darken($buttonConfirmBackground, 5);
-  }
+  @include button-color($buttonConfirmBackground);
 }
 
 .button-danger {
   @extend %button-base;
-  background-color: $buttonDangerBackground;
-  border-color: darken($buttonDangerBackground, 10);
-
-  &:hover {
-    background-color: darken($buttonDangerBackground, 5);
-  }
+  @include button-color($buttonDangerBackground);
 }
 
 .button-twitter {
   @extend %button-base;
-  background-color: #52a1dc;
-  border-color: darken(#52a1dc, 10);
-
-  &:hover {
-    background-color: darken(#52a1dc, 5);
-  }
+  @include button-color(#52a1dc);
 }
 
 .button-facebook {
   @extend %button-base;
-  background-color: #335292;
-  border-color: darken(#335292, 10);
-
-  &:hover {
-    background-color: darken(#335292, 5);
-  }
+  @include button-color(#335292);
 }
 
 .button-small {
