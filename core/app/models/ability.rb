@@ -42,6 +42,7 @@ class Ability
     can :new, Fact
     can :index, Fact
     can :read, Fact
+    can :create, Fact
     can :read, Comment
 
     can :read, User do |u|
@@ -52,11 +53,7 @@ class Ability
   def define_fact_abilities
     return unless signed_in?
 
-    can :index, Fact
-    can :read, Fact
     can :opinionate, Fact
-    can :create, Fact
-    cannot :update, Fact
   end
 
   def define_comment_abilities

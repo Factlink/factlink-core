@@ -83,7 +83,7 @@ ReactActivity = React.createBackboneClass
               user.get('name')
             ' '
 
-            this.props.activity_header_action
+            this.props.activity_header_action...
 
         _div ["feed-activity-content"],
            this.props.children

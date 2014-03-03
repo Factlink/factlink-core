@@ -66,7 +66,7 @@ describe Interactors::Facts::Create do
 
       Pavlov.should_receive(:command)
             .with(:'facts/create',
-                      displaystring: displaystring, title: title, creator: user,
+                      displaystring: displaystring, title: title,
                       site: site, pavlov_options: pavlov_options)
             .and_return(fact)
 
