@@ -52,14 +52,13 @@ ReactSubCommentsAdd = React.createBackboneClass
         placeholder: 'Leave a reply'
         storageKey: "add_subcomment_to_comment_#{@model().parentModel.id}"
         onChange: @_onTextareaChange
-        onSubmit: => @refs.signinPopover.submit()
+        onSubmit: => @refs.signinPopover.submit(=> @_submit())
       if @state.opened
         _button ["button-confirm button-small spec-submit",
           disabled: !@_subComment().isValid()
-          onClick: => @refs.signinPopover.submit()
+          onClick: => @refs.signinPopover.submit(=> @_submit())
         ],
           Factlink.Global.t.post_subcomment
           ReactSigninPopover
             ref: 'signinPopover'
-            onSubmit: @_submit
 

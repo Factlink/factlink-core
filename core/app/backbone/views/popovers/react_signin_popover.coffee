@@ -13,16 +13,17 @@ window.ReactSigninPopover = React.createClass
 
   _onSignedInChange: ->
     if FactlinkApp.signedIn() && @state.opened
-      @props.onSubmit?()
+      @_callback()
       @setState opened: false
 
     @forceUpdate()
 
-  submit: ->
+  submit: (callback) ->
     if FactlinkApp.signedIn()
-      @props.onSubmit?()
+      callback()
     else
       @setState opened: !@state.opened
+      @_callback = callback
 
   render: ->
     if @state.opened && !FactlinkApp.signedIn()

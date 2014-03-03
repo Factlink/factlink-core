@@ -52,12 +52,11 @@ FactOpinionateButton = React.createBackboneClass
             "button fact-opinionate-button-#{@props.opinion_type}"
             "spec-button-#{@props.opinion_type}"
             'fact-opinionate-button-active' if is_opinion
-            onClick: => @refs.signinPopover.submit()
+            onClick: => @refs.signinPopover.submit(=> @_onClick())
           ],
          _i ["icon-thumbs-#{@props.opinion_type}"]
         ReactSigninPopover
           ref: 'signinPopover'
-          onSubmit: @_onClick
 
 
 FactOpinionTallyChart = React.createClass

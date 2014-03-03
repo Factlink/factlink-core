@@ -16,12 +16,11 @@ window.ReactCommentVote = React.createBackboneClass
         'comment-vote-active' if @model().get('current_user_opinion') == 'believes'
         'spec-comment-vote-up'
         href: "javascript:",
-        onClick: => @refs.signinPopoverUp.submit()
+        onClick: => @refs.signinPopoverUp.submit(=> @_on_up_vote())
       ],
         _i ['icon-up-open']
         ReactSigninPopover
           ref: 'signinPopoverUp'
-          onSubmit: @_on_up_vote
 
       _span ['comment-vote-amount spec-comment-vote-amount'],
         format_as_short_number(@model().relevance())
@@ -31,9 +30,8 @@ window.ReactCommentVote = React.createBackboneClass
         'comment-vote-active' if @model().get('current_user_opinion') == 'disbelieves'
         'spec-comment-vote-down'
         href: "javascript:"
-        onClick: => @refs.signinPopoverDown.submit()
+        onClick: => @refs.signinPopoverDown.submit(=> @_on_down_vote())
       ],
         _i ['icon-down-open']
         ReactSigninPopover
           ref: 'signinPopoverDown'
-          onSubmit: @_on_down_vote
