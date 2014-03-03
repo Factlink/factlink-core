@@ -1,0 +1,29 @@
+.homepage-horizontal {
+  text-align: center;
+}
+
+.homepage-horizontal-box {
+  display: inline-block;
+  width: 355px;
+  margin: 0 40px;
+  vertical-align: top;
+}
+
+.homepage-header {
+  margin: 10px 0 20px;
+}
+
+i.homepage-icon-layer,
+i.homepage-icon-social {
+  display: inline-block;
+  width: 157px;
+  height: 145px;
+}
+
+i.homepage-icon-layer {
+  background: asset-data-url('landing/content/layer.png') no-repeat;
+}
+
+i.homepage-icon-social {
+  background: asset-data-url('landing/content/social.png') no-repeat;
+}
