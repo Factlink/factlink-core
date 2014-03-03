@@ -48,7 +48,7 @@
 
 .topbar-menu-link {
   padding: 0px 15px;
-  display: block;
+  display: inline-block;
   height:$topbarHeight;
   line-height:$topbarHeight;
 }
@@ -108,3 +108,7 @@
   height:100%;
 }
 
+.topbar-connect-text {
+  @extend .topbar-menu-link;
+  padding: 0px;
+}
