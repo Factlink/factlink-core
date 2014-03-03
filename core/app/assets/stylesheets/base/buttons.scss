@@ -53,6 +53,7 @@
 .button {
   @extend %button-base;
   @include button-color($buttonBackground);
+  color: $linkColor;
 
   &:hover {
     color: $linkColor;
