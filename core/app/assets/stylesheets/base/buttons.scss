@@ -41,13 +41,6 @@
   &:active {
     outline: none; //prevents ugly webkit active state
   }
-
-  &.button-loading {
-    background-size: 40px 40px;
-    text-shadow: none;
-    @include striped(45deg, rgba(0,0,0,0.07));
-    @include animate-stripes(1.5s);
-  }
 }
 
 .button {
