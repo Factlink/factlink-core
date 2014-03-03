@@ -52,21 +52,19 @@
     $(function() {
       $('#bookmarklet-button').attr('href', Factlink.Global.bookmarklet_link);
 
-      <% if FactlinkUI::Application.config.use_chrome_webstore %>
-        $('#chrome-extension-webstore-button').on('click', function() {
-          mp_track("Extension: Download Chrome Extension -> Clicked #almost-ready");
-          chrome.webstore.install(undefined, successFn, errorFn);
-        });
+      $('#chrome-extension-webstore-button').on('click', function() {
+        mp_track("Extension: Download Chrome Extension -> Clicked #almost-ready");
+        chrome.webstore.install(undefined, successFn, errorFn);
+      });
 
-        function successFn() {
-          mp_track("Extension: Download Chrome Extension -> Successful install #almost-ready");
-          window.location = "<%= next_tourstep_path(ref: 'chrome_extension_redirect') %>";
-        }
-        function errorFn(e) {
-          mp_track("Extension: Download Chrome Extension -> Failed install #almost-ready");
-          FactlinkApp.NotificationCenter.error("Something went wrong installing the Factlink extension: " + e + ". Please try again.");
-        }
-      <% end %>
+      function successFn() {
+        mp_track("Extension: Download Chrome Extension -> Successful install #almost-ready");
+        window.location = "<%= next_tourstep_path(ref: 'chrome_extension_redirect') %>";
+      }
+      function errorFn(e) {
+        mp_track("Extension: Download Chrome Extension -> Failed install #almost-ready");
+        FactlinkApp.NotificationCenter.error("Something went wrong installing the Factlink extension: " + e + ". Please try again.");
+      }
     });
   </script>
  <% end %>
