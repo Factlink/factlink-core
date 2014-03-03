@@ -8,8 +8,8 @@
   }
 
   &:focus {
-  border-color: darken($button-color,45);
-  outline: none;
+    border-color: darken($button-color,45);
+    outline: none;
   }
 }
 
@@ -65,7 +65,7 @@
   }
 
   &:focus {
-  border-color: darken($buttonBackground,30);
+    border-color: darken($buttonBackground,30);
   }
 }
 
