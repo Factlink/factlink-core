@@ -1,0 +1,32 @@
+.homepage-factlink-aspects {
+  width:940px; //HACK: bugfix to match previously implicit foreshortening of columns
+}
+
+.homepage-factlink-aspect-box {
+  text-align: center;
+  height: 300px;
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  p {
+    padding: 0 20px;
+  }
+
+  i {
+    display: block;
+    background: image-url('landing/content/key_points.png') no-repeat;
+    margin: 0 auto;
+    width: 157px;
+    height: 145px;
+  }
+
+  &.web i {
+    background-position: -157px -145px;
+  }
+
+  &.social i {
+    background-position: 0 0;
+  }
+}
