@@ -1,5 +1,5 @@
-window.ReactEvidenceVote = React.createBackboneClass
-  displayName: 'ReactEvidenceVote'
+window.ReactCommentVote = React.createBackboneClass
+  displayName: 'ReactCommentVote'
 
   _on_up_vote: ->
     mp_track "Factlink: Upvote evidence click"
