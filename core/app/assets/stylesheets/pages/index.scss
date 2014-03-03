@@ -14,19 +14,18 @@
     padding: 0 20px;
   }
 
-  i {
-    display: block;
-    background: image-url('landing/content/key_points.png') no-repeat;
-    margin: 0 auto;
+  i.index-icon-layer,
+  i.index-icon-social {
+    display: inline-block;
     width: 157px;
     height: 145px;
   }
 
-  &.web i {
-    background-position: -157px -145px;
+  i.index-icon-layer {
+    background: asset-data-url('landing/content/layer.png') no-repeat;
   }
 
-  &.social i {
-    background-position: 0 0;
+  i.index-icon-social {
+    background: asset-data-url('landing/content/social.png') no-repeat;
   }
 }
