@@ -1,10 +1,12 @@
-.homepage-factlink-aspects {
-  width:940px; //HACK: bugfix to match previously implicit foreshortening of columns
+.homepage-horizontal {
+  text-align: center;
 }
 
-.homepage-factlink-aspect-box {
-  text-align: center;
-  height: 300px;
+.homepage-horizontal-box {
+  display: inline-block;
+  width: 400px;
+  margin: 0 20px;
+  vertical-align: top;
 
   h1 {
     margin-bottom: 20px;
