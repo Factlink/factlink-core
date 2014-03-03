@@ -29,6 +29,7 @@ window.ReactSigninPopover = React.createClass
       if window.localStorageIsEnabled
         ReactPopover className: 'white-popover', attachment: 'right',
           _span ["signin-popover"],
+            'Sign in with: ',
             _a ["button-twitter small-connect-button js-accounts-popup-link",
               href: "/auth/twitter"
               onMouseDown: @_onButtonClicked
