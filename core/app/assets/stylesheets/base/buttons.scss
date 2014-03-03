@@ -29,6 +29,7 @@
   border-bottom: 2px solid;
   cursor: pointer;
   transition: 0.5s ease;
+  white-space: nowrap;
 
   &:hover {
     color: white;
