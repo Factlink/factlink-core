@@ -44,13 +44,13 @@
   vertical-align: middle;
 }
 
-.focussed-discussion {
+.focused-discussion {
   padding: 10px;
   border: 1px lightgrey solid;
   border-radius: 4px;
 }
 
-.focussed-discussion-list {
+.focused-discussion-list {
   margin: 25px 0;
   margin-right: 20px;
   &:first-child {
@@ -61,25 +61,25 @@
   }
 }
 
-.focussed-discussion-list-item {
+.focused-discussion-list-item {
   background: lightgrey;
   margin: 10px;
   padding: 4px;
   transition: background 0.5s ease;
 }
 
-.focussed-discussion-list:hover .focussed-discussion-list-item {
+.focused-discussion-list:hover .focused-discussion-list-item {
   background: $lightYellow;
 }
 
-.focussed-discussion-paragraph {
+.focused-discussion-paragraph {
   float: right;
   position: relative;
   right: -30px;
   top: -4px;
 }
 
-.focussed-discussion-paragraph-icon {
+.focused-discussion-paragraph-icon {
   font-size: 10px;
   line-height: 12px;
   color: white;
