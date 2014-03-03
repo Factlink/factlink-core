@@ -121,13 +121,12 @@
 
 .button-opinion-active {
   &.button-opinion-believes {
-    background: $green;
-    border-color: darken($green, 10);
+    @include button-color($green);
     color: darken($green, 30)
   }
 
   &.button-opinion-disbelieves {
-    background: $red;
+    @include button-color($red);
     border-color: darken($red, 30);
     color: darken($red, 45);
   }
