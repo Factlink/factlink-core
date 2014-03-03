@@ -35,7 +35,7 @@ feature "adding comments to a fact", type: :feature do
 
     go_to_discussion_page_of factlink
 
-    find('.spec-evidence-relevance').should have_content 1
+    find('.spec-comment-vote-amount').should have_content 1
   end
 
   scenario 'after adding a comment, the user should be able to reset his opinion' do
@@ -46,13 +46,13 @@ feature "adding comments to a fact", type: :feature do
     assert_comment_exists comment
 
     # there is just one factlink in the list
-    find('.spec-evidence-relevance', text: "1")
-    find('.spec-evidence-vote-up').click
-    find('.spec-evidence-relevance', text: "0")
+    find('.spec-comment-vote-amount', text: "1")
+    find('.spec-comment-vote-up').click
+    find('.spec-comment-vote-amount', text: "0")
 
     go_to_discussion_page_of factlink
 
-    find('.spec-evidence-relevance', text: "0")
+    find('.spec-comment-vote-amount', text: "0")
   end
 
   scenario "after adding multiple comments they should show up and persist" do
