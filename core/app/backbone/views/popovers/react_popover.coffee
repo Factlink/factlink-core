@@ -4,12 +4,6 @@ convertToTetherAttachment =
   top: 'top center'
   bottom: 'bottom center'
 
-popoverClasses =
-  left: 'popover-left'
-  right: 'popover-right'
-  top: 'popover-top'
-  bottom: 'popover-bottom'
-
 window.ReactPopover = React.createBackboneClass
   displayName: 'ReactPopover'
 
@@ -32,7 +26,7 @@ window.ReactPopover = React.createBackboneClass
     @_renderTooltip()
 
   _popoverComponent: ->
-    _div [popoverClasses[@props.attachment], @props.className || 'translucent-popover'],
+    _div [@props.className || 'translucent-popover'],
       _div ['popover-content'],
         @props.children
       _div ['popover-arrow']
@@ -43,6 +37,11 @@ window.ReactPopover = React.createBackboneClass
     attachment: convertToTetherAttachment[@props.attachment]
     optimizations:
       moveElement: false # Warning: always moves to <body> anyway!
+    constraints: [
+      to: 'scrollParent'
+      attachment: 'together'
+      pin: true
+    ]
 
   _renderTooltip: ->
     React.renderComponent @_popoverComponent(), @_tooltipElement

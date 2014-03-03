@@ -1,0 +1,31 @@
+//This centers an arbitrarily sized box vertically and horizontally in its containing box.
+// sample html:
+/*
+CONTEXT....
+<div class=%centering><div class=%centering-inner>
+CENTEREDBOX
+</div></div>
+*/
+//Note the lack of space between the two divs!
+
+%centering-y {
+  position:relative;
+}
+
+%centering-y:after {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+}
+
+%centering {
+  @extend %centering-y;
+  text-align: center;
+}
+
+%centering-inner {
+  display: inline-block;
+  vertical-align: middle;
+  visibility: visible;
+}

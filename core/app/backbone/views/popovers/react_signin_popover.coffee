@@ -1,20 +1,25 @@
 window.ReactSigninPopover = React.createClass
   getInitialState: ->
     opened: false
+    callback: null
 
   componentDidMount: ->
     window.currentUser.on 'change:username', @_onSignedInChange, @
+    FactlinkApp.vent.on 'ReactSigninPopover:opened', @_onOtherPopoverOpened, @
 
   componentWillUnmount: ->
     window.currentUser.off null, null, @
+    FactlinkApp.vent.off null, null, @
 
-  _onButtonClicked: (e) ->
-    @setState opened: true
+  _onOtherPopoverOpened: (popover) ->
+    return if popover == this
+
+    @setState opened: false, callback: null
 
   _onSignedInChange: ->
     if FactlinkApp.signedIn() && @state.opened
-      @_callback()
-      @setState opened: false
+      @state.callback()
+      @setState opened: false, callback: null
 
     @forceUpdate()
 
@@ -22,8 +27,11 @@ window.ReactSigninPopover = React.createClass
     if FactlinkApp.signedIn()
       callback()
     else
-      @setState opened: !@state.opened
-      @_callback = callback
+      if @state.opened
+        @setState opened: false, callback: null
+      else
+        @setState opened: true, callback: callback
+        FactlinkApp.vent.trigger 'ReactSigninPopover:opened', this
 
   render: ->
     if @state.opened && !FactlinkApp.signedIn()
@@ -33,19 +41,16 @@ window.ReactSigninPopover = React.createClass
             'Sign in with: ',
             _a ["button-twitter small-connect-button js-accounts-popup-link",
               href: "/auth/twitter"
-              onMouseDown: @_onButtonClicked
             ],
               _i ["icon-twitter"]
             ' ',
             _a ["button-facebook small-connect-button js-accounts-popup-link",
               href: "/auth/facebook"
-              onMouseDown: @_onButtonClicked
             ],
               _i ["icon-facebook"]
             ' ',
             _a ["js-accounts-popup-link",
               href: "/users/sign_in_or_up"
-              onMouseDown: @_onButtonClicked
             ],
               "or sign in/up with email."
       else

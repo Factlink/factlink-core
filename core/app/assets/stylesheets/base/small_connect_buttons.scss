@@ -1,19 +1,14 @@
-.small-connect-buttons {
-  display: inline-block;
-}
-
 .small-connect-button {
-  padding: 1px 5px 0 6px;
-  line-height: $smallConnectButtonHeight - 1px;
+  height: $smallConnectButtonSize;
+  width: $smallConnectButtonSize;
+  padding: 0px;
+  text-align: center;
   font-size: 11px;
+  vertical-align: middle;
 
   .icon-twitter, .icon-facebook {
-    margin: 0;
+    margin: 2px 0px 0px;
   }
-}
-
-.small-connect-button-factlink {
-  padding: 0 2px;
 }
 
 .small-connect-separator {

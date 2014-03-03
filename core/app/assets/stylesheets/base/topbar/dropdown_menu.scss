@@ -6,7 +6,6 @@
   display: inline-block;
   width: 0;
   height: 0;
-  vertical-align: top;
   border-top:   4px solid $metaFontColor;
   border-right: 4px solid transparent;
   border-left:  4px solid transparent;
@@ -24,7 +23,6 @@
   padding: 5px 0;
   background-color: white;
   border: 1px solid $dropdownBorder;
-  border-top:none;
   border-radius: 0 0 6px 6px;
   box-shadow: 0 5px 10px rgba(0,0,0,.2);
   text-align: left;

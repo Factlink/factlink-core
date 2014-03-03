@@ -19,46 +19,42 @@
   text-align: left;
 }
 
-.white-popover.popover-top {
-  > .popover-content {
-    margin-top: $triangleSize + 1px;
-  }
+.tether-element-attached-top .white-popover {
+  top: $triangleSize + 1px;
+
   > .popover-arrow {
     @include triangle-arrow-up($PopoverArrowTopBorderColor);
-    top: $triangleSize + 1px;
+    top: 0;
     left: 50%;
   }
 }
 
-.white-popover.popover-bottom {
-  > .popover-content {
-    margin-bottom: $triangleSize + 1px;
-  }
+.tether-element-attached-bottom .white-popover {
+  top: -($triangleSize + 1px);
+
   > .popover-arrow {
     @include triangle-arrow-down($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
-    bottom: $triangleSize + 1px;
+    bottom: 0;
     left: 50%;
   }
 }
 
-.white-popover.popover-right {
-  > .popover-content {
-    margin-right: $triangleSize + 1px;
-  }
+.tether-element-attached-right .white-popover {
+  left: -($triangleSize + 1px);
+
   > .popover-arrow {
     @include triangle-arrow-right($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
-    right: $triangleSize + 1px;
+    right: 0;
     top: 50%;
   }
 }
 
-.white-popover.popover-left {
-  > .popover-content {
-    margin-left: $triangleSize + 1px;
-  }
+.tether-element-attached-left .white-popover {
+  left: $triangleSize + 1px;
+
   > .popover-arrow {
     @include triangle-arrow-left($PopoverArrowBorderColor, $PopoverArrowBorderOffset);
-    left: $triangleSize + 1px;
+    left: 0;
     top: 50%;
   }
 }
@@ -69,53 +65,49 @@
   display: inline-block;
 }
 
-.translucent-popover.popover-bottom {
-  > .popover-content {
-    margin-bottom: $triangleSize;
-  }
+.tether-element-attached-bottom .translucent-popover {
+  top: -$triangleSize;
+
   > .popover-arrow {
     top: 100%;
     left: 50%;
-    margin-top: -$triangleSize;
+    margin-top: 0;
     border-bottom: none;
     border-top-color: $darkTranslucentGrey;
   }
 }
 
-.translucent-popover.popover-left {
-  > .popover-content {
-    margin-left: $triangleSize;
-  }
+.tether-element-attached-left .translucent-popover {
+  left: $triangleSize;
+
   > .popover-arrow {
     right: 100%;
     top: 50%;
-    margin-right: -$triangleSize;
+    margin-right: 0;
     border-left: none;
     border-right-color: $darkTranslucentGrey;
   }
 }
 
-.translucent-popover.popover-top {
-  > .popover-content {
-    margin-top: $triangleSize;
-  }
+.tether-element-attached-top .translucent-popover {
+  top: $triangleSize;
+
   > .popover-arrow {
     bottom: 100%;
     left: 50%;
-    margin-bottom: -$triangleSize;
+    margin-bottom: 0;
     border-top: none;
     border-bottom-color: $darkTranslucentGrey;
   }
 }
 
-.translucent-popover.popover-right {
-  > .popover-content {
-    margin-right: $triangleSize;
-  }
+.tether-element-attached-right .translucent-popover {
+  left: -$triangleSize;
+
   > .popover-arrow {
     left: 100%;
     top: 50%;
-    margin-left: -$triangleSize;
+    margin-left: 0;
     border-right: none;
     border-left-color: $darkTranslucentGrey;
   }
@@ -137,4 +129,22 @@
   height: 2px;
   margin: -8px;
   @include box-sizing(content-box);
+}
+
+$pinMargin: 5px;
+.tether-pinned-left .white-popover,
+.tether-pinned-left .translucent-popover {
+  left: $pinMargin;
+}
+.tether-pinned-right .white-popover,
+.tether-pinned-right .translucent-popover {
+  left: -$pinMargin;
+}
+.tether-pinned-top .white-popover,
+.tether-pinned-top .translucent-popover {
+  top: $pinMargin;
+}
+.tether-pinned-bottom .white-popover,
+.tether-pinned-bottom .translucent-popover {
+  top: -$pinMargin;
 }
