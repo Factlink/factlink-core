@@ -71,7 +71,7 @@
   @include button-color($buttonConfirmBackground);
 }
 
-.button-succes {
+.button-success {
   @extend %button-base;
   @include button-color($green);
 }

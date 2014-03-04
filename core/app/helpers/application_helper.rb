@@ -23,7 +23,7 @@ module ApplicationHelper
     if user_signed_in?
       feed_path
     else
-      '/'
+      in_your_browser_path
     end
   end
 

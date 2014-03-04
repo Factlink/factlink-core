@@ -19,20 +19,34 @@
     <% elsif current_user %>
       <ul class="topbar-menu">
         <li class="topbar-menu-item">
-          <%= link_to "Home", home_path, class: 'js-potential-backbone topbar-menu-link topbar-home' %>
+          <%= link_to "Feed", feed_path, class: 'js-potential-backbone' %>
         </li>
         <li class="topbar-divider"></li>
-        <%= render "base/topbar/user_profile" %>
+        <li class="topbar-menu-item">
+          <%= link_to("#{image_tag(current_user.avatar_url(size:30), alt: '',class: 'topbar-profile-image image-30px')}#{h current_user.name}".html_safe, user_profile_path(current_user), class: 'topbar-profile-link js-potential-backbone') %>
+        </li>
         <li class="topbar-divider"></li>
         <%= render "base/topbar/topbar_menu" %>
       </ul>
     <% else %>
-      <div class="topbar-connect">
-        <strong class="topbar-connect-text">Connect with:</strong>
-        <a href="/auth/twitter" class="button-twitter small-connect-button js-accounts-popup-link"><i class="icon-twitter"></i></a>
-        <a href="/auth/facebook" class="button-facebook small-connect-button js-accounts-popup-link"><i class="icon-facebook"></i></a>
-        <span class="small-connect-separator">or</span>
-        <a href="/users/sign_in_or_up" class="button small-connect-button small-connect-button-factlink js-accounts-popup-link"><i class="icon-factlink"></i></a></div><%
+      <ul class="topbar-menu">
+        <li class="topbar-menu-item topbar-in-your-browser">
+          <%= link_to "In your browser", in_your_browser_path %>
+        </li>
+        <li class="topbar-divider topbar-in-your-browser"></li>
+        <li class="topbar-menu-item topbar-on-your-site">
+          <%= link_to "On your site", on_your_site_path %>
+        </li>
+        <li class="topbar-divider topbar-on-your-site"></li>
+        <li class="topbar-menu-item">
+          <div class="topbar-connect">
+            <strong class="topbar-connect-label">Connect with:</strong><a href="/auth/twitter" class="button-twitter small-connect-button js-accounts-popup-link"><i class="icon-twitter"></i></a>
+            <a href="/auth/facebook" class="button-facebook small-connect-button js-accounts-popup-link"><i class="icon-facebook"></i></a>
+            <span class="small-connect-separator">or</span>
+            <a href="/users/sign_in_or_up" class="button small-connect-button small-connect-button-factlink js-accounts-popup-link"><i class="icon-factlink"></i></a>
+          </div>
+        </li>
+      </ul><%
      end  #note: no space!
   %></div>
 </div>

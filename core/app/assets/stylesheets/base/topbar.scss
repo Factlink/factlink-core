@@ -16,6 +16,10 @@
   @extend %centering-inner;
   margin-right: 20px;
   line-height: 0px;
+
+  @include respond-to(430) {
+    display: none;
+  }
 }
 
 .topbar-logo-img{
@@ -25,7 +29,7 @@
 
 .topbar-search {
   @extend %centering-inner;
-  @include respond-to(600) {
+  @include respond-to(900) {
     display: none;
   }
 
@@ -43,14 +47,9 @@
   float: left;
   vertical-align: middle;
   font-weight: bold;
-  height:100%;
-}
-
-.topbar-menu-link {
-  padding: 0px 15px;
-  display: inline-block;
   height:$topbarHeight;
   line-height:$topbarHeight;
+  padding: 0px 15px;
 }
 
 .topbar-divider {
@@ -61,16 +60,14 @@
   float: left;
 }
 
-.topbar-home {
-  @include respond-to(600) {
+.topbar-in-your-browser {
+  @include respond-to(700) {
     display: none;
   }
 }
 
-.topbar-profile-name {
-  padding: 0px 15px;
-
-  @include respond-to(400) {
+.topbar-on-your-site {
+  @include respond-to(600) {
     display: none;
   }
 }
@@ -90,10 +87,7 @@
 .topbar-profile-image {
   @extend %centering-inner;
   border-radius: 2px;
-  vertical-align: middle;
-}
-.topbar-profile-username {
-  @extend %centering-inner;
+  margin-right: 10px;
 }
 
 .topbar-menu-bookmarklet::after {
@@ -102,13 +96,10 @@
 }
 
 .topbar-connect {
-  @extend %centering-y;
-  float: right;
-  line-height: 1.2; //anything significantly smaller than 42px.
-  height:100%;
+  @extend %centering-inner;
+  line-height: 1; // anything lower than surrounding line height
 }
 
-.topbar-connect-text {
-  @extend .topbar-menu-link;
-  padding: 0px;
+.topbar-connect-label {
+  margin-right: 10px;
 }

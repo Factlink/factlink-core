@@ -18,10 +18,12 @@ describe "Static pages:", type: :feature, driver: :poltergeist_slow do
 
   describe "Publisher landing page" do
     it "renders correct" do
-      visit "/publisher"
+      visit "/"
+
+      first('a', text: 'On your site').click
       find('a', text: 'Other platforms').click
 
-      assume_unchanged_screenshot "static_publisher_page"
+      assume_unchanged_screenshot "static_on_your_site"
     end
   end
 end
