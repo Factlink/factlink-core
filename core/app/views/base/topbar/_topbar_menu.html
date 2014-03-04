@@ -26,7 +26,7 @@
 
     <li class="dropdown-menu-item js-topbar-dropdown-menu-bookmarklet"></li>
     <li class="dropdown-menu-item"><%= link_to("<i class='icon-cog'></i> Settings".html_safe, edit_user_path(current_user)) %></li>
-    <li class="dropdown-menu-item"><%= link_to("<i class='icon-info-sign'></i> About Factlink".html_safe, pages_path('about')) %></li>
+    <li class="dropdown-menu-item"><%= link_to("<i class='icon-info-sign'></i> About Factlink".html_safe, about_path) %></li>
     <li class="dropdown-menu-item"><%= link_to("<i class='icon-off'></i> Sign out".html_safe, destroy_user_session_path) %></li>
 
     <% if can? :access, Ability::AdminArea %>

@@ -78,6 +78,7 @@ FactlinkUI::Application.routes.draw do
   get "/on-your-site" => "home#pages", as: "publisher_page", defaults: {name: "publisher"}
   get "/terms-of-service" => "home#pages", as: "terms_of_service", defaults: {name: "terms-of-service"}
   get "/privacy" => "home#pages", as: "privacy", defaults: {name: "privacy"}
+  get "/about" => "home#pages", as: "about", defaults: {name: "about"}
 
   authenticated :user do
     namespace :admin, path: 'a' do
