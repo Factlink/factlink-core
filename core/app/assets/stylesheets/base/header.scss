@@ -36,8 +36,11 @@
   // the image is kept in the centred when resizing the page, but this leads to deformation and thus lower quality
 }
 
-body.controller_home.action_in_your_browser .earth_background {
-  display: block;
+body.controller_home.action_in_your_browser,
+body.controller_home.action_on_your_site {
+  .earth_background {
+    display: block;
+  }
 }
 
 .header-heading {
