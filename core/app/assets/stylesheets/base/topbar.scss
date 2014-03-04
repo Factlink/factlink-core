@@ -107,6 +107,7 @@
 
 .topbar-connect {
   @extend %centering-inner;
+  line-height: 1; // anything lower than surrounding line height
 }
 
 .topbar-connect-label {
