@@ -6,15 +6,16 @@
 }
 
 .on-your-site-header {
-  padding: 30px 0px;
+  padding: 61px 0px; // keep in sync with landing page
   text-align: center;
 }
 
 .on-your-site-paragraph {
-    color: #c9dcfb;
-    font-weight: 100;
-    font-size: 18px;
-    line-height: 28px;
+  color: #c9dcfb;
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 28px;
+  text-shadow: 0 1px 0 #000;
 }
 
 .on-your-site-container {

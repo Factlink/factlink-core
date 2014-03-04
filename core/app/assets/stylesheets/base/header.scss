@@ -1,7 +1,6 @@
 .header {
   width: 100%;
   overflow: hidden;
-  padding-top: 25px;
 
   .background {
     z-index: -1;
@@ -37,39 +36,20 @@
   // the image is kept in the centred when resizing the page, but this leads to deformation and thus lower quality
 }
 
-body.controller_home.action_in_your_browser .earth_background {
-  display: block;
+body.controller_home.action_in_your_browser,
+body.controller_home.action_on_your_site {
+  .earth_background {
+    display: block;
+  }
 }
 
-div.header {
-  div.container {
-    color: white;
-    padding-bottom: 30px;
-
-    h1 {
-      margin: 0 0 25px;
-      font-weight: 400;
-      font-size: 30px;
-      height: 36px;
-      line-height: 36px;
-      font-family: $sansFontFamily;
-      color: white;
-      text-shadow: none;
-    }
-
-    > p {
-      color: #c9dcfb;
-      font-weight: 100;
-      font-size: 16px;
-      text-shadow: 0 1px 0 #000;
-    }
-
-    h2 {
-      font-weight: 100;
-      margin: 0 0 10px;
-      color: #c9dcfb;
-      font-size: 18px;
-      text-shadow: 0 -1px 0 rgba(0, 0, 0, 1);
-    }
-  }
+.header-heading {
+  margin: 0 0 25px;
+  font-weight: 400;
+  font-size: 30px;
+  height: 36px;
+  line-height: 36px;
+  font-family: $sansFontFamily;
+  color: white;
+  text-shadow: none;
 }
