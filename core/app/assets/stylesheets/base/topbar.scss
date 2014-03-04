@@ -43,14 +43,9 @@
   float: left;
   vertical-align: middle;
   font-weight: bold;
-  height:100%;
-}
-
-.topbar-menu-link {
-  padding: 0px 15px;
-  display: block;
   height:$topbarHeight;
   line-height:$topbarHeight;
+  padding: 0px 15px;
 }
 
 .topbar-divider {
@@ -59,6 +54,18 @@
   width: 0px;
   height: $topbarHeight;
   float: left;
+}
+
+.topbar-in-your-browser {
+  @include respond-to(600) {
+    display: none;
+  }
+}
+
+.topbar-on-your-site {
+  @include respond-to(400) {
+    display: none;
+  }
 }
 
 .topbar-home {
@@ -90,10 +97,7 @@
 .topbar-profile-image {
   @extend %centering-inner;
   border-radius: 2px;
-  vertical-align: middle;
-}
-.topbar-profile-username {
-  @extend %centering-inner;
+  margin-right: 10px;
 }
 
 .topbar-menu-bookmarklet::after {
@@ -102,9 +106,9 @@
 }
 
 .topbar-connect {
-  @extend %centering-y;
-  float: right;
-  line-height: 1.2; //anything significantly smaller than 42px.
-  height:100%;
+  @extend %centering-inner;
 }
 
+.topbar-connect-label {
+  margin-right: 10px;
+}
