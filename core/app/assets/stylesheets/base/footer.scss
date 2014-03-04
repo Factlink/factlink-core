@@ -1,14 +1,6 @@
-
-
-div.footer {
-  border-top: 1px solid $baseBorderColor;
-  box-shadow: inset 0px 1px 3px rgba(0,0,0,0.1);
+.footer {
+  border-top: 1px solid lightgrey;
   padding-bottom: 50px;
-
-  .bottom_links {
-    margin: 20px 0 0;
-    @extend %clearfix;
-  }
 
   ul {
     list-style: none;
@@ -48,6 +40,13 @@ div.footer {
       }
     }
   }
+}
+
+.footer-inner {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $siteWidth;
+  padding-top: 20px;
 }
 
 .footer-right {
