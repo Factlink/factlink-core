@@ -73,6 +73,7 @@ ReactCommentHeading = React.createBackboneClass
 
 window.ReactOpinionatedAvatar = React.createBackboneClass
   displayName: "ReactOpinionatedAvatar"
+  mixins: [UpdateOnFeaturesChangeMixin] # opinions_of_users_and_comments
 
   changeOptions: 'add remove reset sort' + ' change'
 
@@ -84,13 +85,12 @@ window.ReactOpinionatedAvatar = React.createBackboneClass
   _user_opinion: -> @model().vote_for(@props.user.get('username'))?.get('type')
 
   _typeCss: ->
-    if !Factlink.Global.can_haz.opinions_of_users_and_comments
-      'comment-unsure'
-    else
-      switch @_user_opinion()
-        when 'believes' then 'comment-believes'
-        when 'disbelieves' then 'comment-disbelieves'
-        else 'comment-unsure'
+    return 'comment-unsure' unless @canHaz('opinions_of_users_and_comments')
+
+    switch @_user_opinion()
+      when 'believes' then 'comment-believes'
+      when 'disbelieves' then 'comment-disbelieves'
+      else 'comment-unsure'
 
   render: ->
     _span ["opinionated-avatar", style: { height: @props.size + 'px' }],

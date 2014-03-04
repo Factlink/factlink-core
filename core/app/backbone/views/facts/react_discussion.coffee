@@ -20,6 +20,7 @@ ReactComments = React.createBackboneClass
 
 window.ReactDiscussion = React.createBackboneClass
   displayName: 'ReactDiscussion'
+  mixins: [UpdateOnFeaturesChangeMixin] # opinions_of_users_and_comments
 
   render: ->
     _div ['discussion'],
@@ -30,7 +31,7 @@ window.ReactDiscussion = React.createBackboneClass
           else
             _div ["loading-indicator-centered"],
               ReactLoadingIndicator()
-        if Factlink.Global.can_haz.opinions_of_users_and_comments
+        if @canHaz('opinions_of_users_and_comments')
           ReactOpinionateArea
             model: @model().getOpinionators()
       ReactAddComment
