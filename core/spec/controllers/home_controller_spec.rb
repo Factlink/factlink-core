@@ -15,7 +15,7 @@ describe HomeController do
     it "renders the index template" do
       get :index
       response.should be_success
-      response.should render_template("index")
+      response.should render_template("in-your-browser")
     end
   end
 
