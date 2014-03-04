@@ -14,14 +14,6 @@
     <div class="visible-when-safari in-your-browser-header-button">
       <a id="safari-extension-button" class="button-success button-huge" href="https://static.factlink.com/extension/firefox/factlink.safariextz">Install Factlink for Safari</a>
     </div>
-
-    <div class="visible-when-unsupported-browser in-your-browser-header-button">
-      <div class="in-your-browser-dashed-border">
-        <a id="bookmarklet-button" class="in-your-browser-bookmarklet button-confirm button-huge" onclick="return false"><span style="display: none">Factlink</span></a>
-      </div>
-
-      <p>To install Factlink, drag this button to your bookmarks bar</p>
-    </div>
   </div>
 <% end %>
 
@@ -36,6 +28,43 @@
       <i class="in-your-browser-icon-social"></i>
       <h1 class="in-your-browser-heading">A social network for knowledge</h1>
       <p>Building and discovering knowledge is a social activity. We make it easy to involve your friends or followers in discussions, and build a reputation. Invite them to share their knowledge with the world!</p>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :below_content do %>
+  <div class="in-your-browser-below-content">
+    <div class="in-your-browser-horizontal">
+      <div class="in-your-browser-horizontal-box in-your-browser-below-content-box">
+        <h1 class="in-your-browser-heading">Join the revolution!</h1>
+        <p>Discussion and access to information are key to a well-functioning society. Install the extension to share your knowledge and stay updated.</p>
+
+        <div class="visible-when-chrome">
+          <a id="chrome-extension-webstore-button" class="button-success" href="javascript:chrome.webstore.install()">Install Factlink for Chrome</a>
+        </div>
+
+        <div class="visible-when-firefox">
+          <a id="firefox-extension-button" class="button-success" href="https://static.factlink.com/extension/firefox/factlink-latest.xpi">Install Factlink for Firefox</a>
+        </div>
+
+        <div class="visible-when-safari">
+          <a id="safari-extension-button" class="button-success" href="https://static.factlink.com/extension/firefox/factlink.safariextz">Install Factlink for Safari</a>
+        </div>
+
+        <div class="visible-when-unsupported-browser">
+          <div class="in-your-browser-dashed-border">
+            <a id="bookmarklet-button" class="in-your-browser-bookmarklet button-success" onclick="return false"><span style="display: none">Factlink</span></a>
+          </div>
+
+          <p>To install Factlink, drag this button to your bookmarks bar</p>
+        </div>
+
+      </div>
+      <div class="in-your-browser-horizontal-box in-your-browser-below-content-box">
+        <h1 class="in-your-browser-heading">Have your own site?</h1>
+        <p>Use Factlink for better discussions and user engagement, whether you subscribe to our ideology or not!</p>
+        <%= link_to "Learn more", on_your_site_path, class: "button-confirm" %>
+      </div>
     </div>
   </div>
 <% end %>
