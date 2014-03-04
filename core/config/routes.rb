@@ -71,12 +71,12 @@ FactlinkUI::Application.routes.draw do
     get "tour-done" => "tour#tour_done", as: "tour_done"
   end
 
-  get "/in-your-browser" => "home#pages", as: "in_your_browser", defaults: {name: "in-your-browser"}
-  get "/on-your-site" => "home#pages", as: "publisher_page", defaults: {name: "publisher"}
-  get "/terms-of-service" => "home#pages", as: "terms_of_service", defaults: {name: "terms-of-service"}
-  get "/privacy" => "home#pages", as: "privacy", defaults: {name: "privacy"}
-  get "/about" => "home#pages", as: "about", defaults: {name: "about"}
-  get "/jobs" => "home#pages", as: "jobs", defaults: {name: "jobs"}
+  get "/in-your-browser" => "home#in_your_browser", as: 'in_your_browser'
+  get "/on-your-site" => "home#publisher_page", as: 'publisher_page'
+  get "/terms-of-service" => "home#terms_of_service", as: 'terms_of_service'
+  get "/privacy" => "home#privacy", as: 'privacy'
+  get "/about" => "home#about", as: 'about'
+  get "/jobs" => "home#jobs", as: 'jobs'
 
   authenticated :user do
     namespace :admin, path: 'a' do

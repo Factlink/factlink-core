@@ -1,35 +1,23 @@
 class HomeController < ApplicationController
 
-  layout "frontend"
+  layout "static_pages"
 
-  helper_method :sort_column, :sort_direction
+  def in_your_browser
+  end
 
-  # general static pages:
-  # TODO unfold big nested if
-  def pages
-    if /\A([-a-zA-Z_\/]+)\Z/.match(params[:name])
-      respond_to do |format|
-        template = "home/pages/#{$1}"
+  def publisher_page # TODO rename to on_your_site
+  end
 
-        layout = "static_pages"
+  def terms_of_service
+  end
 
-        authorize! :show, template
+  def privacy
+  end
 
-        format.html do
-          begin
-            render template, :layout => layout
-          rescue ActionView::MissingTemplate
-            begin
-              render "#{template}/index", :layout => layout
-            rescue ActionView::MissingTemplate
-              raise_404
-            end
-          end
-        end
-      end
-    else
-      raise_404
-    end
+  def about
+  end
+
+  def jobs
   end
 
   before_filter :accepts_html_instead_of_stars, only: [:index]
