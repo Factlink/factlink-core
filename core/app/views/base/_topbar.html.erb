@@ -19,7 +19,7 @@
     <% elsif current_user %>
       <ul class="topbar-menu">
         <li class="topbar-menu-item">
-          <%= link_to "Feed", feed_path, class: 'js-potential-backbone topbar-menu-link' %>
+          <%= link_to "Feed", feed_path, class: 'js-potential-backbone' %>
         </li>
         <li class="topbar-divider"></li>
         <li class="topbar-menu-item">
@@ -31,11 +31,11 @@
     <% else %>
       <ul class="topbar-menu">
         <li class="topbar-menu-item topbar-in-your-browser">
-          <%= link_to "In your browser", in_your_browser_path, class: 'topbar-menu-link' %>
+          <%= link_to "In your browser", in_your_browser_path %>
         </li>
         <li class="topbar-divider topbar-in-your-browser"></li>
         <li class="topbar-menu-item topbar-on-your-site">
-          <%= link_to "On your site", publisher_page_path, class: 'topbar-menu-link' %>
+          <%= link_to "On your site", publisher_page_path %>
         </li>
         <li class="topbar-divider topbar-on-your-site"></li>
         <li class="topbar-menu-item">
