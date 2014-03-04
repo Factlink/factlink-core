@@ -72,20 +72,6 @@
   }
 }
 
-.topbar-home {
-  @include respond-to(600) {
-    display: none;
-  }
-}
-
-.topbar-profile-name {
-  padding: 0px 15px;
-
-  @include respond-to(400) {
-    display: none;
-  }
-}
-
 .topbar-profile-link {
   @extend %centering-y;
   @include ellipsis(220px);
