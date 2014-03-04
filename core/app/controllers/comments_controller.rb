@@ -2,7 +2,10 @@ class CommentsController < ApplicationController
   def index
     fact_id = params[:id]
     comments = interactor(:'comments/for_fact_id', fact_id: fact_id)
-    render json: comments
+    render json: {
+      username: current_user && current_user.username,
+      comments: comments
+    }
   end
 
   def create

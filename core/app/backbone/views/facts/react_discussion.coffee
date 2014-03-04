@@ -3,14 +3,22 @@ ReactComments = React.createBackboneClass
   displayName: 'ReactComments'
   changeOptions: 'add remove reset sort sync request'
 
+  refetchComments : ->
+    @model().fetchIfUnloadedFor(window.currentUser.get('username'))
+
   componentWillMount: ->
-    @model().fetchIfUnloaded()
+    @refetchComments()
+    window.currentUser.on 'change:username', @refetchComments, @
+
+  componentWillUnmount: ->
+    window.currentUser.off null, null, @
 
   render: ->
     _div [],
-      _div ['loading-indicator-centered'],
-        ReactLoadingIndicator
-          model: @model()
+      if @model.length == 0
+        _div ['loading-indicator-centered'],
+          ReactLoadingIndicator
+            model: @model()
       @model().map (comment) =>
         ReactComment
           model: comment
