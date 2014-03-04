@@ -71,10 +71,6 @@ FactlinkUI::Application.routes.draw do
     get "tour-done" => "tour#tour_done", as: "tour_done"
   end
 
-  scope "/p" do
-    get ":name" => "home#pages", as: "pages",  constraints: {name: /([-a-zA-Z_\/]+)/}
-  end
-
   get "/on-your-site" => "home#pages", as: "publisher_page", defaults: {name: "publisher"}
   get "/terms-of-service" => "home#pages", as: "terms_of_service", defaults: {name: "terms-of-service"}
   get "/privacy" => "home#pages", as: "privacy", defaults: {name: "privacy"}
