@@ -1,0 +1,105 @@
+<% content_for :header do %>
+  <div class="homepage-header">
+    <h1>Share your knowledge for a better world</h1>
+    <p class="publisher-page-paragraph">Use Factlink to discuss <i>anything</i> on the web.</p>
+
+    <div class="visible-when-chrome homepage-header-button">
+      <a id="chrome-extension-webstore-button" class="button-succes button-huge" href="javascript:chrome.webstore.install()">Install Factlink for Chrome</a>
+    </div>
+
+    <div class="visible-when-firefox homepage-header-button">
+      <a id="firefox-extension-button" class="button-succes button-huge" href="https://static.factlink.com/extension/firefox/factlink-latest.xpi">Install Factlink for Firefox</a>
+    </div>
+
+    <div class="visible-when-safari homepage-header-button">
+      <a id="safari-extension-button" class="button-succes button-huge" href="https://static.factlink.com/extension/firefox/factlink.safariextz">Install Factlink for Safari</a>
+    </div>
+
+    <div class="visible-when-unsupported-browser homepage-header-button">
+      <div class="homepage-dashed-border">
+        <a id="bookmarklet-button" class="homepage-bookmarklet button-confirm button-huge" onclick="return false"><span style="display: none">Factlink</span></a>
+      </div>
+
+      <p>To install Factlink, drag this button to your bookmarks bar</p>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :content do %>
+
+  <div class="publisher-page-container">
+    <div class="publisher-page-content">
+      <h1 class="publisher-page-content-heading">Discuss within context</h1>
+      You can discuss within context. You can directly comment on a paragraph by clicking on the discussion icon. If you select a certain phrase you can specifically comment on the selected phrase.
+    </div>
+
+    <div class="publisher-page-illustration">
+      <div class="focused-discussion">
+        <ul class="focused-discussion-list">
+          <li class="focused-discussion-list-item">
+            <div class="focused-discussion-paragraph">
+              <span class="focused-discussion-paragraph-icon">+</span>
+            </div>
+          </li>
+          <li class="focused-discussion-list-item"></li>
+          <li class="focused-discussion-list-item"></li>
+          <li class="focused-discussion-list-item"></li>
+        </ul>
+
+        <ul class="focused-discussion-list">
+          <li class="focused-discussion-list-item">
+            <div class="focused-discussion-paragraph">
+              <span class="focused-discussion-paragraph-icon"></span>
+            </div>
+          </li>
+          <li class="focused-discussion-list-item"></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="publisher-page-container">
+    <div class="publisher-page-content">
+      <h1 class="publisher-page-content-heading">No need for a new account</h1>
+      You don't need a new account. You can easily login/connect with Twitter or Facebook. This has the additional benefit that you can directly share interesting discussions with your friends on social media.
+    </div>
+  </div>
+
+  <div class="publisher-page-container">
+    <div class="publisher-page-illustration">
+      <%= render "home/pages/partials/share" %>
+    </div>
+    <div class="publisher-page-content">
+      <h1 class="publisher-page-content-heading">Share with your friends</h1>
+      Express yourself in more then 140 characters by sharing discussions and thoughts to Twitter. Involve your friends on Facebook in discussions about interesting articles. You can easily share anything to the social media platform of your choice.
+    </div>
+  </div>
+
+  <div class="publisher-page-container">
+    <div class="publisher-page-illustration">
+      <%= render "home/pages/partials/give_opinion" %>
+    </div>
+
+    <div class="publisher-page-content">
+      <h1 class="publisher-page-content-heading">Give recognition</h1>
+      Don't feel like writing a comment but do want to give recognition for a well written paragraph? Give recognition by using the thumb up and thumb down buttons.
+    </div>
+  </div>
+
+  <div class="publisher-page-container">
+    <div class="publisher-page-content">
+      <h1 class="publisher-page-content-heading">Vote up the best comments</h1>
+      Appreciate the best comments by voting them up. The collective will provide you with the best comments.
+    </div>
+    <div class="publisher-page-illustration">
+      <%= render "home/pages/partials/comment_votes" %>
+    </div>
+  </div>
+
+  <div class="publisher-page-container">
+    <div class="publisher-page-content">
+      <h1 class="publisher-page-content-heading">Using browser extensions</h1>
+      By using our browser extensions you can discuss about anything, everywhere. Even on websites that did not implement Factlink. We believe in an open internet in which everybody can share there opinions, believes and thoughts about the information that is being spread to the world. This way we all can get a better perspective about the information we read. A shared frame of reference if you will.
+    </div>
+  </div>
+<% end %>
