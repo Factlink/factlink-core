@@ -45,3 +45,14 @@ i.in-your-browser-icon-layer {
 i.in-your-browser-icon-social {
   background: asset-data-url('landing/content/social.png') no-repeat;
 }
+
+.in-your-browser-below-content {
+  padding: 25px 0;
+  border-top: 1px solid $baseBorderColor;
+  box-shadow: inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.in-your-browser-below-content-box {
+  @extend %white-block-with-shadow;
+  padding: 20px;
+}
