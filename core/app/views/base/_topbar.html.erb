@@ -28,14 +28,14 @@
       </ul>
     <% else %>
       <ul class="topbar-menu">
-        <li class="topbar-menu-item">
-          <%= link_to "In your browser", in_your_browser_path, class: 'topbar-menu-link topbar-in-your-browser' %>
+        <li class="topbar-menu-item topbar-in-your-browser">
+          <%= link_to "In your browser", in_your_browser_path, class: 'topbar-menu-link' %>
         </li>
-        <li class="topbar-divider"></li>
-        <li class="topbar-menu-item">
-          <%= link_to "On your site", publisher_page_path, class: 'topbar-menu-link topbar-on-your-site' %>
+        <li class="topbar-divider topbar-in-your-browser"></li>
+        <li class="topbar-menu-item topbar-on-your-site">
+          <%= link_to "On your site", publisher_page_path, class: 'topbar-menu-link' %>
         </li>
-        <li class="topbar-divider"></li>
+        <li class="topbar-divider topbar-on-your-site"></li>
         <li class="topbar-menu-item">
           <div class="topbar-connect">
             <strong class="topbar-connect-label">Connect with:</strong><a href="/auth/twitter" class="button-twitter small-connect-button js-accounts-popup-link"><i class="icon-twitter"></i></a>

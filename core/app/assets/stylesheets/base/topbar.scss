@@ -16,6 +16,10 @@
   @extend %centering-inner;
   margin-right: 20px;
   line-height: 0px;
+
+  @include respond-to(430) {
+    display: none;
+  }
 }
 
 .topbar-logo-img{
@@ -25,7 +29,7 @@
 
 .topbar-search {
   @extend %centering-inner;
-  @include respond-to(600) {
+  @include respond-to(900) {
     display: none;
   }
 
@@ -57,13 +61,13 @@
 }
 
 .topbar-in-your-browser {
-  @include respond-to(600) {
+  @include respond-to(700) {
     display: none;
   }
 }
 
 .topbar-on-your-site {
-  @include respond-to(400) {
+  @include respond-to(600) {
     display: none;
   }
 }
