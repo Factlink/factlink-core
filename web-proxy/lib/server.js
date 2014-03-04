@@ -43,7 +43,7 @@ function getServer(config) {
     setTimeout(function(){
       res.setHeader('Content-Type', 'application/javascript');
       res.send('console.log("loaded intentionally delayed script!");');
-    }, parseInt(req.query.delay || "3000"));
+    }, parseInt(req.query.delay || "3000", 10));
   });
 
   /**
@@ -160,7 +160,7 @@ function getServer(config) {
 
   function renderWelcomePage(res){
     res.render('welcome.jade',{
-      layout:false,
+      layout: false,
       locals: { core_url: config.FactlinkBaseUri }
     });
   }
