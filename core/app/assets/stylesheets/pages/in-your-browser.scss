@@ -25,8 +25,9 @@
 
 .in-your-browser-dashed-border {
   display: inline-block;
-  border: 3px dotted #c9c9c9;
+  border: 2px dotted #c9c9c9;
   border-radius: 8px;
+  padding: 5px;
 }
 
 a.in-your-browser-bookmarklet { cursor: move !important; }
