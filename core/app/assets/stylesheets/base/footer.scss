@@ -1,33 +1,6 @@
 .footer {
   border-top: 1px solid lightgrey;
   padding-bottom: 50px;
-
-  li {
-    float: left;
-    padding: 0 9px 0 0;
-
-    &:after {
-      content: "·"
-    }
-
-    &:last-child {
-      padding: 0;
-
-      &:after {
-        content: ""
-      }
-    }
-
-    &.copy {
-      color: #777;
-    }
-
-    a {
-      margin: 0 5px 0 0;
-      font-weight: bold;
-      transition: color .15s ease-in-out;
-    }
-  }
 }
 
 .footer-inner {
@@ -35,6 +8,33 @@
   margin-right: auto;
   max-width: $siteWidth;
   padding-top: 20px;
+}
+
+.footer-item {
+  float: left;
+  padding: 0 9px 0 0;
+
+  &:after {
+    content: "·";
+  }
+
+  &:last-child {
+    padding: 0;
+
+    &:after {
+      content: "";
+    }
+  }
+
+  a {
+    margin: 0 5px 0 0;
+    font-weight: bold;
+    transition: color .15s ease-in-out;
+  }
+}
+
+.footer-copyright {
+  color: #777;
 }
 
 .footer-right {
