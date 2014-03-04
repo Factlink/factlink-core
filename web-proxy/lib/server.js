@@ -160,7 +160,7 @@ function getServer(config) {
 
   function renderWelcomePage(res){
     res.render('welcome.jade',{
-      layout:false,
+      layout: false,
       locals: { core_url: config.FactlinkBaseUri }
     });
   }
