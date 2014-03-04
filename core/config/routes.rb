@@ -79,6 +79,7 @@ FactlinkUI::Application.routes.draw do
   get "/terms-of-service" => "home#pages", as: "terms_of_service", defaults: {name: "terms-of-service"}
   get "/privacy" => "home#pages", as: "privacy", defaults: {name: "privacy"}
   get "/about" => "home#pages", as: "about", defaults: {name: "about"}
+  get "/jobs" => "home#pages", as: "jobs", defaults: {name: "jobs"}
 
   authenticated :user do
     namespace :admin, path: 'a' do
