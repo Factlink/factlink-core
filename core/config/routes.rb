@@ -72,7 +72,7 @@ FactlinkUI::Application.routes.draw do
   end
 
   get "/in-your-browser" => "home#in_your_browser", as: 'in_your_browser'
-  get "/on-your-site" => "home#publisher_page", as: 'publisher_page'
+  get "/on-your-site" => "home#on_your_site", as: 'on_your_site'
   get "/terms-of-service" => "home#terms_of_service", as: 'terms_of_service'
   get "/privacy" => "home#privacy", as: 'privacy'
   get "/about" => "home#about", as: 'about'

@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   def in_your_browser
   end
 
-  def publisher_page # TODO rename to on_your_site
+  def on_your_site
   end
 
   def terms_of_service
