@@ -71,6 +71,7 @@ FactlinkUI::Application.routes.draw do
     get "tour-done" => "tour#tour_done", as: "tour_done"
   end
 
+  get "/in-your-browser" => "home#pages", as: "in_your_browser", defaults: {name: "in-your-browser"}
   get "/on-your-site" => "home#pages", as: "publisher_page", defaults: {name: "publisher"}
   get "/terms-of-service" => "home#pages", as: "terms_of_service", defaults: {name: "terms-of-service"}
   get "/privacy" => "home#pages", as: "privacy", defaults: {name: "privacy"}

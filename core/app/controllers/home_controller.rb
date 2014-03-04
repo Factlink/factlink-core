@@ -46,7 +46,7 @@ class HomeController < ApplicationController
     if user_signed_in?
       redirect_to after_sign_in_path_for(current_user)
     else
-      render "home/pages/in-your-browser", layout: "static_pages"
+      redirect_to in_your_browser_path
     end
   end
 end
