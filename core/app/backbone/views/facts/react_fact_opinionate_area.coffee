@@ -45,6 +45,15 @@ FactOpinionateButton = React.createBackboneClass
   _onClick: ->
     @model().clickCurrentUserOpinion @props.opinion_type
 
+  componentDidMount: ->
+    @model().on 'trySettingOpinion', @handleTrySettingOpinionEvent, @
+
+  componentWillUnmount: ->
+    @model().off 'trySettingOpinion', null, @
+
+  handleTrySettingOpinionEvent: (opinion) ->
+    @refs.signinPopover.submit(=> @_onClick()) if opinion == @props.opinion_type
+
   render: ->
     is_opinion = @model().opinion_for_current_user() == @props.opinion_type
     _div ["fact-opinionate-button"],
