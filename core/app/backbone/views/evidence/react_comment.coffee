@@ -85,7 +85,7 @@ window.ReactOpinionatedAvatar = React.createBackboneClass
   _user_opinion: -> @model().vote_for(@props.user.get('username'))?.get('type')
 
   _typeCss: ->
-    return 'comment-unsure' unless 'opinions_of_users_and_comments' in currentUser.get('features')
+    return 'comment-unsure' unless @canHaz('opinions_of_users_and_comments')
 
     switch @_user_opinion()
       when 'believes' then 'comment-believes'

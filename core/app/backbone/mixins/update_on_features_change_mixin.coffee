@@ -4,3 +4,6 @@ window.UpdateOnFeaturesChangeMixin =
 
   componentWillUnmount: ->
     window.currentUser.off null, null, @
+
+  canHaz: (feature) ->
+    feature in currentUser.get('features')
