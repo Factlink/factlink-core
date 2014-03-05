@@ -1,35 +1,54 @@
-.annotation-site {
-  display: table-cell;
-  width: 30px;
-  padding-right: 15px;
+$avatarSize: 32px;
+
+.annotation {
+  position: relative;
+  min-height: $avatarSize;
 }
 
-.annotation-site-avatar {
-  line-height: 32px;
-  padding: 5px;
+.annotation-avatar-container {
+  @extend %centering;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: $avatarSize;
+  height: $avatarSize;
   border: 1px lightgrey solid;
-  border-radius: 4px;
-  display: inline-block;
+  border-radius: $avatarBorderRadius;
+  background: white;
 }
 
-.annotation-body {
-  display: table-cell;
-  vertical-align: middle;
+.annotation-avatar {
+  max-width: $avatarSize;
+  max-height: $avatarSize;
+  @extend %centering-inner;
 }
 
-.annotation-body-content {
+.annotation-balloon {
+  margin-left: $avatarSize + 10px;
+  background: $lightYellow;
   word-wrap: break-word;
-  padding: 1px 0;
-  background-color: rgba(255,255,0, 0.2);
-  transition: background-color 0.4s;
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: $baseBorderRadius;
+  position: relative;
 
-  &:hover {
-    background-color: rgba(255,255,0, 0.6);
+  &:before {
+    content: '';
+
+    position: absolute;
+    left: -$triangleSize;
+    top: $avatarSize/2 - $triangleSize;
+
+    width: 0;
+    height: 1px;
+    border: $triangleSize solid transparent;
+    border-left: none;
+    border-right-color: $lightYellow;
   }
 }
 
-.proxy-link-favicon {
-  width: 16px;
-  height: 16px;
-  display: block;
+.annotation-host {
+  font-weight: $baseFontBoldWeight;
 }

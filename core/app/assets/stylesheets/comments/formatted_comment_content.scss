@@ -2,8 +2,8 @@
   padding: 1px 0;
   background-color: $factlinkInactiveColor;
   transition: background-color 0.4s;
+}
 
-  &:hover {
-    background-color: $factlinkActiveColor;
-  }
+a.formatted-comment-content-factlink:hover {
+  background-color: $factlinkActiveColor;
 }

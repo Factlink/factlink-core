@@ -1,3 +1,4 @@
 class Api::FeedController < ApplicationController
-  pavlov_action :index, Interactors::Feed::Index
+  pavlov_action :global, Interactors::Feed::Global
+  pavlov_action :personal, Interactors::Feed::Personal
 end
