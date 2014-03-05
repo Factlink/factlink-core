@@ -115,14 +115,9 @@ describe User do
   # also describes .hidden?
   describe '.active?' do
     context "initial user" do
-      let(:initial_user) { create :user }
-      it { expect(initial_user).to_not be_active }
-      it { expect(initial_user).to     be_hidden }
-    end
-    context "user who is set up" do
-      subject(:active_user) { create :user, :set_up }
-      it { expect(active_user).to     be_active }
-      it { expect(active_user).to_not be_hidden }
+      subject(:user) { create :user }
+      it { expect(user).to     be_active }
+      it { expect(user).to_not be_hidden }
     end
     context "deleted user" do
       let(:deleted_user) do
@@ -137,14 +132,6 @@ describe User do
 
   describe 'scopes' do
     describe ".active" do
-      it "only returns set up users" do
-        inactive_user = create :user
-        active_user = create :user, :set_up
-
-        active_users = User.active.all
-        expect(active_users).to eq [active_user]
-      end
-
       it "doesn't return deleted users" do
         user = create :user
 

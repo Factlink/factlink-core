@@ -7,13 +7,11 @@ describe Ability do
   subject                { Ability.new(user) }
   let(:anonymous)        { Ability.new }
   let(:admin)            { Ability.new admin_user }
-  let(:non_set_up)       { Ability.new non_set_up_user }
 
   # users used as object
   let(:user)        { create :full_user }
   let(:other_user)  { create :full_user }
   let(:admin_user)  { create :full_user, :admin }
-  let(:non_set_up_user) { create :user, set_up: false }
 
   let(:deleted_user) { create :full_user, deleted: true }
 
@@ -35,14 +33,6 @@ describe Ability do
       it { subject.should_not be_able_to :destroy, other_user }
 
       it { subject.should be_able_to :show, deleted_user }
-    end
-    context "as a non set up user" do
-      it { non_set_up.should_not be_able_to :manage, User }
-
-      it { non_set_up.should_not be_able_to :update, non_set_up_user }
-      it { non_set_up.should     be_able_to :set_up, non_set_up_user }
-      it { non_set_up.should     be_able_to :show, non_set_up_user }
-      it { non_set_up.should     be_able_to :show, User }
     end
     context "as an admin" do
       it { admin.should     be_able_to :manage, User }
@@ -127,7 +117,6 @@ describe Ability do
     it "should be allowed to signed in, set up users" do
       admin.should           be_able_to :access, Ability::FactlinkWebapp
       subject.should         be_able_to :access, Ability::FactlinkWebapp
-      non_set_up.should_not  be_able_to :access, Ability::FactlinkWebapp
       anonymous.should_not   be_able_to :access, Ability::FactlinkWebapp
     end
   end

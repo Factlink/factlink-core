@@ -104,7 +104,6 @@ describe Accounts::SocialRegistrationsController do
         created_user = User.first
         expect(created_user.name).to eq name
         expect(created_user.social_account(:twitter).uid).to eq twitter_account.uid
-        expect(created_user).to be_set_up
       end
     end
 

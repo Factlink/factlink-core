@@ -22,15 +22,11 @@ FactoryGirl.define do
       confirmed_at DateTime.now
     end
 
-    trait :set_up do
-      set_up true
-    end
-
     trait :admin do
       admin true
     end
 
-    factory :full_user, traits: [:set_up]
+    factory :full_user
   end
 
   factory :social_account do

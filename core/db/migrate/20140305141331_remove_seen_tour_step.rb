@@ -13,6 +13,7 @@ class RemoveSeenTourStep < Mongoid::Migration
     User.all.each do |user|
       user.remove_attribute(:seen_tour_step)
       user.remove_attribute(:suspended)
+      user.remove_attribute(:set_up)
     end
   end
 

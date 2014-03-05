@@ -48,8 +48,6 @@ class ApplicationController < ActionController::Base
   after_filter :set_access_control
 
   def after_sign_in_path_for(user)
-    return setup_account_path unless user.set_up
-
     safe_return_to_path || feed_path
   end
 

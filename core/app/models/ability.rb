@@ -11,10 +11,6 @@ class Ability
     !!user
   end
 
-  def set_up?
-    signed_in? and user.set_up
-  end
-
   def initialize(user=nil)
     @user=user
 
@@ -22,10 +18,8 @@ class Ability
       ! /^home\/pages\/help/.match template
     end
 
-    if set_up?
-      can :access, FactlinkWebapp
-      can :show, String
-    end
+    can :access, FactlinkWebapp
+    can :show, String
 
     define_anonymous_user_abilities
 
@@ -81,18 +75,16 @@ class Ability
     can :read, user
     can :set_up, user
 
-    if set_up?
-      if user.admin?
-        can :access, AdminArea
-        can :configure, FactlinkWebapp
-        can :manage, User
-        cannot :edit_settings, User
-      end
-
-      can :update, user
-      can :edit_settings, user
-      can :destroy, user
+    if user.admin?
+      can :access, AdminArea
+      can :configure, FactlinkWebapp
+      can :manage, User
+      cannot :edit_settings, User
     end
+
+    can :update, user
+    can :edit_settings, user
+    can :destroy, user
   end
 
   def define_user_activities_abilities

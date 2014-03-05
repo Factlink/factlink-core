@@ -29,7 +29,6 @@ class User
   index(graph_user_id: 1)
 
   field :deleted,     type: Boolean, default: false
-  field :set_up,      type: Boolean, default: false
 
   field :admin,       type: Boolean, default: false
 
@@ -110,8 +109,7 @@ class User
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
   has_many :social_accounts
 
-  scope :active,   where(:set_up => true)
-                  .where(:deleted.ne => true)
+  scope :active, where(:deleted.ne => true)
 
   class << self
     # List of fields that are stored in Mixpanel.
@@ -161,7 +159,7 @@ class User
   end
 
   def active?
-    set_up && !deleted
+    !deleted
   end
 
   def graph_user

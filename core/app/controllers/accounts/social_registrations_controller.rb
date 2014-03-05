@@ -106,7 +106,6 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
 
     # Protected from mass-assignment
     @user.email = email
-    @user.set_up = true
     @user.generate_username!
 
     @user.save
