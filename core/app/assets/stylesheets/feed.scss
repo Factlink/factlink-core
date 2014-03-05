@@ -44,10 +44,11 @@ a.feed-activity-container {
   vertical-align: top;
   margin-left: $headerHeight + 2*$feedPadding;
   padding: (($headerHeight - $headerInnerHeight)/2 - $headerBorder) 10px;
-  background: white;
   border-bottom: $headerBorder lightgrey solid;
   border-radius: $baseBorderRadius;
   color: $baseFontColor;
+  background: white;
+  opacity: 0.85;
 
   @include respond-to(600) {
     margin-left: $avatarSmallHeight + 2*$smallFeedPadding;
@@ -55,7 +56,7 @@ a.feed-activity-container {
   }
 
   &:hover {
-    background: $backgroundGray;
+    opacity: 1;
   }
 }
 
