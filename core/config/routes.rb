@@ -13,7 +13,8 @@ FactlinkUI::Application.routes.draw do
 
   scope '/api/beta' do
     get '/current_user' => 'users#current'
-    get '/feed' => "api/feed#index"
+    get '/feed' => "api/feed#global"
+    get '/feed/personal' => "api/feed#personal"
     get '/users/:username/feed' => 'api/users#feed'
   end
 
@@ -77,6 +78,15 @@ FactlinkUI::Application.routes.draw do
   get "/privacy" => "home#privacy", as: 'privacy'
   get "/about" => "home#about", as: 'about'
   get "/jobs" => "home#jobs", as: 'jobs'
+
+  # Support old urls until Google search index is updated
+  get '/p/about', to: redirect("/about")
+  get '/p/team', to: redirect("/about")
+  get '/p/contact', to: redirect("/about")
+  get '/p/jobs', to: redirect("/jobs")
+  get '/p/privacy', to: redirect("/privacy")
+  get '/publisher', to: redirect("/on-your-site")
+  get '/p/terms-of-service', to: redirect("/terms-of-service")
 
   authenticated :user do
     namespace :admin, path: 'a' do
