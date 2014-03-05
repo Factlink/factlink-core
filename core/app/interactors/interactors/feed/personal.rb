@@ -1,6 +1,6 @@
 module Interactors
   module Feed
-    class Index
+    class Personal
       include Pavlov::Interactor
 
       arguments :timestamp
