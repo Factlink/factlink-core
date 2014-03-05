@@ -19,6 +19,7 @@
 
   @include respond-to(400) {
     width: 80%;
+    margin: 0;
   }
 }
 
