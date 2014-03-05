@@ -33,6 +33,7 @@ ReactCreatedCommentActivity = React.createBackboneClass
   render: ->
     user = new User @model().get('user')
     fact = new Fact @model().get('fact')
+    comment = new Comment @model().get('comment')
 
     ReactActivity {
         model: user
@@ -43,8 +44,9 @@ ReactCreatedCommentActivity = React.createBackboneClass
             "commented on"
           ]
       },
-     ReactFact model: fact
-     #still needs the actual comment here
+      ReactFact model: fact
+      _div ["feed-lowest-comment comment-content",
+        dangerouslySetInnerHTML: {__html: comment.get('formatted_content')}]
 
 ReactCreatedSubCommentActivity = React.createBackboneClass
   displayName: 'ReactCreatedSubCommentActivity'
@@ -52,6 +54,8 @@ ReactCreatedSubCommentActivity = React.createBackboneClass
   render: ->
     user = new User @model().get('user')
     fact = new Fact @model().get('fact')
+    comment = new Comment @model().get('comment')
+    sub_comment = new Comment @model().get('sub_comment')
 
     ReactActivity {
         model: user
@@ -62,8 +66,9 @@ ReactCreatedSubCommentActivity = React.createBackboneClass
             "replied to"
           ]
       },
-     ReactFact model: fact
-     #still needs the actual comment here
+      ReactFact model: fact
+      _div ["feed-lowest-comment subcomment-content",
+        dangerouslySetInnerHTML: {__html: sub_comment.get('formatted_content')}]
 
 ReactFollowedUserActivity = React.createBackboneClass
   displayName: 'ReactFollowedUserActivity'
