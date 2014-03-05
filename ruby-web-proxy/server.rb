@@ -2,13 +2,16 @@ require 'goliath'
 
 require 'em-synchrony'
 require 'em-synchrony/em-http'
+require_relative './lib/web_proxy'
+require_relative './lib/inject_factlink'
+require_relative './lib/redirect_root_url'
 
-class Server < Goliath::API
-  def response(env)
-    req = Rack::Request.new(env)
-    page = EM::HttpRequest.new(req.params["url"]).get
-    resp = page.response
+class Server < WebProxy
+  use InjectFactlink
+  use RedirectRootUrl
 
-    [200, {}, resp]
+  def add_to_head location
+    super + "<!-- doei -->"
   end
 end
+
