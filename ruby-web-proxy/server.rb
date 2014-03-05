@@ -1,12 +1,14 @@
-require 'sinatra'
-require 'sinatra/async'
-require 'net/http'
+require 'goliath'
 
-Sinatra.register Sinatra::Async
+require 'em-synchrony'
+require 'em-synchrony/em-http'
 
-aget '/run' do
-  EM.defer do
-    url = URI.parse(params[:url])
-    body Net::HTTP.get(url)
+class Server < Goliath::API
+  def response(env)
+    req = Rack::Request.new(env)
+    page = EM::HttpRequest.new(req.params["url"]).get
+    resp = page.response
+
+    [200, {}, resp]
   end
 end
