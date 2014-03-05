@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout "frontend"
 
-  before_filter :load_user, except: [:current, :tour_users, :seen_messages]
+  before_filter :load_user, except: [:current, :seen_messages]
 
   def show
     authorize! :show, @user
@@ -78,13 +78,6 @@ class UsersController < ApplicationController
     fail HackAttempt unless params[:message] =~ /\A\w+\Z/
     current_user.seen_messages << params[:message]
     render json: {}, status: :ok
-  end
-
-  def tour_users
-    authorize! :access, Ability::FactlinkWebapp
-    # TODO add proper authorization check
-
-    render json: interactor(:"users/tour_users")
   end
 
   private
