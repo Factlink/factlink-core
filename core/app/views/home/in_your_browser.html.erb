@@ -89,7 +89,7 @@
       $('#bookmarklet-button').attr('href', Factlink.Global.bookmarklet_link);
     });
 
-    var feedActivities = new FeedActivities([], {count: 5});
+    var feedActivities = new FeedActivities([], {count: 4});
     feedActivities.fetch();
 
     React.renderComponent(ReactFeedActivitiesFixed({model: feedActivities}), $('.js-in-your-browser-feed')[0]);
