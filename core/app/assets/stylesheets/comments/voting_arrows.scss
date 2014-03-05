@@ -23,17 +23,22 @@
 
 .comment-vote-up,
 .comment-vote-down {
-  padding: 0px 1px 1px;
-  font-size: 10px;
-  display: inline-block;
-  color: $grayLight;
-  border-radius:4px;
+  @extend %button-base;
+  @include button-color($buttonBackground);
+  color: darken($buttonBackground,20);
+  font-size: 8px;
+  height: 22px;
+  line-height: 22px - 3px;
+  padding: 0px 1px;
+
   &:hover{
-    color: $grayDark;
-    background: lightgrey;
+    color: darken($buttonBackground,45);
   }
+
   &.comment-vote-active {
-    background: lightgrey;
-    color: $blue;
+    @include button-color($blue);
+    border-bottom: 1px darken($blue,10) solid;
+    padding-top: 1px;
+    color: white;
   }
 }
