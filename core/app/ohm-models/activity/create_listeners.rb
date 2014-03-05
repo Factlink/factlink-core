@@ -92,6 +92,7 @@ class Activity < OurOhm
       # TODO clear activity listeners for develop
       create_notification_activities
       create_stream_activities
+      create_global_all_activities
     end
 
     def create_notification_activities
@@ -145,6 +146,22 @@ class Activity < OurOhm
             write_ids: ->(a) {[a.user_id]}
           })
         end
+      end
+
+    end
+
+    def create_global_all_activities
+      write_ids = ->(a) { [0] }
+
+      Activity::Listener.register do
+        activity_for "GlobalFeed"
+        named :all_activities
+        activity subject_class: "Comment",
+                 action: :created_comment,
+                 write_ids: write_ids
+        activity subject_class: "SubComment",
+                 action: :created_sub_comment,
+                 write_ids: write_ids
       end
 
     end
