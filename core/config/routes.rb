@@ -65,8 +65,6 @@ FactlinkUI::Application.routes.draw do
   get "/search" => "search#search", as: "search"
 
   scope "/p/tour" do
-    get 'setup-account' => 'users/setup#edit', as: 'setup_account'
-    put 'setup-account' => 'users/setup#update'
     get "install-extension" => "tour#install_extension", as: "install_extension"
     get "interests" => "tour#interests", as: "interests"
     get "tour-done" => "tour#tour_done", as: "tour_done"
@@ -122,6 +120,8 @@ FactlinkUI::Application.routes.draw do
   get "/users/sign_in_or_up" => "accounts/factlink_accounts#new", as: 'factlink_accounts_new'
   post "/users/sign_in_or_up/in" => "accounts/factlink_accounts#create_session", as: 'factlink_accounts_create_session'
   post "/users/sign_in_or_up/up" => "accounts/factlink_accounts#create_account", as: 'factlink_accounts_create_account'
+  get "/users/setup_account" => "users/setup#edit", as: 'setup_account'
+  put "/users/setup_account" => "users/setup#update"
 
   get '/feed' => "frontend#show", as: 'feed'
   get '/:unused/feed', to: redirect("/feed")
