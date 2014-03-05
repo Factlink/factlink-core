@@ -1,8 +1,8 @@
 stripLinks = (formatted_content) ->
   $content = $("<span>#{formatted_content}</span>")
   $content.find('a').replaceWith ->
-    $span = $("<span>#{$(this).html()}</span>")
-    $span.addClass this.className
+    $span = $("<span>#{@innerHTML}</span>")
+    $span.addClass @className
     $span
 
   $content.html()
