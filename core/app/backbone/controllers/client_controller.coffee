@@ -11,14 +11,14 @@ class window.ClientController
 
     fact.save {},
       success: =>
-        if params.current_user_opinion && params.current_user_opinion != 'no_vote'
-          fact.getOpinionators().clickCurrentUserOpinion params.current_user_opinion
-
         @annotatedSiteEnvoy 'highlightNewFactlink', params.displaystring, fact.id
 
         @_renderDiscussion fact
         Backbone.history.navigate "/client/facts/#{fact.id}", trigger: false
         mp_track 'Factlink: Created'
+
+        if params.current_user_opinion && params.current_user_opinion != 'no_vote'
+          fact.getOpinionators().trigger 'trySettingOpinion', params.current_user_opinion
 
   _renderDiscussion: (fact) ->
     @annotatedSiteEnvoy 'highlightExistingFactlink', fact.id

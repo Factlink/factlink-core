@@ -12,7 +12,7 @@ fi
 
 sudo add-apt-repository ppa:tortoisehg-ppa/releases
 sudo apt-get update
-sudo apt-get install tortoisehg tortoisehg-nautilus python-setuptools nautilus-open-terminal
+sudo apt-get install tortoisehg tortoisehg-nautilus python-setuptools nautilus-open-terminal coffeescript
 sudo easy_install keyring
 sudo easy_install mercurial_keyring
 sudo easy_install hg-git
