@@ -17,12 +17,12 @@ window.ReactFeedSelection = React.createClass
 
   render: ->
     _div [],
-      _div [],
-        _input [ type: 'radio', name: 'FeedChoice', value: 'global', id: 'FeedChoice_Global', onChange: @handleFeedChoiceChange, checked: @state.feedChoice=='global'  ]
+      _div ['feed-selection-row'],
+        _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'global', id: 'FeedChoice_Global', onChange: @handleFeedChoiceChange, checked: @state.feedChoice=='global'  ]
         _label [ htmlFor: 'FeedChoice_Global' ],
           'Global'
 
-        _input [ type: 'radio', name: 'FeedChoice', value: 'personal', id: 'FeedChoice_Personal', onChange: @handleFeedChoiceChange, checked: @state.feedChoice=='personal' ]
+        _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'personal', id: 'FeedChoice_Personal', onChange: @handleFeedChoiceChange, checked: @state.feedChoice=='personal' ]
         _label [ htmlFor: 'FeedChoice_Personal' ],
           'Personal'
 
