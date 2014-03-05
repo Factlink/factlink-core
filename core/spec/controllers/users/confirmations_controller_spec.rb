@@ -17,7 +17,7 @@ describe Users::ConfirmationsController do
       user.reload
       expect(user).to be_confirmed
 
-      expect(response).to redirect_to setup_account_path
+      expect(response).to redirect_to feed_path
     end
 
     it "works when the user is already signed in" do
@@ -30,7 +30,7 @@ describe Users::ConfirmationsController do
       user.reload
       expect(user).to be_confirmed
 
-      expect(response).to redirect_to setup_account_path
+      expect(response).to redirect_to feed_path
     end
 
     it "leaves another user signed in and shows an error" do

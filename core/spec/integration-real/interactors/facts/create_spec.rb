@@ -5,7 +5,7 @@ describe 'fact' do
 
   it 'can be created' do
     displaystring = 'displaystring'
-    user = create :full_user
+    user = create :user
 
     as(user) do |pavlov|
       fact = pavlov.interactor(:'facts/create', displaystring: displaystring, url: 'http://example.org', title: '')

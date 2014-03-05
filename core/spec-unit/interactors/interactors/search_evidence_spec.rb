@@ -8,7 +8,7 @@ describe Interactors::SearchEvidence do
   let(:relaxed_ability) { double(:ability, can?: true) }
 
   before do
-    stub_classes 'Fact', 'FactData', 'Ability::FactlinkWebapp',
+    stub_classes 'Fact', 'FactData',
                  'Queries::ElasticSearchFactData'
   end
 

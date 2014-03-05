@@ -7,8 +7,8 @@ feature "sub_comments", type: :feature do
   include Acceptance::CommentHelper
 
   background do
-    @user_a = sign_in_user create :full_user, :confirmed
-    @user_b = create :full_user, :confirmed
+    @user_a = sign_in_user create :user, :confirmed
+    @user_b = create :user, :confirmed
 
     @factlink_user_a = create :fact
   end

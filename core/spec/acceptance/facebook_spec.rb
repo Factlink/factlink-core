@@ -5,7 +5,7 @@ describe "Facebook", type: :feature do
 
   context "as a logged in user with expired token" do
     before do
-      @user = sign_in_user create :full_user, :confirmed
+      @user = sign_in_user create :user, :confirmed
 
       social_account = create :social_account, :facebook, user: @user
       social_account.omniauth_obj['credentials']['expires_at'] = DateTime.now.to_i
@@ -28,7 +28,7 @@ describe "Facebook", type: :feature do
 
   context "as a logged in user with valid token" do
     before do
-      @user = sign_in_user create :full_user, :confirmed
+      @user = sign_in_user create :user, :confirmed
       create :social_account, :facebook, user: @user
     end
 

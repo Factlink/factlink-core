@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Commands::Users::AnonymizeUserModel do
   describe '#call' do
     it 'anonymizes fields of the deleted user that could contain personal data' do
-      user = create :full_user, :confirmed,
+      user = create :user, :confirmed,
         username: 'data',
         full_name: 'data',
         location: 'data',
@@ -43,7 +43,7 @@ describe Commands::Users::AnonymizeUserModel do
     end
 
     it "doesn't do anything for non-deleted users" do
-      user = create :full_user, username: 'data'
+      user = create :user, username: 'data'
 
       described_class.new(user_id: user.id).call
 

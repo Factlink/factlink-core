@@ -64,14 +64,6 @@ FactlinkUI::Application.routes.draw do
   # Search
   get "/search" => "search#search", as: "search"
 
-  scope "/p/tour" do
-    get 'setup-account' => 'users/setup#edit', as: 'setup_account'
-    put 'setup-account' => 'users/setup#update'
-    get "install-extension" => "tour#install_extension", as: "install_extension"
-    get "interests" => "tour#interests", as: "interests"
-    get "tour-done" => "tour#tour_done", as: "tour_done"
-  end
-
   get "/in-your-browser" => "home#in_your_browser", as: 'in_your_browser'
   get "/on-your-site" => "home#on_your_site", as: 'on_your_site'
   get "/terms-of-service" => "home#terms_of_service", as: 'terms_of_service'
@@ -141,7 +133,6 @@ FactlinkUI::Application.routes.draw do
   # I made this scope so we don't always have to know the current users username in de frontend
   scope "/u" do
     put "/seen_messages" => "users#seen_messages", as: 'see_messages'
-    get "/tour_users" => "users#tour_users", as: 'tour_users'
     get "/unsubscribe/:token/:type" => 'mail_subscriptions#update', subscribe_action: 'unsubscribe', as: :unsubscribe
     get "/subscribe/:token/:type" => 'mail_subscriptions#update', subscribe_action: 'subscribe', as: :subscribe
   end

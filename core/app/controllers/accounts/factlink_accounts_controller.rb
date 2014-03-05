@@ -55,7 +55,6 @@ class Accounts::FactlinkAccountsController < Accounts::BaseController
 
     # Protected from mass-assignment
     user.email = user_params[:email]
-    user.set_up = true
     user.generate_username!
 
     user

@@ -9,11 +9,6 @@ describe User do
       expect(subject.admin).to be_false
     end
 
-    it "has no tour step" do
-      # Note: no default should be set for the tour step
-      # rather set the first step in start_the_tour_path
-      expect(subject.seen_tour_step).to eq nil
-    end
     it "has a GraphUser" do
       expect(subject.graph_user).to be_a(GraphUser)
     end
@@ -120,14 +115,9 @@ describe User do
   # also describes .hidden?
   describe '.active?' do
     context "initial user" do
-      let(:initial_user) { create :user }
-      it { expect(initial_user).to_not be_active }
-      it { expect(initial_user).to     be_hidden }
-    end
-    context "user who is set up" do
-      subject(:active_user) { create :user, :set_up }
-      it { expect(active_user).to     be_active }
-      it { expect(active_user).to_not be_hidden }
+      subject(:user) { create :user }
+      it { expect(user).to     be_active }
+      it { expect(user).to_not be_hidden }
     end
     context "deleted user" do
       let(:deleted_user) do
@@ -138,23 +128,10 @@ describe User do
       it { expect(deleted_user).to_not be_active }
       it { expect(deleted_user).to     be_hidden }
     end
-    context "suspended user" do
-      subject(:suspended_user) { create :full_user, suspended: true }
-      it { expect(suspended_user).to     be_active }
-      it { expect(suspended_user).to_not be_hidden }
-    end
   end
 
   describe 'scopes' do
     describe ".active" do
-      it "only returns set up users" do
-        inactive_user = create :user
-        active_user = create :user, :set_up
-
-        active_users = User.active.all
-        expect(active_users).to eq [active_user]
-      end
-
       it "doesn't return deleted users" do
         user = create :user
 
@@ -162,18 +139,6 @@ describe User do
 
         active_users = User.active.all
         expect(active_users).to be_empty
-      end
-    end
-
-    describe ".seen_the_tour" do
-      it "only returns set up users that have seen the tour" do
-        inactive_user = create :user
-        active_user = create :user, :set_up
-        seen_the_tour_user = create :user, :set_up, :seen_the_tour
-
-        seen_tour_users = User.seen_the_tour.all
-
-        expect(seen_tour_users.all).to eq [seen_the_tour_user]
       end
     end
   end
