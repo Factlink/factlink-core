@@ -26,7 +26,6 @@ describe Ability do
       it { subject.should     be_able_to :destroy, user }
 
       it { subject.should     be_able_to :edit_settings, user }
-      it { subject.should     be_able_to :set_up, user }
 
       it { subject.should_not be_able_to :update, other_user }
       it { subject.should_not be_able_to :update, admin }
@@ -40,14 +39,10 @@ describe Ability do
 
       it { admin.should_not be_able_to :edit_settings, user }
       it { admin.should be_able_to     :edit_settings, admin_user }
-
-      it { admin.should     be_able_to :set_up, user }
-      it { admin.should     be_able_to :set_up, admin_user }
     end
     context "as an anonymous" do
       it { anonymous.should_not be_able_to :manage, User }
 
-      it { anonymous.should_not be_able_to :set_up, user }
       it { anonymous.should     be_able_to :show, User }
       it { anonymous.should_not be_able_to :edit_settings, user }
     end

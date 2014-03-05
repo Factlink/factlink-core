@@ -73,7 +73,6 @@ class Ability
     return unless signed_in?
 
     can :read, user
-    can :set_up, user
 
     if user.admin?
       can :access, AdminArea
