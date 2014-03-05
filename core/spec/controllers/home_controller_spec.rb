@@ -12,9 +12,9 @@ describe HomeController do
       response.should redirect_to(feed_path)
     end
 
-    it "redirects to in-your-browser page when not signed in" do
+    it "shows in-your-browser page when not signed in" do
       get :index
-      response.should redirect_to(in_your_browser_path)
+      expect(response.body).to match 'Share your knowledge for a better world'
     end
   end
 end

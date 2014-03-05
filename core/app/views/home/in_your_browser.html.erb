@@ -1,5 +1,8 @@
 <% content_for :responsive_viewport do %>
   <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1">
+<% content_for :meta_tags do %>
+  <% # Because there are two urls for this page, factlink.com and factlink.com/in-your-browser %>
+  <link rel="canonical" href="<%= in_your_browser_url %>">
 <% end %>
 
 <% content_for :header do %>
