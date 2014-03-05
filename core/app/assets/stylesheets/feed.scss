@@ -19,7 +19,7 @@ $headerBorder: 1px;
 
 .feed-activity-user-avatar {
   position: absolute;
-  border-radius: $baseBorderRadius;
+  border-radius: $avatarBorderRadius;
   vertical-align: middle;
   height: $headerHeight;
   width: $headerHeight;
@@ -100,7 +100,7 @@ a.feed-activity-container {
   top: 0;
   width: $avatarSmallHeight;
   height: $avatarSmallHeight;
-  border-radius: $baseBorderRadius;
+  border-radius: $avatarBorderRadius;
 }
 
 .feed-comment-box-balloon {
