@@ -18,7 +18,6 @@ class LoadDsl
       u.save
 
       raise_error_if_not_saved(u)
-      HandpickedTourUsers.new.add u.id
 
       u
     end
