@@ -36,12 +36,19 @@ body.controller_home.action_on_your_site {
 }
 
 .header-heading {
-  margin: 0 0 25px;
   font-weight: 400;
   font-size: 30px;
-  height: 36px;
   line-height: 36px;
   font-family: $sansFontFamily;
   color: white;
   text-shadow: none;
+}
+
+.header-tagline {
+  margin-top: 25px;
+  color: #c9dcfb;
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 28px;
+  text-shadow: 0 1px 0 #000;
 }
