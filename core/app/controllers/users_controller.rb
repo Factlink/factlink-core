@@ -24,7 +24,6 @@ class UsersController < ApplicationController
 
   # TODO: convert this page to backbone
   def edit
-    authorize! :access, Ability::FactlinkWebapp
     authorize! :update, @user
   end
 
@@ -42,7 +41,6 @@ class UsersController < ApplicationController
     else
       respond_to do |format|
         format.html do
-          authorize! :access, Ability::FactlinkWebapp
           render :edit
         end
         format.json { render json: { status: :unprocessable_entity } }
@@ -68,7 +66,6 @@ class UsersController < ApplicationController
 
   def notification_settings
     authorize! :edit_settings, @user
-    authorize! :access, Ability::FactlinkWebapp
 
     backbone_responder
   end

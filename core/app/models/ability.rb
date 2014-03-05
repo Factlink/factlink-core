@@ -18,7 +18,6 @@ class Ability
       ! /^home\/pages\/help/.match template
     end
 
-    can :access, FactlinkWebapp
     can :show, String
 
     define_anonymous_user_abilities

@@ -108,14 +108,6 @@ describe Ability do
     end
   end
 
-  describe "accessing factlink" do
-    it "should be allowed to signed in, set up users" do
-      admin.should           be_able_to :access, Ability::FactlinkWebapp
-      subject.should         be_able_to :access, Ability::FactlinkWebapp
-      anonymous.should_not   be_able_to :access, Ability::FactlinkWebapp
-    end
-  end
-
   describe "sharing" do
     it "should not be allowed by default" do
       admin.should_not     be_able_to :share_to, admin_user.social_account('twitter')
