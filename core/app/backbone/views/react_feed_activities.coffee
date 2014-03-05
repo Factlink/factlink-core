@@ -1,3 +1,12 @@
+stripLinks = (formatted_content) ->
+  $content = $("<span>#{formatted_content}</span>")
+  $content.find('a').replaceWith ->
+    $span = $("<span>#{$(this).html()}</span>")
+    $span.addClass this.className
+    $span
+
+  $content.html()
+
 window.ReactFeedActivities = React.createBackboneClass
   displayName: 'ReactFeedActivities'
 
@@ -46,19 +55,10 @@ ReactCreatedCommentActivity = React.createBackboneClass
       },
       ReactFact model: fact
       _div ["feed-lowest-comment comment-content",
-        dangerouslySetInnerHTML: {__html: comment.get('formatted_content')}]
+        dangerouslySetInnerHTML: {__html: stripLinks(comment.get('formatted_content'))}]
 
 ReactCreatedSubCommentActivity = React.createBackboneClass
   displayName: 'ReactCreatedSubCommentActivity'
-
-  _stripLinks: (formatted_content) ->
-    $content = $("<span>#{formatted_content}</span>")
-    $content.find('a').replaceWith ->
-      $span = $("<span>#{$(this).html()}</span>")
-      $span.addClass this.className
-      $span
-
-    $content.html()
 
   render: ->
     user = new User @model().get('user')
@@ -81,9 +81,9 @@ ReactCreatedSubCommentActivity = React.createBackboneClass
           _div ['feed-activity-username'],
             comment.creator().get('name')
           _div ["comment-content",
-            dangerouslySetInnerHTML: {__html: @_stripLinks(comment.get('formatted_content'))}]
+            dangerouslySetInnerHTML: {__html: stripLinks(comment.get('formatted_content'))}]
       _div ["feed-lowest-comment subcomment-content",
-        dangerouslySetInnerHTML: {__html: sub_comment.get('formatted_content')}]
+        dangerouslySetInnerHTML: {__html: stripLinks(sub_comment.get('formatted_content'))}]
 
 ReactFollowedUserActivity = React.createBackboneClass
   displayName: 'ReactFollowedUserActivity'
