@@ -77,7 +77,7 @@ ReactCreatedSubCommentActivity = React.createBackboneClass
       },
       _div ["feed-comment-box"],
         _img ['feed-comment-box-avatar', src: comment.creator().avatar_url(32)]
-        _div ["feed-comment-box-body"],
+        _div ["feed-comment-box-balloon"],
           _div ['feed-activity-username'],
             comment.creator().get('name')
           _div ["feed-lowest-comment comment-content",

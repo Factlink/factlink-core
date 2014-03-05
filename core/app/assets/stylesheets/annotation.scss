@@ -25,7 +25,7 @@ $avatarSize: 32px;
   @extend %centering-inner;
 }
 
-.annotation-body {
+.annotation-balloon {
   margin-left: $avatarSize + 10px;;
   background: $lightYellow;
   word-wrap: break-word;
