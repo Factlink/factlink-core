@@ -30,7 +30,6 @@ class User
 
   field :deleted,     type: Boolean, default: false
   field :set_up,      type: Boolean, default: false
-  field :suspended,   type: Boolean, default: false # For now this is just for users we don't want to invite yet.
 
   field :admin,       type: Boolean, default: false
 
@@ -43,7 +42,7 @@ class User
                   :receives_digest
   attr_accessible :username, :full_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
-                  :receives_digest, :email, :admin, :registration_code, :suspended,
+                  :receives_digest, :email, :admin, :registration_code,
         as: :admin
 
   USERNAME_BLACKLIST = [
@@ -130,7 +129,6 @@ class User
         "location"        => "location",
         "biography"       => "biography",
         "deleted"         => "deleted",
-        "suspended"       => "suspended",
         "confirmed_at"    => "confirmed_at"
       }
     end

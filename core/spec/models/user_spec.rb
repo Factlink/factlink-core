@@ -133,11 +133,6 @@ describe User do
       it { expect(deleted_user).to_not be_active }
       it { expect(deleted_user).to     be_hidden }
     end
-    context "suspended user" do
-      subject(:suspended_user) { create :full_user, suspended: true }
-      it { expect(suspended_user).to     be_active }
-      it { expect(suspended_user).to_not be_hidden }
-    end
   end
 
   describe 'scopes' do
