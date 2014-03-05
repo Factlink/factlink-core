@@ -9,7 +9,7 @@ window.ReactSearchResults = React.createBackboneClass
       switch model.get("the_class")
         when "Annotation"
           fact = new Fact(model.get("the_object"))
-          _a ['feed-activity-container search-result', href: fact.get('proxy_open_url')],
+          _a ['feed-activity-container search-result', href: fact.get('proxy_open_url'), rel: 'backbone'],
             ReactFact
               model: fact
         when "User"
