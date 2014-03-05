@@ -59,9 +59,12 @@ describe 'Reserving an account', type: :feature do
       current_email.subject
     end
 
-    current_email.find(:xpath, '//a', text: 'Confirm email').click
+    current_email.find(:xpath, '//a', text: 'Confirm email address').click
 
-    page.should have_content "Welcome to Factlink!"
+    user = User.find('jane_doe')
+    eventually_succeeds do
+      expect(user).to be_confirmed
+    end
   end
 
 end
