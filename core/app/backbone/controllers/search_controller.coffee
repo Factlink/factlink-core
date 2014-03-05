@@ -11,8 +11,9 @@ class window.SearchController extends Backbone.Marionette.Controller
     results = new SearchResults [], search: query
 
     FactlinkApp.mainRegion.close()
-    FactlinkApp.mainRegion.show new SearchResultView
-      collection: results
+    FactlinkApp.mainRegion.show new ReactView
+      component: ReactSearchResults
+        model: results
 
     results.fetch()
     mp_track 'Search: Top bar search',

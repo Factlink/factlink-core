@@ -35,6 +35,7 @@ ReactCreatedCommentActivity = React.createBackboneClass
     ReactActivity {
         model: user
         time: @model().get('created_at')
+        href: fact.get('proxy_open_url')
         activity_header_action: [
           _span ["feed-activity-description"],
             "commented on"
@@ -53,11 +54,12 @@ ReactFollowedUserActivity = React.createBackboneClass
     ReactActivity {
         model: user,
         time: @model().get('created_at')
+        href: followed_user.link()
         activity_header_action: [
             _span ["feed-activity-description"],
               Factlink.Global.t.followed
             " "
-            _a ["feed-activity-username", href: followed_user.link(), rel:"backbone"],
+            _span ["feed-activity-username"],
               _img ["avatar-image feed-activity-followed-avatar", src: followed_user.avatar_url(32), style: {height: '32px', width: '32px'}]
               " "
               followed_user.get('name')
@@ -73,13 +75,13 @@ ReactActivity = React.createBackboneClass
         _a [href: user.link(), rel:"backbone"],
           _img ["feed-activity-user-avatar", alt:" ", src: user.avatar_url(48)]
 
-      _div ["feed-activity-container"],
+      _a ["feed-activity-container", href: @props.href, rel: 'backbone'],
         _div ["feed-activity-heading"],
           _div ["feed-activity-action"],
             _div ["feed-activity-time"],
               TimeAgo(time: this.props.time)
 
-            _a ["feed-activity-username", href: user.link(), rel:"backbone"]
+            _span ["feed-activity-username"],
               user.get('name')
             ' '
 
