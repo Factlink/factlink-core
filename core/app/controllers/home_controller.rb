@@ -35,7 +35,7 @@ class HomeController < ApplicationController
     if user_signed_in?
       redirect_to after_sign_in_path_for(current_user)
     else
-      redirect_to in_your_browser_path
+      render 'in_your_browser'
     end
   end
 end
