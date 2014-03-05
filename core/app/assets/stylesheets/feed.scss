@@ -68,6 +68,12 @@ a.feed-activity-container {
   }
 }
 
+.feed-activity-action {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .feed-activity-description {
   color: #999;
 }
