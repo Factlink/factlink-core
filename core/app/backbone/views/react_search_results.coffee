@@ -16,9 +16,8 @@ window.ReactSearchResults = React.createBackboneClass
           user = new User(model.get("the_object"))
 
           _a ['feed-activity-container search-result', href: user.link(), rel: 'backbone'],
-            _div ['feed-activity-heading'],
-              _img ["avatar-image", alt:" ", src: user.avatar_url(32), style: {height: '32px', width: '32px', margin: '0 5px 0 0'}]
-              user.get('name')
+            _img ["avatar-image", alt:" ", src: user.avatar_url(32), style: {height: '32px', width: '32px', margin: '0 5px 0 0'}]
+            user.get('name')
         else
           console.info "Unknown class of search result: ", model.get("the_class")
           _span()
