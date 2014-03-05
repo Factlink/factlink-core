@@ -1,44 +1,36 @@
 .header {
+  z-index: 0;
+  position: relative;
   width: 100%;
+  top: 0;
+  left: 0;
   overflow: hidden;
-
-  .background {
-    z-index: -1;
-    position: fixed;
-    width: 100%;
-    height: 350px;
-    min-width: $siteWidth;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    text-align: center;
-    background-color: #00294e;
-
-    .stars {
-      position: absolute;
-      left: 0px;
-      top: 0px;
-      z-index: 1;
-      width: 100%;
-    }
-  }
+  text-align: center;
+  background-color: #00294e;
 }
 
-.earth_background {
+.header-stars {
+  background: image-url('base/header/background.jpg') no-repeat center top;
+  background-size: cover;
+  height: 100%;
+  z-index: -2;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+}
+
+.header-earth {
+  background: image-url('base/header/earth.png')  no-repeat center bottom;
+  background-size: contain;
+  height: 100%;
+  z-index: -1;
   display: none;
-  position: relative;
-  z-index: 2;
-  left: 0;
-  top: 175px;
-  margin: 0 auto;
-  width: $siteWidth;
-  // we want an image that is not smaller than 960 in width, otherwise we have to use the height property to ensure
-  // the image is kept in the centred when resizing the page, but this leads to deformation and thus lower quality
+  position: absolute;
+  top: 30%; left: 0; right: 0; bottom: 0;
 }
 
 body.controller_home.action_in_your_browser,
 body.controller_home.action_on_your_site {
-  .earth_background {
+  .header-earth {
     display: block;
   }
 }
