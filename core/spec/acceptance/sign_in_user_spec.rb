@@ -1,16 +1,6 @@
 require 'acceptance_helper'
 
 describe 'When a user signs in', type: :feature do
-  it 'redirects to set up page for new users' do
-    user = create :user
-
-    sign_in_user(user)
-
-    visit root_path
-
-    page.should have_content "Please finish your account setup"
-  end
-
   it 'he should be able to sign out' do
     user = create :user, :confirmed
 
