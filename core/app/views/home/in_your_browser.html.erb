@@ -44,6 +44,11 @@
 <% content_for :below_content do %>
   <div class="in-your-browser-below-content">
     <div class="in-your-browser-horizontal">
+      <h1 class="in-your-browser-heading">Recent activity</h1>
+      <div class="js-in-your-browser-feed in-your-browser-feed"></div>
+    <div>
+
+    <div class="in-your-browser-horizontal">
       <div class="in-your-browser-horizontal-box in-your-browser-below-content-box">
         <h1 class="in-your-browser-heading">Join the revolution!</h1>
         <p>Discussion and access to information are key to a well-functioning society. Install the extension to share your knowledge and stay updated.</p>
@@ -83,5 +88,10 @@
     $(function() {
       $('#bookmarklet-button').attr('href', Factlink.Global.bookmarklet_link);
     });
+
+    var feedActivities = new FeedActivities;
+    feedActivities.fetch();
+
+    React.renderComponent(ReactFeedActivitiesFixed({model: feedActivities}), $('.js-in-your-browser-feed')[0]);
   </script>
 <% end %>

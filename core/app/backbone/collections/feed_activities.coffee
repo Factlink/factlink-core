@@ -1,4 +1,4 @@
-class window.FeedActivities extends Backbone.Collection
+class window.FeedActivities extends Backbone.Factlink.Collection
   _.extend @prototype, AutoloadCollectionOnTimestamp
   model: Activity
 

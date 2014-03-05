@@ -7,8 +7,8 @@ stripLinks = (formatted_content) ->
 
   $content.html()
 
-window.ReactFeedActivities = React.createBackboneClass
-  displayName: 'ReactFeedActivities'
+window.ReactFeedActivitiesAutoLoading = React.createBackboneClass
+  displayName: 'ReactFeedActivitiesAutoLoading'
 
   # this function loads more activities, if we're almost at the bottom of the list
   checkScrolledPosition: ->
@@ -29,6 +29,17 @@ window.ReactFeedActivities = React.createBackboneClass
     _div [],
       @model().map (model) =>
         ReactActivity model: model
+
+
+window.ReactFeedActivitiesFixed = React.createBackboneClass
+  displayName: 'ReactFeedActivitiesFixed'
+
+  render: ->
+    _div [],
+      @model().map (model) =>
+        ReactActivity model: model
+      ReactLoadingIndicator model: @model()
+
 
 ReactActivity = React.createBackboneClass
   displayName: 'ReactActivity'
