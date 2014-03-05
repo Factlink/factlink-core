@@ -2,9 +2,9 @@ module Backend
   module Activities
     extend self
 
-    def activities_older_than(activities_set:, timestamp: nil)
+    def activities_older_than(activities_set:, timestamp: nil, count: 20)
       retrieved_activities = activities_set.below(timestamp || 'inf',
-                               count: 20,
+                               count: count,
                                reversed: true,
                                withscores: true).compact
 
