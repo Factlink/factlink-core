@@ -20,8 +20,10 @@ window.ReactFeedActivities = React.createBackboneClass
     _div [id:"feed_activity_list"],
       @model().map (model) =>
         switch model.get("action")
-          when "created_comment", "created_sub_comment"
+          when "created_comment"
             ReactCreatedCommentActivity(model: model)
+          when "created_sub_comment"
+            ReactCreatedSubCommentActivity(model: model)
           when "followed_user"
             ReactFollowedUserActivity(model: model)
 
@@ -30,7 +32,7 @@ ReactCreatedCommentActivity = React.createBackboneClass
 
   render: ->
     user = new User @model().get('user')
-    fact = new Fact @model().get("fact")
+    fact = new Fact @model().get('fact')
 
     ReactActivity {
         model: user
@@ -39,6 +41,25 @@ ReactCreatedCommentActivity = React.createBackboneClass
         activity_header_action: [
           _span ["feed-activity-description"],
             "commented on"
+          ]
+      },
+     ReactFact model: fact
+     #still needs the actual comment here
+
+ReactCreatedSubCommentActivity = React.createBackboneClass
+  displayName: 'ReactCreatedSubCommentActivity'
+
+  render: ->
+    user = new User @model().get('user')
+    fact = new Fact @model().get('fact')
+
+    ReactActivity {
+        model: user
+        time: @model().get('created_at')
+        href: fact.get('proxy_open_url')
+        activity_header_action: [
+          _span ["feed-activity-description"],
+            "replied to"
           ]
       },
      ReactFact model: fact
