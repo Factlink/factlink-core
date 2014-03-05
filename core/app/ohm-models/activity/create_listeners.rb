@@ -151,7 +151,7 @@ class Activity < OurOhm
     end
 
     def create_global_all_activities
-      write_ids = ->(a) { [0] }
+      write_ids = ->(a) { [0] } # irrelevant, fake id; GlobalFeed is a singleton.
 
       Activity::Listener.register do
         activity_for "GlobalFeed"

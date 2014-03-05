@@ -8,7 +8,9 @@ class GlobalFeed
   end
 
   def self.[](ignored_id)
-    return instance
+    # to support listeners created in create_listeners this class must behave as if it were a
+    # non-singleton because Listener.process always looks up the instance by "id"
+    instance
   end
 
   def all_activities
