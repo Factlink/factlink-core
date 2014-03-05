@@ -4,7 +4,6 @@ $headerHeight: 48px;
 $headerInnerHeight: 32px;
 $avatarSmallHeight: 32px;
 $headerBorder: 1px;
-$activityVerticalPadding: ($headerHeight - $headerInnerHeight)/2 - $headerBorder;
 
 .feed-activity {
   padding: $feedPadding 0;
@@ -44,7 +43,7 @@ a.feed-activity-container {
   min-height: $headerHeight;
   vertical-align: top;
   margin-left: $headerHeight + 2*$feedPadding;
-  padding: $activityVerticalPadding 10px 0;
+  padding: 0 10px;
   border-bottom: $headerBorder lightgrey solid;
   border-radius: $baseBorderRadius;
   color: $baseFontColor;
@@ -62,12 +61,10 @@ a.feed-activity-container {
 }
 
 .feed-activity-heading {
-  line-height: $headerInnerHeight;
-  height: $headerHeight - $activityVerticalPadding;
+  line-height: $headerHeight;
 
   @include respond-to(600) {
-    line-height: $avatarSmallHeight - $activityVerticalPadding*2;
-    height: $avatarSmallHeight - $activityVerticalPadding;
+    line-height: $avatarSmallHeight;
   }
 }
 
@@ -97,6 +94,7 @@ a.feed-activity-container {
   top: 0;
   width: $avatarSmallHeight;
   height: $avatarSmallHeight;
+  border-radius: $baseBorderRadius;
 }
 
 .feed-comment-box-balloon {
@@ -123,5 +121,9 @@ a.feed-activity-container {
 }
 
 .feed-lowest-comment {
-  margin: 5px 0 5px+$activityVerticalPadding;
+  margin: 10px 0;
+
+  @include respond-to(600) {
+    margin: 5px 0;
+  }
 }
