@@ -72,36 +72,6 @@ describe UsersController do
     end
   end
 
-  describe :tour_users do
-    render_views
-    include PavlovSupport
-
-    it "should render json successful" do
-      FactoryGirl.reload
-
-      user1 = create :user
-      user2 = create :user
-      Pavlov.command(:'users/add_handpicked_user', user_id: user1.id.to_s)
-      Pavlov.command(:'users/add_handpicked_user', user_id: user2.id.to_s)
-
-      authenticate_user!(user)
-      ability.stub(:can?).with(:access, Ability::FactlinkWebapp)
-             .and_return(true)
-      ability.stub(:can?).with(:index, User)
-             .and_return(true)
-
-      get :tour_users, format: :json
-      response.should be_success
-      response_body = response.body.to_s
-
-      # remove randomness from sorting
-      response_body = JSON.parse(response_body).sort do |a,b|
-        a["username"] <=> b["username"]
-      end.to_json
-      verify { response.body }
-    end
-  end
-
   describe :update do
     render_views
     before do
