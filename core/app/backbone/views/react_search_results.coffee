@@ -1,5 +1,6 @@
 window.ReactSearchResults = React.createBackboneClass
   displayName: 'ReactSearchResults'
+  changeOptions: 'add remove reset sync request'
 
   _results_per_page: 20  # WARNING: coupling with search_controller.rb
 
@@ -11,7 +12,8 @@ window.ReactSearchResults = React.createBackboneClass
           "\u201C" # left double quote
           @model().query()
           "\u201D" # right double quote
-      ReactLoadingIndicator {model: @model()},
+      ReactLoadingIndicator model: @model()
+      if @model().length == 0 && !@model().loading()
         _div [],
           "Sorry, your search didn't return any results"
       @_results()
