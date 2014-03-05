@@ -27,14 +27,14 @@ body.discussion-sidebar-open {
   width: 25%;
   cursor: auto;
   min-height: 100%;
-  background-color: $semiTransparentLayerColor;
+  background-color: $factlinkBackgroundColor;
   // slide out a bit further than necessary for a more natural animation
   right: -$discussionSidebarMaxWidth - 100px;
   transition: right $discussionSidebarTransitionTime;
 }
 
 .discussion-sidebar-container-visible {
-  background-color: rgba(233,234,238,0.2); //TODO LESS -> SASS Workaround fade($semiTransparentLayerColor, 20%);
+  background-color: rgba($factlinkBackgroundColor, 0.2); //TODO LESS -> SASS Workaround fade($factlinkBackgroundColor, 20%);
   transition: background-color $discussionSidebarTransitionTime;
 
   .discussion-sidebar {
