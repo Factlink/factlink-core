@@ -26,15 +26,22 @@ window.ReactFeedActivities = React.createBackboneClass
     $(window).off "scroll", @checkScrolledPosition
 
   render: ->
-    _div [id:"feed_activity_list"],
+    _div [],
       @model().map (model) =>
-        switch model.get("action")
-          when "created_comment"
-            ReactCreatedCommentActivity(model: model)
-          when "created_sub_comment"
-            ReactCreatedSubCommentActivity(model: model)
-          when "followed_user"
-            ReactFollowedUserActivity(model: model)
+        ReactActivity model: model
+
+ReactActivity = React.createBackboneClass
+  displayName: 'ReactActivity'
+
+  render: ->
+    switch @model().get("action")
+      when "created_comment"
+        ReactCreatedCommentActivity model: @model()
+      when "created_sub_comment"
+        ReactCreatedSubCommentActivity model: @model()
+      when "followed_user"
+        ReactFollowedUserActivity model: @model()
+
 
 ReactCreatedCommentActivity = React.createBackboneClass
   displayName: 'ReactCreatedCommentActivity'
@@ -44,7 +51,7 @@ ReactCreatedCommentActivity = React.createBackboneClass
     fact = new Fact @model().get('fact')
     comment = new Comment @model().get('comment')
 
-    ReactActivity {
+    ReactGenericActivity {
         model: user
         time: @model().get('created_at')
         href: fact.get('proxy_open_url')
@@ -66,7 +73,7 @@ ReactCreatedSubCommentActivity = React.createBackboneClass
     comment = new Comment @model().get('comment')
     sub_comment = new Comment @model().get('sub_comment')
 
-    ReactActivity {
+    ReactGenericActivity {
         model: user
         time: @model().get('created_at')
         href: fact.get('proxy_open_url')
@@ -92,7 +99,7 @@ ReactFollowedUserActivity = React.createBackboneClass
     user = new User @model().get('user')
     followed_user = new User @model().get('followed_user')
 
-    ReactActivity {
+    ReactGenericActivity {
         model: user,
         time: @model().get('created_at')
         href: followed_user.link()
@@ -107,7 +114,7 @@ ReactFollowedUserActivity = React.createBackboneClass
           ]
       }
 
-ReactActivity = React.createBackboneClass
+ReactGenericActivity = React.createBackboneClass
   render: ->
     user = @model()
 
