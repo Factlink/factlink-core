@@ -16,6 +16,10 @@
   width: 355px;
   margin: 0 40px;
   vertical-align: top;
+
+  @include respond-to(400) {
+    width: 80%;
+  }
 }
 
 .in-your-browser-heading {
@@ -58,4 +62,9 @@ i.in-your-browser-icon-social {
 .in-your-browser-below-content-box {
   @extend %white-block-with-shadow;
   padding: 20px;
+  margin: 20px;
+
+  @include respond-to(400) {
+    margin: 10px;
+  }
 }
