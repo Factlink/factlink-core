@@ -51,6 +51,15 @@ ReactCreatedCommentActivity = React.createBackboneClass
 ReactCreatedSubCommentActivity = React.createBackboneClass
   displayName: 'ReactCreatedSubCommentActivity'
 
+  _stripLinks: (formatted_content) ->
+    $content = $("<span>#{formatted_content}</span>")
+    $content.find('a').replaceWith ->
+      $span = $("<span>#{$(this).html()}</span>")
+      $span.addClass this.className
+      $span
+
+    $content.html()
+
   render: ->
     user = new User @model().get('user')
     fact = new Fact @model().get('fact')
@@ -66,7 +75,13 @@ ReactCreatedSubCommentActivity = React.createBackboneClass
             "replied to"
           ]
       },
-      ReactFact model: fact
+      _div ["feed-comment-box"],
+        _img ['feed-comment-box-avatar', src: comment.creator().avatar_url(32)]
+        _div ["feed-comment-box-body"],
+          _div ['feed-activity-username'],
+            comment.creator().get('name')
+          _div ["feed-lowest-comment comment-content",
+            dangerouslySetInnerHTML: {__html: @_stripLinks(comment.get('formatted_content'))}]
       _div ["feed-lowest-comment subcomment-content",
         dangerouslySetInnerHTML: {__html: sub_comment.get('formatted_content')}]
 

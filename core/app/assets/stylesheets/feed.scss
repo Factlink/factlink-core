@@ -83,13 +83,39 @@ a.feed-activity-container {
   color: #999;
 }
 
-.feed-activity-annotation {
-  min-height: 16px;
-  margin: (($headerHeight - $headerInnerHeight)/2 - $headerBorder) 0px;
-  vertical-align: top;
+.feed-comment-box {
+  position: relative;
+  min-height: $avatarSmallHeight;
+}
 
-  @include respond-to(600) {
-    margin-bottom: 0px;
+.feed-comment-box-avatar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: $avatarSmallHeight;
+  height: $avatarSmallHeight;
+}
+
+.feed-comment-box-body {
+  margin-left: $avatarSmallHeight + 10px;;
+  background: $grayLighter;
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: $baseBorderRadius;
+  position: relative;
+
+  &:before {
+    content: '';
+
+    position: absolute;
+    left: -$triangleSize;
+    top: $avatarSmallHeight/2 - $triangleSize;
+
+    width: 0;
+    height: 1px;
+    border: $triangleSize solid transparent;
+    border-left: none;
+    border-right-color: $grayLighter;
   }
 }
 
