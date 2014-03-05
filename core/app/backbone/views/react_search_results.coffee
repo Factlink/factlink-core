@@ -4,23 +4,6 @@ window.ReactSearchResults = React.createBackboneClass
 
   _results_per_page: 20  # WARNING: coupling with search_controller.rb
 
-  render: ->
-    _div [],
-      _h1 [],
-        'Search results for '
-        _strong [],
-          "\u201C" # left double quote
-          @model().query()
-          "\u201D" # right double quote
-      ReactLoadingIndicator model: @model()
-      if @model().length == 0 && !@model().loading()
-        _div [],
-          "Sorry, your search didn't return any results"
-      @_results()
-      if @model().length > @_results_per_page
-        _div ['search-results-capped-message'],
-          "(only showing first #{@_results_per_page} results)"
-
   _results: ->
     @model().map (model) =>
       switch model.get("the_class")
@@ -39,3 +22,20 @@ window.ReactSearchResults = React.createBackboneClass
         else
           console.info "Unknown class of search result: ", model.get("the_class")
           _span()
+
+  render: ->
+    _div [],
+      _h1 [],
+        'Search results for '
+        _strong [],
+          "\u201C" # left double quote
+          @model().query()
+          "\u201D" # right double quote
+      if @model().length == 0 && !@model().loading()
+        _div [],
+          "Sorry, your search didn't return any results."
+      @_results()
+      ReactLoadingIndicator model: @model()
+      if @model().length > @_results_per_page
+        _div ['search-results-capped-message'],
+          "(only showing first #{@_results_per_page} results)"
