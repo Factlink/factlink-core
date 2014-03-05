@@ -114,8 +114,6 @@ class User
 
   scope :active,   where(:set_up => true)
                   .where(:deleted.ne => true)
-  scope :seen_the_tour,   active
-                            .where(:seen_tour_step => 'tour_done')
 
   class << self
     # List of fields that are stored in Mixpanel.

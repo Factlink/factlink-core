@@ -164,18 +164,6 @@ describe User do
         expect(active_users).to be_empty
       end
     end
-
-    describe ".seen_the_tour" do
-      it "only returns set up users that have seen the tour" do
-        inactive_user = create :user
-        active_user = create :user, :set_up
-        seen_the_tour_user = create :user, :set_up, :seen_the_tour
-
-        seen_tour_users = User.seen_the_tour.all
-
-        expect(seen_tour_users.all).to eq [seen_the_tour_user]
-      end
-    end
   end
 
   describe "#valid_full_name_and_email?" do

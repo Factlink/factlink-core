@@ -26,18 +26,11 @@ FactoryGirl.define do
       set_up true
     end
 
-    trait :seen_the_tour do
-      seen_tour_step 'tour_done'
-    end
-
     trait :admin do
       admin true
     end
 
-    factory :full_user, traits: [
-      :set_up,
-      :seen_the_tour
-    ]
+    factory :full_user, traits: [:set_up]
   end
 
   factory :social_account do
