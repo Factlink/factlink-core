@@ -18,7 +18,7 @@
   display: inline-block;
   text-align: center;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 0.9em;
 }
 
 .comment-vote-up,
@@ -27,6 +27,7 @@
   @include button-color($buttonBackground);
   @include button-height (22px);
   color: darken($buttonBackground,20);
+  font-size: 0.7em;
   padding: 0px 1px;
 
   &:hover{
