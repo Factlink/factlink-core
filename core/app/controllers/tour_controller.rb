@@ -20,14 +20,5 @@ class TourController < ApplicationController
     authorize! :access, Ability::FactlinkWebapp
 
     @step_in_signup_process = action_name.to_sym
-
-    set_seen_tour_step
-  end
-
-  def set_seen_tour_step
-    return if seen_the_tour(current_user)
-
-    current_user.seen_tour_step = action_name
-    current_user.save!
   end
 end

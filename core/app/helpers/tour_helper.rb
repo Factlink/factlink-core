@@ -21,11 +21,6 @@ module TourHelper
     ]
   end
 
-  def first_real_tour_step
-    tour_steps.drop_while { |step| step == :account }
-              .first
-  end
-
   def next_tourstep
     current_step = controller.action_name.to_sym
     current_index = tour_steps.index(current_step)
