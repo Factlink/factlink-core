@@ -8,7 +8,8 @@ window.ReactFeedActivities = React.createBackboneClass
     @model().loadMore() if pixels_under_fold < 700
 
   componentDidMount: ->
-    @model().loadMore()
+    if !@model().length
+      @model().loadMore()
     @model().on "remove stopLoading", @checkScrolledPosition, @
     $(window).on "scroll", @checkScrolledPosition
 
