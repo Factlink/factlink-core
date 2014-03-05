@@ -80,7 +80,7 @@ ReactCreatedSubCommentActivity = React.createBackboneClass
         _div ["feed-comment-box-balloon"],
           _div ['feed-activity-username'],
             comment.creator().get('name')
-          _div ["feed-lowest-comment comment-content",
+          _div ["comment-content",
             dangerouslySetInnerHTML: {__html: @_stripLinks(comment.get('formatted_content'))}]
       _div ["feed-lowest-comment subcomment-content",
         dangerouslySetInnerHTML: {__html: sub_comment.get('formatted_content')}]
