@@ -15,7 +15,6 @@ class LoadDsl
       u.confirmed_at = DateTime.now
       u.set_up = true
       u.admin = true
-      u.seen_tour_step = 'tour_done'
       u.save
 
       raise_error_if_not_saved(u)

@@ -9,11 +9,6 @@ describe User do
       expect(subject.admin).to be_false
     end
 
-    it "has no tour step" do
-      # Note: no default should be set for the tour step
-      # rather set the first step in start_the_tour_path
-      expect(subject.seen_tour_step).to eq nil
-    end
     it "has a GraphUser" do
       expect(subject.graph_user).to be_a(GraphUser)
     end
