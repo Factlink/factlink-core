@@ -12,7 +12,7 @@ describe 'When a user signs in', type: :feature do
   end
 
   it 'he should be able to sign out' do
-    user = create :full_user, :confirmed
+    user = create :user, :confirmed
 
     sign_in_user(user)
 
@@ -26,7 +26,7 @@ describe 'When a user signs in', type: :feature do
   end
 
   it 'he should not be able to sign in with false credentials' do
-    user = create :full_user, :confirmed
+    user = create :user, :confirmed
 
     visit factlink_accounts_new_path
     fill_in "user_new_session[login]", with: user.email

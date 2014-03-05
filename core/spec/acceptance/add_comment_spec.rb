@@ -7,7 +7,7 @@ feature "adding comments to a fact", type: :feature do
   include Acceptance::CommentHelper
 
   background do
-    @user = sign_in_user create :full_user, :confirmed
+    @user = sign_in_user create :user, :confirmed
   end
 
   let(:factlink) { create :fact }

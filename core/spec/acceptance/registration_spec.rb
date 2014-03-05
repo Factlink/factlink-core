@@ -32,7 +32,7 @@ describe 'Reserving an account', type: :feature do
     fill_in 'user_new_account[password_confirmation]', with: '123hoi'
     click_button 'Create account'
 
-    admin = create(:full_user, :confirmed, :admin)
+    admin = create(:user, :confirmed, :admin)
     switch_to_user admin
     visit '/a/users'
 

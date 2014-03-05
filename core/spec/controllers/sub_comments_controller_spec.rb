@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SubCommentsController do
-  let (:user)  { create :full_user }
+  let (:user)  { create :user }
 
   render_views
 

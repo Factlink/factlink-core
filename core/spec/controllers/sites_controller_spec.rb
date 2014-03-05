@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SitesController do
   include PavlovSupport
 
-  let(:user) { create(:full_user) }
+  let(:user) { create(:user) }
 
   describe :facts_for_url do
     describe "authorized" do

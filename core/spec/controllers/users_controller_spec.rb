@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe UsersController do
   include PavlovSupport
-  let(:user) { create(:full_user, features: ['some_feature']) }
+  let(:user) { create(:user, features: ['some_feature']) }
 
   describe :show do
     render_views
@@ -28,7 +28,7 @@ describe UsersController do
       FactoryGirl.reload
       SecureRandom.stub(:hex).and_return('b01dfacedeadbeefbabb1e0123456789')
 
-      deleted_user = create(:full_user)
+      deleted_user = create(:user)
       as(deleted_user) do |pavlov|
         pavlov.interactor(:'users/delete', user_id: deleted_user.id, current_user_password: '123hoi')
       end

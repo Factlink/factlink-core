@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe MailSubscriptionsController do
-  let (:user)  { create :full_user }
+  let (:user)  { create :user }
 
   describe "#update" do
     it 'works' do

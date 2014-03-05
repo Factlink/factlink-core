@@ -4,7 +4,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
   include ScreenshotTest
 
   before :each do
-    @user = sign_in_user create :full_user
+    @user = sign_in_user create :user
   end
 
   it "the layout of the search page is correct" do

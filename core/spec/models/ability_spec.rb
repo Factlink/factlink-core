@@ -9,11 +9,11 @@ describe Ability do
   let(:admin)            { Ability.new admin_user }
 
   # users used as object
-  let(:user)        { create :full_user }
-  let(:other_user)  { create :full_user }
-  let(:admin_user)  { create :full_user, :admin }
+  let(:user)        { create :user }
+  let(:other_user)  { create :user }
+  let(:admin_user)  { create :user, :admin }
 
-  let(:deleted_user) { create :full_user, deleted: true }
+  let(:deleted_user) { create :user, deleted: true }
 
   describe "to manage a user" do
     context "as a normal user" do

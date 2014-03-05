@@ -8,7 +8,7 @@ describe "factlink", type: :feature do
 
   context "for logged in users" do
     before :each do
-      @user = sign_in_user create :full_user, :confirmed
+      @user = sign_in_user create :user, :confirmed
     end
 
     it "can be agreed" do

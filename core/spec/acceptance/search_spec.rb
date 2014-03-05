@@ -4,7 +4,7 @@ describe "searching", type: :feature do
   include Acceptance::ClientPathHelper
 
   before :each do
-    @user = sign_in_user create :full_user, :confirmed
+    @user = sign_in_user create :user, :confirmed
   end
 
   it "cannot find a something that does not exist" do

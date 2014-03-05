@@ -8,7 +8,7 @@ describe Accounts::SocialRegistrationsController do
       it 'signs in' do
         provider_name = 'facebook'
         omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
-        user = create :full_user
+        user = create :user
 
         user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
 
@@ -78,7 +78,7 @@ describe Accounts::SocialRegistrationsController do
     end
 
     it 'gives an error when an already connected social account has been given' do
-      twitter_account = create :social_account, :twitter, user: create(:full_user)
+      twitter_account = create :social_account, :twitter, user: create(:user)
 
       session[:register_social_account_id] = twitter_account.id
       post :create
@@ -110,7 +110,7 @@ describe Accounts::SocialRegistrationsController do
     context 'account already exists' do
       it 'shows an error if the password is not given' do
         email = 'email@example.org'
-        user = create :full_user, email: email
+        user = create :user, email: email
         twitter_account = create :social_account, :twitter
 
         session[:register_social_account_id] = twitter_account.id
@@ -121,7 +121,7 @@ describe Accounts::SocialRegistrationsController do
 
       it 'shows an alternative social sign in when available' do
         email = 'email@example.org'
-        user = create :full_user, email: email
+        user = create :user, email: email
         twitter_account = create :social_account, :twitter
         other_omniauth_obj = {'provider' => 'facebook', 'uid' => '10'}
 
@@ -136,7 +136,7 @@ describe Accounts::SocialRegistrationsController do
       it 'connects the social account and signs in' do
         email = 'email@example.org'
         password = '123hoi'
-        user = create :full_user, email: email, password: password
+        user = create :user, email: email, password: password
         twitter_account = create :social_account, :twitter
 
         session[:register_social_account_id] = twitter_account.id
@@ -151,7 +151,7 @@ describe Accounts::SocialRegistrationsController do
       it 'shows an error if the password is incorrect' do
         email = 'email@example.org'
         password = '123hoi'
-        user = create :full_user, email: email, password: password
+        user = create :user, email: email, password: password
         twitter_account = create :social_account, :twitter
 
         session[:register_social_account_id] = twitter_account.id
