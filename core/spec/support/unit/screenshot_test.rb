@@ -24,7 +24,8 @@ module ScreenshotTest
     end
 
     def exact_changed?
-      pixels_changed = 0
+      return false if @old_image == @new_image
+
       width = [@old_image.width, @new_image.width].min
       height = [@old_image.height, @new_image.height].min
 
@@ -37,7 +38,6 @@ module ScreenshotTest
           pixel_new = @new_image.get_pixel(x,y)
 
           if pixel_old != pixel_new
-            pixels_changed += 1
 
             red_delta = (r(pixel_old) - r(pixel_new)).abs
             green_delta = (g(pixel_old) - g(pixel_new)).abs
@@ -60,15 +60,9 @@ module ScreenshotTest
         y += 1
       end
 
-      if pixels_changed > 0
-        diff_image.save(diff_file)
-        total_pixels = width * height
-        percentage = 100.0 * pixels_changed / total_pixels
-        puts ""
-        puts "Pixels changed #{percentage}%  (#{pixels_changed}/#{total_pixels})."
-      end
+      diff_image.save(diff_file)
 
-      pixels_changed > 0 || size_changed?
+      true
     end
 
 
