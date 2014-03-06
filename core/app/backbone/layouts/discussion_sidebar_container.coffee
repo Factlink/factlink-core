@@ -11,9 +11,6 @@ class window.DiscussionSidebarContainer extends Backbone.Marionette.Layout
   ui:
     close: '.js-client-html-close'
 
-  initialize: (options) ->
-    @_annotatedSiteEnvoy = options.annotatedSiteEnvoy
-
   _closeModal: (event) ->
     return unless @$el.is(event.target) || @ui.close.is(event.target)
 
