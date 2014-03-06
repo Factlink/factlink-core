@@ -17,4 +17,8 @@
 
 .feed-selection-install-extension-button {
   float: right;
+
+  @include respond-to(400) {
+    display: none;
+  }
 }
