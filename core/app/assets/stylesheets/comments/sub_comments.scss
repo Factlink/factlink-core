@@ -7,6 +7,7 @@
 .sub-comment-post-creator-name {
   display: inline-block;
   @include ellipsis(200px);
+  vertical-align: top;
 }
 
 .sub-comment-add {
