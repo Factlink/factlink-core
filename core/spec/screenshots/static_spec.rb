@@ -2,7 +2,7 @@ require 'acceptance_helper'
 
 describe "Static pages:", type: :feature, driver: :poltergeist_slow do
   include ScreenshotTest
-  include Acceptance::FeedHelper
+  include FeedHelper
 
   describe "Homepage" do
     it do

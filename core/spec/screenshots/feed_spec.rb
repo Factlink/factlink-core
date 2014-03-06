@@ -2,7 +2,7 @@ require 'acceptance_helper'
 
 describe "factlink", type: :feature, driver: :poltergeist_slow do
   include ScreenshotTest
-  include Acceptance::FeedHelper
+  include FeedHelper
 
   let(:user) { create :user }
 

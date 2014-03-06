@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Api::FeedController do
-  include Acceptance::FeedHelper
+  include FeedHelper
 
   render_views
 
@@ -9,6 +9,7 @@ describe Api::FeedController do
 
   describe "#personal" do
     it "should render" do
+      FactoryGirl.reload
       create_default_activities_for user
 
       authenticate_user!(user)
@@ -23,6 +24,7 @@ describe Api::FeedController do
     include PavlovSupport
 
     it "should render" do
+      FactoryGirl.reload
       create_default_activities_for user
 
       get :global, format: :json
