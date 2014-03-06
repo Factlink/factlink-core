@@ -6,8 +6,8 @@ feature 'the profile page', type: :feature do
   include PavlovSupport
 
   scenario 'follow a user and unfollow a user' do
-    following_user = sign_in_user create :full_user, :confirmed
-    followed_user = create :full_user, :confirmed
+    following_user = sign_in_user create :user, :confirmed
+    followed_user = create :user, :confirmed
 
     visit user_path(followed_user)
 
@@ -52,8 +52,8 @@ feature 'the profile page', type: :feature do
   end
 
   scenario 'follow a user and facts created by that user show up in your stream' do
-    following_user = sign_in_user create :full_user, :confirmed
-    followed_user = create :full_user, :confirmed
+    following_user = sign_in_user create :user, :confirmed
+    followed_user = create :user, :confirmed
 
     visit user_path(followed_user)
 

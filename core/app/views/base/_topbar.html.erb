@@ -1,22 +1,14 @@
 <div class="topbar">
   <div class="topbar-inner">
-    <% if @step_in_signup_process %>
-      <%= link_to image_tag('base/topbar/logo.svg', class: 'topbar-logo-img', :alt => 'Factlink'), home_path, class: 'topbar-logo' %>
-    <% else %>
-      <%= link_to image_tag('base/topbar/logo.svg', class: 'topbar-logo-img', :alt => 'Factlink'), home_path, class: 'topbar-logo js-potential-backbone' %>
-    <% end %>
+    <%= link_to image_tag('base/topbar/logo.svg', class: 'topbar-logo-img', :alt => 'Factlink'), home_path, class: 'topbar-logo js-potential-backbone' %>
 
-    <% unless @step_in_signup_process %>
-      <div class="topbar-search">
-        <form method="GET" class="js-navbar-search-form" action="<%= search_path %>">
-          <input id="factlink_search" type="text" class="topbar-search-field js-navbar-search-box" name="s" placeholder="Search...">
-        </form>
-      </div>
-    <% end %>
+    <div class="topbar-search">
+      <form method="GET" class="js-navbar-search-form" action="<%= search_path %>">
+        <input id="factlink_search" type="text" class="topbar-search-field js-navbar-search-box" name="s" placeholder="Search...">
+      </form>
+    </div>
 
-    <% if @step_in_signup_process %>
-      <%= render "base/topbar/sign_up_steps" %>
-    <% elsif current_user %>
+    <% if current_user %>
       <ul class="topbar-menu">
         <li class="topbar-menu-item">
           <%= link_to "Feed", feed_path, class: 'js-potential-backbone' %>

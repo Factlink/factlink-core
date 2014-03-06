@@ -6,8 +6,8 @@ describe Queries::Users::UserFollowsUser do
   describe '#call' do
 
     it "should return false if the from_user doesn't follow the to_user" do
-      from_user = create :full_user
-      to_user = create :full_user
+      from_user = create :user
+      to_user = create :user
 
       as(from_user) do |pavlov|
         result = pavlov.query 'users/user_follows_user', from_graph_user_id: from_user.graph_user_id,
@@ -18,8 +18,8 @@ describe Queries::Users::UserFollowsUser do
     end
 
     it "should return true if the from_user does follow the to_user" do
-      from_user = create :full_user
-      to_user = create :full_user
+      from_user = create :user
+      to_user = create :user
 
       as(from_user) do |pavlov|
         pavlov.interactor(:'users/follow_user', username: to_user.username)
@@ -32,8 +32,8 @@ describe Queries::Users::UserFollowsUser do
     end
 
     it "should return false after unfollowing again" do
-      from_user = create :full_user
-      to_user = create :full_user
+      from_user = create :user
+      to_user = create :user
 
       as(from_user) do |pavlov|
         pavlov.interactor(:'users/follow_user', username: to_user.username)

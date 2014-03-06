@@ -1,14 +1,6 @@
 FactlinkApp.module "NonConfirmedEmailWarning", (NonConfirmedEmailWarning, FactlinkApp, Backbone, Marionette, $, _) ->
 
-  inTour = ->
-    try
-      return /^\/p\/(tour)/.test(window.top.location.pathname)
-    catch # DOMException from window.top if loaded in client
-      return false
-
-
   checkConfirmedEmail = ->
-    return if inTour()
     return unless FactlinkApp.signedIn()
     return if currentUser.get('confirmed')
     return if currentUser.justCreated()

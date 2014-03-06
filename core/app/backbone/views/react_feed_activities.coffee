@@ -1,3 +1,12 @@
+stripLinks = (formatted_content) ->
+  $content = $("<span>#{formatted_content}</span>")
+  $content.find('a').replaceWith ->
+    $span = $("<span>#{@innerHTML}</span>")
+    $span.addClass @className
+    $span
+
+  $content.html()
+
 window.ReactFeedActivities = React.createBackboneClass
   displayName: 'ReactFeedActivities'
 
@@ -21,8 +30,10 @@ window.ReactFeedActivities = React.createBackboneClass
     _div [id:"feed_activity_list"],
       @model().map (model) =>
         switch model.get("action")
-          when "created_comment", "created_sub_comment"
+          when "created_comment"
             ReactCreatedCommentActivity(model: model)
+          when "created_sub_comment"
+            ReactCreatedSubCommentActivity(model: model)
           when "followed_user"
             ReactFollowedUserActivity(model: model)
 
@@ -31,7 +42,8 @@ ReactCreatedCommentActivity = React.createBackboneClass
 
   render: ->
     user = new User @model().get('user')
-    fact = new Fact @model().get("fact")
+    fact = new Fact @model().get('fact')
+    comment = new Comment @model().get('comment')
 
     ReactActivity {
         model: user
@@ -42,8 +54,37 @@ ReactCreatedCommentActivity = React.createBackboneClass
             "commented on"
           ]
       },
-     ReactFact model: fact
-     #still needs the actual comment here
+      ReactFact model: fact
+      _div ["feed-lowest-comment comment-content",
+        dangerouslySetInnerHTML: {__html: stripLinks(comment.get('formatted_content'))}]
+
+ReactCreatedSubCommentActivity = React.createBackboneClass
+  displayName: 'ReactCreatedSubCommentActivity'
+
+  render: ->
+    user = new User @model().get('user')
+    fact = new Fact @model().get('fact')
+    comment = new Comment @model().get('comment')
+    sub_comment = new Comment @model().get('sub_comment')
+
+    ReactActivity {
+        model: user
+        time: @model().get('created_at')
+        href: fact.get('proxy_open_url')
+        activity_header_action: [
+          _span ["feed-activity-description"],
+            "replied to"
+          ]
+      },
+      _div ["feed-comment-box"],
+        _img ['feed-comment-box-avatar', src: comment.creator().avatar_url(32)]
+        _div ["feed-comment-box-balloon"],
+          _div ['feed-activity-username'],
+            comment.creator().get('name')
+          _div ["comment-content",
+            dangerouslySetInnerHTML: {__html: stripLinks(comment.get('formatted_content'))}]
+      _div ["feed-lowest-comment subcomment-content",
+        dangerouslySetInnerHTML: {__html: stripLinks(sub_comment.get('formatted_content'))}]
 
 ReactFollowedUserActivity = React.createBackboneClass
   displayName: 'ReactFollowedUserActivity'

@@ -5,7 +5,7 @@ describe Interactors::Users::Delete do
 
   it 'persistant stores the delete flag' do
     password = 'qwerty'
-    user = create(:full_user, password: password, password_confirmation: password)
+    user = create(:user, password: password, password_confirmation: password)
     initial_username = user.username
     expect(user.deleted).to eq(false)
 

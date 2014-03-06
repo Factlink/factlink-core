@@ -6,7 +6,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
   include Acceptance::CommentHelper
 
   before do
-    @user = sign_in_user create :full_user
+    @user = sign_in_user create :user
 
     @factlink = backend_create_fact_with_long_text
     comment_text = "A comment...\n\n...with newlines!"

@@ -8,7 +8,7 @@ describe Accounts::SocialConnectionsController do
       provider_name = 'facebook'
       uid = '10'
       omniauth_obj = {'provider' => provider_name, 'uid' => uid}
-      user = create :full_user
+      user = create :user
 
       sign_in user
 
@@ -26,7 +26,7 @@ describe Accounts::SocialConnectionsController do
       old_omniauth_obj = {'provider' => provider_name, 'uid' => old_uid}
       new_omniauth_obj = {'provider' => provider_name, 'uid' => new_uid}
 
-      user = create :full_user
+      user = create :user
       user.social_account(provider_name).update_attributes!(omniauth_obj: old_omniauth_obj)
       sign_in user
 
@@ -42,7 +42,7 @@ describe Accounts::SocialConnectionsController do
       omniauth_obj = {'provider' => provider_name, 'uid' => 'uid'}
       create :social_account, :facebook, omniauth_obj: omniauth_obj
 
-      user = create :full_user
+      user = create :user
       sign_in user
 
       controller.request.env['omniauth.auth'] = omniauth_obj
@@ -56,10 +56,10 @@ describe Accounts::SocialConnectionsController do
       provider_name = 'facebook'
       omniauth_obj = {'provider' => provider_name, 'uid' => 'uid'}
 
-      user = create :full_user
+      user = create :user
       sign_in user
 
-      other_user = create :full_user
+      other_user = create :user
       other_user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
 
       controller.request.env['omniauth.auth'] = omniauth_obj
