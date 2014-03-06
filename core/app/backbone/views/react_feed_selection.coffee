@@ -1,5 +1,6 @@
 window.ReactFeedSelection = React.createClass
   displayName: 'ReactFeedSelection'
+  mixins: [UpdateOnSignInOrOutMixin]
 
   getInitialState: ->
     feedChoice: 'global'
@@ -15,14 +16,15 @@ window.ReactFeedSelection = React.createClass
 
   render: ->
     _div [],
-      _div ['feed-selection-row'],
-        _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'global', id: 'FeedChoice_Global', onChange: @handleFeedChoiceChange, checked: @state.feedChoice=='global'  ]
-        _label [ htmlFor: 'FeedChoice_Global' ],
-          'Global'
+      if FactlinkApp.signedIn()
+        _div ['feed-selection-row'],
+          _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'global', id: 'FeedChoice_Global', onChange: @handleFeedChoiceChange, checked: @state.feedChoice=='global'  ]
+          _label [ htmlFor: 'FeedChoice_Global' ],
+            'Global'
 
-        _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'personal', id: 'FeedChoice_Personal', onChange: @handleFeedChoiceChange, checked: @state.feedChoice=='personal' ]
-        _label [ htmlFor: 'FeedChoice_Personal' ],
-          'Personal'
+          _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'personal', id: 'FeedChoice_Personal', onChange: @handleFeedChoiceChange, checked: @state.feedChoice=='personal' ]
+          _label [ htmlFor: 'FeedChoice_Personal' ],
+            'Personal'
 
       ReactFeedActivitiesAutoLoading
         model: @state.feeds[@state.feedChoice]
