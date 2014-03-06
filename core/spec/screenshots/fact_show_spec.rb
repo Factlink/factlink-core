@@ -22,7 +22,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
     sub_comment_text = "\n\nThis is a subcomment\n\nwith some  whitespace \n\n"
 
     as(@user) do |p|
-      other_factlink = backend_create_fact
+      other_factlink = create :fact
       fact_url = FactUrl.new(other_factlink)
       c = p.interactor(:'comments/create', fact_id: @factlink.id.to_i, type: 'believes', content: fact_url.friendly_fact_url)
       p.interactor(:'comments/update_opinion', comment_id: c.id.to_s, opinion: 'believes')

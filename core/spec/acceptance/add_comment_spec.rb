@@ -77,7 +77,7 @@ feature "adding comments to a fact", type: :feature do
     open_discussion_sidebar_for factlink
 
     comment1 = 'Buffels zijn niet klein te krijgen joh'
-    factlink2 = backend_create_fact
+    factlink2 = create :fact
     comment3 = 'Geert is een baas'
 
     add_comment comment1

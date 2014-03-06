@@ -17,7 +17,7 @@ describe "searching", type: :feature do
   end
 
   it "finds an annotation" do
-    fact = backend_create_fact
+    fact = create :fact
 
     visit root_path
     fill_in "factlink_search", with: fact.to_s

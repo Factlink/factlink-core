@@ -9,10 +9,6 @@ module Acceptance
       find('.spec-button-believes')
     end
 
-    def backend_create_fact
-      create :fact
-    end
-
     def backend_create_fact_with_long_text
       fact_data = create :fact_data, displaystring: 'long'*30
       create :fact, data: fact_data
