@@ -9,4 +9,4 @@ class window.CurrentUser extends User
   parse: (response) ->
     # Don't merge but override (this triggers some events, but who cares)
     @clear silent: true
-    return response
+    response
