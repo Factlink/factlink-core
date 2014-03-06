@@ -4,7 +4,7 @@ module PoltergeistStyleOverrides
       (<<-'SNIPPET'
       <style>
         * { transition: none !important; }
-        * { font-family:"DejaVu Sans Mono" !important; letter-spacing:-1px; }
+        * { font-family:"Helvetica" !important;}
         html.phantom_js body { -webkit-transform: rotate(0.00001deg); }
         html.phantom_js body.client { overflow: auto; }
         html.phantom_js .discussion-sidebar-container { position: absolute; min-height:100%; overflow-y: auto; bottom: auto; }

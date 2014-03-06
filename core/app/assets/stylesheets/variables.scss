@@ -37,7 +37,7 @@ $sansFontFamily:            "Helvetica Neue", Helvetica, Arial, sans-serif;
 $baseFontBoldWeight:        bold;
 
 $baseFontSize:              13px;
-$baseLineHeight:            $baseFontSize * 1.6;
+$baseLineHeight:            1.6;
 $metaFontSize:              12px;
 $subHeadingFontSize:        16px;
 
@@ -99,12 +99,6 @@ $max-z-index:             2147483647;
 // Input placeholder text color
 // -------------------------
 $placeholderText:         $grayLight;
-
-
-// Hr border color
-// -------------------------
-$hrBorder:                lightgrey;
-
 
 // Horizontal forms & lists
 // -------------------------
