@@ -9,11 +9,14 @@
 
 .in-your-browser-horizontal-box {
   display: inline-block;
-  width: 355px;
-  margin: 0 40px;
+  width: 45%;
   vertical-align: top;
 
-  @include respond-to(400) {
+  &:first-child {
+    margin-right: 9%;
+  }
+
+  @include respond-to(420) {
     width: 80%;
     margin: 0;
   }
