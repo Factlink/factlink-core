@@ -34,7 +34,7 @@ describe "factlink", type: :feature do
   it "a non logged user can log in now" do
     factlink = backend_create_fact
 
-    go_to_fact_show_of factlink
+    go_to_discussion_page_of factlink
 
     fill_in_comment_textarea 'Some text to show Post button'
     click_button 'Post'
