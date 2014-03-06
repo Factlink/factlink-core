@@ -1,24 +1,17 @@
 .footer {
+  @extend %centering;
   border-top: 1px solid lightgrey;
-  text-align: center;
 }
 
 .footer-inner {
-  margin-left: auto;
-  margin-right: auto;
-  min-width: 320px;
-  max-width: $siteWidth;
-  padding: 10px 20px;
-  display: inline-block;
+  @extend %centering-inner;
+  text-align: center;
 }
 
 .footer-item {
-  float: left;
+  display: inline-block;
   padding-right: 9px;
-
-  @include respond-to(400) {
-    line-height: 30px;
-  }
+  line-height: 2.5;
 
   &:after {
     content: "·";

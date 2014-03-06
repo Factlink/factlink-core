@@ -57,6 +57,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
 
     open_discussion_sidebar_for @factlink
     find_link('(2) Reply').click
+    find('.sub-comment+.sub-comment')
 
     page.should have_content @factlink.data.displaystring
 
