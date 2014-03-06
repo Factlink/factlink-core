@@ -33,24 +33,27 @@
 
 
 .radio-toggle-button+label {
-  color: #666;
-  box-shadow: .05em .1em .25em -.1em rgba(0,0,0,.4),
-        inset .5px 1px 3px -1.6px rgba(0,0,0,0),
-        inset 0 -.65em 1.3em -.6em rgba(0,0,0,.15);
+  color: $infoText;
+  box-shadow: .05em .1em .25em -.1em rgba(0,0,0,0.4),
+        inset 0 1px 0 0 white,
+        inset .5px .5px .3em 1px rgba($darkerBackgroundColor,0),
+        inset 0 -.45em 1.3em .1em rgba($darkerBackgroundColor,0.3);
+
 }
 
 .radio-toggle-button+label:active {
-  color: #999;
+  color: rgba($infoText,0.6);
   box-shadow: .05em .1em .25em -.1em rgba(0,0,0,0),
-          inset .5px 1px 3px -1.6px rgba(0,0,0,0),
-           inset 0 0 1.3em -.6em rgba(0,0,0,.15);
+        inset 0 1px 0 0 rgba(white,0),
+        inset .5px .5px .3em 1px rgba($darkerBackgroundColor,0),
+        inset 0 0 1.3em .1em rgba($darkerBackgroundColor,0.65);
 }
 
 .radio-toggle-button:checked+label {
-  color: #444;
+  color: rgba(0,0,0,0.6);
   box-shadow: .05em .1em .25em -.1em rgba(0,0,0,0),
-          inset .5px 1px 3px -1.6px rgba(0,0,0,.4),
-          inset 0 .65em 1.3em -.6em rgba(0,0,0,.15);
-  background: #f8f8f8;
+          inset 0 1px 0 0 rgba(white,0),
+          inset .5px .5px .3em 1px $darkerBackgroundColor,
+          inset 0 .45em 1.3em .1em $darkerBackgroundColor;
 }
 
