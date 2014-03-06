@@ -22,5 +22,5 @@
   margin-bottom: $baseLineHeight;
   border-top: 1px solid #e5e5e5;
   padding-left: $horizontalComponentOffset;
-  @extend %clearfix; // Adding clearfix to allow for .pull-right button containers
+  @extend %clearfix; // Adding clearfix to allow for float button containers
 }

@@ -1,4 +1,4 @@
-FactlinkJailRoot.createFactFromSelection = (current_user_opinion) ->
+FactlinkJailRoot.createFactFromSelection = ->
   text = window.document.getSelection().toString().trim()
   siteTitle = window.document.title
   siteUrl = FactlinkJailRoot.siteUrl()
@@ -7,7 +7,7 @@ FactlinkJailRoot.createFactFromSelection = (current_user_opinion) ->
 
   FactlinkJailRoot.openModalOverlay()
   FactlinkJailRoot.factlinkCoreEnvoy 'prepareNewFactlink',
-    text, siteUrl, siteTitle, current_user_opinion
+    text, siteUrl, siteTitle
 
 FactlinkJailRoot.textSelected = ->
   # At least 4 words of at least 2 characters
