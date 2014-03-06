@@ -28,3 +28,11 @@ class window.Comment extends Backbone.Model
 
   share: (providers) ->
     @collection.fact.share providers, @get('content')
+
+  saveWithState: (attrs, options={}) ->
+    @set save_failed: false
+    error = =>
+      @set save_failed: true
+      options.error?()
+
+    @save attrs, _.extend(error: error, options)

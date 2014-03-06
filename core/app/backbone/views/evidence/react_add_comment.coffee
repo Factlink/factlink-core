@@ -109,13 +109,10 @@ window.ReactAddComment = React.createBackboneClass
     return unless comment.isValid()
 
     @model().unshift(comment)
-    comment.save {},
+    comment.saveWithState {},
       success: ->
         mp_track "Factlink: Added comment",
           factlink_id: comment.collection.fact.id
-      error: ->
-        comment.collection.remove(comment)
-        FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
 
     comment.share @state.shareProviders
 

@@ -36,6 +36,9 @@ window.ReactComment = React.createBackboneClass
           fact_opinionators: @props.fact_opinionators
     ]
 
+  _save: ->
+    @model().saveWithState()
+
   render: ->
     relevant = @model().argumentTally().relevance() >= 0
 
@@ -47,6 +50,9 @@ window.ReactComment = React.createBackboneClass
           fact_opinionators: @props.fact_opinionators
           model: @model()
         @_content()
+        if @model().get('save_failed') == true
+          _a ['button-danger', onClick: @_save, style: {float: 'right'} ],
+            'Save failed - Retry'
         @_bottom()...
 
 ReactCommentHeading = React.createBackboneClass
