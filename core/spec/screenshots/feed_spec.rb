@@ -38,6 +38,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
 
     visit feed_path
     find('label[for=FeedChoice_Personal]').click
+    find('.feed-activity:first-child')
     assume_unchanged_screenshot 'feed'
   end
 end
