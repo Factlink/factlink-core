@@ -1,28 +1,45 @@
 .about-header {
   margin: 10px 0 20px;
+  text-align: center;
+
+  @include from-width(500) {
+    text-align: left;
+  }
 }
 
 .about-contact {
-  float: right;
-  width: 200px
+  width: 200px;
+  right: 0;
+  display: inline-block;
+  min-width: 200px;
+  vertical-align: top;
+}
+
+.about-people {
+  display: inline-block;
+  width: 100%;
+
+  @include from-width(500) {
+    min-width: 500px;
+    width: calc(100% - 200px - 0.5em);
+    width: -webkit-calc(100% - 200px - 0.5em);
+  }
 }
 
 .faces-list {
-  display: inline-block; // new block formatting context
-  width: 600px;
+  list-style: none;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  max-width: 500px;
 }
 
 .team-member-block, .team-advisor-block {
   position: relative;
-  float: left;
-  margin-right: 14.9px;
-  margin-bottom: 22px;
-}
-.team-member-block {
-  width: 163.817px;
-}
-.team-advisor-block {
-  width: 104.25px;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 5px 20px 5px;
 }
 
 %team-name {

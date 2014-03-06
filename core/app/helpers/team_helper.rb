@@ -5,13 +5,13 @@ module TeamHelper
     end
     html += content_tag "div", name, class: "team-member-name"
 
-    content_tag "div", html, class: "team-member-block"
+    content_tag "li", html, class: "team-member-block"
   end
 
   def advisor_photo_tag photo, name
     html = image_tag "team/#{photo}.jpg", alt: name, class: "team-photo advisor", rel: "tooltip", title: name
     html += content_tag "div", name, class: "team-advisor-name"
 
-    content_tag "div", html, class: "team-advisor-block"
+    content_tag "li", html, class: "team-advisor-block"
   end
 end
