@@ -11,15 +11,15 @@
 }
 
 .control-group {
-  margin-bottom: $baseLineHeight;
+  margin-bottom: 0.8em;
   @extend %clearfix;
 }
 
 .form-actions {
   background-color: transparent;
   padding: 15px 0;
-  margin-top: $baseLineHeight;
-  margin-bottom: $baseLineHeight;
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
   border-top: 1px solid #e5e5e5;
   padding-left: $horizontalComponentOffset;
   @extend %clearfix; // Adding clearfix to allow for float button containers

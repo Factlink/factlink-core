@@ -15,7 +15,6 @@
 .topbar-logo {
   @extend %centering-inner;
   margin-right: 20px;
-  line-height: 0px;
 
   @include respond-to(430) {
     display: none;
