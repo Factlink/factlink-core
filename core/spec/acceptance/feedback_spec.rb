@@ -6,7 +6,7 @@ describe "Feedback modal", type: :feature do
 
     before do
       visit "/"
-      page.should have_selector "#feedback_button"
+      page.should have_selector ".feedback-button"
     end
 
     it "the form shows after clicking Feedback" do
@@ -37,7 +37,7 @@ describe "Feedback modal", type: :feature do
 
       visit "/"
 
-      page.should have_selector "#feedback_button"
+      page.should have_selector ".feedback-button"
     end
 
     it "the form shows after clicking Feedback" do
