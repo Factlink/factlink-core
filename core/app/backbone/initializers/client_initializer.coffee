@@ -1,4 +1,4 @@
-class ClientController
+class ClientEnvoy
   constructor: (senderEnvoy) ->
     @_senderEnvoy = senderEnvoy
 
@@ -16,7 +16,6 @@ class ClientController
         @_senderEnvoy 'highlightNewFactlink', displaystring, fact.id
 
         @_renderDiscussion fact
-        Backbone.history.navigate "/client/facts/#{fact.id}", trigger: false
         mp_track 'Factlink: Created'
 
   _renderDiscussion: (fact) ->
@@ -29,15 +28,29 @@ class ClientController
         initiallyFocusAddComment: true
 
 
+initDevelopmentConsole = ->
+  return unless Factlink.Global.environment == 'development'
+
+  console.group 'Factlink'
+  console.log 'Greetings, stranger. Put any of the following commands in your console:'
+  console.log '  clientEnvoy.showFactlink(3)'
+  console.log '  clientEnvoy.prepareNewFactlink("Hello World", "http://example.org", "Example")'
+  console.log 'Or put one of these commands in your hash (and reload):'
+  console.log '  localhost:3000/client/blank#clientEnvoy.showFactlink(3)'
+  console.log '  localhost:3000/client/blank#clientEnvoy.prepareNewFactlink("Hello World", "http://example.org", "Example")'
+  console.log 'Now, how about a nice game of chess?'
+  console.groupEnd()
+
+  window.clientEnvoy = new ClientEnvoy(->)
+
+  command = window.location.hash.substring(1)
+  if command.match /^clientEnvoy/
+    console.info 'Executing: ', command
+    eval(command)
+
 window.FactlinkAppMode ?= {}
 window.FactlinkAppMode.coreInClient = (app) ->
   app.startClientRegions()
-
-  if window.parent && window != window.parent
-    senderEnvoy = Factlink.createSenderEnvoy(window.parent)
-    Factlink.createReceiverEnvoy new ClientController(senderEnvoy)
-  else
-    senderEnvoy = ->
 
   FactlinkApp.discussionSidebarContainer = new DiscussionSidebarContainer
   FactlinkApp.discussionSidebarRegion.show FactlinkApp.discussionSidebarContainer
@@ -53,5 +66,12 @@ window.FactlinkAppMode.coreInClient = (app) ->
       e.preventDefault()
       e.stopPropagation()
       app.vent.trigger 'close_discussion_sidebar'
+
+  if window.parent && window != window.parent
+    senderEnvoy = Factlink.createSenderEnvoy(window.parent)
+    Factlink.createReceiverEnvoy new ClientEnvoy(senderEnvoy)
+  else
+    initDevelopmentConsole()
+    senderEnvoy = ->
 
   senderEnvoy 'modalFrameReady'
