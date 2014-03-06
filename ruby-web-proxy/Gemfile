@@ -4,3 +4,5 @@ gem "goliath"
 gem "eventmachine"
 gem 'em-synchrony'
 gem 'em-http-request'
+gem 'addressable'
+gem 'sentry-raven'
