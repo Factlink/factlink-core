@@ -63,6 +63,9 @@ i.in-your-browser-icon-social {
   @extend %white-block-with-shadow;
   padding: 20px;
   margin: 20px;
+  width: 330px;
+  display: inline-block;
+  vertical-align: top;
 
   @include respond-to(400) {
     margin: 10px;
