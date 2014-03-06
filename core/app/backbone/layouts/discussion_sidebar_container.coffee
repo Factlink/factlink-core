@@ -1,5 +1,5 @@
 class window.DiscussionSidebarContainer extends Backbone.Marionette.Layout
-  className: 'discussion-sidebar-container'
+  className: 'discussion-sidebar-container spec-discussion-sidebar-container'
   template: 'layouts/discussion_sidebar_container'
 
   regions:

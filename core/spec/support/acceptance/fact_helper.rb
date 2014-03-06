@@ -3,7 +3,9 @@ module Acceptance
     include ::FactHelper
 
     def go_to_discussion_page_of factlink
-      visit "/client/facts/#{factlink.id}"
+      visit '/client/blank'
+      find('.spec-discussion-sidebar-container')
+      page.execute_script "clientEnvoy.showFactlink(#{factlink.id})"
       find('.spec-button-believes')
     end
 

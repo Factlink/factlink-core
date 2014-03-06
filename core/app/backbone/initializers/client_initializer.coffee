@@ -29,7 +29,7 @@ class ClientEnvoy
 
 
 initDevelopmentConsole = (clientEnvoy) ->
-  return unless Factlink.Global.environment == 'development'
+  return unless Factlink.Global.environment in ['development', 'test']
 
   console.group 'Factlink'
   console.log 'Greetings, stranger. Put any of the following commands in your console:'
