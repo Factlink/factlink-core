@@ -5,7 +5,7 @@ describe Accounts::SocialConnectionsController do
 
   describe :callback do
     it 'connects the social account' do
-      provider_name = 'facebook'
+      provider_name = 'twitter'
       uid = '10'
       omniauth_obj = {'provider' => provider_name, 'uid' => uid}
       user = create :user
@@ -20,7 +20,7 @@ describe Accounts::SocialConnectionsController do
     end
 
     it 'replaces social account when already connected to different social account' do
-      provider_name = 'facebook'
+      provider_name = 'twitter'
       old_uid = '10'
       new_uid = '20'
       old_omniauth_obj = {'provider' => provider_name, 'uid' => old_uid}
@@ -38,9 +38,9 @@ describe Accounts::SocialConnectionsController do
     end
 
     it 'removes spurious earlier social account objects' do
-      provider_name = 'facebook'
+      provider_name = 'twitter'
       omniauth_obj = {'provider' => provider_name, 'uid' => 'uid'}
-      create :social_account, :facebook, omniauth_obj: omniauth_obj
+      create :social_account, :twitter, omniauth_obj: omniauth_obj
 
       user = create :user
       sign_in user
@@ -53,7 +53,7 @@ describe Accounts::SocialConnectionsController do
     end
 
     it 'shows an error when another user has been connected to that account already' do
-      provider_name = 'facebook'
+      provider_name = 'twitter'
       omniauth_obj = {'provider' => provider_name, 'uid' => 'uid'}
 
       user = create :user
