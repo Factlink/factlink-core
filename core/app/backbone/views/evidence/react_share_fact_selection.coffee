@@ -5,7 +5,7 @@ ReactShareButton = React.createBackboneClass
     hovered: false
 
   render: ->
-    _label ['share-button-container'
+    _span ['share-button-container'
       onMouseEnter: => @setState(hovered: true)
       onMouseLeave: => @setState(hovered: false)
     ],
