@@ -1,4 +1,5 @@
 class window.Comment extends Backbone.Model
+  _.extend @prototype, Backbone.Factlink.ModelSaveWithStateMixin
 
   defaults:
     sub_comments_count: 0
