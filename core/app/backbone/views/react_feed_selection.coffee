@@ -9,8 +9,6 @@ window.ReactFeedSelection = React.createClass
 
 
   handleFeedChoiceChange: (e) ->
-    console.log(e,e.target,e.target.checked, e.target.value)
-
     if(e.target.checked)
       @setState
         feedChoice: e.target.value
