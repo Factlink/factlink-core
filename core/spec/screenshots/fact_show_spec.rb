@@ -46,7 +46,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
 
     page.should have_content @factlink.data.displaystring
 
-    find_link('(2) Comment').click
+    find_link('(2) Reply').click
     find('.sub-comment + .sub-comment') # wait for second subcomment to appear
 
     assume_unchanged_screenshot "fact_show"
@@ -56,7 +56,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
     sign_out_user
 
     go_to_fact_show_of @factlink
-    first('a', text: '1 comment')
+    find_link('(2) Reply').click
 
     page.should have_content @factlink.data.displaystring
 

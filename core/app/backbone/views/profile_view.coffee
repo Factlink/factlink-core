@@ -15,6 +15,6 @@ class window.ProfileView extends Backbone.Marionette.Layout
     @profileInformationRegion.show new ProfileInformationView model: @model
     @profileBioRegion.show  new ProfileBioView model: @model
     @feedRegion.show new ReactView
-      component: ReactFeedActivities
+      component: ReactFeedActivitiesAutoLoading
         model: @model.feed_activities()
 

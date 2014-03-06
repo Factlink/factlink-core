@@ -80,3 +80,10 @@
      -moz-box-sizing: $boxmodel;
           box-sizing: $boxmodel;
 }
+
+%non-selectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

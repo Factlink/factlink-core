@@ -12,7 +12,7 @@ describe 'When a user signs in', type: :feature do
 
     visit '/'
 
-    page.should have_content 'Connect with'
+    page.should have_content 'Sign in with'
   end
 
   it 'he should not be able to sign in with false credentials' do
