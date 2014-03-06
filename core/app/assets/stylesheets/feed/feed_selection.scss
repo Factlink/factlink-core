@@ -1,0 +1,16 @@
+.feed-selection-row {
+  padding: 0.5em 0 1.5em;
+  border-bottom: 1px solid $mutedBorderColor;
+  margin-bottom:2.5em;
+  position:relative;
+}
+
+.feed-selection-row:after {
+  content:'';
+  position:absolute;
+  display:block;
+  left:0;right:0;
+  bottom:0;
+  height:1px;
+  background: rgba(white, 0.7);
+}
