@@ -9,7 +9,7 @@ window.ReactFeedSelection = React.createClass
       personal: new PersonalFeedActivities
 
 
-  handleFeedChoiceChange: (e) ->
+  _handleFeedChoiceChange: (e) ->
     if(e.target.checked)
       @setState
         feedChoice: e.target.value
@@ -18,11 +18,11 @@ window.ReactFeedSelection = React.createClass
     _div [],
       if FactlinkApp.signedIn()
         _div ['feed-selection-row'],
-          _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'global', id: 'FeedChoice_Global', onChange: @handleFeedChoiceChange, checked: @state.feedChoice=='global'  ]
+          _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'global', id: 'FeedChoice_Global', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='global'  ]
           _label [ htmlFor: 'FeedChoice_Global' ],
             'Global'
 
-          _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'personal', id: 'FeedChoice_Personal', onChange: @handleFeedChoiceChange, checked: @state.feedChoice=='personal' ]
+          _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'personal', id: 'FeedChoice_Personal', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='personal' ]
           _label [ htmlFor: 'FeedChoice_Personal' ],
             'Personal'
 

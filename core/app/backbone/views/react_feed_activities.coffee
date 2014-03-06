@@ -29,7 +29,7 @@ window.ReactFeedActivitiesAutoLoading = React.createBackboneClass
   render: ->
     _div [],
       @model().map (model) =>
-        ReactActivity model: model
+        ReactActivity model: model, key: model.id
 
 
 window.ReactFeedActivitiesFixed = React.createBackboneClass
