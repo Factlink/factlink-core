@@ -4,9 +4,9 @@ class FactlinkAppClass extends Backbone.Marionette.Application
 
   signedIn: -> !!currentUser.get('username')
 
-  refreshCurrentUser: ->
+  refreshCurrentUser: (response) ->
     if @mode == FactlinkAppMode.coreInClient
-      currentUser.fetch()
+      currentUser.set response
     else
       # We still have some static user-dependent stuff on the site (not client)
       window.location.reload(true)

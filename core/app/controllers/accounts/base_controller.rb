@@ -9,6 +9,12 @@ class Accounts::BaseController < ApplicationController
     request.env['omniauth.auth']
   end
 
+  def render_success_event
+    current_user_json = interactor :'users/get_full', username: current_user.username
+
+    render_trigger_event 'social_success', current_user_json
+  end
+
   def render_trigger_event name, details
     render :'accounts/trigger_event', locals: {event: {name: name, details: details}}
   end

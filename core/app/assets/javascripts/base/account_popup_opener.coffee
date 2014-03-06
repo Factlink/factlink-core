@@ -12,13 +12,9 @@ $('html').on 'click', '.js-accounts-popup-link', (e) ->
   e.stopPropagation()
   e.preventDefault()
 
-$(document).on 'signed_in', ->
-  FactlinkApp.refreshCurrentUser()
+$(document).on 'social_success', (e) ->
+  FactlinkApp.refreshCurrentUser e.originalEvent.detail
   mp_track 'User: Sign in'
-
-$(document).on 'authorized', (e) ->
-  provider_name = e.originalEvent.detail
-  currentUser.setServiceConnected provider_name
 
 $(document).on 'account_error', (e) ->
   if typeof FactlinkApp == 'object'
