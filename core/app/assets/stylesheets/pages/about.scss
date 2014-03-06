@@ -52,9 +52,12 @@
 .team-photo {
   width: 135px;
   height: 135px;
-  box-shadow: 0 0 0 5px rgba(255, 255, 255, 1), 0 0 0 6px #cbcbcb, 0 7px 3px 0 rgba(0, 0, 0, .15);
+  box-shadow: 0 1px 3px -1px rgba(0, 0, 0, .15);
   margin-bottom: 15px;
   border-radius: 1000px;
+  padding: 6px;
+  border: 1px solid #cbcbcb;
+  box-sizing: content-box;
 
   &.advisor {
     width: 80px;
