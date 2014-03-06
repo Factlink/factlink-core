@@ -1,3 +1,7 @@
+<% content_for :responsive_viewport do %>
+  <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1">
+<% end %>
+
 <% content_for :header do %>
   <h1 class="header-heading">About Factlink</h1>
   <p>
@@ -6,8 +10,34 @@
 <% end %>
 
 <% content_for :content do %>
+<div class="about-container">
+  <div class="about-people">
+    <h4 class="about-header">Team</h4>
+
+    <ul class="faces-list">
+      <%= team_photo_tag "eamon", "Eamon Nerbonne", "eamonnerbonne" %>
+      <%= team_photo_tag "janpaul", "Jan Paul Posma", "janpaul123" %>
+      <%= team_photo_tag "luuk", "Luuk Hartsema", "hartsema" %>
+      <%= team_photo_tag "mark", "Mark IJbema", "mark" %>
+      <%= team_photo_tag "martijn", "Martijn Russchen", "martijn" %>
+      <%= team_photo_tag "merijn", "Merijn Terheggen", "merijn" %>
+    </ul>
+
+    <h4 class="about-header">Advisors and Collaborators</h4>
+
+    <ul class="faces-list">
+      <%= advisor_photo_tag "anne", "Anne Vrolyk" %>
+      <%= advisor_photo_tag "colin", "Colin Crawford" %>
+      <%= advisor_photo_tag "gordon", "Gordon Rios" %>
+      <%= advisor_photo_tag "knud", "Knud Balslev" %>
+      <%= advisor_photo_tag "michael", "Michael Lopez" %>
+      <%= advisor_photo_tag "roger", "Roger Magoulas" %>
+      <%= advisor_photo_tag "scott", "Scott Waterman" %>
+      <%= advisor_photo_tag "tonie", "Tonie Broekhuijsen" %>
+    </ul>
+  </div>
   <div class="about-contact">
-    <h1 class="about-header">Contact</h1>
+    <h4 class="about-header">Contact</h4>
 
     <p>
       <b>General enquiries</b><br>
@@ -19,7 +49,7 @@
       <a href="mailto:support@factlink.com">support@factlink.com</a>
     </p>
 
-    <p class="address">
+    <p>
       <b>US: Alameda</b><br>
       Factlink Inc.<br>
       1309 Santa Clara Ave #4<br>
@@ -28,7 +58,7 @@
       +1 650 646 3697
     </p>
 
-    <p class="address">
+    <p>
       <b>NL: Groningen</b><br>
       Factlink B.V.<br>
       Prinsenstraat 9B<br>
@@ -37,30 +67,5 @@
       +31 50 8512915
     </p>
   </div>
-
-  <h1 class="about-header">Team</h1>
-  <div class="faces-list">
-    <%= team_photo_tag "eamon", "Eamon Nerbonne", "eamonnerbonne" %>
-    <%= team_photo_tag "janpaul", "Jan Paul Posma", "janpaul123" %>
-    <%= team_photo_tag "luuk", "Luuk Hartsema", "hartsema" %>
-  </div>
-  <div class="faces-list">
-    <%= team_photo_tag "mark", "Mark IJbema", "mark" %>
-    <%= team_photo_tag "martijn", "Martijn Russchen", "martijn" %>
-    <%= team_photo_tag "merijn", "Merijn Terheggen", "merijn" %>
-  </div>
-
-  <h1 class="about-header">Advisors and Collaborators</h1>
-  <div class="faces-list">
-    <%= advisor_photo_tag "anne", "Anne Vrolyk" %>
-    <%= advisor_photo_tag "colin", "Colin Crawford" %>
-    <%= advisor_photo_tag "gordon", "Gordon Rios" %>
-    <%= advisor_photo_tag "knud", "Knud Balslev" %>
-  </div>
-  <div class="faces-list">
-    <%= advisor_photo_tag "michael", "Michael Lopez" %>
-    <%= advisor_photo_tag "roger", "Roger Magoulas" %>
-    <%= advisor_photo_tag "scott", "Scott Waterman" %>
-    <%= advisor_photo_tag "tonie", "Tonie Broekhuijsen" %>
-  </div>
+</div>
 <% end %>
