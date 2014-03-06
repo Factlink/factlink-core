@@ -1,7 +1,7 @@
 require 'acceptance_helper'
 
 describe "searching", type: :feature do
-  include Acceptance::ClientPathHelper
+  include Acceptance::FactHelper
 
   before :each do
     @user = sign_in_user create :user, :confirmed
@@ -17,9 +17,7 @@ describe "searching", type: :feature do
   end
 
   it "should find a just created factlink" do
-    # create factlink:
-    fact_text = "fact to be found"
-    visit new_fact_path displaystring: fact_text
+    fact = backend_create_fact
 
     eventually_succeeds do
       fail StandardError, "Fact not created" unless Fact.all.to_a.last
@@ -27,8 +25,8 @@ describe "searching", type: :feature do
 
     # and search for it:
     visit root_path
-    fill_in "factlink_search", with: fact_text
+    fill_in "factlink_search", with: fact.to_s
     page.execute_script("$('#factlink_search').parent().submit()")
-    page.should have_content(fact_text)
+    page.should have_content(fact.to_s)
   end
 end
