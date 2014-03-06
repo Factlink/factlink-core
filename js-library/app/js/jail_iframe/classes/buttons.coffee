@@ -1,14 +1,6 @@
 class FactlinkJailRoot.CreateButton
   content: """
-    <div class="fl-button fl-button-black fl-button-with-arrow-down">
-      <div class="fl-button-content-default">
-        <span class="icon-comment"></span>
-      </div>
-      <div class="fl-button-content-hovered">
-        <span class="icon-comment"></span>
-        <span class="fl-button-sub-button" data-opinion="believes"><span class="icon-thumbs-up"></span></span><span class="fl-button-sub-button" data-opinion="disbelieves"><span class="icon-thumbs-down"></span></span>
-      </div>
-    </div>
+    <div class="fl-button"><span class="icon-comment"></span></div>
   """
 
   constructor: ->
@@ -25,8 +17,7 @@ class FactlinkJailRoot.CreateButton
     @$el.on 'click', @_onClick
 
   _onClick: (event) =>
-    current_user_opinion = $(event.target).closest('[data-opinion]').data('opinion')
-    FactlinkJailRoot.createFactFromSelection(current_user_opinion)
+    FactlinkJailRoot.createFactFromSelection()
 
   placeNearSelection: (mouseX=null) ->
     return if @_visible

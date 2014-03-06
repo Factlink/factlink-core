@@ -15,24 +15,16 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
   text-align: center;
   position: relative;
   min-width: $buttonSmallWidth;
-  opacity: 0.4;
+  padding: 0 $buttonPadding;
+  white-space: nowrap;
 
   border-radius: $borderRadius;
   line-height: $buttonHeight;
-}
 
-.fl-button-black, .hovered .fl-button {
   background-color: $buttonBackground;
   color: white;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
-  opacity: 1;
 
-  &:hover {
-    background-color: $buttonHoverBackground;
-  }
-}
-
-.fl-button-with-arrow-down {
   margin-bottom: $arrowSize;
 
   &:after {
@@ -46,50 +38,12 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
     border-top-color: $buttonBackground;
     border-bottom-width: 0;
   }
+}
 
-  &:hover:after {
+.hovered .fl-button {
+  background-color: $buttonHoverBackground;
+
+  &:after {
     border-top-color: $buttonHoverBackground;
-  }
-}
-
-.fl-button-sub-button {
-  display: inline-block;
-  height: $buttonHeight;
-  padding: 0 $buttonPadding;
-  border-left: 1px solid #666;
-  background-color: $buttonBackground;
-
-  &:hover {
-    background-color: $buttonHoverBackground;
-  }
-  &:last-child {
-    margin-right: -$buttonPadding;
-    border-top-right-radius: $borderRadius;
-    border-bottom-right-radius: $borderRadius;
-  }
-}
-
-.fl-button-content-default,
-.fl-button-content-hovered {
-  display: none;
-  height: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  padding: 0 $buttonPadding;
-}
-
-.fl-button-content-default {
-  display: block;
-  height: auto;
-}
-
-.hovered {
-  .fl-button-content-default,
-  .fl-button-content-hovered {
-    display: block;
-    height: 0;
-  }
-  .fl-button-content-hovered {
-    height: auto;
   }
 }
