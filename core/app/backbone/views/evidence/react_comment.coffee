@@ -25,7 +25,7 @@ window.ReactComment = React.createBackboneClass
   _bottom: ->
     sub_comment_count = @model().get('sub_comments_count')
 
-    [
+    _span [],
       _span ["comment-post-bottom"],
         if @model().can_destroy()
           _span ["comment-post-delete"],
@@ -39,7 +39,6 @@ window.ReactComment = React.createBackboneClass
         ReactSubComments
           model: @model().sub_comments()
           fact_opinionators: @props.fact_opinionators
-    ]
 
   _save: ->
     @model().saveWithState()
@@ -58,7 +57,8 @@ window.ReactComment = React.createBackboneClass
         if @model().get('save_failed') == true
           _a ['button-danger', onClick: @_save, style: {float: 'right'} ],
             'Save failed - Retry'
-        @_bottom()...
+        else
+          @_bottom()
 
 ReactCommentHeading = React.createBackboneClass
   displayName: 'ReactCommentHeading'
