@@ -1,4 +1,5 @@
 class window.Comment extends Backbone.Model
+  _.extend @prototype, Backbone.Factlink.ModelSaveWithStateMixin
 
   defaults:
     sub_comments_count: 0
@@ -28,11 +29,3 @@ class window.Comment extends Backbone.Model
 
   share: (providers) ->
     @collection.fact.share providers, @get('content')
-
-  saveWithState: (attrs, options={}) ->
-    @set save_failed: false
-    error = =>
-      @set save_failed: true
-      options.error?()
-
-    @save attrs, _.extend(error: error, options)
