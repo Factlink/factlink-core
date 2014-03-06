@@ -12,7 +12,7 @@ class Accounts::BaseController < ApplicationController
   def render_success_event
     current_user_json = interactor :'users/get_full', username: current_user.username
 
-    render_trigger_event 'social_success', current_user_json
+    render_trigger_event 'account_success', current_user_json
   end
 
   def render_trigger_event name, details

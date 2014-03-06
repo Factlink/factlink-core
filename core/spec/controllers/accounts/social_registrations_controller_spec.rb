@@ -15,7 +15,7 @@ describe Accounts::SocialRegistrationsController do
         controller.request.env['omniauth.auth'] = omniauth_obj
         get :callback, provider_name: 'facebook'
 
-        expect(response.body).to match 'eventName = "social_success"'
+        expect(response.body).to match 'eventName = "account_success"'
       end
     end
 
@@ -99,7 +99,7 @@ describe Accounts::SocialRegistrationsController do
         session[:register_social_account_id] = twitter_account.id
         post :create, user: {email: email}
 
-        expect(response.body).to match 'eventName = "social_success"'
+        expect(response.body).to match 'eventName = "account_success"'
 
         created_user = User.first
         expect(created_user.name).to eq name
@@ -145,7 +145,7 @@ describe Accounts::SocialRegistrationsController do
         user.reload
         expect(user.social_account(:twitter).uid).to eq twitter_account.uid
 
-        expect(response.body).to match 'eventName = "social_success"'
+        expect(response.body).to match 'eventName = "account_success"'
       end
 
       it 'shows an error if the password is incorrect' do

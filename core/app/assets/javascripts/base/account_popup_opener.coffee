@@ -12,7 +12,7 @@ $('html').on 'click', '.js-accounts-popup-link', (e) ->
   e.stopPropagation()
   e.preventDefault()
 
-$(document).on 'social_success', (e) ->
+$(document).on 'account_success', (e) ->
   FactlinkApp.refreshCurrentUser e.originalEvent.detail
   mp_track 'User: Sign in'
 
