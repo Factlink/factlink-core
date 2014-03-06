@@ -22,7 +22,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
     sub_comment_text = "\n\nThis is a subcomment\n\nwith some  whitespace \n\n"
 
     as(@user) do |p|
-      other_factlink = backend_create_fact
+      other_factlink = create :fact
       fact_url = FactUrl.new(other_factlink)
       c = p.interactor(:'comments/create', fact_id: @factlink.id.to_i, type: 'believes', content: fact_url.friendly_fact_url)
       p.interactor(:'comments/update_opinion', comment_id: c.id.to_s, opinion: 'believes')
@@ -42,11 +42,11 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
 
     @factlink.add_opiniated :believes, (create :user).graph_user
 
-    go_to_fact_show_of @factlink
+    open_discussion_sidebar_for @factlink
 
     page.should have_content @factlink.data.displaystring
 
-    find_link('(2) Comment').click
+    find_link('(2) Reply').click
     find('.sub-comment + .sub-comment') # wait for second subcomment to appear
 
     assume_unchanged_screenshot "fact_show"
@@ -55,8 +55,8 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
   it "the layout of the new discussion page is correct for an anonymous user" do
     sign_out_user
 
-    go_to_fact_show_of @factlink
-    first('a', text: '1 comment')
+    open_discussion_sidebar_for @factlink
+    find_link('(2) Reply').click
 
     page.should have_content @factlink.data.displaystring
 

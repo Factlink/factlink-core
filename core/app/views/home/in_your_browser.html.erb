@@ -12,17 +12,7 @@
     <h1 class="header-heading">Share your knowledge for a better world</h1>
     <p class="header-tagline">Use Factlink to discuss <i>anything</i> on the web.</p>
 
-    <div class="visible-when-chrome in-your-browser-header-button">
-      <a id="chrome-extension-webstore-button" class="button-success button-huge" href="javascript:chrome.webstore.install()">Install Factlink for Chrome</a>
-    </div>
-
-    <div class="visible-when-firefox in-your-browser-header-button">
-      <a id="firefox-extension-button" class="button-success button-huge" href="https://static.factlink.com/extension/firefox/factlink-latest.xpi">Install Factlink for Firefox</a>
-    </div>
-
-    <div class="visible-when-safari in-your-browser-header-button">
-      <a id="safari-extension-button" class="button-success button-huge" href="https://static.factlink.com/extension/firefox/factlink.safariextz">Install Factlink for Safari</a>
-    </div>
+    <div class="js-install-extension-upper-button"></div>
   </div>
 <% end %>
 
@@ -44,32 +34,31 @@
 <% content_for :below_content do %>
   <div class="in-your-browser-below-content">
     <div class="in-your-browser-horizontal">
-      <div class="in-your-browser-horizontal-box in-your-browser-below-content-box">
+      <h1 class="in-your-browser-heading">Recent activity</h1>
+      <div class="js-in-your-browser-feed in-your-browser-feed"></div>
+    </div>
+
+    <div class="in-your-browser-horizontal">
+      <%= link_to 'Discover more', feed_path, class: 'button in-your-browser-feed-more-button' %>
+    </div>
+
+    <div class="in-your-browser-horizontal">
+      <div class="in-your-browser-below-content-box">
         <h1 class="in-your-browser-heading">Join the revolution!</h1>
         <p>Discussion and access to information are key to a well-functioning society. Install the extension to share your knowledge and stay updated.</p>
 
-        <div class="visible-when-chrome">
-          <a id="chrome-extension-webstore-button" class="button-success" href="javascript:chrome.webstore.install()">Install Factlink for Chrome</a>
-        </div>
-
-        <div class="visible-when-firefox">
-          <a id="firefox-extension-button" class="button-success" href="https://static.factlink.com/extension/firefox/factlink-latest.xpi">Install Factlink for Firefox</a>
-        </div>
-
-        <div class="visible-when-safari">
-          <a id="safari-extension-button" class="button-success" href="https://static.factlink.com/extension/firefox/factlink.safariextz">Install Factlink for Safari</a>
-        </div>
+        <div class="js-install-extension-lower-button"></div>
 
         <div class="visible-when-unsupported-browser">
           <div class="in-your-browser-dashed-border">
-            <a id="bookmarklet-button" class="in-your-browser-bookmarklet button-success" onclick="return false"><span style="display: none">Factlink</span></a>
+            <a class="js-bookmarklet-button in-your-browser-bookmarklet button-success" onclick="return false"><span style="display: none">Factlink</span></a>
           </div>
 
           <p>To install Factlink, drag this button to your bookmarks bar</p>
         </div>
 
       </div>
-      <div class="in-your-browser-horizontal-box in-your-browser-below-content-box">
+      <div class="in-your-browser-below-content-box">
         <h1 class="in-your-browser-heading">Have your own site?</h1>
         <p>Use Factlink for better discussions and user engagement, whether you subscribe to our ideology or not!</p>
         <%= link_to "Learn more", on_your_site_path, class: "button-confirm" %>
@@ -80,8 +69,15 @@
 
 <% content_for :specific_javascript do %>
   <script>
-    $(function() {
-      $('#bookmarklet-button').attr('href', Factlink.Global.bookmarklet_link);
-    });
+    React.renderComponent(ReactInstallExtensionButton({extraButtonClasses: 'button-huge'}), $('.js-install-extension-upper-button')[0]);
+
+    React.renderComponent(ReactInstallExtensionButton(), $('.js-install-extension-lower-button')[0]);
+
+    $('.js-bookmarklet-button').attr('href', Factlink.Global.bookmarklet_link);
+
+    var feedActivities = new GlobalFeedActivities([], {count: 4});
+    feedActivities.fetch();
+
+    React.renderComponent(ReactFeedActivitiesFixed({model: feedActivities}), $('.js-in-your-browser-feed')[0]);
   </script>
 <% end %>

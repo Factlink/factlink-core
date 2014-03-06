@@ -1,10 +1,6 @@
 .in-your-browser-header {
-  padding: 40px 0; // keep in sync with publisher landing page
+  margin: 40px 0; // keep in sync with publisher landing page
   text-align: center;
-}
-
-.in-your-browser-header-button {
-  margin-top: 30px;
 }
 
 .in-your-browser-horizontal {
@@ -13,13 +9,20 @@
 
 .in-your-browser-horizontal-box {
   display: inline-block;
-  width: 355px;
-  margin: 0 40px;
+  width: 45%;
   vertical-align: top;
 
-  @include respond-to(400) {
+  &:first-child {
+    margin-right: 9%;
+  }
+
+  @include respond-to(420) {
     width: 80%;
     margin: 0;
+
+    &:first-child {
+      margin: 0;
+    }
   }
 }
 
@@ -64,8 +67,23 @@ i.in-your-browser-icon-social {
   @extend %white-block-with-shadow;
   padding: 20px;
   margin: 20px;
+  width: 330px;
+  display: inline-block;
+  vertical-align: top;
 
   @include respond-to(400) {
     margin: 10px;
   }
+}
+
+.in-your-browser-feed {
+  display: inline-block;
+  text-align: left;
+  margin: 0 30px;
+  max-width: $siteWidth;
+  min-height: 400px;
+}
+
+.in-your-browser-feed-more-button {
+  margin-top: 5px;
 }

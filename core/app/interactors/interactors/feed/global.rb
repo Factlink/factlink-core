@@ -3,14 +3,15 @@ module Interactors
     class Global
       include Pavlov::Interactor
 
-      arguments :timestamp
+      arguments :timestamp, :count
 
       def authorized?
         true
       end
 
       def execute
-        Backend::Activities.activities_older_than(activities_set: activities, timestamp: timestamp)
+        Backend::Activities.activities_older_than(activities_set: activities,
+          timestamp: timestamp, count: count)
       end
 
       def activities

@@ -14,3 +14,11 @@
   height:1px;
   background: rgba(white, 0.7);
 }
+
+.feed-selection-install-extension-button {
+  float: right;
+
+  @include respond-to(400) {
+    display: none;
+  }
+}

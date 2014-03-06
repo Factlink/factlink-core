@@ -19,8 +19,8 @@ describe "Facebook", type: :feature do
     end
 
     it "contains the iframe in the client" do
-      factlink = backend_create_fact
-      go_to_fact_show_of factlink
+      factlink = create :fact
+      open_discussion_sidebar_for factlink
 
       expect(page).to have_selector ".facebook_renewal_iframe"
     end
