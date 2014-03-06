@@ -7,7 +7,7 @@ class AddFactlinkToPage
       location = env[:web_proxy_proxied_location]
 
       jsonified_location = location.gsub(/</, '%3C').gsub(/>/, '%3E').to_json
-      jslib_uri = "http://localhost:8000/lib/dist/factlink_loader.js?o=proxy"
+      jslib_uri = env.config[:jslib_uri]
 
       factlink_proxied_url_js_var = "
         <script>window.FactlinkProxiedUri = #{jsonified_location};</script>

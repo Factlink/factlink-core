@@ -2,15 +2,14 @@ require 'addressable/uri'
 
 class UrlValidator
   def initialize(url)
+    @url = nil
+
     begin
       uri = Addressable::URI.parse(url)
       if uri && ['http', 'https'].include?(uri.scheme)
         @url = uri
-      else
-        @url = nil
       end
     rescue Addressable::URI::InvalidURIError
-      @url = nil
     end
   end
 

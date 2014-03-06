@@ -16,7 +16,7 @@ class WebProxy < Goliath::API
 
     page = EM::HttpRequest.new(requested_url).get
 
-    fail 'oh noes'
+    puts env.inspect
 
     case page.response_header.status
     when 200
@@ -24,7 +24,7 @@ class WebProxy < Goliath::API
       env[:web_proxy_proxied_location] = requested_url
       [200, {}, set_base(requested_url, page.response)]
     when 301, 302
-      location = proxied_location(page.response_header["Location"])
+      location = proxied_location(env, page.response_header["Location"])
       [
         page.response_header.status,
         {'Location' => location},
@@ -42,8 +42,8 @@ class WebProxy < Goliath::API
     html_editor.to_s
   end
 
-  def proxied_location(location)
-    "http://localhost:4567/?url=" + CGI.escape(location)
+  def proxied_location(env, location)
+    env.config[:host] + "/?url=" + CGI.escape(requested_url)
   end
 
   def invalid_request
