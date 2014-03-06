@@ -9,52 +9,40 @@
   <meta name="author" content="Factlink">
 
   <style type="text/css">
-    body {background: #F4F4F4;font-family: "lucida grande", tahoma, verdana, arial, sans-serif;padding: 0;margin: 0;color: #303030;text-shadow: 0px 1px 1px #fff;}
-    #topbar {background: #fff;padding: 0;margin: 0;height: 50px;vertical-align: middle;line-height: 48px;-moz-box-shadow:   0 0px 3px rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.1);webkit-box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.1);box-shadow:        0 0px 3px rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.1);}
-    #topbar img {vertical-align: middle;}
-    .wrapper {width: 940px;margin-left: auto;margin-right: auto;}
-    h1, h2 {padding: 0;margin: 0;}
-    h1 { font-size: 2.6em; font-weight: bolder; }
-    h2 { font-size: 1.6em; font-weight: normal; }
+    body {background: #F4F4F4;font-family: "lucida grande", tahoma, verdana, arial, sans-serif;padding: 0;margin: 0;color: #303030;text-shadow: 0px 1px 1px #fff;line-height: 1.6; font-size:19px;}
+    #topbar {
+        background: #fff;
+        box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    }
+    .logo { width:133px; height:20px; padding:15px; vertical-align: top;}
+    .wrapper {max-width: 940px;margin: auto;}
     a,a:visited,a:active,a:hover {color: #3D75A3;text-decoration: none;}
     a:hover {color: #405f71;text-decoration: underline;}
-    #main .wrapper h1 { padding: 48px 0 0; }
-    #main .wrapper .column-wrapper { padding: 24px 0 0; }
-    #main ol { padding: 0 0 0 64px; }
-    #main ol li { padding: 0 0 16px; color: #555; }
-    #main .column-wrapper { width: 940px; }
-    #main .column-wrapper .left-column { width: 650px; float: left; font-size: 1.2em; }
-    #main .column-wrapper .left-column p { padding: 24px 0 0; line-height: 1.5em; }
-    #main .column-wrapper .left-column input { width: 400px; border: solid 1px #ccc; border-radius: 5px; padding: 8px 16px; font-size: 0.9em;}
-    #main .column-wrapper .right-column { width: 240px; float: left; margin: 0 0 0 50px; }
+    ol { margin-left:1em; }
+    li { color: #555; }
+    h2 {font-weight:normal; }
+    p { padding: 24px 0 0; }
+    .doc-icon { width: 240px; height:300px; float: right; margin-left: 50px; }
   </style>
 </head>
 <body>
-<div id="topbar">
-  <div class="wrapper">
-    <a href="/"><img src="/images/factlink-logo-beta.png" alt="Factlink logo"></a>
-  </div> <!-- wrapper -->
-</div> <!-- topbar -->
-<div id="main">
+  <div id="topbar">
+    <div class="wrapper">
+      <a href="/"><img src="/images/factlink-logo-beta.png" alt="Factlink logo" class="logo"></a>
+    </div> <!-- wrapper -->
+  </div> <!-- topbar -->
   <div class="wrapper">
     <h1>Oh my, a 500...</h1>
     <h2>That means our servers have trouble processing your request. Sorry about that...</h2>
-    <div class="column-wrapper">
-      <div class="left-column">
-        <span>Here is what might have happened:</span>
-        <ol>
-          <li>Factlink is currently over capacity</li>
-          <li>Something really bad happened</li>
-          <li>Some bugs have crawled between the gears</li>
-        </ol>
-        <p>Don't worry, our team has been informed about this problem.</p>
+    <img src="/images/500.png" alt="Document" class="doc-icon">
+    <p>Here is what might have happened:</p>
+    <ol>
+      <li>Factlink is currently over capacity</li>
+      <li>Something really bad happened</li>
+      <li>Some bugs have crawled between the gears</li>
+    </ol>
+    <p>Don't worry, our team has been informed about this problem.</p>
 		<p>Until it is resolved, you can go back to the  <a href="/">the homepage</a> to continue your quest.</p>
-      </div> <!-- left column -->
-      <div class="right-column">
-        <img src="/images/500.png" alt="Document">
-      </div> <!-- right-column -->
-    </div> <!-- column-wrapper -->
   </div> <!-- wrapper -->
-</div> <!-- main -->
 </body>
 </html>
