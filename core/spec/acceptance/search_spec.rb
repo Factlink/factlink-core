@@ -16,17 +16,13 @@ describe "searching", type: :feature do
     page.should have_content("Sorry, your search didn't return any results.")
   end
 
-  it "should find a just created factlink" do
+  it "finds an annotation" do
     fact = backend_create_fact
 
-    eventually_succeeds do
-      fail StandardError, "Fact not created" unless Fact.all.to_a.last
-    end
-
-    # and search for it:
     visit root_path
     fill_in "factlink_search", with: fact.to_s
     page.execute_script("$('#factlink_search').parent().submit()")
+
     page.should have_content(fact.to_s)
   end
 end
