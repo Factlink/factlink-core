@@ -25,6 +25,8 @@ module ScreenshotTest
 
     def exact_changed?
       pixels_changed = 0
+      return false if @old_image == @new_image
+
       width = [@old_image.width, @new_image.width].min
       height = [@old_image.height, @new_image.height].min
 
