@@ -67,13 +67,11 @@ window.FactlinkAppMode.coreInClient = (app) ->
       e.stopPropagation()
       app.vent.trigger 'close_discussion_sidebar'
 
-  clientEnvoy = new ClientEnvoy(senderEnvoy)
-
   if window.parent && window != window.parent
     senderEnvoy = Factlink.createSenderEnvoy(window.parent)
-    Factlink.createReceiverEnvoy clientEnvoy
+    Factlink.createReceiverEnvoy new ClientEnvoy(senderEnvoy)
   else
     senderEnvoy = (args...) -> console.info 'senderEnvoy:', args...
-    initDevelopmentConsole(clientEnvoy)
+    initDevelopmentConsole new ClientEnvoy(senderEnvoy)
 
   senderEnvoy 'modalFrameReady'
