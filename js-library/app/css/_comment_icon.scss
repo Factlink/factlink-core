@@ -1,0 +1,28 @@
+%comment-icon {
+  @extend %default-font;
+  font-weight: bold;
+  -webkit-font-smoothing: auto;
+
+  position: relative;
+  display: inline-block;
+  min-width: 1.4em;
+  height: 1.1em;
+  border-radius: 0.25em;
+  padding: 0 0.2em;
+  font-size: 80%;
+  line-height: 1;
+  vertical-align: text-top;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+%comment-icon-triangle {
+  position: absolute;
+  display: block;
+
+  top: 1em;
+  left: 20%;
+  border-style: solid;
+  border-width: 0.43em 0.55em 0 0;
+  border-color: transparent;
+}
