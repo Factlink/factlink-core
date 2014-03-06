@@ -14,8 +14,13 @@ window.ReactComment = React.createBackboneClass
     @setState show_subcomments: !@state.show_subcomments
 
   _content: ->
-    _div ["comment-content spec-comment-content",
-      dangerouslySetInnerHTML: {__html: @model().get('formatted_content')}]
+
+    if @model().get('formatted_content')
+      _div ["comment-content spec-comment-content",
+        dangerouslySetInnerHTML: {__html: @model().get('formatted_content')}]
+    else
+      _div ["comment-content spec-comment-content"],
+        @model().get('content')
 
   _bottom: ->
     sub_comment_count = @model().get('sub_comments_count')
