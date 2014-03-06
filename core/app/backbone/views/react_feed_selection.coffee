@@ -26,6 +26,9 @@ window.ReactFeedSelection = React.createClass
           _label [ htmlFor: 'FeedChoice_Personal' ],
             'Personal'
 
+          _div ['feed-selection-install-extension-button'],
+            ReactInstallExtensionButton()
+
       ReactFeedActivitiesAutoLoading
         model: @state.feeds[@state.feedChoice]
         key: @state.feedChoice
