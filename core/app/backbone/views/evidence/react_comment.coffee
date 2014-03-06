@@ -57,7 +57,7 @@ window.ReactComment = React.createBackboneClass
         if @model().get('save_failed') == true
           _a ['button-danger', onClick: @_save, style: {float: 'right'} ],
             'Save failed - Retry'
-        else
+        else unless @model().isNew()
           @_bottom()
 
 ReactCommentHeading = React.createBackboneClass
