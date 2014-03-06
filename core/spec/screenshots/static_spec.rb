@@ -2,9 +2,12 @@ require 'acceptance_helper'
 
 describe "Static pages:", type: :feature, driver: :poltergeist_slow do
   include ScreenshotTest
+  include Acceptance::FeedHelper
 
   describe "Homepage" do
     it do
+      create_default_activities_for create(:user)
+
       visit "/"
       assume_unchanged_screenshot "static_homepage"
     end

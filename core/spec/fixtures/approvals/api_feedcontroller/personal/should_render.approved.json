@@ -1,13 +1,6 @@
 [
   {
     "timestamp": "<timestamp>",
-    "user": {
-      "id": "<id>",
-      "name": "John2 Doe2",
-      "username": "johndoe2",
-      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
-      "deleted": false
-    },
     "action": "followed_user",
     "created_at": "<created_at>",
     "time_ago": "1 minute",
@@ -18,17 +11,17 @@
       "username": "johndoe4",
       "gravatar_hash": "4a44954117cfc0852a0cbd709a634789",
       "deleted": false
-    }
-  },
-  {
-    "timestamp": "<timestamp>",
+    },
     "user": {
       "id": "<id>",
       "name": "John2 Doe2",
       "username": "johndoe2",
       "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
       "deleted": false
-    },
+    }
+  },
+  {
+    "timestamp": "<timestamp>",
     "action": "followed_user",
     "created_at": "<created_at>",
     "time_ago": "1 minute",
@@ -39,17 +32,17 @@
       "username": "johndoe3",
       "gravatar_hash": "0c0b78bf3bb3107091bdb93c94ba73a3",
       "deleted": false
-    }
-  },
-  {
-    "timestamp": "<timestamp>",
+    },
     "user": {
       "id": "<id>",
       "name": "John2 Doe2",
       "username": "johndoe2",
       "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
       "deleted": false
-    },
+    }
+  },
+  {
+    "timestamp": "<timestamp>",
     "action": "created_sub_comment",
     "created_at": "<created_at>",
     "time_ago": "1 minute",
@@ -93,17 +86,17 @@
       },
       "created_at": "<created_at>",
       "formatted_content": "hoi"
-    }
-  },
-  {
-    "timestamp": "<timestamp>",
+    },
     "user": {
       "id": "<id>",
       "name": "John2 Doe2",
       "username": "johndoe2",
       "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
       "deleted": false
-    },
+    }
+  },
+  {
+    "timestamp": "<timestamp>",
     "action": "created_comment",
     "created_at": "<created_at>",
     "time_ago": "1 minute",
@@ -135,6 +128,13 @@
         "disbelieves": 0,
         "current_user_opinion": "no_vote"
       }
+    },
+    "user": {
+      "id": "<id>",
+      "name": "John2 Doe2",
+      "username": "johndoe2",
+      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
+      "deleted": false
     }
   }
 ]
