@@ -27,9 +27,8 @@ class ClientEnvoy
         model: fact
         initiallyFocusAddComment: true
 
-
-initDevelopmentConsole = (clientEnvoy) ->
-  return unless Factlink.Global.environment in ['development', 'test']
+printDevelopmentHelp = ->
+  return unless Factlink.Global.environment == 'development'
 
   console.group 'Factlink'
   console.log 'Greetings, stranger. Put any of the following commands in your console:'
@@ -41,6 +40,10 @@ initDevelopmentConsole = (clientEnvoy) ->
   console.log 'Now, how about a nice game of chess?'
   console.groupEnd()
 
+initDevelopmentConsole = (clientEnvoy) ->
+  return unless Factlink.Global.environment in ['development', 'test']
+
+  printDevelopmentHelp()
   window.clientEnvoy = clientEnvoy
 
   command = window.location.hash.substring(1)
