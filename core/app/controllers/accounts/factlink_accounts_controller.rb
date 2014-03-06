@@ -12,7 +12,7 @@ class Accounts::FactlinkAccountsController < Accounts::BaseController
     if @user_new_session.errors.empty?
       remembered_sign_in(@user_new_session)
 
-      render_trigger_event 'signed_in', ''
+      render_success_event
     else
       @user_new_account = User.new
       render :'accounts/factlink_accounts/new'
@@ -25,7 +25,7 @@ class Accounts::FactlinkAccountsController < Accounts::BaseController
     if @user_new_account.save
       remembered_sign_in(@user_new_account)
 
-      render_trigger_event 'signed_in', ''
+      render_success_event
     else
       @user_new_session = User.new
       render :'accounts/factlink_accounts/new'

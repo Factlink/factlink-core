@@ -18,7 +18,7 @@ class Accounts::SocialConnectionsController < Accounts::BaseController
     end
 
     current_user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
-    render_trigger_event 'authorized', provider_name
+    render_success_event
   end
 
   def deauthorize
