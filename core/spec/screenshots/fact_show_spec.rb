@@ -42,7 +42,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
 
     @factlink.add_opiniated :believes, (create :user).graph_user
 
-    go_to_discussion_page_of @factlink
+    open_discussion_sidebar_for @factlink
 
     page.should have_content @factlink.data.displaystring
 
@@ -55,7 +55,7 @@ describe "factlink", type: :feature, driver: :poltergeist_slow do
   it "the layout of the new discussion page is correct for an anonymous user" do
     sign_out_user
 
-    go_to_discussion_page_of @factlink
+    open_discussion_sidebar_for @factlink
     find_link('(2) Reply').click
 
     page.should have_content @factlink.data.displaystring

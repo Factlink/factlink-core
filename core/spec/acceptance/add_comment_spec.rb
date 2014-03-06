@@ -14,32 +14,32 @@ feature "adding comments to a fact", type: :feature do
 
   scenario "after adding a comment it should show up and persist" do
 
-    go_to_discussion_page_of factlink
+    open_discussion_sidebar_for factlink
 
     comment = "The tomcat hopped on the bus after Berlioz' death"
     add_comment comment
 
     assert_comment_exists comment
 
-    go_to_discussion_page_of factlink # Reload the page
+    open_discussion_sidebar_for factlink # Reload the page
 
     assert_comment_exists comment
   end
 
   scenario 'after adding a comment it has one upvote' do
-    go_to_discussion_page_of factlink
+    open_discussion_sidebar_for factlink
 
     comment = 'Buffels zijn niet klein te krijgen joh'
     add_comment comment
     assert_comment_exists comment
 
-    go_to_discussion_page_of factlink
+    open_discussion_sidebar_for factlink
 
     find('.spec-comment-vote-amount').should have_content 1
   end
 
   scenario 'after adding a comment, the user should be able to reset his opinion' do
-    go_to_discussion_page_of factlink
+    open_discussion_sidebar_for factlink
 
     comment = 'Buffels zijn niet klein te krijgen joh'
     add_comment comment
@@ -50,13 +50,13 @@ feature "adding comments to a fact", type: :feature do
     find('.spec-comment-vote-up').click
     find('.spec-comment-vote-amount', text: "0")
 
-    go_to_discussion_page_of factlink
+    open_discussion_sidebar_for factlink
 
     find('.spec-comment-vote-amount', text: "0")
   end
 
   scenario "after adding multiple comments they should show up and persist" do
-    go_to_discussion_page_of factlink
+    open_discussion_sidebar_for factlink
 
     comment1 = 'Vroeger was Gerard een hengst'
     comment2 = 'Henk is nog steeds een buffel'
@@ -67,14 +67,14 @@ feature "adding comments to a fact", type: :feature do
     assert_comment_exists comment1
     assert_comment_exists comment2
 
-    go_to_discussion_page_of factlink # Reload the page
+    open_discussion_sidebar_for factlink # Reload the page
 
     assert_comment_exists comment1
     assert_comment_exists comment2
   end
 
   scenario 'comments and comments with links to annotations should be sorted on relevance' do
-    go_to_discussion_page_of factlink
+    open_discussion_sidebar_for factlink
 
     comment1 = 'Buffels zijn niet klein te krijgen joh'
     factlink2 = backend_create_fact
@@ -87,7 +87,7 @@ feature "adding comments to a fact", type: :feature do
     vote_comment :down, comment1
     vote_comment :up  , comment3
 
-    go_to_discussion_page_of factlink
+    open_discussion_sidebar_for factlink
 
     #find text with comment - we need to do this before asserting on ordering
     #since expect..to..match is not async, and at this point the comment ajax
@@ -101,7 +101,7 @@ feature "adding comments to a fact", type: :feature do
   end
 
   scenario "after adding it can be removed" do
-    go_to_discussion_page_of factlink
+    open_discussion_sidebar_for factlink
 
     comment = 'Vroeger had Gerard een hele stoere fiets'
 
@@ -113,7 +113,7 @@ feature "adding comments to a fact", type: :feature do
 
     page.should_not have_content comment
 
-    go_to_discussion_page_of factlink
+    open_discussion_sidebar_for factlink
 
     page.should_not have_content comment
   end

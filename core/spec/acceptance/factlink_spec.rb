@@ -13,7 +13,7 @@ describe "factlink", type: :feature do
 
     it "can be agreed" do
       @factlink = backend_create_fact
-      go_to_discussion_page_of @factlink
+      open_discussion_sidebar_for @factlink
       click_agree @factlink, @user
     end
 
@@ -26,7 +26,7 @@ describe "factlink", type: :feature do
       @factlink_evidence.data.displaystring = "Fact: " + displaystring
       @factlink_evidence.data.save
 
-      go_to_discussion_page_of @factlink
+      open_discussion_sidebar_for @factlink
       add_existing_factlink @factlink_evidence
     end
   end
@@ -34,7 +34,7 @@ describe "factlink", type: :feature do
   it "a non logged user can log in now" do
     factlink = backend_create_fact
 
-    go_to_discussion_page_of factlink
+    open_discussion_sidebar_for factlink
 
     fill_in_comment_textarea 'Some text to show Post button'
     click_button 'Post'

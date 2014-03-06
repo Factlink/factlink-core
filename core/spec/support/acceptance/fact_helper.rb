@@ -2,7 +2,7 @@ module Acceptance
   module FactHelper
     include ::FactHelper
 
-    def go_to_discussion_page_of factlink
+    def open_discussion_sidebar_for factlink
       visit '/client/blank'
       find('.spec-discussion-sidebar-container')
       page.execute_script "clientEnvoy.showFactlink(#{factlink.id})"
