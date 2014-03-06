@@ -28,7 +28,7 @@ class ClientEnvoy
         initiallyFocusAddComment: true
 
 
-initDevelopmentConsole = ->
+initDevelopmentConsole = (clientEnvoy) ->
   return unless Factlink.Global.environment == 'development'
 
   console.group 'Factlink'
@@ -41,7 +41,7 @@ initDevelopmentConsole = ->
   console.log 'Now, how about a nice game of chess?'
   console.groupEnd()
 
-  window.clientEnvoy = new ClientEnvoy(->)
+  window.clientEnvoy = clientEnvoy
 
   command = window.location.hash.substring(1)
   if command.match /^clientEnvoy/
@@ -67,11 +67,13 @@ window.FactlinkAppMode.coreInClient = (app) ->
       e.stopPropagation()
       app.vent.trigger 'close_discussion_sidebar'
 
+  clientEnvoy = new ClientEnvoy(senderEnvoy)
+
   if window.parent && window != window.parent
     senderEnvoy = Factlink.createSenderEnvoy(window.parent)
-    Factlink.createReceiverEnvoy new ClientEnvoy(senderEnvoy)
+    Factlink.createReceiverEnvoy clientEnvoy
   else
-    initDevelopmentConsole()
-    senderEnvoy = ->
+    senderEnvoy = (args...) -> console.info 'senderEnvoy:', args...
+    initDevelopmentConsole(clientEnvoy)
 
   senderEnvoy 'modalFrameReady'
