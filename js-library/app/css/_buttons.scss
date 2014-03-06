@@ -1,29 +1,22 @@
 $borderRadius: 3px;
 $arrowSize: 6px;
-$buttonHeight: 30px;
 $buttonBackground: #444;
 $buttonHoverBackground: #222;
-$buttonPadding: 6px;
-$iconWidth: 20px;
-$buttonSmallWidth: $iconWidth + $buttonPadding * 2;
+$buttonWidth: 32px;
 
 .fl-button {
   @extend %default-font;
   cursor: pointer;
   display: block;
-  white-space: nowrap;
   text-align: center;
   position: relative;
-  min-width: $buttonSmallWidth;
-  padding: 0 $buttonPadding;
+  width: $buttonWidth;
   white-space: nowrap;
-
+  font-size: 16px;
   border-radius: $borderRadius;
-  line-height: $buttonHeight;
-
+  line-height: 28px;
+  padding-top: 2px;
   background-color: $buttonBackground;
-  color: white;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
 
   margin-bottom: $arrowSize;
 
@@ -31,7 +24,7 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
     content: '';
     position: absolute;
     bottom: -$arrowSize;
-    left: $buttonSmallWidth / 2;
+    left: $buttonWidth / 2;
     margin-left: -$arrowSize;
 
     border: $arrowSize solid transparent;
@@ -45,5 +38,20 @@ $buttonSmallWidth: $iconWidth + $buttonPadding * 2;
 
   &:after {
     border-top-color: $buttonHoverBackground;
+  }
+}
+
+.fl-button-icon {
+  @extend %comment-icon;
+  background: white;
+
+  &:before {
+    content: '+';
+  }
+
+  &:after {
+    @extend %comment-icon-triangle;
+    content: '';
+    border-top-color: white;
   }
 }

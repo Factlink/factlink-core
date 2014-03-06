@@ -1,6 +1,6 @@
 class FactlinkJailRoot.CreateButton
   content: """
-    <div class="fl-button"><span class="icon-comment"></span></div>
+    <div class="fl-button"><span class="fl-button-icon"></span></div>
   """
 
   constructor: ->
