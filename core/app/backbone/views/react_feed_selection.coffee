@@ -24,6 +24,6 @@ window.ReactFeedSelection = React.createClass
         _label [ htmlFor: 'FeedChoice_Personal' ],
           'Personal'
 
-      ReactFeedActivities
+      ReactFeedActivitiesAutoLoading
         model: @state.feeds[@state.feedChoice]
         key: @state.feedChoice
