@@ -13,11 +13,14 @@
   }
 }
 
+@mixin button-height ($button-height) {
+  height: $button-height;
+  line-height: $button-height - 3px;
+}
+
 %button-base {
   position: relative;
   display: inline-block;
-  height: $largeButtonHeight;
-  line-height: $largeButtonHeight - 3px;
   vertical-align: middle;
   font-family: inherit;
   font-size: 13px;
@@ -28,7 +31,7 @@
   border: 1px solid;
   border-bottom: 2px solid;
   cursor: pointer;
-  transition: 0.5s ease;
+  transition: 0.3s ease;
   white-space: nowrap;
 
   &:hover {
@@ -55,6 +58,7 @@
 .button {
   @extend %button-base;
   @include button-color($buttonBackground);
+  @include button-height ($largeButtonHeight);
   color: $linkColor;
 
   &:hover {
@@ -69,26 +73,31 @@
 .button-confirm {
   @extend %button-base;
   @include button-color($buttonConfirmBackground);
+  @include button-height ($largeButtonHeight);
 }
 
 .button-success {
   @extend %button-base;
   @include button-color($green);
+  @include button-height ($largeButtonHeight);
 }
 
 .button-danger {
   @extend %button-base;
   @include button-color($buttonDangerBackground);
+  @include button-height ($largeButtonHeight);
 }
 
 .button-twitter {
   @extend %button-base;
   @include button-color(#52a1dc);
+  @include button-height ($largeButtonHeight);
 }
 
 .button-facebook {
   @extend %button-base;
   @include button-color(#335292);
+  @include button-height ($largeButtonHeight);
 }
 
 .button-small {

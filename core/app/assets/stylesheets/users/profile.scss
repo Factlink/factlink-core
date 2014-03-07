@@ -26,6 +26,10 @@
     width: 200px;
     float: right;
     clear: right;
+
+    &.button-confirm {
+      color: white;
+    }
   }
 }
 
