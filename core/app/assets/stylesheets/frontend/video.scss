@@ -1,0 +1,7 @@
+.video-browser {
+  text-align: center;
+  & video {
+    width: 50%;
+    border: 1px lightgrey solid;
+  }
+}
