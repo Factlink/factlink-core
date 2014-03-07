@@ -8,7 +8,7 @@ html, body {
 
 body {
   margin: 0;
-  background-color: $semiTransparentLayerColor;
+  background-color: $factlinkBackgroundColor;
 }
 
 .container {
@@ -28,8 +28,4 @@ body {
   min-height: 100%;
   width: 100%;
   display: inline-block;
-}
-
-.pull-right {
-  float: right;
 }

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'comments' do
   include PavlovSupport
 
-  let(:current_user) { create :full_user }
+  let(:current_user) { create :user }
 
   before do
     ElasticSearch.stub synchronous: true

@@ -4,7 +4,7 @@ describe Backend::Comments do
   include PavlovSupport
 
   context 'Comment' do
-    let(:user) { create :full_user }
+    let(:user) { create :user }
     let(:fact) { create :fact }
 
     let(:comment) do

@@ -47,20 +47,7 @@ class ApplicationController < ActionController::Base
 
   after_filter :set_access_control
 
-  def seen_the_tour user
-    view_context.tour_steps.last.to_s == user.seen_tour_step
-  end
-
-  def start_the_tour_path
-    step = current_user.seen_tour_step || view_context.first_real_tour_step
-
-    send(:"#{step}_path")
-  end
-
   def after_sign_in_path_for(user)
-    return setup_account_path unless user.set_up
-    return start_the_tour_path unless seen_the_tour(user)
-
     safe_return_to_path || feed_path
   end
 

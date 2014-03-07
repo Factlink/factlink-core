@@ -8,6 +8,8 @@ module Queries
       private
 
       def execute
+        fail "No fact found for id #{id}" unless fact
+
         DeadFact.new id:fact.id,
                      site_url: site_url,
                      displaystring: fact.data.displaystring,

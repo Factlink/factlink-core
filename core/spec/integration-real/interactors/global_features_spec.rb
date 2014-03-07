@@ -8,7 +8,6 @@ describe 'global_features' do
       admin?: true,
       features: [],
       social_account: double(persisted?: false),
-      set_up: true,
     )
   end
 

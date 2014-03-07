@@ -5,7 +5,7 @@ describe FactsController do
 
   render_views
 
-  let(:user) { create(:full_user) }
+  let(:user) { create(:user) }
 
   describe :show do
     it "should render json successful" do

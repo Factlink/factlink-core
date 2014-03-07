@@ -39,7 +39,6 @@ body.controller_home.action_index {
 .header-heading {
   font-weight: 400;
   font-size: 30px;
-  line-height: 36px;
   font-family: $sansFontFamily;
   color: white;
   text-shadow: none;
@@ -47,9 +46,9 @@ body.controller_home.action_index {
 
 .header-tagline {
   margin-top: 25px;
+  margin-bottom: 30px;
   color: #c9dcfb;
   font-weight: 100;
   font-size: 18px;
-  line-height: 28px;
   text-shadow: 0 1px 0 #000;
 }

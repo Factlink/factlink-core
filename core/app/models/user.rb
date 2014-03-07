@@ -29,12 +29,9 @@ class User
   index(graph_user_id: 1)
 
   field :deleted,     type: Boolean, default: false
-  field :set_up,      type: Boolean, default: false
-  field :suspended,   type: Boolean, default: false # For now this is just for users we don't want to invite yet.
 
   field :admin,       type: Boolean, default: false
 
-  field :seen_tour_step, type: String,  default: nil
   field :receives_mailed_notifications,  type: Boolean, default: true
   field :receives_digest, type: Boolean, default: true
   field :last_interaction_at,     type: DateTime, default: 0
@@ -44,7 +41,7 @@ class User
                   :receives_digest
   attr_accessible :username, :full_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
-                  :receives_digest, :email, :admin, :registration_code, :suspended,
+                  :receives_digest, :email, :admin, :registration_code,
         as: :admin
 
   USERNAME_BLACKLIST = [
@@ -112,10 +109,7 @@ class User
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
   has_many :social_accounts
 
-  scope :active,   where(:set_up => true)
-                  .where(:deleted.ne => true)
-  scope :seen_the_tour,   active
-                            .where(:seen_tour_step => 'tour_done')
+  scope :active, where(:deleted.ne => true)
 
   class << self
     # List of fields that are stored in Mixpanel.
@@ -133,7 +127,6 @@ class User
         "location"        => "location",
         "biography"       => "biography",
         "deleted"         => "deleted",
-        "suspended"       => "suspended",
         "confirmed_at"    => "confirmed_at"
       }
     end
@@ -166,7 +159,7 @@ class User
   end
 
   def active?
-    set_up && !deleted
+    !deleted
   end
 
   def graph_user

@@ -8,8 +8,7 @@ describe Interactors::Search do
   let(:relaxed_ability) { double(:ability, can?: true) }
 
   before do
-    stub_classes 'Fact', 'Queries::ElasticSearchAll', 'FactData',
-                 'User', 'Ability::FactlinkWebapp'
+    stub_classes 'Fact', 'Queries::ElasticSearchAll', 'FactData', 'User'
   end
 
   it 'raises when initialized with keywords that is not a string' do

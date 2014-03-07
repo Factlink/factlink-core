@@ -1,55 +1,6 @@
 [
   {
     "timestamp": "<timestamp>",
-    "user": {
-      "id": "<id>",
-      "name": "John2 Doe2",
-      "username": "johndoe2",
-      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
-      "deleted": false
-    },
-    "action": "followed_user",
-    "created_at": "<created_at>",
-    "time_ago": "1 minute",
-    "id": "<id>",
-    "followed_user": {
-      "id": "<id>",
-      "name": "John4 Doe4",
-      "username": "johndoe4",
-      "gravatar_hash": "4a44954117cfc0852a0cbd709a634789",
-      "deleted": false
-    }
-  },
-  {
-    "timestamp": "<timestamp>",
-    "user": {
-      "id": "<id>",
-      "name": "John2 Doe2",
-      "username": "johndoe2",
-      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
-      "deleted": false
-    },
-    "action": "followed_user",
-    "created_at": "<created_at>",
-    "time_ago": "1 minute",
-    "id": "<id>",
-    "followed_user": {
-      "id": "<id>",
-      "name": "John3 Doe3",
-      "username": "johndoe3",
-      "gravatar_hash": "0c0b78bf3bb3107091bdb93c94ba73a3",
-      "deleted": false
-    }
-  },
-  {
-    "timestamp": "<timestamp>",
-    "user": {
-      "id": "<id>",
-      "name": "John2 Doe2",
-      "username": "johndoe2",
-      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
-      "deleted": false
-    },
     "action": "created_sub_comment",
     "created_at": "<created_at>",
     "time_ago": "1 minute",
@@ -74,7 +25,7 @@
       },
       "created_at": "<created_at>",
       "formatted_content": "hoi",
-      "sub_comments_count": 1,
+      "sub_comments_count": 2,
       "is_deletable": false,
       "tally": {
         "believes": 1,
@@ -86,55 +37,83 @@
       "id": "<id>",
       "created_by": {
         "id": "<id>",
-        "name": "John2 Doe2",
-        "username": "johndoe2",
-        "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
+        "name": "John1 Doe1",
+        "username": "johndoe1",
+        "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
         "deleted": false
       },
       "created_at": "<created_at>",
-      "formatted_content": "hoi"
+      "formatted_content": "moi"
+    },
+    "user": {
+      "id": "<id>",
+      "name": "John1 Doe1",
+      "username": "johndoe1",
+      "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+      "deleted": false
     }
   },
   {
     "timestamp": "<timestamp>",
-    "user": {
-      "id": "<id>",
-      "name": "John2 Doe2",
-      "username": "johndoe2",
-      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
-      "deleted": false
-    },
     "action": "created_comment",
     "created_at": "<created_at>",
     "time_ago": "1 minute",
     "id": "<id>",
     "fact": {
       "id": "<id>",
-      "site_url": "http://example.org/1.html",
-      "displaystring": "Fact 1",
+      "site_url": "http://example.org/2.html",
+      "displaystring": "Fact 2",
       "created_at": "<created_at>",
-      "site_title": "Fact title 1",
-      "url": "/f/1",
-      "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html#factlink-open-1"
+      "site_title": "Fact title 2",
+      "url": "/f/2",
+      "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html#factlink-open-2"
     },
     "comment": {
       "id": "<id>",
       "created_by": {
         "id": "<id>",
-        "name": "John2 Doe2",
-        "username": "johndoe2",
-        "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
+        "name": "John1 Doe1",
+        "username": "johndoe1",
+        "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
         "deleted": false
       },
       "created_at": "<created_at>",
       "formatted_content": "hoi",
-      "sub_comments_count": 0,
-      "is_deletable": true,
+      "sub_comments_count": 2,
+      "is_deletable": false,
       "tally": {
         "believes": 1,
         "disbelieves": 0,
         "current_user_opinion": "no_vote"
       }
+    },
+    "user": {
+      "id": "<id>",
+      "name": "John1 Doe1",
+      "username": "johndoe1",
+      "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+      "deleted": false
+    }
+  },
+  {
+    "timestamp": "<timestamp>",
+    "action": "followed_user",
+    "created_at": "<created_at>",
+    "time_ago": "1 minute",
+    "id": "<id>",
+    "followed_user": {
+      "id": "<id>",
+      "name": "John2 Doe2",
+      "username": "johndoe2",
+      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
+      "deleted": false
+    },
+    "user": {
+      "id": "<id>",
+      "name": "John1 Doe1",
+      "username": "johndoe1",
+      "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+      "deleted": false
     }
   }
 ]

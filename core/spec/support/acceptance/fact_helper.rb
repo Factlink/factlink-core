@@ -2,17 +2,11 @@ module Acceptance
   module FactHelper
     include ::FactHelper
 
-    def go_to_discussion_page_of factlink
-      visit "/client/facts/#{factlink.id}"
+    def open_discussion_sidebar_for factlink
+      visit '/client/blank'
+      find('.spec-discussion-sidebar-container')
+      page.execute_script "clientEnvoy.showFactlink(#{factlink.id})"
       find('.spec-button-believes')
-    end
-
-    def go_to_fact_show_of factlink
-      visit "/client/facts/#{factlink.id}"
-    end
-
-    def backend_create_fact
-      create :fact
     end
 
     def backend_create_fact_with_long_text
