@@ -22,11 +22,11 @@ module Backend
           case activity.action
           when "created_comment"
             h[:fact] = Pavlov.query(:'facts/get_dead', id: activity.object_id.to_s)
-            h[:comment] = Pavlov.query(:'comments/by_ids', ids: [activity.subject_id.to_s]).first
+            h[:comment] = Backend::Comments.by_ids ids: [activity.subject_id.to_s]).first
             h[:user] = h[:comment].created_by
           when "created_sub_comment"
             h[:fact] = Pavlov.query(:'facts/get_dead', id: activity.object_id.to_s)
-            h[:comment] = Pavlov.query(:'comments/by_ids', ids: [activity.subject.parent_id.to_s]).first
+            h[:comment] = Backend::Comments.by_ids ids: [activity.subject.parent_id.to_s]).first
             h[:sub_comment] = Backend::SubComments::dead_for(activity.subject)
             h[:user] = h[:sub_comment].created_by
           when "followed_user"
