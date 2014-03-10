@@ -23,7 +23,7 @@ module ApplicationHelper
     if user_signed_in?
       feed_path
     else
-      '/'
+      root_path
     end
   end
 

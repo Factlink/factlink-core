@@ -6,9 +6,9 @@ describe "Non signed in pages:", type: :feature, driver: :poltergeist_slow do
 
   describe "Profile page page" do
     it "renders correctly" do
-      @user = sign_in_user create :full_user
+      @user = sign_in_user create :user
 
-      factlink = backend_create_fact
+      factlink = create :fact
 
       sign_out_user
       visit user_path(@user)

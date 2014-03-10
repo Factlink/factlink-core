@@ -65,10 +65,10 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 }
 
 .comment-post-creator-name {
+  @extend %ellipsis-inline-block;
+  max-width: 200px;
   line-height: $commentCreatorAvatarSize;
-  display: inline-block;
   vertical-align: middle;
-  @include ellipsis(200px);
 }
 
 .comment-post-bottom {

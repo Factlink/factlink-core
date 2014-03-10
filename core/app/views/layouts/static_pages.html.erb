@@ -1,9 +1,7 @@
 <% content_for :main do %>
   <div class="header">
-    <div class="background">
-      <%= image_tag "base/header/background.jpg", class: "stars" %>
-      <%= image_tag "base/header/earth.png", class: "earth_background" %>
-    </div>
+    <div class="header-stars"></div>
+    <div class="header-earth"></div>
 
     <div class="container">
       <%= render 'flash/simple', notice: notice, alert: alert %>
@@ -17,6 +15,8 @@
       <%= yield :content %>
     </div>
   </div>
+
+  <%= yield :below_content %>
 <% end %>
 
 <%= render template: "layouts/base", locals: {

@@ -1,9 +1,12 @@
 #= require ./user
 
 class window.CurrentUser extends User
+  defaults:
+    features: []
+
   url: -> '/api/beta/current_user'
 
-  initialize: ->
-    super
-
-    @on 'change:features', -> Factlink.setFeatures @get('features')
+  parse: (response) ->
+    # Don't merge but override (this triggers some events, but who cares)
+    @clear silent: true
+    response

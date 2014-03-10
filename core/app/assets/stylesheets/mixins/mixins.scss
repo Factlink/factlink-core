@@ -2,8 +2,12 @@
   @media only screen and (max-width: $breakpoint + px) { @content; }
 }
 
-@mixin ellipsis($max-width){
-  max-width: $max-width;
+@mixin from-width($breakpoint) {
+  @media only screen and (min-width: $breakpoint + px) { @content; }
+}
+
+%ellipsis-inline-block {
+  display: inline-block;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -57,13 +61,22 @@
   border-bottom-left-radius: $radius;
 }
 
-@mixin rotate($degrees){
-  -webkit-transform: rotate($degrees);
-     -moz-transform: rotate($degrees);
-      -ms-transform: rotate($degrees);
-       -o-transform: rotate($degrees);
-          transform: rotate($degrees);
+@mixin transform($args){
+  -webkit-transform: $args;
+     -moz-transform: $args;
+      -ms-transform: $args;
+       -o-transform: $args;
+          transform: $args;
 }
+
+@mixin transform-origin($args){
+  -webkit-transform-origin: $args;
+  -moz-transform-origin: $args;
+  -ms-transform-origin: $args;
+  -o-transform-origin: $args;
+  transform-origin: $args;
+}
+
 
 @mixin background-clip($clip){
   -webkit-background-clip: $clip;
@@ -74,4 +87,11 @@
 @mixin box-sizing($boxmodel){
      -moz-box-sizing: $boxmodel;
           box-sizing: $boxmodel;
+}
+
+%non-selectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

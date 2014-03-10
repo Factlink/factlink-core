@@ -3,14 +3,22 @@ ReactComments = React.createBackboneClass
   displayName: 'ReactComments'
   changeOptions: 'add remove reset sort sync request'
 
+  refetchComments : ->
+    @model().fetchIfUnloadedFor(window.currentUser.get('username'))
+
   componentWillMount: ->
-    @model().fetchIfUnloaded()
+    @refetchComments()
+    window.currentUser.on 'change:username', @refetchComments, @
+
+  componentWillUnmount: ->
+    window.currentUser.off null, null, @
 
   render: ->
     _div [],
-      _div ['loading-indicator-centered'],
-        ReactLoadingIndicator
-          model: @model()
+      if @model.length == 0
+        _div ['loading-indicator-centered'],
+          ReactLoadingIndicator
+            model: @model()
       @model().map (comment) =>
         ReactComment
           model: comment
@@ -20,6 +28,7 @@ ReactComments = React.createBackboneClass
 
 window.ReactDiscussion = React.createBackboneClass
   displayName: 'ReactDiscussion'
+  mixins: [UpdateOnFeaturesChangeMixin] # opinions_of_users_and_comments
 
   render: ->
     _div ['discussion'],
@@ -30,7 +39,7 @@ window.ReactDiscussion = React.createBackboneClass
           else
             _div ["loading-indicator-centered"],
               ReactLoadingIndicator()
-        if Factlink.Global.can_haz.opinions_of_users_and_comments
+        if @canHaz('opinions_of_users_and_comments')
           ReactOpinionateArea
             model: @model().getOpinionators()
       ReactAddComment

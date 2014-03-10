@@ -1,38 +1,31 @@
 <div class="footer">
-  <div class="container">
-    <div class="bottom_links">
-      <ul>
-        <li>
-          <%= link_to "Home", root_path %>
-        </li>
-        <li>
-          <%= link_to "About", pages_path("about") %>
-        </li>
-        <li>
-          <%= link_to "Publishers", publisher_page_path %>
-        </li>
-        <li>
-          <%= link_to "Jobs", pages_path("jobs") %>
-        </li>
-        <li>
-          <%= link_to "Blog", "http://blog.factlink.com" %>
-        </li>
-        <li>
-          <%= link_to "Privacy", pages_path("privacy") %>
-        </li>
-        <li>
-          <%= link_to "Terms of Service", pages_path("terms-of-service") %>
-        </li>
-      </ul>
-
-      <ul class="pull-right footer-right">
-        <li>
-          <a class="mixpanel-logo" href="https://mixpanel.com/f/partner"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics" /></a>
-        </li>
-        <li class="last copy">
-          &copy; 2011-<%= DateTime.now.year %> Factlink. All rights reserved.
-        </li>
-      </ul>
-    </div>
-  </div>
+  <ul class="footer-inner">
+    <li class="footer-item">
+      <%= link_to "In your browser", in_your_browser_path, class: "footer-item-link" %>
+    </li>
+    <li class="footer-item">
+      <%= link_to "On your site", on_your_site_path, class: "footer-item-link" %>
+    </li>
+    <li class="footer-item">
+      <%= link_to "About us", about_path, class: "footer-item-link" %>
+    </li>
+    <li class="footer-item">
+      <%= link_to "Jobs", jobs_path, class: "footer-item-link" %>
+    </li>
+    <li class="footer-item">
+      <%= link_to "Blog", "http://blog.factlink.com", class: "footer-item-link" %>
+    </li>
+    <li class="footer-item">
+      <%= link_to "Privacy", privacy_path, class: "footer-item-link" %>
+    </li>
+    <li class="footer-item">
+      <%= link_to "Terms of Service", terms_of_service_path, class: "footer-item-link" %>
+    </li>
+    <li class="footer-item">
+      <a class="footer-item-link mixpanel-logo" href="https://mixpanel.com/f/partner"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics" /></a>
+    </li>
+    <li class="footer-item footer-copyright">
+      &copy; 2011-<%= DateTime.now.year %> Factlink
+    </li>
+  </ul>
 </div>

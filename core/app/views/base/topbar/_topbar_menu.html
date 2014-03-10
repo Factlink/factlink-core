@@ -3,30 +3,9 @@
     <b class="caret"></b>
   </a>
   <ul class="dropdown-menu">
-    <li class="dropdown-menu-item visible-when-chrome">
-      <%= link_to "#", onclick: "chrome.webstore.install();return false;".html_safe do %>
-        <i class='icon-chrome'></i>
-        Chrome extension
-      <% end %>
-    </li>
-
-    <li class="dropdown-menu-item visible-when-firefox">
-      <a href="https://static.factlink.com/extension/firefox/factlink-latest.xpi">
-        <i class='icon-firefox'></i>
-        Firefox extension
-      </a>
-    </li>
-
-    <li class="dropdown-menu-item visible-when-safari">
-      <a href="https://static.factlink.com/extension/firefox/factlink.safariextz">
-        <i class='icon-apple'></i>
-        Safari extension
-      </a>
-    </li>
-
-    <li class="dropdown-menu-item js-topbar-dropdown-menu-bookmarklet"></li>
+    <li class="dropdown-menu-item"><%= link_to("<i class='icon-globe'></i> In your browser".html_safe, in_your_browser_path) %></li>
+    <li class="dropdown-menu-item"><%= link_to("<i class='icon-bookmark'></i> On your site".html_safe, on_your_site_path) %></li>
     <li class="dropdown-menu-item"><%= link_to("<i class='icon-cog'></i> Settings".html_safe, edit_user_path(current_user)) %></li>
-    <li class="dropdown-menu-item"><%= link_to("<i class='icon-info-sign'></i> About Factlink".html_safe, pages_path('about')) %></li>
     <li class="dropdown-menu-item"><%= link_to("<i class='icon-off'></i> Sign out".html_safe, destroy_user_session_path) %></li>
 
     <% if can? :access, Ability::AdminArea %>

@@ -33,7 +33,12 @@ class FormattedCommentContent
   end
 
   def factlink_link_tag fact_id
-    dead_fact = Pavlov.query :'facts/get_dead', id: fact_id
+    begin
+      dead_fact = Pavlov.query :'facts/get_dead', id: fact_id
+    rescue
+      return content_tag :span, '<deleted annotation>', class: 'formatted-comment-content-factlink'
+    end
+
     fact_url = FactUrl.new(dead_fact)
     proxy_open_url = fact_url.proxy_open_url
 

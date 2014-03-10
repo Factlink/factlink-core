@@ -2,8 +2,7 @@ class UserObserverTask
   def self.handle_changes user
     changed_mixpaneled_fields = user.changed & User.mixpaneled_fields.keys
 
-    return unless changed_mixpaneled_fields.length > 0 ||
-                  user.set_up_changed? && user.set_up?
+    return unless changed_mixpaneled_fields.length > 0
 
     fields = user.attributes
                  .slice( *User.mixpaneled_fields.keys )

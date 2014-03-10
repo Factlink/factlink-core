@@ -13,7 +13,8 @@ FactlinkUI::Application.routes.draw do
 
   scope '/api/beta' do
     get '/current_user' => 'users#current'
-    get '/feed' => "api/feed#index"
+    get '/feed' => "api/feed#global"
+    get '/feed/personal' => "api/feed#personal"
     get '/users/:username/feed' => 'api/users#feed'
   end
 
@@ -63,19 +64,21 @@ FactlinkUI::Application.routes.draw do
   # Search
   get "/search" => "search#search", as: "search"
 
-  scope "/p/tour" do
-    get 'setup-account' => 'users/setup#edit', as: 'setup_account'
-    put 'setup-account' => 'users/setup#update'
-    get "install-extension" => "tour#install_extension", as: "install_extension"
-    get "interests" => "tour#interests", as: "interests"
-    get "tour-done" => "tour#tour_done", as: "tour_done"
-  end
+  get "/in-your-browser" => "home#in_your_browser", as: 'in_your_browser'
+  get "/on-your-site" => "home#on_your_site", as: 'on_your_site'
+  get "/terms-of-service" => "home#terms_of_service", as: 'terms_of_service'
+  get "/privacy" => "home#privacy", as: 'privacy'
+  get "/about" => "home#about", as: 'about'
+  get "/jobs" => "home#jobs", as: 'jobs'
 
-  scope "/p" do
-    get ":name" => "home#pages", as: "pages",  constraints: {name: /([-a-zA-Z_\/]+)/}
-  end
-
-  get "/publisher" => "home#pages", as: "publisher_page", defaults: {name: "publisher"}
+  # Support old urls until Google search index is updated
+  get '/p/about', to: redirect("/about")
+  get '/p/team', to: redirect("/about")
+  get '/p/contact', to: redirect("/about")
+  get '/p/jobs', to: redirect("/jobs")
+  get '/p/privacy', to: redirect("/privacy")
+  get '/publisher', to: redirect("/on-your-site")
+  get '/p/terms-of-service', to: redirect("/terms-of-service")
 
   authenticated :user do
     namespace :admin, path: 'a' do
@@ -130,7 +133,6 @@ FactlinkUI::Application.routes.draw do
   # I made this scope so we don't always have to know the current users username in de frontend
   scope "/u" do
     put "/seen_messages" => "users#seen_messages", as: 'see_messages'
-    get "/tour_users" => "users#tour_users", as: 'tour_users'
     get "/unsubscribe/:token/:type" => 'mail_subscriptions#update', subscribe_action: 'unsubscribe', as: :unsubscribe
     get "/subscribe/:token/:type" => 'mail_subscriptions#update', subscribe_action: 'subscribe', as: :subscribe
   end

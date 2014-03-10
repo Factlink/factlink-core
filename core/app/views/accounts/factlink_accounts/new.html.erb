@@ -42,9 +42,9 @@
       <%= f.password_field :password_confirmation %>
       <%= possible_error_for_field(@user_new_account, :password_confirmation) %>
 
-      <p>By creating an account you accept our <%= link_to 'terms', pages_path('terms-of-service'), target: '_blank' %>.</p>
+      <p>By creating an account you accept our <%= link_to 'terms', terms_of_service_path, target: '_blank' %>.</p>
 
-      <button type="submit" data-disable-with="Creating..." class="button pull-right">Create account</button>
+      <button type="submit" data-disable-with="Creating..." class="button accounts-popup-create-button">Create account</button>
     <% end %>
   </div>
 

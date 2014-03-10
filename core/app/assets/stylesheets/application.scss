@@ -11,12 +11,11 @@
 @import "devise_form";
 @import "fontello";
 @import "environment_warning";
-@import "feed";
+@import "feed/**/*";
 @import "annotation";
 
 @import "bubble/**/*";
 @import "users/**/*";
-@import "tour/**/*";
 @import "buttons/**/*";
 @import "facts/**/*";
 @import "comments/**/*";

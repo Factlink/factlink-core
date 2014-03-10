@@ -5,13 +5,13 @@ describe CommentsController do
 
   render_views
 
-  let(:user) { create(:full_user) }
+  let(:user) { create(:user) }
 
   describe :index do
     it "should render json successful" do
       FactoryGirl.reload
 
-      other_user = create(:full_user)
+      other_user = create(:user)
 
       authenticate_user!(user)
       fact = nil

@@ -2,8 +2,8 @@ require "spec_helper"
 
 describe 'activity queries' do
   include RedisSupport
-  let(:gu1) { create(:full_user).graph_user }
-  let(:gu2) { create(:full_user).graph_user }
+  let(:gu1) { create(:user).graph_user }
+  let(:gu2) { create(:user).graph_user }
 
   include PavlovSupport
 
@@ -22,7 +22,7 @@ describe 'activity queries' do
         fact = create(:fact)
         fact.add_opinion(:believes, gu1)
 
-        user = create(:full_user)
+        user = create(:user)
 
         interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
                                                        type: 'believes', content: 'tex message',
@@ -36,7 +36,7 @@ describe 'activity queries' do
       it "creates a stream activity for the interacting users" do
         fact = create(:fact)
         fact.add_opinion(:believes, gu1)
-        user = create(:full_user)
+        user = create(:user)
 
         interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
                                                        type: 'believes', content: 'tex message',
@@ -49,7 +49,7 @@ describe 'activity queries' do
       end
       it "creates a stream activity for the user's followers" do
         fact = create(:fact)
-        user = create(:full_user)
+        user = create(:user)
 
         as(gu1.user) do |pavlov|
           pavlov.interactor(:'users/follow_user', username: user.username)
@@ -69,7 +69,7 @@ describe 'activity queries' do
   end
 
   describe :sub_comments do
-    let(:current_user) { create :full_user }
+    let(:current_user) { create :user }
 
     context "creating a sub comment on a comment" do
       context "gu1 believes the topfact" do
@@ -230,8 +230,8 @@ describe 'activity queries' do
   end
 
   describe 'following a person' do
-    let(:user)     { create(:full_user) }
-    let(:followee) { create(:full_user) }
+    let(:user)     { create(:user) }
+    let(:followee) { create(:user) }
     it 'creates a notification for the followed person' do
       as(user) do |pavlov|
         pavlov.interactor(:'users/follow_user', username: followee.username)
@@ -242,7 +242,7 @@ describe 'activity queries' do
       ]
     end
     it 'creates a stream activity for your followers' do
-      follower = create(:full_user)
+      follower = create(:user)
 
       as(follower) do |pavlov|
         pavlov.interactor(:'users/follow_user', username: user.username)

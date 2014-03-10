@@ -24,8 +24,8 @@ window.ReactSubComment = React.createBackboneClass
       @_content_tag()
 
       if @model().get('save_failed') == true
-        _a ['button-danger', onClick: @_save, style: {float: 'right'} ],
-          'Save failed - Retry'
+        ReactRetryButton onClick: @_save
+
       if @model().can_destroy()
         window.ReactDeleteButton
           model: @model()

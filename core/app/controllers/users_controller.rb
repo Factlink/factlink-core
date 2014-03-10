@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout "frontend"
 
-  before_filter :load_user, except: [:current, :tour_users, :seen_messages]
+  before_filter :load_user, except: [:current, :seen_messages]
 
   def show
     authorize! :show, @user
@@ -24,7 +24,6 @@ class UsersController < ApplicationController
 
   # TODO: convert this page to backbone
   def edit
-    authorize! :access, Ability::FactlinkWebapp
     authorize! :update, @user
   end
 
@@ -42,7 +41,6 @@ class UsersController < ApplicationController
     else
       respond_to do |format|
         format.html do
-          authorize! :access, Ability::FactlinkWebapp
           render :edit
         end
         format.json { render json: { status: :unprocessable_entity } }
@@ -68,7 +66,6 @@ class UsersController < ApplicationController
 
   def notification_settings
     authorize! :edit_settings, @user
-    authorize! :access, Ability::FactlinkWebapp
 
     backbone_responder
   end
@@ -78,13 +75,6 @@ class UsersController < ApplicationController
     fail HackAttempt unless params[:message] =~ /\A\w+\Z/
     current_user.seen_messages << params[:message]
     render json: {}, status: :ok
-  end
-
-  def tour_users
-    authorize! :access, Ability::FactlinkWebapp
-    # TODO add proper authorization check
-
-    render json: interactor(:"users/tour_users")
   end
 
   private

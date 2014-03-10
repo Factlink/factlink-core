@@ -28,9 +28,7 @@ module BrowserHelper
   # that someone is using a non-preferred (not supporting plugin)
   # browser
   def show_nonpreferred_browser_warning
-    if controller_name == "tour"
-      false # no warnings in the tour
-    elsif !current_user
+    if !current_user
       false # no warnings for people without accounts
     elsif browser_unsupported?
       false # already gets a big (modal) warning

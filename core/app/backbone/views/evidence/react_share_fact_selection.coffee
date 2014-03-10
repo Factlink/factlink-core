@@ -5,7 +5,7 @@ ReactShareButton = React.createBackboneClass
     hovered: false
 
   render: ->
-    _label ['pull-right share-button-container'
+    _span ['share-button-container'
       onMouseEnter: => @setState(hovered: true)
       onMouseLeave: => @setState(hovered: false)
     ],
@@ -39,7 +39,7 @@ window.ReactShareFactSelection = React.createBackboneClass
     currentUser.off 'change:services'
 
   _connectedButton: ->
-    _label ['pull-right share-button-container'],
+    _label ['share-button-container'],
       _input [type: 'checkbox'],
       _span ['share-button share-button-facebook']
 

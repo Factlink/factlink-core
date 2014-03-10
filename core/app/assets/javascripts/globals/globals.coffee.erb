@@ -1,5 +1,5 @@
 # ensure we update this file when we update the locales
-# SHASUM of locales: 598acbeccc1d284c4b23152236b713b6957a8b4f
+# SHASUM of locales: 71bb2e6b49f5c079505a6ee20872eef3cb1a013b
 
 window.Factlink ||= {}
 
@@ -12,7 +12,6 @@ Factlink.Global =
   core_url: "<%= URI.parse(FactlinkUI::Application.config.core_url).to_s %>"
   environment: "<%= Rails.env %>"
   t: {}
-  can_haz: {}
   signed_in: false
 
 <%
@@ -39,7 +38,3 @@ Factlink.Global =
 Factlink.Global.t.<%= translation.to_s %> = "<%= I18n.t(translation) %>"
 
 <% end %>
-
-Factlink.setFeatures = (list = [])->
-  Factlink.Global.can_haz = {}
-  Factlink.Global.can_haz[feature] = true for feature in list

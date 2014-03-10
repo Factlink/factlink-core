@@ -1,95 +1,56 @@
 $borderRadius: 3px;
 $arrowSize: 6px;
-$buttonHeight: 30px;
 $buttonBackground: #444;
 $buttonHoverBackground: #222;
-$buttonPadding: 6px;
-$iconWidth: 20px;
-$buttonSmallWidth: $iconWidth + $buttonPadding * 2;
+$buttonWidth: 32px;
 
 .fl-button {
   @extend %default-font;
   cursor: pointer;
   display: block;
-  white-space: nowrap;
   text-align: center;
   position: relative;
-  min-width: $buttonSmallWidth;
-  opacity: 0.4;
-
+  width: $buttonWidth;
+  white-space: nowrap;
+  font-size: 16px;
   border-radius: $borderRadius;
-  line-height: $buttonHeight;
-}
-
-.fl-button-black, .hovered .fl-button {
+  padding: 4px 0;
   background-color: $buttonBackground;
-  color: white;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
-  opacity: 1;
 
-  &:hover {
-    background-color: $buttonHoverBackground;
-  }
-}
-
-.fl-button-with-arrow-down {
   margin-bottom: $arrowSize;
 
   &:after {
     content: '';
     position: absolute;
     bottom: -$arrowSize;
-    left: $buttonSmallWidth / 2;
+    left: $buttonWidth / 2;
     margin-left: -$arrowSize;
 
     border: $arrowSize solid transparent;
     border-top-color: $buttonBackground;
     border-bottom-width: 0;
   }
+}
 
-  &:hover:after {
+.hovered .fl-button {
+  background-color: $buttonHoverBackground;
+
+  &:after {
     border-top-color: $buttonHoverBackground;
   }
 }
 
-.fl-button-sub-button {
-  display: inline-block;
-  height: $buttonHeight;
-  padding: 0 $buttonPadding;
-  border-left: 1px solid #666;
-  background-color: $buttonBackground;
+.fl-button-icon {
+  @extend %comment-icon;
+  background: white;
 
-  &:hover {
-    background-color: $buttonHoverBackground;
+  &:before {
+    content: '+';
   }
-  &:last-child {
-    margin-right: -$buttonPadding;
-    border-top-right-radius: $borderRadius;
-    border-bottom-right-radius: $borderRadius;
-  }
-}
 
-.fl-button-content-default,
-.fl-button-content-hovered {
-  display: none;
-  height: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  padding: 0 $buttonPadding;
-}
-
-.fl-button-content-default {
-  display: block;
-  height: auto;
-}
-
-.hovered {
-  .fl-button-content-default,
-  .fl-button-content-hovered {
-    display: block;
-    height: 0;
-  }
-  .fl-button-content-hovered {
-    height: auto;
+  &:after {
+    @extend %comment-icon-triangle;
+    content: '';
+    border-top-color: white;
   }
 }

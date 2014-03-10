@@ -1,35 +1,23 @@
 class HomeController < ApplicationController
 
-  layout "frontend"
+  layout "static_pages"
 
-  helper_method :sort_column, :sort_direction
+  def in_your_browser
+  end
 
-  # general static pages:
-  # TODO unfold big nested if
-  def pages
-    if /\A([-a-zA-Z_\/]+)\Z/.match(params[:name])
-      respond_to do |format|
-        template = "home/pages/#{$1}"
+  def on_your_site
+  end
 
-        layout = "static_pages"
+  def terms_of_service
+  end
 
-        authorize! :show, template
+  def privacy
+  end
 
-        format.html do
-          begin
-            render template, :layout => layout
-          rescue ActionView::MissingTemplate
-            begin
-              render "#{template}/index", :layout => layout
-            rescue ActionView::MissingTemplate
-              raise_404
-            end
-          end
-        end
-      end
-    else
-      raise_404
-    end
+  def about
+  end
+
+  def jobs
   end
 
   before_filter :accepts_html_instead_of_stars, only: [:index]
@@ -43,10 +31,11 @@ class HomeController < ApplicationController
   end
 
   def index
+    flash.keep
     if user_signed_in?
       redirect_to after_sign_in_path_for(current_user)
     else
-      render "home/pages/index", layout: "static_pages"
+      render 'in_your_browser'
     end
   end
 end

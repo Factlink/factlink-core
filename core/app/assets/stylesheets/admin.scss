@@ -30,7 +30,7 @@
 
 .admin-table {
   width: 100%;
-  margin-bottom: $baseLineHeight;
+  margin-bottom: 1.6em;
   background-color: $backgroundGray;
   border-collapse: collapse;
   border-spacing: 0;
@@ -38,7 +38,6 @@
 
   th, td {
     padding: 8px;
-    line-height: $baseLineHeight;
     text-align: left;
     vertical-align: top;
     border-top: 1px solid $tableBorder;
@@ -47,7 +46,6 @@
 
 .admin-label {
   font-weight: bold;
-  line-height: 14px; // ensure proper line-height if floated
   color: white;
   vertical-align: baseline;
   white-space: nowrap;

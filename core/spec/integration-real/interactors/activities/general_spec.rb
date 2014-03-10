@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'general' do
   include PavlovSupport
 
-  let(:user) { create :full_user }
-  let(:other_user) { create :full_user }
+  let(:user) { create :user }
+  let(:other_user) { create :user }
 
   it 'after adding activities they exist' do
     as(user) do |pavlov|

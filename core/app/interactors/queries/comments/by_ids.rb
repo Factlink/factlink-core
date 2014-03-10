@@ -5,7 +5,7 @@ module Queries
 
       attribute :ids
       attribute :by, Symbol, default: :_id
-      attribute :pavlov_options
+      attribute :pavlov_options, Hash, default: {}
 
       def validate
         validate_in_set :by, by, [:_id, :fact_data_id]

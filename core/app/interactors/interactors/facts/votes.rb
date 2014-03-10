@@ -18,7 +18,7 @@ module Interactors
       end
 
       def fact
-        @fact ||= query(:'facts/get', id: fact_id)
+        @fact ||= Fact[fact_id]
       end
 
       def authorized?
