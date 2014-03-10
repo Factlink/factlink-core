@@ -39,4 +39,16 @@ describe Server do
       end
     end
   end
+
+  it "redirects to a specified url when no url has been provided" do
+    with_api(Server) do |server|
+      backup_url = "http://someurl.example.org/"
+      server.config[:redirect_for_no_url] = backup_url
+
+      get_request(path: '/') do |c|
+        expect(c.response_header.status).to eq 301
+        expect(c.response_header['Location']).to eq "http://someurl.example.org/"
+      end
+    end
+  end
 end
