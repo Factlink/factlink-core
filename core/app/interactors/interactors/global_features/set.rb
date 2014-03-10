@@ -7,7 +7,7 @@ module Interactors
       arguments :features
 
       def execute
-        command :'global_features/set', features: features
+        Backend::GlobalFeatures.set features
       end
 
       def authorized?
