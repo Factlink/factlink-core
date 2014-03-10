@@ -2,7 +2,7 @@ require 'addressable/uri'
 
 class UrlValidator
   def initialize(url)
-    @url = nil
+    @url = parse(url)
   end
 
   def valid?
@@ -18,7 +18,7 @@ class UrlValidator
   def parse(url)
     uri = Addressable::URI.parse(url)
     if uri && %w(http https).include?(uri.scheme)
-      @url = uri
+      uri
     else
       nil
     end
