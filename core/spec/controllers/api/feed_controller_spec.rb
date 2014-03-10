@@ -33,5 +33,4 @@ describe Api::FeedController do
       verify { response.body }
     end
   end
-
 end
