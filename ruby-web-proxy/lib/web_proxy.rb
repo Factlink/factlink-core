@@ -14,9 +14,7 @@ class WebProxy < Goliath::API
       return invalid_request
     end
 
-    page = EM::HttpRequest.new(requested_url).get
-
-    puts env.inspect
+    page = retrieve_page(env, requested_url)
 
     case page.response_header.status
     when 200
@@ -44,6 +42,10 @@ class WebProxy < Goliath::API
 
   def proxied_location(env, location)
     env.config[:host] + '/?url=' + CGI.escape(requested_url)
+  end
+
+  def retrieve_page(env, url)
+    env.config[:http_requester].call(url)
   end
 
   def invalid_request

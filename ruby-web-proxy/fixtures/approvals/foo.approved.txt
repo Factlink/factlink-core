@@ -1,0 +1,13 @@
+
+            <!DOCTYPE html>
+            <html>
+            
+        <script>window.FactlinkProxiedUri = "http://www.example.org/foo?bar=baz";</script>
+      
+       <script async defer
+               src="http://localhost:8000/lib/dist/factlink_loader.js?o=proxy"
+               onload="__internalFactlinkState('proxyLoaded')"
+         ></script>
+      <base href="http://www.example.org/foo?bar=baz" /><title>Hoi</title>
+            <h1>yo</h1>
+          
