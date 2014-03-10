@@ -27,7 +27,7 @@
 }
 
 .in-your-browser-heading {
-  margin: 10px 0 20px;
+  margin: 10px 0;
   font-size: 24px;
 }
 
@@ -64,15 +64,18 @@ i.in-your-browser-icon-social {
 }
 
 .in-your-browser-below-content-box {
-  @extend %white-block-with-shadow;
   padding: 20px;
-  margin: 20px;
-  width: 330px;
-  display: inline-block;
+  width: 50%;
+  display: table-cell;
   vertical-align: top;
-
-  @include respond-to(400) {
-    margin: 10px;
+  &:first-child {
+    border-right: 1px lightgrey solid;
+  }
+  @include respond-to(600) {
+    display: block;
+    border-right: none;
+    border-bottom: 1px lightgrey solid;
+    width: 100%;
   }
 }
 
@@ -85,4 +88,12 @@ i.in-your-browser-icon-social {
 
 .in-your-browser-feed-more-button {
   margin-top: 5px;
+}
+
+.in-your-browser-cta-container {
+  display: inline-block;
+  max-width: $siteWidth;
+  margin-top: 10px;
+  width: 100%;
+  @extend %white-block-with-shadow;
 }
