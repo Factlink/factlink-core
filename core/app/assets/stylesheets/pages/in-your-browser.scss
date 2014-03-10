@@ -70,11 +70,14 @@ i.in-your-browser-icon-social {
   &:first-child {
     border-right: 1px lightgrey solid;
   }
+
   @include respond-to(600) {
     display: block;
-    border-right: none;
     border-bottom: 1px lightgrey solid;
     width: 100%;
+    &:first-child {
+      border-right: none;
+    }
   }
 }
 
