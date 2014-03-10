@@ -1,4 +1,4 @@
-class RedirectRootUrl
+class ClearCookies
   include Goliath::Rack::AsyncMiddleware
 
   def post_process(env, status, headers, body)
