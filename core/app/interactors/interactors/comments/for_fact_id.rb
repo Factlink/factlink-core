@@ -21,8 +21,12 @@ module Interactors
       end
 
       def comments
-        Backend::Comments.by_fact_id fact_id: fact_id,
-          current_graph_user: pavlov_options[:current_user].graph_user
+        if pavlov_options[:current_user]
+          Backend::Comments.by_fact_id fact_id: fact_id,
+            current_graph_user: pavlov_options[:current_user].graph_user
+        else
+          Backend::Comments.by_fact_id fact_id: fact_id
+        end
       end
 
       def relevance_of comment
