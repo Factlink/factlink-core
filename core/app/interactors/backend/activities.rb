@@ -36,7 +36,7 @@ module Backend
           timestamp: score,
           action: activity.action,
           created_at: activity.created_at.to_time,
-          id: activity.id
+          id: activity.id,
       }
       specialized_data =
           case activity.action
