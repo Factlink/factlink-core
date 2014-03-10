@@ -6,8 +6,8 @@ class ClearCookies
     request = Rack::Request.new(env)
     response = Rack::Response.new(body, status, headers)
     request.cookies.each do |cookie|
-      response.clearCookie(name);
-      response.clearCookie(name, domain: proxy_hostname);
+      response.clearCookie(name)
+      response.clearCookie(name, domain: proxy_hostname)
     end
     response.finish
   end
