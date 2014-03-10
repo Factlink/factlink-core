@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative '../server.rb'
+require_relative '../../server.rb'
 
 describe Server do
   let(:http_requester) { double :http_requester }
@@ -33,7 +33,7 @@ describe Server do
           ")
 
       get_request(query: {url: request_url}) do |c|
-        Approvals.verify(c.response, format: :html, name: 'foo')
+        Approvals.verify(c.response, name: 'foo')
       end
     end
   end

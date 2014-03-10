@@ -71,6 +71,10 @@ GEM
       faraday (>= 0.7.6)
       hashie (>= 1.1.0)
       uuidtools
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
     thor (0.18.1)
     uuidtools (2.1.4)
 
@@ -86,3 +90,4 @@ DEPENDENCIES
   goliath
   rspec (~> 3.0.0.beta2)
   sentry-raven
+  simplecov (~> 0.7.1)
