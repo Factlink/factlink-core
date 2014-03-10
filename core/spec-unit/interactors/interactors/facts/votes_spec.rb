@@ -34,11 +34,7 @@ describe Interactors::Facts::Votes do
 
       pavlov_options = { ability: double(can?: true)}
 
-      Pavlov.stub(:query)
-            .with(:'facts/get',
-                      id: fact.id.to_s,
-                      pavlov_options: pavlov_options)
-            .and_return(fact)
+      Fact.stub(:[]).with(fact.id).and_return(fact)
 
       Pavlov.stub(:query)
             .with(:'facts/opinionators',

@@ -9,7 +9,7 @@ module Interactors
       def execute
         add_to_recently_viewed
 
-        query(:'facts/get', id: id)
+        Fact[id]
       end
 
       def add_to_recently_viewed

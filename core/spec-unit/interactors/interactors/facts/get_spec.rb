@@ -35,9 +35,7 @@ describe Interactors::Facts::Get do
 
       pavlov_options = { current_user: user, ability: double(can?: true) }
 
-      Pavlov.stub(:query)
-            .with(:'facts/get', id: fact.id, pavlov_options: pavlov_options)
-            .and_return(fact)
+      Fact.stub(:[]).with(fact.id).and_return(fact)
 
       Pavlov.should_receive(:command)
             .with(:'facts/add_to_recently_viewed',
@@ -54,9 +52,7 @@ describe Interactors::Facts::Get do
 
       pavlov_options = { ability: double(can?: true) }
 
-      Pavlov.stub(:query)
-            .with(:'facts/get', id: fact.id, pavlov_options: pavlov_options)
-            .and_return(fact)
+      Fact.stub(:[]).with(fact.id).and_return(fact)
 
       interactor = described_class.new id: fact.id, pavlov_options: pavlov_options
       expect(interactor.call).to eq fact
