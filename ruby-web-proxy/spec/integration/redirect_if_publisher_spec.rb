@@ -45,4 +45,31 @@ describe RedirectIfPublisher do
       end
     end
   end
+
+  it "returns the proxied page if a page without the publisher script was returned" do
+    request_url = 'http://www.example.org/foo?bar=baz'
+
+    url_html = <<-EOHTML.squeeze(' ').gsub(/^ /,'')
+      <!DOCTYPE html>
+      <html>
+      <title>Hoi</title>
+      <h1>yo</h1>
+    EOHTML
+
+    server_with_redirect = Class.new(WebProxy)
+    server_with_redirect.use RedirectIfPublisher
+
+    with_api(server_with_redirect) do |server|
+      mock_http_requests(server)
+      expect(http_requester)
+        .to receive(:call)
+        .with(request_url)
+        .and_return mock_http_response(200, url_html)
+
+      get_request(query: {url: request_url}) do |c|
+        expect(c.response_header.status).to eq 200
+        Approvals.verify(c.response, name: 'redirect_to_publisher')
+      end
+    end
+  end
 end

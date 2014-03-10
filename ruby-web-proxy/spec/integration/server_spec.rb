@@ -35,7 +35,7 @@ describe Server do
         .and_return mock_http_response(200, url_html)
 
       get_request(query: {url: request_url}) do |c|
-        Approvals.verify(c.response, name: 'foo')
+        Approvals.verify(c.response, name: 'server_200')
       end
     end
   end
