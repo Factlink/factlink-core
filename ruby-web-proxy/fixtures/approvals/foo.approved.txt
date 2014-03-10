@@ -1,7 +1,6 @@
+<!DOCTYPE html>
+<html>
 
-            <!DOCTYPE html>
-            <html>
-            
         <script>window.FactlinkProxiedUri = "http://www.example.org/foo?bar=baz";</script>
       
        <script async defer
@@ -9,5 +8,4 @@
                onload="__internalFactlinkState('proxyLoaded')"
          ></script>
       <base href="http://www.example.org/foo?bar=baz" /><title>Hoi</title>
-            <h1>yo</h1>
-          
+<h1>yo</h1>

@@ -19,18 +19,20 @@ describe Server do
 
   it "does a working proxy request for a page" do
     request_url = 'http://www.example.org/foo?bar=baz'
+
+    url_html = <<-EOHTML.squeeze(' ').gsub(/^ /,'')
+      <!DOCTYPE html>
+      <html>
+      <title>Hoi</title>
+      <h1>yo</h1>
+    EOHTML
+
     with_api(Server) do |server|
       mock_http_requests(server)
       expect(http_requester)
         .to receive(:call)
         .with(request_url)
-        .and_return mock_http_response(200,
-          "
-            <!DOCTYPE html>
-            <html>
-            <title>Hoi</title>
-            <h1>yo</h1>
-          ")
+        .and_return mock_http_response(200, url_html)
 
       get_request(query: {url: request_url}) do |c|
         Approvals.verify(c.response, name: 'foo')

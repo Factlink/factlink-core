@@ -64,8 +64,6 @@ class UrlValidator
     end
   end
 
-
-
   def parse(url)
     uri = Addressable::URI.parse(url)
     if uri && %w(http https).include?(uri.scheme)
