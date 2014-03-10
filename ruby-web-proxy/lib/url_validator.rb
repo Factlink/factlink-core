@@ -6,7 +6,7 @@ class UrlValidator
 
     begin
       uri = Addressable::URI.parse(url)
-      if uri && ['http', 'https'].include?(uri.scheme)
+      if uri && %w(http https).include?(uri.scheme)
         @url = uri
       end
     rescue Addressable::URI::InvalidURIError

@@ -11,13 +11,12 @@ class RedirectIfPublisher
 
       [
         301,
-        {"Location" => location},
+        { 'Location' => location },
         %Q(Redirecting to <a href="#{location}">#{location}</a>)
       ]
 
     else
       [status, headers, body]
     end
-
   end
 end

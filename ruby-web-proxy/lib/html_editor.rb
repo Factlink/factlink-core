@@ -3,7 +3,7 @@ class HtmlEditor
     @html = html
   end
 
-  def prepend_to_head addition
+  def prepend_to_head(addition)
     @html = @html.sub regex_skip_until_in_html_head do
       $& + addition
     end
