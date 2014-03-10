@@ -15,10 +15,8 @@ module Backend
           if !current.any?
             break
           else
-            current.each do |o|
-              timestamp = o[:score]
-              yielder.yield o
-            end
+            timestamp = current.last[:score]
+            current.each { |o| yielder.yield o }
           end
         end
       end.lazy
