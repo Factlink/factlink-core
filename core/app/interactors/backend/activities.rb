@@ -22,13 +22,13 @@ module Backend
       end.lazy
 
       retrieved_activities
-        .map { |activity_with_score| activity_hash activity_with_score }
+        .map { |scored_activity| scored_activity_to_dead_activity scored_activity }
         .reject { |o| o.nil? }
         .take(count)
         .to_a
     end
 
-    def activity_hash(item: , score:)
+    def scored_activity_to_dead_activity(item: , score:)
       activity = item
 
       base_activity_data = {
