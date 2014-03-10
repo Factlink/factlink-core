@@ -6,12 +6,11 @@
   @media only screen and (min-width: $breakpoint + px) { @content; }
 }
 
-@mixin ellipsis($max-width){
-  max-width: $max-width;
+%ellipsis-inline-block {
+  display: inline-block;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  //TODO: element needs display
 }
 
 %reset-main-padding {
