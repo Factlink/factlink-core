@@ -5,8 +5,8 @@
   font-size:$metaFontSize;
 }
 .sub-comment-post-creator-name {
-  display: inline-block;
-  @include ellipsis(200px);
+  @extend %ellipsis-inline-block;
+  max-width: 200px;
   vertical-align: top;
 }
 

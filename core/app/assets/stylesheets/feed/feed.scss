@@ -69,9 +69,8 @@ a.feed-activity-container {
 }
 
 .feed-activity-action {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  @extend %ellipsis-inline-block;
+  display:block;
 }
 
 .feed-activity-description {

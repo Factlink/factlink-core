@@ -48,7 +48,8 @@
   overflow: hidden;
 
   padding: 5px 10px 3px;
-  @include ellipsis(100%);
+  @extend %ellipsis-inline-block;
+  display:block;
   text-shadow: 0 1px 0 rgba(255,255,255, 0.5);
 
   &.fact-search-result-selected {

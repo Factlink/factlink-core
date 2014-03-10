@@ -81,13 +81,12 @@
 
 .topbar-profile-link {
   @extend %centering-y;
-  @include ellipsis(220px);
-  display:inline-block;
+  @extend %ellipsis-inline-block;
+  max-width: 220px;
   height:$topbarHeight;
 
-
   @include respond-to(600) {
-    @include ellipsis(100px);
+    max-width: 100px;
   }
 }
 
