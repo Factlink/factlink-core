@@ -69,7 +69,7 @@
 
 <% content_for :specific_javascript do %>
   <script>
-    React.renderComponent(ReactInstallExtensionButton({extraButtonClasses: 'button-huge'}), $('.js-install-extension-upper-button')[0]);
+    React.renderComponent(ReactHugeInstallExtensionButton(), $('.js-install-extension-upper-button')[0]);
 
     React.renderComponent(ReactInstallExtensionButton(), $('.js-install-extension-lower-button')[0]);
 
