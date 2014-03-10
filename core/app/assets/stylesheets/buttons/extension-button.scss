@@ -10,15 +10,15 @@
 
 .install-chrome {
   @extend %extension-install-button;
-  background-image: image-url('browser-icons/Chrome-32x32.png');
+  background-image: asset-data-url('browser-icons/Chrome-32x32.png');
 }
 
 .install-firefox {
   @extend %extension-install-button;
-  background-image: image-url('browser-icons/Firefox-32x32.png');
+  background-image: asset-data-url('browser-icons/Firefox-32x32.png');
 }
 
 .install-safari {
   @extend %extension-install-button;
-  background-image: image-url('browser-icons/Safari-32x32.png');
+  background-image: asset-data-url('browser-icons/Safari-32x32.png');
 }
