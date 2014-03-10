@@ -2,24 +2,6 @@ class HomeController < ApplicationController
 
   layout "static_pages"
 
-  def in_your_browser
-  end
-
-  def on_your_site
-  end
-
-  def terms_of_service
-  end
-
-  def privacy
-  end
-
-  def about
-  end
-
-  def jobs
-  end
-
   before_filter :accepts_html_instead_of_stars, only: [:index]
   def accepts_html_instead_of_stars
     # If the request 'Content Accept' header indicates a '*/*' format,
