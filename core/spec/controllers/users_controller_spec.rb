@@ -64,7 +64,9 @@ describe UsersController do
     it "should render json successful for non signed in user" do
       FactoryGirl.reload
 
-      Pavlov.command(:'global_features/set', features: [:some_global_feature])
+      as(create :user, :confirmed, :admin) do |pavlov|
+        pavlov.interactor(:'global_features/set', features: [:some_global_feature])
+      end
 
       get :current, format: :json
 
