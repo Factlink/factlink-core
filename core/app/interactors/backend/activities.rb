@@ -9,7 +9,7 @@ module Backend
         while true
           current =
               activities_set.below(timestamp,
-                                   count: count * 2, #count here is merely the batch-size; anything larger than 0 is valid.
+                                   count: count, #count here is merely the batch-size; anything larger than 0 is valid.
                                    reversed: true,
                                    withscores: true)
           if !current.any?
