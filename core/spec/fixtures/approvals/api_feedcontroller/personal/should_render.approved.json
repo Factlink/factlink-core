@@ -3,7 +3,6 @@
     "timestamp": "<timestamp>",
     "action": "followed_user",
     "created_at": "<created_at>",
-    "time_ago": "1 minute",
     "id": "<id>",
     "followed_user": {
       "id": "<id>",
@@ -24,7 +23,6 @@
     "timestamp": "<timestamp>",
     "action": "followed_user",
     "created_at": "<created_at>",
-    "time_ago": "1 minute",
     "id": "<id>",
     "followed_user": {
       "id": "<id>",
@@ -45,7 +43,6 @@
     "timestamp": "<timestamp>",
     "action": "created_sub_comment",
     "created_at": "<created_at>",
-    "time_ago": "1 minute",
     "id": "<id>",
     "fact": {
       "id": "<id>",
@@ -99,7 +96,6 @@
     "timestamp": "<timestamp>",
     "action": "created_comment",
     "created_at": "<created_at>",
-    "time_ago": "1 minute",
     "id": "<id>",
     "fact": {
       "id": "<id>",

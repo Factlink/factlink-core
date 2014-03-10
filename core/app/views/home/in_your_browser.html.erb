@@ -43,25 +43,27 @@
     </div>
 
     <div class="in-your-browser-horizontal">
-      <div class="in-your-browser-below-content-box">
-        <h1 class="in-your-browser-heading">Join the revolution!</h1>
-        <p>Discussion and access to information are key to a well-functioning society. Install the extension to share your knowledge and stay updated.</p>
+      <div class="in-your-browser-cta-container">
+        <div class="in-your-browser-below-content-box">
+          <h1 class="in-your-browser-heading">Join the revolution!</h1>
+          <p>Discussion and access to information are key to a well-functioning society. Install the extension to share your knowledge and stay updated.</p>
 
-        <div class="js-install-extension-lower-button"></div>
+          <div class="js-install-extension-lower-button"></div>
 
-        <div class="visible-when-unsupported-browser">
-          <div class="in-your-browser-dashed-border">
-            <a class="js-bookmarklet-button in-your-browser-bookmarklet button-success" onclick="return false"><span style="display: none">Factlink</span></a>
+          <div class="visible-when-unsupported-browser">
+            <div class="in-your-browser-dashed-border">
+              <a class="js-bookmarklet-button in-your-browser-bookmarklet button-success" onclick="return false"><span style="display: none">Factlink</span></a>
+            </div>
+
+            <p>To install Factlink, drag this button to your bookmarks bar</p>
           </div>
 
-          <p>To install Factlink, drag this button to your bookmarks bar</p>
         </div>
-
-      </div>
-      <div class="in-your-browser-below-content-box">
-        <h1 class="in-your-browser-heading">Have your own site?</h1>
-        <p>Use Factlink for better discussions and user engagement, whether you subscribe to our ideology or not!</p>
-        <%= link_to "Learn more", on_your_site_path, class: "button-confirm" %>
+        <div class="in-your-browser-below-content-box">
+          <h1 class="in-your-browser-heading">Have your own site?</h1>
+          <p>You can use Factlink to have better discussions and more user engagement. Factlink is free and can be implemented on your site with a single line of code.</p>
+          <%= link_to "Learn more", on_your_site_path, class: "button-confirm" %>
+        </div>
       </div>
     </div>
   </div>

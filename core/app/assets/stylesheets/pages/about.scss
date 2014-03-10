@@ -1,7 +1,7 @@
 .about-container {
   text-align: left;
 
-  @include from-width(500) {
+  @include from-width(500px) {
     text-align: center;
   }
 }
@@ -10,7 +10,7 @@
   margin: 10px 0 20px;
   text-align: center;
 
-  @include from-width(500) {
+  @include from-width(500px) {
     text-align: left;
   }
 }
@@ -28,7 +28,7 @@
   width: 100%;
   text-align: left;
 
-  @include from-width(500) {
+  @include from-width(500px) {
     min-width: 350px;
     width: calc(100% - 200px - 0.5em);
     width: -webkit-calc(100% - 200px - 0.5em);

@@ -32,17 +32,17 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
 
   def below(limit,opts={})
     if opts[:count]
-      redis_opts = { limit: [0,opts[:count]] }
+      redis_opts = { limit: [0, opts[:count]] }
     else
       redis_opts = {}
     end
 
     redis_opts[:withscores] = opts[:withscores]
 
-    res = key.zrevrangebyscore("(#{limit}",'-inf',redis_opts)
+    res = key.zrevrangebyscore("(#{limit}", '-inf', redis_opts)
 
     if opts[:withscores]
-      res = self.class.hash_array_for_withscores(res).map { |x| { item: model[x[:item]], score: x[:score]}}
+      res = self.class.hash_array_for_withscores(res).map { |x| { item: model[x[:item]], score: x[:score] } }
     else
       res = res.map { |x| model[x] }
     end
