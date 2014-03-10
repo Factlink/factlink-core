@@ -2,9 +2,10 @@ module Backend
   module Activities
     extend self
 
-    def activities_older_than(activities_set:, timestamp: nil, count: 20)
+    def activities_older_than(activities_set:, timestamp: nil, count: nil)
+      #watch out: don't use defaults other than nil since nill is automatically passed in at the rails controller level.
       timestamp = timestamp || 'inf'
-      count = count.to_i
+      count = count ? count.to_i : 20
       retrieved_activities = Enumerator.new do |yielder|
         while true
           current =
