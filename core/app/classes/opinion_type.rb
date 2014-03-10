@@ -1,6 +1,6 @@
 module OpinionType
   def self.types
-    @types ||= ['believes', 'disbelieves', 'doubts'].freeze
+    @types ||= ['believes', 'disbelieves'].freeze
   end
 
   def self.include?(type)

@@ -8,10 +8,6 @@ class LoadDsl
       set_opinion(:disbelieves, *l)
     end
 
-    def doubters(*l)
-      set_opinion(:doubts, *l)
-    end
-
     def set_opinion(opinion_type, *users)
       users.each do |username|
         gu = User.where(username: username).first.graph_user

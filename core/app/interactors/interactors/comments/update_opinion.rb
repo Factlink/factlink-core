@@ -22,7 +22,7 @@ module Interactors
 
       def validate
         validate_hexadecimal_string :comment_id, comment_id
-        validate_in_set :opinion, opinion, ['believes', 'disbelieves', 'doubts', 'no_vote']
+        validate_in_set :opinion, opinion, ['believes', 'disbelieves', 'no_vote']
       end
 
       def authorized?
