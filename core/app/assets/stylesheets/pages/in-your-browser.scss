@@ -58,7 +58,7 @@ i.in-your-browser-icon-social {
 }
 
 .in-your-browser-below-content {
-  padding: 25px 0;
+  padding: 10px $pagePadding;
   border-top: 1px solid $baseBorderColor;
   box-shadow: inset 0px 1px 3px rgba(0,0,0,0.1);
 }
@@ -79,7 +79,6 @@ i.in-your-browser-icon-social {
 .in-your-browser-feed {
   display: inline-block;
   text-align: left;
-  margin: 0 30px;
   max-width: $siteWidth;
   min-height: 400px;
 }
