@@ -17,7 +17,7 @@ body {
   max-width: $siteWidth;
   margin-right: auto;
   margin-left: auto;
-  padding: 10px;
+  padding: 10px $pagePadding;
 }
 
 .one-column-container {
