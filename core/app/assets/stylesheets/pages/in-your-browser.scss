@@ -27,8 +27,7 @@
 }
 
 .in-your-browser-heading {
-  margin: 10px 0;
-  font-size: 24px;
+  @extend .on-your-site-content-heading;
 }
 
 .in-your-browser-dashed-border {
