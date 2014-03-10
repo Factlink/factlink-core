@@ -4,6 +4,10 @@ require_relative '../../../../app/interactors/interactors/users/follow_user'
 describe Interactors::Users::FollowUser do
   include PavlovSupport
 
+  before do
+    stub_classes 'Backend::Activities'
+  end
+
   describe '#authorized?' do
     it 'throws when no current_user' do
       pavlov_options = {}
@@ -39,10 +43,9 @@ describe Interactors::Users::FollowUser do
                       graph_user: user.graph_user, action: :followed_user,
                       subject: user_to_follow.graph_user, object: nil,
                       pavlov_options: options)
-      Pavlov.should_receive(:command)
-            .with(:'stream/add_activities_of_user_to_stream',
-                      graph_user_id: user_to_follow.graph_user_id,
-                      pavlov_options: options)
+      Backend::Activities.should_receive(:add_activities_to_follower_stream)
+            .with(followed_user_graph_user_id: user_to_follow.graph_user_id,
+                  current_graph_user_id: user.graph_user_id)
 
       interactor.call
     end
