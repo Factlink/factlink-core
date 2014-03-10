@@ -1,21 +1,21 @@
 .button-huge >.extension-install-button {
     vertical-align: top;
     margin-right: 10px;
-    background-size: 30px 30px;
+    background-size: 32px 32px;
     display: inline-block;
     height: 50px;
-    width: 30px;
+    width: 32px;
 
 }
 
 .install-chrome {
-  background: image-url('browser-icons/chrome.svg') no-repeat 0px 10px;
+  background: image-url('browser-icons/Chrome-32x32.png') no-repeat 0px 9px;
 }
 
 .install-firefox {
-  background: image-url('browser-icons/firefox.svg') no-repeat 0px 10px;
+  background: image-url('browser-icons/Firefox-32x32.png') no-repeat 0px 9px;
 }
 
 .install-safari {
-  background: image-url('browser-icons/safari.svg') no-repeat 0px 10px;
+  background: image-url('browser-icons/Safari-32x32.png') no-repeat 0px 9px;
 }
