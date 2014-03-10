@@ -4,13 +4,12 @@ module Backend
 
     def activities_older_than(activities_set:, timestamp: nil, count: 20)
       timestamp = timestamp || 'inf'
-
+      count = count.to_i
       retrieved_activities = Enumerator.new do |yielder|
         while true
-          puts "Fetching #{count}"
           current =
               activities_set.below(timestamp,
-                                   count: count,
+                                   count: count * 2,
                                    reversed: true,
                                    withscores: true)
           if !current.any?
@@ -25,10 +24,10 @@ module Backend
       end.lazy
 
       retrieved_activities
-      .map { |activity_with_score| activity_hash activity_with_score }
-      .reject { |o| o.nil? }
-      .take(count.to_i)
-      .to_a
+        .map { |activity_with_score| activity_hash activity_with_score }
+        .reject { |o| o.nil? }
+        .take(count)
+        .to_a
     end
 
     def activity_hash(item: , score:)
