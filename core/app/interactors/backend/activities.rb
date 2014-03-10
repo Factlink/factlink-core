@@ -13,7 +13,7 @@ module Backend
                                    count: count, #count here is merely the batch-size; anything larger than 0 is valid.
                                    reversed: true,
                                    withscores: true)
-          if !current.any?
+          if current.none?
             break
           else
             timestamp = current.last[:score]
