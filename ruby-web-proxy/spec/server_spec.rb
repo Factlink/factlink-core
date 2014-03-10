@@ -34,13 +34,6 @@ describe Server do
 
       get_request(query: {url: request_url}) do |c|
         Approvals.verify(c.response, format: :html, name: 'foo')
-        Approvals.verify("
-            <!DOCTYPE html>
-            <html>
-            <title>Hoi</title>
-            <script async defer src=\"http://foo.com/bar.js\"></script>
-            <h1>yo</h1>
-          ",format: :html, name: 'baz')
       end
     end
   end
