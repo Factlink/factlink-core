@@ -19,7 +19,7 @@ describe Interactors::Comments::UpdateOpinion do
 
   it 'with a invalid opinion doesn\'t validate' do
     expect_validating(comment_id: '1', opinion: 'dunno')
-      .to fail_validation 'opinion should be on of these values: ["believes", "disbelieves", "doubts", "no_vote"].'
+      .to fail_validation 'opinion should be on of these values: ["believes", "disbelieves", "no_vote"].'
   end
 
   describe '#call' do

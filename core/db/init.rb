@@ -16,7 +16,6 @@ LoadDsl.load do
     fact "Oil is still detrimental to the environment,", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm" do
       believers "merijn","tomdev","jjoos", "mark", "jens", "eamon", "luuk"
       disbelievers "remon"
-      doubters "martijn"
     end
     fact "Molecules that are not accessible to microbes persist and could have toxic effects", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm" do
       believers "merijn","tomdev"
@@ -25,16 +24,13 @@ LoadDsl.load do
     fact "Oil that is consumed by microbes \"is being converted to carbon dioxide that still gets into the atmosphere.\"", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm" do
       believers "merijn","jjoos"
       disbelievers "tomdev","mark"
-      doubters "martijn"
     end
     fact "The dynamic microbial community of the Gulf of Mexico supported remarkable rates of oil respiration, despite a dearth of dissolved nutrients,", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm" do
       believers "tomdev","mark"
       disbelievers "merijn","jjoos"
-      doubters "martijn"
     end
     fact "Microbes had the metabolic potential to break down a large portion of hydrocarbons and keep up with the flow rate from the wellhead", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm" do
       disbelievers "jjoos"
-      doubters "tomdev"
     end
     fact "the molecules that are not accessible to microbes persist and could have toxic effects", "http://example.org/" do
       believers "jjoos"
@@ -60,7 +56,7 @@ LoadDsl.load do
       believers "jjoos"
     end
     fact ". Google plans to shut down the social applications developed by Slide, a company it acquired a year ago for US$182 million.  ", "http://localhost:3000/" do
-      doubters "jjoos"
+      believers "jjoos"
     end
     fact "Obesity is growing at alarming rates worldwide, and the biggest culprit is overeating", "http://www.sciencedaily.com/" do
       believers "jjoos"
@@ -72,7 +68,7 @@ LoadDsl.load do
       disbelievers "jjoos"
     end
     fact "De veiligheid van liften in Nederland is in gevaar doordat vier van de zes bedrijven die liften mogen keuren niet onafhankelijk zijn van hun opdrachtgevers. ", "http://www.nrc.nl/nieuws/2011/08/29/veiligheid-liften-in-gevaar-omdat-keuringen-niet-onafhankelijk-zijn/" do
-      doubters "jjoos"
+      believers "jjoos"
     end
     fact "Stanford microsurgeons have used a poloxamer gel and bioadhesive, rather than a needle and thread, to join together blood vessels", "http://slashdot.org/" do
       disbelievers "jjoos"

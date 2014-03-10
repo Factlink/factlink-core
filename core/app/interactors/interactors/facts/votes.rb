@@ -8,8 +8,7 @@ module Interactors
 
       def execute
         votes_for('believes') +
-          votes_for('disbelieves') +
-          votes_for('doubts')
+          votes_for('disbelieves')
       end
 
       def votes_for type

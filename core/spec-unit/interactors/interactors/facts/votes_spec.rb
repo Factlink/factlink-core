@@ -46,11 +46,6 @@ describe Interactors::Facts::Votes do
                       fact: fact, type: 'disbelieves',
                       pavlov_options: pavlov_options)
             .and_return([u2])
-      Pavlov.stub(:query)
-            .with(:'facts/opinionators',
-                      fact: fact, type: 'doubts',
-                      pavlov_options: pavlov_options)
-            .and_return([u3])
 
       interactor = described_class.new fact_id: fact.id, pavlov_options: pavlov_options
       results = interactor.call
@@ -63,10 +58,6 @@ describe Interactors::Facts::Votes do
         {
           user: u2,
           type: 'disbelieves'
-        },
-        {
-          user: u3,
-          type: 'doubts'
         }
       ]
 
