@@ -41,5 +41,20 @@ module Backend
         end
       end.compact
     end
+
+    def add_activities_to_follower_stream(followed_user_graph_user_id:, current_graph_user_id:)
+      activities_set = GraphUser[followed_user_graph_user_id].own_activities
+
+      activities = activities_set.below('inf',
+                    count: 7,
+                    reversed: true,
+                    withscores: false).compact
+
+      current_graph_user = GraphUser[current_graph_user_id]
+
+      activities.each do |activity|
+        activity.add_to_list_with_score current_graph_user.stream_activities
+      end
+    end
   end
 end
