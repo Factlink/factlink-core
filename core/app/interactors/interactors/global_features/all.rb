@@ -6,7 +6,7 @@ module Interactors
       arguments
 
       def execute
-        query :'global_features/index'
+        Backend::GlobalFeatures.all
       end
 
       def authorized?
