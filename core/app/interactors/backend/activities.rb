@@ -35,7 +35,6 @@ module Backend
           timestamp: score,
           action: activity.action,
           created_at: activity.created_at.to_time,
-          time_ago: TimeFormatter.as_time_ago(activity.created_at.to_time),
           id: activity.id
       }
       specialized_data =
