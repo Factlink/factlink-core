@@ -2,13 +2,13 @@ module Backend
   module Comments
     extend self
 
-    def by_ids(ids:, current_graph_user:)
+    def by_ids(ids:, current_graph_user: nil)
       Comment.all_in(_id: Array(ids)).map do |comment|
         dead(comment: comment, current_graph_user: current_graph_user)
       end
     end
 
-    def by_fact_id(fact_id:, current_graph_user:)
+    def by_fact_id(fact_id:, current_graph_user: nil)
       fact_data_id = Fact[fact_id].data_id
       comment = Comment.where(fact_data_id: fact_data_id).map do |comment|
         dead(comment: comment, current_graph_user: current_graph_user)
