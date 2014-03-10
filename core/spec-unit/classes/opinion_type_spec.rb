@@ -5,7 +5,6 @@ describe OpinionType do
     it "includes the valid types" do
       expect(OpinionType).to include 'believes'
       expect(OpinionType).to include :believes
-      expect(OpinionType).to include 'doubts'
       expect(OpinionType).to include 'disbelieves'
       expect(OpinionType).to_not include 'blah'
     end

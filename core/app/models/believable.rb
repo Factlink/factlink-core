@@ -7,8 +7,7 @@ class Believable
   def votes
     {
       believes: opiniated(:believes).count,
-      disbelieves: opiniated(:disbelieves).count,
-      doubts: opiniated(:doubts).count
+      disbelieves: opiniated(:disbelieves).count
     }
   end
 
@@ -20,7 +19,7 @@ class Believable
   end
 
   def opinionated_users_ids
-    (opiniated(:believes) | opiniated(:doubts) | opiniated(:disbelieves)).ids
+    (opiniated(:believes) | opiniated(:disbelieves)).ids
   end
 
   def opiniated(type)
@@ -43,7 +42,6 @@ class Believable
   def delete
     opiniated(:believes).clear
     opiniated(:disbelieves).clear
-    opiniated(:doubts).clear
   end
 
   private
