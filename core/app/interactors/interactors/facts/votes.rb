@@ -7,17 +7,7 @@ module Interactors
       arguments :fact_id
 
       def execute
-        votes_for('believes') +
-          votes_for('disbelieves')
-      end
-
-      def votes_for type
-        query(:'facts/opinionators', fact: fact, type: type)
-          .map { |user| { user: user, type: type } }
-      end
-
-      def fact
-        @fact ||= Fact[fact_id]
+        Backend::Facts.votes fact_id: fact_id
       end
 
       def authorized?

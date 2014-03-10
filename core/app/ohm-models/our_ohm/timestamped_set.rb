@@ -9,10 +9,7 @@ class Ohm::Model::TimestampedSet < Ohm::Model::SortedSet
     end
   end
 
-  alias :until :below
-
   def inspect
     "#<TimestampedSet (#{model}): #{key.zrange(0,-1).inspect}>"
   end
-
 end
