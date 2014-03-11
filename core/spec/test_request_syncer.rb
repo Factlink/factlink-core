@@ -1,7 +1,7 @@
 module TestRequestSyncer
   @test_counter = 1
   class << self
-    attr_accessor :test_counter
+    attr_reader :test_counter
     def increment_counter
       @test_counter += 1
     end
