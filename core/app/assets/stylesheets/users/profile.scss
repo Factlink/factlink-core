@@ -22,10 +22,12 @@
   display: inline-block;
   vertical-align: top;
   padding: 10px 20px 20px;
+
   @extend %white-block-with-shadow;
 
   @include from-width(700px) {
-    width: 50%;
+    width: 48%;
+    margin: 0 1%;
   }
 }
 
