@@ -13,16 +13,12 @@
 .on-your-site-container {
   border-top: 1px lightgrey solid;
   padding: 20px 0px;
+  text-align: center;
+
   &:first-child {
     padding: 0px 0px 20px;
     border-top: none;
   }
-}
-
-.on-your-site-content {
-  display: table-cell;
-  vertical-align: middle;
-  padding: 20px;
 }
 
 .on-your-site-content-heading {
@@ -30,12 +26,16 @@
   margin: 0 0 10px;
 }
 
-.on-your-site-illustration {
-  display: table-cell;
-  width: 400px;
-  text-align: center;
-  padding: 20px;
+.on-your-site-content {
+  display: inline-block;
+  text-align: left;
   vertical-align: middle;
+  padding: 20px;
+  width: 100%;
+
+  @include from-width(700px) {
+    width: 50%;
+  }
 }
 
 .focused-discussion {
@@ -83,6 +83,7 @@
   height: 12px;
   border-radius: 3px;
   background: grey;
+  text-align: center;
   &:before {
     content: "";
     position: absolute;
@@ -100,34 +101,29 @@
   border-radius: 4px;
   padding-top: 3px;
 }
-
-.social-reach-avatar {
+.social-reach-diagram {
+  text-align: center;
+}
+.social-reach-avatar,.social-reach-icon-container {
   display: inline-block;
-  height: 45px;
-  width: 45px;
-  margin: 12px;
+  height: 60px;
+  width: 60px;
+  margin: 5px;
   border-radius: 50%;
+
+  padding:7px;
+  vertical-align: middle;
 }
 
 .social-reach-icon-container {
-  display: inline-block;
-  vertical-align: top;
-  height: 60px;
-  width: 60px;
-  margin: 2px;
-  padding: 15px 0;
   border: 1px lightgrey solid;
-  border-radius: 50%;
+  @extend %centering;
 }
 
 .social-reach-icon {
+  @extend %centering-inner;
   position: relative;
-  top: 2px;
-  font-size: 10px;
-  line-height: 12px;
-  color: white;
-  font-weight: 600;
-  display: inline-block;
+  top:-3px;
   width: 25px;
   height: 17px;
   border-radius: 3px;
@@ -135,9 +131,9 @@
   &:before {
     content: "";
     position: absolute;
-    top: 17px;
+    top: 100%;
     right: 45%;
-    display: inline-block;
+    display: block;
     @include paragraph-icon-arrow(4px);
   }
 }
@@ -148,10 +144,12 @@
   position: relative;
   text-align: left;
   border-radius: 4px;
+  > .button {
+    margin: 6px;
+  }
 }
 
 .easy-integration-title {
-  display: inline-block;
   padding: 0px;
   margin: 0px;
   line-height: 30px;
@@ -167,6 +165,11 @@
   background:$lightYellow;
   padding: 3px;
   word-wrap: break-word;
+}
+
+.on-your-site-other-platforms-container {
+  width: 100%;
+  text-align: left;
 }
 
 .on-your-site-other-platforms-list {

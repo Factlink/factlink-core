@@ -89,9 +89,10 @@
 
 .icon-factlink {
   background: image-url('FL-checkmark.svg') no-repeat;
-  background-size: 18px;
-  background-position: center;
-  width: 30px;
-  height: 30px;
+  background-size: 100%;
+  width: 18px;
+  height: 18px;
   display: inline-block;
+  vertical-align: middle;
+  margin: 6px;
 }
