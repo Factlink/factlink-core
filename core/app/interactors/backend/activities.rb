@@ -41,7 +41,7 @@ module Backend
       specialized_data =
           case activity.action
           when "created_comment"
-            comment = Pavlov.query(:'comments/by_ids', ids: [activity.subject_id.to_s]).first
+            comment = Backend::Comments.by_ids(ids: [activity.subject_id.to_s]).first
             {
                 fact: Pavlov.query(:'facts/get_dead', id: activity.object_id.to_s),
                 comment: comment,
@@ -51,7 +51,7 @@ module Backend
             sub_comment = Backend::SubComments::dead_for(activity.subject)
             {
                 fact: Pavlov.query(:'facts/get_dead', id: activity.object_id.to_s),
-                comment: Pavlov.query(:'comments/by_ids', ids: [activity.subject.parent_id.to_s]).first,
+                comment: Backend::Comments.by_ids(ids: [activity.subject.parent_id.to_s]).first,
                 sub_comment: sub_comment,
                 user: sub_comment.created_by,
             }
