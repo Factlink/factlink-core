@@ -104,6 +104,8 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
+    execute_script('localStorage.clear();sessionStorage.clear();');
+
     TestRequestSyncer.increment_counter
     # after incrementing the counter, no new ajax requests will *start* to run.
     # However, ruby *is* multithreaded, so existing ajax requests must be
