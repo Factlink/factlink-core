@@ -10,10 +10,7 @@ module Backend
       fact_data = FactData.new
       fact_data.displaystring = displaystring
       fact_data.title = title
-      fact_data.save
-      fact_data
-
-      fail "Errors when saving fact.data" unless fact_data.persisted?
+      fact_data.save!
 
       site = Site.find_or_create_by url: url
 
@@ -21,9 +18,7 @@ module Backend
       fact.data = fact_data
       fact.save
       fact.data.fact_id = fact.id
-      fact.data.save
-
-      fail "Errors when saving fact: #{fact.errors.inspect}" if fact.errors.length > 0
+      fact.data.save!
 
       dead(fact)
     end
