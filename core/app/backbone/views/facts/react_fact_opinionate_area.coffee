@@ -100,6 +100,8 @@ window.ReactOpinionateArea = React.createBackboneClass
   displayName: 'ReactOpinionateArea'
 
   componentWillMount: ->
+    return if @model().fact.isNew() # TODO: Save a fact in the backend when submitting a comment
+
     @model().fetchIfUnloaded()
 
   _opinionate: ->

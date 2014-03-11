@@ -29,3 +29,12 @@ class window.Comment extends Backbone.Model
 
   share: (providers) ->
     @collection.fact.share providers, @get('content')
+
+  # TODO: Save a fact in the backend when submitting a comment
+  saveWithFactAndWithState: (attributes, options) ->
+    if @collection.fact.isNew()
+      @collection.fact.save {},
+        success: =>
+          @saveWithState(attributes, options)
+    else
+      @saveWithState(attributes, options)

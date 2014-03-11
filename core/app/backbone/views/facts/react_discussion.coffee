@@ -4,6 +4,8 @@ ReactComments = React.createBackboneClass
   changeOptions: 'add remove reset sort sync request'
 
   refetchComments : ->
+    return if @model().fact.isNew() # TODO: Save a fact in the backend when submitting a comment
+
     @model().fetchIfUnloadedFor(window.currentUser.get('username'))
 
   componentWillMount: ->
