@@ -33,9 +33,7 @@
         <span class="browser-window-bar-maximize"></span>
       </div>
       <div class="browser-window-video-container">
-        <video class="browser-window-video" autoplay loop>
-          <source src="<%= image_path 'landing/discuss-within-context-small.mp4' %>" type="video/mp4">
-        </video>
+        <iframe class="browser-window-video" src="//player.vimeo.com/video/88752539?title=0&amp;autoplay=1" width="343" height="440" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -43,18 +41,29 @@
 
 <% content_for :below_content do %>
   <div class="container">
-    <div class="bliep">
-      <h1>A better social tool</h1>
-      <p>Express yourself in more then 140 characters by sharing discussions and thoughts to Twitter. Involve your friends on Facebook in serious discussions about interesting articles. Consult the collective knowledge.</p>
-    </div>
+    <div class="social-information">
+      <div class="bliep">
+        <h1>A better social tool</h1>
+        <p>Express yourself in more then 140 characters by sharing discussions to Twitter or Involve your friends on Facebook in more serious discussions</p>
+      </div>
 
-    <div class="bliep">
-      <h1>Social connect</h1>
-      <p>Connect with social media. You don't need a new account.</p>
-    </div>
+      <div class="bliep">
+        <%= render "home/partials/give_opinion" %>
+        <h1>Give recognition</h1>
+        <p>Don't feel like writing a comment but do want to give recognition for a well written paragraph? Give recognition by using the thumb up and thumb down.</p>
+      </div>
 
-    <div class="bliep">
-      <h1>Share with friends</h1>
-      <p>
+      <div class="bliep">
+        <h1>Share with friends</h1>
+        <p>Share</p>
+      </div>
+    </div>
+      <div class="in-your-browser-cta-container">
+        <div class="extend-your-browser">
+          <h1 class="on-your-site-content-heading">Extend your browser</h1>
+        </div>
+      </div>
   </div>
+
+
 <% end %>

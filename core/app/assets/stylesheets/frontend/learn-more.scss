@@ -1,0 +1,19 @@
+.bliep {
+  width: 33%;
+  margin: 10px;
+  display: table-cell;
+  vertical-align: top;
+  padding: 0 10px;
+  border-left: 1px lightgrey solid;
+  &:first-child {
+    border-left: none;
+  }
+}
+
+.social-information {
+  padding: 50px $pagePadding;
+}
+
+.extend-your-browser {
+  padding: 20px;
+}
