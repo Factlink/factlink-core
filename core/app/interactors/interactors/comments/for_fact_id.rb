@@ -21,16 +21,18 @@ module Interactors
       end
 
       def comments
-        if pavlov_options[:current_user]
-          Backend::Comments.by_fact_id fact_id: fact_id,
-            current_graph_user: pavlov_options[:current_user].graph_user
-        else
-          Backend::Comments.by_fact_id fact_id: fact_id
-        end
+        Backend::Comments.by_fact_id fact_id: fact_id,
+          current_graph_user: current_graph_user
       end
 
       def relevance_of comment
         comment.tally[:believes] - comment.tally[:disbelieves]
+      end
+
+      def current_graph_user
+        return nil unless pavlov_options[:current_user]
+
+        pavlov_options[:current_user].graph_user
       end
     end
   end
