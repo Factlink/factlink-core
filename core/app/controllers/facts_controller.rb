@@ -21,8 +21,6 @@ class FactsController < ApplicationController
   end
 
   def discussion_page_redirect
-    authorize! :show, Fact
-
     redirect_to FactUrl.new(@fact).proxy_open_url, status: :moved_permanently
   end
 
