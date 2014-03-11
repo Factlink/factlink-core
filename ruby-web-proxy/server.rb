@@ -15,5 +15,5 @@ class Server < WebProxy
   use RedirectIfPublisher  if Goliath.env == :production
   use StripPublisherScript if Goliath.env != :production
   use AddFactlinkToPage
-  # use RavenCatcher
+  use RavenCatcher
 end
