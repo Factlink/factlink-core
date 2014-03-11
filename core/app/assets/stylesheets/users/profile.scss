@@ -1,49 +1,56 @@
-#main-wrapper .profile {
+.profile {
+  text-align: center;
+}
 
-  .profile-information-item {
-    margin-bottom: 1.25em;
+.profile-information-item {
+  margin-bottom: 1.25em;
 
-    .profile-information-label {
-      font-weight: bold;
-      display: block;
-      color: $metaFontColor;
-      margin-bottom: 2px;
-    }
-
-    .empty-state {
-      color: $metaFontColor;
-    }
+  .profile-information-label {
+    font-weight: bold;
+    display: block;
+    color: $metaFontColor;
+    margin-bottom: 2px;
   }
 
-  .profile-box-container {
-    width: 49%;
-    float: left;
-    padding: 10px 20px 20px;
-    @extend %white-block-with-shadow;
-  }
-
-  .user-follow-user-button {
-    width: 200px;
-    float: right;
-    clear: right;
-
-    &.button-confirm {
-      color: white;
-    }
+  .empty-state {
+    color: $metaFontColor;
   }
 }
 
-.profile-social-statistics {
-  float: right;
+.profile-box-container {
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px 20px 20px;
+  @extend %white-block-with-shadow;
+
+  @include from-width(700px) {
+    width: 50%;
+  }
+}
+
+.user-follow-user-button {
   width: 200px;
+  float: right;
+  clear: right;
+
+  &.button-confirm {
+    color: white;
+  }
 }
 
-.profile-picture {
-  float: left;
+.profile-information-container {
+  text-align: center;
 }
 
-.profile-box-bio {
-  margin-left: 2%;
+.profile-information-item {
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+
+  @include from-width(450px) {
+    width: 50%;
+  }
 }
 
 .empty-profile-facts {
@@ -51,6 +58,6 @@
 }
 
 .profile-feed-activities {
-  clear: both;
   padding-top: 20px;
+  text-align: left;
 }
