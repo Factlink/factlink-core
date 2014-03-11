@@ -3,7 +3,7 @@ class window.ProfileBioView extends Backbone.Marionette.ItemView
 
 class window.ProfileView extends Backbone.Marionette.Layout
   template:  'users/profile/index'
-  className: 'profile'
+  className: 'profile-container'
 
   regions:
     profileInformationRegion: '.js-profile-information-region'
