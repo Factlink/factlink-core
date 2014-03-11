@@ -72,10 +72,10 @@ module TestRequestSyncer
         action_block.call
       # if you need to debug race conditions surrounding test-end,
       # then uncommenting the following lines may be handy:
-      # else
-      #   puts "\nINVALID TEST COUNTER (#{test_counter} not #{TestRequestSyncer.test_counter})"
-      #   puts "#{controller.request.original_url} from #{controller.request.referer}"
-      #   puts "Aborted request\n"
+      else
+         puts "\nINVALID TEST COUNTER (#{test_counter} not #{TestRequestSyncer.test_counter})"
+         puts "#{controller.request.original_url} from #{controller.request.referer}"
+         puts "Aborted request\n"
       end
     end
   end
