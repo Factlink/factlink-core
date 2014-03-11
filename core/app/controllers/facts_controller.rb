@@ -6,7 +6,6 @@ class FactsController < ApplicationController
   before_filter :load_fact,
     only: [
       :show,
-      :discussion_page,
       :discussion_page_redirect,
       :destroy,
       :update,
@@ -19,12 +18,6 @@ class FactsController < ApplicationController
     authorize! :show, Fact
     dead_fact = query(:'facts/get_dead', id: @fact.id.to_s)
     render json: dead_fact
-  end
-
-  def discussion_page
-    authorize! :show, Fact
-
-    backbone_responder
   end
 
   def discussion_page_redirect
