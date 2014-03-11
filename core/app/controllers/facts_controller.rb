@@ -36,12 +36,11 @@ class FactsController < ApplicationController
   def create
     authorize! :create, Fact
 
-    @fact = interactor(:'facts/create',
+    dead_fact = interactor(:'facts/create',
                            displaystring: params[:displaystring].to_s,
                            url: params[:url].to_s,
                            title: params[:site_title].to_s)
 
-    dead_fact = query(:'facts/get_dead', id: @fact.id.to_s)
     render json: dead_fact
   end
 

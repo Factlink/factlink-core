@@ -20,10 +20,9 @@ describe SitesController do
 
       it "should render json successful" do
         url = 'http://bla.com/foo'
-        fact = nil
 
         as(user) do |pavlov|
-          fact = pavlov.interactor(:'facts/create',
+          pavlov.interactor(:'facts/create',
                                        displaystring: 'displaystring', url: url,
                                        title: 'title')
         end

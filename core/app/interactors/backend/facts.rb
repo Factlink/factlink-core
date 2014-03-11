@@ -25,7 +25,7 @@ module Backend
 
       fail "Errors when saving fact: #{fact.errors.inspect}" if fact.errors.length > 0
 
-      fact
+      dead(fact)
     end
 
     private
@@ -41,6 +41,14 @@ module Backend
 
     def believable(fact_id)
       Believable.new Nest.new("Fact:#{fact_id}")
+    end
+
+    def dead(fact)
+      DeadFact.new id:fact.id,
+                   site_url: fact.site.url,
+                   displaystring: fact.data.displaystring,
+                   created_at: fact.data.created_at,
+                   site_title: fact.data.title
     end
   end
 end
