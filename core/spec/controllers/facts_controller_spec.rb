@@ -23,7 +23,7 @@ describe FactsController do
       end
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
-      should_check_can :show, fact
+      should_check_can :show, Fact
 
       get :show, id: fact.id, format: :json
 
@@ -44,7 +44,7 @@ describe FactsController do
       end
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
-      should_check_can :show, fact
+      should_check_can :show, Fact
 
       get :show, id: fact.id, format: :json
 

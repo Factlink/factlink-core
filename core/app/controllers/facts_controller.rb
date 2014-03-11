@@ -16,19 +16,19 @@ class FactsController < ApplicationController
       ]
 
   def show
-    authorize! :show, @fact
+    authorize! :show, Fact
     dead_fact = query(:'facts/get_dead', id: @fact.id.to_s)
     render json: dead_fact
   end
 
   def discussion_page
-    authorize! :show, @fact
+    authorize! :show, Fact
 
     backbone_responder
   end
 
   def discussion_page_redirect
-    authorize! :show, @fact
+    authorize! :show, Fact
 
     redirect_to FactUrl.new(@fact).proxy_open_url, status: :moved_permanently
   end
