@@ -154,6 +154,9 @@
   position: relative;
   text-align: left;
   border-radius: 4px;
+  > .button {
+    margin: 6px;
+  }
 }
 
 .easy-integration-title {
