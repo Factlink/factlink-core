@@ -13,11 +13,7 @@
 .on-your-site-container {
   border-top: 1px lightgrey solid;
   padding: 20px 0px;
-  text-align: left;
-
-  @include from-width(700px) {
-    text-align: center;
-  }
+  text-align: center;
 
   &:first-child {
     padding: 0px 0px 20px;
