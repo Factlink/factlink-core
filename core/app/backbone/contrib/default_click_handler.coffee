@@ -7,7 +7,7 @@ Backbone.View::defaultClickHandler = (e, routeTo=null) ->
   if e.metaKey or e.ctrlKey or e.altKey
     window.open routeTo, "_blank"
   else if not Backbone.History.started # Capitalization in Backbone.[H]istory is intentional
-    window.open routeTo, FactlinkApp.linkTarget
+    window.open routeTo
   else
     Backbone.View::navigateTo routeTo
   e.preventDefault()
@@ -25,7 +25,7 @@ Backbone.View::navigateTo = (routeTo) ->
       Backbone.history.fragment = null # Force creating a state in the history
       Backbone.history.navigate routeTo, false
     else
-      window.open routeTo, FactlinkApp.linkTarget
+      window.open routeTo
       window.focus()
 
 # HACK: this is needed because internal events did not seem to work

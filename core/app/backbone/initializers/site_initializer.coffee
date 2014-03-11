@@ -1,7 +1,6 @@
 window.FactlinkAppMode ?= {}
 window.FactlinkAppMode.coreInSite = (app) ->
   app.onClientApp = false
-  app.linkTarget = '_self'
   app.startSiteRegions()
   app.automaticLogoutInitializer()
   app.scrollToTopInitializer()
