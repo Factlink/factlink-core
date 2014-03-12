@@ -42,41 +42,40 @@
 
 
 .social-conversation-comment {
-  float: left;
+  text-align: left;
+  @extend %centering-y;
+
 }
 
 .social-conversation-reply {
-  float: right;
-  position: relative;
-  top: -10px;
-}
-
-
-.social-conversation-person {
-  display: inline-block;
-  vertical-align: middle;
+  text-align: right;
+  @extend %centering-y;
 }
 
 .social-conversation-talk-bubble {
-  font-size: 13px;
-  margin: 5px;
-  padding: 3px;
+  position: relative;
+  font-size: 0.9em;
+  margin: 0 0.5em;
+  padding: 0.4em 0.6em;
   @extend %white-block-with-shadow;
-
-  &.right:after{
-    content: "";
-    border: 1px red solid;
-    display: inline-block;
-  }
+  @extend %centering-inner;
 }
 
-.social-conversation-says {
-  display: inline-block;
+.social-conversation-talk-bubble-icon-right {
+  @include triangle-arrow-right();
+  top: 50%;
+  right: 2px;
+}
+
+.social-conversation-talk-bubble-icon-left {
+  @include triangle-arrow-left();
+  top: 50%;
+  left: 2px;
 }
 
 .social-conversation-avatar {
   height: 40px;
   width: 40px;
   border-radius: 20px;
-  display: inline-block;
+  @extend %centering-inner;
 }
