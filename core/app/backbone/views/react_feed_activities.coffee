@@ -67,6 +67,7 @@ ReactCreatedCommentActivity = React.createBackboneClass
         model: user
         time: @model().get('created_at')
         href: fact.get('proxy_open_url')
+        target: '_blank'
         activity_header_action: [
           _span ["feed-activity-description"],
             "commented on"
@@ -89,6 +90,7 @@ ReactCreatedSubCommentActivity = React.createBackboneClass
         model: user
         time: @model().get('created_at')
         href: fact.get('proxy_open_url')
+        target: '_blank'
         activity_header_action: [
           _span ["feed-activity-description"],
             "replied to"
@@ -135,7 +137,7 @@ ReactGenericActivity = React.createBackboneClass
         _a [href: user.link(), rel:"backbone"],
           _img ["feed-activity-user-avatar", alt:" ", src: user.avatar_url(48)]
 
-      _a ["feed-activity-container", href: @props.href, rel: 'backbone'],
+      _a ["feed-activity-container", href: @props.href, rel: 'backbone', target: @props.target],
         _div ["feed-activity-heading"],
           _div ["feed-activity-action"],
             _div ["feed-activity-time"],
