@@ -22,6 +22,8 @@ class window.Comments extends Backbone.Factlink.Collection
   # * potentially there could be raceconditions if login happens during fetching,
   #   but currently we don't see harmful raceconditions (worst case it refetches)
   fetchIfUnloadedFor: (username) ->
+    return if @fact.isNew() # TODO: Save a fact in the backend when submitting a comment
+
     @_expected_username = username
 
     return if @_loading

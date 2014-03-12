@@ -23,6 +23,11 @@ $headerBorder: 1px;
   vertical-align: middle;
   height: $headerHeight;
   width: $headerHeight;
+  opacity: 0.9;
+
+  &:hover {
+    opacity: 1;
+  }
 
   @include respond-to(600) {
     width: $avatarSmallHeight;

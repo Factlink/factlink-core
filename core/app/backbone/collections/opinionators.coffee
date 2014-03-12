@@ -2,10 +2,10 @@ class window.Opinionators extends Backbone.Factlink.Collection
   model: Vote
 
   initialize: (models, options) ->
-    @_fact_id = options.fact.id
+    @fact = options.fact
 
   url: ->
-    "/facts/#{@_fact_id}/opinionators"
+    "/facts/#{@fact.id}/opinionators"
 
   opinion_for_current_user:  ->
     return 'no_vote' unless FactlinkApp.signedIn()
@@ -21,15 +21,21 @@ class window.Opinionators extends Backbone.Factlink.Collection
   clickCurrentUserOpinion: (type) ->
     return unless FactlinkApp.signedIn()
 
-    current_vote = @vote_for(currentUser.get('username'))
-    if current_vote
-      if current_vote.get('type') == type
-        current_vote.destroy()
+    @fact.saveUnlessNew =>
+      current_vote = @vote_for(currentUser.get('username'))
+      if current_vote
+        if current_vote.get('type') == type
+          current_vote.destroy()
+        else
+          current_vote.set type: type
+          current_vote.save()
       else
-        current_vote.set type: type
-        current_vote.save()
-    else
-      @create
-        username: currentUser.get('username')
-        user: currentUser.attributes
-        type: type
+        @create
+          username: currentUser.get('username')
+          user: currentUser.attributes
+          type: type
+
+  fetchIfUnloaded: ->
+    return if @fact.isNew() # TODO: Save a fact in the backend when submitting a comment
+
+    super
