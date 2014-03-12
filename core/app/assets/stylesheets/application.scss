@@ -1,5 +1,9 @@
 @import "variables";
-@import "mixins/**/*";
+
+@import "mixins/blocks";
+@import "mixins/centering";
+@import "mixins/mixins";
+@import "mixins/triangle_arrows";
 
 @import "pages/**/*";
 @import "base/**/*";
