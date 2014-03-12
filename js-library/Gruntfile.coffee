@@ -135,7 +135,7 @@ module.exports = (grunt) ->
       target_filepath = file_variant_func 'build/js/loader/loader_common.js'
 
       inline_file_into_file config_file, target_filepath,
-        '__INLINE_CONFIG_PLACEHOLDER__', false
+        '__INLINE_CONFIG_PLACEHOLDER__'
 
       inline_file_into_file file_variant_func('build/css/basic.css'),
         target_filepath,
