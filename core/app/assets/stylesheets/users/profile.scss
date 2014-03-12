@@ -2,10 +2,6 @@
   text-align: center;
 }
 
-.profile-information-item .empty-state {
-  color: $metaFontColor;
-}
-
 .profile-information-label {
   font-weight: bold;
   display: block;
@@ -50,6 +46,10 @@
 
   @include from-width(450px) {
     width: 50%;
+  }
+
+  .empty-state {
+    color: $metaFontColor;
   }
 }
 
