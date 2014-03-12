@@ -83,6 +83,16 @@ FactlinkUI::Application.routes.draw do
   get "/blog" => "blog#index", as: 'blog_index'
   get "/blog/the-annotated-web" => "blog#the_annotated_web", as: 'blog_the_annotated_web'
   get "/blog/learning-from-discussions" => "blog#learning_from_discussions", as: 'blog_learning_from_discussions'
+  get "/blog/discussion-of-the-week-10" => "blog#discussion_of_the_week_10", as: 'discussion_of_the_week_10'
+  get "/blog/discussion-of-the-week-9" => "blog#discussion_of_the_week_9", as: 'discussion_of_the_week_9'
+  get "/blog/discussion-of-the-week-8" => "blog#discussion_of_the_week_8", as: 'discussion_of_the_week_8'
+  get "/blog/discussion-of-the-week-7" => "blog#discussion_of_the_week_7", as: 'discussion_of_the_week_7'
+  get "/blog/discussion-of-the-week-6" => "blog#discussion_of_the_week_6", as: 'discussion_of_the_week_6'
+  get "/blog/discussion-of-the-week-5" => "blog#discussion_of_the_week_5", as: 'discussion_of_the_week_5'
+  get "/blog/discussion-of-the-week-4" => "blog#discussion_of_the_week_4", as: 'discussion_of_the_week_4'
+  get "/blog/discussion-of-the-week-3" => "blog#discussion_of_the_week_3", as: 'discussion_of_the_week_3'
+  get "/blog/discussion-of-the-week-2" => "blog#discussion_of_the_week_2", as: 'discussion_of_the_week_2'
+  get "/blog/discussion-of-the-week-1" => "blog#discussion_of_the_week_1", as: 'discussion_of_the_week_1'
 
   authenticated :user do
     namespace :admin, path: 'a' do
