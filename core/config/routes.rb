@@ -80,6 +80,8 @@ FactlinkUI::Application.routes.draw do
   get '/publisher', to: redirect("/on-your-site")
   get '/p/terms-of-service', to: redirect("/terms-of-service")
 
+  get "/blog" => "blog#index", as: 'blog_index'
+
   authenticated :user do
     namespace :admin, path: 'a' do
       get 'info'
