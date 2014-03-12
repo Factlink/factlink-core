@@ -2,16 +2,23 @@
 
 # Add a default clickhandler so we can use hrefs
 defaultClickHandler = (e) ->
-  url = $(e.target).closest("a").attr("href")
+  if Backbone.History.started # Capitalization in Backbone.[H]istory is intentional
+    $link = $(e.target).closest("a")
+    url = $link.attr("href")
 
-  if e.metaKey or e.ctrlKey or e.altKey
-    window.open url, "_blank"
-  else if not Backbone.History.started # Capitalization in Backbone.[H]istory is intentional
-    window.open url
+    if e.metaKey or e.ctrlKey or e.altKey
+      target = "_blank"
+    else
+      target = $link.attr("target")
+
+    if target?
+      window.open url, target
+    else
+      navigateTo url
+
+    false # prevent default
   else
-    navigateTo url
-  e.preventDefault()
-  false
+    true
 
 navigateTo = (url) ->
   if "/" + Backbone.history.fragment is url
