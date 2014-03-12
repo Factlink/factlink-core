@@ -6,7 +6,6 @@ class FactsController < ApplicationController
   before_filter :load_fact,
     only: [
       :show,
-      :discussion_page,
       :discussion_page_redirect,
       :destroy,
       :update,
@@ -16,32 +15,23 @@ class FactsController < ApplicationController
       ]
 
   def show
-    authorize! :show, @fact
+    authorize! :show, Fact
     dead_fact = query(:'facts/get_dead', id: @fact.id.to_s)
     render json: dead_fact
   end
 
-  def discussion_page
-    authorize! :show, @fact
-
-    backbone_responder
-  end
-
   def discussion_page_redirect
-    authorize! :show, @fact
-
     redirect_to FactUrl.new(@fact).proxy_open_url, status: :moved_permanently
   end
 
   def create
     authorize! :create, Fact
 
-    @fact = interactor(:'facts/create',
+    dead_fact = interactor(:'facts/create',
                            displaystring: params[:displaystring].to_s,
                            url: params[:url].to_s,
                            title: params[:site_title].to_s)
 
-    dead_fact = query(:'facts/get_dead', id: @fact.id.to_s)
     render json: dead_fact
   end
 

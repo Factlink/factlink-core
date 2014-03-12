@@ -29,3 +29,7 @@ class window.Comment extends Backbone.Model
 
   share: (providers) ->
     @collection.fact.share providers, @get('content')
+
+  saveWithFactAndWithState: (attributes, options) ->
+    @collection.fact.saveUnlessNew =>
+      @saveWithState(attributes, options)

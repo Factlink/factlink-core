@@ -39,3 +39,9 @@ class window.Fact extends Backbone.Model
 
   factUrlTitle: ->
     @get('site_title') || @factUrlHost()
+
+  # TODO: Save a fact in the backend when submitting a comment
+  saveUnlessNew: (callback) ->
+    return callback() unless @isNew()
+
+    @save {}, success: callback

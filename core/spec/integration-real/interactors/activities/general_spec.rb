@@ -8,7 +8,7 @@ describe 'general' do
 
   it 'after adding activities they exist' do
     as(user) do |pavlov|
-      fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', title: ''
+      pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', title: ''
 
       a2 = pavlov.command :'create_activity', graph_user: other_user.graph_user,
                                               action: :followed_user, subject: nil, object: nil

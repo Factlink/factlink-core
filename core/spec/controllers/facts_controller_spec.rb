@@ -19,11 +19,11 @@ describe FactsController do
                                      displaystring: 'displaystring',
                                      url: 'url',
                                      title: 'title')
-        fact.add_opinion :believes, user.graph_user
+        Fact[fact.id].add_opinion :believes, user.graph_user
       end
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
-      should_check_can :show, fact
+      should_check_can :show, Fact
 
       get :show, id: fact.id, format: :json
 
@@ -40,11 +40,11 @@ describe FactsController do
                                      displaystring: 'displaystring',
                                      url: 'url',
                                      title: 'title')
-        fact.add_opinion :believes, user.graph_user
+        Fact[fact.id].add_opinion :believes, user.graph_user
       end
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
-      should_check_can :show, fact
+      should_check_can :show, Fact
 
       get :show, id: fact.id, format: :json
 
