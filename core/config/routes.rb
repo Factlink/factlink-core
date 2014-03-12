@@ -81,6 +81,7 @@ FactlinkUI::Application.routes.draw do
   get '/p/terms-of-service', to: redirect("/terms-of-service")
 
   get "/blog" => "blog#index", as: 'blog_index'
+  get "/blog/4-lessons-you-can-learn-from-factlinks-pivot" => "blog#4_lessons_you_can_learn_from_factlinks_pivot", as: 'blog_4_lessons_you_can_learn_from_factlinks_pivot'
   get "/blog/the-annotated-web" => "blog#the_annotated_web", as: 'blog_the_annotated_web'
   get "/blog/learning-from-discussions" => "blog#learning_from_discussions", as: 'blog_learning_from_discussions'
   get "/blog/discussion-of-the-week-10" => "blog#discussion_of_the_week_10", as: 'blog_discussion_of_the_week_10'

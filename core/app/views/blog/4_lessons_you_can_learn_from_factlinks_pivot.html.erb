@@ -1,0 +1,52 @@
+<% content_for :title do %>4 Lessons You Can Learn from Factlink’s Pivot<% end %>
+
+<% content_for :blog_content do %>
+
+  <p><%= link_to "&laquo; Blog".html_safe, blog_index_path %></p>
+
+  <time pubdate>13 April 2014</time>
+  <h1 class="on-your-site-content-heading">4 Lessons You Can Learn from Factlink’s Pivot</h1>
+
+  <p><em>Our product didn’t work.</em> Hard to admit, but the cold, hard truth &mdash; and truth is important to us. In fact, our mission is to make the internet more truthful and credible. Unfortunately, great intentions don’t guarantee a great product.</p>
+
+  <p>Factlink started with a simple goal: to answer the question “is what I’m reading actually true?” Truth is a tricky topic. Many people seek the truth every day: in journalism, science, religion, and so on. Our idea was to take everyone’s personal search for the truth, and share that online, so we can all benefit.</p>
+
+  <p>We started out building a tool for linking information together, where some information would support other information. Say you’re researching the health effects on sugar, and you saw the statement “sugar is a major cause of health problems.” With our browser extension you could select this statement and add sources to it. Anyone reading the same article would see the sources you added.</p>
+
+  <p>Collaborating with the world on finding the truth, that was the goal. We wanted to show the credibility of statements, sources, and people. So we created an elaborate rating system, where you could vote on the truthiness of everything, and gain authority on specific topics. Using this we constructed a “knowledge graph”, from which we could derive a measure of “credibility” for any statement or source.</p>
+
+  <p>It was a great idea. But it didn’t work.</p>
+
+  <h4>Lesson 1: Define a clear product scope, and verify it early</h4>
+
+  <p>There were multiple reasons why Factlink didn’t work, but most importantly, it was too complex. We tried to do too much at once: calculations, browser extensions, linking different statements together, our own social network, gamification, and a whole bunch of minor features that aren’t even worth mentioning.</p>
+
+  <p>Only after 2 years did we start testing our product by observing how people used it. By then it was too late. We now user-test features before expanding on them, to make sure we have solid core functionality on which we can safely expand.</p>
+
+  <h4>Lesson 2: Often you don’t need new features, just improvements on existing features</h4>
+
+  <p>In hindsight, many features were unnecessary, and they pointed to an underlying problem. A great example is our guided tour. It was beautifully designed. After sign up, new users would be guided through the process of commenting on a website. They would select a piece of text, click a special button in the browser, and so on. We had it because people rarely discovered on their own how to comment. We tried to teach users how to use our product, instead of making it so simple we didn’t need to.</p>
+
+  <p>We now show icons next to each paragraph. When you click on them, you can leave a comment, simple as that. We don’t need the tour any more, because we have made the product itself more intuitive.</p>
+
+  <h4>Lesson 3: Have a good growth strategy</h4>
+
+  <p>When you started a discussion on a webpage, only other people with the Factlink browser extension would see it. Only they could respond to your comments on “sugar is a major cause of health problems.” But the internet is a big place, users would rarely meet like this. As a result, Factlink felt like a black hole.</p>
+
+  <p>We solve this now by integrating directly with websites. Now any visitor of a partner website can join your discussions, not just those with the Factlink browser extension installed.</p>
+
+  <h4>Lesson 4: Have customers</h4>
+
+  <p>Initially our customers were users who signed up for our beta. While some gave us feedback, a lot of them voted with their feet. After a while we were building in the blind, without customers.</p>
+
+  <p>Integrating with websites proved to be an incredible incentive to build a better product. All of a sudden we had to deal with website owners, who wanted to provide value for their users.</p>
+
+  <h4>New direction</h4>
+
+  <p>Last December was a turning point for us. It turned out Factlink worked best for commenting on any part of an article. People actually did this. We made the decision to get rid of all the calculations and other non-essential features.</p>
+
+  <p>Our main focus is now on getting great discussions on partner websites. We still allow people to use Factlink all over the web, using browser extensions, because we kept our original mission of discussing anything and everything.</p>
+
+  <p>We all strongly believe in our vision, of a world in which anything can be discussed freely, easily, and in context. We would love to work together with people and organisations sharing this dream. So please leave a message here &mdash; using Factlink &mdash; or subscribe to updates on Facebook or Twitter. We’ll keep you posted!</p>
+
+<% end %>
