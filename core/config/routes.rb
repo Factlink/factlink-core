@@ -82,6 +82,7 @@ FactlinkUI::Application.routes.draw do
 
   get "/blog" => "blog#index", as: 'blog_index'
   get "/blog/the-annotated-web" => "blog#the_annotated_web", as: 'blog_the_annotated_web'
+  get "/blog/learning-from-discussions" => "blog#learning_from_discussions", as: 'blog_learning_from_discussions'
 
   authenticated :user do
     namespace :admin, path: 'a' do
