@@ -103,6 +103,7 @@ FactlinkUI::Application.routes.draw do
   get "/blog/building-a-collective-perspective" => "blog#building_a_collective_perspective", as: 'blog_building_a_collective_perspective'
   get "/blog/knights-news-challenge" => "blog#knights_news_challenge", as: 'blog_knights_news_challenge'
   get "/blog/development_process" => "blog#development_process", as: 'blog_development_process'
+  get "/blog/collective-knowledge" => "blog#collective_knowledge", as: 'blog_collective_knowledge'
 
   authenticated :user do
     namespace :admin, path: 'a' do
