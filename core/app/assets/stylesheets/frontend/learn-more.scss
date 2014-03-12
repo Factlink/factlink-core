@@ -6,6 +6,7 @@
   font-size: 14px;
   width: 33%;
   display: table-cell;
+  vertical-align: top;
   padding: 0 20px;
   border-left: 1px lightgrey solid;
   &:first-child {
@@ -14,9 +15,10 @@
 }
 
 .learn-more-column-image {
-  height: 80px;
-  line-height: 80px;
+  height: 100px;
   vertical-align: middle;
+  display: table;
+  width: 100%;
 }
 
 .extend-your-browser-container {
@@ -36,4 +38,45 @@
 .extend-your-browser-install-button {
   margin: 30px 0px 0px;
   text-align: center;
+}
+
+
+.social-conversation-comment {
+  float: left;
+}
+
+.social-conversation-reply {
+  float: right;
+  position: relative;
+  top: -10px;
+}
+
+
+.social-conversation-person {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.social-conversation-talk-bubble {
+  font-size: 13px;
+  margin: 5px;
+  padding: 3px;
+  @extend %white-block-with-shadow;
+
+  &.right:after{
+    content: "";
+    border: 1px red solid;
+    display: inline-block;
+  }
+}
+
+.social-conversation-says {
+  display: inline-block;
+}
+
+.social-conversation-avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  display: inline-block;
 }
