@@ -1,0 +1,23 @@
+<% content_for :title do %><% end %>
+
+<% content_for :blog_content do %>
+
+  <p><%= link_to "&laquo; Blog".html_safe, blog_index_path %></p>
+
+  <time pubdate>17 March 2012</time>
+  <h1 class="on-your-site-content-heading">Knights News Challenge</h1>
+
+  <p>Factlink is <%= link_to 'participating', 'http://newschallenge.tumblr.com/post/19494949622/factlink-a-layer-for-the-web-that-shows-credibility' %> in the latest Knight Foundation <%= link_to 'challenge', 'http://newschallenge.tumblr.com/about' %>, which seeks projects that use the best of existing software and platforms – those already integrated into people’s lives – to find new ways to convey news and information.</p>
+
+  <ul class="blog-content-list">
+    <li>Factlink has build a network of statement linking to statements and the people connecting them.</li>
+    <li>Factlink integrates with people’s social networks to make them useful for capturing collective knowledge</li>
+  </ul>
+
+  <p>The match between the challenge and Factlink’s mission and product is amazing! We enable users to build authority on specific topics, add knowledge to the collective and continuously curate what information they see and share. We want to empower people to take control of what they know and believe. We strongly believe in the work of the Knight foundation and are excited to participate in this challenge. Let’s hope we can further contribute by build building a platform that provides people transparent information.</p>
+
+  <p>Please provide us with feedback and comments in the comments section of the <%= link_to 'application', 'http://newschallenge.tumblr.com/post/19494949622/factlink-a-layer-for-the-web-that-shows-credibility' %> page!</p>
+
+  <p>—Merijn</p>
+
+<% end %>

@@ -1,0 +1,67 @@
+<% content_for :title do %>YOLO: spend less time deploying, more time for development<% end %>
+
+<% content_for :blog_content do %>
+
+  <p><%= link_to "&laquo; Blog".html_safe, blog_index_path %></p>
+
+  <time pubdate>20 March 2013</time>
+  <h1 class="on-your-site-content-heading">YOLO: spend less time deploying, more time for development</h1>
+
+  <p>As a developer, you want to focus on solving problems and building fancy new features. This is easy at the beginning of a project, but as your product starts to shape up and the user base increases, delivering consistent quality has to become an important aspect of your development process.</p>
+
+  <p>Since manual testing and deployment usually is quite labor intensive and error prone, we decided early on to automate these processes at Factlink.</p>
+
+  <p>We have been using <%= link_to 'Continuous Integration', 'http://www.martinfowler.com/articles/continuousIntegration.html' %> within our development process for over one and a half year. It allows us to release our code base often while maintaining high quality. Some advantages that we’ve experienced so far:</p>
+
+  <ul class="blog-content-list">
+    <li>improved quality of software</li>
+    <li>short(er) release cycles</li>
+    <li>quality control and deployment made simple</li>
+    <li>easy to automate tasks</li>
+  </ul>
+
+  <p>We’ve accomplished this by improving the process we use for integrating our code back into the main branch and by automating a lot of tasks like testing and deployment. Jenkins, the Continuous Integration server we use, is a great friend when it comes to automation and it serves as a central hub in our integration, test, and deployment process.</p>
+
+  <h4>Integrate your code often</h4>
+
+  <p>Working on large features often causes problems when trying to integrate your code back into the main branch. It can be frustrating and boring to fix merge conflicts. The product owner probably won’t be happy either because it means less time to spend on developing new features. Stuff should just work, right?</p>
+
+  <p>Using <%= link_to 'git-flow', 'http://nvie.com/posts/a-successful-git-branching-model' %> to support smoother branching enables developers to work on small feature branches that can be quickly and integrated back into the development branch. By keeping the feature branch in sync with the development branch, the merging of a feature branch back into development typically becomes a piece of cake and merge conflicts will arise far less frequently.</p>
+
+  <h4>Automate</h4>
+
+  <p>We’ve set up Jenkins to automatically check out the latest commits pushed to the development branch and to the feature branches, and then run the complete test suite and addtional tests for each of them. The steps that Jenkins runs for each job are defined in our projects’ codebase, allowing developers to easily adjust or add steps.</p>
+
+  <p>For each commit to the development branch, Jenkins is running the following tasks:</p>
+
+  <ul class="blog-content-list">
+    <li>install latest dependencies</li>
+    <li>codebase security checks</li>
+    <li>unit tests</li>
+    <li>integration tests</li>
+    <li>acceptance tests</li>
+    <li>screenshot tests</li>
+    <li>deploy to testing server - but only if all previous steps were successful</li>
+  </ul>
+
+  <p>The order of running these tasks is important: we want to break on errors as soon as possible to avoid waiting time before we can start fixing things. This explains the order of the tests: first unit tests (fast), then integration tests (semi-fast), integration test (average), and finally acceptance tests (slow). When one of the tests fails, Jenkins will notify the development team by posting a message to our development Hipchat channel and showing a red screen on our office dashboard.</p>
+
+  <p>Changes to the development branch will automatically be deployed to the testing environment and changes to the master branch will automatically be deployed on the staging environment. We don’t deploy to production automatically yet, because we still have a couple of manual checks that need to be done, for instance testing and uploading our Chrome Extension (something that is hard to automate). The manual testing is pretty easy and takes around five minutes to complete. When successful, deploying to production is just a final click of a button.</p>
+
+  <h4>Using Continuous Integration in your project</h4>
+
+  <p>When starting a new project, you should really invest some time in setting up a Continuous Integration environment.</p>
+
+  <p>Things to organize are:</p>
+
+  <ul class="blog-content-list">
+    <li>a solid test suite</li>
+    <li>a DTAP lane</li>
+    <li>a Continuous Integration server</li>
+    <li>a branching model for your codebase</li>
+    <li>storing your test scripts in version control, not on the CI server</li>
+  </ul>
+
+  <p>When done right, this approach creates a great foundation for getting to fast development cycles and quality deployments!</p>
+
+<% end %>
