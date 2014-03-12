@@ -16,7 +16,8 @@ module Backend
 
       fact = Fact.new site: site
       fact.data = fact_data
-      fact.save
+      fact.save!
+      
       fact.data.fact_id = fact.id
       fact.data.save!
 
