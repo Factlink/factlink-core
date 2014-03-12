@@ -1,0 +1,14 @@
+<% content_for :header do %>
+  <h1 class="header-heading">Blog</h1>
+  <p class="header-tagline">
+    Musings of a startup.
+  </p>
+<% end %>
+
+<% content_for :content do %>
+
+  <h1 class="on-your-site-content-heading"><%= link_to "The Annotated Web", blog_the_annotated_web_path %></h1>
+
+  <h1 class="on-your-site-content-heading"><%= link_to "Learning from Discussions", blog_learning_from_discussions_path %></h1>
+
+<% end %>
