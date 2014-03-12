@@ -18,7 +18,6 @@ module.exports = (grunt) ->
     concat:
       jail_iframe:
         src: [
-          'build/js/jail_iframe/config/*'
           'build/js/jail_iframe/libs/*'
           'build/js/jail_iframe/core.js'
           'build/js/jail_iframe/wrap/first.js'
@@ -87,16 +86,15 @@ module.exports = (grunt) ->
 
       config_development:
         files: [
-          { src: ['development.js'], cwd: 'build/config', dest: 'build/js/jail_iframe/config', expand: true }
+          { src: ['development.json'], cwd: 'app/config', dest: 'build/js/jail_iframe/config', expand: true }
         ]
       config_staging:
         files: [
-          { src: ['staging.js'], cwd: 'build/config', dest: 'build/js/jail_iframe/config', expand: true }
+          { src: ['staging.json'], cwd: 'app/config', dest: 'build/js/jail_iframe/config', expand: true }
         ]
       config_production:
         files: [
-          { src: ['production
-.js'], cwd: 'build/config', dest: 'build/js/jail_iframe/config', expand: true }
+          { src: ['production.json'], cwd: 'app/config', dest: 'build/js/jail_iframe/config', expand: true }
         ]
       build:
         files: [
@@ -116,34 +114,39 @@ module.exports = (grunt) ->
           run: true
 
   grunt.task.registerTask 'code_inliner', 'Inline code from one file into another',  ->
+    config_file = null
+    grunt.file.recurse "build/js/jail_iframe/config/",
+        (file_path) -> config_file = file_path
+
     min_filename = (filename) -> filename.replace(/\.\w+$/,'.min$&')
     debug_filename = (filename) -> filename
     file_variant_funcs = [min_filename, debug_filename]
-    replacements = [
-      {
-        placeholder: '__INLINE_CSS_PLACEHOLDER__'
-        content_file: 'build/css/basic.css'
-      }
-      {
-        placeholder: '__INLINE_FRAME_CSS_PLACEHOLDER__'
-        content_file: 'build/css/framed_controls.css'
-      }
-      {
-        placeholder: '__INLINE_JS_PLACEHOLDER__'
-        content_file: 'build/js/jail_iframe.js'
-      }
-    ]
-    file_variant_funcs.forEach (file_variant_func) ->
-      replacements.forEach (replacement) ->
-        input_filename = file_variant_func(replacement.content_file)
-        input_content = grunt.file.read(input_filename, 'utf8')
-        input_content_stringified = JSON.stringify(input_content)
-        target_filename = file_variant_func 'build/js/loader/loader_common.js'
 
-        grunt.log.writeln "Inlining '#{input_filename}' into '#{target_filename}' where  '#{replacement.placeholder}'."
-        target_content = grunt.file.read target_filename, 'utf8'
-        target_with_inlined_content = target_content.replace replacement.placeholder, input_content_stringified
-        grunt.file.write(target_filename, target_with_inlined_content)
+    inline_file_into_file = (input_filepath, target_filepath, placeholder) ->
+      input_content = grunt.file.read(input_filepath, 'utf8')
+      input_content_stringified = JSON.stringify(input_content)
+      grunt.log.writeln "Inlining '#{input_filepath}' into '#{target_filepath}' where  '#{placeholder}'."
+      target_content = grunt.file.read target_filepath, 'utf8'
+      target_with_inlined_content = target_content.replace placeholder, input_content_stringified
+      grunt.file.write(target_filepath, target_with_inlined_content)
+
+
+    file_variant_funcs.forEach (file_variant_func) ->
+      target_filepath = file_variant_func 'build/js/loader/loader_common.js'
+
+      inline_file_into_file config_file, target_filepath,
+        '__INLINE_CONFIG_PLACEHOLDER__', false
+
+      inline_file_into_file file_variant_func('build/css/basic.css'),
+        target_filepath,
+          '__INLINE_CSS_PLACEHOLDER__'
+
+      inline_file_into_file file_variant_func('build/css/framed_controls.css'),
+        target_filepath, '__INLINE_FRAME_CSS_PLACEHOLDER__'
+
+      inline_file_into_file file_variant_func('build/js/jail_iframe.js'),
+        target_filepath, '__INLINE_JS_PLACEHOLDER__'
+
 
   grunt.registerTask 'preprocessor', [
     'clean', 'copy:build', 'coffee', 'sass', 'cssUrlEmbed', 'cssmin', ]
