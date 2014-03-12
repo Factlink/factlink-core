@@ -3,7 +3,14 @@ class ClientEnvoy
     @_senderEnvoy = senderEnvoy
 
   showFactlink: (fact_id) ->
-    @_renderDiscussion new Fact id: fact_id
+    fact = new Fact id: fact_id
+    fact.fetch()
+    @_senderEnvoy 'highlightExistingFactlink', fact.id
+
+    FactlinkApp.discussionSidebarContainer.slideIn new ReactView
+      component: ReactDiscussion
+        model: fact
+        initiallyFocusAddComment: true
 
   prepareNewFactlink: (displaystring, url, site_title) =>
     fact = new Fact
@@ -11,21 +18,15 @@ class ClientEnvoy
       url: url
       site_title: site_title
 
-    fact.save {},
-      success: =>
-        @_senderEnvoy 'highlightNewFactlink', displaystring, fact.id
-
-        @_renderDiscussion fact
-        mp_track 'Factlink: Created'
-
-  _renderDiscussion: (fact) ->
-    @_senderEnvoy 'highlightExistingFactlink', fact.id
-    fact.fetch()
+    fact.once 'sync', =>
+      @_senderEnvoy 'highlightNewFactlink', displaystring, fact.id
+      mp_track 'Factlink: Created'
 
     FactlinkApp.discussionSidebarContainer.slideIn new ReactView
       component: ReactDiscussion
         model: fact
         initiallyFocusAddComment: true
+
 
 printDevelopmentHelp = ->
   return unless Factlink.Global.environment == 'development'

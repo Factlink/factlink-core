@@ -109,7 +109,7 @@ window.ReactAddComment = React.createBackboneClass
     return unless comment.isValid()
 
     @model().unshift(comment)
-    comment.saveWithState {},
+    comment.saveWithFactAndWithState {},
       success: ->
         mp_track "Factlink: Added comment",
           factlink_id: comment.collection.fact.id
