@@ -11,9 +11,10 @@ ReactShareButton = React.createBackboneClass
     ],
       if @model().serviceConnected @props.provider_name
         [
-          _input [type: 'checkbox', checked: @props.checked,
-            onChange: (event) => @props.onChange? event.target.checked]
-          _span ["share-button share-button-#{@props.provider_name}"]
+          _label [],
+            _input [type: 'checkbox', checked: @props.checked,
+              onChange: (event) => @props.onChange? event.target.checked]
+            _span ["share-button share-button-#{@props.provider_name}"]
           if @state.hovered
             ReactPopover {},
               _div [],
