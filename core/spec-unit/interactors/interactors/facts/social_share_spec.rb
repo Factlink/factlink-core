@@ -4,6 +4,10 @@ require_relative '../../../../app/interactors/interactors/facts/social_share.rb'
 describe Interactors::Facts::SocialShare do
   include PavlovSupport
 
+  before do
+    stub_classes 'Resque', 'Commands::Twitter::ShareFactlink', 'Commands::Facebook::ShareFactlink', 'Fact'
+  end
+
   describe 'validation' do
     it 'without connected Twitter doesn\'t validate' do
       social_account = double
@@ -35,9 +39,6 @@ describe Interactors::Facts::SocialShare do
   end
 
   describe '#call' do
-    before do
-      stub_classes 'Resque', 'Commands::Twitter::ShareFactlink', 'Commands::Facebook::ShareFactlink'
-    end
 
     it 'posts to twitter if specified' do
       fact_id = '1'

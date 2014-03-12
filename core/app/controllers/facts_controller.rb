@@ -41,8 +41,6 @@ class FactsController < ApplicationController
   end
 
   def share
-    authorize! :share, Fact
-
     interactor :'facts/social_share', fact_id: params[:id],
       message: params[:message], provider_names: params[:provider_names]
 
