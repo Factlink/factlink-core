@@ -21,7 +21,7 @@ class window.Opinionators extends Backbone.Factlink.Collection
   clickCurrentUserOpinion: (type) ->
     return unless FactlinkApp.signedIn()
 
-    @_createFactIfNecessary =>
+    @fact.saveUnlessNew =>
       current_vote = @vote_for(currentUser.get('username'))
       if current_vote
         if current_vote.get('type') == type
@@ -39,10 +39,3 @@ class window.Opinionators extends Backbone.Factlink.Collection
     return if @fact.isNew() # TODO: Save a fact in the backend when submitting a comment
 
     super
-
-  _createFactIfNecessary: (callback) ->
-    return callback() unless @fact.isNew()
-
-    @fact.save {},
-      success: callback
-
