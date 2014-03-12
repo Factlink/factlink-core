@@ -67,7 +67,7 @@ class FactsController < ApplicationController
   private
 
   def load_fact
-    fact_id = params[:fact_id] || params[:id]
+    fact_id = params[:id]
     @fact = interactor(:'facts/get', id: fact_id) or raise_404
   end
 end
