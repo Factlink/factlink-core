@@ -13,10 +13,6 @@
   margin-bottom: 0.8em;
 }
 
-.blog-content-list {
-  margin-bottom: 0.8em;
-}
-
 .blog-about-box {
   float: right;
   max-width: 250px;
@@ -29,6 +25,7 @@
 
 ul.blog-content-list {
   padding-left: 2em;
+  margin-bottom: 0.8em;
 
   > li {
     list-style-type: disc;
