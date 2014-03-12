@@ -35,7 +35,7 @@
   background-image: asset-data-url("sharing_icons/twitter_disabled.png");
 }
 
-.share-button-container input:checked + .share-button-twitter {
+input:checked + .share-button-twitter {
   background-image: asset-data-url("sharing_icons/twitter.png");
 }
 
@@ -43,6 +43,6 @@
   background-image: asset-data-url("sharing_icons/facebook_disabled.png");
 }
 
-.share-button-container input:checked + .share-button-facebook {
+input:checked + .share-button-facebook {
   background-image: asset-data-url("sharing_icons/facebook.png");
 }
