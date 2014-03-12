@@ -6,6 +6,24 @@ module Backend
       votes_for(fact_id, 'believes') + votes_for(fact_id, 'disbelieves')
     end
 
+    def create(displaystring:, title:, url:)
+      fact_data = FactData.new
+      fact_data.displaystring = displaystring
+      fact_data.title = title
+      fact_data.save!
+
+      site = Site.find_or_create_by url: url
+
+      fact = Fact.new site: site
+      fact.data = fact_data
+      fact.save!
+      
+      fact.data.fact_id = fact.id
+      fact.data.save!
+
+      dead(fact)
+    end
+
     private
 
     def votes_for(fact_id, type)
@@ -19,6 +37,14 @@ module Backend
 
     def believable(fact_id)
       Believable.new Nest.new("Fact:#{fact_id}")
+    end
+
+    def dead(fact)
+      DeadFact.new id:fact.id,
+                   site_url: fact.site.url,
+                   displaystring: fact.data.displaystring,
+                   created_at: fact.data.created_at,
+                   site_title: fact.data.title
     end
   end
 end
