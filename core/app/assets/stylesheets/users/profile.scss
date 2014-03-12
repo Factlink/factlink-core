@@ -2,13 +2,6 @@
   text-align: center;
 }
 
-.profile-information-label {
-  font-weight: bold;
-  display: block;
-  color: $metaFontColor;
-  margin-bottom: 2px;
-}
-
 .profile-box-container {
   width: 100%;
   vertical-align: top;
@@ -51,6 +44,13 @@
   .empty-state {
     color: $metaFontColor;
   }
+}
+
+.profile-information-label {
+  font-weight: bold;
+  display: block;
+  color: $metaFontColor;
+  margin-bottom: 2px;
 }
 
 .profile-feed-activities {
