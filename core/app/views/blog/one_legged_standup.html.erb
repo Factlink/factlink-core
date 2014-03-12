@@ -1,0 +1,31 @@
+<% content_for :blog_content do %>
+
+  <p><%= link_to "&laquo; Blog".html_safe, blog_index_path %></p>
+
+  <time pubdate>28 March 2013</time>
+  <h1 class="on-your-site-content-heading">One-legged standup</h1>
+
+  <p>I have mixed feelings about meetings. They are necessary to get the team on the same page, but they often feel like wasted time. At Factlink we try to keep our meetings short by using agile practices: a short standup, quick planning sessions, and a brief demo plus retrospective. However, recently our meetings have become increasingly longer.</p>
+
+  <p>When reducing our sprint cycle to one week, we had to cut most of our meeting times in half (except standup). The new times should have been:</p>
+
+  <ul class="blog-content-list">
+    <li>Sprint planning: 1 hour</li>
+    <li>Demo: ½ hour</li>
+    <li>Retrospective: ½ hour</li>
+    <li>Standup: 15 minutes</li>
+  </ul>
+
+  <p>With the demo we usually hit our target. Since we have one each week, only a limited set of features can be demoed. At the demo there is also more pressure, because we don’t want to bore our guests with technical details. The retrospective often goes a bit over time, but that’s probably because we have beers afterwards, kick back and reflect on the past week.</p>
+
+  <p>However, a couple of weeks ago we noticed that both our standup and sprint planning became way too long. We’ve had sprint plannings of over 2 hours, and standups of 30–45 minutes.</p>
+
+  <p>We did two things to shorten our meetings. First, we started strictly enforcing time limits for meetings. When a time limit is reached, the meeting ends right then. This may be annoying at first, but it gives us a better feeling for how much time there still is in a meeting, and consequently an idea about what might not need to be said. This way, we develop an ‘intuition’ that helps us assess when to stop a discussion.</p>
+
+  <p>Our second measure was the one-legged standup. The idea of a standup is that standing becomes annoying after a while, so meetings stay short. Apparently it didn’t bother us enough (or we developed some serious standing-stamina). Now everyone had to stand on one leg throughout the entire standup. It worked wonders: the first day our standup took less than 10 minutes, while we still discussed every story on the board.</p>
+
+  <%= image_tag 'blog/one-legged-standup.jpg', class: 'blog-content-image' %>
+
+  <p>After about a week we stopped with the one-legged standup, as we felt we had gotten used to shorter standups again. It seems to have worked: we haven’t had a standup longer than 15 minutes since then. Our other meetings have become shorter as well. This week’s sprint planning ended after exactly one hour, without any intervention.</p>
+
+<% end %>

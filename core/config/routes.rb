@@ -93,6 +93,15 @@ FactlinkUI::Application.routes.draw do
   get "/blog/discussion-of-the-week-3" => "blog#discussion_of_the_week_3", as: 'discussion_of_the_week_3'
   get "/blog/discussion-of-the-week-2" => "blog#discussion_of_the_week_2", as: 'discussion_of_the_week_2'
   get "/blog/discussion-of-the-week-1" => "blog#discussion_of_the_week_1", as: 'discussion_of_the_week_1'
+  get "/blog/stubbing-the-object-under-test-and-getting-away-without-it" => "blog#stubbing_the_object_under_test_and_getting_away_without_it", as: 'stubbing_the_object_under_test_and_getting_away_without_it'
+  get "/blog/one-legged-standup" => "blog#one_legged_standup", as: 'one_legged_standup'
+  get "/blog/yolo-spend-less-time-deploying-more-time-for-development" => "blog#yolo_spend_less_time_deploying_more_time_for_development", as: 'yolo_spend_less_time_deploying_more_time_for_development'
+  get "/blog/increasing-development-speed-by-decreasing-cycle-time" => "blog#increasing_development_speed_by_decreasing_cycle_time", as: 'increasing_development_speed_by_decreasing_cycle_time'
+  get "/blog/how-apis-should-be-drop-in-keys-running-in-1-minute" => "blog#how_apis_should_be_drop_in_keys_running_in_1_minute", as: 'how_apis_should_be_drop_in_keys_running_in_1_minute'
+  get "/blog/dont-look-for-a-ux-guy-be-a-ux-guy" => "blog#dont_look_for_a_ux_guy_be_a_ux_guy", as: 'dont_look_for_a_ux_guy_be_a_ux_guy'
+  get "/blog/building-a-collective-perspective" => "blog#building_a_collective_perspective", as: 'building_a_collective_perspective'
+  get "/blog/knights-news-challenge" => "blog#knights_news_challenge", as: 'knights_news_challenge'
+  get "/blog/development_process" => "blog#development_process", as: 'development_process'
 
   authenticated :user do
     namespace :admin, path: 'a' do
