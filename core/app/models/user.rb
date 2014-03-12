@@ -48,7 +48,7 @@ class User
     :users, :facts, :site, :templates, :search, :system, :tos, :pages, :privacy,
     :admin, :factlink, :auth, :reserved, :feedback, :feed, :client, :assets,
     :rails, :'terms-of-service', :f, :publisher, :publishers, :api,
-    :'in-your-browser', :'on-your-site', :about, :jobs
+    :'in-your-browser', :'on-your-site', :about, :jobs, :blog
   ].freeze
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username,
