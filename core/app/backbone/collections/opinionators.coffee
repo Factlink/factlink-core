@@ -35,6 +35,11 @@ class window.Opinionators extends Backbone.Factlink.Collection
           user: currentUser.attributes
           type: type
 
+  fetchIfUnloaded: ->
+    return if @fact.isNew() # TODO: Save a fact in the backend when submitting a comment
+
+    super
+
   _createFactIfNecessary: (callback) ->
     return callback() unless @fact.isNew()
 
