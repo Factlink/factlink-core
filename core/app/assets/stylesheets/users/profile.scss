@@ -40,6 +40,12 @@
   @include from-width(450px) {
     width: 50%;
   }
+}
+
+.profile-bio-item {
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
 
   .empty-state {
     color: $metaFontColor;
