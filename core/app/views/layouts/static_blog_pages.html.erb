@@ -25,9 +25,13 @@
     <%= link_to "Learn more about Factlink", in_your_browser_path, class: 'button' %>
   </div>
 
-  <div class="blog-content">
+  <article class="blog-content">
     <%= yield :blog_content %>
-  </div>
+  </article>
+<% end %>
+
+<% content_for :specific_javascript do %>
+  <script async defer src="https://static.factlink.com/lib/dist/factlink_loader.min.js"></script>
 <% end %>
 
 <%= render template: "layouts/static_pages" %>
