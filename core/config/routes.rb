@@ -81,6 +81,7 @@ FactlinkUI::Application.routes.draw do
   get '/p/terms-of-service', to: redirect("/terms-of-service")
 
   get "/blog" => "blog#index", as: 'blog_index'
+  get "/blog/the-annotated-web" => "blog#the_annotated_web", as: 'blog_the_annotated_web'
 
   authenticated :user do
     namespace :admin, path: 'a' do

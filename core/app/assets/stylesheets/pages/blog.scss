@@ -1,4 +1,13 @@
+.blog-content {
+  overflow: hidden;
+}
+
 .blog-about-box {
   float: right;
   max-width: 250px;
+  margin-left: 50px;
+
+  @include respond-to(600) {
+    display: none;
+  }
 }

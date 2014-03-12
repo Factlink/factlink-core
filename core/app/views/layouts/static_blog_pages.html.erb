@@ -1,25 +1,33 @@
 <% content_for :header do %>
   <h1 class="header-heading">Blog</h1>
   <p class="header-tagline">
-    Musings on a startup.
+    Musings of a startup.
   </p>
 <% end %>
 
 <% content_for :content do %>
   <div class="blog-about-box">
-    <h1 class="on-your-site-content-heading">About Factlink</h1>
+    <h4>About Factlink</h4>
 
     <p>
       Factlink is a more-than-profit with a mission: to make the world
-      more open and credible by discussing everything. Install Factlink
+      more open and credible by discussing everything.
+    </p>
+
+    <p>
+      Install Factlink
       <%= link_to "in your browser", in_your_browser_path %>
       to discuss anything on the web. Or use Factlink
       <%= link_to "on your site", on_your_site_path %>
       to get great in-line discussions.
     </p>
+
+    <%= link_to "Learn more about Factlink", in_your_browser_path, class: 'button' %>
   </div>
 
-  <%= yield :blog_content %>
+  <div class="blog-content">
+    <%= yield :blog_content %>
+  </div>
 <% end %>
 
 <%= render template: "layouts/static_pages" %>
