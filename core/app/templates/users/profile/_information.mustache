@@ -1,14 +1,14 @@
 <h1>Information</h1>
 
 {{#biography}}
-<div class="profile-information-item">
+<div class="profile-bio-item">
   <span class="profile-information-label">Bio:</span>
   <span class="profile-information-field">{{biography}}</span>
 </div>
 {{/biography}}
 
 {{#location}}
-<div class="profile-information-item">
+<div class="profile-bio-item">
   <span class="profile-information-label">Location:</span>
   <span class="profile-information-field">{{location}}</span>
 </div>
@@ -16,7 +16,7 @@
 
 {{^biography}}
 {{^location}}
-  <div class="profile-information-item">
+  <div class="profile-bio-item">
     <div class="empty-state">{{name}} hasn't added their profile information yet.</div>
   </div>
 {{/location}}

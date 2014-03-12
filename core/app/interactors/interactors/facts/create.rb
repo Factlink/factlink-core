@@ -13,11 +13,8 @@ module Interactors
       private
 
       def execute
-        fact = command(:'facts/create',
-                          displaystring: displaystring, title: title, site: site)
-
-        fail "Errors when saving fact: #{fact.errors.inspect}" if fact.errors.length > 0
-        fail "Errors when saving fact.data" unless fact.data.persisted?
+        fact = Backend::Facts.create displaystring: displaystring,
+          url: url, title: title
 
         if user
           command(:'facts/add_to_recently_viewed',
@@ -25,18 +22,6 @@ module Interactors
         end
 
         fact
-      end
-
-      def site
-        fail 'No site given' if url.blank?
-
-        site = query(:'sites/for_url', url: url)
-
-        if site.nil?
-          command(:'sites/create', url: url)
-        else
-          site
-        end
       end
 
       def user
