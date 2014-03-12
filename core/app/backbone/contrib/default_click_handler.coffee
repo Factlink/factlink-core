@@ -6,20 +6,21 @@ defaultClickHandler = (e) ->
     $link = $(e.target).closest("a")
     url = $link.attr("href")
 
-    target = $link.attr("target")
     if e.metaKey or e.ctrlKey or e.altKey
       target = "_blank"
+    else
+      target = $link.attr("target")
 
     if target?
       window.open url, target
     else
-      navigateTo url, $link.attr("target")
+      navigateTo url
 
     false # prevent default
   else
     true
 
-navigateTo = (url, target='_self') ->
+navigateTo = (url) ->
   if "/" + Backbone.history.fragment is url
     # Allow reloads by clicking links without polluting the history
     Backbone.history.fragment = null
@@ -31,7 +32,7 @@ navigateTo = (url, target='_self') ->
       Backbone.history.fragment = null # Force creating a state in the history
       Backbone.history.navigate url, false
     else
-      window.open url, target
+      window.open url
       window.focus()
 
 # HACK: this is needed because internal events did not seem to work
