@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe "factlink", type: :feature, driver: :poltergeist_slow do
+describe "factlink", type: :feature do
   include ScreenshotTest
 
   before :each do
