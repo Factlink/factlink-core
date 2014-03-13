@@ -10,9 +10,9 @@ class LoadDsl
 
     def comment(username, comment)
 
-      u = User.where(username: username).first
+      user = User.where(username: username).first
 
-      pavlov_options = { current_user: u }
+      pavlov_options = {current_user: user}
 
       Pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, content: comment, pavlov_options: pavlov_options)
     end
