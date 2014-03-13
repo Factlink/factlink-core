@@ -28,6 +28,10 @@ module Interactors
         validate_connected :twitter if provider_names.include? 'twitter'
         validate_connected :facebook if provider_names.include? 'facebook'
       end
+
+      def authorized?
+        can? :share, Fact
+      end
     end
   end
 end

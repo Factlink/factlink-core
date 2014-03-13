@@ -95,7 +95,7 @@ fetchFacts = (siteUrl) ->
   FactlinkJailRoot.perf.add_timing_event 'fetchFacts:start'
   $.ajax
     # The URL to the FactlinkJailRoot backend
-    url: FactlinkBaseUri + "/site?url=" + encodeURIComponent(siteUrl)
+    url: FactlinkConfig.base_uri + "/site?url=" + encodeURIComponent(siteUrl)
     dataType: "jsonp"
     crossDomain: true
     type: "GET"

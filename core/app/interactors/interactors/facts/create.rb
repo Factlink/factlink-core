@@ -17,8 +17,7 @@ module Interactors
           url: url, title: title
 
         if user
-          command(:'facts/add_to_recently_viewed',
-                    fact_id: fact.id.to_i, user_id: user.id.to_s)
+          Backend::Facts.add_to_recently_viewed fact_id: fact.id, graph_user_id: user.graph_user_id
         end
 
         fact

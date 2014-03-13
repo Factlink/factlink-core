@@ -58,14 +58,25 @@ jslib_jail_code = __INLINE_JS_PLACEHOLDER__
 style_code = __INLINE_CSS_PLACEHOLDER__
 frame_style_code = __INLINE_FRAME_CSS_PLACEHOLDER__
 
+# create the factlink config object
+factlink_config = __INLINE_CONFIG_PLACEHOLDER__
+
+# concatenate the config and jail scripts
+jail_code = 'window.FactlinkConfig = ' + factlink_config + '; ' + jslib_jail_code
+
+this_env = JSON.parse(factlink_config).env
+
 if window.__internalFactlinkState
-  console.log 'Factlink already loaded!'
+  if window.__internalFactlinkState.env != this_env
+    alert("You're trying to load two different environments! loaded: #{window.__internalFactlinkState.env} - trying: #{this_env}")
   return
 
 queuedEvents = []
 window.__internalFactlinkState = ->
   queuedEvents.push(arguments)
   return
+
+window.__internalFactlinkState.env = this_env
 
 mkEl = (name, id, content) ->
   el = document.createElement(name)
@@ -99,8 +110,9 @@ whenHasBody = ->
   jslib_jail_doc.write '<!DOCTYPE html><title></title>'
   jslib_jail_doc.close()
 
-  script_tag = jslib_jail_doc.createElement 'script'
-  script_tag.appendChild(jslib_jail_doc.createTextNode(jslib_jail_code))
+  script_tag = jslib_jail_doc.createElement('script')
+  script_tag.appendChild(jslib_jail_doc.createTextNode(jail_code))
+
   jslib_jail_doc.documentElement.appendChild(script_tag)
 
   root = jslib_jail_iframe.contentWindow.FactlinkJailRoot
@@ -114,6 +126,7 @@ whenHasBody = ->
   window.__internalFactlinkState = (args...) ->
     root.public_events.trigger(args...)
     return
+  window.__internalFactlinkState.env = this_env
 
   for args in queuedEvents
     window.__internalFactlinkState(args...)

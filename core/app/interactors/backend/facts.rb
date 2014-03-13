@@ -17,11 +17,21 @@ module Backend
       fact = Fact.new site: site
       fact.data = fact_data
       fact.save!
-      
+
       fact.data.fact_id = fact.id
       fact.data.save!
 
       dead(fact)
+    end
+
+    def recently_viewed(graph_user_id:)
+      RecentlyViewedFacts.by_user_id(GraphUser[graph_user_id].user_id).top(5).map do |fact|
+        dead(fact)
+      end
+    end
+
+    def add_to_recently_viewed(fact_id:, graph_user_id:)
+      RecentlyViewedFacts.by_user_id(GraphUser[graph_user_id].user_id).add_fact_id fact_id
     end
 
     private
