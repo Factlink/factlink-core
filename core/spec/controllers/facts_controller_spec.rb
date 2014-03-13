@@ -53,7 +53,7 @@ describe FactsController do
   describe :create do
     it "should work with json" do
       authenticate_user!(user)
-      post 'create', format: :json, url: "http://example.org/", displaystring: "Facity Fact", fact_title: "Title"
+      post 'create', format: :json, url: "http://example.org/", displaystring: "Facity Fact", site_title: "Title"
       response.code.should eq("200")
     end
   end
