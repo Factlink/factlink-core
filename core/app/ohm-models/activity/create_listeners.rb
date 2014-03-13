@@ -5,22 +5,21 @@ class Activity < OurOhm
     #
     # in the following code, 'you' is anyone in the write_ids
     #
-    include Activity::Followers
 
     def reject_self followers, activity
       followers.reject {|id| id == activity.user_id}
     end
 
     def people_who_follow_sub_comment
-      ->(a) { reject_self(followers_for_sub_comment(a.subject), a) }
+      ->(a) { reject_self(Backend::Followers.followers_for_sub_comments([a.subject]), a) }
     end
 
     def people_who_follow_a_fact_which_is_object
-      ->(a) { reject_self(followers_for_fact(a.object),a) }
+      ->(a) { reject_self(Backend::Followers.followers_for_fact(a.object),a) }
     end
 
     def people_who_follow_user_of_activity
-      ->(a) { reject_self(followers_for_graph_user(a.user_id), a) }
+      ->(a) { reject_self(Backend::Followers.followers_for_graph_user_id(a.user_id), a) }
     end
 
     # notifications, stream_activities
@@ -83,7 +82,7 @@ class Activity < OurOhm
       {
         subject_class: 'GraphUser',
         action: 'followed_user',
-        write_ids: ->(a) { followers_for_graph_user(a.user_id) - [a.subject_id] }
+        write_ids: ->(a) { Backend::Followers.followers_for_graph_user_id(a.user_id) - [a.subject_id] }
       }
     end
 

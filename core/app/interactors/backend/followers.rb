@@ -10,15 +10,6 @@ module Backend
       ].flatten.uniq
     end
 
-    def followers_for_comments comments
-      comment_ids = comments.map(&:id).map(&:to_s)
-      sub_comments = Backend::SubComments.index(parent_ids_in: comment_ids)
-      [
-        direct_followers_for_comments(comments),
-        direct_followers_for_subcomments(sub_comments),
-      ].flatten.uniq
-    end
-
     def followers_for_sub_comments sub_comments
       followers_for_comments(sub_comments.map(&:parent))
     end
@@ -28,6 +19,15 @@ module Backend
     end
 
     private
+
+    def followers_for_comments comments
+      comment_ids = comments.map(&:id).map(&:to_s)
+      sub_comments = Backend::SubComments.index(parent_ids_in: comment_ids)
+      [
+        direct_followers_for_comments(comments),
+        direct_followers_for_subcomments(sub_comments),
+      ].flatten.uniq
+    end
 
     def direct_followers_for_comments comments
       comments_creators_ids = comments.map(&:created_by).map(&:graph_user_id)
