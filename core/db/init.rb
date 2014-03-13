@@ -16,14 +16,26 @@ LoadDsl.load do
     fact "Oil is still detrimental to the environment,", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm" do
       believers "merijn","tomdev","jjoos", "mark", "jens", "eamon", "luuk"
       disbelievers "remon"
+
+      comment "jens", "I totally agree, because I like plants and stuff."
+      comment "luuk", "Are you on crack?"
+      comment "tomdev", "Let's stay on topic and buy cr4ck at http://goo.gl/shine"
+
     end
     fact "Molecules that are not accessible to microbes persist and could have toxic effects", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm" do
       believers "merijn","tomdev"
       disbelievers "remon","mark","jjoos"
+
+      comment "eamon", "This was because nutrients such as nitrogen and phosphorus -- usually essential to enable microbes to grow and make new cells -- were scarce in the water and oil in the slick."
+
     end
     fact "Oil that is consumed by microbes \"is being converted to carbon dioxide that still gets into the atmosphere.\"", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm" do
       believers "merijn","jjoos"
       disbelievers "tomdev","mark"
+
+      comment "mark", "All your base are belong to us. So give your Pokémon and your children and head towards the mountains with the horses we provided."
+      comment "remon", "?"
+
     end
     fact "The dynamic microbial community of the Gulf of Mexico supported remarkable rates of oil respiration, despite a dearth of dissolved nutrients,", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm" do
       believers "tomdev","mark"
@@ -39,6 +51,7 @@ LoadDsl.load do
     fact "Cook served as Apple CEO for two months in 2004, when Jobs was recovering from pancreatic cancer surgery. In 2009, Cook again served as Apple CEO for several months while Jobs took a leave of absence for a liver transplant.", "http://en.wikipedia.org/wiki/Tim_Cook" do
       believers "tomdev"
       disbelievers "jjoos"
+
     end
     fact "Most bacterial infections can be treated with antibiotics such as penicillin, discovered decades ago. However, such drugs are useless against viral infections", "http://www.sciencedaily.com/" do
       believers "tomdev","jjoos"
@@ -57,6 +70,8 @@ LoadDsl.load do
     end
     fact ". Google plans to shut down the social applications developed by Slide, a company it acquired a year ago for US$182 million.  ", "http://localhost:3000/" do
       believers "jjoos"
+
+      comment "luuk", "I like money $$$$"
     end
     fact "Obesity is growing at alarming rates worldwide, and the biggest culprit is overeating", "http://www.sciencedaily.com/" do
       believers "jjoos"

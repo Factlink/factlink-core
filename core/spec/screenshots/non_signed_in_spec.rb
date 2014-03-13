@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe "Non signed in pages:", type: :feature, driver: :poltergeist_slow do
+describe "Non signed in pages:", type: :feature do
   include ScreenshotTest
   include Acceptance::FactHelper
 

@@ -36,7 +36,7 @@ window.ReactFeedActivitiesFixed = React.createBackboneClass
   displayName: 'ReactFeedActivitiesFixed'
 
   render: ->
-    _div [],
+    _div ['spec-feed-activities-fixed'],
       @model().map (model) =>
         ReactActivity model: model
       ReactLoadingIndicator model: @model()
@@ -132,7 +132,7 @@ ReactGenericActivity = React.createBackboneClass
   render: ->
     user = @model()
 
-    _div ["feed-activity"],
+    _div ["feed-activity", "spec-feed-activity"],
       _div ["feed-activity-user"],
         _a [href: user.link(), rel:"backbone"],
           _img ["feed-activity-user-avatar", alt:" ", src: user.avatar_url(48)]

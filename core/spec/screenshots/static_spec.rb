@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe "Static pages:", type: :feature, driver: :poltergeist_slow do
+describe "Static pages:", type: :feature do
   include ScreenshotTest
   include FeedHelper
 
@@ -9,6 +9,8 @@ describe "Static pages:", type: :feature, driver: :poltergeist_slow do
       create_default_activities_for create(:user)
 
       visit "/"
+      find('.spec-feed-activities-fixed .spec-feed-activity:first-child')
+
       assume_unchanged_screenshot "static_homepage"
     end
   end

@@ -333,7 +333,7 @@ GEM
     rails-assets-jquery-autosize (1.18.5)
       rails-assets-jquery (>= 1.7)
     rails-assets-react (0.9.0)
-    rails-assets-react.backbone (0.1.2)
+    rails-assets-react.backbone (0.2.0)
     rails-assets-tether (0.6.4)
     rails-dev-tweaks (0.6.1)
       actionpack (~> 3.1)

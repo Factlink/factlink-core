@@ -37,16 +37,6 @@ RSpec.configure do |config|
     Capybara::Poltergeist::Driver.new(app, options)
   end
 
-  Capybara.register_driver :poltergeist_slow do |app|
-    options = {
-      debug: false,
-      js_errors: true,
-      timeout: 60,
-      phantomjs_options: ['--load-images=no'],
-    }
-    Capybara::Poltergeist::Driver.new(app, options)
-  end
-
   Capybara.register_driver :selenium do |app|
     browser = if ENV["USE_SELENIUM"].nil? || ENV["USE_SELENIUM"].empty?
                 :firefox
