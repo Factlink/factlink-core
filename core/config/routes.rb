@@ -79,6 +79,8 @@ FactlinkUI::Application.routes.draw do
   get '/p/privacy', to: redirect("/privacy")
   get '/publisher', to: redirect("/on-your-site")
   get '/p/terms-of-service', to: redirect("/terms-of-service")
+  get '/p/tos', to: redirect("/terms-of-service")
+  get '/p/on-your-site', to: redirect("/on-your-site")
 
   get "/blog" => "blog#index", as: 'blog_index'
   get "/blog/4-lessons-you-can-learn-from-factlinks-pivot" => "blog#4_lessons_you_can_learn_from_factlinks_pivot", as: 'blog_4_lessons_you_can_learn_from_factlinks_pivot'
