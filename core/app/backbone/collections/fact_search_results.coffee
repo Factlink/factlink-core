@@ -2,13 +2,12 @@ class window.FactSearchResults extends Backbone.Factlink.Collection
   model: Fact
 
   initialize: (models, options) ->
-    @fact_id = options.fact_id;
     @_recently_viewed_facts = options.recently_viewed_facts
     @listenTo @_recently_viewed_facts, 'sync', @_search
 
     @searchFor ''
 
-  url: -> "/facts/#{@fact_id}/evidence_search.json?s=#{@_encodedQuery()}"
+  url: -> "/facts/evidence_search.json?s=#{@_encodedQuery()}"
 
   _encodedQuery: -> encodeURIComponent @query
 

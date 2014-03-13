@@ -4,11 +4,10 @@ module Interactors
     include Util::CanCan
     include Util::Search
 
-    arguments :keywords, :fact_id
+    arguments :keywords
 
     def validate
       fail 'Keywords should be an string.' unless @keywords.kind_of? String
-      fail 'Fact_id should be an number.' unless /\A\d+\Z/.match @fact_id
     end
 
     def use_query
@@ -20,7 +19,7 @@ module Interactors
     end
 
     def valid_result? result
-      result.id != @fact_id
+      true
     end
 
     def authorized?

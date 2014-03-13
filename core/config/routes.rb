@@ -32,7 +32,6 @@ FactlinkUI::Application.routes.draw do
     resources :opinionators, only: [:index, :create, :destroy, :update]
 
     member do
-      get     "/evidence_search"  => "facts#evidence_search"
       post    "/share"            => "facts#share"
 
       scope '/comments' do
@@ -53,6 +52,7 @@ FactlinkUI::Application.routes.draw do
 
     collection do
       get 'recently_viewed' => "facts#recently_viewed"
+      get 'evidence_search'  => "facts#evidence_search"
     end
   end
 

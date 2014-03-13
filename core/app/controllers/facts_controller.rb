@@ -16,12 +16,8 @@ class FactsController < ApplicationController
     render json: dead_fact
   end
 
-  # TODO: This search is way to simple now, we need to make sure already
-  # evidenced Factlinks are not shown in search results and therefore we need
-  # to move this search to the evidence_controller, to make sure it's
-  # type-specific
   def evidence_search
-    facts = interactor(:'search_evidence', keywords: params[:s], fact_id: params[:id])
+    facts = interactor(:'search_evidence', keywords: params[:s])
 
     render json: facts
   end

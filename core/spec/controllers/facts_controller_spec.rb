@@ -64,10 +64,9 @@ describe FactsController do
     end
     it "should work" do
       authenticate_user!(user)
-      fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.interactor(:'facts/create',
+        pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
                                      title: 'title')
@@ -83,7 +82,7 @@ describe FactsController do
 
       end
 
-      get :evidence_search, id: fact.id, s: "oil"
+      get :evidence_search, s: "oil"
       response.should be_success
 
       verify { response.body }
