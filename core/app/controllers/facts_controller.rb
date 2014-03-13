@@ -4,13 +4,13 @@ class FactsController < ApplicationController
   respond_to :json, :html
 
   def show
-    dead_fact = interactor(:'facts/get', id: params[:id]) or raise_404
+    dead_fact = interactor(:'facts/get', id: params[:id])
 
     render json: dead_fact
   end
 
   def discussion_page_redirect
-    dead_fact = interactor(:'facts/get', id: params[:id]) or raise_404
+    dead_fact = interactor(:'facts/get', id: params[:id])
 
     redirect_to FactUrl.new(dead_fact).proxy_open_url, status: :moved_permanently
   end
