@@ -8,16 +8,20 @@
   display: table-cell;
   vertical-align: top;
   padding: 0 20px;
-  border-left: 1px lightgrey solid;
+  border-left: 1px lightgrey;
   &:first-child {
     border-left: none;
   }
 }
 
 .learn-more-column-image {
-  height: 100px;
-  vertical-align: middle;
-  display: table;
+  height: 120px;
+  @extend %centering-y;
+  width: 100%;
+}
+
+.learn-more-column-image-inner {
+  @extend %centering-inner;
   width: 100%;
 }
 
@@ -79,3 +83,36 @@
   border-radius: 20px;
   @extend %centering-inner;
 }
+
+.best-comment {
+  width: 100%;
+  @extend %white-block-with-shadow;
+
+  &:first-child {
+    margin-bottom: 4px;
+  }
+}
+
+.best-comment-votes {
+  display: table-cell;
+  padding: 3px 0 3px 5px;
+  font-size: 9px;
+  color: lightgrey;
+}
+
+.best-comment-list {
+  vertical-align: top;
+  display: table-cell;
+  width:100%;
+  @extend .focused-discussion-list;
+  margin-right: 0px;
+  margin-left: 25px;
+}
+
+.best-comment-list-item {
+  background: lightgrey;
+  margin: 9px 9px 9px 3px;
+  padding: 4px;
+  transition: background 0.5s ease;
+}
+
