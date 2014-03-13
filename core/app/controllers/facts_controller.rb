@@ -1,8 +1,4 @@
 class FactsController < ApplicationController
-  layout "client"
-
-  respond_to :json, :html
-
   def show
     dead_fact = interactor(:'facts/get', id: params[:id])
 
