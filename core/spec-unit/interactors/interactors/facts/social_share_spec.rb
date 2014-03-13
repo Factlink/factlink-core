@@ -14,7 +14,7 @@ describe Interactors::Facts::SocialShare do
       current_user = double
       ability = double
       pavlov_options = {ability: ability, current_user: current_user}
-      hash = {fact_id: '1', provider_names: ['twitter'], pavlov_options: pavlov_options }
+      hash = {id: '1', provider_names: ['twitter'], pavlov_options: pavlov_options }
 
       current_user.stub(:social_account).with(:twitter).and_return(social_account)
       ability.stub(:can?).with(:share_to, social_account).and_return(false)
@@ -28,7 +28,7 @@ describe Interactors::Facts::SocialShare do
       current_user = double
       ability = double
       pavlov_options = {ability: ability, current_user: current_user}
-      hash = {fact_id: '1', provider_names: ['facebook'], pavlov_options: pavlov_options }
+      hash = {id: '1', provider_names: ['facebook'], pavlov_options: pavlov_options }
 
       current_user.stub(:social_account).with(:facebook).and_return(social_account)
       ability.stub(:can?).with(:share_to, social_account).and_return(false)
@@ -46,11 +46,11 @@ describe Interactors::Facts::SocialShare do
       current_user = double(id: '123asdf', social_account: double)
 
       pavlov_options = {current_user: current_user, ability: ability}
-      command = described_class.new fact_id: fact_id, message: nil,
+      command = described_class.new id: fact_id, message: nil,
                                     provider_names: ['twitter'], pavlov_options: pavlov_options
 
       Pavlov.should_receive(:command)
-            .with(:'twitter/share_factlink', fact_id: fact_id, message: nil,
+            .with(:'twitter/share_factlink', id: fact_id, message: nil,
               pavlov_options: pavlov_options)
 
       command.call
@@ -63,11 +63,11 @@ describe Interactors::Facts::SocialShare do
       current_user = double(id: '123asdf', social_account: double)
 
       pavlov_options = {current_user: current_user, ability: ability}
-      command = described_class.new fact_id: fact_id, message: message,
+      command = described_class.new id: fact_id, message: message,
                                     provider_names: ['facebook'], pavlov_options: pavlov_options
 
       Pavlov.should_receive(:command)
-            .with(:'facebook/share_factlink', fact_id: fact_id, message: message,
+            .with(:'facebook/share_factlink', id: fact_id, message: message,
               pavlov_options: pavlov_options)
 
       command.call
