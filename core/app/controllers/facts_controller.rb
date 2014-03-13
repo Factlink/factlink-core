@@ -3,30 +3,19 @@ class FactsController < ApplicationController
 
   respond_to :json, :html
 
-  before_filter :load_fact,
-    only: [
-      :show,
-      :discussion_page_redirect,
-      :destroy,
-      :update,
-      :opinion,
-      :evidence_search,
-      :share
-      ]
-
   def show
-    authorize! :show, Fact
-    dead_fact = query(:'facts/get_dead', id: @fact.id.to_s)
+    dead_fact = interactor(:'facts/get', id: params[:id])
+
     render json: dead_fact
   end
 
   def discussion_page_redirect
-    redirect_to FactUrl.new(@fact).proxy_open_url, status: :moved_permanently
+    dead_fact = interactor(:'facts/get', id: params[:id])
+
+    redirect_to FactUrl.new(dead_fact).proxy_open_url, status: :moved_permanently
   end
 
   def create
-    authorize! :create, Fact
-
     dead_fact = interactor(:'facts/create',
                            displaystring: params[:displaystring].to_s,
                            url: params[:url].to_s,
@@ -40,34 +29,21 @@ class FactsController < ApplicationController
   # to move this search to the evidence_controller, to make sure it's
   # type-specific
   def evidence_search
-    authorize! :index, Fact
-    search_for = params[:s]
-
-    raise_404 if Fact.invalid(@fact)
-    facts = interactor(:'search_evidence', keywords: search_for, fact_id: @fact.id)
+    facts = interactor(:'search_evidence', keywords: params[:s], fact_id: params[:id])
 
     render json: facts
   end
 
   def recently_viewed
-    @facts = interactor :"facts/recently_viewed"
+    facts = interactor :"facts/recently_viewed"
 
-    render json: @facts.map { |f| query(:'facts/get_dead', id: f.id.to_s) }
+    render json: facts
   end
 
   def share
-    authorize! :share, @fact
-
-    interactor :'facts/social_share', fact_id: @fact.id,
+    interactor :'facts/social_share', fact_id: params[:id],
       message: params[:message], provider_names: params[:provider_names]
 
     render json: {}
-  end
-
-  private
-
-  def load_fact
-    fact_id = params[:fact_id] || params[:id]
-    @fact = interactor(:'facts/get', id: fact_id) or raise_404
   end
 end
