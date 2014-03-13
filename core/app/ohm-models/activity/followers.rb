@@ -3,15 +3,15 @@ class Activity < OurOhm
     include Pavlov::Helpers
 
     def followers_for_fact fact
-      query(:'activities/graph_user_ids_following_fact', fact: fact)
+      Backend::Followers.followers_for_fact fact
     end
 
     def followers_for_sub_comment sub_comment
-      followers_for_comment sub_comment.parent
+      Backend::Followers.followers_for_sub_comments([sub_comment])
     end
 
     def followers_for_comment comment
-      query(:'activities/graph_user_ids_following_comments', comments: [comment])
+      Backend::Followers.followers_for_comments([comment])
     end
 
     def followers_for_graph_user graph_user_id
