@@ -2,7 +2,7 @@ window.ReactSearchResults = React.createBackboneClass
   displayName: 'ReactSearchResults'
   changeOptions: 'add remove reset sync request'
 
-  _results_per_page: 20  # WARNING: coupling with search_controller.rb
+  _results_per_page: 20  # WARNING: coupling with interactors/search.rb
 
   _results: ->
     @model().map (model) =>
