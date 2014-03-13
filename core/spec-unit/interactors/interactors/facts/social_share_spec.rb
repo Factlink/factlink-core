@@ -50,7 +50,7 @@ describe Interactors::Facts::SocialShare do
                                     provider_names: ['twitter'], pavlov_options: pavlov_options
 
       Pavlov.should_receive(:command)
-            .with(:'twitter/share_factlink', id: fact_id, message: nil,
+            .with(:'twitter/share_factlink', fact_id: fact_id, message: nil,
               pavlov_options: pavlov_options)
 
       command.call
@@ -67,7 +67,7 @@ describe Interactors::Facts::SocialShare do
                                     provider_names: ['facebook'], pavlov_options: pavlov_options
 
       Pavlov.should_receive(:command)
-            .with(:'facebook/share_factlink', id: fact_id, message: message,
+            .with(:'facebook/share_factlink', fact_id: fact_id, message: message,
               pavlov_options: pavlov_options)
 
       command.call
