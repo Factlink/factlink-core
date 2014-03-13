@@ -126,6 +126,7 @@ whenHasBody = ->
   window.__internalFactlinkState = (args...) ->
     root.public_events.trigger(args...)
     return
+  window.__internalFactlinkState.env = this_env
 
   for args in queuedEvents
     window.__internalFactlinkState(args...)
