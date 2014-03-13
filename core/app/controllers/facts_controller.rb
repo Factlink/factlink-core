@@ -37,7 +37,7 @@ class FactsController < ApplicationController
   def recently_viewed
     facts = interactor :"facts/recently_viewed"
 
-    render json: facts.map { |f| interactor(:'facts/get', id: f.id.to_s) }
+    render json: facts
   end
 
   def share
