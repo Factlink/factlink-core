@@ -58,7 +58,7 @@ describe FactsController do
     end
   end
 
-  describe :evidence_search do
+  describe :search do
     before do
       ElasticSearch.stub synchronous: true
     end
@@ -82,7 +82,7 @@ describe FactsController do
 
       end
 
-      get :evidence_search, s: "oil"
+      get :search, keywords: "oil"
       response.should be_success
 
       verify { response.body }
