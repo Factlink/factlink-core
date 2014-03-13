@@ -32,7 +32,7 @@ describe "Static pages:", type: :feature, driver: :poltergeist_slow do
 
   describe "Blog page" do
     it do
-      visit blog_4_lessons_you_can_learn_from_factlinks_pivot_path
+      visit blog_stubbing_the_object_under_test_and_getting_away_without_it_path
       assume_unchanged_screenshot "static_blogpost"
     end
   end
