@@ -29,4 +29,11 @@ describe "Static pages:", type: :feature, driver: :poltergeist_slow do
       assume_unchanged_screenshot "static_on_your_site_with_feedback"
     end
   end
+
+  describe "Blog page" do
+    it do
+      visit blog_stubbing_the_object_under_test_and_getting_away_without_it_path
+      assume_unchanged_screenshot "static_blogpost"
+    end
+  end
 end
