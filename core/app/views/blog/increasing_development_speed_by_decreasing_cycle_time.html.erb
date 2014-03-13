@@ -1,0 +1,44 @@
+<% content_for :title do %><% end %>
+
+<% content_for :blog_content do %>
+
+  <p><%= link_to "&laquo; Blog".html_safe, blog_index_path %></p>
+
+  <time pubdate>19 February 2013</time>
+  <h1 class="on-your-site-content-heading">Increasing Development Speed by Decreasing Cycle Time</h1>
+
+  <p>Every team has been there: the team’s velocity is decreasing without a clear reason why. Sprints are unfinished and bugs are creeping in. Some stories are almost done and with a quick calculation you can usually argue that in hindsight your velocity was… well, less than previous sprint. During retrospective, initiatives are discussed to improve things but somehow, during the next iteration, even less is accomplished. Where is this <i>‘hyperproductivity’</i> that Jeff promised us?</p>
+
+  <p>I have seen this happen in several teams and witnessed the frustration it causes. Not only for customers (who don’t get what was promised), or management (that gets frustrated by inefficiency and waste), but also for the development team. Team members increasingly feel incapable of doing their jobs like they feel they should.</p>
+
+  <p>So when we saw this coming at Factlink, we decided to try to act before our velocity would plummet. Initially, we used sprints of two weeks each in which we delivered around 13 story points. For a few sprints in a row, we failed to reach our target velocity. A natural response to this would be to increase the length of iterations. The logic behind this being:</p>
+
+  <ul class="blog-content-list">
+    <li>“Waste less time on meetings”</li>
+    <li>“Waste less time on deploying the release”</li>
+    <li>“Have more time to perform solid testing in order to make sure all stories have been completed correctly”</li>
+    <li>“Take on larger stories successfully”</li>
+  </ul>
+
+  <p>What we actually did might sound counterintuitive: we decreased the length of our sprints. Instead of using sprints of two weeks each, we went for sprints of one week. The idea was that the change could potentially increase the speed at which we learn and adapt. The challenge was to squeeze everything into one week while minimizing overhead at the same time. We decided to cut meeting time in half for each meeting — one hour for our sprint planning and half an hour for both our demo and retrospective. Then we got to work!</p>
+
+  <p>Surprisingly, we finished the next sprint with a velocity of 12 points — roughly the same as we used to achieve in two weeks before. Initially, we were a bit unsure if it wasn’t just a lucky shot but week after week, we were able to deliver significantly more than when we had sprints of two weeks each.</p>
+
+  <p>We have reached a velocity of about 18 points per week and climbing. <strong>This means we increased our velocity over two week from 13 to 36 points!</strong></p>
+
+  <p>What had happened? We had some discussions on this subject and came up with a several factors that potentially could have impacted our velocity:</p>
+
+  <ul class="blog-content-list">
+    <li>The shorter cycle time forced us to split up stories into smaller ones. This resulted in improved estimates and increased reliability of product delivery.</li>
+    <li>It also pushed us to speed up our automated testing and deployment infrastructure. This has reduced both the amount of time it takes to discover bugs and the time spent on deployments.</li>
+    <li>The end of the week horizon to deliver the product creates an increased focus on finishing things.</li>
+    <li>We got rid of ‘almost done’. We used to almost finish most stories in the first week, after which we we only needed to finish the last bits in the second week (remember the Paretto Principle?). Now everyone gets nervous during the Tuesday morning standup meeting when there are no stories that have been completed yet, after the first day of work on the new sprint.</li>
+  </ul>
+
+  <p>We are currently considering what other things we can do to increase our velocity. Should we introduce even shorter sprints? Why not iterate twice a week? Or every day? Twice a day?</p>
+
+  <p>An important thing that any Agile team should ask themselves is: <strong>What is the optimal length of each sprint for our team?</strong></p>
+
+  <p>Please let me know your thoughts and experiences!</p>
+
+<% end %>

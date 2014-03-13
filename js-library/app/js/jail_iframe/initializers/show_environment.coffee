@@ -1,8 +1,8 @@
-if FactlinkEnvironment != 'production'
-  console.log FactlinkEnvironment
+if FactlinkConfig.env != 'production'
+  console.log FactlinkConfig.env
   content = """
     <div class="environment-message">
-      This is the factlink #{FactlinkEnvironment} environment, not production!
+      This is the factlink #{FactlinkConfig.env} environment, not production!
     </div>
   """
 

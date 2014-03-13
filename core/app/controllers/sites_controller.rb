@@ -13,11 +13,6 @@ class SitesController < ApplicationController
   def facts_for_url
     url = params[:url]
 
-    if Blacklist.default.matches?(url)
-      render_jsonp blacklisted: 'This site is not supported'
-      return
-    end
-
     site = Site.find(url: url).first
     facts = site ? site.facts.to_a : []
 

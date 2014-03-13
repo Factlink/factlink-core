@@ -25,17 +25,8 @@
   background-size: contain;
   height: 100%;
   z-index: -1;
-  display: none;
   position: absolute;
   top: 30%; left: 0; right: 0; bottom: 0;
-}
-
-body.controller_home.action_in_your_browser,
-body.controller_home.action_on_your_site,
-body.controller_home.action_index {
-  .header-earth {
-    display: block;
-  }
 }
 
 .header-heading {

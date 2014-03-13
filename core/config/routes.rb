@@ -81,8 +81,29 @@ FactlinkUI::Application.routes.draw do
   get '/p/terms-of-service', to: redirect("/terms-of-service")
 
   get "/blog" => "blog#index", as: 'blog_index'
+  get "/blog/4-lessons-you-can-learn-from-factlinks-pivot" => "blog#4_lessons_you_can_learn_from_factlinks_pivot", as: 'blog_4_lessons_you_can_learn_from_factlinks_pivot'
   get "/blog/the-annotated-web" => "blog#the_annotated_web", as: 'blog_the_annotated_web'
   get "/blog/learning-from-discussions" => "blog#learning_from_discussions", as: 'blog_learning_from_discussions'
+  get "/blog/discussion-of-the-week-10" => "blog#discussion_of_the_week_10", as: 'blog_discussion_of_the_week_10'
+  get "/blog/discussion-of-the-week-9" => "blog#discussion_of_the_week_9", as: 'blog_discussion_of_the_week_9'
+  get "/blog/discussion-of-the-week-8" => "blog#discussion_of_the_week_8", as: 'blog_discussion_of_the_week_8'
+  get "/blog/discussion-of-the-week-7" => "blog#discussion_of_the_week_7", as: 'blog_discussion_of_the_week_7'
+  get "/blog/discussion-of-the-week-6" => "blog#discussion_of_the_week_6", as: 'blog_discussion_of_the_week_6'
+  get "/blog/discussion-of-the-week-5" => "blog#discussion_of_the_week_5", as: 'blog_discussion_of_the_week_5'
+  get "/blog/discussion-of-the-week-4" => "blog#discussion_of_the_week_4", as: 'blog_discussion_of_the_week_4'
+  get "/blog/discussion-of-the-week-3" => "blog#discussion_of_the_week_3", as: 'blog_discussion_of_the_week_3'
+  get "/blog/discussion-of-the-week-2" => "blog#discussion_of_the_week_2", as: 'blog_discussion_of_the_week_2'
+  get "/blog/discussion-of-the-week-1" => "blog#discussion_of_the_week_1", as: 'blog_discussion_of_the_week_1'
+  get "/blog/stubbing-the-object-under-test-and-getting-away-without-it" => "blog#stubbing_the_object_under_test_and_getting_away_without_it", as: 'blog_stubbing_the_object_under_test_and_getting_away_without_it'
+  get "/blog/one-legged-standup" => "blog#one_legged_standup", as: 'blog_one_legged_standup'
+  get "/blog/yolo-spend-less-time-deploying-more-time-for-development" => "blog#yolo_spend_less_time_deploying_more_time_for_development", as: 'blog_yolo_spend_less_time_deploying_more_time_for_development'
+  get "/blog/increasing-development-speed-by-decreasing-cycle-time" => "blog#increasing_development_speed_by_decreasing_cycle_time", as: 'blog_increasing_development_speed_by_decreasing_cycle_time'
+  get "/blog/how-apis-should-be-drop-in-keys-running-in-1-minute" => "blog#how_apis_should_be_drop_in_keys_running_in_1_minute", as: 'blog_how_apis_should_be_drop_in_keys_running_in_1_minute'
+  get "/blog/dont-look-for-a-ux-guy-be-a-ux-guy" => "blog#dont_look_for_a_ux_guy_be_a_ux_guy", as: 'blog_dont_look_for_a_ux_guy_be_a_ux_guy'
+  get "/blog/building-a-collective-perspective" => "blog#building_a_collective_perspective", as: 'blog_building_a_collective_perspective'
+  get "/blog/knights-news-challenge" => "blog#knights_news_challenge", as: 'blog_knights_news_challenge'
+  get "/blog/development_process" => "blog#development_process", as: 'blog_development_process'
+  get "/blog/collective-knowledge" => "blog#collective_knowledge", as: 'blog_collective_knowledge'
 
   authenticated :user do
     namespace :admin, path: 'a' do
