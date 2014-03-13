@@ -1,9 +1,5 @@
 class FactsController < ApplicationController
-  def show
-    dead_fact = interactor(:'facts/get', id: params[:id])
-
-    render json: dead_fact
-  end
+  pavlov_action :show, Interactors::Facts::Get
 
   def discussion_page_redirect
     dead_fact = interactor(:'facts/get', id: params[:id])
