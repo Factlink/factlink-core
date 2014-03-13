@@ -29,4 +29,11 @@ describe "Static pages:", type: :feature, driver: :poltergeist_slow do
       assume_unchanged_screenshot "static_on_your_site_with_feedback"
     end
   end
+
+  describe "Blog page" do
+    it do
+      visit blog_4_lessons_you_can_learn_from_factlinks_pivot_path
+      assume_unchanged_screenshot "static_blogpost"
+    end
+  end
 end
