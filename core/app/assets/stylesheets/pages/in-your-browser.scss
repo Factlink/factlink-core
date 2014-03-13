@@ -17,6 +17,14 @@
   }
 }
 
+.in-your-browser-cta-container {
+  @extend %white-block-with-shadow;
+  display: inline-block;
+  max-width: 840px;
+  margin-top: 10px;
+  width: 100%;
+}
+
 .in-your-browser-dashed-border {
   display: inline-block;
   border: 2px dotted #c9c9c9;
