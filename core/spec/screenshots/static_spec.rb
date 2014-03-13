@@ -9,7 +9,7 @@ describe "Static pages:", type: :feature, driver: :poltergeist_slow do
       create_default_activities_for create(:user)
 
       visit "/"
-      first('.spec-feed-activity')
+      find('.spec-feed-activity')
 
       assume_unchanged_screenshot "static_homepage"
     end
