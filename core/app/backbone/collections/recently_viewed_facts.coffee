@@ -1,3 +1,3 @@
 class window.RecentlyViewedFacts extends Backbone.Collection
   model: Fact
-  url: '/api/beta/facts/recently_viewed'
+  url: '/api/beta/annotations/recently_viewed'

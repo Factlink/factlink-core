@@ -1,5 +1,5 @@
 class window.Fact extends Backbone.Model
-  urlRoot: "/api/beta/facts"
+  urlRoot: "/api/beta/annotations"
 
   getOpinionators: ->
     @_opinionators ?= new Opinionators [], fact: @

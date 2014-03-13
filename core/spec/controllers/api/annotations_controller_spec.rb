@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::FactsController do
+describe Api::AnnotationsController do
   include PavlovSupport
 
   render_views
