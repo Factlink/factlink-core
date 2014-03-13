@@ -16,6 +16,11 @@ FactlinkUI::Application.routes.draw do
     get '/feed' => "api/feed#global"
     get '/feed/personal' => "api/feed#personal"
     get '/users/:username/feed' => 'api/users#feed'
+    get '/facts/:id' => 'api/facts#show'
+    post '/facts' => 'api/facts#create'
+    get '/facts/search' => 'api/facts#search'
+    get '/facts/recently_viewed' => 'api/facts#recently_viewed'
+    post '/facts/:id/share' => 'api/facts#share'
   end
 
   # Javascript Client calls
@@ -28,12 +33,10 @@ FactlinkUI::Application.routes.draw do
   # as well (frame busting)
   get '/client/*page' => 'client#show'
 
-  resources :facts, only: [:create, :show] do
+  resources :facts, only: [] do
     resources :opinionators, only: [:index, :create, :destroy, :update]
 
     member do
-      post    "/share"            => "facts#share"
-
       scope '/comments' do
         post "/" => 'comments#create'
         get "/" => 'comments#index'
@@ -48,11 +51,6 @@ FactlinkUI::Application.routes.draw do
           end
         end
       end
-    end
-
-    collection do
-      get 'recently_viewed' => "facts#recently_viewed"
-      get 'search'  => "facts#search"
     end
   end
 

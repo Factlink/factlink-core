@@ -7,7 +7,7 @@ class window.FactSearchResults extends Backbone.Factlink.Collection
 
     @searchFor ''
 
-  url: -> "/facts/search.json?keywords=#{@_encodedQuery()}"
+  url: -> "/api/beta/facts/search.json?keywords=#{@_encodedQuery()}"
 
   _encodedQuery: -> encodeURIComponent @query
 

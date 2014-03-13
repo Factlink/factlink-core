@@ -1,13 +1,11 @@
 class window.Fact extends Backbone.Model
-  urlRoot: "/facts"
+  urlRoot: "/api/beta/facts"
 
   getOpinionators: ->
     @_opinionators ?= new Opinionators [], fact: @
 
   comments: ->
     @_comments ?= new Comments null, fact: @
-
-  clientLink: -> "/client/facts/#{@id}"
 
   factUrlHost: ->
     fact_url = @get('site_url')
