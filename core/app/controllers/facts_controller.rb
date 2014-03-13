@@ -16,8 +16,8 @@ class FactsController < ApplicationController
     render json: dead_fact
   end
 
-  def evidence_search
-    facts = interactor(:'search_evidence', keywords: params[:s])
+  def search
+    facts = interactor(:'facts/search', keywords: params[:keywords])
 
     render json: facts
   end

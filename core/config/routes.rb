@@ -52,7 +52,7 @@ FactlinkUI::Application.routes.draw do
 
     collection do
       get 'recently_viewed' => "facts#recently_viewed"
-      get 'evidence_search'  => "facts#evidence_search"
+      get 'search'  => "facts#search"
     end
   end
 
