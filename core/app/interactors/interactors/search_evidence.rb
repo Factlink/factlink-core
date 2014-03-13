@@ -2,24 +2,16 @@ module Interactors
   class SearchEvidence
     include Pavlov::Interactor
     include Util::CanCan
-    include Util::Search
 
     arguments :keywords
 
+    def execute
+      query :elastic_search_fact_data, keywords: keywords, page: 1, row_count: 20
+    end
+
     def validate
-      fail 'Keywords should be an string.' unless @keywords.kind_of? String
-    end
-
-    def use_query
-      :elastic_search_fact_data
-    end
-
-    def keyword_min_length
-      1
-    end
-
-    def valid_result? result
-      true
+      fail 'Keywords should be a string.' unless keywords.kind_of? String
+      fail 'Keywords should not be empty' if keywords.length == 0
     end
 
     def authorized?
