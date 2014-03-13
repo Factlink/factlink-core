@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe "Static pages:", type: :feature, driver: :poltergeist_slow do
+describe "Static pages:", type: :feature do
   include ScreenshotTest
   include FeedHelper
 
