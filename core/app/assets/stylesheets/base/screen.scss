@@ -16,7 +16,7 @@ body {
   max-width: $siteWidth;
   margin-right: auto;
   margin-left: auto;
-  padding: 10px $pagePadding;
+  padding: $containerPaddingY $pagePadding;
 }
 
 .one-column-container {

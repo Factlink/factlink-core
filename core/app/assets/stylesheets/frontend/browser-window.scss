@@ -1,15 +1,19 @@
+.browser-window-container {
+  overflow-y: hidden;
+  text-align: right;
+  padding: 20px;
+  margin: 0 -10px;
+  margin-bottom: -$contentPadding - $containerPaddingY - $staticPagePadding;
+}
+
 .browser-window {
-  float: right;
-  margin-bottom: -25px - 10px - 20px;
+  margin-bottom: -20px;
   display: inline-block;
   border-top-left-radius: $baseBorderRadius;
   border-top-right-radius: $baseBorderRadius;
   border: 1px lightgrey solid;
   border-bottom: none;
-  -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.2);
-  -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.2);
-  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.2);
-
+  box-shadow: rgba(0,0,0,0.2) 0px 0px 20px 0px;
 }
 .browser-window-bar {
   text-align: left;

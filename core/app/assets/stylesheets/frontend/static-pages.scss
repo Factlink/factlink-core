@@ -18,7 +18,7 @@
   text-align: left;
   display: inline-block;
   vertical-align: middle;
-  padding: 20px;
+  padding: $staticPagePadding;
   width: 100%;
 
   @include from-width(700px) {
