@@ -15,7 +15,7 @@ class Activity < OurOhm
     end
 
     def followers_for_graph_user graph_user_id
-      query(:'users/follower_graph_user_ids', graph_user_id: graph_user_id)
+      Backend::Followers.followers_for_graph_user_id graph_user_id
     end
   end
 end

@@ -23,6 +23,10 @@ module Backend
       followers_for_comments(sub_comments.map(&:parent))
     end
 
+    def followers_for_graph_user_id graph_user_id
+      UserFollowingUsers.new(graph_user_id).followers_ids
+    end
+
     private
 
     def direct_followers_for_comments comments
