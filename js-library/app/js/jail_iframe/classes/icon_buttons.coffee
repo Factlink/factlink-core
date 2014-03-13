@@ -122,20 +122,20 @@ class FactlinkJailRoot.ParagraphIconButtonContainer
     @_iconButton = new IconButton
       content: '+'
       targetElement: @$paragraph[0]
-      onmouseenter: => @_attentionSpan.gainAttention()
-      onmouseleave: => @_attentionSpan.loseAttention()
+      onmouseenter: => @_attentionSpan?.gainAttention()
+      onmouseleave: => @_attentionSpan?.loseAttention()
       onclick: @_onClick
-
-    @_attentionSpan = new FactlinkJailRoot.AttentionSpan
-      wait_for_neglection: 500
-      onAttentionGained: => @_iconButton.fadeIn()
-      onAttentionLost: => @_iconButton.fadeOut()
 
     FactlinkJailRoot.on 'factlink.factsLoaded factlinkAdded', @_destroyUnlessValid
 
     if FactlinkJailRoot.isTouchDevice()
       @_iconButton.fadeIn()
     else
+      @_attentionSpan = new FactlinkJailRoot.AttentionSpan
+        wait_for_neglection: 500
+        onAttentionGained: => @_iconButton.fadeIn()
+        onAttentionLost: => @_iconButton.fadeOut()
+
       @_robustParagraphHover = new FactlinkJailRoot.RobustHover
         $el: @$paragraph
         mouseenter: @_showOnlyThisParagraphButton
