@@ -30,6 +30,10 @@ module Backend
       end
     end
 
+    def add_to_recently_viewed(fact_id:, graph_user_id:)
+      RecentlyViewedFacts.by_user_id(GraphUser[graph_user_id].user_id).add_fact_id fact_id
+    end
+
     private
 
     def votes_for(fact_id, type)
