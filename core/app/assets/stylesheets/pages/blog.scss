@@ -1,5 +1,6 @@
 .blog-content {
   overflow: hidden;
+  padding: 0 20px;
 }
 
 .blog-content > p {
@@ -16,8 +17,8 @@
 
 .blog-about-box {
   float: right;
-  max-width: 250px;
-  margin-left: 50px;
+  max-width: 240px;
+  margin-left: 30px;
 
   @include respond-to(600) {
     display: none;
