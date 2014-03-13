@@ -11,7 +11,7 @@ class FactsController < ApplicationController
     dead_fact = interactor(:'facts/create',
                            displaystring: params[:displaystring].to_s,
                            url: params[:url].to_s,
-                           title: params[:site_title].to_s)
+                           site_title: params[:site_title].to_s)
 
     render json: dead_fact
   end

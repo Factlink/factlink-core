@@ -18,7 +18,7 @@ describe FactsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title')
+                                     site_title: 'title')
         Fact[fact.id].add_opinion :believes, user.graph_user
       end
 
@@ -38,7 +38,7 @@ describe FactsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title')
+                                     site_title: 'title')
         Fact[fact.id].add_opinion :believes, user.graph_user
       end
 
@@ -69,16 +69,16 @@ describe FactsController do
         pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title')
+                                     site_title: 'title')
 
         pavlov.interactor(:'facts/create',
                               displaystring: 'oil dobedoo',
                               url: 'url',
-                              title: 'title')
+                              site_title: 'title')
         pavlov.interactor(:'facts/create',
                               displaystring: 'you got oil mister?',
                               url: 'url',
-                              title: 'title')
+                              site_title: 'title')
 
       end
 
@@ -98,7 +98,7 @@ describe FactsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title')
+                                     site_title: 'title')
       end
 
       Twitter::Client.any_instance.should_receive(:update)
@@ -115,7 +115,7 @@ describe FactsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title')
+                                     site_title: 'title')
       end
 
       Koala::Facebook::API.any_instance.should_receive(:put_wall_post)
