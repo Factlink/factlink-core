@@ -29,21 +29,24 @@
   display: block;
 }
 
-@mixin bar-bullet($bulletColor) {
+%bar-bullet {
   margin-left: 5px;
   display: inline-block;
   border-radius: 6px;
-  border: 6px solid $bulletColor;
+  border: 6px solid;
 }
 
 .browser-window-bar-close {
-  @include bar-bullet(#fd716c);
+  @extend %bar-bullet;
+  border-color: #fd716c;
 }
 
 .browser-window-bar-minimize {
-  @include bar-bullet(#f8c669);
+  @extend %bar-bullet;
+  border-color: #f8c669;
 }
 
 .browser-window-bar-maximize {
-  @include bar-bullet(#9dd478);
+  @extend %bar-bullet;
+  border-color: #9dd478;
 }
