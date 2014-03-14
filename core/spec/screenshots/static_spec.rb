@@ -34,9 +34,7 @@ describe "Static pages:", type: :feature do
 
   describe "Customer landing page" do
     it "renders correct" do
-      visit "/"
-
-      first('a', text: 'In your browser').click
+      visit "/in-your-browser"
 
       assume_unchanged_screenshot "static_in_your_browser2"
     end
