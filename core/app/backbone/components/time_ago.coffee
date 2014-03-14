@@ -28,7 +28,7 @@ window.TimeAgo = React.createClass
     else if time < 1 * minutes
       "now"
     else if time < 1*hours
-      @showNr(time / minutes, 'm')
+      @showNr(time / minutes, 'min')
     else if time < 1*days
       @showNr(time / hours, 'h')
     else if time < 1*months
