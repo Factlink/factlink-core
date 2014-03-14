@@ -38,7 +38,7 @@ describe "Static pages:", type: :feature do
 
       first('a', text: 'In your browser').click
 
-      assume_unchanged_screenshot "static_in_your_browser"
+      assume_unchanged_screenshot "static_in_your_browser2"
     end
   end
 
