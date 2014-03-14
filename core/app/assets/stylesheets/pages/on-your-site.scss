@@ -5,11 +5,6 @@
   border-bottom: $arrowWidth white solid;
 }
 
-.on-your-site-header {
-  margin: 61px 0px; // keep in sync with landing page
-  text-align: center;
-}
-
 .on-your-site-container {
   border-top: 1px lightgrey solid;
   padding: 20px 0px;
@@ -18,23 +13,6 @@
   &:first-child {
     padding: 0px 0px 20px;
     border-top: none;
-  }
-}
-
-.on-your-site-content-heading {
-  font-size: 24px;
-  margin: 0 0 10px;
-}
-
-.on-your-site-content {
-  display: inline-block;
-  text-align: left;
-  vertical-align: middle;
-  padding: 20px;
-  width: 100%;
-
-  @include from-width(700px) {
-    width: 50%;
   }
 }
 

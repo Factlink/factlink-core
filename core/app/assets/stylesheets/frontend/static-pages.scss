@@ -1,0 +1,32 @@
+.static-pages-header {
+  margin: 40px 0px;
+  text-align: center;
+
+}
+
+.static-pages-heading-h1 {
+  font-size: 24px;
+  margin: 0 0 10px;
+}
+
+.static-pages-heading-h2 {
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+
+.static-pages-content {
+  text-align: left;
+  display: inline-block;
+  vertical-align: middle;
+  padding: $staticPagePadding;
+  width: 100%;
+
+  @include from-width(700px) {
+    width: 50%;
+  }
+}
+
+.content-aligned-center {
+  text-align: center;
+}
+

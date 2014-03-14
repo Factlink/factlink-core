@@ -5,7 +5,7 @@
 
 .topbar-inner {
   @extend %centering-y;
-  padding:0px $pagePadding;
+  padding:0px $pageSidePadding;
   height: $topbarHeight;
   margin-left: auto;
   margin-right: auto;

@@ -1,0 +1,68 @@
+<% content_for :header do %>
+  <div class="static-pages-header">
+    <h1 class="header-heading">Share your knowledge for a better world</h1>
+    <p class="header-tagline">Use Factlink to discuss <i>anything</i> on the web.</p>
+  </div>
+<% end %>
+
+<% content_for :content do %>
+  <div class="static-pages-content">
+    <h1 class="static-pages-heading-h1">Discuss within context</h1>
+    <p>You can discuss within context. You can directly comment on a paragraph by clicking on the discussion icon. If you select a certain phrase you can specifically comment on the selected phrase. It's easy to switch focus between reading an interesting article and participating in a discussion about specific content your reading.</p>
+  </div><!--
+No whitespace because of inline-block
+--><div class="static-pages-content">
+    <div class="browser-window-container"><div class="browser-window">
+      <div class="browser-window-bar">
+        <span class="browser-window-bar-close"></span>
+        <span class="browser-window-bar-minimize"></span>
+        <span class="browser-window-bar-maximize"></span>
+      </div>
+      <div class="browser-window-video-container">
+        <iframe class="browser-window-video" src="//player.vimeo.com/video/88752539?title=0&amp;autoplay=1;loop=1" width="343" height="440" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      </div>
+    </div>
+  </div></div>
+<% end %>
+
+<% content_for :below_content do %>
+  <div class="container">
+    <div class="learn-more-container">
+      <div class="learn-more-column">
+        <div class="learn-more-column-image"><div class="learn-more-column-image-inner">
+          <%= render "home/partials/social_conversation" %>
+        </div></div>
+        <h1 class="static-pages-heading-h2">A better social tool</h1>
+        <p>Express yourself in more then 140 characters by sharing discussions to Twitter or Involve your friends on Facebook in more serious discussions</p>
+      </div>
+
+      <div class="learn-more-column">
+        <div class="learn-more-column-image"><div class="learn-more-column-image-inner">
+          <%= render "home/partials/give_opinion" %>
+          </div></div>
+        <h1 class="static-pages-heading-h2">Give recognition</h1>
+        <p>Don't feel like writing a comment but do want to give recognition for a well written paragraph? Give recognition by using the thumb up and thumb down.</p>
+      </div>
+
+      <div class="learn-more-column">
+        <div class="learn-more-column-image"><div class="learn-more-column-image-inner">
+          <%= render "home/partials/best_comment_top" %>
+        </div></div>
+        <h1 class="static-pages-heading-h2">Best comments float top</h1>
+        <p>Appreciate the best comments by voting them up. The collective will provide you with the best comments.</p>
+      </div>
+    </div>
+
+    <div class="extend-your-browser-container">
+      <h1 class="static-pages-heading-h1">Extend your browser</h1>
+      <p>Discuss about anything, everywhere. Even on websites that did not implement Factlink. We believe in an open internet in which everybody can share there opinions, believes and thoughts about the information that is being spread to the world. This way we all can get a better perspective.</p>
+      <div class="extend-your-browser-install-button js-install-extension-button"></div>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :specific_javascript do %>
+  <script>
+    React.renderComponent(ReactHugeInstallExtensionButton(), $('.js-install-extension-button')[0]);
+  </script>
+<% end %>
