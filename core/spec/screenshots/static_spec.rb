@@ -35,7 +35,7 @@ describe "Static pages:", type: :feature do
   describe "Customer landing page" do
     it do
       visit "/in-your-browser"
-      assume_unchanged_screenshot "static_blogpost2"
+      assume_unchanged_screenshot "static_in_your_browser"
     end
   end
 
