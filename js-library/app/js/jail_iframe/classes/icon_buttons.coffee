@@ -80,21 +80,26 @@ class IconButton
       'border-top-color': targetColor
 
 
+findTextContainer = (el) ->
+  for el in $(el).parents()
+    return el if window.getComputedStyle(el).display == 'block'
+  console.error 'FactlinkJailRoot: No text container found for ', el
+
 class FactlinkJailRoot.HighlightIconButtonContainer
   constructor: (highlightElements, factId) ->
     @$highlightElements = $(highlightElements)
+    @_textContainer = findTextContainer(@$highlightElements[0])
 
     # Calculate a vertical percentage to position the icon relative
     # to the textContainer
     # TODO: really do grouping, so we don't have to do hacks like this!
-    textContainer = @_textContainer(@$highlightElements[0])
-    textContainerBoundingRect = textContainer.getBoundingClientRect()
+    textContainerBoundingRect = @_textContainer.getBoundingClientRect()
     verticalOffset = @$highlightElements[0].getBoundingClientRect().top - textContainerBoundingRect.top
     verticalOffsetPercentage = verticalOffset*100 / textContainerBoundingRect.height
 
     @_iconButton = new IconButton
       content: ''
-      targetElement: textContainer
+      targetElement: @_textContainer
       targetOffset: "#{verticalOffsetPercentage}% 0"
       onmouseenter: @_onHover
       onmouseleave: @_onUnhover
@@ -115,11 +120,6 @@ class FactlinkJailRoot.HighlightIconButtonContainer
 
   _onClick: =>
     FactlinkJailRoot.openFactlinkModal @_factId
-
-  _textContainer: (el) ->
-    for el in $(el).parents()
-      return el if window.getComputedStyle(el).display == 'block'
-    console.error 'FactlinkJailRoot: No text container found for ', el
 
 
 textFromElement = (element) ->
