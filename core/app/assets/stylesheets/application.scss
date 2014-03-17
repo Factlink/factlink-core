@@ -8,7 +8,9 @@
 @import "pages/about";
 @import "pages/blog";
 @import "pages/in-your-browser";
+@import "pages/landing";
 @import "pages/on-your-site";
+@import "pages/static-pages";
 
 @import "base/feedback/alerts";
 @import "base/feedback/button";
@@ -75,7 +77,5 @@
 @import "frontend/browser-window";
 @import "frontend/content-header";
 @import "frontend/fluid_layout";
-@import "frontend/learn-more";
 @import "frontend/loading";
-@import "frontend/static-pages";
 @import "frontend/tabs";
