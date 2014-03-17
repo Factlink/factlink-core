@@ -19,7 +19,7 @@ module Interactors
     def invalid_result? result
         result.nil? ||
             result.is_a?(FactData) && FactData.invalid(result) ||
-            result.respond_to?(:hidden?) && result.hidden?
+            result.respond_to?(:hidden?) && result.hidden? # User
     end
 
     def authorized?
