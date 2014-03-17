@@ -16,7 +16,7 @@ ReactActionButton = React.createClass
   render: ->
     if @props.loading
       _button [@_events(), @props.className, 'button'],
-        _img [src: Factlink.Global.ajax_loader_image]
+        _img ['action-button-loading', src: Factlink.Global.ajax_loader_image]
         "Loading..."
     else
       if @props.checked
