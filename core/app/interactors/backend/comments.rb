@@ -28,6 +28,18 @@ module Backend
       !has_subcomments
     end
 
+    def create(fact_id:, content:, user_id:)
+      fact = Fact[fact_id]
+
+      comment = Comment.new
+      comment.fact_data_id = fact.data_id
+      comment.created_by_id = user_id
+      comment.content = content
+      comment.save!
+
+      comment
+    end
+
     private
 
     def dead(comment:, current_graph_user:)
