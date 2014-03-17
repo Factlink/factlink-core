@@ -15,7 +15,7 @@ window.ReactSubComments = React.createBackboneClass
       @model().map (sub_comment) =>
         ReactSubComment
           model: sub_comment
-          key: sub_comment.get('id')
+          key: sub_comment.get('id') || sub_comment.cid
           fact_opinionators: @props.fact_opinionators
       ReactSubCommentsAdd model: @model()
 
