@@ -22,10 +22,11 @@ module Interactors
       end
 
       def create_activity comment
-        command(:'create_activity',
+        Backend::Activities.create \
                     graph_user: pavlov_options[:current_user].graph_user,
-                    action: :created_comment, subject: comment,
-                    object: comment.fact_data.fact)
+                    action: :created_comment,
+                    subject: comment,
+                    object: comment.fact_data.fact
       end
 
       def authorized?

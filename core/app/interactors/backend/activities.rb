@@ -82,5 +82,9 @@ module Backend
         activity.add_to_list_with_score current_graph_user.stream_activities
       end
     end
+
+    def create(graph_user:, action:, subject:, object: nil)
+      Activity.create(user: graph_user, action: action, subject: subject, object: object)
+    end
   end
 end
