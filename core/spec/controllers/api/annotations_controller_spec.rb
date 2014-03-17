@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe FactsController do
+describe Api::AnnotationsController do
   include PavlovSupport
 
   render_views
@@ -18,7 +18,7 @@ describe FactsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title')
+                                     site_title: 'title')
         Fact[fact.id].add_opinion :believes, user.graph_user
       end
 
@@ -38,7 +38,7 @@ describe FactsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title')
+                                     site_title: 'title')
         Fact[fact.id].add_opinion :believes, user.graph_user
       end
 
@@ -53,37 +53,36 @@ describe FactsController do
   describe :create do
     it "should work with json" do
       authenticate_user!(user)
-      post 'create', format: :json, url: "http://example.org/", displaystring: "Facity Fact", fact_title: "Title"
+      post 'create', format: :json, url: "http://example.org/", displaystring: "Facity Fact", site_title: "Title"
       response.code.should eq("200")
     end
   end
 
-  describe :evidence_search do
+  describe :search do
     before do
       ElasticSearch.stub synchronous: true
     end
     it "should work" do
       authenticate_user!(user)
-      fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.interactor(:'facts/create',
+        pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title')
+                                     site_title: 'title')
 
         pavlov.interactor(:'facts/create',
                               displaystring: 'oil dobedoo',
                               url: 'url',
-                              title: 'title')
+                              site_title: 'title')
         pavlov.interactor(:'facts/create',
                               displaystring: 'you got oil mister?',
                               url: 'url',
-                              title: 'title')
+                              site_title: 'title')
 
       end
 
-      get :evidence_search, id: fact.id, s: "oil"
+      get :search, keywords: "oil"
       response.should be_success
 
       verify { response.body }
@@ -99,7 +98,7 @@ describe FactsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title')
+                                     site_title: 'title')
       end
 
       Twitter::Client.any_instance.should_receive(:update)
@@ -116,7 +115,7 @@ describe FactsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title')
+                                     site_title: 'title')
       end
 
       Koala::Facebook::API.any_instance.should_receive(:put_wall_post)

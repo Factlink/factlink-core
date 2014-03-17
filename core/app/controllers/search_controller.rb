@@ -8,7 +8,7 @@ class SearchController < ApplicationController
     end
 
     backbone_responder do
-      row_count = 20 # WARNING: coupling with ReactSearchResults
+      row_count = 20
 
       search_for = params[:s] || ""
       page = 1
