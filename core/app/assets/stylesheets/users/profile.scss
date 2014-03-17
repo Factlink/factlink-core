@@ -46,10 +46,10 @@
   width: 100%;
   display: inline-block;
   vertical-align: top;
+}
 
-  .empty-state {
-    color: $metaFontColor;
-  }
+.profile-bio-item-empty {
+  color: $metaFontColor;
 }
 
 .profile-information-label {
