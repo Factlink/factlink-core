@@ -10,14 +10,17 @@ module Interactors
       end
 
       def execute
-        user = pavlov_options[:current_user]
-        user_to_unfollow = query(:'user_by_username',
-                                    username: username)
+        user_to_unfollow = query(:'user_by_username', username: username)
 
-        command(:'users/unfollow_user',
-                    graph_user_id: user.graph_user_id,
-                    user_to_unfollow_graph_user_id: user_to_unfollow.graph_user_id)
+        Backend::UserFollowers.unfollow \
+          following_id: current_user.graph_user_id,
+          followee_id: user_to_unfollow.graph_user_id
+
         nil
+      end
+
+      def current_user
+        @pavlov_options[:current_user]
       end
 
       def validate

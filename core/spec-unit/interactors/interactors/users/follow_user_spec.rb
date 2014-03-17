@@ -34,11 +34,10 @@ describe Interactors::Users::FollowUser do
                   followee_id: user_to_follow.graph_user_id)
             .and_return(false)
 
-      Pavlov.should_receive(:command)
-            .with(:'users/follow_user',
-                      graph_user_id: user.graph_user_id,
-                      user_to_follow_graph_user_id: user_to_follow.graph_user_id,
-                      pavlov_options: options)
+      expect(Backend::UserFollowers).to receive(:follow)
+            .with(following_id: user.graph_user_id,
+                  followee_id: user_to_follow.graph_user_id)
+
       Pavlov.should_receive(:command)
             .with(:'create_activity',
                       graph_user: user.graph_user, action: :followed_user,

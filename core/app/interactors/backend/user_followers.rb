@@ -9,5 +9,13 @@ module Backend
     def following?(following_id:, followee_id:)
       UserFollowingUsers.new(following_id).follows? followee_id
     end
+
+    def follow(following_id:, followee_id:)
+      UserFollowingUsers.new(following_id).follow followee_id
+    end
+
+    def unfollow(following_id:, followee_id:)
+      UserFollowingUsers.new(following_id).unfollow followee_id
+    end
   end
 end

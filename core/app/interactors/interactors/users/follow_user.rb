@@ -35,9 +35,9 @@ module Interactors
       end
 
       def follow_user
-        command(:'users/follow_user',
-                    graph_user_id: current_user.graph_user_id,
-                    user_to_follow_graph_user_id: user_to_follow.graph_user_id)
+        Backend::UserFollowers.follow \
+          following_id: current_user.graph_user_id,
+          followee_id: user_to_follow.graph_user_id
 
         command(:'create_activity',
                     graph_user: current_user.graph_user, action: :followed_user,
