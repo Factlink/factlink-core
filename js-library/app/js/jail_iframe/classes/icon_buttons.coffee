@@ -23,6 +23,11 @@ class IconButton
 
     @_tether = new Tether(@_tether_options())
 
+  resetOffset: (targetOffset) ->
+    return if targetOffset == @_targetOffset
+    @_targetOffset = targetOffset
+    @_tether.setOptions(@_tether_options())
+
   _tether_options: () ->
     element: @$el[0]
     target: @_targetElement
