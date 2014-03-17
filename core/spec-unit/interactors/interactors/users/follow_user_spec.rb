@@ -38,11 +38,10 @@ describe Interactors::Users::FollowUser do
             .with(follower_id: user.graph_user_id,
                   followee_id: user_to_follow.graph_user_id)
 
-      Pavlov.should_receive(:command)
-            .with(:'create_activity',
-                      graph_user: user.graph_user, action: :followed_user,
-                      subject: user_to_follow.graph_user, object: nil,
-                      pavlov_options: options)
+      Backend::Activities.should_receive(:create)
+                  .with(graph_user: user.graph_user,
+                        action: :followed_user,
+                        subject: user_to_follow.graph_user)
       Backend::Activities.should_receive(:add_activities_to_follower_stream)
             .with(followed_user_graph_user_id: user_to_follow.graph_user_id,
                   current_graph_user_id: user.graph_user_id)
