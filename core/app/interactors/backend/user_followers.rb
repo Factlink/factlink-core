@@ -2,8 +2,8 @@ module Backend
   module UserFollowers
     extend self
 
-    def get(graph_user_id:)
-      UserFollowingUsers.new(graph_user_id).follower_ids
+    def get(followee_id:)
+      UserFollowingUsers.new(followee_id).follower_ids
     end
 
     def following?(follower_id:, followee_id:)
