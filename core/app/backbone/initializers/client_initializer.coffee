@@ -75,7 +75,9 @@ window.FactlinkAppMode.coreInClient = (app) ->
     senderEnvoy = Factlink.createSenderEnvoy(window.parent)
     Factlink.createReceiverEnvoy new ClientEnvoy(senderEnvoy)
   else
-    senderEnvoy = (args...) -> console.info 'senderEnvoy:', args...
+    senderEnvoy = (args...) ->
+      if Factlink.Global.environment == 'development'
+        console.info 'senderEnvoy:', args...
     initDevelopmentConsole new ClientEnvoy(senderEnvoy)
 
   senderEnvoy 'modalFrameReady'
