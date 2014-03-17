@@ -8,6 +8,13 @@
 
   .icon-twitter, .icon-facebook {
     margin: 2px 0px 0px;
+    font-size: 170%;
+    vertical-align: sub;
+    -webkit-font-smoothing: antialiased; // OS X makes fonts bolder than normal. This looks weird with those icons.
+  }
+
+  .icon-facebook {
+    margin-left: -5px;
   }
 }
 
