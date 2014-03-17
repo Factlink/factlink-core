@@ -12,12 +12,11 @@ body {
 }
 
 .container {
-  height: 100%;
   min-width: 320px;
   max-width: $siteWidth;
   margin-right: auto;
   margin-left: auto;
-  padding: 10px $pagePadding;
+  padding: $containerPaddingY $pageSidePadding;
 }
 
 .one-column-container {

@@ -1,10 +1,5 @@
-<% content_for :meta_tags do %>
-  <% # Because there are two urls for this page, factlink.com and factlink.com/in-your-browser %>
-  <link rel="canonical" href="<%= in_your_browser_url %>">
-<% end %>
-
 <% content_for :header do %>
-  <div class="in-your-browser-header">
+  <div class="static-pages-header">
     <h1 class="header-heading">Share your knowledge for a better world</h1>
     <p class="header-tagline">Use Factlink to discuss <i>anything</i> on the web.</p>
 
@@ -13,35 +8,34 @@
 <% end %>
 
 <% content_for :content do %>
-  <div class="in-your-browser-horizontal">
-    <div class="in-your-browser-horizontal-box">
-      <i class="in-your-browser-icon-layer"></i>
-      <h1 class="in-your-browser-heading">Discuss anything, anywhere</h1>
-      <p>We believe in an open internet where everything can be discussed. With Factlink we have created a layer over the web that shows discussions inside the text you are reading.</p>
-    </div>
-    <div class="in-your-browser-horizontal-box">
-      <i class="in-your-browser-icon-social"></i>
-      <h1 class="in-your-browser-heading">A social network for knowledge</h1>
-      <p>Building and discovering knowledge is a social activity. We make it easy to involve your friends or followers in discussions, and build a reputation. Invite them to share their knowledge with the world!</p>
-    </div>
+  <div class="static-pages-content content-aligned-center">
+    <i class="in-your-browser-icon-layer"></i>
+    <h1 class="static-pages-heading-h1">Discuss anything, anywhere</h1>
+    <p>We believe in an open internet where everything can be discussed. With Factlink we have created a layer over the web that shows discussions inside the text you are reading.</p>
+  </div><!--
+No whitespace because of inline-block
+--><div class="static-pages-content content-aligned-center">
+    <i class="in-your-browser-icon-social"></i>
+    <h1 class="static-pages-heading-h1">A social network for knowledge</h1>
+    <p>Building and discovering knowledge is a social activity. We make it easy to involve your friends or followers in discussions, and build a reputation. Invite them to share their knowledge with the world!</p>
   </div>
 <% end %>
 
 <% content_for :below_content do %>
   <div class="in-your-browser-below-content">
-    <div class="in-your-browser-horizontal">
-      <h1 class="in-your-browser-heading">Recent activity</h1>
+    <div class="content-aligned-center">
+      <h1 class="static-pages-heading-h1">Recent activity</h1>
       <div class="js-in-your-browser-feed in-your-browser-feed"></div>
     </div>
 
-    <div class="in-your-browser-horizontal">
+    <div class="content-aligned-center">
       <%= link_to 'Discover more', feed_path, class: 'button in-your-browser-feed-more-button' %>
     </div>
 
-    <div class="in-your-browser-horizontal">
+    <div class="content-aligned-center">
       <div class="in-your-browser-cta-container">
         <div class="in-your-browser-below-content-box">
-          <h1 class="in-your-browser-heading">Join the revolution!</h1>
+          <h1 class="static-pages-heading-h1">Join the revolution!</h1>
           <p>Discussion and access to information are key to a well-functioning society. Install the extension to share your knowledge and stay updated.</p>
 
           <div class="js-install-extension-lower-button"></div>
@@ -56,7 +50,7 @@
 
         </div>
         <div class="in-your-browser-below-content-box">
-          <h1 class="in-your-browser-heading">Have your own site?</h1>
+          <h1 class="static-pages-heading-h1">Have your own site?</h1>
           <p>You can use Factlink to have better discussions and more user engagement. Factlink is free and can be implemented on your site with a single line of code.</p>
           <%= link_to "Learn more", on_your_site_path, class: "button-confirm" %>
         </div>

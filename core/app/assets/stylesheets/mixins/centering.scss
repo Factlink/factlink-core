@@ -9,6 +9,7 @@ CENTEREDBOX
 //Note the lack of space between the two divs!
 
 %centering-y {
+  white-space: nowrap;
   position:relative;
 }
 
@@ -25,6 +26,7 @@ CENTEREDBOX
 }
 
 %centering-inner {
+  white-space: normal;
   display: inline-block;
   vertical-align: middle;
   visibility: visible;

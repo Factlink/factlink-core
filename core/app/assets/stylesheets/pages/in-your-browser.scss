@@ -1,33 +1,9 @@
-.in-your-browser-header {
-  margin: 40px 0; // keep in sync with publisher landing page
-  text-align: center;
-}
-
-.in-your-browser-horizontal {
-  text-align: center;
-}
-
-.in-your-browser-horizontal-box {
+.in-your-browser-cta-container {
+  @extend %white-block-with-shadow;
   display: inline-block;
-  width: 45%;
-  vertical-align: top;
-
-  &:first-child {
-    margin-right: 9%;
-  }
-
-  @include respond-to(420) {
-    width: 80%;
-    margin: 0;
-
-    &:first-child {
-      margin: 0;
-    }
-  }
-}
-
-.in-your-browser-heading {
-  @extend .on-your-site-content-heading;
+  max-width: 840px;
+  margin-top: 10px;
+  width: 100%;
 }
 
 .in-your-browser-dashed-border {
@@ -57,7 +33,7 @@ i.in-your-browser-icon-social {
 }
 
 .in-your-browser-below-content {
-  padding: 10px $pagePadding;
+  padding: 10px $pageSidePadding;
   border-top: 1px solid $baseBorderColor;
   box-shadow: inset 0px 1px 3px rgba(0,0,0,0.1);
 }
@@ -92,10 +68,3 @@ i.in-your-browser-icon-social {
   margin-top: 5px;
 }
 
-.in-your-browser-cta-container {
-  display: inline-block;
-  max-width: $siteWidth;
-  margin-top: 10px;
-  width: 100%;
-  @extend %white-block-with-shadow;
-}
