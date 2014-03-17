@@ -23,7 +23,7 @@ module Interactors
       end
 
       def already_following
-        Backend::UserFollowers.following?(following_id: current_user.graph_user_id, followee_id: user_to_follow.graph_user_id)
+        Backend::UserFollowers.following?(follower_id: current_user.graph_user_id, followee_id: user_to_follow.graph_user_id)
       end
 
       def current_user
@@ -36,7 +36,7 @@ module Interactors
 
       def follow_user
         Backend::UserFollowers.follow \
-          following_id: current_user.graph_user_id,
+          follower_id: current_user.graph_user_id,
           followee_id: user_to_follow.graph_user_id
 
         command(:'create_activity',

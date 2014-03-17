@@ -10,7 +10,7 @@ describe Backend::UserFollowers do
       to_user = create :user
 
       as(from_user) do |pavlov|
-        result = Backend::UserFollowers.following?(following_id: from_user.graph_user_id, followee_id: to_user.graph_user_id)
+        result = Backend::UserFollowers.following?(follower_id: from_user.graph_user_id, followee_id: to_user.graph_user_id)
         expect(result).to be_false
       end
     end
@@ -22,7 +22,7 @@ describe Backend::UserFollowers do
       as(from_user) do |pavlov|
         pavlov.interactor(:'users/follow_user', username: to_user.username)
 
-        result = Backend::UserFollowers.following?(following_id: from_user.graph_user_id, followee_id: to_user.graph_user_id)
+        result = Backend::UserFollowers.following?(follower_id: from_user.graph_user_id, followee_id: to_user.graph_user_id)
 
         expect(result).to be_true
       end
@@ -36,7 +36,7 @@ describe Backend::UserFollowers do
         pavlov.interactor(:'users/follow_user', username: to_user.username)
         pavlov.interactor(:'users/unfollow_user', username: to_user.username)
 
-        result = Backend::UserFollowers.following?(following_id: from_user.graph_user_id, followee_id: to_user.graph_user_id)
+        result = Backend::UserFollowers.following?(follower_id: from_user.graph_user_id, followee_id: to_user.graph_user_id)
 
         expect(result).to be_false
       end

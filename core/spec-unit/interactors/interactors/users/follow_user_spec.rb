@@ -30,12 +30,12 @@ describe Interactors::Users::FollowUser do
             .and_return(user_to_follow)
 
       allow(Backend::UserFollowers).to receive(:following?)
-            .with(following_id: user.graph_user_id,
+            .with(follower_id: user.graph_user_id,
                   followee_id: user_to_follow.graph_user_id)
             .and_return(false)
 
       expect(Backend::UserFollowers).to receive(:follow)
-            .with(following_id: user.graph_user_id,
+            .with(follower_id: user.graph_user_id,
                   followee_id: user_to_follow.graph_user_id)
 
       Pavlov.should_receive(:command)
@@ -60,7 +60,7 @@ describe Interactors::Users::FollowUser do
             .with(:'user_by_username', username: user_to_follow.username, pavlov_options: options)
             .and_return(user_to_follow)
       allow(Backend::UserFollowers).to receive(:following?)
-            .with(following_id: user.graph_user_id,
+            .with(follower_id: user.graph_user_id,
                   followee_id: user_to_follow.graph_user_id)
             .and_return(true)
 

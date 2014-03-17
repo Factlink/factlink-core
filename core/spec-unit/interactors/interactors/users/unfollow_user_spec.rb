@@ -31,7 +31,7 @@ describe Interactors::Users::UnfollowUser do
             .and_return(user_to_unfollow)
 
       expect(Backend::UserFollowers).to receive(:unfollow)
-            .with(following_id: user.graph_user_id,
+            .with(follower_id: user.graph_user_id,
                   followee_id: user_to_unfollow.graph_user_id)
 
       expect(interactor.call).to eq nil

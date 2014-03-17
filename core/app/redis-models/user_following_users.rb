@@ -16,7 +16,7 @@ class UserFollowingUsers
     relation.remove graph_user_id, other_id
   end
 
-  def following_ids
+  def follower_ids
     relation.ids graph_user_id
   end
 
