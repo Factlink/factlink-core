@@ -10,7 +10,7 @@ module Backend
 
     def by_fact_id(fact_id:, current_graph_user: nil)
       fact_data_id = Fact[fact_id].data_id
-      comment = Comment.where(fact_data_id: fact_data_id).map do |comment|
+      Comment.where(fact_data_id: fact_data_id).map do |comment|
         dead(comment: comment, current_graph_user: current_graph_user)
       end
     end
