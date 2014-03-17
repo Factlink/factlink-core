@@ -26,16 +26,16 @@ window.ReactComment = React.createBackboneClass
 
     _span [],
       _span ["comment-post-bottom"],
-        _a [
-          "comment-share"
-          onClick: @_shareFacebook
-        ],
-          _i ["icon-facebook"]
-        if @model().can_destroy()
-          _span ["comment-post-delete"],
+        _span ["comment-post-bottom-right"],
+          if @model().can_destroy()
             ReactDeleteButton
               model: @model()
               onDelete: @_onDelete
+          _span [
+            "comment-post-share"
+            onClick: @_shareFacebook
+          ],
+            _i ["icon-facebook"]
         _span ["comment-reply"],
           _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments],
             "(#{sub_comment_count}) Reply"
