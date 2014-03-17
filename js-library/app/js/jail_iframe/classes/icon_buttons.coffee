@@ -90,17 +90,10 @@ class FactlinkJailRoot.HighlightIconButtonContainer
     @$highlightElements = $(highlightElements)
     @_textContainer = findTextContainer(@$highlightElements[0])
 
-    # Calculate a vertical percentage to position the icon relative
-    # to the textContainer
-    # TODO: really do grouping, so we don't have to do hacks like this!
-    textContainerBoundingRect = @_textContainer.getBoundingClientRect()
-    verticalOffset = @$highlightElements[0].getBoundingClientRect().top - textContainerBoundingRect.top
-    verticalOffsetPercentage = verticalOffset*100 / textContainerBoundingRect.height
-
     @_iconButton = new IconButton
       content: ''
       targetElement: @_textContainer
-      targetOffset: "#{verticalOffsetPercentage}% 0"
+      targetOffset: @_targetOffset()
       onmouseenter: @_onHover
       onmouseleave: @_onUnhover
       onclick: @_onClick
@@ -108,6 +101,17 @@ class FactlinkJailRoot.HighlightIconButtonContainer
     @_factId = factId
 
     @_iconButton.fadeIn()
+
+  _targetOffset: ->
+    # Calculate a vertical percentage to position the icon relative
+    # to the textContainer
+    # TODO: really do grouping, so we don't have to do hacks like this!
+    textContainerBoundingRect = @_textContainer.getBoundingClientRect()
+    verticalOffset = @$highlightElements[0].getBoundingClientRect().top - textContainerBoundingRect.top
+    verticalOffsetPercentage = verticalOffset*100 / textContainerBoundingRect.height
+
+    "#{verticalOffsetPercentage}% 0"
+
 
   destroy: ->
     @_iconButton.destroy()
