@@ -41,7 +41,6 @@ class window.User extends Backbone.Model
         @set 'statistics_follower_count', @get('statistics_follower_count')-1
 
     @set 'statistics_follower_count', @get('statistics_follower_count')+1
-    @trigger 'followed'
 
   unfollow: ->
     self = currentUser.following.get(@id)
