@@ -10,7 +10,7 @@ module Backend
 
     def by_fact_id(fact_id:, current_graph_user: nil)
       fact_data_id = Fact[fact_id].data_id
-      comment = Comment.where(fact_data_id: fact_data_id).map do |comment|
+      Comment.where(fact_data_id: fact_data_id).map do |comment|
         dead(comment: comment, current_graph_user: current_graph_user)
       end
     end
@@ -26,6 +26,18 @@ module Backend
     def deletable?(comment_id)
       has_subcomments = SubComment.where(parent_id: comment_id).exists?
       !has_subcomments
+    end
+
+    def create(fact_id:, content:, user_id:)
+      fact = Fact[fact_id]
+
+      comment = Comment.new
+      comment.fact_data_id = fact.data_id
+      comment.created_by_id = user_id
+      comment.content = content
+      comment.save!
+
+      comment
     end
 
     private

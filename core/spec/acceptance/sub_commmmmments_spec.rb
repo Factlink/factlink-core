@@ -14,8 +14,9 @@ feature "sub_comments", type: :feature do
   end
 
   scenario "A user can comment on a comment" do
-    @comment_user_b = command(:'comments/create', fact_id: @factlink_user_a.id.to_i, type: "believes", content: "test", user_id: @user_b.id.to_s)
-
+    as(@user_b) do |p|
+      @comment_user_b = p.interactor(:'comments/create', fact_id: @factlink_user_a.id.to_i, type: "believes", content: "test", pavlov_options: pavlov_options)
+    end
     sub_comment_text = "Berlioz' death was predicted by the man with the pince-nez"
 
     open_discussion_sidebar_for @factlink_user_a
