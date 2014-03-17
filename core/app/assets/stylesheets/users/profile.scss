@@ -1,11 +1,18 @@
-.action-button-loading {
-  vertical-align: text-top;
-  margin-top: 1px;
-  margin-right: 5px;
-}
-
 .user-follow-user-button {
   width: 100%;
+}
+
+.loading-indicator-container {
+  @extend %centering-y;
+}
+
+.loading-indicator-image {
+  @extend %centering-inner;
+  margin: 0 0.5em;
+}
+
+.loading-indicator-label {
+  @extend %centering-inner;
 }
 
 
