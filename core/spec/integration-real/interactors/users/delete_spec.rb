@@ -13,7 +13,7 @@ describe Interactors::Users::Delete do
       pavlov.interactor :'users/delete', user_id: user.id, current_user_password: password
     end
 
-    reloaded_user = Pavlov.query(:'dead_users_by_ids', user_ids:[user.id])[0]
+    reloaded_user = Backend::Users.by_ids(user_ids:[user.id])[0]
     expect(reloaded_user.deleted).to eq(true)
     expect(reloaded_user.username).to_not include(initial_username)
   end

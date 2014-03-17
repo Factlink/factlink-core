@@ -74,7 +74,7 @@ module Queries
         fd = FactData.find(id)
         query(:'facts/get_dead', id: fd.fact_id)
       when 'user'
-        query(:'dead_users_by_ids', user_ids: [id]).first
+        Backend::Users.by_ids(user_ids: [id]).first
       when 'test_class'
         TestClass.new(id)
       else

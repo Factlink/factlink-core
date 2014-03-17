@@ -14,7 +14,7 @@ module Interactors
       end
 
       def execute
-        query(:'dead_users_by_ids', user_ids: graph_user_ids, by: :graph_user_id)
+        Backend::Users.by_ids(user_ids: graph_user_ids, by: :graph_user_id)
       end
 
       def graph_user_ids
