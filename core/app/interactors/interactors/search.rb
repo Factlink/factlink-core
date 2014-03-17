@@ -13,8 +13,7 @@ module Interactors
     end
 
     def validate
-      fail 'Keywords should be an string.' unless @keywords.kind_of? String
-      fail 'Keywords must not be empty.'   unless @keywords.length > 0
+      validate_nonempty_string :keywords, keywords
     end
 
     def invalid_result? result
