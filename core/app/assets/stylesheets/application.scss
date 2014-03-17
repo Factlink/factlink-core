@@ -5,8 +5,28 @@
 @import "mixins/mixins";
 @import "mixins/triangle_arrows";
 
-@import "pages/**/*";
-@import "base/**/*";
+@import "pages/about";
+@import "pages/blog";
+@import "pages/in-your-browser";
+@import "pages/on-your-site";
+
+@import "base/feedback/alerts";
+@import "base/feedback/button";
+@import "base/topbar/dropdown_menu";
+@import "base/accounts_popup";
+@import "base/alert";
+@import "base/buttons";
+@import "base/content";
+@import "base/feedback";
+@import "base/footer";
+@import "base/header";
+@import "base/modal_window";
+@import "base/radio_toggle_buttons";
+@import "base/reset";
+@import "base/screen";
+@import "base/small_connect_buttons";
+@import "base/topbar";
+@import "base/typography";
 
 @import "browser_detection";
 @import "mobile_hacks";
@@ -18,11 +38,44 @@
 @import "feed/**/*";
 @import "annotation";
 
-@import "bubble/**/*";
-@import "users/**/*";
-@import "buttons/**/*";
-@import "facts/**/*";
-@import "comments/**/*";
-@import "widgets/**/*";
-@import "share/**/*";
-@import "frontend/**/*";
+@import "bubble/client";
+@import "bubble/discussion_sidebar";
+@import "bubble/image-size";
+
+@import "users/edit";
+@import "users/forms";
+@import "users/profile";
+@import "users/profile_information";
+
+@import "buttons/delete_button";
+@import "buttons/extension-button";
+
+@import "facts/fact_opinionate_area";
+@import "facts/fact_search";
+@import "facts/share_fact_selection";
+@import "facts/top_annotation";
+
+@import "comments/add_comment";
+@import "comments/comments";
+@import "comments/comments_and_sub_comments";
+@import "comments/formatted_comment_content";
+@import "comments/sub_comments";
+@import "comments/voting_arrows";
+
+@import "widgets/popups/helptext";
+@import "widgets/popups/popover";
+@import "widgets/popups/signin_popover";
+@import "widgets/heading_avatar";
+@import "widgets/notification_center";
+@import "widgets/text_area_view";
+
+@import "share/share_button";
+@import "share/share_fact";
+
+@import "frontend/browser-window";
+@import "frontend/content-header";
+@import "frontend/fluid_layout";
+@import "frontend/learn-more";
+@import "frontend/loading";
+@import "frontend/static-pages";
+@import "frontend/tabs";

@@ -12,7 +12,7 @@ describe 'comments' do
   describe 'initially' do
     it 'a fact has no comments' do
       as(current_user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', title: ''
+        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', site_title: ''
 
         comments = pavlov.interactor :'comments/for_fact_id', fact_id: fact.id.to_s
 
@@ -24,7 +24,7 @@ describe 'comments' do
   describe 'adding a few comments' do
     it 'the fact should get the comments we add, sorted by votes' do
       as(current_user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', title: ''
+        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', site_title: ''
 
         comment1 = pavlov.interactor :'comments/create', fact_id: fact.id.to_i, content: 'Gekke Gerrit'
         comment2 = pavlov.interactor :'comments/create', fact_id: fact.id.to_i, content: 'Handige Harrie'

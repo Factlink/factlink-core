@@ -151,7 +151,7 @@ class FactlinkJailRoot.ParagraphIconButtonContainer
 
   destroy: ->
     @_iconButton.destroy()
-    @_attentionSpan.destroy()
+    @_attentionSpan?.destroy()
     @_robustParagraphHover?.destroy()
     FactlinkJailRoot.off 'factlink.factsLoaded factlinkAdded', @_destroyUnlessValid
     FactlinkJailRoot.off 'hideAllParagraphButtons', @_onHideAllParagraphButtons

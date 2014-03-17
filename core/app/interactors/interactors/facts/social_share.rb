@@ -4,17 +4,17 @@ module Interactors
       include Pavlov::Command
       include Util::CanCan
 
-      arguments :fact_id, :message, :provider_names
+      arguments :id, :message, :provider_names
 
       private
 
       def execute
         if provider_names.include? 'twitter'
-          command :'twitter/share_factlink', fact_id: fact_id, message: message
+          command :'twitter/share_factlink', fact_id: id, message: message
         end
 
         if provider_names.include? 'facebook'
-          command :'facebook/share_factlink', fact_id: fact_id, message: message
+          command :'facebook/share_factlink', fact_id: id, message: message
         end
       end
 
