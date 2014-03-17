@@ -57,8 +57,8 @@ module Backend
             }
           when "followed_user"
             {
-                followed_user: Pavlov.query(:dead_users_by_ids, by: :graph_user_id, user_ids: activity.subject_id).first,
-                user: Pavlov.query(:dead_users_by_ids, by: :graph_user_id, user_ids: activity.user_id).first,
+                followed_user: Backend::Users.by_ids(by: :graph_user_id, user_ids: activity.subject_id).first,
+                user: Backend::Users.by_ids(by: :graph_user_id, user_ids: activity.user_id).first,
             }
           end
 
