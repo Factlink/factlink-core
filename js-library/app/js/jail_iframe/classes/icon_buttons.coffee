@@ -12,7 +12,7 @@ class IconButton
     """
     FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
 
-    @_setStylesFromElement(options.targetElement)
+    @_setStyles()
 
     @_robustHover = new FactlinkJailRoot.RobustHover
       $el: @$el
@@ -42,8 +42,8 @@ class IconButton
   fadeOut: ->
     @$el.removeClass 'factlink-control-visible'
 
-  _setStylesFromElement: (element) ->
-    style = window.getComputedStyle(element)
+  _setStyles: ->
+    style = window.getComputedStyle(@_targetElement)
     targetColor = style.color
 
     # See https://gamedev.stackexchange.com/questions/38536/given-a-rgb-color-x-how-to-find-the-most-contrasting-color-y/38561#38561
