@@ -14,7 +14,6 @@ window.ReactComment = React.createBackboneClass
     @setState show_subcomments: !@state.show_subcomments
 
   _content: ->
-
     if @model().get('formatted_content')
       _div ["comment-content spec-comment-content",
         dangerouslySetInnerHTML: {__html: @model().get('formatted_content')}]
@@ -27,6 +26,11 @@ window.ReactComment = React.createBackboneClass
 
     _span [],
       _span ["comment-post-bottom"],
+        _a [
+          "comment-share"
+          onClick: @_shareFacebook
+        ],
+          _i ["icon-facebook"]
         if @model().can_destroy()
           _span ["comment-post-delete"],
             ReactDeleteButton
@@ -42,6 +46,11 @@ window.ReactComment = React.createBackboneClass
 
   _save: ->
     @model().saveWithState()
+
+  _shareFacebook: ->
+    FB.ui
+      method: 'feed'
+      link: @model().collection.fact.get('sharing_url')
 
   render: ->
     relevant = @model().argumentTally().relevance() >= 0
