@@ -1,7 +1,22 @@
-.profile-box-container {
-  text-align: center;
+.user-follow-user-button {
   width: 100%;
-  vertical-align: top;
+}
+
+.loading-indicator-container {
+  @extend %centering-y;
+}
+
+.loading-indicator-image {
+  @extend %centering-inner;
+  margin: 0 0.5em;
+}
+
+.loading-indicator-label {
+  @extend %centering-inner;
+}
+
+
+.profile-box-container {
   @extend %white-block-with-shadow;
 }
 
@@ -21,14 +36,6 @@
   }
 }
 
-.user-follow-user-button {
-  width: 100%;
-
-  &.button-confirm {
-    color: white;
-  }
-}
-
 .profile-information-item {
   width: 100%;
   display: inline-block;
@@ -43,10 +50,10 @@
   width: 100%;
   display: inline-block;
   vertical-align: top;
+}
 
-  .empty-state {
-    color: $metaFontColor;
-  }
+.profile-bio-item-empty {
+  color: $metaFontColor;
 }
 
 .profile-information-label {
