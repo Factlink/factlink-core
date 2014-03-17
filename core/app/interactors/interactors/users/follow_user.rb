@@ -23,8 +23,7 @@ module Interactors
       end
 
       def already_following
-        query(:'users/user_follows_user', from_graph_user_id: current_user.graph_user_id,
-                                          to_graph_user_id: user_to_follow.graph_user_id)
+        Backend::UserFollowers.following?(following_id: current_user.graph_user_id, followee_id: user_to_follow.graph_user_id)
       end
 
       def current_user

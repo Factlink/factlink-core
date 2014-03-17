@@ -5,7 +5,7 @@ describe Interactors::Users::FollowUser do
   include PavlovSupport
 
   before do
-    stub_classes 'Backend::Activities'
+    stub_classes 'Backend::Activities', 'Backend::UserFollowers'
   end
 
   describe '#authorized?' do
@@ -28,9 +28,10 @@ describe Interactors::Users::FollowUser do
             .with(:'user_by_username',
                       username: user_to_follow.username, pavlov_options: options)
             .and_return(user_to_follow)
-      Pavlov.stub(:query)
-            .with(:'users/user_follows_user', from_graph_user_id: user.graph_user_id,
-                                              to_graph_user_id: user_to_follow.graph_user_id, pavlov_options: options)
+
+      allow(Backend::UserFollowers).to receive(:following?)
+            .with(following_id: user.graph_user_id,
+                  followee_id: user_to_follow.graph_user_id)
             .and_return(false)
 
       Pavlov.should_receive(:command)
@@ -59,9 +60,9 @@ describe Interactors::Users::FollowUser do
       Pavlov.stub(:query)
             .with(:'user_by_username', username: user_to_follow.username, pavlov_options: options)
             .and_return(user_to_follow)
-      Pavlov.stub(:query)
-            .with(:'users/user_follows_user', from_graph_user_id: user.graph_user_id,
-                                              to_graph_user_id: user_to_follow.graph_user_id, pavlov_options: options)
+      allow(Backend::UserFollowers).to receive(:following?)
+            .with(following_id: user.graph_user_id,
+                  followee_id: user_to_follow.graph_user_id)
             .and_return(true)
 
       interactor.call
