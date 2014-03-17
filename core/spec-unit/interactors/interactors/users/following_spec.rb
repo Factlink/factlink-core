@@ -37,8 +37,8 @@ describe Interactors::Users::Following do
       allow(Pavlov).to receive(:query)
         .with(:'user_by_username', username: followed_user.username, pavlov_options: pavlov_options)
         .and_return(followed_user)
-      allow(Backend::UserFollowers).to receive(:get)
-        .with(followee_id: followed_user.graph_user_id.to_s)
+      allow(Backend::UserFollowers).to receive(:followee_ids)
+        .with(follower_id: followed_user.graph_user_id.to_s)
         .and_return(graph_user_ids)
       allow(Pavlov).to receive(:query)
         .with(:'dead_users_by_ids',

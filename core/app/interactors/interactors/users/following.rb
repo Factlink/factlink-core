@@ -21,7 +21,7 @@ module Interactors
         @graph_user_ids ||= begin
           user = query(:'user_by_username', username: username)
 
-          Backend::UserFollowers.get(followee_id: user.graph_user_id.to_s)
+          Backend::UserFollowers.followee_ids(follower_id: user.graph_user_id.to_s)
         end
       end
     end

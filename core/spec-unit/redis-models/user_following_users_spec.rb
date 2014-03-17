@@ -24,11 +24,11 @@ describe UserFollowingUsers do
     end
   end
 
-  describe '.follower_ids' do
+  describe '.followee_ids' do
     it 'returns relation.ids' do
       relation.stub(:ids).with(graph_user_id).and_return(ids)
 
-      expect(user_following_users.follower_ids).to eq ids
+      expect(user_following_users.followee_ids).to eq ids
     end
   end
 
