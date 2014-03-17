@@ -1,5 +1,7 @@
 class IconButton
   constructor: (options) ->
+    @_targetElement = options.targetElement
+    @_targetOffset = options.targetOffset
     @$el = $ """
       <factlink-icon-button>
         <factlink-icon-button-bubble>
@@ -18,13 +20,16 @@ class IconButton
       mouseleave: options.onmouseleave
     @$el.on 'click', options.onclick
 
-    @_tether = new Tether
-      element: @$el[0]
-      target: options.targetElement
-      attachment: 'top left'
-      targetAttachment: 'top right'
-      classPrefix: 'factlink-tether'
-      targetOffset: options.targetOffset || '0 0'
+
+    @_tether = new Tether(@_tether_options())
+
+  _tether_options: () ->
+    element: @$el[0]
+    target: @_targetElement
+    attachment: 'top left'
+    targetAttachment: 'top right'
+    classPrefix: 'factlink-tether'
+    targetOffset: @_targetOffset || '0 0'
 
   destroy: ->
     @_tether.destroy()
