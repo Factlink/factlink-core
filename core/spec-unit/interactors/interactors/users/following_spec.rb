@@ -4,6 +4,10 @@ require_relative '../../../../app/interactors/interactors/users/following'
 describe Interactors::Users::Following do
   include PavlovSupport
 
+  before do
+    stub_classes 'Backend::UserFollowers'
+  end
+
   describe '#authorized?' do
     it 'throws when no current_user' do
       expect do
@@ -33,9 +37,8 @@ describe Interactors::Users::Following do
       allow(Pavlov).to receive(:query)
         .with(:'user_by_username', username: followed_user.username, pavlov_options: pavlov_options)
         .and_return(followed_user)
-      allow(Pavlov).to receive(:query)
-        .with(:'users/following_graph_user_ids',
-              graph_user_id: followed_user.graph_user_id.to_s, pavlov_options: pavlov_options)
+      allow(Backend::UserFollowers).to receive(:get)
+        .with(graph_user_id: followed_user.graph_user_id.to_s)
         .and_return(graph_user_ids)
       allow(Pavlov).to receive(:query)
         .with(:'dead_users_by_ids',
