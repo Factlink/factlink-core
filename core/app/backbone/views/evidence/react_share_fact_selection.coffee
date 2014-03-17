@@ -48,11 +48,13 @@ window.ReactShareFactSelection = React.createBackboneClass
     _div ['share-fact-selection'],
       ReactShareButton
         provider_name: 'facebook'
+        key: 'facebook'
         model: currentUser
         checked: @props.providers.facebook
         onChange: (checked) => @props.onChange?('facebook', checked)
       ReactShareButton
         provider_name: 'twitter'
+        key: 'twitter'
         model: currentUser
         checked: @props.providers.twitter
         onChange: (checked) => @props.onChange?('twitter', checked)
