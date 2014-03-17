@@ -1,7 +1,6 @@
 class window.User extends Backbone.Model
   initialize: ->
     @following = new Following([], user: @)
-    @following.on 'all', => @trigger 'follow_action'
 
   url: ->
     # We do this because we cannot (yet) set the idAttribute to "username"
@@ -41,6 +40,7 @@ class window.User extends Backbone.Model
         @set 'statistics_follower_count', @get('statistics_follower_count')-1
 
     @set 'statistics_follower_count', @get('statistics_follower_count')+1
+    mp_track 'User: Followed'
 
   unfollow: ->
     self = currentUser.following.get(@id)
@@ -52,6 +52,7 @@ class window.User extends Backbone.Model
         @set 'statistics_follower_count', @get('statistics_follower_count')+1
 
     @set 'statistics_follower_count', @get('statistics_follower_count')-1
+    mp_track 'User: Unfollowed'
 
   followed_by_me: ->
     currentUser.following.some (model) =>
