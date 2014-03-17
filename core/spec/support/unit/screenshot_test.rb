@@ -182,7 +182,6 @@ module ScreenshotTest
     end
 
     def take
-      #sleep 0.5 #wait for page re-render
       @page.driver.save_screenshot new_file, full: true
       @old_image = ChunkyPNG::Image.from_file(old_file)
       @new_image = ChunkyPNG::Image.from_file(new_file)

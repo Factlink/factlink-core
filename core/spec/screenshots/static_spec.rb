@@ -32,6 +32,13 @@ describe "Static pages:", type: :feature do
     end
   end
 
+  describe "Customer landing page" do
+    it do
+      visit "/in-your-browser"
+      assume_unchanged_screenshot "static_in_your_browser"
+    end
+  end
+
   describe "Blog page" do
     it do
       visit blog_stubbing_the_object_under_test_and_getting_away_without_it_path

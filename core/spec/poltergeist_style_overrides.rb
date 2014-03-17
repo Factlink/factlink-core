@@ -13,6 +13,7 @@ module PoltergeistStyleOverrides
           display: inline-block;
           border: 1px solid #f0f;
         }
+        .browser-window-video { display: none; }
       </style>
       <script>
         document.addEventListener("DOMContentLoaded", function(){
