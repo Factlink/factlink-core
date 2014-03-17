@@ -16,10 +16,10 @@ FactlinkUI::Application.routes.draw do
     get '/feed' => "api/feed#global"
     get '/feed/personal' => "api/feed#personal"
     get '/users/:username/feed' => 'api/users#feed'
-    get '/annotations/:id' => 'api/annotations#show'
-    post '/annotations' => 'api/annotations#create'
-    get '/annotations/search' => 'api/annotations#search'
     get '/annotations/recently_viewed' => 'api/annotations#recently_viewed'
+    get '/annotations/search' => 'api/annotations#search'
+    post '/annotations' => 'api/annotations#create'
+    get '/annotations/:id' => 'api/annotations#show'
     post '/annotations/:id/share' => 'api/annotations#share'
   end
 
