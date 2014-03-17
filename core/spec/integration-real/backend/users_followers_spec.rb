@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Queries::Users::UserFollowsUser do
+describe Backend::UserFollowers do
   include PavlovSupport
 
   describe '#call' do
@@ -10,9 +10,7 @@ describe Queries::Users::UserFollowsUser do
       to_user = create :user
 
       as(from_user) do |pavlov|
-        result = pavlov.query 'users/user_follows_user', from_graph_user_id: from_user.graph_user_id,
-                                                         to_graph_user_id: to_user.graph_user_id
-
+        result = Backend::UserFollowers.following?(follower_id: from_user.graph_user_id, followee_id: to_user.graph_user_id)
         expect(result).to be_false
       end
     end
@@ -24,8 +22,7 @@ describe Queries::Users::UserFollowsUser do
       as(from_user) do |pavlov|
         pavlov.interactor(:'users/follow_user', username: to_user.username)
 
-        result = pavlov.query 'users/user_follows_user', from_graph_user_id: from_user.graph_user_id,
-                                                         to_graph_user_id: to_user.graph_user_id
+        result = Backend::UserFollowers.following?(follower_id: from_user.graph_user_id, followee_id: to_user.graph_user_id)
 
         expect(result).to be_true
       end
@@ -39,8 +36,7 @@ describe Queries::Users::UserFollowsUser do
         pavlov.interactor(:'users/follow_user', username: to_user.username)
         pavlov.interactor(:'users/unfollow_user', username: to_user.username)
 
-        result = pavlov.query 'users/user_follows_user', from_graph_user_id: from_user.graph_user_id,
-                                                         to_graph_user_id: to_user.graph_user_id
+        result = Backend::UserFollowers.following?(follower_id: from_user.graph_user_id, followee_id: to_user.graph_user_id)
 
         expect(result).to be_false
       end

@@ -23,8 +23,9 @@ module Interactors
       end
 
       def already_following
-        query(:'users/user_follows_user', from_graph_user_id: current_user.graph_user_id,
-                                          to_graph_user_id: user_to_follow.graph_user_id)
+        Backend::UserFollowers.following? \
+          follower_id: current_user.graph_user_id,
+          followee_id: user_to_follow.graph_user_id
       end
 
       def current_user
@@ -36,13 +37,14 @@ module Interactors
       end
 
       def follow_user
-        command(:'users/follow_user',
-                    graph_user_id: current_user.graph_user_id,
-                    user_to_follow_graph_user_id: user_to_follow.graph_user_id)
+        Backend::UserFollowers.follow \
+          follower_id: current_user.graph_user_id,
+          followee_id: user_to_follow.graph_user_id
 
-        command(:'create_activity',
-                    graph_user: current_user.graph_user, action: :followed_user,
-                    subject: user_to_follow.graph_user, object: nil)
+        Backend::Activities.create \
+          graph_user: current_user.graph_user,
+          action: :followed_user,
+          subject: user_to_follow.graph_user
 
 
         Backend::Activities.add_activities_to_follower_stream(

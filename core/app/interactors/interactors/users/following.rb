@@ -14,14 +14,14 @@ module Interactors
       end
 
       def execute
-        query(:'dead_users_by_ids', user_ids: graph_user_ids, by: :graph_user_id)
+        Backend::Users.by_ids(user_ids: graph_user_ids, by: :graph_user_id)
       end
 
       def graph_user_ids
         @graph_user_ids ||= begin
           user = query(:'user_by_username', username: username)
 
-          query(:'users/following_graph_user_ids', graph_user_id: user.graph_user_id.to_s)
+          Backend::UserFollowers.followee_ids(follower_id: user.graph_user_id.to_s)
         end
       end
     end

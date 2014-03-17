@@ -16,6 +16,11 @@ FactlinkUI::Application.routes.draw do
     get '/feed' => "api/feed#global"
     get '/feed/personal' => "api/feed#personal"
     get '/users/:username/feed' => 'api/users#feed'
+    get '/annotations/recently_viewed' => 'api/annotations#recently_viewed'
+    get '/annotations/search' => 'api/annotations#search'
+    post '/annotations' => 'api/annotations#create'
+    get '/annotations/:id' => 'api/annotations#show'
+    post '/annotations/:id/share' => 'api/annotations#share'
   end
 
   # Javascript Client calls
@@ -28,13 +33,10 @@ FactlinkUI::Application.routes.draw do
   # as well (frame busting)
   get '/client/*page' => 'client#show'
 
-  resources :facts, only: [:create, :show] do
+  resources :facts, only: [] do
     resources :opinionators, only: [:index, :create, :destroy, :update]
 
     member do
-      get     "/evidence_search"  => "facts#evidence_search"
-      post    "/share"            => "facts#share"
-
       scope '/comments' do
         post "/" => 'comments#create'
         get "/" => 'comments#index'
@@ -50,10 +52,6 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
-
-    collection do
-      get 'recently_viewed' => "facts#recently_viewed"
-    end
   end
 
   resources :feedback # TODO: RESTRICT
@@ -66,7 +64,6 @@ FactlinkUI::Application.routes.draw do
 
   get "/in-your-browser" => "home#in_your_browser", as: 'in_your_browser'
   get "/on-your-site" => "home#on_your_site", as: 'on_your_site'
-   get "/learn-more" => "home#learn_more", as: 'learn_more'
   get "/terms-of-service" => "home#terms_of_service", as: 'terms_of_service'
   get "/privacy" => "home#privacy", as: 'privacy'
   get "/about" => "home#about", as: 'about'

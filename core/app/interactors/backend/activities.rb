@@ -57,8 +57,8 @@ module Backend
             }
           when "followed_user"
             {
-                followed_user: Pavlov.query(:dead_users_by_ids, by: :graph_user_id, user_ids: activity.subject_id).first,
-                user: Pavlov.query(:dead_users_by_ids, by: :graph_user_id, user_ids: activity.user_id).first,
+                followed_user: Backend::Users.by_ids(by: :graph_user_id, user_ids: activity.subject_id).first,
+                user: Backend::Users.by_ids(by: :graph_user_id, user_ids: activity.user_id).first,
             }
           end
 
@@ -81,6 +81,10 @@ module Backend
       activities.each do |activity|
         activity.add_to_list_with_score current_graph_user.stream_activities
       end
+    end
+
+    def create(graph_user:, action:, subject:, object: nil)
+      Activity.create(user: graph_user, action: action, subject: subject, object: object)
     end
   end
 end

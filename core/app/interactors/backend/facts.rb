@@ -6,10 +6,10 @@ module Backend
       votes_for(fact_id, 'believes') + votes_for(fact_id, 'disbelieves')
     end
 
-    def create(displaystring:, title:, url:)
+    def create(displaystring:, site_title:, url:)
       fact_data = FactData.new
       fact_data.displaystring = displaystring
-      fact_data.title = title
+      fact_data.title = site_title
       fact_data.save!
 
       site = Site.find_or_create_by url: url
@@ -38,7 +38,7 @@ module Backend
 
     def votes_for(fact_id, type)
       graph_user_ids = believable(fact_id).opiniated(type).ids
-      dead_users = Pavlov.query :dead_users_by_ids, user_ids: graph_user_ids, by: :graph_user_id
+      dead_users = Backend::Users.by_ids(user_ids: graph_user_ids, by: :graph_user_id)
 
       dead_users.map do |user|
         { username: user.username, user: user, type: type }

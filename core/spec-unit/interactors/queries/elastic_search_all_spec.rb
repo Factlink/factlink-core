@@ -32,14 +32,12 @@ describe Queries::ElasticSearchAll do
 
         case type
         when 'user'
-          # Cannot stub Pavlov.query because this query uses another query
-          users_by_ids = double call: [return_object]
-          stub_classes 'Queries::DeadUsersByIds'
-          Queries::DeadUsersByIds
-            .stub(:new)
+          stub_classes 'Backend::Users'
+          allow(Backend::Users).to receive(:by_ids)
             .with(user_ids: [1])
-            .and_return(users_by_ids)
+            .and_return([return_object])
         when 'factdata'
+          # Cannot stub Pavlov.query because this query uses another query
           fd = double fact_id: 1
           FactData.should_receive(:find).
             with(1).

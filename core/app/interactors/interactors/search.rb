@@ -2,31 +2,24 @@ module Interactors
   class Search
     include Pavlov::Interactor
     include Util::CanCan
-    include Util::Search
 
-    arguments :keywords, :page, :row_count
+    arguments :keywords
+
+    def execute
+      row_count = 20 # WARNING: coupling with ReactSearchResults
+
+      results = query :elastic_search_all, keywords: keywords, page: 1, row_count: row_count
+      results.reject { |result| invalid_result? result }
+    end
 
     def validate
-      fail 'Keywords should be an string.' unless @keywords.kind_of? String
-      fail 'Keywords must not be empty.'   unless @keywords.length > 0
+      validate_nonempty_string :keywords, keywords
     end
 
-    def use_query
-      :elastic_search_all
-    end
-
-    def valid_result?(res)
-      not invalid_result?(res)
-    end
-
-    def invalid_result?(res)
-        res.nil? ||
-            res.is_a?(FactData) && FactData.invalid(res) ||
-            res.respond_to?(:hidden?) && res.hidden?
-    end
-
-    def keyword_min_length
-      1
+    def invalid_result? result
+        result.nil? ||
+            result.is_a?(FactData) && FactData.invalid(result) ||
+            result.respond_to?(:hidden?) && result.hidden? # User
     end
 
     def authorized?

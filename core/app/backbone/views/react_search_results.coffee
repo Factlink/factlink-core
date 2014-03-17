@@ -2,20 +2,26 @@ window.ReactSearchResults = React.createBackboneClass
   displayName: 'ReactSearchResults'
   changeOptions: 'add remove reset sync request'
 
-  _results_per_page: 20  # WARNING: coupling with search_controller.rb
+  _results_per_page: 20  # WARNING: coupling with interactors/search.rb
 
   _results: ->
     @model().map (model) =>
       switch model.get("the_class")
         when "Annotation"
           fact = new Fact(model.get("the_object"))
-          _a ['feed-activity-container search-result', href: fact.get('proxy_open_url'), rel: 'backbone'],
+          _a ['feed-activity-container search-result',
+              href: fact.get('proxy_open_url'),
+              rel: 'backbone',
+              key: "fact" + fact.id],
             ReactFact
               model: fact
         when "User"
           user = new User(model.get("the_object"))
 
-          _a ['feed-activity-container search-result', href: user.link(), rel: 'backbone'],
+          _a ['feed-activity-container search-result',
+              href: user.link(),
+              rel: 'backbone',
+              key: "user" + user.id],
             _img ["avatar-image", alt:" ", src: user.avatar_url(32), style: {height: '32px', width: '32px', margin: '0 5px 0 0'}]
             user.get('name')
         else

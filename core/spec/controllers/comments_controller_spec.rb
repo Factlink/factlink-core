@@ -20,7 +20,7 @@ describe CommentsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title')
+                                     site_title: 'title')
       end
       as(other_user) do |pavlov|
         pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, content: 'a comment')
@@ -50,7 +50,7 @@ describe CommentsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title')
+                                     site_title: 'title')
       end
 
       post :create, id: fact.id, content: 'Gerard is een gekke meneer', format: :json
