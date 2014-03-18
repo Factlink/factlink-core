@@ -8,9 +8,6 @@ nl:
   factlink: "discussie"
   factlinks: "discussies"
 
-  fact_remove_opinion_past_action: "trok zijn mening terug"
-  fact_add_evidence_past_action: "voegde argument toe"
-
   post_argument: "Post"
   post_subcomment: "Reageer"
 
