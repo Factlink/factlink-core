@@ -28,8 +28,6 @@
     <%= inject_special_test_code %>
   </head>
   <body class="controller_<%= controller.controller_name -%> action_<%= controller.action_name -%><%= " show_footer" if defined? show_footer and show_footer %>">
-    <%= render 'snippets/facebook' %> <!-- On top because of fb-root element -->
-
     <%= render 'feedback/button' unless defined? dont_render_feedback %>
 
     <%= render 'home/browser_support_message' %>
