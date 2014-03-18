@@ -28,7 +28,7 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 
 .comment-believes,
 .comment-disbelieves,
-.comment-unsure {
+.comment-no-opinion {
   height: 100%;
   display: inline-block;
   vertical-align: middle;
@@ -45,7 +45,7 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
   background: $disbelievesEvidenceImpactColor;
 }
 
-.comment-unsure {
+.comment-no-opinion {
   background: $doubtsEvidenceImpactColor;
 }
 
