@@ -26,7 +26,7 @@ module Acceptance
           click_button "Post"
         end
 
-        wait_until_argument_has_one_vote text
+        wait_until_comment_has_one_vote text
       end
 
       def add_existing_factlink evidence_factlink
@@ -50,10 +50,10 @@ module Acceptance
           click_button "Post"
         end
 
-        wait_until_argument_has_one_vote text
+        wait_until_comment_has_one_vote text
       end
 
-      def wait_until_argument_has_one_vote text
+      def wait_until_comment_has_one_vote text
         page.find('.comment-container', text: text).find('.spec-comment-vote-amount', text: 1)
       end
 
