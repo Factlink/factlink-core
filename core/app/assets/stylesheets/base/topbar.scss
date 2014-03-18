@@ -13,16 +13,10 @@
 }
 
 .topbar-logo {
-  visibility: hidden;
-  position: absolute;
   @extend %centering-inner;
-
-  @include from-width(430px) {
-    visibility: visible;
-    position: static;
-    margin-right: 20px;
+  @include remove-element-below(430px);
+  margin-right: 20px;
   }
-}
 
 .topbar-logo-img{
   display: block;
@@ -31,14 +25,8 @@
 }
 
 .topbar-search {
-  visibility: hidden;
-  position: absolute;
   @extend %centering-inner;
-
-  @include from-width(900px) {
-    visibility: visible;
-    position: static;
-  }
+  @include remove-element-below(900px);
 
   .topbar-search-field {
     background: image-url("base/topbar/search_icon.png") 8px center no-repeat #fff;
@@ -75,23 +63,11 @@
 }
 
 .topbar-in-your-browser {
-  visibility: hidden;
-  position: absolute;
-
-  @include from-width(700px) {
-    visibility: visible;
-    position: static;
-  }
+  @include remove-element-below(700px);
 }
 
 .topbar-on-your-site {
-  visibility: hidden;
-  position: absolute;
-
-  @include from-width(600px) {
-    visibility: visible;
-    position: static;
-  }
+  @include remove-element-below(600px);
 }
 
 .topbar-profile-link {

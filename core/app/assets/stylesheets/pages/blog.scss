@@ -19,11 +19,7 @@
   float: right;
   max-width: 240px;
   margin-left: 30px;
-  display: none;
-
-  @include from-width(600px) {
-    display: block;
-  }
+  @include remove-element-below(600px);
 }
 
 ul.blog-content-list {

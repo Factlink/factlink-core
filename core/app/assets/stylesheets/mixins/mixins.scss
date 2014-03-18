@@ -2,6 +2,10 @@
   @media only screen and (min-width: $breakpoint) { @content; }
 }
 
+@mixin remove-element-below($breakpoint) {
+  @media only screen and (max-width: $breakpoint) { display: none; }
+}
+
 %ellipsis-inline-block {
   display: inline-block;
   overflow: hidden;

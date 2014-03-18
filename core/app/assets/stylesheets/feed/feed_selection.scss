@@ -7,9 +7,5 @@
 
 .feed-selection-install-extension-button {
   float: right;
-  display: none;
-
-  @include from-width(480px) {
-    display: block;
-  }
+  @include remove-element-below(480px);
 }

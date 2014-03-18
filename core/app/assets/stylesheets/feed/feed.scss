@@ -37,11 +37,7 @@ $headerBorder: 1px;
 
 .feed-activity-followed-avatar {
   margin: 0 3px;
-  display: none;
-
-  @include from-width(600px) {
-    display: inline;
-  }
+  @include remove-element-below(600px);
 }
 
 a.feed-activity-container {

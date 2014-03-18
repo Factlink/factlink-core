@@ -1,11 +1,7 @@
 .main-region-tabs {
   float: right;
   margin-top: 10px;
-  display: none;
-
-  @include from-width(400px) {
-    display: block;
-  }
+  @include remove-element-below(400px);
 
   ul > li {
     float: left;
