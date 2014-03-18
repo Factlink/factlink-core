@@ -40,7 +40,7 @@ $headerBorder: 1px;
   display: none;
 
   @include from-width(600px) {
-    display: block;
+    display: inline;
   }
 }
 
