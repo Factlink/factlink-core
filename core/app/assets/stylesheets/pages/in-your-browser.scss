@@ -30,15 +30,16 @@
   }
 }
 
+$learnMoreColumnPadding: 20px;
 .learn-more-container {
-  margin: 20px 0px;
+  margin: 20px (-$learnMoreColumnPadding+5px);
 }
 
 .learn-more-column {
   font-size: 14px;
   display: block;
   vertical-align: top;
-  padding: 0 20px;
+  padding: 0 $learnMoreColumnPadding;
   border-left: none;
   border-bottom: 1px lightgrey dotted;
   &:first-child {
