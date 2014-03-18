@@ -63,9 +63,7 @@ module Acceptance
         within '.spec-sub-comments-form' do
           click_button 'Reply'
         end
-        eventually_succeeds do
-          find('.spec-sub-comments-form .text_area_view').value.should eq ''
-        end
+        find('.spec-sub-comments-form .text_area_view').value.should eq ''
       end
 
       def assert_sub_comment_exists(comment)
