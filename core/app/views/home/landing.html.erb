@@ -3,7 +3,8 @@
     <h1 class="header-heading">Share your knowledge for a better world</h1>
     <p class="header-tagline">Use Factlink to discuss <i>anything</i> on the web.</p>
 
-    <div class="js-install-extension-upper-button"></div>
+    <%= link_to 'Factlink in your browser', in_your_browser_path, class: 'button-success button-huge' %>
+    <%= link_to 'Factlink on your site', on_your_site_path, class: 'button-success button-huge' %>
   </div>
 <% end %>
 
@@ -36,18 +37,8 @@ No whitespace because of inline-block
       <div class="in-your-browser-cta-container">
         <div class="in-your-browser-below-content-box">
           <h1 class="static-pages-heading-h1">Join the revolution!</h1>
-          <p>Discussion and access to information are key to a well-functioning society. Install the extension to share your knowledge and stay updated.</p>
-
-          <div class="js-install-extension-lower-button"></div>
-
-          <div class="visible-when-unsupported-browser">
-            <div class="in-your-browser-dashed-border">
-              <a class="js-bookmarklet-button in-your-browser-bookmarklet button-success" onclick="return false"><span style="display: none">Factlink</span></a>
-            </div>
-
-            <p>To install Factlink, drag this button to your bookmarks bar</p>
-          </div>
-
+          <p>Discussion and access to information are key to a well-functioning society. Install Factlink in your browser to share your knowledge and stay updated.</p>
+          <%= link_to "Learn more", in_your_browser_path, class: "button-confirm" %>
         </div>
         <div class="in-your-browser-below-content-box">
           <h1 class="static-pages-heading-h1">Have your own site?</h1>
@@ -61,12 +52,6 @@ No whitespace because of inline-block
 
 <% content_for :specific_javascript do %>
   <script>
-    React.renderComponent(ReactHugeInstallExtensionButton(), $('.js-install-extension-upper-button')[0]);
-
-    React.renderComponent(ReactInstallExtensionButton(), $('.js-install-extension-lower-button')[0]);
-
-    $('.js-bookmarklet-button').attr('href', Factlink.Global.bookmarklet_link);
-
     var feedActivities = new GlobalFeedActivities([], {count: 7});
     feedActivities.fetch();
 
