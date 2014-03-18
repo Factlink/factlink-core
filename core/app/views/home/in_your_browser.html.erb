@@ -7,10 +7,15 @@
 
 <% content_for :content do %>
   <div class="discuss-context-content">
-    <h1 class="static-pages-heading-h1">Discuss within context</h1>
-    <p>You can discuss within context. You can directly comment on a paragraph by clicking on the discussion icon. If you select a certain phrase you can specifically comment on the selected phrase. It's easy to switch focus between reading an interesting article and participating in a discussion about specific content your reading.</p>
+    <h1 class="static-pages-heading-h1">Discuss anything</h1>
+    <p>See something worth sharing and discussing? Click on the icon next to a paragraph, and share your thoughts. On any website.</p>
+    <ul class="discuss-context-list">
+      <li>See what others say about what you’re reading</li>
+      <li>Debunk statements by adding references</li>
+      <li>Share your opinion and invite others to discuss</li>
+    </ul>
   </div>
-  <div class="discuss-context-image">
+  <div class="discuss-context-video">
     <div class="browser-window-container">
       <div class="browser-window">
         <div class="browser-window-bar">
@@ -30,27 +35,26 @@
   <div class="container">
     <div class="learn-more-container"><div class="learn-more-column">
         <div class="learn-more-column-image"><div class="learn-more-column-image-inner">
-          <%= render "home/partials/social_conversation" %>
+          <%= render "home/partials/best_comment_top" %>
         </div></div>
-        <h1 class="static-pages-heading-h2">A better social tool</h1>
-        <p>Express yourself in more then 140 characters by sharing discussions to Twitter or involve your friends on Facebook in more serious discussions.</p>
+        <h1 class="static-pages-heading-h2">Find great discussions</h1>
+        <p>Find comments in the margins of articles while browsing the web. Or discover interesting discussions in your feed.</p>
       </div><div class="learn-more-column">
         <div class="learn-more-column-image"><div class="learn-more-column-image-inner">
           <%= render "home/partials/give_opinion" %>
           </div></div>
         <h1 class="static-pages-heading-h2">Give recognition</h1>
-        <p>Don't feel like writing a comment but do want to give recognition for a well written paragraph? Give recognition by using the thumb up and thumb down.</p>
+        <p>Don't feel like writing a comment but still want to give feedback? Use the thumbs up and down buttons.</p>
       </div><div class="learn-more-column">
         <div class="learn-more-column-image"><div class="learn-more-column-image-inner">
-          <%= render "home/partials/best_comment_top" %>
+          <%= render "home/partials/social_conversation" %>
         </div></div>
-        <h1 class="static-pages-heading-h2">Best comments float top</h1>
-        <p>Appreciate the best comments by voting them up. The collective will provide you with the best comments.</p>
+        <h1 class="static-pages-heading-h2">Share better</h1>
+        <p>Share interesting quotes from articles on Facebook and Twitter. Involve your friends and followers in interesting discussions.</p>
     </div></div>
 
     <div class="extend-your-browser-container">
-      <h1 class="static-pages-heading-h1">Extend your browser</h1>
-      <p>Discuss about anything, anywhere. Even on websites that did not implement Factlink. We believe in an open internet in which everybody can share there opinions, believes and thoughts about the information that is being spread to the world. This way we all can get a better perspective.</p>
+      <p>Discuss anything, on any website. Help us make the web a better place by sharing your knowledge!</p>
       <div class="extend-your-browser-install-button js-install-extension-button"></div>
     </div>
   </div>
