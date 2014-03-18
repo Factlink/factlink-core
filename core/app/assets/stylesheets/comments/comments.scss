@@ -82,12 +82,12 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 
 .comment-post-bottom-right {
   float: right;
+  margin-top: -2px;
 }
 
 .comment-post-share {
   position: relative;
   display: inline-block;
-  margin-top: -3px;
   border-radius: 3px;
   width: 2.5em;
   height: $baseButtonHeight;
@@ -96,6 +96,7 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
   text-align: center;
   cursor: pointer;
   color: $mutedFontColor;
+  vertical-align: baseline;
 
   border-bottom: $baseButtonBorderWidth solid transparent;
 
