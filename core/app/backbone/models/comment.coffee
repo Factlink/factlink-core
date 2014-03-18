@@ -17,8 +17,8 @@ class window.Comment extends Backbone.Model
     @_sub_comments ?= new SubComments([], parentModel: @)
 
   argumentTally: ->
-    @_argumentTally ?= new ArgumentTally @get('tally'),
-      argument: this
+    @_commentTally ?= new CommentTally @get('tally'),
+      comment: this
 
   toJSON: ->
     json = super
