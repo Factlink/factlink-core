@@ -96,10 +96,9 @@ class FactlinkJailRoot.HighlightIconButtonContainer
 
     @_iconButton.fadeIn()
 
-    FactlinkJailRoot.on 'reposition_icons', ->
-        @_iconButton.resetOffset(@_targetOffset())
-      , @
+    FactlinkJailRoot.on 'reposition_icons', @_reposition_icons
 
+  _reposition_icons: => @_iconButton.resetOffset(@_targetOffset())
 
   _targetOffset: ->
     # Calculate a vertical percentage to position the icon relative
@@ -111,9 +110,8 @@ class FactlinkJailRoot.HighlightIconButtonContainer
 
     "#{verticalOffsetPercentage}% 0"
 
-
   destroy: ->
-    FactlinkJailRoot.off null, null, @
+    FactlinkJailRoot.off 'reposition_icons', @_reposition_icons
     @_iconButton.destroy()
 
   _onHover: =>
