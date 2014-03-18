@@ -95,6 +95,7 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
   transition: all 0.1s;
   text-align: center;
   cursor: pointer;
+  color: $mutedFontColor;
 
   border-bottom: $baseButtonBorderWidth solid transparent;
 
