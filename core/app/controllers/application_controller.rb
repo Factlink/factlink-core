@@ -79,15 +79,6 @@ class ApplicationController < ActionController::Base
     fail ActionController::RoutingError.new(message)
   end
 
-  class HackAttempt < StandardError
-  end
-
-  rescue_from HackAttempt, with: :rescue_hacker
-
-  def rescue_hacker
-    render nothing: true, status: 500
-  end
-
   def backbone_responder &block
     respond_to do |format|
       format.html do
