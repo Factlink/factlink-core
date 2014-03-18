@@ -28,15 +28,15 @@ window.TimeAgo = React.createClass
     else if time < 1 * minutes
       "now"
     else if time < 1*hours
-      @showNr(time / minutes, 'min')
+      @showNr(time / minutes, 'm')
     else if time < 1*days
       @showNr(time / hours, 'h')
     else if time < 1*months
       @showNr(time / days , 'd')
     else if time < 1*years
-      @showNr(time / months, 'm')
+      @showNr(time / months, 'mon')
     else
-      @showNr(time / years, 'y')
+      @showNr(time / years, 'yr')
 
   render: ->
     span = _span {}, @displayTime(@seconds_lapsed())
