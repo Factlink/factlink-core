@@ -1,12 +1,12 @@
 require 'pavlov_helper'
-require_relative '../../../app/interactors/interactors/normalize_site_url.rb'
+require_relative '../../app/workers/normalize_site_url.rb'
 
-describe Interactors::NormalizeSiteUrl do
+describe NormalizeSiteUrl do
 
   before do
     stub_const('Site', Class.new)
-    stub_const('DumbUrlNormalizer', Class.new)
-    DumbUrlNormalizer.stub(normalize: 'http://foo.com')
+    stub_const('UrlNormalizer', Class.new)
+    UrlNormalizer.stub(normalize: 'http://foo.com')
   end
 
   it 'should migrate one site when there is no site yet with the new url' do
@@ -15,8 +15,7 @@ describe Interactors::NormalizeSiteUrl do
     site.should_receive(:url=).with('http://foo.com')
     site.should_receive(:save).and_return true
 
-    interactor = Interactors::NormalizeSiteUrl.perform(site_id: site.id,
-                                                       normalizer_class_name: :DumbUrlNormalizer)
+    NormalizeSiteUrl.perform(site_id: site.id)
   end
 
   it 'should be able to merge multiple sites which end up with the same url after normalization' do
@@ -40,7 +39,6 @@ describe Interactors::NormalizeSiteUrl do
     # so the site shouldn't be removed
     site1.should_not_receive(:delete)
 
-    interactor = Interactors::NormalizeSiteUrl.perform(site_id: site1.id,
-                                                       normalizer_class_name: :DumbUrlNormalizer)
+    NormalizeSiteUrl.perform(site_id: site1.id)
   end
 end

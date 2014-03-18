@@ -30,22 +30,27 @@
   text-align: center;
 }
 
-.discuss-context-content {
-  display: block;
-  text-align: center;
-  vertical-align: middle;
+.static-pages-below-content {
+  border-top: 1px solid $baseBorderColor;
+  box-shadow: inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.static-pages-below-content-box {
   padding: 20px;
+  width: 50%;
+  display: table-cell;
+  vertical-align: top;
+  &:first-child {
+    border-right: 1px lightgrey solid;
+  }
 
-  @include from-width(800px) {
-    display: table-cell;
+  @include respond-to(600) {
+    display: block;
+    border-bottom: 1px lightgrey solid;
+    width: 100%;
+    &:first-child {
+      border-right: none;
+    }
   }
 }
 
-.discuss-context-image {
-  display: block;
-  text-align: center;
-
-  @include from-width(800px) {
-    display: table-cell;
-  }
-}

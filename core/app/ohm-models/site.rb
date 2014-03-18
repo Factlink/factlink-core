@@ -20,10 +20,8 @@ class Site < OurOhm
   def self.normalize_url(options)
     fail 'url in Site.normalize_url is nil' if options[:url].nil?
 
-    url_normalizer_class = options[:url_normalizer_class] || UrlNormalizer
-    url = url_normalizer_class.normalize options[:url]
-
-    options.merge url: url
+    options.merge \
+      url: UrlNormalizer.normalize(options[:url])
   end
 
   def validate

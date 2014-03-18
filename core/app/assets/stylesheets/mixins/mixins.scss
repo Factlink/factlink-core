@@ -87,6 +87,7 @@
 @mixin box-sizing($boxmodel){
      -moz-box-sizing: $boxmodel;
           box-sizing: $boxmodel;
+  //TODO: box-sizing is scheduled to be unprefixed in FF; remove @ about 2014-sept.
 }
 
 %non-selectable {

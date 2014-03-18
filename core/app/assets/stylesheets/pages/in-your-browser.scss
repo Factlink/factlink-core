@@ -1,17 +1,56 @@
-.learn-more-container {
-  margin: 20px 0px;
+.discuss-context-content {
+  display: block;
+  vertical-align: middle;
+  padding: 20px;
   text-align: center;
+
+  @include from-width(800px) {
+    display: table-cell;
+    text-align: left;
+  }
+}
+
+.discuss-context-list {
+  padding-left: 1.5em;
+  display: inline-block;
+  text-align: left;
+
+  > li {
+    list-style-type: initial;
+    margin-top: 0.5em;
+  }
+}
+
+.discuss-context-video {
+  display: block;
+  text-align: center;
+
+  @include from-width(800px) {
+    display: table-cell;
+  }
+}
+
+$learnMoreColumnPadding: 20px;
+.learn-more-container {
+  margin: 20px (-$learnMoreColumnPadding+5px);
 }
 
 .learn-more-column {
   font-size: 14px;
-  width: 33.3%;
-  display: inline-block;
+  display: block;
   vertical-align: top;
-  padding: 0 20px;
-  border-left: 1px lightgrey dotted;
+  padding: 0 $learnMoreColumnPadding;
+  border-left: none;
+  border-bottom: 1px lightgrey dotted;
   &:first-child {
     border-left: none;
+  }
+
+  @include from-width(600px) {
+    display: inline-block;
+    width: 33.3%;
+    border-left: 1px lightgrey dotted;
+    border-bottom: none;
   }
 }
 

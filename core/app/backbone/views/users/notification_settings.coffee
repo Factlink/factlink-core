@@ -1,14 +1,26 @@
-class window.NotificationSettingsView extends Backbone.Marionette.ItemView
-  _.extend @prototype, Backbone.Factlink.ModelBinding
-  template: 'users/notification_settings'
-
-  modelBindings:
-    "change input.js-receives-mailed-notifications" : 'receives_mailed_notifications'
-    "change input.js-receives-digest" : 'receives_digest'
-
-  onRender: -> @bind()
-
-  onBindChange: ->
-    @model.save [],
+NotificationSetting = React.createBackboneClass
+  toggle: ->
+    @model().set @props.field, !@model().get(@props.field)
+    @model().save [],
       error: -> FactlinkApp.NotificationCenter.error 'Something went wrong while saving your preferences'
+
+  render: ->
+    _label [],
+      _input [
+        type:"checkbox",
+        checked: @model().get(@props.field),
+        onChange: @toggle
+      ]
+      @props.children...
+
+window.ReactNotificationSettings = React.createBackboneClass
+  render: ->
+    _div ["edit-user-container"],
+      _div ["narrow-indented-block"],
+        NotificationSetting {field: 'receives_mailed_notifications', model: @model(), key: 'receives_mailed_notifications'},
+          "Send me an email when I receive a notification"
+        NotificationSetting {field: 'receives_digest', model: @model(), key: 'receives_digest'},
+          "Send me a weekly digest "
+          _em [], "(coming soon)"
+
 
