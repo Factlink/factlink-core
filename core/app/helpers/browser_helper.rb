@@ -2,10 +2,6 @@ module BrowserHelper
   # Makes use of the browser gem:
   # https://github.com/fnando/browser
 
-  def browser_unsupported?
-    browser.ie?
-  end
-
   def browser_preferred?
     browser.chrome? or browser.firefox? or browser.safari? or browser.phantom_js?
   end
@@ -30,8 +26,6 @@ module BrowserHelper
   def show_nonpreferred_browser_warning
     if !current_user
       false # no warnings for people without accounts
-    elsif browser_unsupported?
-      false # already gets a big (modal) warning
     elsif browser_preferred?
       false # this browser is preferred, so no need for a warning
     else
