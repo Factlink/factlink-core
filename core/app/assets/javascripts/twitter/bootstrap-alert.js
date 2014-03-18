@@ -27,7 +27,7 @@
 
     if (e.isDefaultPrevented()) return
 
-    $parent.removeClass('in')
+    $parent.removeClass('alert-fade-in')
 
     function removeElement() {
       $parent
@@ -35,7 +35,7 @@
         .remove()
     }
 
-    $.support.transition && $parent.hasClass('fade') ?
+    $.support.transition && $parent.hasClass('alert-fade-out') ?
       $parent.on($.support.transition.end, removeElement) :
       removeElement()
   }

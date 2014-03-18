@@ -1,6 +1,6 @@
 <% if alert || notice %>
 <div class="alert<%= alert ? " alert-error" : (notice ? " alert-success" : "") %>">
-  <a class="close" href="#" data-dismiss="alert">x</a>
+  <a class="alert-close" href="#" data-dismiss="alert">&times;</a>
   <%= notice || '' %>
   <%= alert  || '' %>
 </div>
