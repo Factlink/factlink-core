@@ -7,7 +7,7 @@ en:
   factlink: "discussion"
   factlinks: "discussions"
 
-  post_argument: "Post"
+  post_comment: "Post"
   post_subcomment: "Reply"
 
   follow_user: "follow user"

@@ -8,7 +8,7 @@ nl:
   factlink: "discussie"
   factlinks: "discussies"
 
-  post_argument: "Post"
+  post_comment: "Post"
   post_subcomment: "Reageer"
 
   follow_user: "gebruiker volgen"
