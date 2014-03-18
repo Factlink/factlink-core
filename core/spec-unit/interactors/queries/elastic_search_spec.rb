@@ -4,10 +4,10 @@ require_relative '../../../app/interactors/queries/elastic_search.rb'
 describe Queries::ElasticSearch do
   include PavlovSupport
 
-  let(:base_url) { base_url = '1.0.0.0:4000/index' }
+  let(:base_url) { '1.0.0.0:4000/index' }
 
   before do
-    stub_classes 'HTTParty', 'FactlinkUI::Application'
+    stub_classes 'HTTParty', 'FactlinkUI::Application', 'Backend::Users'
 
     FactlinkUI::Application.stub(config: double(elasticsearch_url: base_url))
   end
@@ -21,7 +21,6 @@ describe Queries::ElasticSearch do
       hit = double
       results = double(parsed_response: { 'hits' => { 'hits' => [ hit ] } },
                        code: 200)
-      url = 'test'
       return_object = double
 
       hit.should_receive(:[]).with('_id').and_return(1)
@@ -30,9 +29,9 @@ describe Queries::ElasticSearch do
         with("http://#{base_url}/user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
 
-      Pavlov.stub(:query)
-            .with(:'dead_users_by_ids', user_ids: [1])
-            .and_return([return_object])
+      allow(Backend::Users).to receive(:by_ids)
+        .with(user_ids: [1])
+        .and_return([return_object])
 
       query.call.should eq [return_object]
     end
@@ -57,9 +56,9 @@ describe Queries::ElasticSearch do
       response = { 'hits' => { 'hits' => [ hit ] } }
       results = double(parsed_response: response, code: 200)
 
-      Pavlov.stub(:query)
-            .with(:'dead_users_by_ids', user_ids: [1])
-            .and_return []
+      allow(Backend::Users).to receive(:by_ids)
+        .with(user_ids: [1])
+        .and_return []
 
       HTTParty.should_receive(:get).
         with("http://#{base_url}/user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").

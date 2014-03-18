@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../app/interactors/commands/send_activity_mail_to_user.rb'
+require_relative '../../app/workers/send_activity_mail_to_user.rb'
 
-describe Commands::SendActivityMailToUser do
+describe SendActivityMailToUser do
   include PavlovSupport
 
   before do
@@ -14,15 +14,13 @@ describe Commands::SendActivityMailToUser do
       activity_id = double
       mailer = double
 
-      command = described_class.new user_id: user_id, activity_id: activity_id
-
       ActivityMailer.stub(:new_activity)
                     .with(user_id, activity_id)
                     .and_return mailer
 
       mailer.should_receive(:deliver)
 
-      command.call
+      described_class.perform user_id, activity_id
     end
   end
 end

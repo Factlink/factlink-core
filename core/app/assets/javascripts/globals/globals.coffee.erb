@@ -5,8 +5,6 @@ window.Factlink ||= {}
 
 Factlink.Global =
   ajax_loader_image: '<%= image_path("ajax-loader.gif") %>'
-  browser_icons_chrome_16x16: '<%= image_path("browser-icons/chrome-16x16.png") %>'
-  warning_sign_image: '<%= image_path("warning-sign.png") %>'
   bookmarklet_link: null # Set in bookmarklet.coffee.erb
 
   core_url: "<%= URI.parse(FactlinkUI::Application.config.core_url).to_s %>"

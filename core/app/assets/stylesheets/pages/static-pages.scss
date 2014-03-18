@@ -30,3 +30,22 @@
   text-align: center;
 }
 
+.discuss-context-content {
+  display: block;
+  text-align: center;
+  vertical-align: middle;
+  padding: 20px;
+
+  @include from-width(800px) {
+    display: table-cell;
+  }
+}
+
+.discuss-context-image {
+  display: block;
+  text-align: center;
+
+  @include from-width(800px) {
+    display: table-cell;
+  }
+}

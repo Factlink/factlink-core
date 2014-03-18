@@ -38,7 +38,7 @@ module Backend
 
     def votes_for(fact_id, type)
       graph_user_ids = believable(fact_id).opiniated(type).ids
-      dead_users = Pavlov.query :dead_users_by_ids, user_ids: graph_user_ids, by: :graph_user_id
+      dead_users = Backend::Users.by_ids(user_ids: graph_user_ids, by: :graph_user_id)
 
       dead_users.map do |user|
         { username: user.username, user: user, type: type }

@@ -65,7 +65,7 @@ describe Fact do
     it "is false when a comment has been given" do
       fact = create :fact
 
-      Pavlov.command(:'comments/create', fact_id: fact.id, content: 'foo', user_id: (create :user).id)
+      Pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, content: 'foo', pavlov_options: {current_user: (create :user)})
 
       expect(fact.deletable?).to be_false
     end
