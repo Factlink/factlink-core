@@ -87,7 +87,7 @@ body.discussion-sidebar-open {
 }
 
 .discussion {
-  box-sizing: content-box;
+  @include box-sizing(content-box);
   position: relative;
   z-index: 0; // new stacking context
 }

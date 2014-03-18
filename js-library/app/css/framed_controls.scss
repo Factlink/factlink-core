@@ -15,4 +15,4 @@ body {
   float: left; //shrink to fit
 }
 
-* { box-sizing: border-box; }
+* { -moz-box-sizing:border-box; box-sizing: border-box; }

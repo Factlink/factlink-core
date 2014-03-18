@@ -1,5 +1,5 @@
 .fl-message {  // Message after loading the Bookmarklet
-  box-sizing: content-box;
+  -moz-box-sizing: content-box; box-sizing: content-box;
   background: #fff;
   min-height: 65px;
   line-height: 65px;
