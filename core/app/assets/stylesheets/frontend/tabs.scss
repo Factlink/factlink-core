@@ -1,9 +1,10 @@
 .main-region-tabs {
   float: right;
   margin-top: 10px;
+  display: none;
 
-  @include respond-to(400) {
-    display: none;
+  @include from-width(400px) {
+    display: block;
   }
 
   ul > li {

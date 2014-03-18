@@ -13,11 +13,14 @@
 }
 
 .topbar-logo {
+  visibility: hidden;
+  position: absolute;
   @extend %centering-inner;
-  margin-right: 20px;
 
-  @include respond-to(430) {
-    display: none;
+  @include from-width(430px) {
+    visibility: visible;
+    position: static;
+    margin-right: 20px;
   }
 }
 
@@ -28,9 +31,13 @@
 }
 
 .topbar-search {
+  visibility: hidden;
+  position: absolute;
   @extend %centering-inner;
-  @include respond-to(900) {
-    display: none;
+
+  @include from-width(900px) {
+    visibility: visible;
+    position: static;
   }
 
   .topbar-search-field {
@@ -68,25 +75,33 @@
 }
 
 .topbar-in-your-browser {
-  @include respond-to(700) {
-    display: none;
+  visibility: hidden;
+  position: absolute;
+
+  @include from-width(700px) {
+    visibility: visible;
+    position: static;
   }
 }
 
 .topbar-on-your-site {
-  @include respond-to(600) {
-    display: none;
+  visibility: hidden;
+  position: absolute;
+
+  @include from-width(600px) {
+    visibility: visible;
+    position: static;
   }
 }
 
 .topbar-profile-link {
   @extend %centering-y;
   @extend %ellipsis-inline-block;
-  max-width: 220px;
+  max-width: 100px;
   height:$topbarHeight;
 
-  @include respond-to(600) {
-    max-width: 100px;
+  @include from-width(600px) {
+    max-width: 220px;
   }
 }
 

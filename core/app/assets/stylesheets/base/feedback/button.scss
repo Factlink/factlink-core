@@ -1,30 +1,27 @@
 .feedback-button {
   position: fixed;
   top: 50%;
-
   background: $linkColor;
   color: #fff;
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0);
-
   cursor: pointer;
-  @include transform( rotate(270deg) translate(-50%) );
-  @include transform-origin(0 0);
   z-index: 1031; // above discussion-sidebar-container, below feedback-modal-layer
   outline: none;
-
   padding: 0.3em 0.6em 0.6em;
-
   border: 3px solid #fff;
   border-top:none;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.18);
+  display: none;
 
+  @include transform( rotate(270deg) translate(-50%) );
+  @include transform-origin(0 0);
   @include border-bottom-radius(8px);
 
-  @include respond-to(600) {
-    display: none;
+  @include from-width(600px) {
+    display: block;
   }
+
   &:hover {
     text-decoration: none;
   }
 }
-

@@ -39,20 +39,23 @@ i.in-your-browser-icon-social {
 }
 
 .in-your-browser-below-content-box {
-  padding: 20px;
-  width: 50%;
-  display: table-cell;
-  vertical-align: top;
+  display: block;
+  border-bottom: 1px lightgrey solid;
+  width: 100%;
+
   &:first-child {
-    border-right: 1px lightgrey solid;
+    border-right: none;
   }
 
-  @include respond-to(600) {
-    display: block;
-    border-bottom: 1px lightgrey solid;
-    width: 100%;
+  @include from-width(600px) {
+    display: table-cell;
+    border: none;
+    width: 50%;
+    padding: 20px;
+    vertical-align: top;
+
     &:first-child {
-      border-right: none;
+      border-right: 1px lightgrey solid;
     }
   }
 }
@@ -67,4 +70,3 @@ i.in-your-browser-icon-social {
 .in-your-browser-feed-more-button {
   margin-top: 5px;
 }
-
