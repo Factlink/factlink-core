@@ -5,7 +5,7 @@ describe Interactors::SendMailForActivity do
   include PavlovSupport
 
   before do
-    stub_classes 'Commands::SendActivityMailToUser', 'Resque'
+    stub_classes 'SendActivityMailToUser', 'Resque'
   end
 
   describe '#call' do
@@ -28,8 +28,8 @@ describe Interactors::SendMailForActivity do
         .with(:'users/filter_mail_subscribers', graph_user_ids: graph_user_ids, type: 'mailed_notifications', pavlov_options: pavlov_options)
         .and_return([dead_user])
 
-      Resque.should_receive(:enqueue).with(Commands::SendActivityMailToUser,
-        user_id: dead_user.id, activity_id: activity.id, pavlov_options: pavlov_options)
+      expect(Resque).to receive(:enqueue)
+        .with(SendActivityMailToUser, dead_user.id, activity.id)
 
       interactor.call
     end
