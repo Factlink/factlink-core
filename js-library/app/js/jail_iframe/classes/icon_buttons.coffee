@@ -1,18 +1,13 @@
-there_are_icons = false
-
 FactlinkJailRoot.host_loaded_promise.then ->
   FactlinkJailRoot.trigger 'reposition_icons'
 
-FactlinkJailRoot.on 'reposition_icons', ->
-  if there_are_icons
-    Tether.position()
+FactlinkJailRoot.on 'reposition_icons', -> Tether.position()
 
 class IconButton
   constructor: (options) ->
     @_targetElement = options.targetElement
     @_targetOffset = options.targetOffset
 
-    there_are_icons = true
     @$el = $ """
       <factlink-icon-button>
         <factlink-icon-button-bubble>
