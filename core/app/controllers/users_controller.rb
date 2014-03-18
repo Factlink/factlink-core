@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout "frontend"
 
-  before_filter :load_user, except: [:current, :seen_messages]
+  before_filter :load_user, except: [:current]
 
   def show
     authorize! :show, @user
@@ -68,13 +68,6 @@ class UsersController < ApplicationController
     authorize! :edit_settings, @user
 
     backbone_responder
-  end
-
-  def seen_messages
-    authorize! :update, current_user
-    fail HackAttempt unless params[:message] =~ /\A\w+\Z/
-    current_user.seen_messages << params[:message]
-    render json: {}, status: :ok
   end
 
   private
