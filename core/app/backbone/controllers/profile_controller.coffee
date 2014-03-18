@@ -1,9 +1,7 @@
-class window.ProfileRouter extends Backbone.Marionette.AppRouter
-  appRoutes:
+class window.ProfileRouter extends Backbone.Router
+  routes:
     ':username': 'showProfile'
     ':username/notification-settings': 'showNotificationSettings'
-
-window.ProfileController =
 
   # ACTIONS
   showProfile: (username) ->

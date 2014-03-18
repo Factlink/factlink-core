@@ -1,8 +1,6 @@
-class window.SearchRouter extends Backbone.Marionette.AppRouter
-  appRoutes:
+class window.SearchRouter extends Backbone.Router
+  routes:
     'search': 'showSearch'
-
-window.SearchController =
 
   showSearch: (params={}) ->
     Backbone.history.once 'route', (router, executed_route_name) ->
