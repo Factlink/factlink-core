@@ -12,7 +12,7 @@ body.discussion-sidebar-open {
   top: 0; right: 0; bottom: 0; left: 0;
   overflow-x: hidden;
   overflow-y: scroll;
-  z-index: 1030; // below modal-window and feedback_button
+  z-index: 1030; // below feedback-modal-window and feedback_button
   cursor: pointer;
 
   background: transparent;

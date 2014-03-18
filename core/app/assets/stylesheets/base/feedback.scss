@@ -36,7 +36,7 @@ $feedback_frame_width: 430px;
 This centers an arbitrarily sized box vertically and horizontally in its containing box.
 
 Sample html:
-  <div class=modal-layer><div class=modal-layer-inner>
+  <div class=feedback-modal-layer><div class=feedback-modal-layer-inner>
     Modal content (does not need explicit visibility)
   </div></div>
 Note the lack of space between the two divs!
@@ -45,7 +45,7 @@ TODO: extract this to a more generic class or mixin when needed, see
 e.g. https://github.com/Factlink/core/blob/40d54edf2e51e38e048c8cf25f485c655b19a56d/app/assets/stylesheets/base/centering.css.less
 */
 
-.modal-layer {
+.feedback-modal-layer {
   position: fixed;
   top: 0; bottom: 0; left: 0; right: 0;
   text-align: center;
@@ -56,7 +56,7 @@ e.g. https://github.com/Factlink/core/blob/40d54edf2e51e38e048c8cf25f485c655b19a
   display:none;
 }
 
-.modal-layer:before {
+.feedback-modal-layer:before {
   content: '';
   display: inline-block;
   vertical-align: middle;
@@ -64,7 +64,7 @@ e.g. https://github.com/Factlink/core/blob/40d54edf2e51e38e048c8cf25f485c655b19a
   //like centering:after but less makes transclusion impractical.
 }
 
-.modal-window {
+.feedback-modal-window {
   display: inline-block;
   vertical-align: middle;
   //like centering-inner
@@ -74,7 +74,7 @@ e.g. https://github.com/Factlink/core/blob/40d54edf2e51e38e048c8cf25f485c655b19a
   @extend %white-block-with-shadow;
 }
 
-.modal-window-header {
+.feedback-modal-window-header {
   @include background-clip(padding-box);
   @include border-top-radius(5px);
   color: $baseFontColor;
@@ -86,13 +86,13 @@ e.g. https://github.com/Factlink/core/blob/40d54edf2e51e38e048c8cf25f485c655b19a
   font-weight: $headingsFontWeight;
 }
 
-.modal-window-body {
+.feedback-modal-window-body {
   padding: 15px;
   max-height: none;
   overflow: hidden;
 }
 
-.modal-layer-close-background {
+.feedback-modal-layer-close-background {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   z-index: -1;
