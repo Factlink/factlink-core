@@ -15,9 +15,6 @@ en:
   following: "following"
   followers: "followers"
   unfollow: "unfollow"
-  is_now_following_you: "is now following you"
-
-  stream: "feed"
 
   ago: "ago"
   show: "show" # when updating, update jslib template

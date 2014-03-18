@@ -16,9 +16,6 @@ nl:
   following: "volgt"
   followers: "volgers"
   unfollow: "ontvolgen"
-  is_now_following_you: "volgt je nu"
-
-  stream: "overzicht"
 
   ago: "geleden"
   show: "toon"
