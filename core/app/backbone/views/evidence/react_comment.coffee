@@ -30,7 +30,9 @@ ReactCommentTwitterShare = React.createBackboneClass
       _i ["icon-twitter"]
 
   componentDidMount: ->
-    twttr.widgets.load();
+    return if Factlink.Global.environment == 'test' # Twitter not loaded in tests
+
+    twttr.widgets.load()
 
 window.ReactComment = React.createBackboneClass
   displayName: 'ReactComment'
