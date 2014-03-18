@@ -1,3 +1,19 @@
+ReactCommentFacebookShare = React.createClass
+  displayName: 'ReactCommentFacebookShare'
+
+  render: ->
+    _span [
+      "comment-post-share"
+      onClick: @_share
+    ],
+      _i ["icon-facebook"]
+
+  _share: ->
+    FB.ui
+      method: 'feed'
+      link: @props.model.collection.fact.get('sharing_url')
+
+
 window.ReactComment = React.createBackboneClass
   displayName: 'ReactComment'
   propTypes:
@@ -31,11 +47,8 @@ window.ReactComment = React.createBackboneClass
             ReactDeleteButton
               model: @model()
               onDelete: @_onDelete
-          _span [
-            "comment-post-share"
-            onClick: @_shareFacebook
-          ],
-            _i ["icon-facebook"]
+          ReactCommentFacebookShare
+            model: @model()
         _span ["comment-reply"],
           _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments],
             "(#{sub_comment_count}) Reply"
@@ -46,11 +59,6 @@ window.ReactComment = React.createBackboneClass
 
   _save: ->
     @model().saveWithState()
-
-  _shareFacebook: ->
-    FB.ui
-      method: 'feed'
-      link: @model().collection.fact.get('sharing_url')
 
   render: ->
     relevant = @model().argumentTally().relevance() >= 0
