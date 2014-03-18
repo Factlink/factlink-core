@@ -7,6 +7,7 @@ Factlink.Global =
   ajax_loader_image: '<%= image_path("ajax-loader.gif") %>'
   bookmarklet_link: null # Set in bookmarklet.coffee.erb
 
+  mixpanel_token: '<%= FactlinkUI::Application.config.mixpanel_token %>'
   core_url: "<%= URI.parse(FactlinkUI::Application.config.core_url).to_s %>"
   environment: "<%= Rails.env %>"
   t: {}
