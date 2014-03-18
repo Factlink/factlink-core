@@ -1,17 +1,44 @@
+.discuss-context-content {
+  display: block;
+  vertical-align: middle;
+  padding: 20px;
+  text-align: center;
+
+  @include from-width(800px) {
+    display: table-cell;
+    text-align: left;
+  }
+}
+
+.discuss-context-image {
+  display: block;
+  text-align: center;
+
+  @include from-width(800px) {
+    display: table-cell;
+  }
+}
+
 .learn-more-container {
   margin: 20px 0px;
-  text-align: center;
 }
 
 .learn-more-column {
   font-size: 14px;
-  width: 33.3%;
-  display: inline-block;
+  display: block;
   vertical-align: top;
   padding: 0 20px;
-  border-left: 1px lightgrey dotted;
+  border-left: none;
+  border-bottom: 1px lightgrey dotted;
   &:first-child {
     border-left: none;
+  }
+
+  @include from-width(600px) {
+    display: inline-block;
+    width: 33.3%;
+    border-left: 1px lightgrey dotted;
+    border-bottom: none;
   }
 }
 
