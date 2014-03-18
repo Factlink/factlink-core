@@ -1,16 +1,17 @@
-class window.SearchController extends Backbone.Marionette.Controller
+class window.SearchRouter extends Backbone.Router
+  routes:
+    'search': 'showSearch'
 
   showSearch: (params={}) ->
-    @listenTo Backbone.history, 'route', (router, executed_route_name) ->
+    Backbone.history.once 'route', (router, executed_route_name) ->
       return if executed_route_name == 'showSearch'
 
-      @close()
+      $('.js-navbar-search-box').val('')
 
     query = params['s']
     $('.js-navbar-search-box').val(query)
     results = new SearchResults [], search: query
 
-    FactlinkApp.mainRegion.close()
     FactlinkApp.mainRegion.show new ReactView
       component: ReactSearchResults
         model: results
@@ -18,5 +19,3 @@ class window.SearchController extends Backbone.Marionette.Controller
     results.fetch()
     mp_track 'Search: Top bar search',
       query: query
-
-  onClose: -> $('.js-navbar-search-box').val('')

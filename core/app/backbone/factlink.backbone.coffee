@@ -23,7 +23,6 @@
 #= require_tree ./layouts/
 #= require_tree ./views/
 #= require_tree ./controllers/
-#= require_tree ./routers/
 #= require_tree ./initializers
 
 # ensure that HoganTemplate exists, also when no templates are loaded
