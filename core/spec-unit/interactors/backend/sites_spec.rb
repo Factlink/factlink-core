@@ -10,13 +10,13 @@ describe Backend::Sites do
 
   describe '.normalize_all_urls' do
     it 'should push a task to resque for every site' do
-      ids = [1, 2]
-      Site.stub(all: double(ids: ids))
+      allow(Site).to receive(:all)
+        .and_return(double(ids: [1, 2]))
 
-      Resque.should_receive(:enqueue).with(NormalizeSiteUrl,
-        site_id: 1, normalizer_class_name: :UrlNormalizer)
-      Resque.should_receive(:enqueue).with(NormalizeSiteUrl,
-        site_id: 2, normalizer_class_name: :UrlNormalizer)
+      expect(Resque).to receive(:enqueue)
+        .with(NormalizeSiteUrl, site_id: 1)
+      expect(Resque).to receive(:enqueue)
+        .with(NormalizeSiteUrl, site_id: 2)
 
       Backend::Sites.normalize_all_urls
     end
