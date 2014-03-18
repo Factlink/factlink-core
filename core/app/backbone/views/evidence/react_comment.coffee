@@ -1,4 +1,4 @@
-ReactCommentFacebookShare = React.createClass
+ReactCommentFacebookShare = React.createBackboneClass
   displayName: 'ReactCommentFacebookShare'
 
   render: ->
@@ -11,8 +11,26 @@ ReactCommentFacebookShare = React.createClass
   _share: ->
     FB.ui
       method: 'feed'
-      link: @props.model.collection.fact.get('sharing_url')
+      link: @model().collection.fact.get('sharing_url')
 
+
+ReactCommentTwitterShare = React.createBackboneClass
+  displayName: 'ReactCommentTwitterShare'
+
+  _link: ->
+    url = encodeURIComponent @model().collection.fact.get('sharing_url')
+
+    "https://twitter.com/intent/tweet?url=#{url}&related=factlink"
+
+  render: ->
+    _a [
+      "comment-post-share"
+      href: @_link()
+    ],
+      _i ["icon-twitter"]
+
+  componentDidMount: ->
+    twttr.widgets.load();
 
 window.ReactComment = React.createBackboneClass
   displayName: 'ReactComment'
@@ -48,6 +66,8 @@ window.ReactComment = React.createBackboneClass
               model: @model()
               onDelete: @_onDelete
           ReactCommentFacebookShare
+            model: @model()
+          ReactCommentTwitterShare
             model: @model()
         _span ["comment-reply"],
           _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments],
