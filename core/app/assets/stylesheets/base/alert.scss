@@ -44,3 +44,11 @@
     opacity: 0.4;
   }
 }
+
+.alert-fade-out {
+  opacity: 0;
+  transition: opacity .15s linear;
+  &.alert-fade-in {
+    opacity: 1;
+  }
+}
