@@ -1,6 +1,53 @@
-.controller_home {
-  > .alert {
-    margin: 0;
-    border-radius: 0;
+.%alert-base {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 0.8em;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+  border: 1px solid $errorBorder;
+  border-radius: $baseBorderRadius;
+}
+
+.alert-error {
+  @extend %alert-base;
+  background-color: $errorBackground;
+  color: $errorText;
+}
+
+.alert-notice {
+  @extend %alert-base;
+  background-color: $infoBackground;
+  color: $infoText;
+  border-color: $infoBorder;
+}
+
+.alert-success {
+ @extend %alert-base;
+ background-color: $successBackground;
+ color: $successText;
+ border-color: $successBorder;
+}
+
+.alert-close {
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  text-shadow: 0 1px 0 rgba(255,255,255,1);
+  opacity: .2;
+  position: relative;
+  top: -2px;
+  right: -21px;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.4;
+  }
+}
+
+.fade {
+  opacity: 0;
+  transition: opacity .15s linear;
+  &.in {
+    opacity: 1;
   }
 }
