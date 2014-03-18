@@ -8,6 +8,8 @@ Factlink.Global =
   bookmarklet_link: null # Set in bookmarklet.coffee.erb
 
   mixpanel_token: '<%= FactlinkUI::Application.config.mixpanel_token %>'
+  facebook_app_id: '<%= FactlinkUI::Application.config.omniauth_conf['facebook']['id'] %>'
+
   core_url: "<%= URI.parse(FactlinkUI::Application.config.core_url).to_s %>"
   environment: "<%= Rails.env %>"
   t: {}
