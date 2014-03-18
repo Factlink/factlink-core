@@ -3,9 +3,6 @@
 #  - Sponsored by Kabisa ICT - http://kabisa.nl
 # Rails 3 update by Floris Huetink <floris@avocado.nl> (github: florish)
 nl:
-  add_fact: "discussie toevoegen"
-
-  factlink: "discussie"
   factlinks: "discussies"
 
   post_comment: "Post"
@@ -14,11 +11,5 @@ nl:
   follow_user: "gebruiker volgen"
   followed: "volgt"
   following: "volgt"
-  followers: "volgers"
   unfollow: "ontvolgen"
 
-  ago: "geleden"
-  show: "toon"
-  loading: "laden"
-
-  you: "jij"
