@@ -22,7 +22,9 @@ class window.ProfileController extends Backbone.Marionette.Controller
     title: 'Notification Settings'
     active_tab: 'notification-settings'
     render: (main_region, user) ->
-      main_region.show(new NotificationSettingsView model: user)
+      main_region.show new ReactView
+        component: ReactNotificationSettings
+          model: user
 
   showPage: (username, options) ->
     $(window).scrollTop(0)
