@@ -1,3 +1,24 @@
+.discuss-context-content {
+  display: block;
+  vertical-align: middle;
+  padding: 20px;
+  text-align: center;
+
+  @include from-width(800px) {
+    display: table-cell;
+    text-align: left;
+  }
+}
+
+.discuss-context-image {
+  display: block;
+  text-align: center;
+
+  @include from-width(800px) {
+    display: table-cell;
+  }
+}
+
 .learn-more-container {
   margin: 20px 0px;
   text-align: center;
