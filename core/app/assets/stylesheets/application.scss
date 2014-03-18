@@ -35,8 +35,10 @@
 @import "devise_form";
 @import "fontello";
 @import "environment_warning";
-@import "feed/**/*";
 @import "annotation";
+
+@import "feed/feed";
+@import "feed/feed_selection";
 
 @import "bubble/client";
 @import "bubble/discussion_sidebar";
