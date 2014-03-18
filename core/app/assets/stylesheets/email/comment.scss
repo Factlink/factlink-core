@@ -1,4 +1,4 @@
-#added-argument-message {
+#added-comment-message {
   border-radius: 3px;
   border: $emailBaseBorderStyling;
   margin-bottom: 30px;
@@ -7,7 +7,7 @@
   width: 100%;
 }
 
-.added-argument-message-header {
+.added-comment-message-header {
   border-bottom: $emailBaseBorderStyling;
   padding: 20px;
 
@@ -16,7 +16,7 @@
   }
 }
 
-.added-argument-message-container {
+.added-comment-message-container {
   background: $emailBackgroundColor;
   min-height: 70px;
   padding: 21px;
@@ -28,11 +28,11 @@
   }
 }
 
-.added-argument-message-box {
+.added-comment-message-box {
   width: 100%;
 }
 
-.added-argument-message-content {
+.added-comment-message-content {
   padding: 20px;
   background: #fff;
   border-radius: 3px;
