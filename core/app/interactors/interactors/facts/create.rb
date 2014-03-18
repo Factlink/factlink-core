@@ -4,7 +4,7 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      arguments :displaystring, :url, :title
+      arguments :displaystring, :url, :site_title
 
       def authorized?
         can? :create, Fact
@@ -13,30 +13,14 @@ module Interactors
       private
 
       def execute
-        fact = command(:'facts/create',
-                          displaystring: displaystring, title: title, site: site)
-
-        fail "Errors when saving fact: #{fact.errors.inspect}" if fact.errors.length > 0
-        fail "Errors when saving fact.data" unless fact.data.persisted?
+        fact = Backend::Facts.create displaystring: displaystring,
+          url: url, site_title: site_title
 
         if user
-          command(:'facts/add_to_recently_viewed',
-                    fact_id: fact.id.to_i, user_id: user.id.to_s)
+          Backend::Facts.add_to_recently_viewed fact_id: fact.id, graph_user_id: user.graph_user_id
         end
 
         fact
-      end
-
-      def site
-        fail 'No site given' if url.blank?
-
-        site = query(:'sites/for_url', url: url)
-
-        if site.nil?
-          command(:'sites/create', url: url)
-        else
-          site
-        end
       end
 
       def user
@@ -45,7 +29,7 @@ module Interactors
 
       def validate
         validate_nonempty_string :displaystring, displaystring
-        validate_string :title, title
+        validate_string :site_title, site_title
         validate_string :url, url
       end
     end

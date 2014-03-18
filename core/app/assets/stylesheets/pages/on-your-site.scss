@@ -1,0 +1,160 @@
+@mixin paragraph-icon-arrow($arrowWidth){
+  border-top: $arrowWidth grey solid;
+  border-left: $arrowWidth grey solid;
+  border-right: $arrowWidth white solid;
+  border-bottom: $arrowWidth white solid;
+}
+
+.on-your-site-container {
+  border-top: 1px lightgrey solid;
+  padding: 20px 0px;
+  text-align: center;
+
+  &:first-child {
+    padding: 0px 0px 20px;
+    border-top: none;
+  }
+}
+
+.focused-discussion {
+  padding: 10px;
+  border: 1px lightgrey solid;
+  border-radius: 4px;
+}
+
+.focused-discussion-list {
+  margin: 25px 0;
+  margin-right: 20px;
+  &:first-child {
+    margin-top: 0;
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.focused-discussion-list-item {
+  background: lightgrey;
+  margin: 10px;
+  padding: 4px;
+  transition: background 0.5s ease;
+}
+
+.focused-discussion-list:hover .focused-discussion-list-item {
+  background: $lightYellow;
+}
+
+.focused-discussion-paragraph {
+  float: right;
+  position: relative;
+  right: -30px;
+  top: -4px;
+}
+
+.focused-discussion-paragraph-icon {
+  font-size: 10px;
+  line-height: 12px;
+  color: white;
+  font-weight: 600;
+  display: block;
+  width: 16px;
+  height: 12px;
+  border-radius: 3px;
+  background: grey;
+  text-align: center;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 5px;
+    display: inline-block;
+    @include paragraph-icon-arrow(2px);
+  }
+}
+
+.higher-engagement {
+  text-align: left;
+  background-color: $factlinkBackgroundColor;
+  border: 1px lightgrey solid;
+  border-radius: 4px;
+  padding-top: 3px;
+}
+.social-reach-diagram {
+  text-align: center;
+}
+.social-reach-avatar,.social-reach-icon-container {
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+  margin: 5px;
+  border-radius: 50%;
+
+  padding:7px;
+  vertical-align: middle;
+}
+
+.social-reach-icon-container {
+  border: 1px lightgrey solid;
+  @extend %centering;
+}
+
+.social-reach-icon {
+  @extend %centering-inner;
+  position: relative;
+  top:-3px;
+  width: 25px;
+  height: 17px;
+  border-radius: 3px;
+  background: grey;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: 45%;
+    display: block;
+    @include paragraph-icon-arrow(4px);
+  }
+}
+
+.easy-integration {
+  background: $lightYellow;
+  padding: 20px 15px;
+  position: relative;
+  text-align: left;
+  border-radius: 4px;
+  > .button {
+    margin: 6px;
+  }
+}
+
+.easy-integration-title {
+  padding: 0px;
+  margin: 0px;
+  line-height: 30px;
+  vertical-align: top;
+}
+
+.on-your-site-conditions {
+  text-align: center;
+  font-style: italic;
+}
+
+.on-your-site-code-line {
+  background:$lightYellow;
+  padding: 3px;
+  word-wrap: break-word;
+}
+
+.on-your-site-other-platforms-container {
+  width: 100%;
+  text-align: left;
+}
+
+.on-your-site-other-platforms-list {
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+
+.on-your-site-other-platforms-list-item {
+  list-style: initial;
+}

@@ -29,7 +29,7 @@ gem 'resque_mailer', '~> 2.2.6'
 gem 'mixpanel', github: 'Factlink/mixpanel'
 
 gem "sentry-raven", '~> 0.7.1'
-gem "resque-sentry", '~> 0.1.0'
+gem "resque-sentry", '~> 1.1.1'
 
 # Everyone loves JSON
 gem 'json', '~> 1.8'
@@ -44,15 +44,15 @@ gem 'cancan', '~> 1.6.10'
 # social connections
 gem 'omniauth-facebook', '~> 1.6.0'
 gem 'omniauth-twitter', '~> 1.0.1'
-gem 'twitter', '~> 4.7.0'
+gem 'twitter', '~> 4.7.0' #TODO: there are some breaking changes in the 5.8 version
 
 # social sharing
-gem 'koala', '~> 1.8.0'
+gem 'koala', '~> 1.9.0'
 
-gem 'httparty', '~> 0.12.0'
+gem 'httparty', '~> 0.13.0'
 
 #browser detection
-gem 'browser', '~> 0.3.2'
+gem 'browser', '~> 0.4.1'
 
 # one of our own gems, to normalize urls
 gem 'url_normalizer', github: 'Factlink/url_normalizer'
@@ -60,7 +60,7 @@ gem 'url_normalizer', github: 'Factlink/url_normalizer'
 gem 'capistrano', '~> 2.15', require: false
 gem 'capistrano-ext', '~> 1.2.1',  require: false
 
-gem 'roadie', '~> 2.3.4'
+gem 'roadie', '~> 2.4.3'
 
 # Set X-Frame-Headers
 gem 'rack-xframe-options', github: 'Factlink/rack-xframe-options'

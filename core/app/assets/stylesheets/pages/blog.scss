@@ -1,0 +1,43 @@
+.blog-content {
+  overflow: hidden;
+  padding: 0 20px;
+}
+
+.blog-content > p {
+  padding-right: 10px;
+}
+
+.blog-content-image {
+  border: 1px solid #cbcbcb;
+  padding: 4px;
+  border-radius: 4px;
+  margin-bottom: 0.8em;
+  max-width: 100%;
+}
+
+.blog-about-box {
+  float: right;
+  max-width: 240px;
+  margin-left: 30px;
+
+  @include respond-to(600) {
+    display: none;
+  }
+}
+
+ul.blog-content-list {
+  padding-left: 2em;
+  margin-bottom: 0.8em;
+
+  > li {
+    list-style-type: disc;
+  }
+}
+
+.blog-discussion-of-the-week-container {
+  border-left: 5px solid #ddd;
+  padding: 2px 10px;
+  font-style: italic;
+  display: block;
+  margin-bottom: 0.8em;
+}

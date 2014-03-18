@@ -3,12 +3,8 @@ class SearchController < ApplicationController
   # Not using the same search for the client popup, since we probably want
   # to use a more advanced search on the Factlink website.
   def search
-    if params[:s]
-      fail HackAttempt unless params[:s].is_a? String
-    end
-
     backbone_responder do
-      row_count = 20 # WARNING: coupling with SearchResultView
+      row_count = 20
 
       search_for = params[:s] || ""
       page = 1

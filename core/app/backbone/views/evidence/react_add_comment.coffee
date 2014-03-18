@@ -33,7 +33,6 @@ ReactSearchFacts = React.createClass
       recently_viewed_facts.fetch()
 
       @____factSearchResults = new FactSearchResults [],
-        fact_id: @props.fact_id
         recently_viewed_facts: recently_viewed_facts
 
     @____factSearchResults
@@ -89,7 +88,6 @@ window.ReactAddComment = React.createBackboneClass
                 onToggle: (opened) => @setState searchOpened: opened
               ReactSearchFacts
                 opened: @state.searchOpened
-                fact_id: @model().fact.id
                 onInsert: @_onSearchInsert
 
   _onTextareaChange: (text) ->
@@ -109,13 +107,10 @@ window.ReactAddComment = React.createBackboneClass
     return unless comment.isValid()
 
     @model().unshift(comment)
-    comment.save {},
+    comment.saveWithFactAndWithState {},
       success: ->
         mp_track "Factlink: Added comment",
           factlink_id: comment.collection.fact.id
-      error: ->
-        comment.collection.remove(comment)
-        FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
 
     comment.share @state.shareProviders
 

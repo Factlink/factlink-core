@@ -1,1 +1,1 @@
-FactlinkJailRoot.isTouchDevice = -> !!('ontouchstart' in window)
+FactlinkJailRoot.isTouchDevice = -> !!('ontouchstart' of window)

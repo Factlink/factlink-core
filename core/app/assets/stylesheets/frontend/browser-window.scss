@@ -1,0 +1,50 @@
+.browser-window-container {
+  overflow-y: hidden;
+  padding: 20px;
+  margin-bottom: -$contentPadding - $containerPaddingY;
+}
+
+.browser-window {
+  margin-bottom: -20px;
+  display: inline-block;
+  border-top-left-radius: $baseBorderRadius;
+  border-top-right-radius: $baseBorderRadius;
+  border: 1px lightgrey solid;
+  border-bottom: none;
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.2);
+}
+.browser-window-bar {
+  text-align: left;
+  background: #e9e9e9;
+  line-height: 30px;
+  vertical-align: middle;
+  border-top-left-radius: $baseBorderRadius;
+  border-top-right-radius: $baseBorderRadius;
+  border-bottom: 1px lightgrey solid;
+}
+
+.browser-window-video {
+  display: block;
+}
+
+%bar-bullet {
+  margin-left: 5px;
+  display: inline-block;
+  border-radius: 6px;
+  border: 6px solid;
+}
+
+.browser-window-bar-close {
+  @extend %bar-bullet;
+  border-color: #fd716c;
+}
+
+.browser-window-bar-minimize {
+  @extend %bar-bullet;
+  border-color: #f8c669;
+}
+
+.browser-window-bar-maximize {
+  @extend %bar-bullet;
+  border-color: #9dd478;
+}

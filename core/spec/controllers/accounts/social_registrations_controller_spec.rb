@@ -6,22 +6,22 @@ describe Accounts::SocialRegistrationsController do
   describe :callback do
     context 'connected social account has been found' do
       it 'signs in' do
-        provider_name = 'facebook'
+        provider_name = 'twitter'
         omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
-        user = create :full_user
+        user = create :user
 
         user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
 
         controller.request.env['omniauth.auth'] = omniauth_obj
-        get :callback, provider_name: 'facebook'
+        get :callback, provider_name: 'twitter'
 
-        expect(response.body).to match 'eventName = "signed_in"'
+        expect(response.body).to match 'eventName = "account_success"'
       end
     end
 
     context 'no connected social account has been found' do
       it 'gives an registration form' do
-        provider_name = 'facebook'
+        provider_name = 'twitter'
         omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
 
         controller.request.env['omniauth.auth'] = omniauth_obj
@@ -31,7 +31,7 @@ describe Accounts::SocialRegistrationsController do
       end
 
       it 'creates a social account without a user' do
-        provider_name = 'facebook'
+        provider_name = 'twitter'
         uid = '10'
         omniauth_obj = {'provider' => provider_name, 'uid' => uid}
 
@@ -43,7 +43,7 @@ describe Accounts::SocialRegistrationsController do
       end
 
       it 'shows the form with hint about signing in, and terms' do
-        provider_name = 'facebook'
+        provider_name = 'twitter'
         uid = '10'
         omniauth_obj = {'provider' => provider_name, 'uid' => uid}
 
@@ -54,7 +54,7 @@ describe Accounts::SocialRegistrationsController do
       end
 
       it 'works when a previous connection was not finished' do
-        provider_name = 'facebook'
+        provider_name = 'twitter'
         uid = '10'
 
         controller.request.env['omniauth.auth'] = {'provider' => provider_name, 'uid' => uid, 'attempt' => 1}
@@ -78,7 +78,7 @@ describe Accounts::SocialRegistrationsController do
     end
 
     it 'gives an error when an already connected social account has been given' do
-      twitter_account = create :social_account, :twitter, user: create(:full_user)
+      twitter_account = create :social_account, :twitter, user: create(:user)
 
       session[:register_social_account_id] = twitter_account.id
       post :create
@@ -99,19 +99,18 @@ describe Accounts::SocialRegistrationsController do
         session[:register_social_account_id] = twitter_account.id
         post :create, user: {email: email}
 
-        expect(response.body).to match 'eventName = "signed_in"'
+        expect(response.body).to match 'eventName = "account_success"'
 
         created_user = User.first
         expect(created_user.name).to eq name
         expect(created_user.social_account(:twitter).uid).to eq twitter_account.uid
-        expect(created_user).to be_set_up
       end
     end
 
     context 'account already exists' do
       it 'shows an error if the password is not given' do
         email = 'email@example.org'
-        user = create :full_user, email: email
+        user = create :user, email: email
         twitter_account = create :social_account, :twitter
 
         session[:register_social_account_id] = twitter_account.id
@@ -122,7 +121,7 @@ describe Accounts::SocialRegistrationsController do
 
       it 'shows an alternative social sign in when available' do
         email = 'email@example.org'
-        user = create :full_user, email: email
+        user = create :user, email: email
         twitter_account = create :social_account, :twitter
         other_omniauth_obj = {'provider' => 'facebook', 'uid' => '10'}
 
@@ -137,7 +136,7 @@ describe Accounts::SocialRegistrationsController do
       it 'connects the social account and signs in' do
         email = 'email@example.org'
         password = '123hoi'
-        user = create :full_user, email: email, password: password
+        user = create :user, email: email, password: password
         twitter_account = create :social_account, :twitter
 
         session[:register_social_account_id] = twitter_account.id
@@ -146,13 +145,13 @@ describe Accounts::SocialRegistrationsController do
         user.reload
         expect(user.social_account(:twitter).uid).to eq twitter_account.uid
 
-        expect(response.body).to match 'eventName = "signed_in"'
+        expect(response.body).to match 'eventName = "account_success"'
       end
 
       it 'shows an error if the password is incorrect' do
         email = 'email@example.org'
         password = '123hoi'
-        user = create :full_user, email: email, password: password
+        user = create :user, email: email, password: password
         twitter_account = create :social_account, :twitter
 
         session[:register_social_account_id] = twitter_account.id

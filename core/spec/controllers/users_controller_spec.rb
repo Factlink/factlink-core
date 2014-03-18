@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe UsersController do
   include PavlovSupport
-  let(:user) { create(:full_user, features: ['some_feature']) }
+  let(:user) { create(:user, features: ['some_feature']) }
 
   describe :show do
     render_views
@@ -28,7 +28,7 @@ describe UsersController do
       FactoryGirl.reload
       SecureRandom.stub(:hex).and_return('b01dfacedeadbeefbabb1e0123456789')
 
-      deleted_user = create(:full_user)
+      deleted_user = create(:user)
       as(deleted_user) do |pavlov|
         pavlov.interactor(:'users/delete', user_id: deleted_user.id, current_user_password: '123hoi')
       end
@@ -64,40 +64,12 @@ describe UsersController do
     it "should render json successful for non signed in user" do
       FactoryGirl.reload
 
-      Pavlov.command(:'global_features/set', features: [:some_global_feature])
+      as(create :user, :confirmed, :admin) do |pavlov|
+        pavlov.interactor(:'global_features/set', features: [:some_global_feature])
+      end
 
       get :current, format: :json
 
-      verify { response.body }
-    end
-  end
-
-  describe :tour_users do
-    render_views
-    include PavlovSupport
-
-    it "should render json successful" do
-      FactoryGirl.reload
-
-      user1 = create :user
-      user2 = create :user
-      Pavlov.command(:'users/add_handpicked_user', user_id: user1.id.to_s)
-      Pavlov.command(:'users/add_handpicked_user', user_id: user2.id.to_s)
-
-      authenticate_user!(user)
-      ability.stub(:can?).with(:access, Ability::FactlinkWebapp)
-             .and_return(true)
-      ability.stub(:can?).with(:index, User)
-             .and_return(true)
-
-      get :tour_users, format: :json
-      response.should be_success
-      response_body = response.body.to_s
-
-      # remove randomness from sorting
-      response_body = JSON.parse(response_body).sort do |a,b|
-        a["username"] <=> b["username"]
-      end.to_json
       verify { response.body }
     end
   end

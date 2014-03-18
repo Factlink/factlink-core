@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SearchController do
 
-  let (:user)  {create :full_user }
+  let (:user)  {create :user }
 
   render_views
 
@@ -12,7 +12,7 @@ describe SearchController do
 
       ElasticSearch.stub synchronous: true
 
-      user = create(:full_user, username: "Baron")
+      user = create(:user, username: "Baron")
       create(:fact, data: create(:fact_data, displaystring: "Baron"))
 
       authenticate_user!(user)

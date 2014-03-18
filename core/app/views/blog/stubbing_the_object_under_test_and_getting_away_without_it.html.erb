@@ -1,0 +1,229 @@
+<% content_for :title do %>Stubbing the object under test and getting away without it<% end %>
+
+<% content_for :blog_content do %>
+
+  <p><%= link_to "&laquo; Blog".html_safe, blog_index_path %></p>
+
+  <time pubdate>23 April 2013</time>
+  <h1 class="static-pages-heading-h1">Stubbing the object under test and getting away without it</h1>
+
+  <p><strong>TL;DR Get better design by mocking and stubbing on the object under test while TDD-ing, as long as you don’t keep the mocks and stubs in your final (regression) test.</strong></p>
+
+  <p>Stubbing methods on the object under test is highly frowned upon, but I will show you how to get better design by stubbing methods on the object under test, without delivering an unrefactorable mess.</p>
+
+  <p>Lately the Ruby community has focused on narrow unit tests. Started by the <%= link_to 'fast tests movement', 'http://www.youtube.com/watch?v=bNn6M2vqxHE' %> the focus has shifted from more general integration tests, to testing just one object. When writing a unit test it is very common to mock and stub the dependencies of the object. However, most people think stubbing and mocking should stop at the object boundary.</p>
+
+  <p>I think you should be free to continue to stub and mock all the way down to the method level, as this gives you better possibilities to design top-down (which I prefer).</p>
+
+  <h4>Test every method, stub every method</h4>
+
+  <p>It feels really good to test in as small as units as possible. You can clearly define what you want the unit to do, and implement it. The question is, how small do you want to make your unit? Most people stop at the object level, because you should be able to freely refactor within your objects. Because stubbing the object under test inhibits refactoring the object, most people are against it.</p>
+
+  <p>I disagree, to me the object boundary seems like a rather arbitrary place to stop stubbing. I think the key problem lies in the often overlooked third part of the TDD cycle. Red-Green-Refactor. You don’t stop when your test is green. Lots of time people do clean up their code, but overlook their tests. Refactoring your tests is just as important. If you follow this process there is no reason to stop at the object level. Instead we can take the methods as unit.</p>
+
+  <p>Therefore I propose the following:</p>
+
+  <ol class="blog-content-list">
+    <li>RED Test every method (in isolation, stubbing every other method)</li>
+    <li>GREEN Make code work</li>
+    <li>
+      REFACTOR Refactor test until:
+      <ul>
+        <li>only the public interface is tested
+        <li>no more methods on the object under test are stubbed
+      </ul>
+    </li>
+  </ol>
+
+  <h4>An example</h4>
+
+  <p>Imagine a todo app, which supports multiple todo lists. We can send the app a todo by email “Writing: write blogpost”. This will add the todo ‘write blogpost’ on the ‘Writing’ todo list.</p>
+
+  <p>In this example we will use <%= link_to 'RSpec', 'http://rspec.info/' %>, and <%= link_to 'RSpecs stub and mock methods', 'https://github.com/rspec/rspec-mocks' %>. You can find all code for this example <%= link_to 'on GitHub', 'https://github.com/markijbema/todo_item_saver' %>.</p>
+
+  <p>One convention used here is only mocking the methods we want to really test expectations on, and stub the rest. Due to this we normally only test one thing per test (though not necessarily one assert/expectation). For further reading on when to use mocks and stubs I recommend Martin Fowlers article <%= link_to 'Mocks Aren’t Stubs', 'http://martinfowler.com/articles/mocksArentStubs.html' %>.</p>
+
+  <p>We skip the parsing of the email, and assume we get some strings <code>list_name</code> and <code>todo_text</code> from our email parser. We start by writing the test for the TodoSaver class which takes arguments <code>list_name</code> and <code>todo_text</code>, and saves the todo using the save method.</p>
+
+  <pre class="prettyprint"><code class="language-ruby">
+    describe TodoSaver do
+      describe '#save' do
+        it 'creates the todo and adds it to a list' do
+          todo_list, todo = mock, mock
+          saver = TodoSaver.new('Writing', 'write blogpost')
+          saver.stub todo_list: todo_list
+
+          TodoItem.should_receive(:create).with('write blogpost')
+                  .and_return(todo)
+          todo_list.should_receive(:add).with(todo)
+
+          saver.save()
+        end
+      end
+      describe '#todo_list' do
+        pending "it returns a todo_list"
+      end
+    end
+  </code></pre>
+
+  <p><%= link_to '(source on GitHub)', 'https://github.com/markijbema/blogpostsaver/blob/30d2b68e4135252c33635fb2960d83d4f4c2fa38/todo_item_saver.rb#L22-L39' %></p>
+
+  <p>Note that we expressed the <code>save</code> method in the assumption that we have a todo_list method. To make sure we don&rsquo;t forget to create this method we added a pending test.</p>
+
+  <p>We can now implement the first version of TodoSaver:</p>
+
+  <pre class="prettyprint"><code class="language-ruby">
+    class TodoSaver
+      def initialize list_name, todo_text
+        @list_name = list_name
+        @todo_text = todo_text
+      end
+
+      def save
+        todo = TodoItem.create(@todo_text)
+        todo_list.add todo
+      end
+    end
+  </code></pre>
+
+  <p><%= link_to '(source on GitHub)', 'https://github.com/markijbema/blogpostsaver/blob/30d2b68e4135252c33635fb2960d83d4f4c2fa38/todo_item_saver.rb#L10-L20' %></p>
+
+  <p>This code will of course never work: It is missing the <code>todo_list</code> method. But we added a pending test to remind us of that. We will test our <code>todo_list</code>, to ensure it behaves like we expect.</p>
+
+  <pre class="prettyprint"><code class="language-ruby">
+    describe '#todo_list' do
+      it 'retrieves an existing list by its normalized name' do
+        todo_list = mock
+        saver = TodoSaver.new('WriTing', mock)
+        TodoList.stub(:retrieve).with('writing').and_return(todo_list)
+
+        expect(saver.todo_list).to eq todo_list
+      end
+      pending 'creates a new list if no previous list was found'
+    end
+  </code></pre>
+
+  <p><%= link_to '(source on GitHub)', 'https://github.com/markijbema/blogpostsaver/blob/13c7775cbd633042789c3ae2c93998c6e04144e5/todo_item_saver.rb#L43-L52' %></p>
+
+  <p>To implement this, we use some TodoList class in our data layer, which can search by a normalized (lowercased) list name. We want this to prevent lists from not being found when you send in a todo with a different casing for the list. We can easily fulfill the requirements in above test:</p>
+
+  <pre class="prettyprint"><code class="language-ruby">
+    def todo_list
+      TodoList.retrieve(@list_name.downcase)
+    end
+  </code></pre>
+
+  <p><%= link_to '(source on GitHub)', 'https://github.com/markijbema/blogpostsaver/blob/13c7775cbd633042789c3ae2c93998c6e04144e5/todo_item_saver.rb#L24-L26' %></p>
+
+  <p>We have a second case however: when the list mentioned isn't recognized, we want to create a new list. We assume that the user wants to use the casing used in the email for this new list:</p>
+
+  <pre class="prettyprint"><code class="language-ruby">
+    it 'creates a new list if no previous list was found' do
+      todo_list = mock
+      saver = TodoSaver.new('WriTing', mock)
+      TodoList.stub(:retrieve).with('writing').and_return(nil)
+      TodoList.stub(:create).with('WriTing').and_return(todo_list)
+
+      expect(saver.todo_list).to eq todo_list
+    end
+  </code></pre>
+
+  <p><%= link_to '(source on GitHub)', 'https://github.com/markijbema/blogpostsaver/blob/0a695aaf5116e8ab2da1afe875f88cd1de6d2d8f/todo_item_saver.rb#L52-L60' %></p>
+
+  <p>We can easily implement this alternative using a lazy or:</p>
+
+  <pre class="prettyprint"><code class="language-ruby">
+    def todo_list
+      TodoList.retrieve(@list_name.downcase) ||
+        TodoList.create(@list_name)
+    end
+  </code></pre>
+
+  <p><%= link_to '(source on GitHub)', 'https://github.com/markijbema/blogpostsaver/blob/0a695aaf5116e8ab2da1afe875f88cd1de6d2d8f/todo_item_saver.rb#L24-L27' %></p>
+
+  <p>We implemented the full TodoSaver class, so this seems like a good time to refactor. I think <code>todo_list</code> should be a private method, but since it's tested we cannot refactor that now. Therefore we now inline the tests made for the <code>todo_list</code>, into the test for the <code>save</code> method. This means splitting one test into two tests, supporting the different scenarios tested for the <code>todo_list</code>:</p>
+
+  <pre class="prettyprint"><code class="language-ruby">
+    describe TodoSaver do
+      describe '#save' do
+        context 'the list to save it to exists' do
+          it 'creates the todo and adds it to a list' do
+            todo_list, todo = mock, mock
+            saver = TodoSaver.new('WriTing', 'write blogpost')
+            TodoList.stub(:retrieve).with('writing')
+                    .and_return(todo_list)
+
+            TodoItem.should_receive(:create).with('write blogpost')
+                    .and_return(todo)
+            todo_list.should_receive(:add).with(todo)
+
+            saver.save()
+          end
+        end
+        context 'the list to save it does not exist' do
+          it 'creates the todo and adds it to a newly created list' do
+            todo_list, todo = mock, mock
+            saver = TodoSaver.new('WriTing', 'write blogpost')
+            saver.stub todo_list: todo_list
+            TodoList.stub(:retrieve).with('writing').and_return(nil)
+            TodoList.stub(:create).with('WriTing')<br />                .and_return(todo_list)
+
+            TodoItem.should_receive(:create).with('write blogpost')
+                    .and_return(todo)
+            todo_list.should_receive(:add).with(todo)
+
+            saver.save()
+          end
+        end
+      end
+    end
+  </code></pre>
+
+  <p><%= link_to '(source on GitHub)', 'https://github.com/markijbema/blogpostsaver/blob/c81dfdd9b070772266f0ef3d520627f2d14d4835/todo_item_saver.rb#L30-L61' %></p>
+
+  <p>Because we don't test <code>todo_list</code> anymore, we can now refactor our implementation, and make all methods but <code>save</code> private.</p>
+
+  <pre class="prettyprint"><code class="language-ruby">
+    class TodoSaver
+      def initialize list_name, todo_text
+        @list_name = list_name
+        @todo_text = todo_text
+      end
+
+      def save
+        todo_list.add todo
+      end
+
+      private
+      def todo
+        TodoItem.create(@todo_text)
+      end
+
+      def todo_list
+        existing_list or new_list
+      end
+
+      def existing_list
+        TodoList.retrieve(@list_name.downcase)
+      end
+
+      def new_list
+        TodoList.create(@list_name)
+      end
+    end
+  </code></pre>
+
+  <p><%= link_to '(source on GitHub)', 'https://github.com/markijbema/blogpostsaver/blob/00afa34f660b6f5ee298fc937852425cba7ea519/todo_item_saver.rb#L13-L39' %></p>
+
+  <p>The result is fully tested class, only tested by it's public methods, without stubbing methods on the object under test. This makes it easy to refactor the object.</p>
+
+  <h4>Why do this?</h4>
+
+  <p>Because we took the intermediate step of stubbing out methods on the object under test we were able to TDD in a top-down fashion. This meant we could postpone design decisions about data retrieval details until we actually cared about them.</p>
+
+  <p>I think this yields a very valid method of designing classes, which works better for me, because I like to design top-down. I am however really interested in your feedback. Do you ever use this method? Do you keep stubbed out methods on the object under test? Do you have a radically different method which yields the same results?</p>
+<% end %>
+
+<% content_for :specific_javascript do %>
+  <script src="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.js"></script>
+<% end %>

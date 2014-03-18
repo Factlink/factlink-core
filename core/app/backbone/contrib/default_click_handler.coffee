@@ -1,32 +1,39 @@
 # WARNING: be very careful when changing this stuff, there are many edge cases!
 
 # Add a default clickhandler so we can use hrefs
-Backbone.View::defaultClickHandler = (e, routeTo=null) ->
-  routeTo ||= $(e.target).closest("a").attr("href")
+defaultClickHandler = (e) ->
+  if Backbone.History.started # Capitalization in Backbone.[H]istory is intentional
+    $link = $(e.target).closest("a")
+    url = $link.attr("href")
 
-  if e.metaKey or e.ctrlKey or e.altKey
-    window.open routeTo, "_blank"
-  else if not Backbone.History.started # Capitalization in Backbone.[H]istory is intentional
-    window.open routeTo, FactlinkApp.linkTarget
+    if e.metaKey or e.ctrlKey or e.altKey
+      target = "_blank"
+    else
+      target = $link.attr("target")
+
+    if target?
+      window.open url, target
+    else
+      navigateTo url
+
+    false # prevent default
   else
-    Backbone.View::navigateTo routeTo
-  e.preventDefault()
-  false
+    true
 
-Backbone.View::navigateTo = (routeTo) ->
-  if "/" + Backbone.history.fragment is routeTo
+navigateTo = (url) ->
+  if "/" + Backbone.history.fragment is url
     # Allow reloads by clicking links without polluting the history
     Backbone.history.fragment = null
-    Backbone.history.navigate routeTo,
+    Backbone.history.navigate url,
       trigger: true
       replace: true
   else
-    if Backbone.history.loadUrl(routeTo) # Try if there is a Backbone route available
+    if Backbone.history.loadUrl(url) # Try if there is a Backbone route available
       Backbone.history.fragment = null # Force creating a state in the history
-      Backbone.history.navigate routeTo, false
+      Backbone.history.navigate url, false
     else
-      window.open routeTo, FactlinkApp.linkTarget
+      window.open url
       window.focus()
 
 # HACK: this is needed because internal events did not seem to work
-$(document).on "click", ":not(body.client) a[rel=backbone]", Backbone.View::defaultClickHandler
+$(document).on "click", ":not(body.client) a[rel=backbone]", defaultClickHandler

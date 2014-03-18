@@ -4,7 +4,7 @@ require_relative '../../../app/interactors/backend/sub_comments'
 describe Backend::SubComments do
   include PavlovSupport
   before do
-    stub_classes 'SubComment'
+    stub_classes 'SubComment', 'Backend::Users'
   end
 
   describe '#count' do
@@ -54,8 +54,8 @@ describe Backend::SubComments do
 
     before do
       sub_comments.each_with_index do |sub_comment, index|
-        allow(Pavlov).to receive(:query)
-          .with(:dead_users_by_ids, user_ids: [sub_comment.created_by_id])
+        allow(Backend::Users).to receive(:by_ids)
+          .with(user_ids: [sub_comment.created_by_id])
           .and_return([dead_users[index]])
       end
     end

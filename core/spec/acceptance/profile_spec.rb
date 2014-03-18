@@ -6,8 +6,8 @@ feature 'the profile page', type: :feature do
   include PavlovSupport
 
   scenario 'follow a user and unfollow a user' do
-    following_user = sign_in_user create :full_user, :confirmed
-    followed_user = create :full_user, :confirmed
+    following_user = sign_in_user create :user, :confirmed
+    followed_user = create :user, :confirmed
 
     visit user_path(followed_user)
 
@@ -52,8 +52,8 @@ feature 'the profile page', type: :feature do
   end
 
   scenario 'follow a user and facts created by that user show up in your stream' do
-    following_user = sign_in_user create :full_user, :confirmed
-    followed_user = create :full_user, :confirmed
+    following_user = sign_in_user create :user, :confirmed
+    followed_user = create :user, :confirmed
 
     visit user_path(followed_user)
 
@@ -68,10 +68,9 @@ feature 'the profile page', type: :feature do
 
     displaystring = 'this is a displaystring for fact'
 
-    fact = nil
     as(followed_user) do |backend|
-      fact = backend.interactor(:'facts/create', displaystring: displaystring, url: 'http://example.org', title: 'title')
-      backend.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'believes', content: "so true")
+      dead_fact = backend.interactor(:'facts/create', displaystring: displaystring, url: 'http://example.org', site_title: 'title')
+      backend.interactor(:'comments/create', fact_id: dead_fact.id.to_i, type: 'believes', content: "so true")
     end
 
     visit feed_path

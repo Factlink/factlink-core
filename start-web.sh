@@ -13,6 +13,5 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 (cd core && bundle exec thin start || kill $$)  2>&1| perl -pe "s/^/\x1b[0;32m[webserver] \x1b[0m/" &
 (cd core && bundle exec script/static.rb || kill $$)  2>&1| perl -pe "s/^/\x1b[0;33m[static] \x1b[0m/" &
 (web-proxy/startserver.sh no-npm-update || kill $$)  2>&1| perl -pe "s/^/\x1b[0;34m[proxy] \x1b[0m/" &
-(cd core && bundle exec resque-web -F -L config/initializers/resque.rb || kill $$)  2>&1| perl -pe "s/^/\x1b[0;35m[resqueweb] \x1b[0m/" &
 
 wait

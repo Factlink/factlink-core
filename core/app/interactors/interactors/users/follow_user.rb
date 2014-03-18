@@ -13,7 +13,7 @@ module Interactors
       end
 
       def execute
-        if user.username == username
+        if current_user.username == username
           raise "You cannot follow yourself."
         end
 
@@ -23,11 +23,12 @@ module Interactors
       end
 
       def already_following
-        query(:'users/user_follows_user', from_graph_user_id: user.graph_user_id,
-                                          to_graph_user_id: user_to_follow.graph_user_id)
+        Backend::UserFollowers.following? \
+          follower_id: current_user.graph_user_id,
+          followee_id: user_to_follow.graph_user_id
       end
 
-      def user
+      def current_user
         @pavlov_options[:current_user]
       end
 
@@ -36,17 +37,19 @@ module Interactors
       end
 
       def follow_user
-        command(:'users/follow_user',
-                    graph_user_id: user.graph_user_id,
-                    user_to_follow_graph_user_id: user_to_follow.graph_user_id)
+        Backend::UserFollowers.follow \
+          follower_id: current_user.graph_user_id,
+          followee_id: user_to_follow.graph_user_id
 
-        command(:'create_activity',
-                    graph_user: user.graph_user, action: :followed_user,
-                    subject: user_to_follow.graph_user, object: nil)
+        Backend::Activities.create \
+          graph_user: current_user.graph_user,
+          action: :followed_user,
+          subject: user_to_follow.graph_user
 
-        # This command still depends on user == current_user
-        command(:'stream/add_activities_of_user_to_stream',
-                    graph_user_id: user_to_follow.graph_user_id)
+
+        Backend::Activities.add_activities_to_follower_stream(
+          followed_user_graph_user_id: user_to_follow.graph_user_id,
+          current_graph_user_id: current_user.graph_user_id)
       end
 
 

@@ -11,10 +11,6 @@ class Ability
     !!user
   end
 
-  def set_up?
-    signed_in? and user.set_up
-  end
-
   def initialize(user=nil)
     @user=user
 
@@ -22,10 +18,7 @@ class Ability
       ! /^home\/pages\/help/.match template
     end
 
-    if set_up?
-      can :access, FactlinkWebapp
-      can :show, String
-    end
+    can :show, String
 
     define_anonymous_user_abilities
 
@@ -61,7 +54,7 @@ class Ability
 
     can :read, Comment
     can :destroy, Comment do |comment|
-      dead_comment = Pavlov.query(:'comments/by_ids', ids: comment.id.to_s, pavlov_options: {}).first
+      dead_comment = Backend::Comments.by_ids(ids: comment.id.to_s).first
       comment.created_by.id == user.id && dead_comment.is_deletable
     end
   end
@@ -79,20 +72,17 @@ class Ability
     return unless signed_in?
 
     can :read, user
-    can :set_up, user
 
-    if set_up?
-      if user.admin?
-        can :access, AdminArea
-        can :configure, FactlinkWebapp
-        can :manage, User
-        cannot :edit_settings, User
-      end
-
-      can :update, user
-      can :edit_settings, user
-      can :destroy, user
+    if user.admin?
+      can :access, AdminArea
+      can :configure, FactlinkWebapp
+      can :manage, User
+      cannot :edit_settings, User
     end
+
+    can :update, user
+    can :edit_settings, user
+    can :destroy, user
   end
 
   def define_user_activities_abilities

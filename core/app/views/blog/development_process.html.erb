@@ -1,0 +1,32 @@
+<% content_for :title do %>Development process<% end %>
+
+<% content_for :blog_content do %>
+
+  <p><%= link_to "&laquo; Blog".html_safe, blog_index_path %></p>
+
+  <time pubdate>15 February 2012</time>
+  <h1 class="static-pages-heading-h1">Development process</h1>
+
+  <p>A couple of things we really like as part of our development process:</p>
+
+  <h4>Agile</h4>
+
+  <p>Development the <%= link_to 'Agile way', 'http://en.wikipedia.org/wiki/Agile_software_development' %> is something that is core to how we do things. Thinking in features of a product instead of in versions is enormously helpful when you want to go from initial concepts to working stuff quickly. The faster you see something work in reality, the quicker you’ll find out that certain stuff that works great in your dreams doesn’t actually work in reality and for real users (did you ever try to explain things that were totally logical in your dreams after waking up?). Also, Agile really helps in effectively use feedback and results of discussions and debate. The <%= link_to 'Git', 'http://git-scm.com/' %> way also is very much in line with Agile, which brings us to our next point.</p>
+
+  <h4>Revision control</h4>
+
+  <p>For good revision control Git and <%= link_to 'Github', 'https://github.com/' %> is a must on any project. GitHub provides the best platform available for distributed team development (we have people in San Francisco and in the Netherlands on our team). Furthermore, as we contribute to many projects and will open up as many internal projects as possible moving forward, Git is instrumental in enabling anybody to participate in building the product. We think Git might be Linus Torvalds’ most important contribution to programming and the web (a subject for a future post). Git enables better collaborative efforts in coding and can be really help in enabling project to scale without creativity killing control structures.</p>
+
+  <h4>Testing religiously</h4>
+
+  <p><%= link_to 'Testing driven design', 'http://en.wikipedia.org/wiki/Test-driven_development' %>, Automated unit testing and Integration testing. We started using Mutant which is a great idea and lets you test if your unit tests are good enough by automated checking if ‘mutated’ code (with small random changes added) will fail the unit tests, as it should. The jury is still out on this so we’ll keep you posted. Capybara is great because it lets you run any flow of a user clicking through your application that you can come up with, automated and headless (without the presence of an actual browser but with the application ‘thinking’ it’s interacting with a browser).</p>
+
+  <h4>Continuous Integration (CI)</h4>
+
+  <p>We use a <%= link_to 'CI setup', 'http://en.wikipedia.org/wiki/Continuous_integration' %> with code moving from developers’ machines, to testing servers for unit and integration testing, to staging servers that contain data similar to our production servers for acceptance testing; and finally to production servers for real-world deployment to the public.</p>
+
+  <h4>Continuous Deployment (CD)</h4>
+
+  <p>We’re moving towards <%= link_to 'CD', 'http://en.wikipedia.org/wiki/Continuous_integration#Automate_deployment' %> so we’ll release and test features instead of versions. One of the cool aspects of this is that we can release new features to limited sets of users first to monitor how users use it and how our systems respond and adapt. The benefit is that we can implement further usability and usage testing practices on a per feature level and compare how different groups of users use different features. We’re excited to do integrated A/B testing with UI designs, UX features, and backend data handling.</p>
+
+<% end %>

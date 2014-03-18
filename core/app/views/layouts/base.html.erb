@@ -11,10 +11,14 @@
       <% end %>
     </title>
     <meta name="description" content="">
-    <%= yield :responsive_viewport %>
+    <meta name="google-site-verification" content="ecWX-XgW6gT2y6TlW4HD-Of0TpyhbBcxfeYgv8au2OA" />  <!-- Keep for Google site verification -->
+
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag "application" %>
     <%= yield :specific_stylesheet_tag %>
+
+    <%= yield :meta_tags %>
 
     <link rel="chrome-webstore-item"
       href="https://chrome.google.com/webstore/detail/cobkhjnnnbmaigjhgpmmlkmaidbhpinb">
@@ -25,8 +29,6 @@
   </head>
   <body class="controller_<%= controller.controller_name -%> action_<%= controller.action_name -%><%= " show_footer" if defined? show_footer and show_footer %>">
     <%= render 'feedback/button' unless defined? dont_render_feedback %>
-
-    <%= render 'home/browser_support_message' %>
 
     <%= render "base/topbar" %>
 

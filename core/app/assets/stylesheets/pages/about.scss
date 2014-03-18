@@ -1,28 +1,54 @@
+.about-container {
+  text-align: left;
+
+  @include from-width(500px) {
+    text-align: center;
+  }
+}
+
 .about-header {
   margin: 10px 0 20px;
+  text-align: center;
+
+  @include from-width(500px) {
+    text-align: left;
+  }
 }
 
 .about-contact {
-  float: right;
-  width: 200px
+  width: 200px;
+  right: 0;
+  display: inline-block;
+  vertical-align: top;
+  text-align: left;
+}
+
+.about-people {
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+
+  @include from-width(500px) {
+    min-width: 350px;
+    width: calc(100% - 200px - 0.5em);
+    width: -webkit-calc(100% - 200px - 0.5em);
+  }
 }
 
 .faces-list {
-  display: inline-block; // new block formatting context
-  width: 600px;
+  list-style: none;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  max-width: 500px;
 }
 
 .team-member-block, .team-advisor-block {
   position: relative;
-  float: left;
-  margin-right: 14.9px;
-  margin-bottom: 22px;
-}
-.team-member-block {
-  width: 163.817px;
-}
-.team-advisor-block {
-  width: 104.25px;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 5px 20px 5px;
 }
 
 %team-name {
@@ -52,9 +78,12 @@
 .team-photo {
   width: 135px;
   height: 135px;
-  box-shadow: 0 0 0 5px rgba(255, 255, 255, 1), 0 0 0 6px #cbcbcb, 0 7px 3px 0 rgba(0, 0, 0, .15);
+  box-shadow: 0 1px 3px -1px rgba(0, 0, 0, .15);
   margin-bottom: 15px;
   border-radius: 1000px;
+  padding: 6px;
+  border: 1px solid #cbcbcb;
+  box-sizing: content-box;
 
   &.advisor {
     width: 80px;

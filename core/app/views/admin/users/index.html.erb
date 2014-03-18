@@ -42,12 +42,6 @@
         <td>
           <% if (!user.confirmed?) %>
             <span class="admin-label admin-label-warning">unconfirmed</span>
-          <% elsif (!user.set_up?) %>
-            <span class="admin-label admin-label-warning">not set up</span>
-          <% end %>
-
-          <% if (user.suspended) %>
-            <span class="admin-label admin-label-warning">suspended</span>
           <% end %>
 
           <% if (user.deleted) %>

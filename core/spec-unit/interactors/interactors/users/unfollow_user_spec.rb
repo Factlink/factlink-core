@@ -4,6 +4,10 @@ require_relative '../../../../app/interactors/interactors/users/unfollow_user'
 describe Interactors::Users::UnfollowUser do
   include PavlovSupport
 
+  before do
+    stub_classes 'Backend::UserFollowers'
+  end
+
   describe '#authorized?' do
     it 'throws when no current_user' do
       expect do
@@ -25,11 +29,10 @@ describe Interactors::Users::UnfollowUser do
             .with(:'user_by_username',
                       username: username, pavlov_options: pavlov_options)
             .and_return(user_to_unfollow)
-      Pavlov.should_receive(:command)
-            .with(:'users/unfollow_user',
-                      graph_user_id: user.graph_user_id,
-                      user_to_unfollow_graph_user_id: user_to_unfollow.graph_user_id,
-                      pavlov_options: pavlov_options)
+
+      expect(Backend::UserFollowers).to receive(:unfollow)
+            .with(follower_id: user.graph_user_id,
+                  followee_id: user_to_unfollow.graph_user_id)
 
       expect(interactor.call).to eq nil
     end

@@ -7,29 +7,30 @@ feature "sub_comments", type: :feature do
   include Acceptance::CommentHelper
 
   background do
-    @user_a = sign_in_user create :full_user, :confirmed
-    @user_b = create :full_user, :confirmed
+    @user_a = sign_in_user create :user, :confirmed
+    @user_b = create :user, :confirmed
 
     @factlink_user_a = create :fact
   end
 
   scenario "A user can comment on a comment" do
-    @comment_user_b = command(:'comments/create', fact_id: @factlink_user_a.id.to_i, type: "believes", content: "test", user_id: @user_b.id.to_s)
-
+    as(@user_b) do |p|
+      @comment_user_b = p.interactor(:'comments/create', fact_id: @factlink_user_a.id.to_i, type: "believes", content: "test", pavlov_options: pavlov_options)
+    end
     sub_comment_text = "Berlioz' death was predicted by the man with the pince-nez"
 
-    go_to_discussion_page_of @factlink_user_a
+    open_discussion_sidebar_for @factlink_user_a
 
-    click_link '(0) Comment'
+    click_link '(0) Reply'
 
     add_sub_comment(sub_comment_text)
     assert_sub_comment_exists sub_comment_text
 
     switch_to_user(@user_b)
 
-    go_to_discussion_page_of @factlink_user_a
+    open_discussion_sidebar_for @factlink_user_a
 
-    click_link '(1) Comment'
+    click_link '(1) Reply'
     assert_sub_comment_exists sub_comment_text
   end
 
@@ -40,11 +41,11 @@ feature "sub_comments", type: :feature do
 
     sub_comment_text = "Sub Comment 1"
 
-    go_to_discussion_page_of @factlink_user_a
+    open_discussion_sidebar_for @factlink_user_a
 
     page.should have_selector('.spec-evidence-box .delete-button-first')
 
-    click_link 'Comment'
+    click_link 'Reply'
 
     add_sub_comment(sub_comment_text)
     assert_sub_comment_exists sub_comment_text
@@ -52,7 +53,7 @@ feature "sub_comments", type: :feature do
 
     page.should have_no_selector('.spec-evidence-box .delete-button-first')
 
-    go_to_discussion_page_of @factlink_user_a
+    open_discussion_sidebar_for @factlink_user_a
 
     page.should have_no_selector('.spec-evidence-box .delete-button-first')
   end

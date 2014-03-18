@@ -6,9 +6,10 @@ module Interactors
       arguments :fact_id, :content
 
       def execute
-        comment = command(:'comments/create',
-                              fact_id: fact_id, content: content,
-                              user_id: pavlov_options[:current_user].id.to_s)
+        comment = Backend::Comments.create \
+          fact_id: fact_id,
+          content: content,
+          user_id: pavlov_options[:current_user].id.to_s
 
         Backend::Comments.set_opinion \
           comment_id: comment.id.to_s, opinion: 'believes',
@@ -16,14 +17,16 @@ module Interactors
 
         create_activity comment
 
-        query(:'comments/by_ids', ids: comment.id).first
+        Backend::Comments.by_ids(ids: comment.id,
+          current_graph_user: pavlov_options[:current_user].graph_user).first
       end
 
       def create_activity comment
-        command(:'create_activity',
+        Backend::Activities.create \
                     graph_user: pavlov_options[:current_user].graph_user,
-                    action: :created_comment, subject: comment,
-                    object: comment.fact_data.fact)
+                    action: :created_comment,
+                    subject: comment,
+                    object: comment.fact_data.fact
       end
 
       def authorized?

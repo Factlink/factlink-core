@@ -5,26 +5,28 @@ ReactShareButton = React.createBackboneClass
     hovered: false
 
   render: ->
-    _label ['pull-right share-button-container'
+    _span ['share-button-container'
       onMouseEnter: => @setState(hovered: true)
       onMouseLeave: => @setState(hovered: false)
     ],
       if @model().serviceConnected @props.provider_name
         [
-          _input [type: 'checkbox', checked: @props.checked,
-            onChange: (event) => @props.onChange? event.target.checked]
-          _span ["share-button share-button-#{@props.provider_name}"]
+          _label [key: 'share-label'],
+            _input [type: 'checkbox', checked: @props.checked,
+              onChange: (event) => @props.onChange? event.target.checked]
+            _span ["share-button share-button-#{@props.provider_name}"]
           if @state.hovered
-            ReactPopover {},
+            ReactPopover {key: 'share_popover'},
               _div [],
                 "Share to #{@props.provider_name.capitalize()}"
         ]
       else
         _a ["share-button share-button-#{@props.provider_name} js-accounts-popup-link",
+          key: 'connect-button'
           href: "/auth/#{@props.provider_name}?use_authorize=true&x_auth_access_type=write"
         ],
           if @state.hovered
-            ReactPopover {},
+            ReactPopover {key: 'connect_popover'},
               _div [],
                 "Connect with #{@props.provider_name.capitalize()}"
 
@@ -39,7 +41,7 @@ window.ReactShareFactSelection = React.createBackboneClass
     currentUser.off 'change:services'
 
   _connectedButton: ->
-    _label ['pull-right share-button-container'],
+    _label ['share-button-container'],
       _input [type: 'checkbox'],
       _span ['share-button share-button-facebook']
 
@@ -47,11 +49,13 @@ window.ReactShareFactSelection = React.createBackboneClass
     _div ['share-fact-selection'],
       ReactShareButton
         provider_name: 'facebook'
+        key: 'facebook'
         model: currentUser
         checked: @props.providers.facebook
         onChange: (checked) => @props.onChange?('facebook', checked)
       ReactShareButton
         provider_name: 'twitter'
+        key: 'twitter'
         model: currentUser
         checked: @props.providers.twitter
         onChange: (checked) => @props.onChange?('twitter', checked)

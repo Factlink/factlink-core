@@ -3,8 +3,6 @@ $black:   rgb(48,48,48);
 
 .environment-message {
   background: repeating-linear-gradient(-45deg, $darkred,$darkred 14px, $black 14px,$black 28px,$darkred 28px) ;
-  background-size: 300% 100%; // larger background size allows judder-free animation.
-
 
   border-radius: 5px;
   border: 1px solid rgba(0,0,0,0.5);
@@ -15,19 +13,7 @@ $black:   rgb(48,48,48);
   color: rgb(255,255,128);
   font-weight: bold;
   cursor: pointer;
-  -webkit-animation: annoyingbg 2s infinite linear;
-  animation: annoyingbg 2s infinite linear;
-  position: absolute;
+  position: fixed;
   bottom: 5px;
   right: 5px;
-}
-
-@keyframes annoyingbg {
-  from { background-position: 0px 0px }
-  to { background-position: -198px 0; }
-}
-
-@-webkit-keyframes annoyingbg {
-  from { background-position: 0px 0px }
-  to { background-position: -198px 0; }
 }

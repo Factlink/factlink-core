@@ -1,5 +1,5 @@
 class window.DiscussionSidebarContainer extends Backbone.Marionette.Layout
-  className: 'discussion-sidebar-container'
+  className: 'discussion-sidebar-container spec-discussion-sidebar-container'
   template: 'layouts/discussion_sidebar_container'
 
   regions:
@@ -10,9 +10,6 @@ class window.DiscussionSidebarContainer extends Backbone.Marionette.Layout
 
   ui:
     close: '.js-client-html-close'
-
-  initialize: (options) ->
-    @_annotatedSiteEnvoy = options.annotatedSiteEnvoy
 
   _closeModal: (event) ->
     return unless @$el.is(event.target) || @ui.close.is(event.target)

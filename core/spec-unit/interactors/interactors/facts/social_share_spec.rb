@@ -4,13 +4,17 @@ require_relative '../../../../app/interactors/interactors/facts/social_share.rb'
 describe Interactors::Facts::SocialShare do
   include PavlovSupport
 
+  before do
+    stub_classes 'Resque', 'Commands::Twitter::ShareFactlink', 'Commands::Facebook::ShareFactlink', 'Fact'
+  end
+
   describe 'validation' do
     it 'without connected Twitter doesn\'t validate' do
       social_account = double
       current_user = double
       ability = double
       pavlov_options = {ability: ability, current_user: current_user}
-      hash = {fact_id: '1', provider_names: ['twitter'], pavlov_options: pavlov_options }
+      hash = {id: '1', provider_names: ['twitter'], pavlov_options: pavlov_options }
 
       current_user.stub(:social_account).with(:twitter).and_return(social_account)
       ability.stub(:can?).with(:share_to, social_account).and_return(false)
@@ -24,7 +28,7 @@ describe Interactors::Facts::SocialShare do
       current_user = double
       ability = double
       pavlov_options = {ability: ability, current_user: current_user}
-      hash = {fact_id: '1', provider_names: ['facebook'], pavlov_options: pavlov_options }
+      hash = {id: '1', provider_names: ['facebook'], pavlov_options: pavlov_options }
 
       current_user.stub(:social_account).with(:facebook).and_return(social_account)
       ability.stub(:can?).with(:share_to, social_account).and_return(false)
@@ -35,9 +39,6 @@ describe Interactors::Facts::SocialShare do
   end
 
   describe '#call' do
-    before do
-      stub_classes 'Resque', 'Commands::Twitter::ShareFactlink', 'Commands::Facebook::ShareFactlink'
-    end
 
     it 'posts to twitter if specified' do
       fact_id = '1'
@@ -45,7 +46,7 @@ describe Interactors::Facts::SocialShare do
       current_user = double(id: '123asdf', social_account: double)
 
       pavlov_options = {current_user: current_user, ability: ability}
-      command = described_class.new fact_id: fact_id, message: nil,
+      command = described_class.new id: fact_id, message: nil,
                                     provider_names: ['twitter'], pavlov_options: pavlov_options
 
       Pavlov.should_receive(:command)
@@ -62,7 +63,7 @@ describe Interactors::Facts::SocialShare do
       current_user = double(id: '123asdf', social_account: double)
 
       pavlov_options = {current_user: current_user, ability: ability}
-      command = described_class.new fact_id: fact_id, message: message,
+      command = described_class.new id: fact_id, message: message,
                                     provider_names: ['facebook'], pavlov_options: pavlov_options
 
       Pavlov.should_receive(:command)

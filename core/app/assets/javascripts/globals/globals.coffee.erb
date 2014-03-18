@@ -1,12 +1,10 @@
 # ensure we update this file when we update the locales
-# SHASUM of locales: 598acbeccc1d284c4b23152236b713b6957a8b4f
+# SHASUM of locales: 71bb2e6b49f5c079505a6ee20872eef3cb1a013b
 
 window.Factlink ||= {}
 
 Factlink.Global =
   ajax_loader_image: '<%= image_path("ajax-loader.gif") %>'
-  browser_icons_chrome_16x16: '<%= image_path("browser-icons/chrome-16x16.png") %>'
-  warning_sign_image: '<%= image_path("warning-sign.png") %>'
   bookmarklet_link: null # Set in bookmarklet.coffee.erb
 
   core_url: "<%= URI.parse(FactlinkUI::Application.config.core_url).to_s %>"

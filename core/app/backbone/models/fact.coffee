@@ -1,13 +1,11 @@
 class window.Fact extends Backbone.Model
-  urlRoot: "/facts"
+  urlRoot: "/api/beta/annotations"
 
   getOpinionators: ->
     @_opinionators ?= new Opinionators [], fact: @
 
   comments: ->
     @_comments ?= new Comments null, fact: @
-
-  clientLink: -> "/client/facts/#{@id}"
 
   factUrlHost: ->
     fact_url = @get('site_url')
@@ -39,3 +37,9 @@ class window.Fact extends Backbone.Model
 
   factUrlTitle: ->
     @get('site_title') || @factUrlHost()
+
+  # TODO: Save a fact in the backend when submitting a comment
+  saveUnlessNew: (callback) ->
+    return callback() unless @isNew()
+
+    @save {}, success: callback

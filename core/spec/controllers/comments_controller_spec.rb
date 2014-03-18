@@ -5,13 +5,13 @@ describe CommentsController do
 
   render_views
 
-  let(:user) { create(:full_user) }
+  let(:user) { create(:user) }
 
   describe :index do
     it "should render json successful" do
       FactoryGirl.reload
 
-      other_user = create(:full_user)
+      other_user = create(:user)
 
       authenticate_user!(user)
       fact = nil
@@ -20,14 +20,14 @@ describe CommentsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title')
+                                     site_title: 'title')
       end
       as(other_user) do |pavlov|
-        pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'doubts', content: 'a comment')
+        pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, content: 'a comment')
       end
 
       as(user) do |pavlov|
-        comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'doubts', content: 'a comment')
+        comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, content: 'a comment')
         pavlov.interactor(:'comments/update_opinion', comment_id: comment.id.to_s, opinion: 'disbelieves')
       end
 
@@ -50,10 +50,10 @@ describe CommentsController do
         fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
-                                     title: 'title')
+                                     site_title: 'title')
       end
 
-      post :create, id: fact.id, type: 'doubts', content: 'Gerard is een gekke meneer', format: :json
+      post :create, id: fact.id, content: 'Gerard is een gekke meneer', format: :json
 
       verify { response.body }
     end

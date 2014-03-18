@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SitesController do
   include PavlovSupport
 
-  let(:user) { create(:full_user) }
+  let(:user) { create(:user) }
 
   describe :facts_for_url do
     describe "authorized" do
@@ -20,12 +20,11 @@ describe SitesController do
 
       it "should render json successful" do
         url = 'http://bla.com/foo'
-        fact = nil
 
         as(user) do |pavlov|
-          fact = pavlov.interactor(:'facts/create',
+          pavlov.interactor(:'facts/create',
                                        displaystring: 'displaystring', url: url,
-                                       title: 'title')
+                                       site_title: 'title')
         end
 
         get :facts_for_url, url: url, format: :json

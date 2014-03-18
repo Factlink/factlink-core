@@ -1,0 +1,21 @@
+<% content_for :title do %>The Annotated Web<% end %>
+
+<% content_for :blog_content do %>
+
+  <p><%= link_to "&laquo; Blog".html_safe, blog_index_path %></p>
+
+  <time pubdate>22 August 2013</time>
+  <h1 class="static-pages-heading-h1">The Annotated Web</h1>
+
+  <p>Recently, MG Siegler of TechCrunch wrote about the <a href="https://medium.com/tech-blogging/43d78a82e103" target="_blank">75-20-5 percentage rule</a>: the observation that 75 percent of what you read in the tech press is somewhat accurate, 20 percent is complete bullshit, and 5 percent is actually true. The conclusion being that you cannot trust anything you read on the web without checking first. Maybe he&rsquo;s right, but how would we check? Most of us don&rsquo;t have the time, expertise or energy to check how accurate the information that we&rsquo;re reading is. With the ever increasing speed of new media, the need to post quickly seems to beat the need for accuracy. We&rsquo;re moving towards a world where fact checking is disappearing.</p>
+  <p>&ldquo;I wish I had some solution. I don&rsquo;t.&rdquo;, writes Siegler. Luckily, there are several projects aiming for a solution. The most well-known crowd sourced example is Wikipedia. Volunteers have built a shared frame of reference to capture the collective knowledge of everyone who participates. However, it&rsquo;s a single website, and does not give you information while you are visiting other websites. For this, we would need a tool that transcends websites, and pulls in information from different sources, as you are reading an article.</p>
+  <p>Just imagine what an annotated web would look like. What if every website could be annotated by anyone, visible to everyone? That way, you could annotate and share why you agree or disagree with statements. Your notes could then be read by others. Sounds futuristic? Well, Marc Andreessen planned to have annotation be part of the browser when he was working on Mosaic. Unfortunately it wasn&rsquo;t technically feasible at that time.</p>
+  <p>With modern technology, it has become feasible now to build such a system. Several initiatives like the <a href="http://okfn.org/" target="_blank">Open Knowledge Foundation</a> and <a href="http://hypothes.is/" target="_blank">Hypothes.is</a> are working on the building blocks of an annotated web. At Factlink, our focus is on building a layer over the web that shows the credibility of information. It&rsquo;s time to start building a more transparent and accountable internet. We hope tools like Factlink can contribute to this. If you like this vision, please join the effort and check out these exciting projects!</p>
+  <p><strong>Recommended reading:</strong></p>
+  <ul>
+  <li><a href="http://fct.li/?url=http%3A%2F%2Fwww.ethanzuckerman.com%2Fblog%2F2012%2F01%2F26%2Fdavid-weinberger-too-big-to-know" target="_blank">David Weinberger: Too Big To Know</a></li>
+  <li><a href="http://fct.li/?url=http%3A%2F%2F2ohreally.wordpress.com%2F2007%2F08%2F07%2Fneeded-right-now-today-crowdsourced-fact-checking%2F&amp;scrollto=9862" target="_blank">Needed, Right Now, Today: Crowdsourced Fact-checking</a></li>
+  <li><a href="http://fct.li/?url=http%3A%2F%2Fwww.pantagraph.com%2Fnews%2Fopinion%2Fcolumns%2Fsawyer%2Fsawyer-fact-checking-helps-get-truth-out-in-open%2Farticle_444362e6-6d7e-11e2-885d-0019bb2963f4.html" target="_blank">Sawyer: Fact-checking helps get truth out in open</a></li>
+  </ul>
+
+<% end %>

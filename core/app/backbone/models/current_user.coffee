@@ -5,3 +5,8 @@ class window.CurrentUser extends User
     features: []
 
   url: -> '/api/beta/current_user'
+
+  parse: (response) ->
+    # Don't merge but override (this triggers some events, but who cares)
+    @clear silent: true
+    response

@@ -20,7 +20,7 @@ describe Accounts::FactlinkAccountsController do
 
         post :create_session, user_new_session: {login: email, password: password}
 
-        expect(response.body).to match 'eventName = "signed_in"'
+        expect(response.body).to match 'eventName = "account_success"'
       end
     end
 
@@ -45,7 +45,7 @@ describe Accounts::FactlinkAccountsController do
           password: password, password_confirmation: password
         }
 
-        expect(response.body).to match 'eventName = "signed_in"'
+        expect(response.body).to match 'eventName = "account_success"'
         expect(User.last.email).to eq email
       end
     end

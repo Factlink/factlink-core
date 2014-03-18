@@ -5,17 +5,16 @@
 
 .topbar-inner {
   @extend %centering-y;
+  padding:0px $pageSidePadding;
   height: $topbarHeight;
   margin-left: auto;
   margin-right: auto;
   max-width: $siteWidth;
-  padding: 0px 10px;
 }
 
 .topbar-logo {
   @extend %centering-inner;
   margin-right: 20px;
-  line-height: 0px;
 
   @include respond-to(430) {
     display: none;
@@ -23,8 +22,9 @@
 }
 
 .topbar-logo-img{
-  vertical-align: middle;
+  display: block;
   height: 20px;
+  width: 108px;
 }
 
 .topbar-search {
@@ -36,21 +36,28 @@
   .topbar-search-field {
     background: image-url("base/topbar/search_icon.png") 8px center no-repeat #fff;
     padding-left: 30px;
+    width: 180px;
   }
 }
 
 .topbar-menu {
   float: right;
+  height: 100%;
 }
 
 .topbar-menu-item {
   float: left;
-  vertical-align: middle;
   font-weight: bold;
-  height:$topbarHeight;
-  line-height:$topbarHeight;
-  padding: 0px 15px;
+  height:100%;
 }
+
+.topbar-menu-link {
+  @extend %centering;
+  padding: 0px 15px;
+  height:100%;
+  display: block;
+}
+
 
 .topbar-divider {
   border-right: 1px lightgrey solid;
@@ -74,13 +81,12 @@
 
 .topbar-profile-link {
   @extend %centering-y;
-  @include ellipsis(220px);
-  display:inline-block;
+  @extend %ellipsis-inline-block;
+  max-width: 220px;
   height:$topbarHeight;
 
-
   @include respond-to(600) {
-    @include ellipsis(100px);
+    max-width: 100px;
   }
 }
 
@@ -96,8 +102,9 @@
 }
 
 .topbar-connect {
-  @extend %centering-inner;
-  line-height: 1; // anything lower than surrounding line height
+  @extend %centering;
+  height:100%;
+  padding-left: 15px;
 }
 
 .topbar-connect-label {

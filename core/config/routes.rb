@@ -13,8 +13,14 @@ FactlinkUI::Application.routes.draw do
 
   scope '/api/beta' do
     get '/current_user' => 'users#current'
-    get '/feed' => "api/feed#index"
+    get '/feed' => "api/feed#global"
+    get '/feed/personal' => "api/feed#personal"
     get '/users/:username/feed' => 'api/users#feed'
+    get '/annotations/recently_viewed' => 'api/annotations#recently_viewed'
+    get '/annotations/search' => 'api/annotations#search'
+    post '/annotations' => 'api/annotations#create'
+    get '/annotations/:id' => 'api/annotations#show'
+    post '/annotations/:id/share' => 'api/annotations#share'
   end
 
   # Javascript Client calls
@@ -27,13 +33,10 @@ FactlinkUI::Application.routes.draw do
   # as well (frame busting)
   get '/client/*page' => 'client#show'
 
-  resources :facts, only: [:create, :show] do
+  resources :facts, only: [] do
     resources :opinionators, only: [:index, :create, :destroy, :update]
 
     member do
-      get     "/evidence_search"  => "facts#evidence_search"
-      post    "/share"            => "facts#share"
-
       scope '/comments' do
         post "/" => 'comments#create'
         get "/" => 'comments#index'
@@ -49,10 +52,6 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
-
-    collection do
-      get 'recently_viewed' => "facts#recently_viewed"
-    end
   end
 
   resources :feedback # TODO: RESTRICT
@@ -63,20 +62,48 @@ FactlinkUI::Application.routes.draw do
   # Search
   get "/search" => "search#search", as: "search"
 
-  scope "/p/tour" do
-    get 'setup-account' => 'users/setup#edit', as: 'setup_account'
-    put 'setup-account' => 'users/setup#update'
-    get "install-extension" => "tour#install_extension", as: "install_extension"
-    get "interests" => "tour#interests", as: "interests"
-    get "tour-done" => "tour#tour_done", as: "tour_done"
-  end
-
   get "/in-your-browser" => "home#in_your_browser", as: 'in_your_browser'
   get "/on-your-site" => "home#on_your_site", as: 'on_your_site'
   get "/terms-of-service" => "home#terms_of_service", as: 'terms_of_service'
   get "/privacy" => "home#privacy", as: 'privacy'
   get "/about" => "home#about", as: 'about'
   get "/jobs" => "home#jobs", as: 'jobs'
+
+  # Support old urls until Google search index is updated
+  get '/p/about', to: redirect("/about")
+  get '/p/team', to: redirect("/about")
+  get '/p/contact', to: redirect("/about")
+  get '/p/jobs', to: redirect("/jobs")
+  get '/p/privacy', to: redirect("/privacy")
+  get '/publisher', to: redirect("/on-your-site")
+  get '/p/terms-of-service', to: redirect("/terms-of-service")
+  get '/p/tos', to: redirect("/terms-of-service")
+  get '/p/on-your-site', to: redirect("/on-your-site")
+
+  get "/blog" => "blog#index", as: 'blog_index'
+  get "/blog/4-lessons-you-can-learn-from-factlinks-pivot" => "blog#4_lessons_you_can_learn_from_factlinks_pivot", as: 'blog_4_lessons_you_can_learn_from_factlinks_pivot'
+  get "/blog/the-annotated-web" => "blog#the_annotated_web", as: 'blog_the_annotated_web'
+  get "/blog/learning-from-discussions" => "blog#learning_from_discussions", as: 'blog_learning_from_discussions'
+  get "/blog/discussion-of-the-week-10" => "blog#discussion_of_the_week_10", as: 'blog_discussion_of_the_week_10'
+  get "/blog/discussion-of-the-week-9" => "blog#discussion_of_the_week_9", as: 'blog_discussion_of_the_week_9'
+  get "/blog/discussion-of-the-week-8" => "blog#discussion_of_the_week_8", as: 'blog_discussion_of_the_week_8'
+  get "/blog/discussion-of-the-week-7" => "blog#discussion_of_the_week_7", as: 'blog_discussion_of_the_week_7'
+  get "/blog/discussion-of-the-week-6" => "blog#discussion_of_the_week_6", as: 'blog_discussion_of_the_week_6'
+  get "/blog/discussion-of-the-week-5" => "blog#discussion_of_the_week_5", as: 'blog_discussion_of_the_week_5'
+  get "/blog/discussion-of-the-week-4" => "blog#discussion_of_the_week_4", as: 'blog_discussion_of_the_week_4'
+  get "/blog/discussion-of-the-week-3" => "blog#discussion_of_the_week_3", as: 'blog_discussion_of_the_week_3'
+  get "/blog/discussion-of-the-week-2" => "blog#discussion_of_the_week_2", as: 'blog_discussion_of_the_week_2'
+  get "/blog/discussion-of-the-week-1" => "blog#discussion_of_the_week_1", as: 'blog_discussion_of_the_week_1'
+  get "/blog/stubbing-the-object-under-test-and-getting-away-without-it" => "blog#stubbing_the_object_under_test_and_getting_away_without_it", as: 'blog_stubbing_the_object_under_test_and_getting_away_without_it'
+  get "/blog/one-legged-standup" => "blog#one_legged_standup", as: 'blog_one_legged_standup'
+  get "/blog/yolo-spend-less-time-deploying-more-time-for-development" => "blog#yolo_spend_less_time_deploying_more_time_for_development", as: 'blog_yolo_spend_less_time_deploying_more_time_for_development'
+  get "/blog/increasing-development-speed-by-decreasing-cycle-time" => "blog#increasing_development_speed_by_decreasing_cycle_time", as: 'blog_increasing_development_speed_by_decreasing_cycle_time'
+  get "/blog/how-apis-should-be-drop-in-keys-running-in-1-minute" => "blog#how_apis_should_be_drop_in_keys_running_in_1_minute", as: 'blog_how_apis_should_be_drop_in_keys_running_in_1_minute'
+  get "/blog/dont-look-for-a-ux-guy-be-a-ux-guy" => "blog#dont_look_for_a_ux_guy_be_a_ux_guy", as: 'blog_dont_look_for_a_ux_guy_be_a_ux_guy'
+  get "/blog/building-a-collective-perspective" => "blog#building_a_collective_perspective", as: 'blog_building_a_collective_perspective'
+  get "/blog/knights-news-challenge" => "blog#knights_news_challenge", as: 'blog_knights_news_challenge'
+  get "/blog/development_process" => "blog#development_process", as: 'blog_development_process'
+  get "/blog/collective-knowledge" => "blog#collective_knowledge", as: 'blog_collective_knowledge'
 
   authenticated :user do
     namespace :admin, path: 'a' do
@@ -130,8 +157,6 @@ FactlinkUI::Application.routes.draw do
   # Scope for user specific actions
   # I made this scope so we don't always have to know the current users username in de frontend
   scope "/u" do
-    put "/seen_messages" => "users#seen_messages", as: 'see_messages'
-    get "/tour_users" => "users#tour_users", as: 'tour_users'
     get "/unsubscribe/:token/:type" => 'mail_subscriptions#update', subscribe_action: 'unsubscribe', as: :unsubscribe
     get "/subscribe/:token/:type" => 'mail_subscriptions#update', subscribe_action: 'subscribe', as: :subscribe
   end

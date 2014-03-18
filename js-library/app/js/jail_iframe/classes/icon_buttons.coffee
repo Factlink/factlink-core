@@ -1,5 +1,13 @@
+FactlinkJailRoot.host_loaded_promise.then ->
+  FactlinkJailRoot.trigger 'reposition_icons'
+
+FactlinkJailRoot.on 'reposition_icons', -> Tether.position()
+
 class IconButton
   constructor: (options) ->
+    @_targetElement = options.targetElement
+    @_targetOffset = options.targetOffset
+
     @$el = $ """
       <factlink-icon-button>
         <factlink-icon-button-bubble>
@@ -10,7 +18,7 @@ class IconButton
     """
     FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
 
-    @_setStylesFromElement(options.targetElement)
+    @_setStyles()
 
     @_robustHover = new FactlinkJailRoot.RobustHover
       $el: @$el
@@ -18,13 +26,21 @@ class IconButton
       mouseleave: options.onmouseleave
     @$el.on 'click', options.onclick
 
-    @_tether = new Tether
-      element: @$el[0]
-      target: options.targetElement
-      attachment: 'top left'
-      targetAttachment: 'top right'
-      classPrefix: 'factlink-tether'
-      targetOffset: options.targetOffset || '0 0'
+
+    @_tether = new Tether(@_tether_options())
+
+  resetOffset: (targetOffset) ->
+    return if targetOffset == @_targetOffset
+    @_targetOffset = targetOffset
+    @_tether.setOptions(@_tether_options())
+
+  _tether_options: () ->
+    element: @$el[0]
+    target: @_targetElement
+    attachment: 'top left'
+    targetAttachment: 'top right'
+    classPrefix: 'factlink-tether'
+    targetOffset: @_targetOffset || '0 0'
 
   destroy: ->
     @_tether.destroy()
@@ -37,8 +53,8 @@ class IconButton
   fadeOut: ->
     @$el.removeClass 'factlink-control-visible'
 
-  _setStylesFromElement: (element) ->
-    style = window.getComputedStyle(element)
+  _setStyles: ->
+    style = window.getComputedStyle(@_targetElement)
     targetColor = style.color
 
     # See https://gamedev.stackexchange.com/questions/38536/given-a-rgb-color-x-how-to-find-the-most-contrasting-color-y/38561#38561
@@ -58,22 +74,20 @@ class IconButton
       'border-top-color': targetColor
 
 
+findTextContainer = (el) ->
+  for el in $(el).parents()
+    return el if window.getComputedStyle(el).display == 'block'
+  console.error 'FactlinkJailRoot: No text container found for ', el
+
 class FactlinkJailRoot.HighlightIconButtonContainer
   constructor: (highlightElements, factId) ->
     @$highlightElements = $(highlightElements)
-
-    # Calculate a vertical percentage to position the icon relative
-    # to the textContainer
-    # TODO: really do grouping, so we don't have to do hacks like this!
-    textContainer = @_textContainer(@$highlightElements[0])
-    textContainerBoundingRect = textContainer.getBoundingClientRect()
-    verticalOffset = @$highlightElements[0].getBoundingClientRect().top - textContainerBoundingRect.top
-    verticalOffsetPercentage = verticalOffset*100 / textContainerBoundingRect.height
+    @_textContainer = findTextContainer(@$highlightElements[0])
 
     @_iconButton = new IconButton
       content: ''
-      targetElement: textContainer
-      targetOffset: "#{verticalOffsetPercentage}% 0"
+      targetElement: @_textContainer
+      targetOffset: @_targetOffset()
       onmouseenter: @_onHover
       onmouseleave: @_onUnhover
       onclick: @_onClick
@@ -82,7 +96,22 @@ class FactlinkJailRoot.HighlightIconButtonContainer
 
     @_iconButton.fadeIn()
 
+    FactlinkJailRoot.on 'reposition_icons', @_reposition_icons
+
+  _reposition_icons: => @_iconButton.resetOffset(@_targetOffset())
+
+  _targetOffset: ->
+    # Calculate a vertical percentage to position the icon relative
+    # to the textContainer
+    # TODO: really do grouping, so we don't have to do hacks like this!
+    textContainerBoundingRect = @_textContainer.getBoundingClientRect()
+    verticalOffset = @$highlightElements[0].getBoundingClientRect().top - textContainerBoundingRect.top
+    verticalOffsetPercentage = verticalOffset*100 / textContainerBoundingRect.height
+
+    "#{verticalOffsetPercentage}% 0"
+
   destroy: ->
+    FactlinkJailRoot.off 'reposition_icons', @_reposition_icons
     @_iconButton.destroy()
 
   _onHover: =>
@@ -93,11 +122,6 @@ class FactlinkJailRoot.HighlightIconButtonContainer
 
   _onClick: =>
     FactlinkJailRoot.openFactlinkModal @_factId
-
-  _textContainer: (el) ->
-    for el in $(el).parents()
-      return el if window.getComputedStyle(el).display == 'block'
-    console.error 'FactlinkJailRoot: No text container found for ', el
 
 
 textFromElement = (element) ->
@@ -122,20 +146,20 @@ class FactlinkJailRoot.ParagraphIconButtonContainer
     @_iconButton = new IconButton
       content: '+'
       targetElement: @$paragraph[0]
-      onmouseenter: => @_attentionSpan.gainAttention()
-      onmouseleave: => @_attentionSpan.loseAttention()
+      onmouseenter: => @_attentionSpan?.gainAttention()
+      onmouseleave: => @_attentionSpan?.loseAttention()
       onclick: @_onClick
-
-    @_attentionSpan = new FactlinkJailRoot.AttentionSpan
-      wait_for_neglection: 500
-      onAttentionGained: => @_iconButton.fadeIn()
-      onAttentionLost: => @_iconButton.fadeOut()
 
     FactlinkJailRoot.on 'factlink.factsLoaded factlinkAdded', @_destroyUnlessValid
 
     if FactlinkJailRoot.isTouchDevice()
       @_iconButton.fadeIn()
     else
+      @_attentionSpan = new FactlinkJailRoot.AttentionSpan
+        wait_for_neglection: 500
+        onAttentionGained: => @_iconButton.fadeIn()
+        onAttentionLost: => @_iconButton.fadeOut()
+
       @_robustParagraphHover = new FactlinkJailRoot.RobustHover
         $el: @$paragraph
         mouseenter: @_showOnlyThisParagraphButton
@@ -151,7 +175,7 @@ class FactlinkJailRoot.ParagraphIconButtonContainer
 
   destroy: ->
     @_iconButton.destroy()
-    @_attentionSpan.destroy()
+    @_attentionSpan?.destroy()
     @_robustParagraphHover?.destroy()
     FactlinkJailRoot.off 'factlink.factsLoaded factlinkAdded', @_destroyUnlessValid
     FactlinkJailRoot.off 'hideAllParagraphButtons', @_onHideAllParagraphButtons

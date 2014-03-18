@@ -8,7 +8,7 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
       @user = social_account.user
       remembered_sign_in @user
 
-      render_trigger_event 'signed_in', ''
+      render_success_event
     else
       if social_account # spurious account
         social_account.destroy
@@ -47,7 +47,7 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
     @user.social_accounts.push @social_account
     remembered_sign_in(@user)
 
-    render_trigger_event 'signed_in', ''
+    render_success_event
   end
 
   def sign_in_and_connect_existing_user email, password
@@ -106,7 +106,6 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
 
     # Protected from mass-assignment
     @user.email = email
-    @user.set_up = true
     @user.generate_username!
 
     @user.save
