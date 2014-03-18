@@ -23,27 +23,29 @@ No whitespace because of inline-block
 <% end %>
 
 <% content_for :below_content do %>
-  <div class="in-your-browser-below-content">
-    <div class="content-aligned-center">
-      <h1 class="static-pages-heading-h1">Recent activity</h1>
-      <div class="js-in-your-browser-feed in-your-browser-feed"></div>
-    </div>
+  <div class="static-pages-below-content">
+    <div class="container">
+      <div class="content-aligned-center">
+        <h1 class="static-pages-heading-h1">Recent activity</h1>
+        <div class="js-in-your-browser-feed in-your-browser-feed"></div>
+      </div>
 
-    <div class="content-aligned-center">
-      <%= link_to 'Discover more', feed_path, class: 'button in-your-browser-feed-more-button' %>
-    </div>
+      <div class="content-aligned-center">
+        <%= link_to 'Discover more', feed_path, class: 'button in-your-browser-feed-more-button' %>
+      </div>
 
-    <div class="content-aligned-center">
-      <div class="in-your-browser-cta-container">
-        <div class="in-your-browser-below-content-box">
-          <h1 class="static-pages-heading-h1">Join the revolution!</h1>
-          <p>Discussion and access to information are key to a well-functioning society. Install Factlink in your browser to share your knowledge and stay updated.</p>
-          <%= link_to "Learn more", in_your_browser_path, class: "button-confirm" %>
-        </div>
-        <div class="in-your-browser-below-content-box">
-          <h1 class="static-pages-heading-h1">Have your own site?</h1>
-          <p>You can use Factlink to have better discussions and more user engagement. Factlink is free and can be implemented on your site with a single line of code.</p>
-          <%= link_to "Learn more", on_your_site_path, class: "button-confirm" %>
+      <div class="content-aligned-center">
+        <div class="in-your-browser-cta-container">
+          <div class="static-pages-below-content-box">
+            <h1 class="static-pages-heading-h1">Join the revolution!</h1>
+            <p>Discussion and access to information are key to a well-functioning society. Install Factlink in your browser to share your knowledge and stay updated.</p>
+            <%= link_to "Learn more", in_your_browser_path, class: "button-confirm" %>
+          </div>
+          <div class="static-pages-below-content-box">
+            <h1 class="static-pages-heading-h1">Have your own site?</h1>
+            <p>You can use Factlink to have better discussions and more user engagement. Factlink is free and can be implemented on your site with a single line of code.</p>
+            <%= link_to "Learn more", on_your_site_path, class: "button-confirm" %>
+          </div>
         </div>
       </div>
     </div>

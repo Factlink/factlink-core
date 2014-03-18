@@ -34,37 +34,39 @@
 <% end %>
 
 <% content_for :below_content do %>
-  <div class="container">
-    <div class="learn-more-container"><div class="learn-more-column">
-        <div class="learn-more-column-image"><div class="learn-more-column-image-inner">
-          <%= render "home/partials/best_comment_top" %>
-        </div></div>
-        <h1 class="static-pages-heading-h2">Discover great discussions</h1>
-        <p>Find comments in the margins of articles while browsing the web. Or discover interesting discussions in your feed.</p>
-      </div><div class="learn-more-column">
-        <div class="learn-more-column-image"><div class="learn-more-column-image-inner">
-          <%= render "home/partials/give_opinion" %>
+  <div class="static-pages-below-content">
+    <div class="container">
+      <div class="learn-more-container"><div class="learn-more-column">
+          <div class="learn-more-column-image"><div class="learn-more-column-image-inner">
+            <%= render "home/partials/best_comment_top" %>
           </div></div>
-        <h1 class="static-pages-heading-h2">Give recognition</h1>
-        <p>Don't feel like writing a comment but still want to give feedback? Use the thumbs up and down buttons.</p>
-      </div><div class="learn-more-column">
-        <div class="learn-more-column-image"><div class="learn-more-column-image-inner">
-          <%= render "home/partials/social_conversation" %>
-        </div></div>
-        <h1 class="static-pages-heading-h2">Share better</h1>
-        <p>Share interesting quotes from articles on Facebook and Twitter. Involve your friends and followers in interesting discussions.</p>
-    </div></div>
+          <h1 class="static-pages-heading-h2">Discover great discussions</h1>
+          <p>Find comments in the margins of articles while browsing the web. Or discover interesting discussions in your feed.</p>
+        </div><div class="learn-more-column">
+          <div class="learn-more-column-image"><div class="learn-more-column-image-inner">
+            <%= render "home/partials/give_opinion" %>
+            </div></div>
+          <h1 class="static-pages-heading-h2">Give recognition</h1>
+          <p>Don't feel like writing a comment but still want to give feedback? Use the thumbs up and down buttons.</p>
+        </div><div class="learn-more-column">
+          <div class="learn-more-column-image"><div class="learn-more-column-image-inner">
+            <%= render "home/partials/social_conversation" %>
+          </div></div>
+          <h1 class="static-pages-heading-h2">Share better</h1>
+          <p>Share interesting quotes from articles on Facebook and Twitter. Involve your friends and followers in interesting discussions.</p>
+      </div></div>
 
-    <div class="extend-your-browser-container">
-      <p>Discuss anything, on any website. Help us make the web a better place by sharing your knowledge!</p>
-      <div class="extend-your-browser-install-button js-install-extension-button"></div>
+      <div class="extend-your-browser-container">
+        <p>Discuss anything, on any website. Help us make the web a better place by sharing your knowledge!</p>
+        <div class="extend-your-browser-install-button js-install-extension-button"></div>
 
-      <div class="visible-when-unsupported-browser">
-        <div class="in-your-browser-dashed-border">
-          <a class="js-bookmarklet-button in-your-browser-bookmarklet button-success button-huge" onclick="return false"><span style="display: none">Factlink</span></a>
+        <div class="visible-when-unsupported-browser">
+          <div class="in-your-browser-dashed-border">
+            <a class="js-bookmarklet-button in-your-browser-bookmarklet button-success button-huge" onclick="return false"><span style="display: none">Factlink</span></a>
+          </div>
+
+          <p><em>To install Factlink, drag this button to your bookmarks bar</em></p>
         </div>
-
-        <p><em>To install Factlink, drag this button to your bookmarks bar</em></p>
       </div>
     </div>
   </div>
