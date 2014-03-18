@@ -83,7 +83,7 @@
   border-radius: 1000px;
   padding: 6px;
   border: 1px solid #cbcbcb;
-  box-sizing: content-box;
+  @include box-sizing(content-box);
 
   &.advisor {
     width: 80px;
