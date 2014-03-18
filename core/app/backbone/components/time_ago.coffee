@@ -34,9 +34,9 @@ window.TimeAgo = React.createClass
     else if time < 1*months
       @showNr(time / days , 'd')
     else if time < 1*years
-      @showNr(time / months, 'm')
+      @showNr(time / months, 'mon')
     else
-      @showNr(time / years, 'y')
+      @showNr(time / years, 'yr')
 
   render: ->
     span = _span {}, @displayTime(@seconds_lapsed())
