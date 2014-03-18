@@ -1,9 +1,7 @@
 .browser-window-container {
   overflow-y: hidden;
-  text-align: right;
   padding: 20px;
-  margin: 0 -10px;
-  margin-bottom: -$contentPadding - $containerPaddingY - $staticPagePadding;
+  margin-bottom: -$contentPadding - $containerPaddingY;
 }
 
 .browser-window {

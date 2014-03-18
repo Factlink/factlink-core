@@ -9,7 +9,7 @@ describe "Static pages:", type: :feature do
       create_default_activities_for create(:user)
 
       visit "/"
-      find('.spec-feed-activities-fixed .spec-feed-activity:first-child')
+      find('.spec-feed-activity:first-child')
 
       assume_unchanged_screenshot "static_homepage"
     end

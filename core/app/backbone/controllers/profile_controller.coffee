@@ -15,7 +15,8 @@ class window.ProfileController extends Backbone.Marionette.Controller
       if user.get('deleted')
         main_region.show new TextView text: 'This profile has been deleted.'
       else
-        main_region.show new ProfileView model: user
+        main_region.show new ReactView component:
+          ReactProfile model: user
 
   notification_options: (username)->
     title: 'Notification Settings'

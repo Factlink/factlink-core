@@ -41,9 +41,10 @@ module Interactors
           follower_id: current_user.graph_user_id,
           followee_id: user_to_follow.graph_user_id
 
-        command(:'create_activity',
-                    graph_user: current_user.graph_user, action: :followed_user,
-                    subject: user_to_follow.graph_user, object: nil)
+        Backend::Activities.create \
+          graph_user: current_user.graph_user,
+          action: :followed_user,
+          subject: user_to_follow.graph_user
 
 
         Backend::Activities.add_activities_to_follower_stream(

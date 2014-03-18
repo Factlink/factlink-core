@@ -28,10 +28,11 @@ module Interactors
       end
 
       def create_activity sub_comment
-        command(:'create_activity',
-                    graph_user: pavlov_options[:current_user].graph_user,
-                    action: :created_sub_comment, subject: sub_comment,
-                    object: top_fact)
+        Backend::Activities.create \
+          graph_user: pavlov_options[:current_user].graph_user,
+          action: :created_sub_comment,
+          subject: sub_comment,
+          object: top_fact
       end
 
       def create_sub_comment
