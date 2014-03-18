@@ -1,6 +1,6 @@
 <% content_for :email_header do %>
   <h1 class="header-title">Hello <%= @user.name %></h1>
-  <h2 class="header-subtitle"><%= @activity.user.user %> added an argument</h2>
+  <h2 class="header-subtitle"><%= @activity.user.user %> commented</h2>
 <% end %>
 
 <table cellpadding="0" cellspacing="0" border="0" id="added-comment-message">
@@ -41,7 +41,7 @@
     <td class="button-inner">
       <%= link_to FactUrl.new(@activity.object).proxy_open_url do %>
         <div class="button-link">
-          Reply to this argument
+          Reply to this comment
         </div>
       <% end %>
     </td>
