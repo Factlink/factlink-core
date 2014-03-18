@@ -1,4 +1,9 @@
-class window.ProfileController extends Backbone.Marionette.Controller
+class window.ProfileRouter extends Backbone.Marionette.AppRouter
+  appRoutes:
+    ':username': 'showProfile'
+    ':username/notification-settings': 'showNotificationSettings'
+
+window.ProfileController =
 
   # ACTIONS
   showProfile: (username) ->
@@ -25,8 +30,6 @@ class window.ProfileController extends Backbone.Marionette.Controller
       main_region.show(new NotificationSettingsView model: user)
 
   showPage: (username, options) ->
-    $(window).scrollTop(0)
-
     @main = new TabbedMainRegionLayout();
     FactlinkApp.mainRegion.show(@main)
     @getUser username,

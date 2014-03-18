@@ -1,4 +1,8 @@
-class window.FeedsController extends Backbone.Marionette.Controller
+class window.FeedsRouter extends Backbone.Marionette.AppRouter
+  appRoutes:
+    'feed': 'showFeed'
+
+window.FeedsController =
   showFeed: ->
     FactlinkApp.mainRegion.show new ReactView
       component: ReactFeedSelection()

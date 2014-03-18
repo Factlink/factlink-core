@@ -7,6 +7,6 @@ window.FactlinkAppMode.coreInSite = (app) ->
   declareSiteRoutes()
 
 declareSiteRoutes = ->
-  new ProfileRouter controller: new ProfileController # first, as then it doesn't match index pages such as "/m" using "/:username"
-  new SearchRouter controller: new SearchController
-  new FeedsRouter controller: new FeedsController
+  new ProfileRouter controller: ProfileController # first, as then it doesn't match index pages such as "/m" using "/:username"
+  new SearchRouter controller: SearchController
+  new FeedsRouter controller: FeedsController
