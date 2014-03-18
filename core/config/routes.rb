@@ -20,7 +20,6 @@ FactlinkUI::Application.routes.draw do
     get '/annotations/search' => 'api/annotations#search'
     post '/annotations' => 'api/annotations#create'
     get '/annotations/:id' => 'api/annotations#show'
-    post '/annotations/:id/share' => 'api/annotations#share'
   end
 
   # Javascript Client calls
