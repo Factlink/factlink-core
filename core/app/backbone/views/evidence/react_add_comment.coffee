@@ -76,14 +76,13 @@ window.ReactAddComment = React.createBackboneClass
             Factlink.Global.t.post_argument
             ReactSigninPopover
               ref: 'signinPopover'
-          if FactlinkApp.signedIn()
-            _div [],
-              ReactSearchLink
-                opened: @state.searchOpened
-                onToggle: (opened) => @setState searchOpened: opened
-              ReactSearchFacts
-                opened: @state.searchOpened
-                onInsert: @_onSearchInsert
+          _div [],
+            ReactSearchLink
+              opened: @state.searchOpened
+              onToggle: (opened) => @setState searchOpened: opened
+            ReactSearchFacts
+              opened: @state.searchOpened
+              onInsert: @_onSearchInsert
 
   _onTextareaChange: (text) ->
     @setState(text: text)
