@@ -1,16 +1,10 @@
-class HtmlEditor
-  def initialize(html)
-    @html = html
-  end
+module HtmlEditor
+  extend self
 
-  def prepend_to_head(addition)
-    @html = @html.sub regex_skip_until_in_html_head do
+  def prepend_to_head html, addition
+    html.sub regex_skip_until_in_html_head do
       $& + addition
     end
-  end
-
-  def to_s
-    @html
   end
 
   private

@@ -35,9 +35,7 @@ class WebProxy < Goliath::API
     escaped_url = CGI.escapeHTML(requested_url)
     new_base_tag = "<base href=\"#{escaped_url}\" />"
 
-    html_editor = HtmlEditor.new(html)
-    html_editor.prepend_to_head new_base_tag
-    html_editor.to_s
+    HtmlEditor.prepend_to_head(html,new_base_tag)
   end
 
   def proxied_location(env, location)

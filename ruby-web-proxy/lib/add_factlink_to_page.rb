@@ -4,12 +4,9 @@ class AddFactlinkToPage
   include Goliath::Rack::AsyncMiddleware
   def post_process(env, status, headers, body)
     if env[:web_proxy_proxied]
-      html_editor = HtmlEditor.new(body)
-      html_editor.prepend_to_head(
-        factlink_proxied_url_js_var(env) +
-        factlink_publisher_script(env)
-      )
-      body = html_editor.to_s
+      scripts = factlink_proxied_url_js_var(env) + factlink_publisher_script(env)
+
+      body = HtmlEditor.prepend_to_head(body, scripts)
     end
     [status, headers, body]
   end
