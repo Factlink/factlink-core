@@ -21,13 +21,10 @@ window.ReactDeleteButton = React.createBackboneClass
   _toggleButton: -> @setState opened: !@state.opened
 
   render: ->
-    first_button =
-      _a ["delete-button-first", onClick: @_toggleButton],
-        _i ["icon-trash"]
-
-    second_button =
-      _span ["delete-button-second button-small button-danger button-arrow-right", onClick: @props.onDelete],
+    delete_button =
+      _span ["delete-button button-small button-danger button-arrow-right", onClick: @props.onDelete],
         @props.text || 'Delete'
 
-    ReactSlidingButton {slidingChildren: second_button, opened: @state.opened},
-      first_button
+    ReactSlidingButton {slidingChildren: delete_button, opened: @state.opened},
+      _a [onClick: @_toggleButton],
+        _i ["icon-trash"]

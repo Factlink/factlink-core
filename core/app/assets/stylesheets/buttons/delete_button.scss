@@ -9,10 +9,8 @@
 
 .sliding-button-container-outer {
   position: absolute;
-  display: inline-block;
-  top: 0px;
   right: 100%;
-  height: $baseButtonHeight + 3px;
+  height: $baseButtonHeight;
   line-height: $baseButtonHeight;
   overflow: hidden;
   visibility: hidden;
@@ -32,12 +30,7 @@
   right: 0;
 }
 
-.delete-button-first {
-  height: $baseButtonHeight;
-  text-align: center;
-}
-
-.delete-button-second {
+.delete-button {
   // hack because .button is too specific.. :-(
   vertical-align: top !important;
 }
