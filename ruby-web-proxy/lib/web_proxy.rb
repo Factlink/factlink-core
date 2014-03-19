@@ -17,16 +17,26 @@ class WebProxy < Goliath::API
     page = retrieve_page(env, requested_url)
 
     case page.response_header.status
-    when 200
+    when 200..299
       env[:web_proxy_proxied] = true
       env[:web_proxy_proxied_location] = requested_url
-      [200, {}, set_base(requested_url, page.response)]
-    when 301, 302
+      [
+        page.response_header.status,
+        {},
+        set_base(requested_url, page.response)
+      ]
+    when 300..399
       location = proxied_location(env, page.response_header['Location'])
       [
         page.response_header.status,
         { 'Location' => location },
         %Q(Redirecting to <a href="#{location}">#{location}</a>)
+      ]
+    when 400..599
+      [
+        page.response_header.status,
+        {},
+        set_base(requested_url, page.response)
       ]
     end
   end
