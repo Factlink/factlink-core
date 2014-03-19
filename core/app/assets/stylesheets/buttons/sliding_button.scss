@@ -1,0 +1,68 @@
+$slideTime: 0.3s;
+
+.sliding-button {
+  position: relative;
+  display: inline-block;
+  height: $baseButtonHeight;
+  line-height: $baseButtonHeight;
+  vertical-align: baseline;
+  cursor: pointer;
+}
+
+.sliding-button-container-outer {
+  position: absolute;
+  right: 100%;
+  height: $baseButtonHeight;
+  line-height: $baseButtonHeight;
+  overflow: hidden;
+  visibility: hidden;
+  transition: visibility 0 $slideTime;
+}
+
+.sliding-button-open .sliding-button-container-outer {
+  visibility: visible;
+  transition: visibility 0 0;
+}
+
+.sliding-button-container-inner {
+  position: relative;
+  right: -100%;
+  opacity: 0;
+  transition: right $slideTime, opacity $slideTime;
+  white-space: nowrap;
+}
+
+.sliding-button-open .sliding-button-container-inner {
+  right: 0;
+  opacity: 1;
+}
+
+.sliding-button-right {
+  .sliding-button-container-outer {
+    right: auto;
+    left: 100%;
+  }
+
+  .sliding-button-container-inner {
+    right: auto;
+    left: -100%;
+    transition: left $slideTime, opacity $slideTime;
+  }
+
+  &.sliding-button-open .sliding-button-container-inner {
+    right: auto;
+    left: 0;
+  }
+}
+
+.sliding-delete-inner-button {
+  // hack because .button is too specific.. :-(
+  vertical-align: top !important;
+}
+
+.sliding-share-button {
+  vertical-align: top;
+  padding: 0;
+  width: $baseButtonHeight;
+  text-align: center;
+}

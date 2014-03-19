@@ -6,8 +6,7 @@
   font-family: inherit; //so that browsers don't use a system font for buttons.
   font-size: 13px;
   height: $largeButtonHeight;
-  line-height: $largeButtonHeight;
-  @include box-sizing(content-box);
+  line-height: $largeButtonHeight - 3px;
 
   color: white;
   border-radius: $baseBorderRadius;
@@ -59,7 +58,38 @@
     border-bottom: 1px solid;
     outline: none; //prevents ugly webkit active state
   }
+
 }
+
+
+$arrowSize: 5px;
+.button-arrow-left {
+  position: absolute;
+  border: $arrowSize solid transparent;
+  border-left: none;
+  border-right-color: pink; //please override;
+  margin-top: -$arrowSize;
+  top: 50%;
+  left: -$arrowSize;
+}
+.button-facebook .button-arrow-left {
+  border-right-color: $facebookBlue;
+}
+
+
+.button-arrow-right {
+  position: absolute;
+  border: $arrowSize solid transparent;
+  border-right: none;
+  border-left-color: $buttonDangerBackground;
+  margin-top: -$arrowSize;
+  top: 50%;
+  right: -$arrowSize;
+}
+.button-danger .button-arrow-right {
+  border-left-color: $buttonDangerBackground;
+}
+
 
 .button {
   @extend %button-base;
@@ -88,18 +118,18 @@
 
 .button-twitter {
   @extend %button-base;
-  background-color: #52a1dc;
+  background-color: $twitterCyan;
 }
 
 .button-facebook {
   @extend %button-base;
-  background-color: #335292;
+  background-color: $facebookBlue;
 }
 
 .button-small {
   font-size: 12px;
   height: $baseButtonHeight;
-  line-height: $baseButtonHeight;
+  line-height: $baseButtonHeight - 3px;
   padding: 0 $baseButtonPadding;
 }
 

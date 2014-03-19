@@ -108,8 +108,8 @@ feature "adding comments to a fact", type: :feature do
     add_comment comment
     assert_comment_exists comment
 
-    find('.spec-evidence-box .delete-button-first').click
-    find('.spec-evidence-box .delete-button-second').click
+    find('.spec-delete-button-open').click
+    click_button 'Delete'
 
     page.should_not have_content comment
 
