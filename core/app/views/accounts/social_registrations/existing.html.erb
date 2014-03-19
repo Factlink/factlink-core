@@ -5,14 +5,14 @@
     <div class="accounts-popup-form">
       <table class="accounts-popup-fields-container">
         <tr>
-          <td><%= f.label :email, "Email address", class: "accounts-popup-label" %></td>
+          <td><%= f.label :email, "Email address" %></td>
           <td><%= f.text_field :email %></td>
         </tr>
         <tr>
           <td colspan="2"><%= possible_error_for_field(@user, :email) %></td>
         </tr>
         <tr>
-          <td><%= f.label :password, "Password", class: "accounts-popup-label" %></td>
+          <td><%= f.label :password, "Password" %></td>
           <td><%= f.password_field :password %></td>
         </tr>
         <tr>
