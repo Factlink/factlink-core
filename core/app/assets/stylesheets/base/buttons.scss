@@ -11,6 +11,19 @@
     border-color: darken($button-color,45);
     outline: none;
   }
+
+  &.button-arrow-left:after {
+    border-right-color: $button-color;
+  }
+  &.button-arrow-right:after {
+    border-left-color: $button-color;
+  }
+  &.button-arrow-left:hover:after {
+    border-right-color: darken($button-color,5);
+  }
+  &.button-arrow-right:hover:after {
+    border-left-color: darken($button-color,5);
+  }
 }
 
 @mixin button-height ($button-height) {
@@ -52,6 +65,34 @@
     padding-top: 1px;
     border-bottom: 1px solid;
     outline: none; //prevents ugly webkit active state
+  }
+
+  $arrowSize: 5px;
+  &.button-arrow-left {
+    margin-left: $arrowSize - 1px; // 1px border
+    &:after {
+      content: '';
+      position: absolute;
+      border: $arrowSize solid transparent;
+      border-left: none;
+      border-right-color: $buttonDangerBackground;
+      margin-top: -$arrowSize;
+      top: 50%;
+      left: -$arrowSize;
+    }
+  }
+  &.button-arrow-right {
+    margin-right: $arrowSize - 1px; // 1px border
+    &:after {
+      content: '';
+      position: absolute;
+      border: $arrowSize solid transparent;
+      border-right: none;
+      border-left-color: $buttonDangerBackground;
+      margin-top: -$arrowSize;
+      top: 50%;
+      right: -$arrowSize;
+    }
   }
 }
 

@@ -10,7 +10,7 @@ window.ReactDeleteButton = React.createBackboneClass
     second_button =
       _span ["delete-button-second-container-outer"],
         _span ["delete-button-second-container-inner"],
-          _span ["delete-button-second button-small button-danger", onClick: @props.onDelete],
+          _span ["delete-button-second button-small button-danger button-arrow-right", onClick: @props.onDelete],
             @props.text || 'Delete'
 
     first_button =

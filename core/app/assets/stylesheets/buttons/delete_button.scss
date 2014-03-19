@@ -37,23 +37,7 @@
   right: 0;
 }
 
-$arrowSize: 5px;
 .delete-button-second {
   // hack because .button is too specific.. :-(
   vertical-align: top !important;
-  position: relative;
-  right: 0;
-  white-space: nowrap;
-  margin-right: $arrowSize - 1px; // 1px border
-
-  &:after {
-    content: '';
-    position: absolute;
-    border: $arrowSize solid transparent;
-    border-right: none;
-    border-left-color: $buttonDangerBackground;
-    margin-top: -$arrowSize;
-    top: 50%;
-    right: -$arrowSize;
-  }
 }
