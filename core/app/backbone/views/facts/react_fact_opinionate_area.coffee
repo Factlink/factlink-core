@@ -1,18 +1,24 @@
-ReactOpinionatorsAvatar = React.createBackboneClass
+ReactOpinionatorsAvatar = React.createClass
+  mixins: [
+    React.BackboneMixin('user')
+  ]
+
   displayName: 'ReactOpinionatorsAvatar'
 
   render: ->
     _span ['opinionators-avatar'],
-      _a [ href: @model().link(), rel:"backbone"],
+      _a [ href: @props.user.link(), rel:"backbone"],
         _img ["image-24px", "opinionators-avatar-image",
-              src: @model().avatar_url(24)]
+              src: @props.user.avatar_url(24)]
 
-ReactOpinionatorsAvatars = React.createBackboneClass
+ReactOpinionatorsAvatars = React.createClass
   displayName: 'ReactOpinionatorsAvatars'
-  changeOptions: 'add remove reset sort' + ' change'
+  mixins: [
+    React.BackboneMixin('model', 'add remove reset sort' + ' change')
+  ]
 
   _opinionators: ->
-    @model()
+    @props.model
       .filter( (opinionator) => opinionator.get('type') == @props.opinion_type)
 
   render: ->
@@ -30,7 +36,7 @@ ReactOpinionatorsAvatars = React.createBackboneClass
         .slice(0,take)
         .map (opinionator) ->
           ReactOpinionatorsAvatar
-            model: opinionator.user()
+            user: opinionator.user()
             key: opinionator.get('username') + '-' + opinionator.get('type')
 
       if show_plus
