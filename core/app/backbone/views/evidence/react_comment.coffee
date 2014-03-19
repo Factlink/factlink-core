@@ -8,10 +8,17 @@ ReactCommentFacebookShare = React.createBackboneClass
     ],
       _i ["icon-facebook"]
 
+  _description: ->
+    left_quote = "\u201C"
+    right_quote = "\u201D"
+
+    left_quote + @model().textContent() + right_quote
+
   _share: ->
     FB.ui
       method: 'feed'
       link: @model().collection.fact.get('sharing_url')
+      description: @_description()
 
 
 ReactCommentTwitterShare = React.createBackboneClass
@@ -19,8 +26,9 @@ ReactCommentTwitterShare = React.createBackboneClass
 
   _link: ->
     url = encodeURIComponent @model().collection.fact.get('sharing_url')
+    text = encodeURIComponent @model().textContent()
 
-    "https://twitter.com/intent/tweet?url=#{url}&related=factlink"
+    "https://twitter.com/intent/tweet?url=#{url}&text=#{text}&related=factlink"
 
   render: ->
     _a [
