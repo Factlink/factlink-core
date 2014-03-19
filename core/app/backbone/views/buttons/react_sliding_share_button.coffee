@@ -1,16 +1,6 @@
 ReactCommentFacebookShare = React.createBackboneClass
   displayName: 'ReactCommentFacebookShare'
 
-  render: ->
-    _a [
-      'button-facebook'
-      'button-small'
-      'button-arrow-left'
-      'sliding-share-button'
-      onClick: @_share
-    ],
-      _i ["icon-facebook"]
-
   _description: ->
     left_quote = "\u201C"
     right_quote = "\u201D"
@@ -22,6 +12,16 @@ ReactCommentFacebookShare = React.createBackboneClass
       method: 'feed'
       link: @model().collection.fact.sharingUrl()
       description: @_description()
+
+  render: ->
+    _a [
+      'button-facebook'
+      'button-small'
+      'button-arrow-left'
+      'sliding-share-button'
+      onClick: @_share
+    ],
+      _i ["icon-facebook"]
 
 
 updateTwitter = ->
