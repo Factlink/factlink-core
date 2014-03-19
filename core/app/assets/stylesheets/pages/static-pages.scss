@@ -37,20 +37,21 @@
 
 .static-pages-below-content-box {
   padding: 20px;
-  width: 50%;
-  display: table-cell;
+  width: 100%;
+  display: block;
   vertical-align: top;
+
   &:first-child {
-    border-right: 1px lightgrey solid;
+    border-bottom: 1px solid lightgrey;
   }
 
-  @include respond-to(600) {
-    display: block;
-    border-bottom: 1px lightgrey solid;
-    width: 100%;
+  @include from-width(600px) {
+    display: table-cell;
+    width: 50%;
+
     &:first-child {
-      border-right: none;
+      border-bottom: none;
+      border-right: 1px solid lightgrey;
     }
   }
 }
-
