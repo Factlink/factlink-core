@@ -71,7 +71,7 @@ describe Interactors::Users::FollowUser do
     let(:pavlov_options) do
       { current_user: double(username: 'karel') }
     end
-    it 'with a invalid username doesn\t validate' do
+    it 'with a invalid username doesn\'t validate' do
       expect_validating(username: 12, pavlov_options: pavlov_options)
         .to fail_validation('username should be a nonempty string.')
     end
