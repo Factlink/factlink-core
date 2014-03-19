@@ -427,7 +427,6 @@ GEM
     sexp_processor (4.4.1)
     sextant (0.2.4)
       rails (>= 3.2)
-    simple_oauth (0.2.0)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -462,10 +461,6 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    twitter (4.7.0)
-      faraday (~> 0.8, < 0.10)
-      multi_json (~> 1.0)
-      simple_oauth (~> 0.2)
     tzinfo (0.3.39)
     uglifier (2.4.0)
       execjs (>= 0.3.0)
@@ -564,7 +559,6 @@ DEPENDENCIES
   terminal-notifier-guard (~> 1.5)
   therubyracer (~> 0.12.0)
   thin (~> 1)
-  twitter (~> 4.7.0)
   uglifier (~> 2.0)
   url_normalizer!
   webmock
