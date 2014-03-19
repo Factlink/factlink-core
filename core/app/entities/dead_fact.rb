@@ -25,7 +25,6 @@ DeadFact = StrictStruct.new(
   def to_hash
     super.merge \
       url: url.friendly_fact_path,
-      proxy_open_url: url.proxy_open_url,
-      sharing_url: url.sharing_url
+      proxy_open_url: url.proxy_open_url
   end
 end

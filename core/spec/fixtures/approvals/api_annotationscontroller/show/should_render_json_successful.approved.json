@@ -5,6 +5,5 @@
   "created_at": "<created_at>",
   "site_title": "title",
   "url": "/f/1",
-  "proxy_open_url": "http://localhost:8080/?url=url#factlink-open-1",
-  "sharing_url": "http://localhost:8080/?url=url#factlink-open-1"
+  "proxy_open_url": "http://localhost:8080/?url=url#factlink-open-1"
 }
