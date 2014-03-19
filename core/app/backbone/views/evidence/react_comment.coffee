@@ -38,6 +38,7 @@ window.ReactComment = React.createBackboneClass
         "\u00a0\u00a0\u00b7\u00a0\u00a0" # middle dot and nbsp
         ReactSlidingShareButton
           model: @model()
+          initialOpened: @model().get('just_been_added')
       if @state.show_subcomments
         ReactSubComments
           model: @model().sub_comments()
