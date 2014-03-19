@@ -42,7 +42,7 @@
     React.BackboneMixin = function(prop_name, customChangeOptions){ return {
         componentDidMount: function() {
             // Whenever there may be a change in the Backbone data, trigger a reconcile.
-            var changeOptions = customChangeOptions || getChangeOptions.call(this, this.props[prop_name]);
+            var changeOptions = customChangeOptions || getChangeOptions(this, this.props[prop_name]);
             subscribe(this, this.props[prop_name], changeOptions);
         },
         componentWillReceiveProps: function(nextProps) {
