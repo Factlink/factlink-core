@@ -1,4 +1,4 @@
-.delete-button {
+.sliding-button {
   position: relative;
   display: inline-block;
   height: $baseButtonHeight;
@@ -7,12 +7,7 @@
   cursor: pointer;
 }
 
-.delete-button-first {
-  height: $baseButtonHeight;
-  text-align: center;
-}
-
-.delete-button-second-container-outer {
+.sliding-button-container-outer {
   position: absolute;
   display: inline-block;
   top: 0px;
@@ -23,18 +18,23 @@
   visibility: hidden;
 }
 
-.delete-button-open .delete-button-second-container-outer {
+.sliding-button-open .sliding-button-container-outer {
   visibility: visible;
 }
 
-.delete-button-second-container-inner {
+.sliding-button-container-inner {
   position: relative;
   right: -100%;
   transition: right 0.3s;
 }
 
-.delete-button-open .delete-button-second-container-inner {
+.sliding-button-open .sliding-button-container-inner {
   right: 0;
+}
+
+.delete-button-first {
+  height: $baseButtonHeight;
+  text-align: center;
 }
 
 .delete-button-second {
