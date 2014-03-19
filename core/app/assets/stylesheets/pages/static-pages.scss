@@ -43,15 +43,15 @@
   vertical-align: top;
 
   &:first-child {
-    border-right: none;
+    border-bottom: 1px solid lightgrey;
   }
 
   @include from-width(600px) {
     display: table-cell;
-    border: none;
     width: 50%;
 
     &:first-child {
+      border-bottom: none;
       border-right: 1px solid lightgrey;
     }
   }
