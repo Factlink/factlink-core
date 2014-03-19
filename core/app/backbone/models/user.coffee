@@ -1,4 +1,6 @@
 class window.User extends Backbone.Model
+  _.extend @prototype, Backbone.Factlink.ModelJustCreatedMixin
+
   initialize: ->
     @following = new Following([], user: @)
 
@@ -57,9 +59,3 @@ class window.User extends Backbone.Model
   followed_by_me: ->
     currentUser.following.some (model) =>
       model.get('username') == @get('username')
-
-  justCreated: ->
-    milliseconds_ago = Date.now() - new Date(@get('created_at'))
-    minutes_ago = milliseconds_ago/1000/60
-
-    minutes_ago < 10

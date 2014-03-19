@@ -8,6 +8,7 @@ stripHtml = (html_string) ->
 
 class window.Comment extends Backbone.Model
   _.extend @prototype, Backbone.Factlink.ModelSaveWithStateMixin
+  _.extend @prototype, Backbone.Factlink.ModelJustCreatedMixin
 
   defaults:
     sub_comments_count: 0
