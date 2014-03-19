@@ -90,7 +90,6 @@ group :assets do
   gem "marionette-rails", '~> 1.4'
 
   gem "rails-assets-react"
-  gem "rails-assets-react.backbone"
   gem "rails-assets-jquery-autosize"
   gem 'rails-assets-tether'
 
