@@ -47,9 +47,7 @@
 
 .sub-comment-post-time {
   line-height: 19px;
-  float: right;
-  color: $grayLight;
-  font-size: 11px;
+  @extend .comment-post-time;
 }
 
 .sub-comment-post-delete {
