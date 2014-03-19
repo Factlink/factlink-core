@@ -17,10 +17,10 @@ ReactCommentFacebookShare = React.createBackboneClass
     _a [
       'button-facebook'
       'button-small'
-      'button-arrow-left'
       'sliding-share-button'
       onClick: @_share
     ],
+      _span ['button-arrow-left']
       _i ["icon-facebook"]
 
 
@@ -56,13 +56,11 @@ window.ReactSlidingShareButton = React.createBackboneClass
   displayName: 'ReactSlidingShareButton'
 
   render: ->
-    nbsp = "\u00a0"
 
     ReactSlidingButton {label: 'Share', initialOpened: @model().justCreated(), right: true},
-      _span [],
-        nbsp
-        ReactCommentFacebookShare
-          model: @model()
-        nbsp
-        ReactCommentTwitterShare
-          model: @model()
+      ' '
+      ReactCommentFacebookShare
+        model: @model()
+      ' '
+      ReactCommentTwitterShare
+        model: @model()
