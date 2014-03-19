@@ -57,6 +57,6 @@ window.ReactSlidingShareButton = React.createBackboneClass
         ReactCommentTwitterShare
           model: @model()
 
-    ReactSlidingButton {slidingChildren: delete_button, opened: @state.opened},
+    ReactSlidingButton {slidingChildren: delete_button, opened: @state.opened, right: true},
       _a [onClick: @_toggleButton],
         'Share'
