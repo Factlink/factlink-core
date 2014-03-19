@@ -52,3 +52,15 @@ $slideTime: 0.3s;
     left: 0;
   }
 }
+
+.sliding-delete-inner-button {
+  // hack because .button is too specific.. :-(
+  vertical-align: top !important;
+}
+
+.sliding-share-button {
+  vertical-align: top;
+  padding: 0;
+  width: $baseButtonHeight;
+  text-align: center;
+}

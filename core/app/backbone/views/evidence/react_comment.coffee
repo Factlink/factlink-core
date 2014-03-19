@@ -30,7 +30,7 @@ window.ReactComment = React.createBackboneClass
       _span ["comment-post-bottom"],
         if @model().can_destroy()
           _span ["comment-post-bottom-right"],
-            ReactDeleteButton
+            ReactSlidingDeleteButton
               model: @model()
               onDelete: @_onDelete
         _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments],

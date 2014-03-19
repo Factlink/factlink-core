@@ -27,7 +27,7 @@ window.ReactSubComment = React.createBackboneClass
         ReactRetryButton onClick: @_save
 
       if @model().can_destroy()
-        window.ReactDeleteButton
+        ReactSlidingDeleteButton
           model: @model()
           onDelete: -> @model.destroy wait: true
 

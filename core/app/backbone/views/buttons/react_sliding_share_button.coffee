@@ -2,7 +2,11 @@ ReactCommentFacebookShare = React.createBackboneClass
   displayName: 'ReactCommentFacebookShare'
 
   render: ->
-    _span [
+    _a [
+      'button-facebook'
+      'button-small'
+      'button-arrow-left'
+      'sliding-share-button'
       onClick: @_share
     ],
       _i ["icon-facebook"]
@@ -31,6 +35,9 @@ ReactCommentTwitterShare = React.createBackboneClass
 
   render: ->
     _a [
+      'button-twitter'
+      'button-small'
+      'sliding-share-button'
       href: @_link()
     ],
       _i ["icon-twitter"]
@@ -52,8 +59,10 @@ window.ReactSlidingShareButton = React.createBackboneClass
   render: ->
     delete_button =
       _span [],
+        "\u00a0"
         ReactCommentFacebookShare
           model: @model()
+        "\u00a0"
         ReactCommentTwitterShare
           model: @model()
 
