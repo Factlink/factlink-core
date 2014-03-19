@@ -55,14 +55,10 @@ ReactCommentTwitterShare = React.createBackboneClass
 window.ReactSlidingShareButton = React.createBackboneClass
   displayName: 'ReactSlidingShareButton'
 
-  getInitialState: ->
-    opened: @model().justCreated()
-
-  _toggleButton: -> @setState opened: !@state.opened
-
   render: ->
     nbsp = "\u00a0"
-    sliding_children =
+
+    ReactSlidingButton {label: 'Share', initialOpened: @model().justCreated(), right: true},
       _span [],
         nbsp
         ReactCommentFacebookShare
@@ -70,7 +66,3 @@ window.ReactSlidingShareButton = React.createBackboneClass
         nbsp
         ReactCommentTwitterShare
           model: @model()
-
-    ReactSlidingButton {slidingChildren: sliding_children, opened: @state.opened, right: true},
-      _a [onClick: @_toggleButton],
-        'Share'
