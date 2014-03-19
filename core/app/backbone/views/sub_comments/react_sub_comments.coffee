@@ -49,10 +49,11 @@ ReactSubCommentsAdd = React.createBackboneClass
 
   render: ->
     _div ['sub-comment-add', 'spec-sub-comments-form'],
-      ReactOpinionatedAvatar
-        user: currentUser
-        model: @props.fact_opinionators
-        size: 28
+      _div ['sub-comment-avatar-wrapper'],
+        ReactOpinionatedAvatar
+          user: currentUser
+          model: @props.fact_opinionators
+          size: 28
       _div ['sub-comment-textarea-wrapper'],
         ReactTextArea
           ref: 'textarea'
