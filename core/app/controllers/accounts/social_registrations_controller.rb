@@ -18,6 +18,7 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
       session[:register_social_account_id] = @social_account.id.to_s
 
       @user = User.new
+      @user.email = @social_account.email
 
       render :'accounts/social_registrations/new'
     end

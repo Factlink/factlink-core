@@ -27,7 +27,6 @@ class Ability
     define_sub_comment_abilities
     define_user_abilities
     define_user_activities_abilities
-    define_sharing_abilities
   end
 
   def define_anonymous_user_abilities
@@ -91,16 +90,6 @@ class Ability
     can :index, Activity
     can :see_activities, User do |u|
       u.id == user.id
-    end
-  end
-
-  def define_sharing_abilities
-    return unless signed_in?
-
-    can :share, Fact
-
-    can :share_to, SocialAccount do |social_account|
-      social_account.persisted? && social_account.user == user
     end
   end
 

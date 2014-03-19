@@ -22,10 +22,8 @@
 
   <div class="js-discussion-sidebar-region"><%= yield %></div>
 
-  <div id="js-facebook-renewal-region"></div>
   <%= javascript_include_base %>
   <%= render 'snippets/raven_js' %>
-  <%= render 'snippets/mixpanel' %>
 
   <script type="text/javascript">
     FactlinkApp.start({factlinkAppMode: FactlinkAppMode.coreInClient});

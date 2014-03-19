@@ -3,6 +3,8 @@ class ClientEnvoy
     @_senderEnvoy = senderEnvoy
 
   showFactlink: (fact_id) ->
+    Factlink.load_client_dependencies()
+
     fact = new Fact id: fact_id
     fact.fetch()
     @_senderEnvoy 'highlightExistingFactlink', fact.id
@@ -13,6 +15,8 @@ class ClientEnvoy
         initiallyFocusAddComment: true
 
   prepareNewFactlink: (displaystring, url, site_title) =>
+    Factlink.load_client_dependencies()
+
     fact = new Fact
       displaystring: displaystring
       url: url
