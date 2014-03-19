@@ -22,8 +22,8 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 .comment-content-container {
   display: table-cell;
   width: 100%;
-  padding: $votePadding;
-  padding-left: 0px;
+  padding-top: $votePadding;
+  padding-right: $votePadding;
 }
 
 .comment-believes,
