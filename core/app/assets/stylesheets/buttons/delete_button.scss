@@ -1,3 +1,5 @@
+$arrowSize: 5px;
+
 .delete-button {
   position: relative;
   display: inline-block;
@@ -9,34 +11,8 @@
 }
 
 .delete-button-first {
-  display: inline-block;
-  border-radius: 3px;
-  width: 2.5em;
   height: $baseButtonHeight;
-  transition: all 0.1s;
   text-align: center;
-
-  border: none;
-  border-bottom: $baseButtonBorderWidth solid transparent;
-
-  &:active {
-    background-color: $buttonBackground;
-    border-top: $baseButtonBorderWidth solid $buttonBorder;
-    border-bottom: 0px;
-  }
-}
-
-.delete-button-open .delete-button-first,
-.delete-button-first:hover {
-  background: $buttonBackground;
-  border-color: $buttonBorder;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.35);
-  color: $linkColor;
-}
-
-.delete-button-open .delete-button-first {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
 }
 
 .delete-button-second-container {
@@ -56,20 +32,18 @@
 
 .delete-button-second {
   // hack because .button is too specific.. :-(
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
   vertical-align: top !important;
   position: relative;
   right: -100%;
   white-space: nowrap;
+  margin-right: $arrowSize - 1px;
 }
 
-$arrowSize: 5px;
 .delete-button-arrow {
   position: absolute;
   border: $arrowSize solid transparent;
-  border-left: none;
-  border-right-color: $buttonBackground;
+  border-right: none;
+  border-left-color: $buttonDangerBackground;
   margin-top: -$arrowSize - 2px;
   top: 50%;
   right: -$arrowSize;

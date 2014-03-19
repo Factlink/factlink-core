@@ -14,7 +14,7 @@ window.ReactDeleteButton = React.createBackboneClass
         _span ["delete-button-arrow"]
 
     first_button =
-      _span ["delete-button-first", onClick: @_toggleButton],
+      _a ["delete-button-first", onClick: @_toggleButton],
         _i ["icon-trash"]
 
     _span [
