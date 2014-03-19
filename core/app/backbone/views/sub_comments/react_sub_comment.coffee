@@ -9,10 +9,10 @@ window.ReactSubComment = React.createBackboneClass
 
   _content_tag: ->
     if @model().get('formatted_content')
-      _span ["sub-comment-content spec-subcomment-content",
+      _span ["comment-content spec-subcomment-content",
         dangerouslySetInnerHTML: {__html: @model().get('formatted_content')}]
     else
-      _span ["sub-comment-content spec-subcomment-content"],
+      _span ["comment-content spec-subcomment-content"],
         @model().get('content')
 
   render: ->
@@ -43,4 +43,4 @@ window.ReactSubComment = React.createBackboneClass
           _div ["sub-comment-post-delete"],
             ReactSlidingDeleteButton
               model: @model()
-              onDelete: -> @model.destroy wait: true
+              onDelete: -> @model().destroy wait: true

@@ -61,6 +61,7 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 }
 
 .comment-content {
+  display: block;
   white-space: pre-line;
   word-break: break-word;
 }
