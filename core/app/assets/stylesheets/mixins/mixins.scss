@@ -1,9 +1,9 @@
-@mixin respond-to($breakpoint) {
-  @media only screen and (max-width: $breakpoint + px) { @content; }
-}
-
 @mixin from-width($breakpoint) {
   @media only screen and (min-width: $breakpoint) { @content; }
+}
+
+@mixin remove-element-below($breakpoint) {
+  @media only screen and (max-width: $breakpoint) { display: none; }
 }
 
 %ellipsis-inline-block {

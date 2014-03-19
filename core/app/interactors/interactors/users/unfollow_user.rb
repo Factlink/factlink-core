@@ -10,7 +10,7 @@ module Interactors
       end
 
       def execute
-        user_to_unfollow = query(:'user_by_username', username: username)
+        user_to_unfollow = Backend::Users.user_by_username(username: username)
 
         Backend::UserFollowers.unfollow \
           follower_id: current_user.graph_user_id,

@@ -1,3 +1,11 @@
+wrapper_el = document.createElement('div')
+stripHtml = (html_string) ->
+  if html_string
+    wrapper_el.innerHTML = html_string
+    wrapper_el.textContent
+  else
+    null
+
 class window.Comment extends Backbone.Model
   _.extend @prototype, Backbone.Factlink.ModelSaveWithStateMixin
 
@@ -17,8 +25,8 @@ class window.Comment extends Backbone.Model
     @_sub_comments ?= new SubComments([], parentModel: @)
 
   argumentTally: ->
-    @_argumentTally ?= new ArgumentTally @get('tally'),
-      argument: this
+    @_commentTally ?= new CommentTally @get('tally'),
+      comment: this
 
   toJSON: ->
     json = super
@@ -27,9 +35,9 @@ class window.Comment extends Backbone.Model
     _.extend defaults, json,
       formatted_impact: format_as_short_number(@get('impact'))
 
-  share: (providers) ->
-    @collection.fact.share providers, @get('content')
-
   saveWithFactAndWithState: (attributes, options) ->
     @collection.fact.saveUnlessNew =>
       @saveWithState(attributes, options)
+
+  textContent: ->
+    stripHtml(@.get('formatted_content')) || @.get('content')

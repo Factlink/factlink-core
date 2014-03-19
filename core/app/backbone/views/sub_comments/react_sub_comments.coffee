@@ -18,7 +18,9 @@ window.ReactSubComments = React.createBackboneClass
           model: sub_comment
           key: sub_comment.get('id') || sub_comment.cid
           fact_opinionators: @props.fact_opinionators
-      ReactSubCommentsAdd model: @model()
+      ReactSubCommentsAdd
+        model: @model()
+        fact_opinionators: @props.fact_opinionators
 
 ReactSubCommentsAdd = React.createBackboneClass
   displayName: 'ReactSubCommentsAdd'
@@ -47,19 +49,25 @@ ReactSubCommentsAdd = React.createBackboneClass
     @setState(opened: true) if text.length > 0
 
   render: ->
-    _div ['sub-comment-add', 'spec-sub-comments-form'],
-      ReactTextArea
-        ref: 'textarea'
-        placeholder: 'Leave a reply'
-        storageKey: "add_subcomment_to_comment_#{@model().parentModel.id}"
-        onChange: @_onTextareaChange
-        onSubmit: => @refs.signinPopover.submit(=> @_submit())
-      if @state.opened
-        _button ["button-confirm button-small spec-submit",
-          disabled: !@_subComment().isValid()
-          onClick: => @refs.signinPopover.submit(=> @_submit())
-        ],
-          Factlink.Global.t.post_subcomment
-          ReactSigninPopover
-            ref: 'signinPopover'
+    _div ['sub-comment', 'spec-sub-comments-form'],
+      _div ['sub-comment-avatar-container'],
+        ReactOpinionatedAvatar
+          user: currentUser
+          model: @props.fact_opinionators
+          size: 28
+      _div ['sub-comment-content-container'],
+        ReactTextArea
+          ref: 'textarea'
+          placeholder: 'Leave a reply'
+          storageKey: "add_subcomment_to_comment_#{@model().parentModel.id}"
+          onChange: @_onTextareaChange
+          onSubmit: => @refs.signinPopover.submit(=> @_submit())
+        if @state.opened
+          _button ["button-confirm button-small spec-submit",
+            disabled: !@_subComment().isValid()
+            onClick: => @refs.signinPopover.submit(=> @_submit())
+          ],
+            Factlink.Global.t.post_subcomment
+            ReactSigninPopover
+              ref: 'signinPopover'
 

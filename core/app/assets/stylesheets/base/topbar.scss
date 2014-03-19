@@ -14,12 +14,9 @@
 
 .topbar-logo {
   @extend %centering-inner;
+  @include remove-element-below(430px);
   margin-right: 20px;
-
-  @include respond-to(430) {
-    display: none;
   }
-}
 
 .topbar-logo-img{
   display: block;
@@ -29,9 +26,7 @@
 
 .topbar-search {
   @extend %centering-inner;
-  @include respond-to(900) {
-    display: none;
-  }
+  @include remove-element-below(900px);
 
   .topbar-search-field {
     background: image-url("base/topbar/search_icon.png") 8px center no-repeat #fff;
@@ -68,25 +63,21 @@
 }
 
 .topbar-in-your-browser {
-  @include respond-to(700) {
-    display: none;
-  }
+  @include remove-element-below(700px);
 }
 
 .topbar-on-your-site {
-  @include respond-to(600) {
-    display: none;
-  }
+  @include remove-element-below(600px);
 }
 
 .topbar-profile-link {
   @extend %centering-y;
   @extend %ellipsis-inline-block;
-  max-width: 220px;
+  max-width: 100px;
   height:$topbarHeight;
 
-  @include respond-to(600) {
-    max-width: 100px;
+  @include from-width(600px) {
+    max-width: 220px;
   }
 }
 

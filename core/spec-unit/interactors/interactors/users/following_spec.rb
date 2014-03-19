@@ -18,7 +18,7 @@ describe Interactors::Users::Following do
   end
 
   describe 'validations' do
-    it 'invalid username doesn\t validate' do
+    it 'invalid username doesn\'t validate' do
       expect_validating(username: 1)
         .to fail_validation('username should be a nonempty string.')
     end
@@ -34,8 +34,8 @@ describe Interactors::Users::Following do
       pavlov_options = { current_user: double}
       interactor = described_class.new username: followed_user.username, pavlov_options: pavlov_options
 
-      allow(Pavlov).to receive(:query)
-        .with(:'user_by_username', username: followed_user.username, pavlov_options: pavlov_options)
+      allow(Backend::Users).to receive(:user_by_username)
+        .with(username: followed_user.username)
         .and_return(followed_user)
       allow(Backend::UserFollowers).to receive(:followee_ids)
         .with(follower_id: followed_user.graph_user_id.to_s)

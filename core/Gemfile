@@ -44,7 +44,6 @@ gem 'cancan', '~> 1.6.10'
 # social connections
 gem 'omniauth-facebook', '~> 1.6.0'
 gem 'omniauth-twitter', '~> 1.0.1'
-gem 'twitter', '~> 4.7.0' #TODO: there are some breaking changes in the 5.8 version
 
 # social sharing
 gem 'koala', '~> 1.9.0'
@@ -91,7 +90,6 @@ group :assets do
   gem "marionette-rails", '~> 1.4'
 
   gem "rails-assets-react"
-  gem "rails-assets-react.backbone"
   gem "rails-assets-jquery-autosize"
   gem 'rails-assets-tether'
 

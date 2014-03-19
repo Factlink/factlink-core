@@ -1,3 +1,47 @@
+ReactCommentFacebookShare = React.createBackboneClass
+  displayName: 'ReactCommentFacebookShare'
+
+  render: ->
+    _span [
+      "comment-post-share"
+      onClick: @_share
+    ],
+      _i ["icon-facebook"]
+
+  _description: ->
+    left_quote = "\u201C"
+    right_quote = "\u201D"
+
+    left_quote + @model().textContent() + right_quote
+
+  _share: ->
+    FB.ui
+      method: 'feed'
+      link: @model().collection.fact.sharingUrl()
+      description: @_description()
+
+
+ReactCommentTwitterShare = React.createBackboneClass
+  displayName: 'ReactCommentTwitterShare'
+
+  _link: ->
+    url = encodeURIComponent @model().collection.fact.sharingUrl()
+    text = encodeURIComponent @model().textContent()
+
+    "https://twitter.com/intent/tweet?url=#{url}&text=#{text}&related=factlink"
+
+  render: ->
+    _a [
+      "comment-post-share"
+      href: @_link()
+    ],
+      _i ["icon-twitter"]
+
+  componentDidMount: ->
+    return if Factlink.Global.environment == 'test' # Twitter not loaded in tests
+
+    twttr.widgets.load()
+
 window.ReactComment = React.createBackboneClass
   displayName: 'ReactComment'
   propTypes:
@@ -14,7 +58,6 @@ window.ReactComment = React.createBackboneClass
     @setState show_subcomments: !@state.show_subcomments
 
   _content: ->
-
     if @model().get('formatted_content')
       _div ["comment-content spec-comment-content",
         dangerouslySetInnerHTML: {__html: @model().get('formatted_content')}]
@@ -27,11 +70,15 @@ window.ReactComment = React.createBackboneClass
 
     _span [],
       _span ["comment-post-bottom"],
-        if @model().can_destroy()
-          _span ["comment-post-delete"],
+        _span ["comment-post-bottom-right"],
+          if @model().can_destroy()
             ReactDeleteButton
               model: @model()
               onDelete: @_onDelete
+          ReactCommentFacebookShare
+            model: @model()
+          ReactCommentTwitterShare
+            model: @model()
         _span ["comment-reply"],
           _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments],
             "(#{sub_comment_count}) Reply"
