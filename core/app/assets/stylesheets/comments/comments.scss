@@ -60,6 +60,11 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
   font-size: 11px;
 }
 
+.comment-content {
+  white-space: pre-line;
+  word-break: break-word;
+}
+
 .comment-post-creator {
   padding: 0px 7px;
 }

@@ -26,4 +26,8 @@
 .sub-comment-post-time {
   float: right;
   color: $grayLight;
+.sub-comment-content {
+  display: block;
+  @extend .comment-content;
+}
 }
