@@ -53,7 +53,6 @@ module Interactors
           receives_digest: user.receives_digest,
           confirmed: user.confirmed?,
           created_at: user.created_at,
-          services: {}, # TODO Remove when not used in the frontend
           features: interactor(:'global_features/all') + user.features.to_a
         }
       end

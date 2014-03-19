@@ -13,8 +13,6 @@
   "receives_digest": true,
   "confirmed": false,
   "created_at": "<created_at>",
-  "services": {
-  },
   "features": [
     "some_feature"
   ]
