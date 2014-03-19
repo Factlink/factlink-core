@@ -3,11 +3,15 @@
 
   <%= form_for(@user, as: :user, url: social_accounts_new_path) do |f| %>
     <div class="accounts-popup-form">
-      <div class="accounts-popup-fields-container">
-        <%= f.label :email, "Email address", class: 'accounts-popup-label' %>
-        <%= f.text_field :email %>
-        <%= possible_error_for_field(@user, :email) %>
-      </div>
+      <table class="accounts-popup-fields-container">
+        <tr>
+          <td><%= f.label :email, "Email address" %></td>
+          <td><%= f.text_field :email %></td>
+        </tr>
+        <tr>
+          <td colspan="2"><%= possible_error_for_field(@user, :email) %></td>
+        </tr>
+      </table>
       <p>We need your email address to keep you informed about the conversations you're participating in. By creating an account you accept our <%= link_to 'terms', terms_of_service_path, target: '_blank' %>.</p>
     </div>
 
