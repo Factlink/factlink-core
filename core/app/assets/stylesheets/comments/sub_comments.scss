@@ -27,7 +27,7 @@
 }
 
 .sub-comment-avatar-container {
-  width: 34px; //keep in sync with avatar size + opinion indicator
+  width: 30px + 4px; //keep in sync with avatar size + opinion indicator
   display: table-cell;
   vertical-align: top;
 }
