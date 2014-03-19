@@ -38,6 +38,9 @@ ReactCommentTwitterShare = React.createBackboneClass
 
     "https://twitter.com/intent/tweet?url=#{url}&text=#{text}&related=factlink"
 
+  componentDidMount: -> updateTwitter()
+  componentDidUpdate: -> updateTwitter()
+
   render: ->
     _a [
       'button-twitter'
@@ -47,9 +50,6 @@ ReactCommentTwitterShare = React.createBackboneClass
       target: '_blank' # for if twitter is not yet loaded
     ],
       _i ["icon-twitter"]
-
-  componentDidMount: -> updateTwitter()
-  componentDidUpdate: -> updateTwitter()
 
 
 window.ReactSlidingShareButton = React.createBackboneClass
