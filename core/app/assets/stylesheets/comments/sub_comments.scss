@@ -21,6 +21,11 @@
   border-bottom: 1px #E1E2E6 solid;
 }
 
+.sub-comment-add {
+  @extend .sub-comment;
+  border-bottom: none;
+}
+
 .sub-comment-avatar-container {
   width: 34px; //keep in sync with avatar size + opinion indicator
   display: table-cell;
@@ -57,8 +62,6 @@
   color: $mutedFontColor;
 }
 
-.sub-comment-add {
+.sub-comment-add-area {
   text-align: right;
-  background: #f6f6f6;
-  padding: 10px;
 }

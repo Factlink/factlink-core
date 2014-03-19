@@ -9,7 +9,7 @@ window.ReactSubComments = React.createBackboneClass
 
   render: ->
     _div ['sub-comments-container'],
-      _span ['sub-comment-arrow']
+      _span ['sub-comments-arrow']
       _div ['loading-indicator-centered'],
         ReactLoadingIndicator
           model: @model()
@@ -49,13 +49,13 @@ ReactSubCommentsAdd = React.createBackboneClass
     @setState(opened: true) if text.length > 0
 
   render: ->
-    _div ['sub-comment', 'spec-sub-comments-form'],
+    _div ['sub-comment-add', 'spec-sub-comments-form'],
       _div ['sub-comment-avatar-container'],
         ReactOpinionatedAvatar
           user: currentUser
           model: @props.fact_opinionators
-          size: 28
-      _div ['sub-comment-content-container'],
+          size: 30
+      _div ['sub-comment-content-container sub-comment-add-area'],
         ReactTextArea
           ref: 'textarea'
           placeholder: 'Leave a reply'
