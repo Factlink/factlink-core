@@ -43,3 +43,8 @@ class window.Fact extends Backbone.Model
     return callback() unless @isNew()
 
     @save {}, success: callback
+
+  sharingUrl: ->
+    return "http://example.org" if Factlink.Global.environment == 'development'
+
+    @get('proxy_open_url')
