@@ -1,9 +1,6 @@
-$arrowSize: 5px;
-
 .delete-button {
   position: relative;
   display: inline-block;
-  width: 2.5em;
   height: $baseButtonHeight;
   line-height: $baseButtonHeight;
   vertical-align: baseline;
@@ -15,41 +12,48 @@ $arrowSize: 5px;
   text-align: center;
 }
 
-.delete-button-second-container {
+.delete-button-second-container-outer {
   position: absolute;
   display: inline-block;
-  right: 2.5em;
   top: 0px;
+  right: 100%;
   height: $baseButtonHeight + 3px;
   line-height: $baseButtonHeight;
   overflow: hidden;
   visibility: hidden;
 }
 
-.delete-button-open .delete-button-second-container {
+.delete-button-open .delete-button-second-container-outer {
   visibility: visible;
 }
 
+.delete-button-second-container-inner {
+  position: relative;
+  right: -100%;
+  transition: right 0.3s;
+}
+
+.delete-button-open .delete-button-second-container-inner {
+  right: 0;
+}
+
+$arrowSize: 5px;
 .delete-button-second {
   // hack because .button is too specific.. :-(
   vertical-align: top !important;
   position: relative;
-  right: -100%;
-  white-space: nowrap;
-  margin-right: $arrowSize - 1px;
-}
-
-.delete-button-arrow {
-  position: absolute;
-  border: $arrowSize solid transparent;
-  border-right: none;
-  border-left-color: $buttonDangerBackground;
-  margin-top: -$arrowSize - 2px;
-  top: 50%;
-  right: -$arrowSize;
-}
-
-.delete-button-open .delete-button-second,
-.delete-button-open .delete-button-arrow {
   right: 0;
+  white-space: nowrap;
+  margin-right: $arrowSize - 1px; // 1px border
+
+  &:after {
+    content: '';
+    position: absolute;
+    border: $arrowSize solid transparent;
+    border-right: none;
+    border-left-color: $buttonDangerBackground;
+    margin-top: -$arrowSize;
+    top: 50%;
+    right: -$arrowSize;
+  }
 }
