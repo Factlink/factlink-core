@@ -1,25 +1,23 @@
 require 'pavlov_helper'
-require_relative '../../../app/interactors/queries/user_by_username.rb'
+require_relative '../../../app/interactors/backend/users.rb'
 
-describe Queries::UserByUsername do
+describe Backend::Users do
   include PavlovSupport
 
   before do
     stub_classes 'User'
   end
 
-  describe '#call' do
+  describe 'user_by_username' do
     it 'retrieves a user' do
       search_username = "GERARD"
 
       user = double
       user.stub(id:11)
-      query = described_class.new(username: search_username)
-
       User.should_receive(:find_by).with(username: /^#{search_username.downcase}$/i).
            and_return(user)
 
-      result = query.call
+      result = Backend::Users.user_by_username(username: search_username)
 
       expect(result.id).to eq(user.id)
     end
