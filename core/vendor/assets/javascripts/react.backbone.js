@@ -1,4 +1,3 @@
-// Copy-pasted from https://github.com/markijbema/react.backbone/tree/make-mixin-parameterized
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
@@ -8,14 +7,9 @@
         root.amdWeb = factory(root.Backbone, root.React);
     }
 }(this, function (Backbone, React) {
-    var _safeForceUpdate = function(){
-        if (! this.isMounted()) {
-            return;
-        }
-        (this.onModelChange || this.forceUpdate).call(this);
-    };
+    "use strict";
 
-    getChangeOptions = function(model) {
+    var getChangeOptions = function(component, model) {
         if (model instanceof Backbone.Collection) {
             return 'add remove reset sort';
         } else {
@@ -23,34 +17,41 @@
         }
     };
 
-    subscribe = function(model, changeOptions) {
+    var subscribe = function(component, model, changeOptions) {
         if (!model) {
             return;
         }
 
-        var _throttledForceUpdate = _.debounce(_safeForceUpdate.bind(this, null),  10);
+        var throttledForceUpdate = _.debounce(function(){
+            if (! component.isMounted()) {
+                return;
+            }
+            (component.onModelChange || component.forceUpdate).call(component);
+        }, 10);
 
-        model.on(changeOptions, _throttledForceUpdate, this);
+
+        model.on(changeOptions, throttledForceUpdate, component);
     };
-    unsubscribe = function(model) {
+
+    var unsubscribe = function(component, model) {
         if (!model) {
             return;
         }
-        model.off(null, null, this);
+        model.off(null, null, component);
     };
     React.BackboneMixin = function(prop_name, customChangeOptions){ return {
         componentDidMount: function() {
             // Whenever there may be a change in the Backbone data, trigger a reconcile.
             var changeOptions = customChangeOptions || getChangeOptions.call(this, this.props[prop_name]);
-            subscribe.call(this, this.props[prop_name], changeOptions);
+            subscribe(this, this.props[prop_name], changeOptions);
         },
         componentWillReceiveProps: function(nextProps) {
             if (this.props[prop_name] === nextProps[prop_name]) {
                 return;
             }
 
-            unsubscribe.call(this, this.props[prop_name]);
-            subscribe.call(this, nextProps[prop_name]);
+            unsubscribe(this, this.props[prop_name]);
+            subscribe(this, nextProps[prop_name]);
 
             if (typeof this.componentWillChangeModel === 'function') {
                 this.componentWillChangeModel();
@@ -67,7 +68,7 @@
         },
         componentWillUnmount: function() {
             // Ensure that we clean up any dangling references when the component is destroyed.
-            unsubscribe.call(this, this.props[prop_name]);
+            unsubscribe(this, this.props[prop_name]);
         }
     };};
 
