@@ -109,4 +109,3 @@ window.ReactAddComment = React.createBackboneClass
     new Comment
       content: $.trim(@state.text)
       created_by: currentUser.toJSON()
-
