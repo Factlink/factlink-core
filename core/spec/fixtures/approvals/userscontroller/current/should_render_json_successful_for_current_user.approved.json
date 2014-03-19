@@ -13,9 +13,6 @@
   "receives_digest": true,
   "confirmed": false,
   "created_at": "<created_at>",
-  "services": {
-    "twitter": true
-  },
   "features": [
     "some_feature"
   ]

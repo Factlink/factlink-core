@@ -88,39 +88,4 @@ describe Api::AnnotationsController do
       verify { response.body }
     end
   end
-
-  describe :share do
-    it 'should work for twitter' do
-      authenticate_user!(user)
-      create :social_account, :twitter, user: user
-      fact = nil
-      as(user) do |pavlov|
-        fact = pavlov.interactor(:'facts/create',
-                                     displaystring: 'displaystring',
-                                     url: 'url',
-                                     site_title: 'title')
-      end
-
-      Twitter::Client.any_instance.should_receive(:update)
-      Twitter.stub configuration: double(short_url_length_https: 20)
-
-      post :share, id: fact.id, provider_names: {twitter: true}
-    end
-
-    it 'should work for facebook' do
-      authenticate_user!(user)
-      create :social_account, :facebook, user: user
-      fact = nil
-      as(user) do |pavlov|
-        fact = pavlov.interactor(:'facts/create',
-                                     displaystring: 'displaystring',
-                                     url: 'url',
-                                     site_title: 'title')
-      end
-
-      Koala::Facebook::API.any_instance.should_receive(:put_wall_post)
-
-      post :share, id: fact.id, provider_names: {facebook: true}
-    end
-  end
 end

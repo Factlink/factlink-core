@@ -18,7 +18,7 @@ describe Interactors::Users::Following do
   end
 
   describe 'validations' do
-    it 'invalid username doesn\t validate' do
+    it 'invalid username doesn\'t validate' do
       expect_validating(username: 1)
         .to fail_validation('username should be a nonempty string.')
     end

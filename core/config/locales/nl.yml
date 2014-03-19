@@ -3,28 +3,13 @@
 #  - Sponsored by Kabisa ICT - http://kabisa.nl
 # Rails 3 update by Floris Huetink <floris@avocado.nl> (github: florish)
 nl:
-  add_fact: "discussie toevoegen"
-
-  factlink: "discussie"
   factlinks: "discussies"
 
-  fact_remove_opinion_past_action: "trok zijn mening terug"
-  fact_add_evidence_past_action: "voegde argument toe"
-
-  post_argument: "Post"
+  post_comment: "Post"
   post_subcomment: "Reageer"
 
   follow_user: "gebruiker volgen"
   followed: "volgt"
   following: "volgt"
-  followers: "volgers"
   unfollow: "ontvolgen"
-  is_now_following_you: "volgt je nu"
 
-  stream: "overzicht"
-
-  ago: "geleden"
-  show: "toon"
-  loading: "laden"
-
-  you: "jij"

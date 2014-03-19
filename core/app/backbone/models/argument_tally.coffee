@@ -1,18 +1,18 @@
-class window.ArgumentTally extends Backbone.Model
+class window.CommentTally extends Backbone.Model
   defaults:
     believes: 0
     disbelieves: 0
 
-  isNew: -> @_argument.isNew()
+  isNew: -> @_comment.isNew()
 
   initialize: (attributes, options) ->
-    @_argument = options.argument
+    @_comment = options.comment
 
-    @_argument.on 'change:tally', =>
-      @set @_argument.get('tally')
+    @_comment.on 'change:tally', =>
+      @set @_comment.get('tally')
 
   url: ->
-    @_argument.url() + '/opinion'
+    @_comment.url() + '/opinion'
 
   _setCurrentUserOpinion: (newOpinion) ->
     previousOpinion = @get('current_user_opinion')
@@ -27,7 +27,7 @@ class window.ArgumentTally extends Backbone.Model
     @_setCurrentUserOpinion opinion_type
     @save {},
       success: =>
-        mp_track "Argument: Vote", url: @url(), opinion: opinion_type
+        mp_track "Comment: Vote", url: @url(), opinion: opinion_type
       error: =>
         @_setCurrentUserOpinion @previous_opinion_type
 

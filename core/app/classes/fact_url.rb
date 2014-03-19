@@ -24,7 +24,7 @@ class FactUrl
   def sharing_url
     # Return example.org if testing sharing locally, as Facebook doesn't like our
     # url with port number and such
-    return "http://example.org" if ENV['RAILS_ENV'] == 'development'
+    return "http://example.org" if Rails.env == 'development'
 
     proxy_open_url
   end
