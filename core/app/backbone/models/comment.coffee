@@ -35,9 +35,6 @@ class window.Comment extends Backbone.Model
     _.extend defaults, json,
       formatted_impact: format_as_short_number(@get('impact'))
 
-  share: (providers) ->
-    @collection.fact.share providers, @get('content')
-
   saveWithFactAndWithState: (attributes, options) ->
     @collection.fact.saveUnlessNew =>
       @saveWithState(attributes, options)

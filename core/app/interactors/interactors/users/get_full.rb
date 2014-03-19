@@ -53,22 +53,8 @@ module Interactors
           receives_digest: user.receives_digest,
           confirmed: user.confirmed?,
           created_at: user.created_at,
-          services: services,
           features: interactor(:'global_features/all') + user.features.to_a
         }
-      end
-
-      def services
-        {}.tap do |services|
-          if can?(:share_to, user.social_account('twitter'))
-            services[:twitter] = true
-          end
-
-          if can?(:share_to, user.social_account('facebook'))
-            services[:facebook] = true
-            services[:facebook_expires_at] = user.social_account('facebook').expires_at
-          end
-        end
       end
 
       def validate

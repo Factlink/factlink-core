@@ -65,7 +65,6 @@ describe Ability do
       it { subject.should_not  be_able_to :update, fact }
       it { subject.should      be_able_to :read, fact }
       it { subject.should      be_able_to :opinionate, fact }
-      it { subject.should      be_able_to :share, fact }
     end
 
     describe "without logging in" do
@@ -107,30 +106,4 @@ describe Ability do
       anonymous.should_not be_able_to :access, Ability::AdminArea
     end
   end
-
-  describe "sharing" do
-    it "should not be allowed by default" do
-      admin.should_not     be_able_to :share_to, admin_user.social_account('twitter')
-      subject.should_not   be_able_to :share_to, user.social_account('twitter')
-      admin.should_not     be_able_to :share_to, admin_user.social_account('facebook')
-      subject.should_not   be_able_to :share_to, user.social_account('facebook')
-    end
-
-    context "when connected to Twitter" do
-      it "should be possible to share to Twitter" do
-        create :social_account, :twitter, user: user
-
-        Ability.new(user).should be_able_to :share_to, user.social_account('twitter')
-      end
-    end
-
-    context "when connected to Facebook" do
-      it "should be possible to share to Facebook" do
-        create :social_account, :facebook, user: user
-
-        Ability.new(user).should be_able_to :share_to, user.social_account('facebook')
-      end
-    end
-  end
-
 end
