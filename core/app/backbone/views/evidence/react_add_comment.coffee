@@ -52,7 +52,6 @@ window.ReactAddComment = React.createBackboneClass
     text: ''
     controlsOpened: false
     searchOpened: false
-    shareProviders: {facebook: false, twitter: false}
 
   render: ->
     _div ['add-comment-container comment-container'],
@@ -79,10 +78,6 @@ window.ReactAddComment = React.createBackboneClass
               ref: 'signinPopover'
           if FactlinkApp.signedIn()
             _div [],
-              ReactShareFactSelection
-                model: @model().fact
-                providers: @state.shareProviders
-                onChange: @_onShareFactSelectionChange
               ReactSearchLink
                 opened: @state.searchOpened
                 onToggle: (opened) => @setState searchOpened: opened
@@ -93,10 +88,6 @@ window.ReactAddComment = React.createBackboneClass
   _onTextareaChange: (text) ->
     @setState(text: text)
     @setState(controlsOpened: true) if text.length > 0
-
-  _onShareFactSelectionChange: (providerName, checked) ->
-    @state.shareProviders[providerName] = checked
-    @forceUpdate()
 
   _onSearchInsert: (text) ->
     @refs.textarea.insert text
@@ -111,8 +102,6 @@ window.ReactAddComment = React.createBackboneClass
       success: ->
         mp_track "Factlink: Added comment",
           factlink_id: comment.collection.fact.id
-
-    comment.share @state.shareProviders
 
     @setState @getInitialState()
     @refs.textarea.updateText ''

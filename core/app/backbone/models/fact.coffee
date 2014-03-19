@@ -19,19 +19,6 @@ class window.Fact extends Backbone.Model
 
     minutes_ago < 5
 
-  share: (providers, message=null) ->
-    provider_names = []
-    provider_names.push 'twitter' if providers.twitter
-    provider_names.push 'facebook' if providers.facebook
-    return unless provider_names.length > 0
-
-    Backbone.ajax
-      type: 'post'
-      url: "#{@url()}/share"
-      data: {provider_names, message}
-      error: ->
-        FactlinkApp.NotificationCenter.error "Error when sharing"
-
   friendly_fact_url: ->
     Factlink.Global.core_url + '/f/' + @id
 
