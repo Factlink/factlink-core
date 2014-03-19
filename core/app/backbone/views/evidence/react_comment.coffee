@@ -23,6 +23,12 @@ window.ReactComment = React.createBackboneClass
       _div ["comment-content spec-comment-content"],
         @model().get('content')
 
+  _separator: ->
+    nbsp = "\u00a0"
+    middle_dot = "\u00b7"
+
+    "#{nbsp}#{nbsp}#{middle_dot}#{nbsp}#{nbsp}"
+
   _bottom: ->
     sub_comment_count = @model().get('sub_comments_count')
 
@@ -35,7 +41,7 @@ window.ReactComment = React.createBackboneClass
               onDelete: @_onDelete
         _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments],
           "(#{sub_comment_count}) Reply"
-        "\u00a0\u00a0\u00b7\u00a0\u00a0" # middle dot and nbsp
+        @_separator()
         ReactSlidingShareButton
           model: @model()
           initialOpened: @model().justCreated()

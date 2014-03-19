@@ -61,12 +61,13 @@ window.ReactSlidingShareButton = React.createBackboneClass
   _toggleButton: -> @setState opened: !@state.opened
 
   render: ->
+    nbsp = "\u00a0"
     sliding_children =
       _span [],
-        "\u00a0" # nbsp
+        nbsp
         ReactCommentFacebookShare
           model: @model()
-        "\u00a0" # nbsp
+        nbsp
         ReactCommentTwitterShare
           model: @model()
 
