@@ -33,7 +33,7 @@ module Interactors
       end
 
       def user_to_follow
-        @user_to_follow ||= query(:'user_by_username', username: username)
+        @user_to_follow ||= Backend::Users.user_by_username(username: username)
       end
 
       def follow_user

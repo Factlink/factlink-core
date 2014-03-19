@@ -73,7 +73,7 @@ window.ReactAddComment = React.createBackboneClass
             disabled: !@_comment().isValid()
             ref: 'post'
           ],
-            Factlink.Global.t.post_argument
+            Factlink.Global.t.post_comment
             ReactSigninPopover
               ref: 'signinPopover'
           _div [],

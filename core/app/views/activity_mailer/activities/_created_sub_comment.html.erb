@@ -4,12 +4,12 @@
 
 <% content_for :email_header do %>
   <h1 class="header-title">Hello <%= @user.name %></h1>
-  <h2 class="header-subtitle"><%= @activity.user.user %> has commented on an argument</h2>
+  <h2 class="header-subtitle"><%= @activity.user.user %> has replied to a comment</h2>
 <% end %>
 
-<table cellpadding="0" cellspacing="0" border="0" id="added-argument-message">
+<table cellpadding="0" cellspacing="0" border="0" id="added-comment-message">
   <tr>
-    <td colspan="3" class="added-argument-message-header">
+    <td colspan="3" class="added-comment-message-header">
       <h3>
         <%= link_to FactUrl.new(@activity.object).proxy_open_url, class: "message-title" do %>
           <%= @activity.object.data.displaystring %>
@@ -18,8 +18,8 @@
     </td>
   </tr>
   <tr>
-    <td class="added-argument-message-container is-inactive" rowspan="3">
-      <table cellpadding="0" cellspacing="0" border="0" class="added-argument-message-box">
+    <td class="added-comment-message-container is-inactive" rowspan="3">
+      <table cellpadding="0" cellspacing="0" border="0" class="added-comment-message-box">
         <tr>
           <td valign="top" class="message-user-image">
             <img src="<%= subject_parent_user.avatar_url(size: 32) %>" width="32" height="32" alt="<%= subject_parent_user %>" />
@@ -27,7 +27,7 @@
           </td>
         </tr>
         <tr>
-          <td class="added-argument-message-content">
+          <td class="added-comment-message-content">
             <p>
               <%= @activity.subject.parent.to_s %>
             </p>
