@@ -40,6 +40,15 @@ class SocialAccount
     omniauth_obj['info']['name']
   end
 
+  def email
+    email = omniauth_obj['info']['email']
+    if email && !email.end_with?('@facebook.com')
+      email
+    else
+      nil
+    end
+  end
+
   private
 
   before_save :strip_twitter_access_token
