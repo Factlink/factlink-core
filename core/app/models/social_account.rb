@@ -41,9 +41,11 @@ class SocialAccount
   end
 
   def email
-    email = omniauth_obj['info']['email']
-    if email && !email.end_with?('@facebook.com')
-      email
+    if omniauth_obj['info'] &&
+       omniauth_obj['info']['email'] &&
+       !omniauth_obj['info']['email'].end_with?('@facebook.com')
+
+      omniauth_obj['info']['email']
     else
       nil
     end
