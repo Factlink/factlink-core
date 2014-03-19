@@ -74,38 +74,14 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 .comment-post-bottom {
   opacity: 0.4;
   transition: opacity 0.5s ease;
-  color: $mutedFontColor;
   font-size: $metaFontSize;
+  color: $metaFontColor;
   margin: 0;
   padding: 0;
 }
 
 .comment-post-bottom-right {
   float: right;
-  margin-top: -2px;
-}
-
-.comment-post-share {
-  position: relative;
-  display: inline-block;
-  border-radius: 3px;
-  width: 2.5em;
-  height: $baseButtonHeight;
-  line-height: $baseButtonHeight;
-  transition: all 0.1s;
-  text-align: center;
-  cursor: pointer;
-  color: $mutedFontColor;
-  vertical-align: baseline;
-
-  border-bottom: $baseButtonBorderWidth solid transparent;
-
-  &:hover {
-    background: $buttonBackground;
-    border-color: $buttonBorder;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.35);
-    color: $linkColor;
-  }
 }
 
 // Irrelevant (faded out)
