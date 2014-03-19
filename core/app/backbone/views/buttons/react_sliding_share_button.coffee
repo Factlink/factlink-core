@@ -59,10 +59,10 @@ window.ReactSlidingShareButton = React.createBackboneClass
   render: ->
     delete_button =
       _span [],
-        "\u00a0"
+        "\u00a0" # nbsp
         ReactCommentFacebookShare
           model: @model()
-        "\u00a0"
+        "\u00a0" # nbsp
         ReactCommentTwitterShare
           model: @model()
 
