@@ -9,7 +9,7 @@ window.ReactSlidingDeleteButton = React.createBackboneClass
   render: ->
     delete_inner_button =
       _span ["sliding-delete-inner-button button-small button-danger button-arrow-right", onClick: @props.onDelete],
-        @props.text || 'Delete'
+        'Delete'
 
     ReactSlidingButton {slidingChildren: delete_inner_button, opened: @state.opened},
       _a [onClick: @_toggleButton],
