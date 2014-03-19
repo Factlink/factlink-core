@@ -18,19 +18,12 @@ class AddFactlinkToPage
     location = env[:web_proxy_proxied_location]
     jsonified_location = location.gsub(/</, '%3C').gsub(/>/, '%3E').to_json
 
-    "
-      <script>window.FactlinkProxiedUri = #{jsonified_location};</script>
-    "
+    "<script>window.FactlinkProxiedUri = #{jsonified_location};</script>"
   end
 
   def factlink_publisher_script env
     jslib_uri = env.config[:jslib_uri]
 
-    factlink_publisher_script = "
-     <script async defer
-             src=\"#{jslib_uri}\"
-             onload=\"__internalFactlinkState(\'proxyLoaded\')\"
-       ></script>
-    "
+    "<script async defer src=\"#{jslib_uri}\" onload=\"__internalFactlinkState(\'proxyLoaded\')\"></script>"
   end
 end
