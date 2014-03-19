@@ -77,12 +77,13 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 }
 
 .comment-post-bottom {
+  display: block;
+  padding: 10px;
   opacity: 0.4;
   transition: opacity 0.5s ease;
   color: $mutedFontColor;
   font-size: $metaFontSize;
   margin: 0;
-  padding: 0;
 }
 
 .comment-post-delete {
