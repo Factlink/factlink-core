@@ -6,8 +6,6 @@ window.ReactDeleteButton = React.createBackboneClass
 
   _toggleButton: -> @setState opened: !@state.opened
 
-  _slideButtonIn: -> @setState opened: false
-
   render: ->
     second_button =
       R.span className: "delete-button-second-container",
@@ -24,6 +22,6 @@ window.ReactDeleteButton = React.createBackboneClass
       'delete-button-open' if @state.opened
     ].join(' ')
 
-    R.span className: around_element_klass, onMouseLeave: @_slideButtonIn,
+    R.span className: around_element_klass,
       second_button
       first_button
