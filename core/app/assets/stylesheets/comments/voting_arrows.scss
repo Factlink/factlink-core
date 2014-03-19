@@ -24,8 +24,9 @@
 .comment-vote-up,
 .comment-vote-down {
   @extend %button-base;
-  @include button-color($buttonBackground);
-  @include button-height (22px);
+  background-color: $buttonBackground;
+  height: 19px;
+  line-height: 19px;
   color: darken($buttonBackground,20);
   font-size: 0.7em;
   padding: 0px 1px;
@@ -35,7 +36,7 @@
   }
 
   &.comment-vote-active {
-    @include button-color($blue);
+    background-color: $blue;
     border-bottom: 1px darken($blue,10) solid;
     padding-top: 1px;
     color: white;

@@ -1,47 +1,42 @@
-@mixin button-color($button-color) {
-  background-color: $button-color;
-}
-
-@mixin button-height ($button-height) {
-  height: $button-height;
-  line-height: $button-height - 3px;
-}
-
 %button-base {
   position: relative;
   display: inline-block;
+  z-index:0;
   vertical-align: middle;
-  font-family: inherit;
+  font-family: inherit; //so that browsers don't use a system font for buttons.
   font-size: 13px;
+  height: $largeButtonHeight;
+  line-height: $largeButtonHeight;
+  @include box-sizing(content-box);
+
   color: white;
   border-radius: $baseBorderRadius;
   padding: 0 $largeButtonPadding;
-  transition: all 0.1s;
   border: 1px solid;
   border-bottom: 2px solid;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: all 0.3s ease;
   white-space: nowrap;
 
   border-color: rgba(0,0,0, 0.13);
 
-  position:relative;
-  z-index:0;
+  &:before {
+    //this is an overlay for fading the background color.
+    position: absolute;
+    content: '';
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border-radius: inherit;
+    z-index: -1;
+    background-color: transparent;
+    transition: all 0.3s ease;
+  }
 
   &:hover {
     color: white;
     border-color: rgba(0,0,0, 0.26);
-    &:after {
-      position: absolute;
-      content:'';
-      top:0;
-      right:0;
-      left:0;
-      bottom:0;
-      border-radius: inherit;
-      z-index: -1;
-      background: rgba(0,0,0, 0.07);
-    }
   }
 
   &:focus {
@@ -68,8 +63,7 @@
 
 .button {
   @extend %button-base;
-  @include button-color($buttonBackground);
-  @include button-height ($largeButtonHeight);
+  background-color: $buttonBackground;
   color: $linkColor;
 
   &:hover {
@@ -79,32 +73,27 @@
 
 .button-confirm {
   @extend %button-base;
-  @include button-color($buttonConfirmBackground);
-  @include button-height ($largeButtonHeight);
+  background-color: $buttonConfirmBackground;
 }
 
 .button-success {
   @extend %button-base;
-  @include button-color($green);
-  @include button-height ($largeButtonHeight);
+  background-color: $green;
 }
 
 .button-danger {
   @extend %button-base;
-  @include button-color($buttonDangerBackground);
-  @include button-height ($largeButtonHeight);
+  background-color: $buttonDangerBackground;
 }
 
 .button-twitter {
   @extend %button-base;
-  @include button-color(#52a1dc);
-  @include button-height ($largeButtonHeight);
+  background-color: #52a1dc;
 }
 
 .button-facebook {
   @extend %button-base;
-  @include button-color(#335292);
-  @include button-height ($largeButtonHeight);
+  background-color: #335292;
 }
 
 .button-small {
@@ -136,12 +125,12 @@
 
 .button-opinion-active {
   &.button-opinion-believes {
-    @include button-color($green);
+    background-color: $green;
     color: darken($green, 30)
   }
 
   &.button-opinion-disbelieves {
-    @include button-color($red);
+    background-color: $red;
     border-color: darken($red, 30); //A darker red for sufficient contrast
     color: darken($red, 45);
   }
