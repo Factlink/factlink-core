@@ -24,6 +24,11 @@ ReactCommentFacebookShare = React.createBackboneClass
       description: @_description()
 
 
+updateTwitter = ->
+  return if Factlink.Global.environment == 'test' # Twitter not loaded in tests
+
+  twttr?.widgets.load()
+
 ReactCommentTwitterShare = React.createBackboneClass
   displayName: 'ReactCommentTwitterShare'
 
@@ -39,13 +44,12 @@ ReactCommentTwitterShare = React.createBackboneClass
       'button-small'
       'sliding-share-button'
       href: @_link()
+      target: '_blank' # for if twitter is not yet loaded
     ],
       _i ["icon-twitter"]
 
-  componentDidMount: ->
-    return if Factlink.Global.environment == 'test' # Twitter not loaded in tests
-
-    twttr.widgets.load()
+  componentDidMount: -> updateTwitter()
+  componentDidUpdate: -> updateTwitter()
 
 
 window.ReactSlidingShareButton = React.createBackboneClass
