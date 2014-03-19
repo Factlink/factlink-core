@@ -5,12 +5,6 @@ module ApplicationHelper
     abs_url(image_path(source))
   end
 
-  def t_up(*args)
-    string = t(*args)
-    string[0] = string[0].upcase
-    string
-  end
-
   def abs_url(path)
     if path =~ /^http/
       path
