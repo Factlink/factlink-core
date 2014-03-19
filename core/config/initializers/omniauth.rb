@@ -7,7 +7,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :facebook,
     omniauth_conf['facebook']['id'],
     omniauth_conf['facebook']['secret'],
-    scope: 'email, publish_stream',
+    scope: 'email',
     display: 'popup'
 
 end
