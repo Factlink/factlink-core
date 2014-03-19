@@ -1,35 +1,3 @@
-.sliding-button {
-  position: relative;
-  display: inline-block;
-  height: $baseButtonHeight;
-  line-height: $baseButtonHeight;
-  vertical-align: baseline;
-  cursor: pointer;
-}
-
-.sliding-button-container-outer {
-  position: absolute;
-  right: 100%;
-  height: $baseButtonHeight;
-  line-height: $baseButtonHeight;
-  overflow: hidden;
-  visibility: hidden;
-}
-
-.sliding-button-open .sliding-button-container-outer {
-  visibility: visible;
-}
-
-.sliding-button-container-inner {
-  position: relative;
-  right: -100%;
-  transition: right 0.3s;
-}
-
-.sliding-button-open .sliding-button-container-inner {
-  right: 0;
-}
-
 .delete-button {
   // hack because .button is too specific.. :-(
   vertical-align: top !important;
