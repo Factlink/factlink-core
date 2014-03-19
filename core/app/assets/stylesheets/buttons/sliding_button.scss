@@ -28,6 +28,7 @@ $slideTime: 0.3s;
   position: relative;
   right: -100%;
   transition: right $slideTime;
+  white-space: nowrap;
 }
 
 .sliding-button-open .sliding-button-container-inner {
