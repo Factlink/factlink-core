@@ -3,33 +3,28 @@
 
   <%= form_for(@user, as: :user, url: social_accounts_new_path) do |f| %>
     <div class="accounts-popup-form">
-      <div class="control-group">
-        <%= f.label :email, "Email address", class: "control-label" %>
+      <table class="accounts-popup-fields-container">
+        <tr>
+          <td><%= f.label :email, "Email address", class: "accounts-popup-label" %></td>
+          <td><%= f.text_field :email %></td>
+        </tr>
+        <tr>
+          <td colspan="2"><%= possible_error_for_field(@user, :email) %></td>
+        </tr>
+        <tr>
+          <td><%= f.label :password, "Password", class: "accounts-popup-label" %></td>
+          <td><%= f.password_field :password %></td>
+        </tr>
+        <tr>
+          <td colspan="2"><%= possible_error_for_field(@user, :password) %></td>
+        </tr>
+      </table>
 
-        <div class="controls">
-          <%= f.text_field :email %>
-          <%= possible_error_for_field(@user, :email) %>
-        </div>
-      </div>
+      <%= link_to "Forgot your password?", new_password_path('user'), target: '_blank' %>
 
-      <div class="control-group">
-        <%= f.label :password, "Password", class: "control-label" %>
-
-        <div class="controls">
-          <%= f.password_field :password %>
-          <%= possible_error_for_field(@user, :password) %>
-        </div>
-
-        <div class="controls">
-          <%= link_to "Forgot your password?", new_password_path('user'), target: '_blank' %>
-        </div>
-
-        <% if @alternative_provider_name %>
-          <div class="controls">
-            <%= link_to "Or sign in to your existing account with #{@alternative_provider_name.capitalize}.", "/auth/#{@alternative_provider_name}" %>
-          </div>
-        <% end %>
-      </div>
+      <% if @alternative_provider_name %>
+        <%= link_to "Or sign in to your existing account with #{@alternative_provider_name.capitalize}.", "/auth/#{@alternative_provider_name}" %>
+      <% end %>
     </div>
 
     <div class="accounts-popup-button-wrapper">
