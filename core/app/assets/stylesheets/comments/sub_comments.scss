@@ -3,6 +3,11 @@
   border-left: 1px solid #ddd;
   @extend %clearfix;
   font-size:$metaFontSize;
+.sub-comments-arrow {
+  position: absolute;
+  top: 1px;
+  left: 35px;
+  @include triangle-arrow-up($arrow-fill-color: #f6f6f6);
 }
 .sub-comment-post-creator-name {
   @extend %ellipsis-inline-block;

@@ -8,7 +8,8 @@ window.ReactSubComments = React.createBackboneClass
     @model().fetch()
 
   render: ->
-    _div [],
+    _div ['sub-comments-container'],
+      _span ['sub-comment-arrow']
       _div ['loading-indicator-centered'],
         ReactLoadingIndicator
           model: @model()
