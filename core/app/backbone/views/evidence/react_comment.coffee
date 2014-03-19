@@ -44,7 +44,6 @@ window.ReactComment = React.createBackboneClass
         @_separator()
         ReactSlidingShareButton
           model: @model()
-          initialOpened: @model().justCreated()
       if @state.show_subcomments
         ReactSubComments
           model: @model().sub_comments()
