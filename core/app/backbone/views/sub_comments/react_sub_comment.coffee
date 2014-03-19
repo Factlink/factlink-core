@@ -43,4 +43,4 @@ window.ReactSubComment = React.createBackboneClass
           _div ["sub-comment-post-delete"],
             ReactSlidingDeleteButton
               model: @model()
-              onDelete: -> @model().destroy wait: true
+              onDelete: => @model().destroy wait: true
