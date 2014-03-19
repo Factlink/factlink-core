@@ -5,7 +5,7 @@ describe Interactors::Users::UnfollowUser do
   include PavlovSupport
 
   before do
-    stub_classes 'Backend::UserFollowers'
+    stub_classes 'Backend::UserFollowers', 'Backend::Users'
   end
 
   describe '#authorized?' do
@@ -25,10 +25,9 @@ describe Interactors::Users::UnfollowUser do
       interactor = described_class.new username: username,
                                        pavlov_options: pavlov_options
 
-      Pavlov.should_receive(:query)
-            .with(:'user_by_username',
-                      username: username, pavlov_options: pavlov_options)
-            .and_return(user_to_unfollow)
+      allow(Backend::Users).to receive(:user_by_username)
+        .with(username: username)
+        .and_return(user_to_unfollow)
 
       expect(Backend::UserFollowers).to receive(:unfollow)
             .with(follower_id: user.graph_user_id,

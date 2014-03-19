@@ -24,5 +24,14 @@ module Backend
           deleted: user.deleted
       end
     end
+
+    # this method does more sanitation than you would expect
+    # from a backend method, but it is sometimes called directly
+    # with user input
+    def user_by_username username: username
+      return nil unless username.match /\A[A-Za-z0-9_]*\Z/i
+
+      User.find_by(username: /^#{username.downcase}$/i)
+    end
   end
 end

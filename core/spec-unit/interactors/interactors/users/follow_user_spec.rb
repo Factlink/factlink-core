@@ -24,9 +24,8 @@ describe Interactors::Users::FollowUser do
       options = {current_user: user}
       interactor = described_class.new(username: user_to_follow.username, pavlov_options: options)
 
-      Pavlov.stub(:query)
-            .with(:'user_by_username',
-                      username: user_to_follow.username, pavlov_options: options)
+      allow(Backend::Users).to receive(:user_by_username)
+            .with(username: user_to_follow.username)
             .and_return(user_to_follow)
 
       allow(Backend::UserFollowers).to receive(:following?)
@@ -55,8 +54,8 @@ describe Interactors::Users::FollowUser do
       options = {current_user: user}
       interactor = described_class.new(username: user_to_follow.username, pavlov_options: options)
 
-      Pavlov.stub(:query)
-            .with(:'user_by_username', username: user_to_follow.username, pavlov_options: options)
+      allow(Backend::Users).to receive(:user_by_username)
+            .with(username: user_to_follow.username)
             .and_return(user_to_follow)
       allow(Backend::UserFollowers).to receive(:following?)
             .with(follower_id: user.graph_user_id,

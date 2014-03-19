@@ -13,7 +13,7 @@ module Interactors
       end
 
       def user
-        @user ||= query(:'user_by_username', username: username) || fail('not found')
+        @user ||= Backend::Users.user_by_username(username: username) || fail('not found')
       end
 
       def current_user
