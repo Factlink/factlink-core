@@ -67,7 +67,9 @@ window.ReactComment = React.createBackboneClass
 
         if @model().get('save_failed') == true
           ReactRetryButton onClick: @_save
-        else unless @model().isNew()
+
+      _div ["comment-subcontent-container"],
+        if not @model().isNew()
           @_bottom()
 
 ReactCommentHeading = React.createBackboneClass

@@ -105,7 +105,7 @@ ReactCreatedSubCommentActivity = React.createBackboneClass
             comment.creator().get('name')
           _div ["comment-content",
             dangerouslySetInnerHTML: {__html: stripLinks(comment.get('formatted_content'))}]
-      _div ["feed-lowest-comment subcomment-content",
+      _div ["feed-lowest-comment sub-comment-content",
         dangerouslySetInnerHTML: {__html: stripLinks(sub_comment.get('formatted_content'))}]
 
 ReactFollowedUserActivity = React.createBackboneClass
