@@ -56,7 +56,7 @@ window.ReactSlidingShareButton = React.createBackboneClass
   displayName: 'ReactSlidingShareButton'
 
   getInitialState: ->
-    opened: @props.initialOpened || false
+    opened: !!@props.initialOpened
 
   _toggleButton: -> @setState opened: !@state.opened
 
