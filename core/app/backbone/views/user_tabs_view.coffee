@@ -3,16 +3,15 @@ class window.UserTabsView extends Backbone.Marionette.ItemView
   tagName: 'ul'
 
   triggers:
-    'click .tab-show a': 'showProfile'
-    'click .tab-notification-settings': 'showNotifications'
+    'click .js-tab-show': 'showProfile'
+    'click .js-tab-notification-settings': 'showNotifications'
 
   onRender: -> @showActiveTab()
 
-  activate: (tab)->
+  activate: (tab) ->
     @options.active_tab = tab
     @showActiveTab()
 
   showActiveTab: ->
-    @$('li').removeClass('active')
-    @$('.tab-' + @options.active_tab).addClass('active') if @options.active_tab
-
+    @$('a').removeClass('active')
+    @$('a.js-tab-' + @options.active_tab).addClass('active') if @options.active_tab

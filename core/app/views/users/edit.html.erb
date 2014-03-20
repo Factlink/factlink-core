@@ -1,11 +1,12 @@
 <header class="content-header">
   <div class="main-region-tabs">
-    <ul>
-      <li><%= link_to "About", user_profile_path(current_user) %></li>
-      <li class="account active"><%= link_to "Edit", edit_user_path(current_user) %></li>
-      <li class="password"><%= link_to "Change password", user_password_edit_path(current_user) %></li>
-        <li class="tab-notification-settings"><%= link_to "Notification Settings", user_notification_settings_path(current_user) %></li>
-    </ul>
+    <%= link_to "About", user_profile_path(current_user) %>
+    ·
+    <%= link_to "Edit", edit_user_path(current_user), class: :active %></li>
+    ·
+    <%= link_to "Change password", user_password_edit_path(current_user) %>
+    ·
+    <%= link_to "Notification Settings", user_notification_settings_path(current_user) %>
   </div>
 </header>
 
