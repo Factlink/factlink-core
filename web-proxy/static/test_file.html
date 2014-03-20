@@ -2,7 +2,13 @@
 <html>
 <head>
 <title>Factlink test-file</title>
-    <script async defer type="text/javascript" src="http://lvh.me:8000/lib/dist/factlink_loader.js?o=dev_sandbox"></script>
+  <script>(function(){
+    var script = document.createElement('script');
+    script.src = 'http://' + window.location.host.replace(':8080',':8000').replace(
+        'staging.fct.li', 'factlink-static-staging.inverselink.com') +  '/lib/dist/factlink_loader.js?o=dev_sandbox';
+    document.head.appendChild(script)
+  })();
+  </script>
     <style>
         article { max-width: 40em; margin:auto;
             box-shadow: 0 0 3em rgba(0,0,0,0.5);
