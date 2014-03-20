@@ -5,7 +5,8 @@ ReactCommentFacebookShare = React.createBackboneClass
     left_quote = "\u201C"
     right_quote = "\u201D"
 
-    left_quote + @model().textContent() + right_quote
+    @model().creator().get('name') + ': ' +
+      left_quote + @model().textContent() + right_quote
 
   _fact: -> @model().collection.fact
 
