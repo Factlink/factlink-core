@@ -23,12 +23,6 @@ class window.User extends Backbone.Model
   feed_activities: ->
     @_feed_activities ?= new UserActivities null, user: @
 
-  toJSON: ->
-    username = @get('username')
-    _.extend super,
-      is_current_user: FactlinkApp.isCurrentUser(this)
-      link: @link()
-
   is_following_users: ->
     !@following.isEmpty()
 
