@@ -18,7 +18,7 @@ window.ReactUserTabs = React.createBackboneClass
         'Edit'
       spaced_middle_dot
       _a [
-        href: "/#{@model().get('username')}/password/edit"
+        href: "/users/change_password"
       ],
         'Change password'
       spaced_middle_dot
