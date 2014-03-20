@@ -195,7 +195,6 @@ $arrowSize: 5px;
 
   &.button-opinion-disbelieves {
     background-color: $red;
-    border-color: darken($red, 30); //A darker red for sufficient contrast
     color: darken($red, 45);
   }
 }
