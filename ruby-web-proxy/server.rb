@@ -12,8 +12,11 @@ require_relative './lib/raven_catcher'
 
 class Server < WebProxy
   use RedirectRootUrl
-  use RedirectIfPublisher  if Goliath.env == :production
-  use StripPublisherScript if Goliath.env != :production
+  if Goliath.env == :production
+    use RedirectIfPublisher
+  else
+    use StripPublisherScript
+  end
   use AddFactlinkToPage
   #use RavenCatcher
 end
