@@ -29,8 +29,7 @@ class UrlValidator
 
   # contains all private ranges as described on:
   # http://en.wikipedia.org/wiki/Reserved_IP_addresses
-  def self.invalid_ranges
-    @invalid_ranges ||= [
+  INVALID_RANGES = [
       "127.0.0.0/8",
       "10.0.0.8/10",
       "100.64.0.0/10",
@@ -41,32 +40,21 @@ class UrlValidator
     ].map do |s|
       IPAddr.new(s)
     end
-  end
-
-  def invalid_ranges
-    self.class.invalid_ranges
-  end
 
   def valid_ip?
-    invalid_ranges.none? do |range|
+    INVALID_RANGES.none? do |range|
       range.include? @url.host
     end
   end
 
-  def self.local_hostnames
-    @local_hostnames ||= Regexp.union [
-      /^[^.]*$/,
-      /\.$/,
-      /\.dev$/
-    ]
-  end
-
-  def local_hostnames
-    self.class.local_hostnames
-  end
+  LOCAL_HOSTNAMES =  Regexp.union([
+    /^[^.]*$/,
+    /\.$/,
+    /\.dev$/
+  ])
 
   def valid_hostname?
-    not local_hostnames.match(@url.host)
+    not LOCAL_HOSTNAMES.match(@url.host)
   end
 
   def parse(url)
