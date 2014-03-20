@@ -13,4 +13,16 @@ class Api::UsersController < ApplicationController
       render json: interactor(:'users/get_non_signed_in')
     end
   end
+
+  def change_password
+    user = Backend::Users.user_by_username(username: params[:username])
+    fail('Can currently only update oneself') unless user == current_user
+
+    authorize! :update, user
+
+    user.update_with_password(params[:password]) or fail('Could not update password')
+    remembered_sign_in user, bypass: true # http://stackoverflow.com/questions/4264750/devise-logging-out-automatically-after-password-change
+
+    render json: {}
+  end
 end
