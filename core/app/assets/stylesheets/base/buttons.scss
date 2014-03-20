@@ -66,62 +66,52 @@ $buttonBgTransition: all 0.3s ease;
   }
 }
 
-
-@mixin button-with-left-arrow($background-color) {
-  margin-left: $arrowSize;
-  &:after {
-    content: '';
-    position: absolute;
-    border: $arrowSize solid transparent;
-    border-left: none;
-    left: -$arrowSize;
-    border-right-color: $facebookBlue;
-    margin-top: -$arrowSize;
-    top: 50%;
-  }
-
-}
-
 $arrowSize: 5px;
-
-.button-arrow-left {
-  margin-left: $arrowSize;
+%button-with-arrow-base {
   &:after {
     content: '';
     position: absolute;
     border: $arrowSize solid transparent;
-    border-left: none;
-    left: -$arrowSize;
-    border-right-color: $facebookBlue;
     margin-top: -$arrowSize;
     top: 50%;
     transition: $buttonBgTransition;
   }
+}
+
+@mixin button-with-left-arrow($background-color) {
+  @extend %button-with-arrow-base;
+  margin-left: $arrowSize;
+  &:after {
+    right: 100%;
+    border-right-color: $background-color;
+  }
 
   &:hover:not(:disabled):after, &:active:after {
-    border-right-color: mix(black, $facebookBlue, 10%);
+    border-right-color: mix(black, $background-color, 10%);
   }
+}
+
+@mixin button-with-right-arrow($background-color) {
+  @extend %button-with-arrow-base;
+  margin-right: $arrowSize;
+  &:after {
+    left: 100%;
+    border-left-color: $background-color;
+  }
+
+  &:hover:not(:disabled):after, &:active:after {
+    border-left-color: mix(black, $background-color, 10%);
+  }
+}
+
+
+.button-arrow-left {
+  @include button-with-left-arrow($facebookBlue);
 }
 
 
 .button-arrow-right {
-  margin-right:$arrowSize;
-  &:after {
-    content: '';
-    position: absolute;
-    border: $arrowSize solid transparent;
-    border-right: none;
-    border-left-color: $buttonDangerBackground;
-    margin-top: -$arrowSize;
-    top: 50%;
-    right: -$arrowSize;
-    transition: $buttonBgTransition;
-
-  }
-
-  &:hover:not(:disabled):after, &:active:after {
-    border-left-color: mix(black, $buttonDangerBackground, 10%);
-  }
+  @include button-with-right-arrow($buttonDangerBackground);
 }
 
 
