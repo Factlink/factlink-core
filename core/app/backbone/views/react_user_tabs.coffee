@@ -18,6 +18,8 @@ window.ReactUserTabs = React.createBackboneClass
         'Edit'
       spaced_middle_dot
       _a [
+        'main-region-tab-active' if @props.page == 'change_password'
+        rel: 'backbone'
         href: "/users/change_password"
       ],
         'Change password'

@@ -2,6 +2,7 @@ class window.ProfileRouter extends Backbone.Router
   routes:
     ':username': 'showProfile'
     ':username/notification-settings': 'showNotificationSettings'
+    'users/change_password': 'showChangePassword'
 
   showProfile: (username) ->
     user = new User(username: username)
@@ -17,3 +18,7 @@ class window.ProfileRouter extends Backbone.Router
     FactlinkApp.mainRegion.show new ReactView
       component: ReactNotificationSettings
         model: user
+
+  showChangePassword: ->
+    FactlinkApp.mainRegion.show new ReactView
+      component: ReactChangePassword()
