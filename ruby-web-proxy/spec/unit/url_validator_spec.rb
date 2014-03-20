@@ -83,6 +83,11 @@ describe UrlValidator do
       validator = UrlValidator.new("http://129.125.61.85/foo?bar=baz")
       expect(validator.valid?).to be_truthy
     end
+
+    it "is false for ipv6" do
+      validator = UrlValidator.new("http://3ffe:1900:4545:3:200:f8ff:fe21:67cf/foo?bar=baz")
+      expect(validator.valid?).to be_falsey
+    end
   end
 
   describe "#normalized" do
