@@ -21,7 +21,7 @@ module Interactors
       end
 
       def authorized?
-        true
+        can? :show, user
       end
 
       def nil_if_empty x

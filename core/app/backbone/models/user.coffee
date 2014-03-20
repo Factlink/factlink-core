@@ -9,7 +9,7 @@ class window.User extends Backbone.Model
     if @collection?
       @collection.url() + '/' + @get('username')
     else
-      '/' + @get('username')
+      '/api/beta/users/' + @get('username')
 
   avatar_url: (size) ->
     if(window.test_counter)

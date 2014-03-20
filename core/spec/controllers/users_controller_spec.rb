@@ -2,72 +2,7 @@ require 'spec_helper'
 
 describe UsersController do
   include PavlovSupport
-  let(:user) { create(:user, features: ['some_feature']) }
-
-  describe :show do
-    render_views
-    it "should render a 404 when an invalid username is given" do
-      invalid_username = 'henk2!^geert'
-      authenticate_user!(user)
-      expect do
-        get :show, username: invalid_username
-      end.to raise_error(ActionController::RoutingError)
-    end
-
-    it "should render json successful" do
-      FactoryGirl.reload
-
-      should_check_can :show, user
-
-      get :show, username: user.username, format: :json
-
-      verify { response.body }
-    end
-
-    it "should render json successful for deleted users" do
-      FactoryGirl.reload
-      SecureRandom.stub(:hex).and_return('b01dfacedeadbeefbabb1e0123456789')
-
-      deleted_user = create(:user)
-      as(deleted_user) do |pavlov|
-        pavlov.interactor(:'users/delete', user_id: deleted_user.id, current_user_password: '123hoi')
-      end
-      deleted_user = User.find deleted_user.id
-
-      should_check_can :show, deleted_user
-
-      get :show, username: deleted_user.username, format: :json
-
-      verify { response.body }
-    end
-  end
-
-  describe :current do
-    render_views
-
-    it "should render json successful for current user" do
-      FactoryGirl.reload
-      user.save!
-
-      authenticate_user!(user)
-
-      get :current, format: :json
-
-      verify { response.body }
-    end
-
-    it "should render json successful for non signed in user" do
-      FactoryGirl.reload
-
-      as(create :user, :confirmed, :admin) do |pavlov|
-        pavlov.interactor(:'global_features/set', features: [:some_global_feature])
-      end
-
-      get :current, format: :json
-
-      verify { response.body }
-    end
-  end
+  let(:user) { create(:user) }
 
   describe :update do
     render_views
