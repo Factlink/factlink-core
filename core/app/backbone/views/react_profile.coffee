@@ -21,9 +21,8 @@ window.ReactProfile = React.createBackboneClass
   displayName: 'ReactProfile'
   mixins: [UpdateOnSignInOrOutMixin]
 
-  render: ->
+  _activeUser: ->
     _div [],
-      ReactUserTabs model: @model(), page: 'about'
       _div ['profile-box-container'],
         _div ['profile-box-item'],
           _div ['profile-information-item'],
@@ -59,3 +58,16 @@ window.ReactProfile = React.createBackboneClass
       _div ['profile-feed-activities'],
         ReactFeedActivitiesAutoLoading
           model: @model().feed_activities()
+
+  _deletedUser: ->
+    _div [],
+      'This profile has been deleted.'
+
+  render: ->
+    _div [],
+      ReactUserTabs model: @model(), page: 'about'
+
+      if @model().get('deleted')
+        @_deletedUser()
+      else
+        @_activeUser()
