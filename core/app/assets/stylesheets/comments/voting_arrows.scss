@@ -25,8 +25,7 @@
 .comment-vote-down {
   @extend %button-base;
   background-color: $buttonBackground;
-  height: 19px;
-  line-height: 19px;
+  @include button-height(22px);
   color: darken($buttonBackground,20);
   font-size: 0.7em;
   padding: 0px 1px;

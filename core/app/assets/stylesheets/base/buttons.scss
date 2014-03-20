@@ -1,5 +1,10 @@
 $buttonBgTransition: all 0.3s ease;
 
+@mixin button-height ($button-height) {
+  height: $button-height;
+  line-height: $button-height - 3px;
+}
+
 %button-base {
   position: relative;
   display: inline-block;
@@ -7,8 +12,7 @@ $buttonBgTransition: all 0.3s ease;
   vertical-align: middle;
   font-family: inherit; //so that browsers don't use a system font for buttons.
   font-size: 13px;
-  height: $largeButtonHeight;
-  line-height: $largeButtonHeight - 3px;
+  @include button-height($largeButtonHeight);
 
   color: white;
   border-radius: $baseBorderRadius;
@@ -61,6 +65,7 @@ $buttonBgTransition: all 0.3s ease;
     outline: none; //prevents ugly webkit active state
   }
 }
+
 
 @mixin button-with-left-arrow($background-color) {
   margin-left: $arrowSize;
@@ -157,8 +162,7 @@ $arrowSize: 5px;
 
 .button-small {
   font-size: 12px;
-  height: $baseButtonHeight;
-  line-height: $baseButtonHeight - 3px;
+  @include button-height($baseButtonHeight);
   padding: 0 $baseButtonPadding;
 }
 
