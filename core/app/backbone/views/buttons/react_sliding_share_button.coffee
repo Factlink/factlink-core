@@ -27,7 +27,8 @@ ReactCommentFacebookShare = React.createBackboneClass
 updateTwitter = ->
   return if Factlink.Global.environment == 'test' # Twitter not loaded in tests
 
-  twttr?.widgets.load()
+  twttr.widgets?.load()
+
 
 ReactCommentTwitterShare = React.createBackboneClass
   displayName: 'ReactCommentTwitterShare'
