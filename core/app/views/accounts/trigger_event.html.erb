@@ -4,7 +4,7 @@
     var eventDetails = <%= event[:details].to_json.html_safe %>;
 
     if(window.opener) {
-      var evt = document.createEvent('CustomEvent');
+      var evt = window.opener.document.createEvent('CustomEvent');
       evt.initCustomEvent(eventName, true, true, eventDetails);
 
       window.opener.document.dispatchEvent(evt);
