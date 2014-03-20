@@ -8,6 +8,8 @@ FactlinkUI::Application.config.jslib_url =
   FactlinkUI::Application.config.static_url + '/lib/dist/factlink_loader' +
     if 'development' == Rails.env
       '.js'
+    elsif 'test' == Rails.env
+       '.invalid.js';
     else
       '.min.js';
     end
