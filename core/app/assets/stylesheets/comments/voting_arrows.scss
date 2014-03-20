@@ -26,12 +26,12 @@
   @extend %button-base;
   background-color: $buttonBackground;
   @include button-height(22px);
-  color: darken($buttonBackground,20);
+  color: darken($buttonBackground, 20);
   font-size: 0.7em;
   padding: 0px 2px;
 
   &:hover{
-    color: darken($buttonBackground,45);
+    color: darken($buttonBackground, 45);
   }
 
   &.comment-vote-active {
