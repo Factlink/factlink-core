@@ -8,7 +8,9 @@ class window.ProfileRouter extends Backbone.Router
     user.fetch
       success: ->
         if user.get('deleted')
-          FactlinkApp.mainRegion.show new TextView text: 'This profile has been deleted.'
+          FactlinkApp.mainRegion.show new ReactView component:
+            _div [],
+              'This profile has been deleted.'
         else
           FactlinkApp.mainRegion.show new ReactView component:
             ReactProfile model: user
