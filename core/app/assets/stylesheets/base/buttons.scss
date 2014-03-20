@@ -164,6 +164,9 @@ $arrowSize: 5px;
   font-size: 12px;
   @include button-height($baseButtonHeight);
   padding: 0 $baseButtonPadding;
+  .icon-twitter, .icon-facebook {
+    margin: 2px 0px 0px;
+  }
 }
 
 .button-huge {
