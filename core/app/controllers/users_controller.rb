@@ -20,10 +20,7 @@ class UsersController < ApplicationController
   def update
     authorize! :update, @user
 
-    # sometimes it is passed in user, sometimes it isn't :(
-    user_hash =  params[:user] || params
-
-    if @user.update_attributes user_hash
+    if @user.update_attributes params[:user]
       redirect_to edit_user_url(@user.username), notice: 'Your account was successfully updated.'
     else
       render :edit
