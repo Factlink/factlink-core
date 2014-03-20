@@ -12,7 +12,6 @@ class window.ProfileRouter extends Backbone.Router
 
   # HELPERS
   profile_options: ->
-    title: 'Profile'
     active_tab: 'show'
     render: (main_region, user) =>
       if user.get('deleted')
@@ -22,7 +21,6 @@ class window.ProfileRouter extends Backbone.Router
           ReactProfile model: user
 
   notification_options: (username)->
-    title: 'Notification Settings'
     active_tab: 'notification-settings'
     render: (main_region, user) ->
       main_region.show new ReactView
@@ -33,14 +31,11 @@ class window.ProfileRouter extends Backbone.Router
     @main = new TabbedMainRegionLayout();
     FactlinkApp.mainRegion.show(@main)
     @getUser username,
-      onInit: (user) =>
-        @main.showTitle(options.title)
       onFetch: (user) =>
         @main.tabsRegion.show(@getUserTabs(user, options.active_tab))
         options.render(@main.contentRegion, user)
 
   switchToPage: (username, user, path, options)->
-    @main.setTitle options.title
     @main.tabsRegion.currentView.activate(options.active_tab)
     options.render(@main.contentRegion, user)
     Backbone.history.navigate path, false
@@ -54,6 +49,5 @@ class window.ProfileRouter extends Backbone.Router
 
   getUser: (username, options) ->
     user = new User(username: username)
-    options.onInit(user)
     user.fetch
       success: -> options.onFetch(user)
