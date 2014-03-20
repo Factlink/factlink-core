@@ -6,7 +6,10 @@ class window.User extends Backbone.Model
 
   url: ->
     # We do this because we cannot (yet) set the idAttribute to "username"
-    '/api/beta/users/' + @get('username')
+    if @collection?
+      @collection.url() + '/' + @get('username')
+    else
+      '/api/beta/users/' + @get('username')
 
   avatar_url: (size) ->
     if(window.test_counter)
