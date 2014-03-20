@@ -10,7 +10,7 @@
 
       window.opener.document.dispatchEvent(evt);
       window.close();
-    } else if(origin !== '') {
+    } else if(origin) {
       window.location = origin;
     }
   </script>
