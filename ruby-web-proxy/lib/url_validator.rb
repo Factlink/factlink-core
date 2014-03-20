@@ -53,15 +53,20 @@ class UrlValidator
     end
   end
 
-  def valid_hostname?
-    local_hostnames = [
+  def self.local_hostnames
+    @local_hostnames ||= Regexp.union [
       /^[^.]*$/,
       /\.$/,
       /\.dev$/
     ]
-    local_hostnames.none? do |hostname|
-      hostname.match @url.host
-    end
+  end
+
+  def local_hostnames
+    self.class.local_hostnames
+  end
+
+  def valid_hostname?
+    not local_hostnames.match(@url.host)
   end
 
   def parse(url)
