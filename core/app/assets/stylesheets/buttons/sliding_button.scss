@@ -7,11 +7,15 @@ $slideTime: 0.3s;
   line-height: $baseButtonHeight;
   vertical-align: baseline;
   cursor: pointer;
+  color: $linkColor;
+  padding: 0 0.2em;
 }
+.sliding-button .icon-trash { margin:0; }
 
 .sliding-button-container-outer {
   position: absolute;
   right: 100%;
+  top:0;
   height: $baseButtonHeight;
   line-height: $baseButtonHeight;
   overflow: hidden;
@@ -42,7 +46,6 @@ $slideTime: 0.3s;
   .sliding-button-container-outer {
     right: auto;
     left: 100%;
-    padding-left:0.3em;
   }
 
   .sliding-button-container-inner {
@@ -66,7 +69,9 @@ $slideTime: 0.3s;
 
 }
 
-.sliding-share-button {
+%sliding-share-button {
+  @extend .button-small;
+
   vertical-align: top;
   padding: 0;
   width: $baseButtonHeight;
@@ -76,4 +81,18 @@ $slideTime: 0.3s;
   // (See: http://stackoverflow.com/questions/5814101/css3-transition-transform-translate3d-causes-severe-flicker-on-first-or-last-fr)
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+}
+
+.sliding-twitter-button {
+  @extend .button-twitter;
+
+  @extend %sliding-share-button;
+}
+
+.sliding-facebook-button {
+  @extend .button-facebook;
+  @extend %sliding-share-button;
+
+  @extend %button-with-left-arrow;
+  @include button-with-arrow-color($facebookBlue);
 }

@@ -15,10 +15,7 @@ ReactCommentFacebookShare = React.createBackboneClass
 
   render: ->
     _a [
-      'button-facebook'
-      'button-small'
-      'button-arrow-left'
-      'sliding-share-button'
+      'sliding-facebook-button'
       onClick: @_share
     ],
       _i ["icon-facebook"]
@@ -43,9 +40,7 @@ ReactCommentTwitterShare = React.createBackboneClass
 
   render: ->
     _a [
-      'button-twitter'
-      'button-small'
-      'sliding-share-button'
+      'sliding-twitter-button'
       href: @_link()
       target: '_blank' # for if twitter is not yet loaded
     ],
@@ -56,9 +51,7 @@ window.ReactSlidingShareButton = React.createBackboneClass
   displayName: 'ReactSlidingShareButton'
 
   render: ->
-
-    ReactSlidingButton {label: 'Share', initialOpened: @model().justCreated(), right: true},
-      ' '
+    ReactSlidingButton {label: 'Share ', initialOpened: @model().justCreated(), right: true},
       ReactCommentFacebookShare
         model: @model()
       ' '

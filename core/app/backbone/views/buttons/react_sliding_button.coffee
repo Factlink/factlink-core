@@ -12,8 +12,8 @@ window.ReactSlidingButton = React.createClass
       'sliding-button-open' if @state.opened
       'sliding-button-right' if @props.right
     ],
+      _a [onClick: @_toggleButton],
+        @props.label
       _span ["sliding-button-container-outer"],
         _span ["sliding-button-container-inner"],
           @props.children
-      _a [onClick: @_toggleButton],
-        @props.label
