@@ -17,8 +17,8 @@ ReactCommentFacebookShare = React.createBackboneClass
     _a [
       'button-facebook'
       'button-small'
-      'sliding-share-button'
       'button-arrow-left'
+      'sliding-share-button'
       onClick: @_share
     ],
       _i ["icon-facebook"]
