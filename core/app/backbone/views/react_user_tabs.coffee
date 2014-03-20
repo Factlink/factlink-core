@@ -6,7 +6,7 @@ window.ReactUserTabs = React.createBackboneClass
 
     _div ['main-region-tabs'],
       _a [
-        'active' if @props.page == 'about'
+        'main-region-tab-active' if @props.page == 'about'
         rel: 'backbone'
         href: "/#{@model().get('username')}"
       ],
@@ -23,7 +23,7 @@ window.ReactUserTabs = React.createBackboneClass
         'Change password'
       spaced_middle_dot
       _a [
-        'active' if @props.page == 'notification-settings'
+        'main-region-tab-active' if @props.page == 'notification-settings'
         rel: 'backbone'
         href: "/#{@model().get('username')}/notification-settings"
       ],
