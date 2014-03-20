@@ -5,11 +5,10 @@ module Acceptance
     end
 
     def check_follower_following_count number_of_following, number_of_followers
-      all_social_statistics = page.all(:css, 'div.profile-social-statistic-block')
-      all_social_statistics[0].should have_content "#{number_of_following} following"
+      page.should have_content "#{number_of_following} following"
 
       s = 's' unless number_of_followers == 1
-      all_social_statistics[1].should have_content "#{number_of_followers} follower#{s}"
+      page.should have_content "#{number_of_followers} follower#{s}"
     end
   end
 end

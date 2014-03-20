@@ -1,21 +1,9 @@
 .main-region-tabs {
-  float: right;
-  margin-top: 10px;
-  @include remove-element-below(400px);
+  text-align: right;
+  margin-bottom: 10px;
+  color: $metaFontColor;
 
-  ul > li {
-    float: left;
-    &:before {
-      content: '·';
-      color: $metaFontColor;
-      padding: 0 7px;
-    }
-    &:first-child:before {
-      content: '';
-      padding: 0;
-    }
-      &.active, &.active > a {
-        color: $metaFontColor;
-      }
+  a.main-region-tab-active {
+    color: $metaFontColor;
   }
 }
