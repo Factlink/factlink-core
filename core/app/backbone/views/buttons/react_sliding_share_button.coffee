@@ -5,12 +5,16 @@ ReactCommentFacebookShare = React.createBackboneClass
     left_quote = "\u201C"
     right_quote = "\u201D"
 
-    left_quote + @model().textContent() + right_quote
+    @model().creator().get('name') + ': ' +
+      left_quote + @model().textContent() + right_quote
+
+  _fact: -> @model().collection.fact
 
   _share: ->
     FB.ui
       method: 'feed'
-      link: @model().collection.fact.sharingUrl()
+      link: @_fact().sharingUrl()
+      caption: @_fact().factUrlHost()
       description: @_description()
 
   render: ->
@@ -24,7 +28,8 @@ ReactCommentFacebookShare = React.createBackboneClass
 updateTwitter = ->
   return if Factlink.Global.environment == 'test' # Twitter not loaded in tests
 
-  twttr?.widgets.load()
+  twttr.widgets?.load()
+
 
 ReactCommentTwitterShare = React.createBackboneClass
   displayName: 'ReactCommentTwitterShare'
@@ -35,6 +40,10 @@ ReactCommentTwitterShare = React.createBackboneClass
 
     "https://twitter.com/intent/tweet?url=#{url}&text=#{text}&related=factlink"
 
+  _onClick: ->
+    unless twttr.widgets?
+      ravenCapture('Tried to use Twitter button while Twitter has not been loaded')
+
   componentDidMount: -> updateTwitter()
   componentDidUpdate: -> updateTwitter()
 
@@ -43,6 +52,7 @@ ReactCommentTwitterShare = React.createBackboneClass
       'sliding-twitter-button'
       href: @_link()
       target: '_blank' # for if twitter is not yet loaded
+      onClick: @_onClick
     ],
       _i ["icon-twitter"]
 
