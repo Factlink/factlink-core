@@ -1,6 +1,6 @@
 class window.UserTabsView extends Backbone.Marionette.ItemView
   template: 'users/tabs'
-  tagName: 'ul'
+  className: 'main-region-tabs'
 
   triggers:
     'click .js-tab-show': 'showProfile'
