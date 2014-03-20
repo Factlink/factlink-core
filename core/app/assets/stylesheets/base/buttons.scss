@@ -1,3 +1,5 @@
+$buttonBgTransition: all 0.3s ease;
+
 %button-base {
   position: relative;
   display: inline-block;
@@ -30,7 +32,7 @@
     border-radius: inherit;
     z-index: -1;
     background-color: transparent;
-    transition: all 0.3s ease;
+    transition: $buttonBgTransition;
   }
 
   &:hover {
@@ -58,36 +60,63 @@
     border-bottom: 1px solid;
     outline: none; //prevents ugly webkit active state
   }
-
 }
 
+@mixin button-with-left-arrow($background-color) {
+  margin-left: $arrowSize;
+  &:after {
+    content: '';
+    position: absolute;
+    border: $arrowSize solid transparent;
+    border-left: none;
+    left: -$arrowSize;
+    border-right-color: $facebookBlue;
+    margin-top: -$arrowSize;
+    top: 50%;
+  }
+
+}
 
 $arrowSize: 5px;
+
 .button-arrow-left {
-  position: absolute;
-  border: $arrowSize solid transparent;
-  border-left: none;
-  border-right-color: pink; //please override;
-  margin-top: -$arrowSize;
-  top: 50%;
-  left: -$arrowSize;
-}
-.button-facebook .button-arrow-left {
-  border-right-color: $facebookBlue;
+  margin-left: $arrowSize;
+  &:after {
+    content: '';
+    position: absolute;
+    border: $arrowSize solid transparent;
+    border-left: none;
+    left: -$arrowSize;
+    border-right-color: $facebookBlue;
+    margin-top: -$arrowSize;
+    top: 50%;
+    transition: $buttonBgTransition;
+  }
+
+  &:hover:not(:disabled):after, &:active:after {
+    border-right-color: mix(black, $facebookBlue, 10%);
+  }
 }
 
 
 .button-arrow-right {
-  position: absolute;
-  border: $arrowSize solid transparent;
-  border-right: none;
-  border-left-color: $buttonDangerBackground;
-  margin-top: -$arrowSize;
-  top: 50%;
-  right: -$arrowSize;
-}
-.button-danger .button-arrow-right {
-  border-left-color: $buttonDangerBackground;
+  margin-right:$arrowSize;
+  &:after {
+    content: '';
+    position: absolute;
+    border: $arrowSize solid transparent;
+    border-right: none;
+    border-left-color: $buttonDangerBackground;
+    margin-top: -$arrowSize;
+    top: 50%;
+    right: -$arrowSize;
+    transition: $buttonBgTransition;
+
+  }
+
+  &:hover:not(:disabled):after, &:active:after {
+    border-left-color: mix(black, $buttonDangerBackground, 10%);
+  }
 }
 
 
