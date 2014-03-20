@@ -31,7 +31,7 @@
   }
 }
 
-@mixin triangle-arrow-up($color: $triangleArrowBorderColor, $borderExtraWidth: 0px){
+@mixin triangle-arrow-up($color: $triangleArrowBorderColor, $arrow-fill-color: white, $borderExtraWidth: 0px){
   @include triangle-arrow($borderExtraWidth);
   margin-top: -$triangleSize;
   margin-left: -$triangleSize;
@@ -40,7 +40,7 @@
     height: 0;
     width: 1px;
     border-top: none;
-    border-bottom-color: white;
+    border-bottom-color: $arrow-fill-color;
   }
 
   &:before {

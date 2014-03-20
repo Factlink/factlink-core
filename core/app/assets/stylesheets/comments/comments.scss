@@ -22,8 +22,8 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 .comment-content-container {
   display: table-cell;
   width: 100%;
-  padding: $votePadding;
-  padding-left: 0px;
+  padding-top: $votePadding;
+  padding-right: $votePadding;
 }
 
 .comment-believes,
@@ -60,6 +60,12 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
   font-size: 11px;
 }
 
+.comment-content {
+  display: block;
+  white-space: pre-line;
+  word-break: break-word;
+}
+
 .comment-post-creator {
   padding: 0px 7px;
 }
@@ -72,12 +78,13 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 }
 
 .comment-post-bottom {
+  display: block;
+  padding: 10px;
   opacity: 0.4;
   transition: opacity 0.5s ease;
   font-size: $metaFontSize;
   color: $metaFontColor;
   margin: 0;
-  padding: 0;
 }
 
 .comment-post-bottom-right {

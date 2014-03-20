@@ -88,7 +88,7 @@
         var currentMixins = spec.mixins || [];
 
         spec.mixins = currentMixins.concat([
-            React.BackboneMixin('model', this.changeOptions),
+            React.BackboneMixin('model', spec.changeOptions),
             React.BackboneViewMixin
         ]);
         return React.createClass(spec);
