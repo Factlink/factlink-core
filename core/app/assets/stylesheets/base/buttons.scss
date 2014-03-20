@@ -96,7 +96,7 @@ $arrowSize: 5px;
 }
 
 
-@mixin button-arrow-color($arrow-color) {
+@mixin button-with-arrow-color($arrow-color) {
   &:after {
     color: $arrow-color;
   }
@@ -105,45 +105,10 @@ $arrowSize: 5px;
     color: mix(black, $arrow-color, 10%);
   }
 }
-
-@mixin button-with-left-arrow($arrow-color) {
-  @extend %button-with-arrow-base;
-  margin-left: $arrowSize;
-  &:after {
-    right: 100%;
-    border-left-style: none;
-    color: $arrow-color;
-  }
-
-  &:hover:not(:disabled):after, &:active:after {
-    color: mix(black, $arrow-color, 10%);
-  }
-}
-
-@mixin button-with-right-arrow($arrow-color) {
-  @extend %button-with-arrow-base;
-  margin-right: $arrowSize;
-  &:after {
-    left: 100%;
-    border-right-style: none;
-    color: $arrow-color;
-  }
-
-  &:hover:not(:disabled):after, &:active:after {
-    color: mix(black, $arrow-color, 10%);
-  }
-}
-
 
 .button-arrow-left {
   @extend %button-with-left-arrow;
   @include button-with-arrow-color($facebookBlue);
-}
-
-
-.button-arrow-right {
-  @extend %button-with-right-arrow;
-  @include button-with-arrow-color($buttonDangerBackground);
 }
 
 

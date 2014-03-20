@@ -58,8 +58,12 @@ $slideTime: 0.3s;
 }
 
 .sliding-delete-inner-button {
+  @extend.button-danger;
+  @extend %button-with-right-arrow;
+  @include button-with-arrow-color($buttonDangerBackground);
   // hack because .button is too specific.. :-(
   vertical-align: top !important;
+
 }
 
 .sliding-share-button {
