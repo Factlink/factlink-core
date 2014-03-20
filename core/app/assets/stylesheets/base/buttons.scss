@@ -78,42 +78,72 @@ $arrowSize: 5px;
     transition: $buttonBgTransition;
   }
 }
-
-@mixin button-with-left-arrow($background-color) {
+%button-with-right-arrow {
+  @extend %button-with-arrow-base;
+  margin-right: $arrowSize;
+  &:after {
+    left: 100%;
+    border-right-style: none;
+  }
+}
+%button-with-left-arrow {
   @extend %button-with-arrow-base;
   margin-left: $arrowSize;
   &:after {
     right: 100%;
     border-left-style: none;
-    color: $background-color;
-  }
-
-  &:hover:not(:disabled):after, &:active:after {
-    color: mix(black, $background-color, 10%);
   }
 }
 
-@mixin button-with-right-arrow($background-color) {
+
+@mixin button-arrow-color($arrow-color) {
+  &:after {
+    color: $arrow-color;
+  }
+
+  &:hover:not(:disabled):after, &:active:after {
+    color: mix(black, $arrow-color, 10%);
+  }
+}
+
+@mixin button-with-left-arrow($arrow-color) {
+  @extend %button-with-arrow-base;
+  margin-left: $arrowSize;
+  &:after {
+    right: 100%;
+    border-left-style: none;
+    color: $arrow-color;
+  }
+
+  &:hover:not(:disabled):after, &:active:after {
+    color: mix(black, $arrow-color, 10%);
+  }
+}
+
+@mixin button-with-right-arrow($arrow-color) {
   @extend %button-with-arrow-base;
   margin-right: $arrowSize;
   &:after {
     left: 100%;
-    border-left-color: $background-color;
+    border-right-style: none;
+    color: $arrow-color;
   }
 
   &:hover:not(:disabled):after, &:active:after {
-    border-left-color: mix(black, $background-color, 10%);
+    color: mix(black, $arrow-color, 10%);
   }
 }
 
 
 .button-arrow-left {
-  @include button-with-left-arrow($facebookBlue);
+  @extend %button-with-left-arrow;
+  @include button-with-arrow-color($facebookBlue);
 }
 
 
 .button-arrow-right {
-  @include button-with-right-arrow($buttonDangerBackground);
+  @extend %button-with-right-arrow;
+  @include button-with-arrow-color($buttonDangerBackground);
 }
 
 
