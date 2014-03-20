@@ -61,7 +61,7 @@ $buttonBgTransition: all 0.3s ease;
   &:active {
     transition: none;
     padding-top: 1px;
-    border-bottom: 1px solid;
+    border-bottom-width: 1px;
     outline: none; //prevents ugly webkit active state
   }
 }
