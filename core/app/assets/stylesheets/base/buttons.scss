@@ -71,7 +71,8 @@ $arrowSize: 5px;
   &:after {
     content: '';
     position: absolute;
-    border: $arrowSize solid transparent;
+    border: $arrowSize solid;
+    border-color: transparent currentColor;
     margin-top: -$arrowSize;
     top: 50%;
     transition: $buttonBgTransition;
@@ -83,11 +84,12 @@ $arrowSize: 5px;
   margin-left: $arrowSize;
   &:after {
     right: 100%;
-    border-right-color: $background-color;
+    border-left-style: none;
+    color: $background-color;
   }
 
   &:hover:not(:disabled):after, &:active:after {
-    border-right-color: mix(black, $background-color, 10%);
+    color: mix(black, $background-color, 10%);
   }
 }
 
