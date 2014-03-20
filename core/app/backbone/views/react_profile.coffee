@@ -67,7 +67,9 @@ window.ReactProfile = React.createBackboneClass
     _div [],
       ReactUserTabs model: @model(), page: 'about'
 
-      if @model().get('deleted')
+      if @model().isNew()
+        _img [src: Factlink.Global.ajax_loader_image]
+      else if @model().get('deleted')
         @_deletedUser()
       else
         @_activeUser()
