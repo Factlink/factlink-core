@@ -11,7 +11,7 @@ class RavenCatcher
   end
 
   def capture_exception(env, options = {})
-    error = env['rack.exception']
+    exception = env['rack.exception']
     initialize_raven(env)
     Raven.capture_exception(exception, options) do |evt|
       evt.interface :http do |int|

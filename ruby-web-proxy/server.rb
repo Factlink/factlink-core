@@ -18,5 +18,5 @@ class Server < WebProxy
     use StripPublisherScript
   end
   use AddFactlinkToPage
-  #use RavenCatcher
+  use RavenCatcher
 end
