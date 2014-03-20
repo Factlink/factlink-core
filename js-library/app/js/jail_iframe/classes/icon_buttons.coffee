@@ -152,7 +152,7 @@ class FactlinkJailRoot.ParagraphIconButtonContainer
 
     FactlinkJailRoot.on 'factlink.factsLoaded factlinkAdded', @_destroyUnlessValid
 
-    if FactlinkJailRoot.isTouchDevice()
+    if FactlinkJailRoot.isTouchDevice() && false # quick disable until it is more acceptable to publishers
       @_iconButton.fadeIn()
     else
       @_attentionSpan = new FactlinkJailRoot.AttentionSpan
