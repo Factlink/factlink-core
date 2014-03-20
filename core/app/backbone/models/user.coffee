@@ -25,11 +25,8 @@ class window.User extends Backbone.Model
 
   toJSON: ->
     username = @get('username')
-    _.extend super(),
-      is_current_user: FactlinkApp.isCurrentUser(this),
-      edit_path: "/#{username}/edit",
-      change_password_path: "/#{username}/password/edit"
-      notifications_settings_path: "/#{username}/notification-settings"
+    _.extend super,
+      is_current_user: FactlinkApp.isCurrentUser(this)
       link: @link()
 
   is_following_users: ->

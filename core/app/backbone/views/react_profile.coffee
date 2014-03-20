@@ -23,6 +23,7 @@ window.ReactProfile = React.createBackboneClass
 
   render: ->
     _div [],
+      ReactUserTabs model: @model(), page: 'about'
       _div ['profile-box-container'],
         _div ['profile-box-item'],
           _div ['profile-information-item'],
