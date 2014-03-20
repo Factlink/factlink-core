@@ -41,7 +41,7 @@ describe "Static pages:", type: :feature do
 
   describe "Blog page" do
     it do
-      visit blog_stubbing_the_object_under_test_and_getting_away_without_it_path
+      visit '/blog/discussion-of-the-week-10'
       assume_unchanged_screenshot "static_blogpost"
     end
   end
