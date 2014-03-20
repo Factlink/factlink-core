@@ -2,7 +2,16 @@ $buttonBgTransition: all 0.3s ease;
 
 @mixin button-height ($button-height) {
   height: $button-height;
-  line-height: $button-height - 3px;
+  line-height: $button-height - 1px;
+}
+
+%button-active-base {
+  transition: none;
+  padding-top: 1px;
+  padding-bottom: 0;
+  &:before {
+    border-bottom-width: 1px;
+  }
 }
 
 %button-base {
@@ -16,14 +25,13 @@ $buttonBgTransition: all 0.3s ease;
 
   color: white;
   border-radius: $baseBorderRadius;
-  padding: 0 $largeButtonPadding;
-  border: 1px solid;
-  border-bottom: 2px solid;
+  border: none;
+  padding: 0 $largeButtonPadding 1px;
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
 
-  border-color: rgba(0,0,0, 0.13);
+
 
   &:before {
     //this is an overlay for fading the background color.
@@ -33,6 +41,9 @@ $buttonBgTransition: all 0.3s ease;
     right: 0;
     left: 0;
     bottom: 0;
+    border: 1px solid rgba(0,0,0, 0.25);
+    border-bottom-width: 2px;
+
     border-radius: inherit;
     z-index: -1;
     background-color: transparent;
@@ -41,12 +52,10 @@ $buttonBgTransition: all 0.3s ease;
 
   &:hover {
     color: white;
-    border-color: rgba(0,0,0, 0.26);
   }
 
-  &:focus {
+  &:focus:before {
     border-color: rgba(0,0,0,0.45);
-    outline: none;
   }
 
   &:hover:not(:disabled):before, &:active:before {
@@ -59,10 +68,12 @@ $buttonBgTransition: all 0.3s ease;
   }
 
   &:active {
-    transition: none;
-    padding-top: 1px;
-    border-bottom-width: 1px;
+    @extend %button-active-base;
+  }
+
+  &:focus,&:active {
     outline: none; //prevents ugly webkit active state
+    box-shadow: 0 0 0.5em rgba(black, 0.5);
   }
 }
 
@@ -172,7 +183,7 @@ $arrowSize: 5px;
 
 .button-opinion-believes, .button-opinion-disbelieves {
   @extend .button;
-  padding: 0px 4px;
+  padding: 0px 5px;
   transition: background-color 0.5s ease;
 }
 
