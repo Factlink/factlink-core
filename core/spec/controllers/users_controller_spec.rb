@@ -4,17 +4,6 @@ describe UsersController do
   include PavlovSupport
   let(:user) { create(:user) }
 
-  describe :show do
-    render_views
-    it "should render a 404 when an invalid username is given" do
-      invalid_username = 'henk2!^geert'
-      authenticate_user!(user)
-      expect do
-        get :show, username: invalid_username
-      end.to raise_error(ActionController::RoutingError)
-    end
-  end
-
   describe :update do
     render_views
     before do

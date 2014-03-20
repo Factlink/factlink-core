@@ -3,15 +3,6 @@ class UsersController < ApplicationController
 
   before_filter :load_user
 
-  def show
-    authorize! :show, @user
-
-    backbone_responder do
-      full_user = interactor :'users/get_full', username: params[:username]
-      render json: full_user
-    end
-  end
-
   # TODO: convert this page to backbone
   def edit
     authorize! :update, @user

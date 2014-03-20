@@ -145,7 +145,7 @@ FactlinkUI::Application.routes.draw do
   get '/:unused/feed', to: redirect("/feed")
 
   scope "/:username" do
-    get "/" => "users#show", as: "user_profile"
+    get "/" => "frontend#user_profile", as: "user_profile"
     put "/" => "users#update"
     delete "/" => "users#destroy"
 
