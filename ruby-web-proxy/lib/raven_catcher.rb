@@ -10,7 +10,8 @@ class RavenCatcher
     @raven_initialized = true
   end
 
-  def capture_exception(exception, env, options = {})
+  def capture_exception(env, options = {})
+    error = env['rack.exception']
     initialize_raven(env)
     Raven.capture_exception(exception, options) do |evt|
       evt.interface :http do |int|
@@ -20,8 +21,9 @@ class RavenCatcher
   end
 
   def post_process(env, status, headers, body)
-    error = env['rack.exception'] || env['sinatra.error']
-    capture_exception(error, env) if error && env.config[:raven_dsn]
+    if env.config[:raven_dsn] && env['rack.exception']
+      capture_exception(env)
+    end
 
     [status, headers, body]
   end
