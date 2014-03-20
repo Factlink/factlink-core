@@ -1,3 +1,7 @@
+environment :test do
+  config[:host] = 'http://foo.invalid'
+end
+
 environment :development do
   config[:redirect_for_no_url] = 'https://localhost:3000/'
   config[:hostname] = 'localhost'

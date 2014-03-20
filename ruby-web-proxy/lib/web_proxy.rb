@@ -43,7 +43,7 @@ class WebProxy < Goliath::API
   end
 
   def proxied_location(env, location)
-    env.config[:host] + '/?url=' + CGI.escape(requested_url)
+    env.config[:host] + '/?url=' + CGI.escape(location)
   end
 
   def retrieve_page(env, url)

@@ -4,19 +4,6 @@ require_relative '../../server.rb'
 describe Server do
   let(:http_requester) { double :http_requester }
 
-  def mock_http_requests server
-    server.config[:http_requester] = http_requester
-  end
-
-  def mock_http_response status, content
-    double({
-      response_header: double({
-        status: status
-      }),
-      response: content,
-    })
-  end
-
   it "does a working proxy request for a page" do
     request_url = 'http://www.example.org/foo?bar=baz'
 
@@ -39,6 +26,27 @@ describe Server do
       end
     end
   end
+
+  it "redirects you when it was redirected" do
+    request_url = 'http://www.example.org/foo?bar=baz'
+
+    with_api(Server) do |server|
+      mock_http_requests(server)
+      expect(http_requester)
+        .to receive(:call)
+        .with(request_url)
+        .and_return mock_http_response(301, '', headers: {
+          'Location' => 'http://www.example.org/baz?foo=bar'
+        })
+
+      get_request(query: {url: request_url}) do |c|
+        expect(c.response_header.status).to eq 301
+        expect(c.response_header['Location'])
+          .to eq 'http://foo.invalid/?url=http%3A%2F%2Fwww.example.org%2Fbaz%3Ffoo%3Dbar'
+      end
+    end
+  end
+
 
   it "redirects to a specified url when no url has been provided" do
     with_api(Server) do |server|

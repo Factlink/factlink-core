@@ -88,6 +88,7 @@ DEPENDENCIES
   em-synchrony
   eventmachine
   goliath
+  hashie
   rspec (~> 3.0.0.beta2)
   sentry-raven
   simplecov (~> 0.7.1)

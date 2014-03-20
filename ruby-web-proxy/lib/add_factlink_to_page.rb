@@ -3,16 +3,17 @@ require_relative './html_editor'
 class AddFactlinkToPage
   include Goliath::Rack::AsyncMiddleware
   def post_process(env, status, headers, body)
-    if env[:web_proxy_proxied]
-      scripts = factlink_proxied_url_js_var(env) + factlink_publisher_script(env)
+    if (200..299).cover? status
+      scripts =
+        factlink_proxied_url_js_var(headers['X-Proxied-Location']) +
+        factlink_publisher_script(env)
 
       body = HtmlEditor.prepend_to_head(body, scripts)
     end
     [status, headers, body]
   end
 
-  def factlink_proxied_url_js_var env
-    location = env[:web_proxy_proxied_location]
+  def factlink_proxied_url_js_var location
     jsonified_location = location.gsub(/</, '%3C').gsub(/>/, '%3E').to_json
 
     "<script>window.FactlinkProxiedUri = #{jsonified_location};</script>"

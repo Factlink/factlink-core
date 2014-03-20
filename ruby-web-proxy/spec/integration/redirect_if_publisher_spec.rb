@@ -5,19 +5,6 @@ require_relative '../../lib/redirect_if_publisher.rb'
 describe RedirectIfPublisher do
   let(:http_requester) { double :http_requester }
 
-  def mock_http_requests server
-    server.config[:http_requester] = http_requester
-  end
-
-  def mock_http_response status, content
-    double({
-      response_header: double({
-        status: status
-      }),
-      response: content,
-    })
-  end
-
   it "redirects to the original page if a publisher page was returned" do
     request_url = 'http://www.example.org/foo?bar=baz'
 
