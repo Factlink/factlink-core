@@ -146,7 +146,6 @@ FactlinkUI::Application.routes.draw do
 
   scope "/:username" do
     get "/" => "frontend#user_profile", as: "user_profile"
-    put "/" => "users#update"
     delete "/" => "users#destroy"
 
 
