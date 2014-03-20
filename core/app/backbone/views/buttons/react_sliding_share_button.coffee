@@ -7,10 +7,13 @@ ReactCommentFacebookShare = React.createBackboneClass
 
     left_quote + @model().textContent() + right_quote
 
+  _fact: -> @model().collection.fact
+
   _share: ->
     FB.ui
       method: 'feed'
-      link: @model().collection.fact.sharingUrl()
+      link: @_fact().sharingUrl()
+      caption: @_fact().factUrlHost()
       description: @_description()
 
   render: ->
