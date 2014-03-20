@@ -15,12 +15,14 @@ NotificationSetting = React.createBackboneClass
 
 window.ReactNotificationSettings = React.createBackboneClass
   render: ->
-    _div ["edit-user-container"],
-      _div ["narrow-indented-block"],
-        NotificationSetting {field: 'receives_mailed_notifications', model: @model(), key: 'receives_mailed_notifications'},
-          "Send me an email when I receive a notification"
-        NotificationSetting {field: 'receives_digest', model: @model(), key: 'receives_digest'},
-          "Send me a weekly digest "
-          _em [], "(coming soon)"
+    _div [],
+      ReactUserTabs model: @model(), page: 'notification-settings'
+      _div ["edit-user-container"],
+        _div ["narrow-indented-block"],
+          NotificationSetting {field: 'receives_mailed_notifications', model: @model(), key: 'receives_mailed_notifications'},
+            "Send me an email when I receive a notification"
+          NotificationSetting {field: 'receives_digest', model: @model(), key: 'receives_digest'},
+            "Send me a weekly digest "
+            _em [], "(coming soon)"
 
 
