@@ -84,7 +84,8 @@ $arrowSize: 5px;
     position: absolute;
     border: $arrowSize solid;
     border-color: transparent currentColor;
-    margin-top: -$arrowSize;
+    margin: -$arrowSize -1px;
+
     top: 50%;
     transition: $buttonBgTransition;
   }
