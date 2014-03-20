@@ -12,14 +12,16 @@ FactlinkUI::Application.routes.draw do
   root :to => "home#index"
 
   scope '/api/beta' do
-    get '/current_user' => 'users#current'
     get '/feed' => "api/feed#global"
     get '/feed/personal' => "api/feed#personal"
-    get '/users/:username/feed' => 'api/users#feed'
     get '/annotations/recently_viewed' => 'api/annotations#recently_viewed'
     get '/annotations/search' => 'api/annotations#search'
     post '/annotations' => 'api/annotations#create'
     get '/annotations/:id' => 'api/annotations#show'
+    get '/users/:username/feed' => 'api/users#feed'
+    get '/users/:username' => 'api/users#show'
+    put '/users/:original_username' => 'api/users#update'
+    get '/current_user' => 'api/users#current'
   end
 
   # Javascript Client calls

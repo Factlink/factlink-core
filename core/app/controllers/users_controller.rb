@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout "frontend"
 
-  before_filter :load_user, except: [:current]
+  before_filter :load_user
 
   def show
     authorize! :show, @user
@@ -10,16 +10,6 @@ class UsersController < ApplicationController
       full_user = interactor :'users/get_full', username: params[:username]
       render json: full_user
     end
-  end
-
-  def current
-    user = if current_user
-        interactor :'users/get_full', username: current_user.username
-      else
-        interactor :'users/get_non_signed_in'
-      end
-
-    render json: user
   end
 
   # TODO: convert this page to backbone
@@ -34,17 +24,9 @@ class UsersController < ApplicationController
     user_hash =  params[:user] || params
 
     if @user.update_attributes user_hash
-      respond_to do |format|
-        format.html { redirect_to edit_user_url(@user.username), notice: 'Your account was successfully updated.' }
-        format.json { render json: {} }
-      end
+      redirect_to edit_user_url(@user.username), notice: 'Your account was successfully updated.'
     else
-      respond_to do |format|
-        format.html do
-          render :edit
-        end
-        format.json { render json: { status: :unprocessable_entity } }
-      end
+      render :edit
     end
   end
 
