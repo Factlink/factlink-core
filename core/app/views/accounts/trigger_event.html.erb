@@ -2,6 +2,7 @@
   <script>
     var eventName = <%= event[:name].to_json.html_safe %>;
     var eventDetails = <%= event[:details].to_json.html_safe %>;
+    var origin = <%= request.env['omniauth.origin'].to_json.html_safe %>;
 
     if(window.opener) {
       var evt = window.opener.document.createEvent('CustomEvent');
@@ -9,11 +10,8 @@
 
       window.opener.document.dispatchEvent(evt);
       window.close();
-    } else {
-      origin = '<%= request.env['omniauth.origin'] %>'
-      if(origin !== ''){
-        window.location = origin;
-      }
+    } else if(origin !== '') {
+      window.location = origin;
     }
   </script>
 <% end %>
