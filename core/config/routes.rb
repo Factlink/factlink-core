@@ -125,10 +125,7 @@ FactlinkUI::Application.routes.draw do
   # Seems to me we want to lose the scope "/:username" later and place all
   # stuff in this resource?
   devise_scope :user do
-    resources :users, path: "", only: [:edit, :update] do
-      get "/password/edit" => "users/edit_password#edit_password"
-      put "/password" => "users/edit_password#update_password", as: "update_password"
-    end
+    resources :users, path: "", only: [:edit, :update]
   end
 
   authenticated :user do
@@ -144,6 +141,9 @@ FactlinkUI::Application.routes.draw do
 
   get '/feed' => "frontend#show", as: 'feed'
   get '/:unused/feed', to: redirect("/feed")
+
+  # Warning: Devise also has a /users/password/edit, which we only use for password reset currently
+  get "/users/change_password" => "frontend#show", as: 'change_password'
 
   scope "/:username" do
     get "/" => "frontend#user_profile", as: "user_profile"

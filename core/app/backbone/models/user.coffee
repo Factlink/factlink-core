@@ -28,7 +28,6 @@ class window.User extends Backbone.Model
     _.extend super(),
       is_current_user: FactlinkApp.isCurrentUser(this),
       edit_path: "/#{username}/edit",
-      change_password_path: "/#{username}/password/edit"
       notifications_settings_path: "/#{username}/notification-settings"
       link: @link()
 
