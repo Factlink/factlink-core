@@ -34,12 +34,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def notification_settings
-    authorize! :update, @user
-
-    backbone_responder
-  end
-
   private
 
   def load_user
