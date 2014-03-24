@@ -1,3 +1,12 @@
+ensureScrollSaved = (func) ->
+  try
+    # Store scroll settings to reset to afterwards
+    scrollTop = window.document.body.scrollTop
+    scrollLeft = window.document.body.scrollLeft
+    func()
+  finally
+    # Scroll back to previous location
+    window.scroll scrollLeft, scrollTop
 # Chrome, Firefox, Safari
 searchWithWindowFind = (searchString) ->
   # Trim
