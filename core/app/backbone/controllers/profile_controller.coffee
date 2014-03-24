@@ -2,7 +2,7 @@ class window.ProfileRouter extends Backbone.Router
   routes:
     ':username': 'showProfile'
     ':username/notification-settings': 'showNotificationSettings'
-    'users/change_password': 'showChangePassword'
+    ':username/change-password': 'showChangePassword'
 
   showProfile: (username) ->
     user = new User(username: username)

@@ -141,14 +141,11 @@ FactlinkUI::Application.routes.draw do
 
   get '/feed' => "frontend#show", as: 'feed'
   get '/:unused/feed', to: redirect("/feed")
-
-  # Warning: Devise also has a /users/password/edit, which we only use for password reset currently
-  get "/users/change_password" => "frontend#show", as: 'change_password'
-
   scope "/:username" do
     get "/" => "frontend#user_profile", as: "user_profile"
     delete "/" => "users#destroy"
 
+    get "/change-password" => "frontend#show", as: 'change_password'
 
     get 'notification-settings' => "users#notification_settings", as: "user_notification_settings"
 
