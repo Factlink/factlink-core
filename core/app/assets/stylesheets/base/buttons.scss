@@ -1,54 +1,61 @@
-@mixin button-color($button-color) {
-  background-color: $button-color;
-  border-color: darken($button-color,10);
-
-  &:hover {
-    background-color: darken($button-color,5);
-    border-color: darken($button-color,25);
-  }
-
-  &:focus {
-    border-color: darken($button-color,45);
-    outline: none;
-  }
-
-  &.button-arrow-left:after {
-    border-right-color: $button-color;
-  }
-  &.button-arrow-right:after {
-    border-left-color: $button-color;
-  }
-  &.button-arrow-left:hover:after {
-    border-right-color: darken($button-color,5);
-  }
-  &.button-arrow-right:hover:after {
-    border-left-color: darken($button-color,5);
-  }
-}
+$buttonBgTransition: all 0.3s ease;
 
 @mixin button-height ($button-height) {
   height: $button-height;
-  line-height: $button-height - 3px;
+  line-height: $button-height - 1px;
+}
+
+%button-active-base {
+  transition: none;
+  padding-top: 1px;
+  padding-bottom: 0;
+  &:before {
+    border-bottom-width: 1px;
+  }
 }
 
 %button-base {
   position: relative;
   display: inline-block;
+  z-index:0;
   vertical-align: middle;
-  font-family: inherit;
+  font-family: inherit; //so that browsers don't use a system font for buttons.
   font-size: 13px;
+  @include button-height($largeButtonHeight);
+
   color: white;
   border-radius: $baseBorderRadius;
-  padding: 0 $largeButtonPadding;
-  transition: all 0.1s;
-  border: 1px solid;
-  border-bottom: 2px solid;
+  border: none;
+  padding: 0 $largeButtonPadding 1px;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: all 0.3s ease;
   white-space: nowrap;
+
+
+
+  &:before {
+    //this is an overlay for fading the background color.
+    position: absolute;
+    content: '';
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border: 1px solid rgba(0,0,0, 0.25);
+    border-bottom-width: 2px;
+
+    border-radius: inherit;
+    z-index: -1;
+    background-color: transparent;
+    transition: $buttonBgTransition;
+  }
 
   &:hover {
     color: white;
+  }
+
+  &:focus:before {
+    border-color: rgba(0,0,0,0.45);
   }
 
   &:hover:not(:disabled):before, &:active:before {
@@ -61,91 +68,104 @@
   }
 
   &:active {
-    transition: none;
-    padding-top: 1px;
-    border-bottom: 1px solid;
-    outline: none; //prevents ugly webkit active state
+    @extend %button-active-base;
   }
 
-  $arrowSize: 5px;
-  &.button-arrow-left {
-    margin-left: $arrowSize - 1px; // 1px border
-    &:after {
-      content: '';
-      position: absolute;
-      border: $arrowSize solid transparent;
-      border-left: none;
-      border-right-color: $buttonDangerBackground;
-      margin-top: -$arrowSize;
-      top: 50%;
-      left: -$arrowSize;
-    }
-  }
-  &.button-arrow-right {
-    margin-right: $arrowSize - 1px; // 1px border
-    &:after {
-      content: '';
-      position: absolute;
-      border: $arrowSize solid transparent;
-      border-right: none;
-      border-left-color: $buttonDangerBackground;
-      margin-top: -$arrowSize;
-      top: 50%;
-      right: -$arrowSize;
-    }
+  &:focus,&:active {
+    outline: none; //prevents ugly webkit active state
+    box-shadow: 0 0 0.5em rgba(black, 0.5);
   }
 }
 
+$arrowSize: 5px;
+%button-with-arrow-base {
+  &:after {
+    content: '';
+    position: absolute;
+    border: $arrowSize solid;
+    border-color: transparent currentColor;
+    margin: -$arrowSize -1px;
+
+    top: 50%;
+    transition: $buttonBgTransition;
+  }
+}
+%button-with-right-arrow {
+  @extend %button-with-arrow-base;
+  margin-right: $arrowSize;
+  &:after {
+    left: 100%;
+    border-right-style: none;
+  }
+}
+%button-with-left-arrow {
+  @extend %button-with-arrow-base;
+  margin-left: $arrowSize;
+  &:after {
+    right: 100%;
+    border-left-style: none;
+  }
+}
+
+
+@mixin button-with-arrow-color($arrow-color) {
+  &:after {
+    color: $arrow-color;
+  }
+
+  &:hover:not(:disabled):after, &:active:after {
+    color: mix(black, $arrow-color, 10%);
+  }
+}
+
+.button-arrow-left {
+  @extend %button-with-left-arrow;
+  @include button-with-arrow-color($facebookBlue);
+}
+
+
 .button {
   @extend %button-base;
-  @include button-color($buttonBackground);
-  @include button-height ($largeButtonHeight);
+  background-color: $buttonBackground;
   color: $linkColor;
 
   &:hover {
     color: $linkColor;
   }
-
-  &:focus {
-    border-color: darken($buttonBackground,30); //A bit softer grey active color
-  }
 }
 
 .button-confirm {
   @extend %button-base;
-  @include button-color($buttonConfirmBackground);
-  @include button-height ($largeButtonHeight);
+  background-color: $buttonConfirmBackground;
 }
 
 .button-success {
   @extend %button-base;
-  @include button-color($green);
-  @include button-height ($largeButtonHeight);
+  background-color: $green;
 }
 
 .button-danger {
   @extend %button-base;
-  @include button-color($buttonDangerBackground);
-  @include button-height ($largeButtonHeight);
+  background-color: $buttonDangerBackground;
 }
 
 .button-twitter {
   @extend %button-base;
-  @include button-color(#52a1dc);
-  @include button-height ($largeButtonHeight);
+  background-color: $twitterCyan;
 }
 
 .button-facebook {
   @extend %button-base;
-  @include button-color(#335292);
-  @include button-height ($largeButtonHeight);
+  background-color: $facebookBlue;
 }
 
 .button-small {
   font-size: 12px;
-  height: $baseButtonHeight;
-  line-height: $baseButtonHeight;
+  @include button-height($baseButtonHeight);
   padding: 0 $baseButtonPadding;
+  .icon-twitter, .icon-facebook {
+    margin: 1px 0px 0px;
+  }
 }
 
 .button-huge {
@@ -164,19 +184,18 @@
 
 .button-opinion-believes, .button-opinion-disbelieves {
   @extend .button;
-  padding: 0px 4px;
+  padding: 0px 5px;
   transition: background-color 0.5s ease;
 }
 
 .button-opinion-active {
   &.button-opinion-believes {
-    @include button-color($green);
+    background-color: $green;
     color: darken($green, 30)
   }
 
   &.button-opinion-disbelieves {
-    @include button-color($red);
-    border-color: darken($red, 30); //A darker red for sufficient contrast
+    background-color: $red;
     color: darken($red, 45);
   }
 }

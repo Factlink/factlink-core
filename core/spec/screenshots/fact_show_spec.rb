@@ -47,8 +47,9 @@ describe "factlink", type: :feature do
     page.should have_content @factlink.data.displaystring
 
     find_link('(2) Reply').click
-    find('.sub-comment + .sub-comment') # wait for second subcomment to appear
 
+    find('.sub-comment + .sub-comment .icon-trash').click #open delete so it's tested too
+    #implicitly, the previous line is also necessary to wait for the second subcomment to appear
     assume_unchanged_screenshot "fact_show"
   end
 
