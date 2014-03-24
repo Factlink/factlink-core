@@ -10,7 +10,6 @@ window.FactlinkAppMode.coreInSite = (app) ->
 
 enhanceSearchFormNavigation = ->
   $('.js-navbar-search-form').on 'submit', ->
-    console.info 'yo'
     url = '/search?s=' + encodeURIComponent $('.js-navbar-search-box').val()
     Backbone.history.navigate url, true
     false
