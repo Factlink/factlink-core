@@ -14,14 +14,24 @@ class CurrentUserPassword extends Backbone.Model
     @set @defaults
 
   validate: (attributes, options) ->
-    if attributes.current_password.length == 0
-      return 'No current password'
-    if attributes.password.length < 6
-      return 'New password to short' # seems to be enforced by Devise
-    if attributes.password_confirmation != attributes.password
-      return 'Confirmation does not match'
-    
-    null
+    errors = _.compact [
+      if attributes.current_password.length == 0
+        current_password: '*'
+
+      if attributes.password.length == 0
+        password: '*'
+      else if attributes.password.length < 6 # seems to be enforced by Devis
+        password: 'too short'
+
+      if attributes.password_confirmation.length == 0
+        password_confirmation: '*'
+      else if attributes.password_confirmation != attributes.password
+        password_confirmation: 'does not match'
+    ]
+
+    console.info errors
+
+    errors.length && _.extend({}, errors...)
 
 
 class window.CurrentUser extends User

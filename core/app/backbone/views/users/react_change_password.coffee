@@ -1,3 +1,15 @@
+ReactFormError = React.createBackboneClass
+  displayName: 'ReactFormError'
+
+  render: ->
+    if !@model().isValid() && @model().validationError[@props.attribute]
+      _span [
+        'control-error'
+      ],
+        @model().validationError[@props.attribute]
+    else
+      _span []
+
 ReactInput = React.createBackboneClass
   displayName: 'ReactInput'
 
@@ -11,6 +23,8 @@ ReactInput = React.createBackboneClass
           value: @model().get(@props.attribute)
           onChange: (event) => @model().set @props.attribute, event.target.value
         ]
+        ReactFormError model: @model(), attribute: @props.attribute
+
 
 ReactSubmittableForm = React.createBackboneClass
   displayName: 'ReactSubmittableForm'
