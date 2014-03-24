@@ -40,6 +40,19 @@ searchWithWindowFind = (searchString) ->
 
   results
 
+searchWithFindText = (searchString) -> #IE
+  searchRange = window.document.body.createTextRange()
+  searchRange.collapse()
+  selection = window.document.getSelection()
+  # Loop through all the results of the search string
+  results = []
+  while searchRange.findText(searchString, 1000000000, 4)
+    #WTF: findText API is crazy http://msdn.microsoft.com/en-us/library/ms536422.aspx
+    #second parameter must be "large" ????
+    searchRange.select()
+    console.log selection.getRangeAt(0)
+    results.push selection.getRangeAt(0)
+    break #TODO:infinite loop
 
   results
 
