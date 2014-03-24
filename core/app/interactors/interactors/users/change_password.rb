@@ -13,11 +13,7 @@ module Interactors
       private
 
       def execute
-        attributes = {
-          current_password: params[:current_password],
-          password: params[:password],
-          password_confirmation: params[:password_confirmation]
-        }
+        attributes = params.slice(:current_password, :password, :password_confirmation)
 
         current_user.update_with_password(attributes) or fail('Could not update password')
 
