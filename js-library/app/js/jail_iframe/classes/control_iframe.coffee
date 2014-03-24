@@ -17,7 +17,7 @@ class FactlinkJailRoot.ControlIframe
     @doc.write('<!DOCTYPE html><title></title>')
     @doc.close()
     style = @doc.createElement('style')
-    style.appendChild(@doc.createTextNode(jail_window.FrameCss))
+    style.appendChild(@doc.createTextNode(FrameCss))
     #explicitly set variables on jail_window aren't implicitly in scope in IE11 in the jail frame's code; need to explicitly resolve.
     @doc.head.appendChild(style)
     @frameBody = @doc.body
