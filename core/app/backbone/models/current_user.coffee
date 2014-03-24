@@ -9,10 +9,14 @@ class CurrentUserPassword extends Backbone.Model
   url: -> '/api/beta/current_user/password'
   isNew: -> false
 
+  # Weirdly, this is not default behaviour
+  clear: ->
+    @set @defaults
+
   validate: (attributes, options) ->
-    if attributes.current_password?.length == 0
+    if attributes.current_password.length == 0
       'No current password'
-    else if  attributes.password?.length < 6
+    else if  attributes.password.length < 6
       'New password to short' # seems to be enforced by Devise
     else if attributes.password_confirmation != attributes.password
       'Confirmation does not match'
