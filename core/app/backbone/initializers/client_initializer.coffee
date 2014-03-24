@@ -58,7 +58,7 @@ initDevelopmentConsole = (clientEnvoy) ->
 
 window.FactlinkAppMode ?= {}
 window.FactlinkAppMode.coreInClient = (app) ->
-  app.startClientRegions()
+  FactlinkApp.addRegions(discussionSidebarRegion: '.js-discussion-sidebar-region')
 
   FactlinkApp.discussionSidebarContainer = new DiscussionSidebarContainer
   FactlinkApp.discussionSidebarRegion.show FactlinkApp.discussionSidebarContainer
