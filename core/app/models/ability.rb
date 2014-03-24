@@ -76,11 +76,9 @@ class Ability
       can :access, AdminArea
       can :configure, FactlinkWebapp
       can :manage, User
-      cannot :edit_settings, User
     end
 
     can :update, user
-    can :edit_settings, user
     can :destroy, user
   end
 

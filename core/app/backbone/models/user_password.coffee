@@ -1,12 +1,13 @@
-#= require ./user
-
-class CurrentUserPassword extends Backbone.Model
+class window.UserPassword extends Backbone.Model
   defaults:
     current_password: ''
     password: ''
     password_confirmation: ''
 
-  url: -> '/api/beta/current_user/password'
+  initialize: (attributes, options) ->
+    @_user = options.user
+
+  url: -> @_user.url() + '/password'
   isNew: -> false
 
   # Weirdly, this is not default behaviour
@@ -30,17 +31,3 @@ class CurrentUserPassword extends Backbone.Model
     ]
 
     errors.length && _.extend({}, errors...)
-
-
-class window.CurrentUser extends User
-  defaults:
-    features: []
-
-  url: -> '/api/beta/current_user'
-
-  parse: (response) ->
-    # Don't merge but override (this triggers some events, but who cares)
-    @clear silent: true
-    response
-
-  password: -> @_password ?= new CurrentUserPassword

@@ -7,7 +7,7 @@ module Interactors
       arguments :params
 
       def authorized?
-        can? :update, current_user
+        can? :update, user
       end
 
       private
@@ -15,13 +15,13 @@ module Interactors
       def execute
         attributes = params.slice(:current_password, :password, :password_confirmation)
 
-        current_user.update_with_password(attributes) or fail('Could not update password')
+        user.update_with_password(attributes) or fail('Could not update password')
 
-        {}
+        user
       end
 
-      def current_user
-        pavlov_options[:current_user]
+      def user
+        User.find params[:username]
       end
     end
   end

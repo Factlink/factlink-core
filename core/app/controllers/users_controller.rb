@@ -19,8 +19,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    authorize! :destroy, @user
-
     interactor(:'users/delete', user_id: @user.id,
                                 current_user_password: params[:user][:password]) do |delete|
 
@@ -32,12 +30,6 @@ class UsersController < ApplicationController
         redirect_to edit_user_path(current_user), alert: 'Your account could not be deleted. Did you enter the correct password?'
       end
     end
-  end
-
-  def notification_settings
-    authorize! :edit_settings, @user
-
-    backbone_responder
   end
 
   private
