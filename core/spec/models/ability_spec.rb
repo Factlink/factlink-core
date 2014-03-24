@@ -25,8 +25,6 @@ describe Ability do
       it { subject.should     be_able_to :update, user }
       it { subject.should     be_able_to :destroy, user }
 
-      it { subject.should     be_able_to :edit_settings, user }
-
       it { subject.should_not be_able_to :update, other_user }
       it { subject.should_not be_able_to :update, admin }
       it { subject.should_not be_able_to :destroy, other_user }
@@ -36,15 +34,10 @@ describe Ability do
     context "as an admin" do
       it { admin.should     be_able_to :manage, User }
       it { admin.should     be_able_to :configure, Ability::FactlinkWebapp }
-
-      it { admin.should_not be_able_to :edit_settings, user }
-      it { admin.should be_able_to     :edit_settings, admin_user }
     end
     context "as an anonymous" do
       it { anonymous.should_not be_able_to :manage, User }
-
       it { anonymous.should     be_able_to :show, User }
-      it { anonymous.should_not be_able_to :edit_settings, user }
     end
   end
 

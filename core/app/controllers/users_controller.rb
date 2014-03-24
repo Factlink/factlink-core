@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   end
 
   def notification_settings
-    authorize! :edit_settings, @user
+    authorize! :update, @user
 
     backbone_responder
   end
