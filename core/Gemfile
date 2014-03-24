@@ -66,9 +66,9 @@ gem 'rack-xframe-options', github: 'Factlink/rack-xframe-options'
 gem 'rack-rewrite', '~> 1.3.3'
 
 group :production, :development do
-  gem 'newrelic_moped', '~> 0.0.6'
+  gem 'newrelic_moped', '~> 0.0.6' # Depending on the newrelic_rpm upgrade
   gem 'newrelic-redis', '~> 1.4.0'
-  gem 'newrelic_rpm', '~> 3.6.2'
+  gem 'newrelic_rpm', '~> 3.6.9' # Higher version are generating 500 errors with our application. Awaiting support ticket before updating
 end
 
 group :assets do
