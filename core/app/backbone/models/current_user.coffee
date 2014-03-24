@@ -1,5 +1,25 @@
 #= require ./user
 
+class CurrentUserPassword extends Backbone.Model
+  defaults:
+    current_password: ''
+    password: ''
+    password_confirmation: ''
+
+  url: -> '/api/beta/current_user/password'
+  isNew: -> false
+
+  validate: (attributes, options) ->
+    if attributes.current_password?.length == 0
+      'No current password'
+    else if  attributes.password?.length < 6
+      'New password to short' # seems to be enforced by Devise
+    else if attributes.password_confirmation != attributes.password
+      'Confirmation does not match'
+    else
+      null
+
+
 class window.CurrentUser extends User
   defaults:
     features: []
@@ -11,13 +31,4 @@ class window.CurrentUser extends User
     @clear silent: true
     response
 
-  change_password: (attributes, success=->) ->
-    Backbone.ajax
-      method: 'put'
-      url: @url() + '/password.json'
-      data: attributes
-      success: ->
-        window.parent.FactlinkApp.NotificationCenter.success 'Your password has been changed!'
-        success()
-      error: ->
-        window.parent.FactlinkApp.NotificationCenter.error 'Could not change your password, please try again.'
+  password: -> @_password ?= new CurrentUserPassword

@@ -21,4 +21,4 @@ class window.ProfileRouter extends Backbone.Router
 
   showChangePassword: ->
     FactlinkApp.mainRegion.show new ReactView
-      component: ReactChangePassword()
+      component: ReactChangePassword model: currentUser.password()
