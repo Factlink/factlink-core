@@ -26,6 +26,33 @@ ReactComments = React.createBackboneClass
           fact_opinionators: @model().fact.getOpinionators()
 
 
+ReactCollapsedText = React.createClass
+  displayName: 'ReactCollapsedText'
+
+  getInitialState: ->
+    expanded: false
+
+  render: ->
+    return _span [], @props.text if @props.text.length <= @props.size
+
+    if @state.expanded
+      _span [],
+        @props.text
+        ' '
+        _a [
+          onClick: => @setState expanded: false
+        ],
+          '(less)'
+    else
+      _span [],
+        @props.text.substring 0, @props.size
+        '\u2026 '
+        _a [
+          onClick: => @setState expanded: true
+        ],
+          '(more)'
+
+
 window.ReactDiscussion = React.createBackboneClass
   displayName: 'ReactDiscussion'
   mixins: [UpdateOnFeaturesChangeMixin] # opinions_of_users_and_comments
@@ -35,7 +62,9 @@ window.ReactDiscussion = React.createBackboneClass
       _div ['top-annotation'],
         _div ['top-annotation-text'],
           if @model().get('displaystring')
-            @model().get('displaystring')
+            ReactCollapsedText
+              text: @model().get('displaystring')
+              size: 150
           else
             _div ["loading-indicator-centered"],
               ReactLoadingIndicator()
