@@ -30,7 +30,10 @@ class window.DiscussionSidebarContainer extends Backbone.Marionette.Layout
   slideOut: (callback=->) ->
     @$el.removeClass 'discussion-sidebar-container-visible'
     $('body').removeClass 'discussion-sidebar-open'
-    _.delay callback, 400 # keep in sync with CSS
+    _.delay callback, @slide_transition_duration
 
     @opened = false
     mp_track 'Discussion Sidebar: Close'
+
+
+  slide_transition_duration: 400  # keep in sync with CSS
