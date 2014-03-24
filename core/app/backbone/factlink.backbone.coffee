@@ -3,7 +3,7 @@
 #     which subclasses the router
 #= require backbone.queryparams
 #= require backbone.marionette
-#= require react
+#= require react/react-with-addons
 #= require react.backbone
 
 #= require tether

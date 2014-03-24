@@ -1,45 +1,48 @@
-FactlinkApp.module "NotificationCenter", (NotificationCenter, FactlinkApp, Backbone, Marionette, $, _) ->
+class Alert extends Backbone.Model
+class Alerts extends Backbone.Collection
 
-  class NotificationCenter.AlertView extends Marionette.ItemView
+ReactAlerts = React.createBackboneClass
+  render: ->
+    React.addons.CSSTransitionGroup {
+        transitionName: "notification-center-alert-container"
+        transitionEnter: false
+      },
+      @props.model.map (model) ->
+        _div [
+            'notification-center-alert-container'
+            key: model.cid
+          ],
+          _div [
+              "notification-center-alert"
+              "notification-center-alert-#{model.get('type')}"
+              onClick: -> model.destroy()
+            ],
+            model.get('message')
+            if model.get('show_close')
+              [
+                _span [style: {width: '10px', display: 'inline-block'}] # spacer span
+                _span ["notification-center-alert-close"], '×'
+              ]
 
-    className: 'notification-center-alert-container'
+autoHideTime = (alert)-> 1000 + 50*alert.get('message').length
 
-    template: 'widgets/notification_center_alert'
+autoRemove = (alert) ->
+  return if Factlink.Global.enviroment == 'test'
 
-    events:
-      "click .js-close": '_destroy'
+  setTimeout (-> alert.destroy()), autoHideTime(alert)
 
-    onRender: ->
-      @_autoHide()
 
-    _autoHide: ->
-      return unless @model.get('type') == 'success'
-      return if Factlink.Global.enviroment == 'test'
+class window.NotificationCenter
+  constructor: (selector)->
+    @alerts = new Alerts []
+    alertComponent = ReactAlerts(model: @alerts)
+    React.renderComponent(alertComponent, document.querySelector(selector))
 
-      setTimeout (=> @_destroy()), @_autoHideTime()
+  success: (message) ->
+    success_alert = new Alert {message, type: 'success', show_close: false}
+    @alerts.add success_alert
 
-    _autoHideTime: ->
-      1000 + 50*@model.get('message').length
+    autoRemove(success_alert)
 
-    _destroy: ->
-      @$el.addClass 'notification-center-alert-container-hidden'
-
-      transitionTime = 500 # Keep in sync with transition in notification_center.css.less
-      setTimeout (=> @model.destroy()), transitionTime+100 # Destroy strictly after animation
-
-  class NotificationCenter.AlertsView extends Marionette.CollectionView
-    itemView: NotificationCenter.AlertView
-
-  class NotificationCenter.Alert extends Backbone.Model
-  class NotificationCenter.Alerts extends Backbone.Collection
-  window.alerts = new NotificationCenter.Alerts []
-
-  FactlinkApp.addRegions
-    alertsRegion: ".js-notification-center-alerts"
-  FactlinkApp.alertsRegion.show new NotificationCenter.AlertsView collection: alerts
-
-  NotificationCenter.success = (message) ->
-    alerts.add new NotificationCenter.Alert {message, type: 'success'}
-
-  NotificationCenter.error   = (message) ->
-    alerts.add new NotificationCenter.Alert {message, type: 'error'}
+  error: (message) ->
+    @alerts.add new Alert {message, type: 'error', show_close: true}
