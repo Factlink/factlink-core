@@ -146,7 +146,7 @@ FactlinkUI::Application.routes.draw do
     delete "/" => "users#destroy"
 
     get "/change-password" => "frontend#show", as: 'change_password'
-    get "/notification-settings" => "frontend#show", as: 'change_password'
+    get "/notification-settings" => "frontend#show", as: 'user_notification_settings'
 
     resources :following, only: [:destroy, :update, :index], controller: 'user_following'
   end
