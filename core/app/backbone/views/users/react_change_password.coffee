@@ -1,49 +1,77 @@
-window.ReactChangePassword = React.createBackboneClass
+ReactInput = React.createBackboneClass
+  displayName: 'ReactInput'
+
+  render: ->
+    _div ['control-group'],
+      _label ['control-label'],
+        @props.label
+      _div ['controls'],
+        _input [
+          type: @props.type
+          value: @model().get(@props.attribute)
+          onChange: (event) => @model().set @props.attribute, event.target.value
+        ]
+
+ReactSubmittableForm = React.createBackboneClass
+  displayName: 'ReactSubmittableForm'
+
+  _onSubmit: (e) ->
+    e.preventDefault()
+    @props.onSubmit() if @model().isValid()
+
+  render: ->
+    _form [
+      onSubmit: @_onSubmit
+    ],
+      @props.children
+      _div ['controls'],
+        _button [
+          'button-confirm'
+          'controls-information-item'
+          disabled: 'disabled' unless @model().isValid()
+          onClick: @_onSubmit
+        ],
+          @props.label
+
+
+window.ReactChangePassword = React.createClass
+  displayName: 'ReactChangePassword'
   mixins: [UpdateOnSignInOrOutMixin]
 
   _submit: ->
-    @model().save {},
+    @props.model.save {},
       success: =>
         window.parent.FactlinkApp.NotificationCenter.success 'Your password has been changed!'
-        @model().clear()
+        @props.model.clear()
       error: ->
         window.parent.FactlinkApp.NotificationCenter.error 'Could not change your password, please try again.'
 
   render: ->
-    return _span() unless FactlinkApp.signedIn()
+    return _span([], 'Please sign in.') unless FactlinkApp.signedIn()
 
     _div [],
       ReactUserTabs model: currentUser, page: 'change_password'
       _div ["edit-user-container"],
         _div ["narrow-indented-block"],
-          _label [],
-            'Current password'
-          _input [
-            type: 'password'
-            value: @model().get('current_password')
-            onChange: (event) => @model().set 'current_password', event.target.value
-          ]
+          ReactSubmittableForm {
+            onSubmit: @_submit
+            model: @props.model
+            label: 'Change password'
+          },
+            ReactInput
+              model: @props.model
+              label: 'Current password'
+              type: 'password'
+              attribute: 'current_password'
 
-          _label [],
-            'New password'
-          _input [
-            type: 'password'
-            value: @model().get('password')
-            onChange: (event) => @model().set 'password', event.target.value
-          ]
+            ReactInput
+              model: @props.model
+              label: 'New password'
+              type: 'password'
+              attribute: 'password'
 
-          _label [],
-            'Confirm new password'
-          _input [
-            type: 'password'
-            value: @model().get('password_confirmation')
-            onChange: (event) => @model().set 'password_confirmation', event.target.value
-          ]
-
-          _div [],
-            _button [
-              'button-confirm'
-              disabled: 'disabled' unless @model().isValid()
-              onClick: @_submit
-            ],
-              'Change password'
+            ReactInput
+              model: @props.model
+              label: 'Confirm new password'
+              type: 'password'
+              attribute: 'password_confirmation'
