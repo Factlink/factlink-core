@@ -29,8 +29,6 @@ class CurrentUserPassword extends Backbone.Model
         password_confirmation: 'does not match'
     ]
 
-    console.info errors
-
     errors.length && _.extend({}, errors...)
 
 
