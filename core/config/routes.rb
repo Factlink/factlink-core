@@ -23,6 +23,7 @@ FactlinkUI::Application.routes.draw do
     put '/users/:original_username' => 'api/users#update'
     get '/current_user' => 'api/users#current'
     put '/current_user/password' => 'api/users#change_password'
+    delete '/current_user' => 'api/users#destroy'
   end
 
   # Javascript Client calls

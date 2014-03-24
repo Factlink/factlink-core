@@ -13,4 +13,11 @@ class Api::UsersController < ApplicationController
 
     render json: {}
   end
+
+  def destroy
+    interactor(:'users/delete', user_id: @user.id,
+                                current_user_password: params[:user][:password]).call
+    sign_out
+    render json: {}
+  end
 end
