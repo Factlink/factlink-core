@@ -4,7 +4,6 @@ window.FactlinkAppMode.coreInSite = (app) ->
   app.startSiteRegions()
   window.FactlinkApp.NotificationCenter = new NotificationCenter('.js-notification-center-alerts')
   new window.NonConfirmedEmailWarning()
-  app.automaticLogoutInitializer()
   declareSiteRoutes()
 
 declareSiteRoutes = ->
