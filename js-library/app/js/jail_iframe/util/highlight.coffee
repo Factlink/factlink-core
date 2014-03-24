@@ -7,6 +7,25 @@ ensureScrollSaved = (func) ->
   finally
     # Scroll back to previous location
     window.scroll scrollLeft, scrollTop
+
+ensureSelectionSaved = (func) ->
+  oldRanges = []
+  try
+    # If the user currently has selected some text, store the selection
+    selection = window.document.getSelection()
+    oldRanges =
+      for i in [0...selection.rangeCount]
+        selection.getRangeAt(i)
+    func()
+  finally
+    # Reset the selection
+    window.document.getSelection().removeAllRanges()
+
+    # Restore previous selection
+    for selectedRange in oldRanges
+      window.document.getSelection().addRange selectedRange
+
+
 # Chrome, Firefox, Safari
 searchWithWindowFind = (searchString) ->
   # Trim
