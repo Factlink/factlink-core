@@ -51,11 +51,15 @@ window.ReactAddComment = React.createBackboneClass
       # However, this still flashes on IE11 (maybe only without gfx accel)
       # (2) delay focusing while transitioning (at least initially)
       # This ensures the browser needn't try to scroll, and works in IE11 too.
+
       textarea = @refs.textarea
-      setTimeout ->
+      if  window.$.fx.off
         textarea.focusInput()
-        FactlinkApp.discussionSidebarContainer.el.scrollLeft = 0
-      , FactlinkApp.discussionSidebarContainer.slide_transition_duration + 100 # keep delay in sync with $discussionSidebarTransitionTime in scss
+      else
+        setTimeout ->
+          textarea.focusInput()
+          FactlinkApp.discussionSidebarContainer.el.scrollLeft = 0
+        , FactlinkApp.discussionSidebarContainer.slide_transition_duration + 100 # keep delay in sync with $discussionSidebarTransitionTime in scss
 
   getInitialState: ->
     text: ''
