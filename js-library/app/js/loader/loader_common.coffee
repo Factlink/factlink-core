@@ -110,7 +110,6 @@ whenHasBody = ->
   load_time_before_jail = new Date().getTime()
 
   jail_window = jslib_jail_iframe.contentWindow
-  jail_window.FrameCss = frame_style_code
 
   # Load iframe with script tag
   jslib_jail_doc = jail_window.document
@@ -118,6 +117,10 @@ whenHasBody = ->
   jslib_jail_doc.open()
   jslib_jail_doc.write '<!DOCTYPE html><title></title>'
   jslib_jail_doc.close()
+
+  jail_window.FrameCss = frame_style_code #warning: this MUST be placed after the doc write
+  #IE11 apparently "reinitializes" the window on doc write (at least, FrameCss isn't in scope otherwise)
+
 
   script_tag = jslib_jail_doc.createElement('script')
   script_tag.appendChild(jslib_jail_doc.createTextNode(jail_code))
