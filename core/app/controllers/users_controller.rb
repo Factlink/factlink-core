@@ -19,8 +19,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    authorize! :destroy, @user
-
     interactor(:'users/delete', user_id: @user.id,
                                 current_user_password: params[:user][:password]) do |delete|
 
