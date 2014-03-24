@@ -59,7 +59,7 @@ window.ReactAddComment = React.createBackboneClass
         setTimeout ->
           textarea.focusInput()
           FactlinkApp.discussionSidebarContainer.el.scrollLeft = 0
-        , FactlinkApp.discussionSidebarContainer.slide_transition_duration + 100 # keep delay in sync with $discussionSidebarTransitionTime in scss
+        , FactlinkApp.discussionSidebarContainer.slide_transition_duration + 100
 
   getInitialState: ->
     text: ''

@@ -36,4 +36,4 @@ class window.DiscussionSidebarContainer extends Backbone.Marionette.Layout
     mp_track 'Discussion Sidebar: Close'
 
 
-  slide_transition_duration: 400  # keep in sync with CSS
+  slide_transition_duration: 400  # keep in sync with CSS $discussionSidebarTransitionTime
