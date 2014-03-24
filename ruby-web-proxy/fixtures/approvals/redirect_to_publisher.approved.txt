@@ -1,0 +1,4 @@
+<!DOCTYPE html>
+<html>
+<base href="http://www.example.org/foo?bar=baz" /><title>Hoi</title>
+<h1>yo</h1>
