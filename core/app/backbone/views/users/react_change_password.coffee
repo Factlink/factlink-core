@@ -24,6 +24,8 @@ ReactInput = React.createBackboneClass
           onChange: (event) => @model().set @props.attribute, event.target.value
         ]
         ReactFormError model: @model(), attribute: @props.attribute
+        _div ['controls-information-item'],
+          @props.children
 
 
 ReactSubmittableForm = React.createBackboneClass
@@ -73,11 +75,14 @@ window.ReactChangePassword = React.createClass
             model: @props.model
             label: 'Change password'
           },
-            ReactInput
+            ReactInput {
               model: @props.model
               label: 'Current password'
               type: 'password'
               attribute: 'current_password'
+            },
+              _a [href: '/users/password/new'],
+                'Forgot your password?'
 
             ReactInput
               model: @props.model
