@@ -1,17 +1,12 @@
-<header class="content-header">
-  <div class="content-title">
-    <h1>Edit</h1>
-  </div>
-
-  <div class="main-region-tabs">
-    <ul>
-      <li><%= link_to "About", user_profile_path(current_user) %></li>
-      <li class="account active"><%= link_to "Edit", edit_user_path(current_user) %></li>
-      <li class="password"><%= link_to "Change password", user_password_edit_path(current_user) %></li>
-        <li class="tab-notification-settings"><%= link_to "Notification Settings", user_notification_settings_path(current_user) %></li>
-    </ul>
-  </div>
-</header>
+<div class="main-region-tabs">
+  <%= link_to "About", user_profile_path(current_user) %>
+  ·
+  <%= link_to "Edit", edit_user_path(current_user), class: 'main-region-tab-active' %></li>
+  ·
+  <%= link_to "Change password", change_password_path(current_user) %>
+  ·
+  <%= link_to "Notification Settings", user_notification_settings_path(current_user) %>
+</div>
 
 <div class="edit-user-container" id="edit_user">
   <div class="narrow-indented-block">

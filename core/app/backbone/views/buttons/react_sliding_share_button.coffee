@@ -5,12 +5,16 @@ ReactCommentFacebookShare = React.createBackboneClass
     left_quote = "\u201C"
     right_quote = "\u201D"
 
-    left_quote + @model().textContent() + right_quote
+    @model().creator().get('name') + ': ' +
+      left_quote + @model().textContent() + right_quote
+
+  _fact: -> @model().collection.fact
 
   _share: ->
     FB.ui
       method: 'feed'
-      link: @model().collection.fact.sharingUrl()
+      link: @_fact().sharingUrl()
+      caption: @_fact().factUrlHost()
       description: @_description()
 
   render: ->

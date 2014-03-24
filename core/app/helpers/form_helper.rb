@@ -3,7 +3,7 @@ module FormHelper
     if resource.errors[fieldname].any?
       content = resource.errors[fieldname].join("; ")
 
-      content_tag :div, content, class: 'text-error'
+      content_tag :div, content, class: 'control-error'
     end
   end
 end
