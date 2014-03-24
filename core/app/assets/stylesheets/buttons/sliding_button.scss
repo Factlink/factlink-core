@@ -8,9 +8,8 @@ $slideTime: 0.3s;
   vertical-align: baseline;
   cursor: pointer;
   color: $linkColor;
-  padding: 0 0.2em;
 }
-.sliding-button .icon-trash { margin:0; }
+.sliding-button .icon-trash { margin-left:0; }
 
 .sliding-button-container-outer {
   position: absolute;
@@ -21,6 +20,7 @@ $slideTime: 0.3s;
   overflow: hidden;
   visibility: hidden;
   transition: visibility 0 $slideTime;
+  margin:0 0.2em;
 }
 
 .sliding-button-open .sliding-button-container-outer {
