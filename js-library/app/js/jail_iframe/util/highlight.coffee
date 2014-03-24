@@ -52,20 +52,19 @@ searchWithWindowFind = (searchString) ->
 
   results
 
+
+searchAlgorithm =
+  if window.find
+    searchWithWindowFind
+  else
+    searchWithFindText
+
 # Function to search the page
 search = (searchString) ->
-  return false unless window.find?
+  ensureScrollSaved ->
+    ensureSelectionSaved ->
+      searchAlgorithm(searchString.trim())
 
-  # Store scroll settings to reset to afterwards
-  scrollTop = window.document.body.scrollTop
-  scrollLeft = window.document.body.scrollLeft
-
-  results = searchWithWindowFind(searchString)
-
-  # Scroll back to previous location
-  window.scroll scrollLeft, scrollTop
-
-  results
 
 # Adapted from https://github.com/okfn/annotator/blob/master/src/annotator.coffee
 highlightNode = (node, id) ->
