@@ -5,7 +5,6 @@ window.FactlinkAppMode.coreInSite = (app) ->
   window.FactlinkApp.NotificationCenter = new NotificationCenter('.js-notification-center-alerts')
   new window.NonConfirmedEmailWarning()
   app.automaticLogoutInitializer()
-  app.scrollToTopInitializer()
   declareSiteRoutes()
 
 declareSiteRoutes = ->
