@@ -43,8 +43,9 @@ window.ReactChangePassword = React.createClass
       success: =>
         window.parent.FactlinkApp.NotificationCenter.success 'Your password has been changed!'
         @props.model.clear()
-      error: ->
+      error: =>
         window.parent.FactlinkApp.NotificationCenter.error 'Could not change your password, please try again.'
+        @props.model.clear()
 
   render: ->
     return _span([], 'Please sign in.') unless FactlinkApp.signedIn()
