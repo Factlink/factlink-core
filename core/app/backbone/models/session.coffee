@@ -2,7 +2,7 @@ class window.Session extends Backbone.Model
   url: -> '/api/beta/session'
 
   initialize: (attributes, options) ->
-    @_user = new User attributes
+    @_user = new User attributes?.user
 
     @on 'change', @_onChange, @
 
