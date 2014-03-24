@@ -14,7 +14,7 @@ class window.CurrentUser extends User
   change_password: (attributes, success=->) ->
     Backbone.ajax
       method: 'put'
-      url: @url() + '/change_password.json'
+      url: @url() + '/password.json'
       data: attributes
       success: ->
         window.parent.FactlinkApp.NotificationCenter.success 'Your password has been changed!'
