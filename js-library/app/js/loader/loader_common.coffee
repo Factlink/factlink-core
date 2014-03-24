@@ -61,10 +61,19 @@ frame_style_code = __INLINE_FRAME_CSS_PLACEHOLDER__
 # create the factlink config object
 factlink_config = __INLINE_CONFIG_PLACEHOLDER__
 
-# concatenate the config and jail scripts
-jail_code = 'window.FactlinkConfig = ' + factlink_config + '; ' + jslib_jail_code
 
 this_env = JSON.parse(factlink_config).env
+
+extra_config =
+  if this_env != 'production' && FactlinkConfig_override_uri
+    'window.FactlinkConfig.base_uri = ' + JSON.stringify(FactlinkConfig_override_uri) + '; '
+  else
+    ''
+
+
+# concatenate the config and jail scripts
+jail_code = 'window.FactlinkConfig = ' + factlink_config + '; ' + extra_config + jslib_jail_code
+
 
 if window.__internalFactlinkState
   if window.__internalFactlinkState.env != this_env

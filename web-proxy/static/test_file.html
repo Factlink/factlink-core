@@ -4,6 +4,11 @@
 <title>Factlink test-file</title>
   <script>(function(){
     var script = document.createElement('script');
+    window.FactlinkConfig_override_uri =
+        'http://' + window.location.host.replace(':8080',':3000').replace(
+        'staging.fct.li', 'factlink-staging.inverselink.com');
+
+
     script.src = 'http://' + window.location.host.replace(':8080',':8000').replace(
         'staging.fct.li', 'factlink-static-staging.inverselink.com') +  '/lib/dist/factlink_loader.js?o=dev_sandbox';
     document.head.appendChild(script)
