@@ -64,6 +64,7 @@ window.FactlinkAppMode.coreInClient = (app) ->
   FactlinkApp.discussionSidebarRegion.show FactlinkApp.discussionSidebarContainer
 
   window.FactlinkApp.NotificationCenter = new NotificationCenter('.js-notification-center-alerts')
+  new window.NonConfirmedEmailWarning()
 
   app.vent.on 'close_discussion_sidebar', ->
     mp_track "Discussion Sidebar: Close (Button)"

@@ -25,8 +25,6 @@
   position: relative;
   padding: 6px 16px;
 
-  cursor: pointer;
-
   border: 1px solid transparent;
   border-radius: 4px;
   box-shadow: 0 1px 4px rgba(0,0,1,.15);
@@ -47,6 +45,8 @@
 
 .notification-center-alert-close {
   color: $grayLight;
+
+  cursor: pointer;
 
   position: absolute;
   top: 1px;
