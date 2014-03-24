@@ -81,9 +81,7 @@ window.ReactChangePassword = React.createClass
               type: 'password'
               attribute: 'current_password'
             },
-              _a [
-                href: '/users/password/new'
-              ],
+              _a [href: '/users/password/new'],
                 'Forgot your password?'
 
             ReactInput
