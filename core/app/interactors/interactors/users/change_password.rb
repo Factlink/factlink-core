@@ -17,7 +17,7 @@ module Interactors
 
         user.update_with_password(attributes) or fail('Could not update password')
 
-        {}
+        user
       end
 
       def user

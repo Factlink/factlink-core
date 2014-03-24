@@ -7,8 +7,8 @@ class Api::UsersController < ApplicationController
   end
 
   def change_password
-    interactor(:'users/change_password', params: params)
-    remembered_sign_in current_user, bypass: true # http://stackoverflow.com/questions/4264750/devise-logging-out-automatically-after-password-change
+    user = interactor(:'users/change_password', params: params)
+    remembered_sign_in user, bypass: true # http://stackoverflow.com/questions/4264750/devise-logging-out-automatically-after-password-change
 
     render json: {}
   end
