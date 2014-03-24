@@ -9,4 +9,4 @@ Backbone.Factlink.ModelSaveWithStateMixin =
         options.error?()
       statusCode:
         403: ->
-          currentUser.fetch()
+          session.user().fetch()

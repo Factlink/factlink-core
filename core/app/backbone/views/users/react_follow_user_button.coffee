@@ -41,11 +41,11 @@ window.ReactFollowUserButton = React.createClass
   displayName: 'ReactFollowUserButton'
 
   componentDidMount: ->
-    currentUser.following.on 'add remove reset sync reset', (-> @forceUpdate()), @
-    currentUser.following.fetch()
+    session.user().following.on 'add remove reset sync reset', (-> @forceUpdate()), @
+    session.user().following.fetch()
 
   componentWillUnmount: ->
-    currentUser.following.off null, null, @
+    session.user().following.off null, null, @
 
   render: ->
     ReactActionButton
@@ -53,7 +53,7 @@ window.ReactFollowUserButton = React.createClass
       unchecked_label:         Factlink.Global.t.follow_user.capitalize()
       checked_hovered_label:   Factlink.Global.t.unfollow.capitalize()
       checked_unhovered_label: Factlink.Global.t.following.capitalize()
-      loading: currentUser.following.loading()
+      loading: session.user().following.loading()
       checked: @props.user.followed_by_me()
       onClick: @_toggleFollowing
 

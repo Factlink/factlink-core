@@ -11,16 +11,18 @@
   text-align: center;
   padding: 0 20px; //leave space for scrollbars to the right;
   height: 40px;
+  position: relative;
 }
 
-.notification-center-alert-container-hidden {
-  transition: all 0.5s; // Keep time in sync with transitionTime in notification_center.coffee
+.notification-center-alert-container-leave-active {
+  transition: all 0.5s;
   opacity: 0;
   height: 0;
 }
 
 .notification-center-alert {
   display: inline-block;
+  position: relative;
   padding: 6px 16px;
 
   border: 1px solid transparent;
@@ -41,23 +43,20 @@
   color: $successText;
 }
 
-.notification-center-alert-action-button {
-  margin-left: 5px;
-  margin-top: -2px;
-}
-
 .notification-center-alert-close {
   color: $grayLight;
-  margin-left: 10px;
+
+  cursor: pointer;
+
+  position: absolute;
+  top: 1px;
+  right: 6px;
+
   font-size: 14px;
   font-weight: bold;
-  cursor: pointer;
 
   &:hover {
     color: $gray;
   }
 }
 
-.notification-center-alert-success .notification-center-alert-close {
-  display: none;
-}

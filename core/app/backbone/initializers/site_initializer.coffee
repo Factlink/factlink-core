@@ -2,9 +2,17 @@ window.FactlinkAppMode ?= {}
 window.FactlinkAppMode.coreInSite = (app) ->
   app.onClientApp = false
   app.startSiteRegions()
-  app.automaticLogoutInitializer()
-  app.scrollToTopInitializer()
+  window.FactlinkApp.NotificationCenter = new NotificationCenter('.js-notification-center-alerts')
+  new window.NonConfirmedEmailWarning()
   declareSiteRoutes()
+  enhanceSearchFormNavigation()
+
+enhanceSearchFormNavigation = ->
+  $('.js-navbar-search-form').on 'submit', ->
+    url = '/search?s=' + encodeURIComponent $('.js-navbar-search-box').val()
+    Backbone.history.navigate url, true
+    false
+
 
 declareSiteRoutes = ->
   new ProfileRouter #first, as then it doesn't match index pages such as "/m" using "/:username"

@@ -4,11 +4,11 @@ window.ReactSigninPopover = React.createClass
     callback: null
 
   componentDidMount: ->
-    window.currentUser.on 'change:username', @_onSignedInChange, @
+    window.session.user().on 'change:username', @_onSignedInChange, @
     FactlinkApp.vent.on 'ReactSigninPopover:opened', @_onOtherPopoverOpened, @
 
   componentWillUnmount: ->
-    window.currentUser.off null, null, @
+    window.session.user().off null, null, @
     FactlinkApp.vent.off null, null, @
 
   _onOtherPopoverOpened: (popover) ->
@@ -40,7 +40,8 @@ window.ReactSigninPopover = React.createClass
           _span ["signin-popover"],
             'Sign in with: ',
             _a ["button-twitter small-connect-button js-accounts-popup-link",
-              href: "/auth/twitter"
+              # The "?use_authorize=true&x_auth_access_type=write" part is for some weird twitter bug
+              href: "/auth/twitter?use_authorize=true&x_auth_access_type=write"
             ],
               _i ["icon-twitter"]
             ' ',

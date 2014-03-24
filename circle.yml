@@ -11,6 +11,7 @@ dependencies:
   cache_directories:
     - "~/factlink/js-library/node_modules"
     - "~/factlink/js-library/vendor"
+    - "~/factlink/ruby-web-proxy/vendor"
     - "~/factlink/web-proxy/node_modules"
   post:
     - cd ~/factlink/js-library; bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --clean

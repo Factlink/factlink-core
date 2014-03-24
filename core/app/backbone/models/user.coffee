@@ -27,26 +27,28 @@ class window.User extends Backbone.Model
     !@following.isEmpty()
 
   follow: ->
-    currentUser.following.create @,
+    session.user().following.create @,
       error: =>
-        currentUser.following.remove @
+        session.user().following.remove @
         @set 'statistics_follower_count', @get('statistics_follower_count')-1
 
     @set 'statistics_follower_count', @get('statistics_follower_count')+1
     mp_track 'User: Followed'
 
   unfollow: ->
-    self = currentUser.following.get(@id)
+    self = session.user().following.get(@id)
     return unless self
 
     self.destroy
       error: =>
-        currentUser.following.add @
+        session.user().following.add @
         @set 'statistics_follower_count', @get('statistics_follower_count')+1
 
     @set 'statistics_follower_count', @get('statistics_follower_count')-1
     mp_track 'User: Unfollowed'
 
   followed_by_me: ->
-    currentUser.following.some (model) =>
+    session.user().following.some (model) =>
       model.get('username') == @get('username')
+
+  password: -> @_password ?= new UserPassword {}, user: this

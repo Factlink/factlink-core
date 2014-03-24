@@ -210,6 +210,7 @@ development:
   # NOTE: for initial evaluation purposes, you may want to temporarily
   # turn agent communication on in development mode.
   monitor_mode: false
+  app_name: Factlink (Development)
 
   # Rails Only - when running in Developer Mode, the New Relic Agent will
   # present performance information on the last 100 transactions you have
