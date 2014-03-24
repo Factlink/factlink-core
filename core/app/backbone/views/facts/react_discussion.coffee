@@ -4,14 +4,14 @@ ReactComments = React.createBackboneClass
   changeOptions: 'add remove reset sort sync request'
 
   refetchComments : ->
-    @model().fetchIfUnloadedFor(window.currentUser.get('username'))
+    @model().fetchIfUnloadedFor(window.session.user().get('username'))
 
   componentWillMount: ->
     @refetchComments()
-    window.currentUser.on 'change:username', @refetchComments, @
+    window.session.user().on 'change:username', @refetchComments, @
 
   componentWillUnmount: ->
-    window.currentUser.off null, null, @
+    window.session.user().off null, null, @
 
   render: ->
     _div [],

@@ -21,8 +21,8 @@ FactlinkUI::Application.routes.draw do
     get '/users/:username/feed' => 'api/users#feed'
     get '/users/:username' => 'api/users#show'
     put '/users/:original_username' => 'api/users#update'
-    get '/current_user' => 'api/users#current'
-    put '/current_user/password' => 'api/users#change_password'
+    put '/users/:username/password' => 'api/users#change_password'
+    get '/session' => 'api/sessions#current'
   end
 
   # Javascript Client calls
