@@ -15,13 +15,13 @@ ReactAlerts = React.createBackboneClass
           _div [
               "notification-center-alert"
               "notification-center-alert-#{model.get('type')}"
-              onClick: -> model.destroy()
             ],
-            model.get('message')
+            _span [dangerouslySetInnerHTML: {__html: model.get('message')}]
             if model.get('show_close')
               [
                 _span [style: {width: '10px', display: 'inline-block'}] # spacer span
-                _span ["notification-center-alert-close"], '×'
+                _span ["notification-center-alert-close", onClick: -> model.destroy()],
+                  '×'
               ]
 
 autoHideTime = (alert)-> 1000 + 50*alert.get('message').length
