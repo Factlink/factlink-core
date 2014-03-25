@@ -61,10 +61,19 @@ frame_style_code = __INLINE_FRAME_CSS_PLACEHOLDER__
 # create the factlink config object
 factlink_config = __INLINE_CONFIG_PLACEHOLDER__
 
-# concatenate the config and jail scripts
-jail_code = 'window.FactlinkConfig = ' + factlink_config + '; ' + jslib_jail_code
 
 this_env = JSON.parse(factlink_config).env
+
+extra_config =
+  if this_env != 'production' && FactlinkConfig_override_uri
+    'window.FactlinkConfig.base_uri = ' + JSON.stringify(FactlinkConfig_override_uri) + '; '
+  else
+    ''
+
+
+# concatenate the config and jail scripts
+jail_code = 'window.FactlinkConfig = ' + factlink_config + '; ' + extra_config + jslib_jail_code
+
 
 if window.__internalFactlinkState
   if window.__internalFactlinkState.env != this_env
@@ -101,7 +110,6 @@ whenHasBody = ->
   load_time_before_jail = new Date().getTime()
 
   jail_window = jslib_jail_iframe.contentWindow
-  jail_window.FrameCss = frame_style_code
 
   # Load iframe with script tag
   jslib_jail_doc = jail_window.document
@@ -110,13 +118,16 @@ whenHasBody = ->
   jslib_jail_doc.write '<!DOCTYPE html><title></title>'
   jslib_jail_doc.close()
 
+  jail_window.FrameCss = frame_style_code #warning: this MUST be placed after the doc write
+  #IE11 apparently "reinitializes" the window on doc write (at least, FrameCss isn't in scope otherwise)
+
+
   script_tag = jslib_jail_doc.createElement('script')
   script_tag.appendChild(jslib_jail_doc.createTextNode(jail_code))
 
   jslib_jail_doc.documentElement.appendChild(script_tag)
 
   root = jslib_jail_iframe.contentWindow.FactlinkJailRoot
-  $ = jslib_jail_iframe.contentWindow.$
   root.perf.add_existing_timing_event 'factlink_loader_start', factlink_loader_start_timestamp
   root.perf.add_existing_timing_event 'before_jail', load_time_before_jail
   root.perf.add_timing_event 'after_jail'

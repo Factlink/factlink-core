@@ -1,43 +1,75 @@
+ensureScrollSaved = (func) ->
+  try
+    # Store scroll settings to reset to afterwards
+    scrollTop = window.document.body.scrollTop
+    scrollLeft = window.document.body.scrollLeft
+    func()
+  finally
+    # Scroll back to previous location
+    window.scroll scrollLeft, scrollTop
+
+ensureSelectionSaved = (func) ->
+  oldRanges = []
+  try
+    # If the user currently has selected some text, store the selection
+    selection = window.document.getSelection()
+    oldRanges =
+      for i in [0...selection.rangeCount]
+        selection.getRangeAt(i)
+    func()
+  finally
+    # Reset the selection
+    window.document.getSelection().removeAllRanges()
+
+    # Restore previous selection
+    for selectedRange in oldRanges
+      window.document.getSelection().addRange selectedRange
+
+
 # Chrome, Firefox, Safari
 searchWithWindowFind = (searchString) ->
-  # Trim
-  searchString = searchString.trim();
 
-  # If the user currently has selected some text, store the selection
   selection = window.document.getSelection()
-  selectedRange = selection.getRangeAt(0) if selection.rangeCount > 0
-
   # Reset the selection
-  window.document.getSelection().removeAllRanges()
+  selection.removeAllRanges()
 
   # Loop through all the results of the search string
   results = []
   while window.find(searchString, false)
-    selection = window.document.getSelection()
     results.push selection.getRangeAt(0)
 
-  # Reset the selection
-  window.document.getSelection().removeAllRanges()
+  results
 
-  # Restore previous selection
-  window.document.getSelection().addRange selectedRange if selectedRange?
+searchWithFindText = (searchString) -> #IE
+  searchRange = window.document.body.createTextRange()
+  searchRange.collapse()
+  selection = window.document.getSelection()
+  # Loop through all the results of the search string
+  results = []
+  while searchRange.findText(searchString, 1000000000, 4)
+    #WTF: findText API is crazy http://msdn.microsoft.com/en-us/library/ms536422.aspx
+    #second parameter must be "large" ????
+    try
+      searchRange.select() # select may fail if text is "unselectable" such as a script tag.
+      results.push selection.getRangeAt(0)
+    catch
+    searchRange.collapse(false) # move degenerate range aka cursor to end of match
 
   results
+
+
+searchAlgorithm =
+  if window.find
+    searchWithWindowFind
+  else
+    searchWithFindText
 
 # Function to search the page
 search = (searchString) ->
-  return false unless window.find?
+  ensureScrollSaved ->
+    ensureSelectionSaved ->
+      searchAlgorithm(searchString.trim())
 
-  # Store scroll settings to reset to afterwards
-  scrollTop = window.document.body.scrollTop
-  scrollLeft = window.document.body.scrollLeft
-
-  results = searchWithWindowFind(searchString)
-
-  # Scroll back to previous location
-  window.scroll scrollLeft, scrollTop
-
-  results
 
 # Adapted from https://github.com/okfn/annotator/blob/master/src/annotator.coffee
 highlightNode = (node, id) ->

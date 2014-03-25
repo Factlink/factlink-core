@@ -1,1 +1,1 @@
-})(window.parent, window.parent.document);
+})(window.parent, window.parent.document, window);

@@ -35,7 +35,9 @@ window.ReactTextArea = React.createClass
     safeLocalStorage.setItem(@props.storageKey, text) if @props.storageKey?
 
   focusInput: ->
-    @refs.textarea.getDOMNode().focus()
+    if @isMounted()
+      @refs.textarea.getDOMNode().focus()
+
 
   $_textarea: ->
     $(@getDOMNode())
