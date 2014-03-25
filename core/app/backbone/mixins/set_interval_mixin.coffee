@@ -3,7 +3,7 @@ window.SetIntervalMixin =
     this.intervals = []
 
   setInterval: ->
-    this.intervals.push(setInterval.apply(null, arguments));
+    this.intervals.push(setInterval.apply(window, arguments));
 
   componentWillUnmount: ->
     this.intervals.map(clearInterval);
