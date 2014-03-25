@@ -1,13 +1,15 @@
+$form-line-height: 30px;
+
 .control-label {
   float: left;
   width: 160px;
-  line-height: 30px;
+  line-height: $form-line-height;
   padding-right: 1em;
   text-align: right;
 }
 
 .controls {
-  line-height: 30px;
+  line-height: $form-line-height;
 }
 
 .controls-information-item {
