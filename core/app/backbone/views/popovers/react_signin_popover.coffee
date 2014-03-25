@@ -40,8 +40,7 @@ window.ReactSigninPopover = React.createClass
           _span ["signin-popover"],
             'Sign in with: ',
             _a ["button-twitter small-connect-button js-accounts-popup-link",
-              # The "?use_authorize=true&x_auth_access_type=write" part is for some weird twitter bug
-              href: "/auth/twitter?use_authorize=true&x_auth_access_type=write"
+              href: "/auth/twitter"
             ],
               _i ["icon-twitter"]
             ' ',
