@@ -5,12 +5,6 @@
 @import "comment_icon";
 @import "icon_buttons";
 
-html[data-factlink-suppress-scrolling] {
-  overflow: hidden !important;
-  width:auto;
-  max-width: none;
-}
-
 span.factlink {
   // elementary reset
   background: transparent !important;
