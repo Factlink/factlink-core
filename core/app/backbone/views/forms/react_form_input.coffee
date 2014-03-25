@@ -3,9 +3,7 @@ ReactFormError = React.createBackboneClass
 
   render: ->
     if !@model().isValid() && @model().validationError[@props.attribute]
-      _span [
-        'control-error'
-      ],
+      _span ['control-error'],
         @model().validationError[@props.attribute]
     else
       _span []
