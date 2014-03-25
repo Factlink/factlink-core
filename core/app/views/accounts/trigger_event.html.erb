@@ -1,7 +1,10 @@
 <% content_for :specific_javascript do %>
   <script>
     var eventName = <%= event[:name].to_json.html_safe %>;
-    var eventDetails = <%= event[:details].to_json.to_json.html_safe %>;
+    var eventDetails = <%= event[:details].to_json.to_json.html_safe
+     # Note: double-json-ing result in json-string.
+     # Sending a string to another window works more reliably than sending and object due to security restrictions in IE.
+     %>;
     var origin = <%= request.env['omniauth.origin'].to_json.html_safe %>;
 
     if(window.opener) {
