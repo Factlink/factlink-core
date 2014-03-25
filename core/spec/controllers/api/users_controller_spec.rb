@@ -81,6 +81,9 @@ describe Api::UsersController do
       user = create :user, username: 'someone', password: 'password', password_confirmation: 'password'
       authenticate_user!(user)
 
+      ability.should_receive(:can?).with(:destroy, user).and_return(true)
+      subject.should_receive(:sign_out)
+
       delete :destroy, username: 'someone', password: 'password'
 
       User.find('someone').should be_nil
