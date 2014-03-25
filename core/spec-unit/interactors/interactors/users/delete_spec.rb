@@ -4,154 +4,20 @@ require_relative '../../../../app/interactors/interactors/users/delete'
 describe Interactors::Users::Delete do
   include PavlovSupport
   before do
-    stub_classes 'User', 'Util::Mixpanel'
-  end
-
-  describe '#authorized?' do
-    it 'throws when non-existant user passed' do
-      user_id = 'a1234'
-      User.stub(:find).with(user_id).and_return(nil)
-
-      pavlov_options = {
-        ability: double(:ability),
-        current_user: double(:user, :valid_password? => true)
-      }
-
-      expect(pavlov_options[:ability]).to receive(:can?).with(:destroy, nil).and_return(false)
-
-      interactor = described_class.new user_id: user_id,
-                                       current_user_password: '',
-                                       pavlov_options: pavlov_options
-
-      expect do
-        interactor.call
-      end.to raise_error(Pavlov::AccessDenied, 'Unauthorized')
-    end
-
-    it 'throws when unauthorized' do
-      other_user = double(:user, id: 'b234')
-      User.stub(:find).with(other_user.id).and_return(other_user)
-
-      pavlov_options = {
-        ability: double(:ability),
-        current_user: double(:user, :valid_password? => true)
-      }
-      expect(pavlov_options[:ability]).to receive(:can?).with(:destroy, other_user).and_return(false)
-
-
-      interactor = described_class.new(
-          user_id: other_user.id,
-          current_user_password: '',
-          pavlov_options: pavlov_options
-      )
-      expect { interactor.call }
-        .to raise_error(Pavlov::AccessDenied)
-    end
-
-    it 'is authorized when cancan says so' do
-      user = double(:user, id: 'a123')
-      User.stub(:find).with(user.id).and_return(user)
-
-      pavlov_options = {
-        ability: double(:ability),
-        current_user: double(:user, :valid_password? => true)
-      }
-      expect(pavlov_options[:ability]).to receive(:can?).with(:destroy, user).and_return(true)
-
-      interactor = described_class.new user_id: user.id,
-                                       current_user_password: '',
-                                       pavlov_options: pavlov_options
-
-      expect(interactor.authorized?).to eq(true)
-    end
-  end
-
-  describe '#validate' do
-    it 'raises when user_id is a Hash' do
-      pavlov_options = {
-        ability: double(:ability, can?: true ),
-        current_user: double(:user, :valid_password? => true)
-      }
-
-      expect_validating(user_id: {},
-                        current_user_password: '',
-                        pavlov_options: pavlov_options
-        ).to fail_validation('user_id should be an hexadecimal string.')
-    end
-
-    it 'raises when user_id is missing' do
-      pavlov_options = {
-        ability: double(:ability, can?: true ),
-        current_user: double(:user, :valid_password? => true)
-      }
-      expect_validating(current_user_password: '', user_id: '', pavlov_options: pavlov_options)
-        .to fail_validation('user_id should be an hexadecimal string.')
-    end
-
-    it 'raises when current_user_password is missing' do
-      # TODO: improve check after improving pavlov
-      pavlov_options = {
-        ability: double(:ability, can?: true ),
-        current_user: double(:user, :valid_password? => true)
-      }
-      expect do
-        interactor = described_class.new(user_id: 'a123', pavlov_options: pavlov_options)
-        interactor.call
-      end.to raise_error Pavlov::ValidationError
-    end
-
-    it 'checks current_user_password' do
-      password = 'qwerty'
-      user = User.new
-      pavlov_options = {
-        ability: double(:ability, can?: true ),
-        current_user: user
-      }
-
-      user.should_receive(:valid_password?).with(password)
-          .and_return(true)
-
-      User.stub(:find).with('a123').and_return(user)
-
-      interactor = described_class.new user_id: 'a123',
-                                       current_user_password: password,
-                                       pavlov_options: pavlov_options
-
-      expect(interactor.valid?).to eq(true)
-    end
-
-    it 'raises when current_user_password is invalid' do
-      wrong_password = 'qwerty'
-      user = User.new
-      pavlov_options = {
-        ability: double(:ability, can?: true ),
-        current_user: user
-      }
-
-      user.should_receive(:valid_password?).with(wrong_password)
-          .and_return(false)
-
-      User.stub(:find).with('a123').and_return(user)
-
-      interactor = described_class.new user_id: 'a123',
-                                       current_user_password: wrong_password,
-                                       pavlov_options: pavlov_options
-
-      expect(interactor.valid?).to eq(false)
-    end
+    stub_classes 'User'
   end
 
   describe '#call' do
     it 'it calls the delete+anonymize commands' do
-      user = double(:user, id: 'a234')
+      user = double(:user, id: 'a234', username: 'username')
       pavlov_options = {
           ability: double(can?: true),
           current_user: double(valid_password?: true)
       }
 
-      User.stub(:find).with(user.id).and_return(user)
+      User.stub(:find).with(user.username).and_return(user)
 
-      interactor = described_class.new user_id: user.id,
+      interactor = described_class.new username: user.username,
                                        current_user_password: '',
                                        pavlov_options: pavlov_options
 
