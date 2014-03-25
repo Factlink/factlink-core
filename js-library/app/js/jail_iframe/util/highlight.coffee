@@ -49,9 +49,11 @@ searchWithFindText = (searchString) -> #IE
   while searchRange.findText(searchString, 1000000000, 4)
     #WTF: findText API is crazy http://msdn.microsoft.com/en-us/library/ms536422.aspx
     #second parameter must be "large" ????
-    searchRange.select()
-    results.push selection.getRangeAt(0)
-    break #TODO:infinite loop
+    try
+      searchRange.select() # select may fail if text is "unselectable" such as a script tag.
+      results.push selection.getRangeAt(0)
+    catch
+    searchRange.collapse(false) # move degenerate range aka cursor to end of match
 
   results
 
