@@ -73,7 +73,6 @@ end
 
 group :assets do
   gem 'uglifier', '~> 2.0'
-  gem 'hogan_assets', '~> 1.1.0' #1.2 or later include hogan 3.0 and somehow only generate empty templates.
 
   gem 'therubyracer', '~> 0.12.0'
 

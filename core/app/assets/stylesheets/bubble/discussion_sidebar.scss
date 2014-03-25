@@ -10,10 +10,7 @@ $discussionSidebarTransitionTime: 0.4s;
   overflow-y: scroll;
   z-index: 1030; // below feedback-modal-window and feedback_button
   cursor: pointer;
-
-  background: transparent;
-  transition: background-color $discussionSidebarTransitionTime,
-              visibility 0s $discussionSidebarTransitionTime;
+  background-color: rgba($factlinkBackgroundColor, 0.8); //TODO LESS -> SASS Workaround fade($factlinkBackgroundColor, 20%);
 }
 
 .discussion-sidebar {
@@ -24,17 +21,26 @@ $discussionSidebarTransitionTime: 0.4s;
   cursor: auto;
   min-height: 100%;
   background-color: $factlinkBackgroundColor;
-  // slide out a bit further than necessary for a more natural animation
-  right: -$discussionSidebarMaxWidth - 100px;
-  transition: right $discussionSidebarTransitionTime;
+  right: 0;
+
 }
 
-.discussion-sidebar-container-visible {
+.discussion-sidebar-container.discussion-sidebar-container-enter {
   background-color: rgba($factlinkBackgroundColor, 0.2); //TODO LESS -> SASS Workaround fade($factlinkBackgroundColor, 20%);
+
+  .discussion-sidebar {
+    // slide out a bit further than necessary for a more natural animation
+    right: -$discussionSidebarMaxWidth - 100px;
+  }
+}
+
+.discussion-sidebar-container.discussion-sidebar-container-enter.discussion-sidebar-container-enter-active {
+  background-color: rgba($factlinkBackgroundColor, 0.8); //TODO LESS -> SASS Workaround fade($factlinkBackgroundColor, 20%);
   transition: background-color $discussionSidebarTransitionTime;
 
   .discussion-sidebar {
     right: 0;
+    transition: right $discussionSidebarTransitionTime;
   }
 }
 
@@ -97,7 +103,7 @@ $discussionSidebarTransitionTime: 0.4s;
     opacity: 0;
   }
 
-  .discussion-sidebar-container-visible .discussion-sidebar {
+  .discussion-sidebar-container-enter-active .discussion-sidebar {
     opacity: 1;
   }
 

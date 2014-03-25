@@ -1,31 +1,45 @@
-class window.DiscussionSidebarContainer extends Backbone.Marionette.Layout
-  className: 'discussion-sidebar-container spec-discussion-sidebar-container'
-  template: 'layouts/discussion_sidebar_container'
+i = 0
+getKey = -> i++
 
-  regions:
-    mainRegion: '.js-modal-content'
+window.ReactDiscussionSideBarContainer = React.createClass
+  _closeOnContainerClicked: (event)->
+    console.info event.target
+    @_closeModal() if $(event.target).hasClass('discussion-sidebar-container')
 
-  events:
-    'click': '_closeModal'
-
-  ui:
-    close: '.js-client-html-close'
-
-  _closeModal: (event) ->
-    return unless @$el.is(event.target) || @ui.close.is(event.target)
-
+  _closeModal: ->
     FactlinkApp.vent.trigger 'close_discussion_sidebar'
 
-  slideIn: (view) ->
-    _.defer => @$el.addClass 'discussion-sidebar-container-visible'
-    @mainRegion.show view
-
-    @opened = true
-    mp_track 'Discussion Sidebar: Open'
-
-  slideOut: (callback=->) ->
-    @$el.removeClass 'discussion-sidebar-container-visible'
-    _.delay callback, 400 # keep in sync with CSS
-
-    @opened = false
-    mp_track 'Discussion Sidebar: Close'
+  render: ->
+    React.addons.CSSTransitionGroup {
+        transitionName:"discussion-sidebar-container",
+        transitionLeave: false
+      },
+      if !this.props.children
+        []
+      else
+        key = getKey()
+        console.info 'yoyoyo', key
+        [
+          _div [
+              "discussion-sidebar-container",
+              "spec-discussion-sidebar-container",
+              onClick: @_closeOnContainerClicked
+              key: key
+            ],
+            _div ["discussion-sidebar"],
+              _div ["discussion-sidebar-shadow"]
+              _a [
+                   "discussion-sidebar-close-left"
+                   href: "javascript:"
+                   onClick: @_closeModal
+                 ],
+                _i ["icon-right-open"]
+              _a [
+                   "discussion-sidebar-close-top"
+                   href: "javascript:"
+                   onClick: @_closeModal
+                 ],
+                 _i ["icon-remove"]
+              _div ["js-modal-content"],
+                this.props.children
+        ]

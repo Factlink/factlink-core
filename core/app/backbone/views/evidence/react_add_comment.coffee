@@ -46,7 +46,7 @@ window.ReactAddComment = React.createBackboneClass
       @refs.textarea.focusInput()
 
       # For some crazy reason, the overflow-x: hidden; is scrolled!
-      FactlinkApp.discussionSidebarContainer.el.scrollLeft = 0
+      $(".discussion-sidebar-container")[0].scrollLeft = 0
 
   getInitialState: ->
     text: ''
