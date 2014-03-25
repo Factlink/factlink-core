@@ -7,5 +7,5 @@
     'groupCollapsed,groupEnd,info,log,markTimeline,profile,profileEnd,' +
     'table,time,timeEnd,timeStamp,trace,warn').split(',');
   if(con.memory !== undefined) con.memory = {};
-  while (method = methods.pop()) con[method] = con[method] || dummy;
-})(this.console = this.console || {}); // Using `this` for web workers.
+  while (method = methods.pop()) if(!con[method]) con[method] = dummy;
+})(window.console = window.console || window.parent.console || {});
