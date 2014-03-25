@@ -55,6 +55,6 @@ window.ReactPopover = React.createBackboneClass
     @_tether.destroy()
     React.unmountComponentAtNode @_tooltipElement
     if @_tooltipElement.parentNode
-      @_tooltipElement.parentNode.remove(@_tooltipElement)
+      @_tooltipElement.parentNode.removeChild(@_tooltipElement)
 
   render: -> _span()
