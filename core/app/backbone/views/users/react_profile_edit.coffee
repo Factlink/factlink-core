@@ -52,6 +52,8 @@ ReactDeleteProfile = React.createClass
       processData: true
       success: ->
         window.location = '/'
+      error: ->
+        FactlinkApp.NotificationCenter.error 'Your account could not be deleted. Did you enter the correct password?'
 
   render: ->
     _div [],
@@ -71,6 +73,7 @@ ReactDeleteProfile = React.createClass
               'Password'
             _div ['controls'],
               _input [
+                'spec-delete-password'
                 type: 'password'
                 onChange: (event) => @setState password: event.target.value
               ]

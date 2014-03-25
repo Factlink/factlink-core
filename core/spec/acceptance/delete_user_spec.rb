@@ -10,11 +10,11 @@ describe 'A user deletes his account', type: :feature do
     sign_in_user user
     visit edit_user_path user
 
-    click_link 'Delete account'
+    find('a', text: 'Delete account').click
   end
 
   it 'with the correct password' do
-    fill_in 'user_password', with: 'my_password'
+    find('.spec-delete-password').set 'my_password'
 
     click_button 'Delete my entire account'
 
@@ -22,7 +22,7 @@ describe 'A user deletes his account', type: :feature do
   end
 
   it 'with an incorrect password' do
-    fill_in 'user_password', with: 'A WRONG PASSWORD'
+    find('.spec-delete-password').set 'A WRONG PASSWORD'
 
     click_button 'Delete my entire account'
 
