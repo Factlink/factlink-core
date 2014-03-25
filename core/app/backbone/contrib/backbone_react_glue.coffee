@@ -5,8 +5,6 @@ class window.ReactView extends Backbone.View
     @on 'show', ->
       React.renderComponent(@options.component, @el)
 
-window.R = React.DOM
-
 define_tag = (tag) ->
   return unless {}.hasOwnProperty.call(React.DOM, tag) and tag != 'injection'
 
