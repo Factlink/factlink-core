@@ -15,8 +15,9 @@
 }
 
 .loading-sub-comments {
-  position: relative;
+  position: absolute;
   z-index: 3;
-  height: 0px;
+  left: 0;
+  right: 0;
   top: -42px;
 }
