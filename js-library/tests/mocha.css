@@ -79,7 +79,6 @@ body {
 #mocha .test.pass::before {
   content: '✓';
   font-size: 12px;
-  display: block;
   float: left;
   margin-right: 5px;
   color: #00d6b2;
