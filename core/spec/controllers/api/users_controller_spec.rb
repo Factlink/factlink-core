@@ -37,7 +37,7 @@ describe Api::UsersController do
 
       deleted_user = create(:user)
       as(deleted_user) do |pavlov|
-        pavlov.interactor(:'users/delete', user_id: deleted_user.id, current_user_password: '123hoi')
+        pavlov.interactor(:'users/delete', username: deleted_user.username, current_user_password: '123hoi')
       end
       deleted_user = User.find deleted_user.id
 
