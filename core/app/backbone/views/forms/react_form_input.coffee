@@ -18,10 +18,9 @@ window.ReactInput = React.createBackboneClass
       _label ['control-label'],
         @props.label
       _div ['controls'],
-        _input [
+        @transferPropsTo _input [
           value: @model().get(@props.attribute)
           onChange: (event) => @model().set @props.attribute, event.target.value
-          _.pick @props, 'type', 'disabled', 'className'
         ]
         ReactFormError model: @model(), attribute: @props.attribute
         _div ['controls-information-item'],
