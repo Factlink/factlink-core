@@ -13,7 +13,7 @@ $('html').on 'click', '.js-accounts-popup-link', (e) ->
   e.preventDefault()
 
 $(document).on 'account_success', (e) ->
-  FactlinkApp.refreshCurrentUser e.originalEvent.detail
+  FactlinkApp.refreshCurrentUser JSON.parse(e.originalEvent.detail)
   mp_track 'User: Sign in'
 
 $(document).on 'account_error', (e) ->

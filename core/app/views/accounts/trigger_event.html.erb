@@ -1,7 +1,7 @@
 <% content_for :specific_javascript do %>
   <script>
     var eventName = <%= event[:name].to_json.html_safe %>;
-    var eventDetails = <%= event[:details].to_json.html_safe %>;
+    var eventDetails = <%= event[:details].to_json.to_json.html_safe %>;
     var origin = <%= request.env['omniauth.origin'].to_json.html_safe %>;
 
     if(window.opener) {
