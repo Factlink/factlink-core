@@ -134,6 +134,8 @@ FactlinkUI::Application.routes.draw do
   post "/users/sign_in_or_up/in" => "accounts/factlink_accounts#create_session", as: 'factlink_accounts_create_session'
   post "/users/sign_in_or_up/up" => "accounts/factlink_accounts#create_account", as: 'factlink_accounts_create_account'
 
+  get "/users/deleted" => "users#deleted"
+
   get '/feed' => "frontend#show", as: 'feed'
   get '/:unused/feed', to: redirect("/feed")
   scope "/:username" do

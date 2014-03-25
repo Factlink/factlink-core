@@ -51,7 +51,7 @@ ReactDeleteProfile = React.createClass
       data: {password: @state.password}
       processData: true
       success: ->
-        window.location = '/'
+        window.location = '/users/deleted'
       error: ->
         FactlinkApp.NotificationCenter.error 'Your account could not be deleted. Did you enter the correct password?'
 
