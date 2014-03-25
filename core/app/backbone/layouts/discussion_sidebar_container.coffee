@@ -16,9 +16,6 @@ class window.DiscussionSidebarContainer extends Backbone.Marionette.Layout
 
     FactlinkApp.vent.trigger 'close_discussion_sidebar'
 
-  onRender: ->
-    @$el.preventScrollPropagation()
-
   slideIn: (view) ->
     _.defer => @$el.addClass 'discussion-sidebar-container-visible'
     @mainRegion.show view
