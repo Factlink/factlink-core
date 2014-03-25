@@ -23,6 +23,7 @@ FactlinkUI::Application.routes.draw do
     put '/users/:original_username' => 'api/users#update'
     put '/users/:username/password' => 'api/users#change_password'
     get '/session' => 'api/sessions#current'
+    delete '/users/:username' => 'api/users#destroy'
   end
 
   # Javascript Client calls
@@ -122,12 +123,6 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  # Seems to me we want to lose the scope "/:username" later and place all
-  # stuff in this resource?
-  devise_scope :user do
-    resources :users, path: "", only: [:edit, :update]
-  end
-
   authenticated :user do
     get "/auth/:provider_name/callback" => "accounts/social_connections#callback", as: "social_auth"
     delete "/auth/:provider_name/deauthorize" => "accounts/social_connections#deauthorize"
@@ -143,8 +138,7 @@ FactlinkUI::Application.routes.draw do
   get '/:unused/feed', to: redirect("/feed")
   scope "/:username" do
     get "/" => "frontend#user_profile", as: "user_profile"
-    delete "/" => "users#destroy"
-
+    get "/edit" => "frontend#show", as: 'edit_user'
     get "/change-password" => "frontend#show", as: 'change_password'
     get "/notification-settings" => "frontend#show", as: 'user_notification_settings'
 

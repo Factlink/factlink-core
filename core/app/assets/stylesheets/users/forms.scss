@@ -1,9 +1,13 @@
 .control-label {
   float: left;
   width: 160px;
-  padding-top: 5px;
+  line-height: 30px;
   padding-right: 1em;
   text-align: right;
+}
+
+.controls {
+  line-height: 30px;
 }
 
 .controls-information-item {

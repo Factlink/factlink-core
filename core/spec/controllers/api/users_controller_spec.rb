@@ -76,4 +76,14 @@ describe Api::UsersController do
     end
   end
 
+  describe :destroy do
+    it 'makes the user anonymous' do
+      user = create :user, username: 'someone', password: 'password', password_confirmation: 'password'
+      authenticate_user!(user)
+
+      delete :destroy, username: 'someone', password: 'password'
+
+      User.find('someone').should be_nil
+    end
+  end
 end

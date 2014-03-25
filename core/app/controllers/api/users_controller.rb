@@ -12,4 +12,11 @@ class Api::UsersController < ApplicationController
 
     render json: {}
   end
+
+  def destroy
+    interactor(:'users/delete', username: params[:username],
+                                current_user_password: params[:password])
+    sign_out
+    render json: {}
+  end
 end

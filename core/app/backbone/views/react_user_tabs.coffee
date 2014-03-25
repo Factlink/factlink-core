@@ -13,6 +13,8 @@ window.ReactUserTabs = React.createBackboneClass
         'About'
       spaced_middle_dot
       _a [
+        'main-region-tab-active' if @props.page == 'edit'
+        rel: 'backbone'
         href: "/#{@model().get('username')}/edit"
       ],
         'Edit'
