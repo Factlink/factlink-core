@@ -14,4 +14,4 @@ checkConfirmedEmail = ->
 class window.NonConfirmedEmailWarning
   constructor: ->
     checkConfirmedEmail()
-    session.user().on 'change', checkConfirmedEmail
+    session.on 'change', checkConfirmedEmail
