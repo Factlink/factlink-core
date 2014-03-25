@@ -65,8 +65,8 @@ factlink_config = __INLINE_CONFIG_PLACEHOLDER__
 this_env = JSON.parse(factlink_config).env
 
 extra_config =
-  if this_env != 'production' && FactlinkConfig_override_uri
-    'window.FactlinkConfig.base_uri = ' + JSON.stringify(FactlinkConfig_override_uri) + '; '
+  if this_env != 'production' && window.FactlinkConfig_override_uri
+    'window.FactlinkConfig.base_uri = ' + JSON.stringify(window.FactlinkConfig_override_uri) + '; '
   else
     ''
 
