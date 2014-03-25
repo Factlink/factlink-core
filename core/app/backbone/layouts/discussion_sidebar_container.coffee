@@ -19,14 +19,12 @@ class window.DiscussionSidebarContainer extends Backbone.Marionette.Layout
   slideIn: (view) ->
     _.defer => @$el.addClass 'discussion-sidebar-container-visible'
     @mainRegion.show view
-    $('body').addClass 'discussion-sidebar-open'
 
     @opened = true
     mp_track 'Discussion Sidebar: Open'
 
   slideOut: (callback=->) ->
     @$el.removeClass 'discussion-sidebar-container-visible'
-    $('body').removeClass 'discussion-sidebar-open'
     _.delay callback, 400 # keep in sync with CSS
 
     @opened = false

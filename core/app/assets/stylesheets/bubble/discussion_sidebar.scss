@@ -3,10 +3,6 @@ $discussionSidebarShadow: rgba(50, 50, 50, 0.3);
 // keep time in sync with DiscussionSidebarContainer
 $discussionSidebarTransitionTime: 0.4s;
 
-body.discussion-sidebar-open {
-  overflow: hidden;
-}
-
 .discussion-sidebar-container {
   position: fixed;
   top: 0; right: 0; bottom: 0; left: 0;
