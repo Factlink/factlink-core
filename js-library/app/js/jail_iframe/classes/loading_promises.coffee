@@ -17,6 +17,7 @@ setTimeout ->
       FactlinkJailRoot.host_ready_promise.resolve()
       #IE pre 11's readyStates are weird; to ensure we can't miss anything,
       #trigger ready at the latest on load
+      
       FactlinkJailRoot.host_loaded_promise.resolve()
     )
 , 0
