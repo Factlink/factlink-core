@@ -1,9 +1,9 @@
 window.UpdateOnFeaturesChangeMixin =
   componentDidMount: ->
-    window.session.user().on 'change:features', (-> @forceUpdate()), @
+    window.currentSession.user().on 'change:features', (-> @forceUpdate()), @
 
   componentWillUnmount: ->
-    window.session.user().off null, null, @
+    window.currentSession.user().off null, null, @
 
   canHaz: (feature) ->
-    feature in (session.user().get('features') || [])
+    feature in (currentSession.user().get('features') || [])

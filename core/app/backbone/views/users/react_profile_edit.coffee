@@ -47,7 +47,7 @@ ReactDeleteProfile = React.createClass
     password: ''
 
   _onSubmit: ->
-    session.user().delete
+    currentSession.user().delete
       password: @state.password
       success: ->
         window.location = '/users/deleted'
@@ -123,7 +123,7 @@ window.ReactProfileEdit = React.createBackboneClass
     return _span([], 'Please sign in.') unless FactlinkApp.signedIn()
 
     _div [],
-      ReactUserTabs model: session.user(), page: 'edit'
+      ReactUserTabs model: currentSession.user(), page: 'edit'
       _div ["edit-user-container"],
         _div ["narrow-indented-block"],
           ReactSubmittableForm {

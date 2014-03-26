@@ -15,7 +15,7 @@ window.ReactChangePassword = React.createClass
     return _span([], 'Please sign in.') unless FactlinkApp.signedIn()
 
     _div [],
-      ReactUserTabs model: session.user(), page: 'change_password'
+      ReactUserTabs model: currentSession.user(), page: 'change_password'
       _div ["edit-user-container"],
         _div ["narrow-indented-block"],
           ReactSubmittableForm {

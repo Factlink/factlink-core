@@ -4,11 +4,11 @@ window.ReactSigninPopover = React.createClass
     callback: null
 
   componentDidMount: ->
-    window.session.user().on 'change:username', @_onSignedInChange, @
+    window.currentSession.user().on 'change:username', @_onSignedInChange, @
     FactlinkApp.vent.on 'ReactSigninPopover:opened', @_onOtherPopoverOpened, @
 
   componentWillUnmount: ->
-    window.session.user().off null, null, @
+    window.currentSession.user().off null, null, @
     FactlinkApp.vent.off null, null, @
 
   _onOtherPopoverOpened: (popover) ->

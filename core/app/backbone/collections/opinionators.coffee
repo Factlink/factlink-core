@@ -9,7 +9,7 @@ class window.Opinionators extends Backbone.Factlink.Collection
 
   opinion_for_current_user:  ->
     return 'no_vote' unless FactlinkApp.signedIn()
-    vote = @vote_for(window.session.user().get('username'))
+    vote = @vote_for(window.currentSession.user().get('username'))
     if vote
       vote.get('type')
     else
@@ -22,7 +22,7 @@ class window.Opinionators extends Backbone.Factlink.Collection
     return unless FactlinkApp.signedIn()
 
     @fact.saveUnlessNew =>
-      current_vote = @vote_for(session.user().get('username'))
+      current_vote = @vote_for(currentSession.user().get('username'))
       if current_vote
         if current_vote.get('type') == type
           current_vote.destroy()
@@ -31,8 +31,8 @@ class window.Opinionators extends Backbone.Factlink.Collection
           current_vote.save()
       else
         @create
-          username: session.user().get('username')
-          user: session.user().attributes
+          username: currentSession.user().get('username')
+          user: currentSession.user().attributes
           type: type
 
   fetchIfUnloaded: ->

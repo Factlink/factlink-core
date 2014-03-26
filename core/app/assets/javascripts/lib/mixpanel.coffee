@@ -16,8 +16,8 @@ window.mp_track = (action, options) ->
     load_mixpanel()
     if window.mixpanel
       if FactlinkApp && FactlinkApp.started && FactlinkApp.signedIn()
-        mixpanel.name_tag session.user().get('username')
-        mixpanel.identify session.user().get('id')
+        mixpanel.name_tag currentSession.user().get('username')
+        mixpanel.identify currentSession.user().get('id')
       mixpanel.track(action, options)
   catch error
     console.error "MixPanel error", error

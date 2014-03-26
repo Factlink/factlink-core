@@ -1,6 +1,6 @@
 window.UpdateOnSignInOrOutMixin =
   componentDidMount: ->
-    window.session.user().on 'change:username', (-> @forceUpdate()), @
+    window.currentSession.user().on 'change:username', (-> @forceUpdate()), @
 
   componentWillUnmount: ->
-    window.session.user().off null, null, @
+    window.currentSession.user().off null, null, @
