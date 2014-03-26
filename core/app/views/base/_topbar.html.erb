@@ -1,5 +1,8 @@
 <div class="topbar">
   <div class="topbar-inner"><%
+     # note: the floated topbar-menu must be the first child of the
+     # whitespace: no-wrap topbar-inner due to the FF bug:
+     # https://bugzilla.mozilla.org/show_bug.cgi?id=488725
     %><ul class="topbar-menu">
       <% if current_user %>
         <li class="topbar-menu-item">
