@@ -11,7 +11,7 @@ describe "Non signed in pages:", type: :feature do
       factlink = create :fact
 
       sign_out_user
-      visit user_path(@user)
+      visit user_profile_path(@user)
 
       assume_unchanged_screenshot "non_signed_in_profile"
     end
