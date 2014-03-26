@@ -65,8 +65,7 @@ initDevelopmentConsole = (clientEnvoy) ->
     console.info 'Executing: ', command
     eval(command)
 
-window.FactlinkAppMode ?= {}
-window.FactlinkAppMode.coreInClient = (app) ->
+Factlink.clientInitializer = ->
   Factlink.commonInitializer()
   showInSidebar()
 

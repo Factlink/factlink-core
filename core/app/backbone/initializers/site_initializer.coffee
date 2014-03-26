@@ -40,8 +40,7 @@ class FactlinkRouter extends Backbone.Router
       showComponent ReactProfile model: user
 
 
-window.FactlinkAppMode ?= {}
-window.FactlinkAppMode.coreInSite = (app) ->
+Factlink.siteInitializer = ->
   Factlink.commonInitializer()
   Factlink.notificationCenter = new NotificationCenter('.js-notification-center-alerts')
   new NonConfirmedEmailWarning

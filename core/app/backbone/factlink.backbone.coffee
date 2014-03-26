@@ -15,7 +15,6 @@
 #= require_tree ./mixins
 #= require_tree ./components
 
-#= require app.js
 #= require_tree ./modules
 #= require_tree ./models/
 #= require_tree ./collections/
