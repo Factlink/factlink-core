@@ -16,3 +16,8 @@ class window.Session extends Backbone.Model
 
   isCurrentUser: (user) ->
     @signedIn() && user.get('username') == @user().get('username')
+
+  # TODO: only used in account_success; just return the session there
+  refreshCurrentUser: (response) ->
+    @user().set response
+    @trigger 'user_refreshed' # TODO: remove when topbar is in React
