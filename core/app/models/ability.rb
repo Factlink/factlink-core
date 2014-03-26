@@ -95,5 +95,6 @@ class Ability
     pink_feedback_button
     log_jslib_loading_performance
     opinions_of_users_and_comments
+    ruby_proxy
   )
 end
