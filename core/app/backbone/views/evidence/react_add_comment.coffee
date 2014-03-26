@@ -121,4 +121,4 @@ window.ReactAddComment = React.createBackboneClass
   _comment: ->
     new Comment
       content: $.trim(@state.text)
-      created_by: session.user().toJSON()
+      created_by: currentSession.user().toJSON()
