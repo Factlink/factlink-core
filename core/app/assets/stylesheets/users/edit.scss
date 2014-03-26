@@ -6,71 +6,17 @@
   padding-top: 20px;
 }
 
-#edit_user {
-  img.avatar {
-    border-radius: 3px;
-  }
-
-  span.help-inline.avatar {
-    vertical-align:top;
-    color: $metaFontColor;
-    width: 290px;
-  }
-
-  .bio {
-    height: 70px;
-    resize:vertical;
-  }
-
-  .social-services-buttons {
-    .disconnect { display: none; }
-    &:hover {
-      .connected  { display: none;   }
-      .disconnect { display: inline; }
-    }
-
-    a img {
-      width: 16px;
-      height: 16px;
-      margin-top: -4px;
-      margin-right: 5px;
-    }
-  }
-
-  .help-inline {
-    display: inline-block;
-    padding-left: 5px;
-  }
-
-  .disabled-email {
-    cursor: not-allowed;
-    background-color: $inputDisabledBackground;
-    opacity: 0.5;
-  }
-
-  .edit-user-delete-container {
-    border-top: 1px solid $mutedBorderColor;
-    padding-top: 20px;
-  }
-
-  .edit-user-delete-link {
-    float: right;
-    color: $buttonDangerBackground;
-
-    &:hover {
-      color: darken($buttonDangerBackground, 5);
-    }
-  }
+.profile-edit-email-disabled {
+  cursor: not-allowed;
+  background-color: $inputDisabledBackground;
+  opacity: 0.5;
 }
 
-.user-edit-username {
-  width: 202px;
-}
+.profile-edit-delete-link {
+  float: right;
+  color: $buttonDangerBackground;
 
-.edit-user-form {
-  margin-bottom: 20px;
-}
-
-#delete-form:not(:target) {
-  display: none;
+  &:hover {
+    color: darken($buttonDangerBackground, 5);
+  }
 }

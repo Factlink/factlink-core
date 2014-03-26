@@ -23,7 +23,7 @@ class Admin::UsersController < AdminController
   end
 
   def destroy
-    interactor(:'users/delete', user_id: @user.id,
+    interactor(:'users/delete', username: @user.username,
                                 current_user_password: params[:user][:password]) do |interaction|
 
       if interaction.valid?

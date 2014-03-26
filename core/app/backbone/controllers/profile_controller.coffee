@@ -1,6 +1,7 @@
 class window.ProfileRouter extends Backbone.Router
   routes:
     ':username': 'showProfile'
+    ':username/edit': 'showProfileEdit'
     ':username/notification-settings': 'showNotificationSettings'
     ':username/change-password': 'showChangePassword'
 
@@ -8,16 +9,16 @@ class window.ProfileRouter extends Backbone.Router
     user = new User(username: username)
     user.fetch()
 
-    FactlinkApp.mainRegion.show new ReactView component:
-      ReactProfile model: user
+    FactlinkApp.mainRegion.show new ReactView
+      component: ReactProfile model: user
+
+  showProfileEdit: ->
+    FactlinkApp.mainRegion.show new ReactView
+      component: ReactProfileEdit model: session.user()
 
   showNotificationSettings: (username) ->
-    user = new User(username: username)
-    user.fetch()
-
     FactlinkApp.mainRegion.show new ReactView
-      component: ReactNotificationSettings
-        model: user
+      component: ReactNotificationSettings model: session.user()
 
   showChangePassword: ->
     FactlinkApp.mainRegion.show new ReactView

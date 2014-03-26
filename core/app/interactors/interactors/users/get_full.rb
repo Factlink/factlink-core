@@ -53,8 +53,23 @@ module Interactors
           receives_digest: user.receives_digest,
           confirmed: user.confirmed?,
           created_at: user.created_at,
+          full_name: user.full_name,
+          email: user.email,
+          services: services,
           features: interactor(:'global_features/all') + user.features.to_a
         }
+      end
+
+      def services
+        {}.tap do |services|
+          if user.social_account('twitter').persisted?
+            services[:twitter] = true
+          end
+
+          if user.social_account('facebook').persisted?
+            services[:facebook] = true
+          end
+        end
       end
 
       def validate

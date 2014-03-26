@@ -19,6 +19,7 @@ class window.User extends Backbone.Model
       "https://secure.gravatar.com/avatar/#{md5d_email}?size=#{size}&rating=PG&default=retro"
 
   link: -> "/#{@get('username')}"
+  editLink: -> "#{@link()}/edit"
 
   feed_activities: ->
     @_feed_activities ?= new UserActivities null, user: @
@@ -52,3 +53,13 @@ class window.User extends Backbone.Model
       model.get('username') == @get('username')
 
   password: -> @_password ?= new UserPassword {}, user: this
+
+  delete: (options) ->
+    # Sending data with DELETE request is not supported
+    # Most browsers support it anyway, except PhantomJS
+    default_options =
+      type: 'POST'
+      url: @url() + '/delete'
+      data: {password: options.password}
+
+    Backbone.ajax _.extend default_options, options
