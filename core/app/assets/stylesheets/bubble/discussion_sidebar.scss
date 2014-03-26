@@ -27,20 +27,39 @@ $discussionSidebarTransitionTime: 0.4s;
 
 .discussion-sidebar-container.discussion-sidebar-container-enter {
   background-color: rgba($factlinkBackgroundColor, 0.2); //TODO LESS -> SASS Workaround fade($factlinkBackgroundColor, 20%);
+  transition: background-color $discussionSidebarTransitionTime;
 
   .discussion-sidebar {
     // slide out a bit further than necessary for a more natural animation
     right: -$discussionSidebarMaxWidth - 100px;
+    transition: right $discussionSidebarTransitionTime;
   }
 }
 
 .discussion-sidebar-container.discussion-sidebar-container-enter.discussion-sidebar-container-enter-active {
   background-color: rgba($factlinkBackgroundColor, 0.8); //TODO LESS -> SASS Workaround fade($factlinkBackgroundColor, 20%);
-  transition: background-color $discussionSidebarTransitionTime;
 
   .discussion-sidebar {
     right: 0;
+  }
+}
+
+.discussion-sidebar-container.discussion-sidebar-container-leave {
+  transition: background-color $discussionSidebarTransitionTime;
+  background-color: rgba($factlinkBackgroundColor, 0.8);
+
+  .discussion-sidebar {
     transition: right $discussionSidebarTransitionTime;
+    right: 0;
+  }
+}
+
+.discussion-sidebar-container.discussion-sidebar-container-leave.discussion-sidebar-container-leave-active {
+  background-color: rgba($factlinkBackgroundColor, 0.2); //TODO LESS -> SASS Workaround fade($factlinkBackgroundColor, 20%);
+
+  .discussion-sidebar {
+    // slide out a bit further than necessary for a more natural animation
+    right: -$discussionSidebarMaxWidth - 100px;
   }
 }
 

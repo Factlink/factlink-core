@@ -1,5 +1,5 @@
-i = 0
-getKey = -> i++
+componentKey = 0
+getComponentKey = -> componentKey++
 
 window.discussion_sidebar_slide_transition_duration = 400 # keep in sync with CSS
 
@@ -13,20 +13,17 @@ window.ReactDiscussionSideBarContainer = React.createClass
 
   render: ->
     React.addons.CSSTransitionGroup {
-        transitionName:"discussion-sidebar-container",
-        transitionLeave: false
-      },
+      transitionName:"discussion-sidebar-container"
+    },
       if !this.props.children
         []
       else
-        key = getKey()
-        console.info 'yoyoyo', key
         [
           _div [
               "discussion-sidebar-container",
               "spec-discussion-sidebar-container",
               onClick: @_closeOnContainerClicked
-              key: key
+              key: getComponentKey()
             ],
             _div ["discussion-sidebar"],
               _div ["discussion-sidebar-shadow"]
