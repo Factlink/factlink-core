@@ -23,6 +23,14 @@ catch e
 
   window.localStorageIsEnabled = false
 
+bad_keys = []
+for i in [0...safeLocalStorage.length]
+  key = safeLocalStorage.key i
+  if key.startsWith('add_comment_to_fact_') && !safeLocalStorage.getItem key
+    bad_keys.push key
+
+for key in bad_keys
+  safeLocalStorage.removeItem key
 
 for property, value of csrfDataForLocalStorage
   window.safeLocalStorage[property] = value
