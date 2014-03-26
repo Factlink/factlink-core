@@ -94,15 +94,26 @@ ReactDeleteProfile = React.createClass
               'Warning: all your data will be deleted!'
 
 
-window.ReactProfileEdit = React.createClass
+window.ReactProfileEdit = React.createBackboneClass
   displayName: 'ReactProfileEdit'
   mixins: [UpdateOnSignInOrOutMixin]
 
+  componentWillMount: ->
+    @_modelClone = @model().clone()
+    @model().on 'change', (-> @_modelClone.set @model().attributes), @
+
+  componentWillUnmount: ->
+    @model().off 'change', null, @
+
   _submit: ->
-    @props.model.save {},
+    usernameChanged = @model().get('username') != @_modelClone.get('username')
+    url = @model().url() # Can change when changing username
+
+    @model().save @_modelClone.attributes,
+      url: url
       success: =>
-        if @props.model.usernameChanged()
-          window.location = @props.model.link()
+        if usernameChanged
+          window.location = @model().link()
         else
           FactlinkApp.NotificationCenter.success 'Your profile has been updated!'
       error: =>
@@ -117,26 +128,26 @@ window.ReactProfileEdit = React.createClass
         _div ["narrow-indented-block"],
           ReactSubmittableForm {
             onSubmit: @_submit
-            model: @props.model
+            model: @_modelClone
             label: 'Save settings'
           },
             ReactInput
-              model: @props.model
+              model: @_modelClone
               label: 'Full name'
               attribute: 'full_name'
 
             ReactInput
-              model: @props.model
+              model: @_modelClone
               label: 'Username'
               attribute: 'username'
 
             ReactInput
-              model: @props.model
+              model: @_modelClone
               label: 'Location'
               attribute: 'location'
 
             ReactInput
-              model: @props.model
+              model: @_modelClone
               label: 'Bio'
               attribute: 'biography'
 
@@ -148,17 +159,17 @@ window.ReactProfileEdit = React.createClass
                   "image-80px avatar-container--large-avatar"
                   style: {float: 'left', 'margin-right': '10px'}
                   alt: " "
-                  src: @props.model.avatar_url(80)
+                  src: @model().avatar_url(80)
                 ]
 
                 'This image is automatically grabbed from '
                 _a [href: 'http://gravatar.com'], 'Gravatar'
                 '. Edit your Gravatar account to edit the profile picture. We use '
-                @props.model.get('email')
+                @model().get('email')
                 '.'
 
             ReactInput {
-              model: @props.model
+              model: @model()
               label: 'Email'
               attribute: 'email'
               disabled: 'disabled'
@@ -171,7 +182,7 @@ window.ReactProfileEdit = React.createClass
           _hr []
 
           ReactSocialConnect
-            model: @props.model
+            model: @model()
 
           _hr []
 
