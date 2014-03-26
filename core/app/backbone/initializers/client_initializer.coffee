@@ -67,6 +67,7 @@ initDevelopmentConsole = (clientEnvoy) ->
 
 window.FactlinkAppMode ?= {}
 window.FactlinkAppMode.coreInClient = (app) ->
+  Factlink.commonInitializer()
   showInSidebar()
 
   window.Factlink.notificationCenter = new NotificationCenter('.js-notification-center-alerts')

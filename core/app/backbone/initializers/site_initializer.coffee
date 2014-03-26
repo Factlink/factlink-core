@@ -42,6 +42,7 @@ class FactlinkRouter extends Backbone.Router
 
 window.FactlinkAppMode ?= {}
 window.FactlinkAppMode.coreInSite = (app) ->
+  Factlink.commonInitializer()
   Factlink.notificationCenter = new NotificationCenter('.js-notification-center-alerts')
   new NonConfirmedEmailWarning
   new FactlinkRouter

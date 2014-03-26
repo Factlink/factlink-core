@@ -5,11 +5,11 @@ window.ReactSigninPopover = React.createClass
 
   componentDidMount: ->
     window.currentSession.user().on 'change:username', @_onSignedInChange, @
-    FactlinkApp.vent.on 'ReactSigninPopover:opened', @_onOtherPopoverOpened, @
+    Factlink.vent.on 'ReactSigninPopover:opened', @_onOtherPopoverOpened, @
 
   componentWillUnmount: ->
     window.currentSession.user().off null, null, @
-    FactlinkApp.vent.off null, null, @
+    Factlink.vent.off null, null, @
 
   _onOtherPopoverOpened: (popover) ->
     return if popover == this
@@ -31,7 +31,7 @@ window.ReactSigninPopover = React.createClass
         @setState opened: false, callback: null
       else
         @setState opened: true, callback: callback
-        FactlinkApp.vent.trigger 'ReactSigninPopover:opened', this
+        Factlink.vent.trigger 'ReactSigninPopover:opened', this
 
   render: ->
     if @state.opened && !currentSession.signedIn()
