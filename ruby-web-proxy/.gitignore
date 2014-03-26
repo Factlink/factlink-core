@@ -1,3 +1,0 @@
-coverage/*
-.approvals
-fixtures/approvals/*.received.*
