@@ -8,15 +8,33 @@ try
   window.safeLocalStorage = localStorage
   window.localStorageIsEnabled = true
 catch e
-  window.safeLocalStorage = {
+  backend = {}
+  impl = window.safeLocalStorage = {
     getItem: (key)->
-      @[key]
+      backend[key]
     setItem: (key, item) ->
-      @[key] = String(item)
+      backend[key] = String(item)
     removeItem: (key)->
-      delete @[key]
+      delete backend[key]
+    key: (i) -> Object.keys(backend)[i]
   }
+  Object.defineProperty impl, 'length',
+    get:  -> Object.keys(backend).length
+
   window.localStorageIsEnabled = false
 
 for property, value of csrfDataForLocalStorage
   window.safeLocalStorage[property] = value
+
+
+do ->
+  # Client side "migration" to delete dead keys (2014-03-26).  Eventually delete.
+  bad_keys = []
+  for i in [0...safeLocalStorage.length]
+    key = safeLocalStorage.key i
+    if !key.lastIndexOf('add_comment_to_fact_',0) && !safeLocalStorage.getItem key
+      bad_keys.push key
+
+  for key in bad_keys
+    safeLocalStorage.removeItem key
+

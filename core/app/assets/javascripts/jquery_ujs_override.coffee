@@ -5,8 +5,8 @@ updateRailsCsrfMetaTags = ->
   if !$('meta[name=csrf-token]').length
     $('<meta name="csrf-token">').appendTo(document.head)
     $('<meta name="csrf-param">').appendTo(document.head)
-  $('meta[name=csrf-token]').attr('content', safeLocalStorage.factlink_csrf_token)
-  $('meta[name=csrf-param]').attr('content', safeLocalStorage.factlink_csrf_param)
+  $('meta[name=csrf-token]').attr('content', safeLocalStorage.getItem('factlink_csrf_token'))
+  $('meta[name=csrf-param]').attr('content', safeLocalStorage.getItem('factlink_csrf_token'))
 
 updateCsrfTagsBeforeExecution = (func) -> ->
   updateRailsCsrfMetaTags()
