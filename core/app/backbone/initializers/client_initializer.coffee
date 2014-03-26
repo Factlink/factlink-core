@@ -1,3 +1,13 @@
+componentKey = 0
+getComponentKey = -> componentKey++
+
+showInSidebar = (elements...)->
+  component = ReactDiscussionSidebarContainer({}, elements...)
+  el = document.querySelector('.js-discussion-sidebar-region')
+  React.renderComponent(component, el)
+  if elements.length > 0
+    mp_track 'Discussion Sidebar: Open'
+
 class ClientEnvoy
   constructor: (senderEnvoy) ->
     @_senderEnvoy = senderEnvoy
@@ -9,10 +19,10 @@ class ClientEnvoy
     fact.fetch()
     @_senderEnvoy 'highlightExistingFactlink', fact.id
 
-    FactlinkApp.discussionSidebarContainer.slideIn new ReactView
-      component: ReactDiscussion
-        model: fact
-        initiallyFocusAddComment: true
+    showInSidebar ReactDiscussion
+      model: fact
+      initiallyFocusAddComment: true
+      key: getComponentKey()
 
   prepareNewFactlink: (displaystring, url, site_title) =>
     Factlink.load_client_dependencies()
@@ -26,11 +36,10 @@ class ClientEnvoy
       @_senderEnvoy 'highlightNewFactlink', displaystring, fact.id
       mp_track 'Factlink: Created'
 
-    FactlinkApp.discussionSidebarContainer.slideIn new ReactView
-      component: ReactDiscussion
-        model: fact
-        initiallyFocusAddComment: true
-
+    showInSidebar ReactDiscussion
+      model: fact
+      initiallyFocusAddComment: true
+      key: getComponentKey()
 
 printDevelopmentHelp = ->
   return unless Factlink.Global.environment == 'development'
@@ -58,19 +67,19 @@ initDevelopmentConsole = (clientEnvoy) ->
 
 window.FactlinkAppMode ?= {}
 window.FactlinkAppMode.coreInClient = (app) ->
-  FactlinkApp.addRegions(discussionSidebarRegion: '.js-discussion-sidebar-region')
-
-  FactlinkApp.discussionSidebarContainer = new DiscussionSidebarContainer
-  FactlinkApp.discussionSidebarRegion.show FactlinkApp.discussionSidebarContainer
+  showInSidebar()
 
   window.FactlinkApp.NotificationCenter = new NotificationCenter('.js-notification-center-alerts')
   new window.NonConfirmedEmailWarning()
 
   app.vent.on 'close_discussion_sidebar', ->
-    mp_track "Discussion Sidebar: Close (Button)"
+    console.info 'closing modal'
+    mp_track "Discussion Sidebar: Close"
 
-    FactlinkApp.discussionSidebarContainer.slideOut ->
-      senderEnvoy 'closeModal'
+    showInSidebar()
+
+    callback = -> senderEnvoy 'closeModal'
+    _.delay callback, discussion_sidebar_slide_transition_duration
 
   window.addEventListener 'keydown', (e) ->
     if e.keyCode == 27

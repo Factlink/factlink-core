@@ -8,7 +8,6 @@
 
 #= require tether
 
-#= require_tree ../templates
 #= require_self
 
 #= require_tree ./contrib
@@ -24,7 +23,3 @@
 #= require_tree ./views/
 #= require_tree ./controllers/
 #= require_tree ./initializers
-
-# ensure that HoganTemplate exists, also when no templates are loaded
-# (for instance in tests)
-this.HoganTemplates || (this.HoganTemplates = {});

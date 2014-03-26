@@ -1,13 +1,9 @@
 $discussionSidebarMaxWidth: 500px;
 $discussionSidebarShadow: rgba(50, 50, 50, 0.3);
-// keep time in sync with DiscussionSidebarContainer
+// keep time in sync with discussion_sidebar_slide_transition_duration
 $discussionSidebarTransitionTime: 0.4s;
 
-body.discussion-sidebar-open {
-  overflow: hidden;
-}
-
-.discussion-sidebar-container {
+.discussion-sidebar-outer {
   position: fixed;
   top: 0; right: 0; bottom: 0; left: 0;
   overflow-x: hidden;
@@ -16,11 +12,10 @@ body.discussion-sidebar-open {
   cursor: pointer;
 
   background: transparent;
-  transition: background-color $discussionSidebarTransitionTime,
-              visibility 0s $discussionSidebarTransitionTime;
+  transition: background-color $discussionSidebarTransitionTime;
 }
 
-.discussion-sidebar {
+.discussion-sidebar-inner {
   position: absolute;
   max-width: $discussionSidebarMaxWidth;
   min-width: 320px;
@@ -33,11 +28,11 @@ body.discussion-sidebar-open {
   transition: right $discussionSidebarTransitionTime;
 }
 
-.discussion-sidebar-container-visible {
+.discussion-sidebar-outer-visible {
   background-color: rgba($factlinkBackgroundColor, 0.2); //TODO LESS -> SASS Workaround fade($factlinkBackgroundColor, 20%);
   transition: background-color $discussionSidebarTransitionTime;
 
-  .discussion-sidebar {
+  .discussion-sidebar-inner {
     right: 0;
   }
 }
@@ -93,7 +88,7 @@ body.discussion-sidebar-open {
 }
 
 @media only screen and (max-width: 350px) {
-  .discussion-sidebar {
+  .discussion-sidebar-inner {
     min-width: 0;
     width: 100%;
     transition: opacity $discussionSidebarTransitionTime;
@@ -101,7 +96,7 @@ body.discussion-sidebar-open {
     opacity: 0;
   }
 
-  .discussion-sidebar-container-visible .discussion-sidebar {
+  .discussion-sidebar-outer-visible .discussion-sidebar-inner {
     opacity: 1;
   }
 
