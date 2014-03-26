@@ -20,10 +20,10 @@ body_overflow = prop_saver body.style, 'overflow'
 FactlinkJailRoot.on 'modalOpened', ->
   right_margin = window.innerWidth - html.clientWidth - html.offsetLeft
   body_width = body.offsetWidth
+  html_overflow 'hidden'
+  body_overflow 'visible'
   if right_margin > 0
     html_marginRight right_margin + 'px'
-    html_overflow 'hidden'
-    body_overflow 'visible'
 
     width_error = body_width - body.offsetWidth
 
@@ -32,9 +32,6 @@ FactlinkJailRoot.on 'modalOpened', ->
       # apparently firefox does this when a margin is on the html element
       right_margin -= width_error
       html_marginRight right_margin + 'px'
-  else
-    html_overflow 'hidden'
-    body_overflow 'visible'
 
 
 FactlinkJailRoot.on 'modalClosed', restore_everything
