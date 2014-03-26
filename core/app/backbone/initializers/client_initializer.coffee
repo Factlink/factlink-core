@@ -73,7 +73,7 @@ window.FactlinkAppMode.coreInClient = (app) ->
   window.Factlink.notificationCenter = new NotificationCenter('.js-notification-center-alerts')
   new window.NonConfirmedEmailWarning()
 
-  app.vent.on 'close_discussion_sidebar', ->
+  Factlink.vent.on 'close_discussion_sidebar', ->
     console.info 'closing modal'
     mp_track "Discussion Sidebar: Close"
 
@@ -86,7 +86,7 @@ window.FactlinkAppMode.coreInClient = (app) ->
     if e.keyCode == 27
       e.preventDefault()
       e.stopPropagation()
-      app.vent.trigger 'close_discussion_sidebar'
+      Factlink.vent.trigger 'close_discussion_sidebar'
 
   if window.parent && window != window.parent
     senderEnvoy = Factlink.createSenderEnvoy(window.parent)
