@@ -32,7 +32,11 @@ window.ReactTextArea = React.createClass
   updateText: (text, callback) ->
     @setState text: text, callback
     @props.onChange?(text)
-    safeLocalStorage.setItem(@props.storageKey, text) if @props.storageKey?
+    if @props.storageKey?
+      if text
+        safeLocalStorage.setItem(@props.storageKey, text)
+      else
+        safeLocalStorage.removeItem(@props.storageKey)
 
   focusInput: ->
     if @isMounted()
