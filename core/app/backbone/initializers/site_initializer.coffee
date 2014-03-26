@@ -8,21 +8,7 @@ class FactlinkRouter extends Backbone.Router
       showComponent ReactFeedSelection()
       mp_track 'Viewed feed'
 
-    'search': (params={}) ->
-      Backbone.history.once 'route', (router, executed_route_name) ->
-        return if executed_route_name == 'showSearch'
-
-        $('.js-navbar-search-box').val('')
-
-      query = params['s']
-      $('.js-navbar-search-box').val(query)
-      results = new SearchResults [], search: query
-
-      showComponent ReactSearchResults model: results
-
-      results.fetch()
-      mp_track 'Search: Top bar search',
-        query: query
+    'search': 'search' # must be named
 
     ':username/edit': ->
       showComponent ReactProfileEdit model: currentSession.user()
@@ -38,6 +24,23 @@ class FactlinkRouter extends Backbone.Router
       user.fetch()
 
       showComponent ReactProfile model: user
+
+  search: (params={}) ->
+    @once 'route', (route) ->
+      return if route == 'search'
+
+      $('.js-navbar-search-box').val('')
+
+    query = params['s']
+    $('.js-navbar-search-box').val(query)
+
+    results = new SearchResults [], search: query
+    results.fetch()
+
+    showComponent ReactSearchResults model: results
+
+    mp_track 'Search: Top bar search',
+      query: query
 
 
 Factlink.siteInitializer = ->
