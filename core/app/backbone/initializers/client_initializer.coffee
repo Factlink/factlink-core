@@ -1,3 +1,6 @@
+componentKey = 0
+getComponentKey = -> componentKey++
+
 showInSidebar = (elements...)->
   component = ReactDiscussionSideBarContainer({}, elements...)
   el = document.querySelector('.js-discussion-sidebar-region')
@@ -19,6 +22,7 @@ class ClientEnvoy
     showInSidebar ReactDiscussion
       model: fact
       initiallyFocusAddComment: true
+      key: getComponentKey()
 
   prepareNewFactlink: (displaystring, url, site_title) =>
     Factlink.load_client_dependencies()
@@ -35,6 +39,7 @@ class ClientEnvoy
     showInSidebar ReactDiscussion
       model: fact
       initiallyFocusAddComment: true
+      key: getComponentKey()
 
 printDevelopmentHelp = ->
   return unless Factlink.Global.environment == 'development'
