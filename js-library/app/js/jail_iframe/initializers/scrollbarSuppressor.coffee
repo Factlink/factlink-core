@@ -18,7 +18,6 @@ html_overflow = prop_saver html.style, 'overflow'
 body_overflow = prop_saver body.style, 'overflow'
 
 FactlinkJailRoot.on 'modalOpened', ->
-  debugger
   right_margin = window.innerWidth - html.clientWidth - html.offsetLeft
   body_width = body.offsetWidth
   if right_margin > 0
