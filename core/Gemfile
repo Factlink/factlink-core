@@ -71,6 +71,10 @@ group :production, :development do
   gem 'newrelic_rpm', '~> 3.6.9' # Higher version are generating 500 errors with our application. Awaiting support ticket before updating
 end
 
+gem 'appsignal'
+gem 'appsignal-moped'
+gem 'appsignal-redis'
+
 group :assets do
   gem 'uglifier', '~> 2.0'
   gem 'hogan_assets', '~> 1.1.0' #1.2 or later include hogan 3.0 and somehow only generate empty templates.
