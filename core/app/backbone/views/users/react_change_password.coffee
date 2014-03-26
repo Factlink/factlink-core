@@ -5,10 +5,10 @@ window.ReactChangePassword = React.createClass
   _submit: ->
     @props.model.save {},
       success: =>
-        window.parent.FactlinkApp.NotificationCenter.success 'Your password has been changed!'
+        FactlinkApp.NotificationCenter.success 'Your password has been changed!'
         @props.model.clear()
       error: =>
-        window.parent.FactlinkApp.NotificationCenter.error 'Could not change your password, please try again.'
+        FactlinkApp.NotificationCenter.error 'Could not change your password, please try again.'
         @props.model.clear()
 
   render: ->
