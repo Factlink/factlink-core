@@ -1,11 +1,11 @@
 setTimeout ->
-  ok =
+  isDOMContentLoaded =
     loaded: true
     interactive: !(document.documentMode < 11)
     complete: true
 
 
-  if ok[document.readyState]
+  if isDOMContentLoaded[document.readyState]
     FactlinkJailRoot.host_ready_promise.resolve()
   else
     document.addEventListener('DOMContentLoaded', -> FactlinkJailRoot.host_ready_promise.resolve())
