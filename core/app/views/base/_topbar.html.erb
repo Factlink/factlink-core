@@ -1,14 +1,6 @@
 <div class="topbar">
   <div class="topbar-inner"><%
-    %><%= link_to image_tag('base/topbar/logo.svg', class: 'topbar-logo-img', :alt => 'Factlink'), home_path, class: 'topbar-logo', rel: 'backbone' %>
-
-    <div class="topbar-search">
-      <form method="GET" class="js-navbar-search-form" action="<%= search_path %>">
-        <input id="factlink_search" type="text" class="topbar-search-field js-navbar-search-box" name="s" placeholder="Search...">
-      </form>
-    </div>
-
-    <ul class="topbar-menu">
+    %><ul class="topbar-menu">
       <% if current_user %>
         <li class="topbar-menu-item">
           <%= link_to feed_path, class: 'topbar-menu-link', rel: 'backbone' do %>
@@ -40,5 +32,13 @@
         </li>
       <% end %>
     </ul><%
+
+    %><%= link_to image_tag('base/topbar/logo.svg', class: 'topbar-logo-img', :alt => 'Factlink'), home_path, class: 'topbar-logo', rel: 'backbone' %>
+
+    <div class="topbar-search">
+      <form method="GET" class="js-navbar-search-form" action="<%= search_path %>">
+        <input id="factlink_search" type="text" class="topbar-search-field js-navbar-search-box" name="s" placeholder="Search...">
+      </form>
+    </div><%
   %></div>
 </div>
