@@ -46,9 +46,15 @@ window.FactlinkAppMode.coreInSite = (app) ->
   new NonConfirmedEmailWarning
   new FactlinkRouter
   enhanceSearchFormNavigation()
+  refreshOnSocialSignin()
 
 enhanceSearchFormNavigation = ->
   $('.js-navbar-search-form').on 'submit', ->
     url = '/search?s=' + encodeURIComponent $('.js-navbar-search-box').val()
     Backbone.history.navigate url, true
     false
+
+refreshOnSocialSignin = ->
+  currentSession.on 'user_refreshed', ->
+    # We still have some static user-dependent stuff on the site (not client)
+    window.location.reload(true)
