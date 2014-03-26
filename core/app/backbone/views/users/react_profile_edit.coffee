@@ -104,9 +104,9 @@ window.ReactProfileEdit = React.createClass
         if @props.model.usernameChanged()
           window.location = @props.model.link()
         else
-          NotificationCenter.success 'Your profile has been updated!'
+          FactlinkApp.NotificationCenter.success 'Your profile has been updated!'
       error: =>
-        NotificationCenter.error 'Could not update your profile, please try again.'
+        FactlinkApp.NotificationCenter.error 'Could not update your profile, please try again.'
 
   render: ->
     return _span([], 'Please sign in.') unless FactlinkApp.signedIn()
