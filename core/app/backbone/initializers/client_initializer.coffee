@@ -2,7 +2,7 @@ componentKey = 0
 getComponentKey = -> componentKey++
 
 showInSidebar = (elements...)->
-  component = ReactDiscussionSideBarContainer({}, elements...)
+  component = ReactDiscussionSidebarContainer({}, elements...)
   el = document.querySelector('.js-discussion-sidebar-region')
   React.renderComponent(component, el)
   if elements.length > 0

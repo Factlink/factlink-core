@@ -1,26 +1,26 @@
 window.discussion_sidebar_slide_transition_duration = 400 # keep in sync with CSS
 
-ReactDiscussionSideBarContainerChild = React.createClass
+ReactDiscussionSidebarOuter = React.createClass
   componentDidEnter: ->
     _.defer =>
-      $(@getDOMNode()).addClass 'discussion-sidebar-container-visible'
+      $(@getDOMNode()).addClass 'discussion-sidebar-outer-visible'
 
   componentWillLeave: (done) ->
-    $(@getDOMNode()).removeClass 'discussion-sidebar-container-visible'
+    $(@getDOMNode()).removeClass 'discussion-sidebar-outer-visible'
     _.delay done, discussion_sidebar_slide_transition_duration
 
   _closeOnContainerClicked: (event) ->
-    @_closeModal() if $(event.target).hasClass('discussion-sidebar-container')
+    @_closeModal() if $(event.target).hasClass('discussion-sidebar-outer')
 
   _closeModal: ->
     FactlinkApp.vent.trigger 'close_discussion_sidebar'
 
   render: ->
     _div [
-      "discussion-sidebar-container",
+      "discussion-sidebar-outer",
       onClick: @_closeOnContainerClicked
     ],
-    _div ["discussion-sidebar"],
+    _div ["discussion-sidebar-inner"],
       _div ["discussion-sidebar-shadow"]
       _a [
          "discussion-sidebar-close-left"
@@ -38,9 +38,9 @@ ReactDiscussionSideBarContainerChild = React.createClass
         this.props.children
 
 
-window.ReactDiscussionSideBarContainer = React.createClass
+window.ReactDiscussionSidebarContainer = React.createClass
   _wrapChild: (child) ->
-    ReactDiscussionSideBarContainerChild {}, child
+    ReactDiscussionSidebarOuter {}, child
 
   render: ->
     React.addons.TransitionGroup {

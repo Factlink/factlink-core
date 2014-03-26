@@ -58,7 +58,7 @@ window.ReactAddComment = React.createBackboneClass
       else
         setTimeout ->
           textarea.focusInput()
-          $(".discussion-sidebar-container")[0]?.scrollLeft = 0
+          $(".discussion-sidebar-outer")[0]?.scrollLeft = 0
         , discussion_sidebar_slide_transition_duration + 100
 
   getInitialState: ->
