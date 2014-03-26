@@ -48,7 +48,8 @@
     <script>
       FactlinkApp.start({factlinkAppMode: FactlinkAppMode.coreInSite});
     </script>
-
+    
+    <%= yield :alert_javascript %>
     <%= yield :specific_javascript %>
     <%= render 'snippets/google_analytics' %>
   </body>
