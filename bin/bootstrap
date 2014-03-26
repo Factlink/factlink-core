@@ -41,8 +41,6 @@ cd local_development
   bundle
 cd ..
 
-web-proxy/bin/bootstrap
-
 if [ ! -e proxy ]; then
   git clone git://github.com/Factlink/web-proxy.git proxy
 else
