@@ -1,6 +1,6 @@
 window.ReactUserTabs = React.createBackboneClass
   render: ->
-    return _span() unless FactlinkApp.isCurrentUser @model()
+    return _span() unless currentSession.isCurrentUser @model()
 
     spaced_middle_dot = " \u00b7 "
 

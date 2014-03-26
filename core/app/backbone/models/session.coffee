@@ -13,3 +13,6 @@ class window.Session extends Backbone.Model
   user: -> @_user
 
   signedIn: -> !!@user().get('username')
+
+  isCurrentUser: (user) ->
+    @signedIn() && user.get('username') == @user().get('username')
