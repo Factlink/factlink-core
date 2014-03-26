@@ -8,15 +8,21 @@ try
   window.safeLocalStorage = localStorage
   window.localStorageIsEnabled = true
 catch e
-  window.safeLocalStorage = {
+  backend = {}
+  impl = window.safeLocalStorage = {
     getItem: (key)->
-      @[key]
+      backend[key]
     setItem: (key, item) ->
-      @[key] = String(item)
+      backend[key] = String(item)
     removeItem: (key)->
-      delete @[key]
+      delete backend[key]
+    key: (i) -> Object.keys(backend)[i]
   }
+  Object.defineProperty impl, 'length',
+    get:  -> Object.keys(backend).length
+
   window.localStorageIsEnabled = false
+
 
 for property, value of csrfDataForLocalStorage
   window.safeLocalStorage[property] = value
