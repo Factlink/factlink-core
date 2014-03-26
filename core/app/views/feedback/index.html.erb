@@ -45,10 +45,9 @@
 
     <% if params[:state] %>
       <% if params[:state] == "error" %>
-        <div class="alert-error">
-          <a class="alert-close" href="#" data-dismiss="alert">&times;</a>
-          Something went wrong while submitting your feedback, did you fill in all the fields?
-        </div>
+        <script>
+          window.parent.parent.FactlinkApp.NotificationCenter.error('Something went wrong while submitting your feedback, did you fill in all the fields?');
+        </script>
       <% end %>
     <% end %>
 
