@@ -20,7 +20,7 @@ $(document).on 'account_success', (e) ->
   mp_track 'User: Sign in'
 
 $(document).on 'account_error', (e) ->
-  if typeof FactlinkApp == 'object'
+  if Factlink?.notificationCenter?
     Factlink.notificationCenter.error(e.originalEvent.detail)
   else
     _.defer -> alert(e.originalEvent.detail)
