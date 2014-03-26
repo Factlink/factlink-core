@@ -12,7 +12,10 @@ module Interactors
       arguments :original_username, *UPDATABLE_ATTRIBUTES
 
       def execute
-        user.update_attributes! attributes.slice(UPDATABLE_ATTRIBUTES)
+        new_attributes = attributes.slice(*UPDATABLE_ATTRIBUTES)
+                                   .delete_if {|k, v| v.nil? }
+
+        user.update_attributes! new_attributes
 
         {}
       end
