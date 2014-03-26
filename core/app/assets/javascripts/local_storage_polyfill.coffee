@@ -32,7 +32,7 @@ do ->
   bad_keys = []
   for i in [0...safeLocalStorage.length]
     key = safeLocalStorage.key i
-    if !key.lastIndexOf('add_comment_to_fact_',0) && !safeLocalStorage.getItem key
+    if !safeLocalStorage.getItem key
       bad_keys.push key
 
   for key in bad_keys
