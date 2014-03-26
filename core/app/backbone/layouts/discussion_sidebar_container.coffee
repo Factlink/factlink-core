@@ -18,7 +18,6 @@ ReactDiscussionSideBarContainerChild = React.createClass
   render: ->
     _div [
       "discussion-sidebar-container",
-      "spec-discussion-sidebar-container",
       onClick: @_closeOnContainerClicked
     ],
     _div ["discussion-sidebar"],
