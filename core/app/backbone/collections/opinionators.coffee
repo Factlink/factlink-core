@@ -8,7 +8,7 @@ class window.Opinionators extends Backbone.Factlink.Collection
     "/facts/#{@fact.id}/opinionators"
 
   opinion_for_current_user:  ->
-    return 'no_vote' unless FactlinkApp.signedIn()
+    return 'no_vote' unless currentSession.signedIn()
     vote = @vote_for(window.currentSession.user().get('username'))
     if vote
       vote.get('type')
@@ -19,7 +19,7 @@ class window.Opinionators extends Backbone.Factlink.Collection
     @find (vote) -> vote.get('username') == username
 
   clickCurrentUserOpinion: (type) ->
-    return unless FactlinkApp.signedIn()
+    return unless currentSession.signedIn()
 
     @fact.saveUnlessNew =>
       current_vote = @vote_for(currentSession.user().get('username'))

@@ -1,8 +1,6 @@
 class FactlinkAppClass extends Backbone.Marionette.Application
   isCurrentUser: (user) ->
-    @signedIn() and user.id == currentSession.user().id
-
-  signedIn: -> !!currentSession.user().get('username')
+    currentSession.signedIn() and user.id == currentSession.user().id
 
   refreshCurrentUser: (response) ->
     if @mode == FactlinkAppMode.coreInClient

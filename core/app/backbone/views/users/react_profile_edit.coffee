@@ -120,7 +120,7 @@ window.ReactProfileEdit = React.createBackboneClass
         FactlinkApp.NotificationCenter.error 'Could not update your profile, please try again.'
 
   render: ->
-    return _span([], 'Please sign in.') unless FactlinkApp.signedIn()
+    return _span([], 'Please sign in.') unless currentSession.signedIn()
 
     _div [],
       ReactUserTabs model: currentSession.user(), page: 'edit'

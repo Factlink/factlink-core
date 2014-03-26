@@ -11,3 +11,5 @@ class window.Session extends Backbone.Model
     @_user.set @get('user')
 
   user: -> @_user
+
+  signedIn: -> !!@user().get('username')

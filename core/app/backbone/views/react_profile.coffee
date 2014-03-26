@@ -33,7 +33,7 @@ window.ReactProfile = React.createBackboneClass
               src: @model().avatar_url(160)]
           _div ['profile-information-item'],
             ReactSocialStatistics model: @model()
-            if FactlinkApp.signedIn() && !FactlinkApp.isCurrentUser(@model())
+            if currentSession.signedIn() && !FactlinkApp.isCurrentUser(@model())
               ReactFollowUserButton user: @model()
 
         _div ['profile-box-item'],

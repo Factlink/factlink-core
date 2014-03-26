@@ -17,14 +17,14 @@ window.ReactSigninPopover = React.createClass
     @setState opened: false, callback: null
 
   _onSignedInChange: ->
-    if FactlinkApp.signedIn() && @state.opened
+    if currentSession.signedIn() && @state.opened
       @state.callback()
       @setState opened: false, callback: null
 
     @forceUpdate()
 
   submit: (callback) ->
-    if FactlinkApp.signedIn()
+    if currentSession.signedIn()
       callback()
     else
       if @state.opened
@@ -34,7 +34,7 @@ window.ReactSigninPopover = React.createClass
         FactlinkApp.vent.trigger 'ReactSigninPopover:opened', this
 
   render: ->
-    if @state.opened && !FactlinkApp.signedIn()
+    if @state.opened && !currentSession.signedIn()
       if window.localStorageIsEnabled
         ReactPopover className: 'white-popover', attachment: 'right',
           _span ["signin-popover"],

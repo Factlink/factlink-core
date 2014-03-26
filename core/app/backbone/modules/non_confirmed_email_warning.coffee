@@ -1,5 +1,5 @@
 checkConfirmedEmail = ->
-  return unless FactlinkApp.signedIn()
+  return unless currentSession.signedIn()
   return if currentSession.user().get('confirmed')
   return if currentSession.user().justCreated()
 
