@@ -6,3 +6,4 @@ node_modules/
 /.project
 server-management/growth-hacking/analyze-publishers/access.json
 server-management/growth-hacking/analyze-publishers/access.log
+/proxy
