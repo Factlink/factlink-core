@@ -1,19 +1,14 @@
 <div class="topbar">
-  <div class="topbar-inner">
-    <%= link_to image_tag('base/topbar/logo.svg', class: 'topbar-logo-img', :alt => 'Factlink'), home_path, class: 'topbar-logo', rel: 'backbone' %>
-
-    <div class="topbar-search">
-      <form method="GET" class="js-navbar-search-form" action="<%= search_path %>">
-        <input id="factlink_search" type="text" class="topbar-search-field js-navbar-search-box" name="s" placeholder="Search...">
-      </form>
-    </div>
-
-    <% if current_user %>
-      <ul class="topbar-menu">
+  <div class="topbar-inner"><%
+     # note: the floated topbar-menu must be the first child of the
+     # whitespace: no-wrap topbar-inner due to the FF bug:
+     # https://bugzilla.mozilla.org/show_bug.cgi?id=488725
+    %><ul class="topbar-menu">
+      <% if current_user %>
         <li class="topbar-menu-item">
           <%= link_to feed_path, class: 'topbar-menu-link', rel: 'backbone' do %>
             Feed
-          <%end%>
+          <% end %>
         </li>
         <li class="topbar-divider"></li>
         <li class="topbar-menu-item">
@@ -21,9 +16,7 @@
         </li>
         <li class="topbar-divider"></li>
         <%= render "base/topbar/topbar_menu" %>
-      </ul>
-    <% else %>
-      <ul class="topbar-menu">
+      <% else %>
         <li class="topbar-menu-item topbar-in-your-browser">
           <%= link_to "In your browser", in_your_browser_path, class: 'topbar-menu-link' %>
         </li>
@@ -40,7 +33,15 @@
             <a href="/users/sign_in_or_up" class="button small-connect-button small-connect-button-factlink js-accounts-popup-link"><i class="icon-factlink"></i></a>
           </div>
         </li>
-      </ul><%
-     end  #note: no space!
+      <% end %>
+    </ul><%
+
+    %><%= link_to image_tag('base/topbar/logo.svg', class: 'topbar-logo-img', :alt => 'Factlink'), home_path, class: 'topbar-logo', rel: 'backbone' %>
+
+    <div class="topbar-search">
+      <form method="GET" class="js-navbar-search-form" action="<%= search_path %>">
+        <input id="factlink_search" type="text" class="topbar-search-field js-navbar-search-box" name="s" placeholder="Search...">
+      </form>
+    </div><%
   %></div>
 </div>

@@ -43,10 +43,23 @@ window.ReactAddComment = React.createBackboneClass
 
   componentDidMount: ->
     if @props.initiallyFocus
-      @refs.textarea.focusInput()
-
       # For some crazy reason, the overflow-x: hidden; is scrolled!
-      $(".discussion-sidebar-container")[0].scrollLeft = 0
+      # browsers scroll to focussed elements, they even scroll overflow:hidden containers
+      # problem here is discussionSidebarContainer.
+      # two mitigations:
+      # (1) reset horizontal scroll right after focusing.  Works on chrome+FF.
+      # However, this still flashes on IE11 (maybe only without gfx accel)
+      # (2) delay focusing while transitioning (at least initially)
+      # This ensures the browser needn't try to scroll, and works in IE11 too.
+
+      textarea = @refs.textarea
+      if  window.$.fx.off
+        textarea.focusInput()
+      else
+        setTimeout ->
+          textarea.focusInput()
+          $(".discussion-sidebar-container")[0].scrollLeft = 0
+        , discussion_sidebar_slide_transition_duration + 100
 
   getInitialState: ->
     text: ''

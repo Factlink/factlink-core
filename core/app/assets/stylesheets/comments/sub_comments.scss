@@ -8,6 +8,7 @@
 .sub-comments-container {
   z-index: 1;
   border-top: 1px lightgrey solid;
+  background: #f6f6f6;
   position: relative;
 }
 
@@ -15,7 +16,6 @@
   display: table;
   width: 100%;
   vertical-align: top;
-  background: #f6f6f6;
   padding: 10px;
   @extend %clearfix;
   border-bottom: 1px #E1E2E6 solid;

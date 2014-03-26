@@ -126,16 +126,11 @@ class FactlinkJailRoot.HighlightIconButtonContainer
 
 textFromElement = (element) ->
   selection = document.getSelection()
-  selection.removeAllRanges()
-
-  range = document.createRange()
-  range.setStart element, 0
-  range.setEndAfter element
-
-  selection.addRange(range)
+  selection.selectAllChildren(element)
   text = selection.toString()
-  selection.removeAllRanges()
+  # note: IE11's toString includes invisible text content such as display:none stuff. no idea how to fix this bug
 
+  selection.removeAllRanges()
   text.trim()
 
 

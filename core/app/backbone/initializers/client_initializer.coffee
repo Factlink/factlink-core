@@ -74,7 +74,7 @@ window.FactlinkAppMode.coreInClient = (app) ->
     showInSidebar()
 
     callback = -> senderEnvoy 'closeModal'
-    _.delay callback, 400 # keep in sync with CSS
+    _.delay callback, discussion_sidebar_slide_transition_duration
 
   window.addEventListener 'keydown', (e) ->
     if e.keyCode == 27

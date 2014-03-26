@@ -1,6 +1,8 @@
 i = 0
 getKey = -> i++
 
+window.discussion_sidebar_slide_transition_duration = 400 # keep in sync with CSS
+
 window.ReactDiscussionSideBarContainer = React.createClass
   _closeOnContainerClicked: (event)->
     console.info event.target

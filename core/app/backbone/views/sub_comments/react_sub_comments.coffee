@@ -10,7 +10,7 @@ window.ReactSubComments = React.createBackboneClass
   render: ->
     _div ['sub-comments-container'],
       _span ['sub-comments-arrow']
-      _div ['loading-indicator-centered'],
+      _div ['loading-indicator-centered loading-sub-comments'],
         ReactLoadingIndicator
           model: @model()
       @model().map (sub_comment) =>

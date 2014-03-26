@@ -6,4 +6,4 @@ window.UpdateOnFeaturesChangeMixin =
     window.session.user().off null, null, @
 
   canHaz: (feature) ->
-    feature in session.user().get('features')
+    feature in (session.user().get('features') || [])

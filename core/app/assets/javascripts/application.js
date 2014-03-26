@@ -9,7 +9,6 @@
 //= require underscore
 //= require console_polyfill
 //= require function_bind_polyfill
-//= require twitter/bootstrap-alert
 //= require jquery.color
 //= require jquery.placeholder
 //= require raven

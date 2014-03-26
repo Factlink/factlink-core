@@ -59,16 +59,22 @@ ReactActivity = React.createBackboneClass
 
 ReactCreatedCommentActivity = React.createBackboneClass
   displayName: 'ReactCreatedCommentActivity'
+  mixins: [UpdateOnFeaturesChangeMixin]
 
   render: ->
     user = new User @model().get('user')
     fact = new Fact @model().get('fact')
     comment = new Comment @model().get('comment')
+    proxy_url =
+      if @canHaz('ruby_proxy')
+        fact.get('proxy_open_url').replace('fct.li', 'beta.fct.li')
+      else
+        fact.get('proxy_open_url')
 
     ReactGenericActivity {
         model: user
         time: @model().get('created_at')
-        href: fact.get('proxy_open_url')
+        href: proxy_url
         target: '_blank'
         activity_header_action: [
           _span ["feed-activity-description"],
@@ -81,17 +87,23 @@ ReactCreatedCommentActivity = React.createBackboneClass
 
 ReactCreatedSubCommentActivity = React.createBackboneClass
   displayName: 'ReactCreatedSubCommentActivity'
+  mixins: [UpdateOnFeaturesChangeMixin]
 
   render: ->
     user = new User @model().get('user')
     fact = new Fact @model().get('fact')
     comment = new Comment @model().get('comment')
     sub_comment = new Comment @model().get('sub_comment')
+    proxy_url =
+      if @canHaz('ruby_proxy')
+        fact.get('proxy_open_url').replace('fct.li', 'beta.fct.li')
+      else
+        fact.get('proxy_open_url')
 
     ReactGenericActivity {
         model: user
         time: @model().get('created_at')
-        href: fact.get('proxy_open_url')
+        href: proxy_url
         target: '_blank'
         activity_header_action: [
           _span ["feed-activity-description"],

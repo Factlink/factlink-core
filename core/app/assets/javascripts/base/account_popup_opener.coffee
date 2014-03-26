@@ -13,7 +13,10 @@ $('html').on 'click', '.js-accounts-popup-link', (e) ->
   e.preventDefault()
 
 $(document).on 'account_success', (e) ->
-  FactlinkApp.refreshCurrentUser e.originalEvent.detail
+  FactlinkApp.refreshCurrentUser JSON.parse(e.originalEvent.detail)
+  # detail is sent across not as object but as JSON, because it is a
+  # potentially cross-window object, and IE imposes complex security
+  # restrictions on those (e.g. http://forum.jquery.com/topic/obscure-ie-bug-in-jquery-1-4)
   mp_track 'User: Sign in'
 
 $(document).on 'account_error', (e) ->
