@@ -4,11 +4,11 @@
   <script type="text/javascript">
     $(function() {
       <% if alert %>
-        FactlinkApp.NotificationCenter.error('<%= j(alert) %>');
+        Factlink.notificationCenter.error('<%= j(alert) %>');
       <% end %>
 
       <% if notice %>
-        FactlinkApp.NotificationCenter.success('<%= j(notice) %>');
+        Factlink.notificationCenter.success('<%= j(notice) %>');
       <% end %>
     });
   </script>

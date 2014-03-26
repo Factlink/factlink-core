@@ -2,7 +2,7 @@ window.FactlinkAppMode ?= {}
 window.FactlinkAppMode.coreInSite = (app) ->
   app.onClientApp = false
   FactlinkApp.addRegions(mainRegion: '#main-wrapper')
-  window.FactlinkApp.NotificationCenter = new NotificationCenter('.js-notification-center-alerts')
+  window.Factlink.notificationCenter = new NotificationCenter('.js-notification-center-alerts')
   new window.NonConfirmedEmailWarning()
   declareSiteRoutes()
   enhanceSearchFormNavigation()

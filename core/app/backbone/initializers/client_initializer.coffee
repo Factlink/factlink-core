@@ -69,7 +69,7 @@ window.FactlinkAppMode ?= {}
 window.FactlinkAppMode.coreInClient = (app) ->
   showInSidebar()
 
-  window.FactlinkApp.NotificationCenter = new NotificationCenter('.js-notification-center-alerts')
+  window.Factlink.notificationCenter = new NotificationCenter('.js-notification-center-alerts')
   new window.NonConfirmedEmailWarning()
 
   app.vent.on 'close_discussion_sidebar', ->

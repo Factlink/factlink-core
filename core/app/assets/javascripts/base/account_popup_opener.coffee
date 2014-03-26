@@ -21,6 +21,6 @@ $(document).on 'account_success', (e) ->
 
 $(document).on 'account_error', (e) ->
   if typeof FactlinkApp == 'object'
-    FactlinkApp.NotificationCenter.error(e.originalEvent.detail)
+    Factlink.notificationCenter.error(e.originalEvent.detail)
   else
     _.defer -> alert(e.originalEvent.detail)
