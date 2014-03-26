@@ -1,4 +1,5 @@
 require 'new_relic/recipes'
+require 'appsignal/capistrano'
 
 #############
 # Application
