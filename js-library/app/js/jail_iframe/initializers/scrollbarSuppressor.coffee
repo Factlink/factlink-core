@@ -1,27 +1,34 @@
 saved_marginRight = null
+saved_overflow = null
+html = document.documentElement
+body = document.body
 
 FactlinkJailRoot.on 'modalOpened', ->
-  right_margin = window.innerWidth - document.documentElement.offsetWidth - document.documentElement.offsetLeft
-  html_width = document.documentElement.offsetWidth
+  right_margin = window.innerWidth - html.clientWidth - html.offsetLeft
+  body_width = body.offsetWidth
   if right_margin > 0
-    saved_marginRight = document.documentElement.style.marginRight
-    document.documentElement.style.marginRight = right_margin + 'px'
-    document.documentElement.setAttribute('data-factlink-suppress-scrolling', '')
-    width_error = html_width - document.documentElement.offsetWidth
+    saved_marginRight = html.style.marginRight
+    saved_overflow =  html.style.overflow
+    html.style.marginRight = right_margin + 'px'
+    html.style.overflow = 'hidden'
+
+    width_error = body_width - body.offsetWidth
+
     if width_error != 0
-      console.warn('browser oddness: changing right margin caused offset:',width_error, html_width, document.documentElement.offsetWidth)
+      console.warn('browser oddness: changing right margin caused offset:',width_error, body_width, body.offsetWidth)
       # apparently firefox does this when a margin is on the html element
       right_margin -= width_error
-      document.documentElement.style.marginRight = right_margin + 'px'
+      html.style.marginRight = right_margin + 'px'
   else
-    document.documentElement.setAttribute('data-factlink-suppress-scrolling', '')
+    saved_overflow =  html.style.overflow
+    html.style.overflow = 'hidden'
 
 
 
 
 FactlinkJailRoot.on 'modalClosed', ->
   if saved_marginRight != null
-    document.documentElement.style.marginRight = saved_marginRight
+    html.style.marginRight = saved_marginRight
     saved_marginRight = null
 
-  document.documentElement.removeAttribute('data-factlink-suppress-scrolling')
+  html.style.overflow = saved_overflow
