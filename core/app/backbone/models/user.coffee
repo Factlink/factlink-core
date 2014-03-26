@@ -55,3 +55,13 @@ class window.User extends Backbone.Model
       model.get('username') == @get('username')
 
   password: -> @_password ?= new UserPassword {}, user: this
+
+  delete: (options) ->
+    # Sending data with DELETE request is not supported
+    # Most browsers support it anyway, except PhantomJS
+    default_options =
+      type: 'POST'
+      url: @url() + '/delete'
+      data: {password: options.password}
+
+    Backbone.ajax _.extend default_options, options

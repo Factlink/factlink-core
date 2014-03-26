@@ -47,15 +47,10 @@ ReactDeleteProfile = React.createClass
     password: ''
 
   _onSubmit: ->
-    session.user().destroy
-      data: {password: @state.password}
-      processData: true
+    session.user().delete
+      password: @state.password
       success: ->
-        if Factlink.Global.environment == 'test'
-          FactlinkApp.NotificationCenter.success 'Your account has been deleted.'
-        else
-          # For some reason this doesn't work in poltergeist/phantomjs :-(
-          window.location = '/users/deleted'
+        window.location = '/users/deleted'
       error: =>
         FactlinkApp.NotificationCenter.error 'Your account could not be deleted. Did you enter the correct password?'
 
