@@ -113,7 +113,7 @@ window.ReactProfileEdit = React.createBackboneClass
       url: url
       success: =>
         if usernameChanged
-          window.location = @model().link()
+          window.location = @model().editLink()
         else
           FactlinkApp.NotificationCenter.success 'Your profile has been updated!'
       error: =>

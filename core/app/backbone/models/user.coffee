@@ -19,6 +19,7 @@ class window.User extends Backbone.Model
       "https://secure.gravatar.com/avatar/#{md5d_email}?size=#{size}&rating=PG&default=retro"
 
   link: -> "/#{@get('username')}"
+  editLink: -> "#{@link()}/edit"
 
   feed_activities: ->
     @_feed_activities ?= new UserActivities null, user: @
