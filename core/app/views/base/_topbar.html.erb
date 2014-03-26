@@ -8,12 +8,12 @@
       </form>
     </div>
 
-    <% if current_user %>
-      <ul class="topbar-menu">
+    <ul class="topbar-menu">
+      <% if current_user %>
         <li class="topbar-menu-item">
           <%= link_to feed_path, class: 'topbar-menu-link', rel: 'backbone' do %>
             Feed
-          <%end%>
+          <% end %>
         </li>
         <li class="topbar-divider"></li>
         <li class="topbar-menu-item">
@@ -21,9 +21,7 @@
         </li>
         <li class="topbar-divider"></li>
         <%= render "base/topbar/topbar_menu" %>
-      </ul>
-    <% else %>
-      <ul class="topbar-menu">
+      <% else %>
         <li class="topbar-menu-item topbar-in-your-browser">
           <%= link_to "In your browser", in_your_browser_path, class: 'topbar-menu-link' %>
         </li>
@@ -40,7 +38,7 @@
             <a href="/users/sign_in_or_up" class="button small-connect-button small-connect-button-factlink js-accounts-popup-link"><i class="icon-factlink"></i></a>
           </div>
         </li>
-      </ul><%
-     end  #note: no space!
+      <% end %>
+    </ul><%
   %></div>
 </div>
