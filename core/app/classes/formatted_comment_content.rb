@@ -34,7 +34,7 @@ class FormattedCommentContent
 
   def factlink_link_tag fact_id
     begin
-      dead_fact = Pavlov.query :'facts/get_dead', id: fact_id
+      dead_fact = Backend::Facts.get fact_id: fact_id
     rescue
       return content_tag :span, '<deleted annotation>', class: 'formatted-comment-content-factlink'
     end

@@ -5,7 +5,7 @@ describe Queries::ElasticSearchFactData do
   include PavlovSupport
 
   before do
-    stub_classes 'HTTParty', 'FactData', 'FactlinkUI::Application', 'Queries::Facts::GetDead'
+    stub_classes 'HTTParty', 'FactData', 'FactlinkUI::Application', 'Backend::Facts'
   end
 
   it 'raises when initialized with an empty keywords string' do
@@ -38,8 +38,7 @@ describe Queries::ElasticSearchFactData do
 
       fd = double fact_id: 1
       FactData.stub(:find).with(1).and_return(fd)
-      get_dead_fact = double call: return_object
-      Queries::Facts::GetDead.stub(:new).with(id: fd.fact_id).and_return(get_dead_fact)
+      Backend::Facts.stub(:get).with(fact_id: fd.fact_id).and_return(return_object)
       FactData.should_receive(:find).with(1).and_return(fd)
 
       expect(query.call).to eq [return_object]
@@ -84,8 +83,7 @@ describe Queries::ElasticSearchFactData do
 
       fd = double fact_id: 1
       FactData.stub(:find).with(1).and_return(fd)
-      get_dead_fact = double call: return_object
-      Queries::Facts::GetDead.stub(:new).with(id: fd.fact_id).and_return(get_dead_fact)
+      Backend::Facts.stub(:get).with(fact_id: fd.fact_id).and_return(return_object)
 
       expect(query.call).to eq [return_object]
     end
