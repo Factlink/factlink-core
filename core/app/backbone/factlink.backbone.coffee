@@ -1,8 +1,5 @@
 #= require backbone
-#  queryparams patches router, so should be loaded before marionette,
-#     which subclasses the router
 #= require backbone.queryparams
-#= require backbone.marionette
 #= require react/react-with-addons
 #= require react.backbone
 

@@ -235,8 +235,6 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    marionette-rails (1.5.1)
-      rails (>= 3.1.0)
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.2)
@@ -521,7 +519,6 @@ DEPENDENCIES
   koala (~> 1.9.0)
   konacha (~> 3.0)
   lograge (~> 0)
-  marionette-rails (~> 1.4)
   mixpanel!
   mongoid (~> 3.1.6)
   mongoid_rails_migrations (= 1.0.1)
