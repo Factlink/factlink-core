@@ -24,7 +24,8 @@ window.ReactTextArea = React.createClass
   componentDidMount: ->
     if @props.storageKey?
       storedText = safeLocalStorage.getItem(@props.storageKey)
-      @updateText storedText if storedText
+      if storedText
+        @updateText storedText
 
   _onChange: (e)->
     @updateText e.target.value
