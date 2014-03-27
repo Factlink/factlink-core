@@ -13,10 +13,11 @@ window.ReactInput = React.createBackboneClass
 
   render: ->
     _div ['control-group'],
-      _label ['control-label'],
+      _label ['control-label', htmlFor: @props.attribute],
         @props.label
       _div ['controls'],
         @transferPropsTo _input [
+          id: @props.attribute
           value: @model().get(@props.attribute)
           onChange: (event) => @model().set @props.attribute, event.target.value
         ]

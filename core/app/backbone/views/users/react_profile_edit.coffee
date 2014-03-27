@@ -68,11 +68,12 @@ ReactDeleteProfile = React.createClass
             'Fill in your password to confirm deleting your account.'
 
           _div ['control-group'],
-            _label ['control-label'],
+            _label ['control-label', htmlFor: 'password'],
               'Password'
             _div ['controls'],
               _input [
                 'spec-delete-password'
+                id: 'password'
                 type: 'password'
                 onChange: (event) => @setState password: event.target.value
               ]
