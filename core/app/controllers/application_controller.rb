@@ -69,15 +69,6 @@ class ApplicationController < ActionController::Base
     headers['Access-Control-Request-Origin'] = '*'
   end
 
-  def backbone_responder &block
-    respond_to do |format|
-      format.html do
-        render inline: '', layout: 'frontend_with_backbone'
-      end
-      format.json { yield } if block_given?
-    end
-  end
-
   private
 
   def inject_special_test_code
