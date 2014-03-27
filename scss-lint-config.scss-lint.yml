@@ -74,7 +74,7 @@ linters:
     enabled: true
 
   SpaceAfterPropertyColon:
-    enabled: false
+    enabled: true
 
   SpaceAfterPropertyName:
     enabled: false

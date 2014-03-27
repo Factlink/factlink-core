@@ -9,7 +9,7 @@ $feedback_frame_width: 430px;
 .feedback_form { //within an iframe!
   background: #fff;
   min-width: 0;
-  height:auto;
+  height: auto;
 
   form {
     @extend %clearfix;
@@ -53,7 +53,7 @@ e.g. https://github.com/Factlink/core/blob/40d54edf2e51e38e048c8cf25f485c655b19a
   z-index: 1040;
   background: rgba(233, 234, 238, 0.7);
   cursor: pointer;
-  display:none;
+  display: none;
 }
 
 .feedback-modal-layer:before {

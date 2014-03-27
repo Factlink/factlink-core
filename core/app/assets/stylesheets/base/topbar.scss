@@ -5,7 +5,7 @@
 
 .topbar-inner {
   @extend %centering-y;
-  padding:0px $pageSidePadding;
+  padding: 0px $pageSidePadding;
   height: $topbarHeight;
   margin-left: auto;
   margin-right: auto;
@@ -43,13 +43,13 @@
 .topbar-menu-item {
   float: left;
   font-weight: bold;
-  height:100%;
+  height: 100%;
 }
 
 .topbar-menu-link {
   @extend %centering;
   padding: 0px 15px;
-  height:100%;
+  height: 100%;
   display: block;
 }
 
@@ -73,7 +73,7 @@
   @extend %centering-y;
   @extend %ellipsis-inline-block;
   max-width: 100px;
-  height:$topbarHeight;
+  height: $topbarHeight;
 
   @include from-width(600px) {
     max-width: 220px;
@@ -93,7 +93,7 @@
 
 .topbar-connect {
   @extend %centering;
-  height:100%;
+  height: 100%;
   padding-left: 15px;
 }
 

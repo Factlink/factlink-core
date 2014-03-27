@@ -18,7 +18,7 @@ $buttonBgTransition: all 0.3s ease;
 %button-base {
   position: relative;
   display: inline-block;
-  z-index:0;
+  z-index: 0;
   vertical-align: middle;
   font-family: inherit; //so that browsers don't use a system font for buttons.
   font-size: 13px;
