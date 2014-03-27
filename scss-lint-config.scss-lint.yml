@@ -95,7 +95,7 @@ linters:
       - 'js-library/app/css/_fadable_control.scss'
 
   UrlQuotes:
-    enabled: false
+    enabled: true
 
   ZeroUnit:
     enabled: false
