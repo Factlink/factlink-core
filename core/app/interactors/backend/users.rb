@@ -38,6 +38,7 @@ module Backend
       user = user_by_username username: username
       mark_as_deleted user
       anonymize user
+      ElasticSearch::Index.new('user').delete user.id
     end
 
     private

@@ -298,8 +298,4 @@ class User
                   changed: user.changed
     end
   end
-
-  after_destroy do |user|
-    Pavlov.command(:'text_search/delete_user', object: user)
-  end
 end
