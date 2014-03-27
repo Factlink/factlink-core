@@ -38,7 +38,7 @@ class Admin::UsersController < AdminController
   private
 
   def if_not_found_404
-    raise_404 unless @user
+    fail ActionController::RoutingError.new('') unless @user
   end
 
   def sort_column

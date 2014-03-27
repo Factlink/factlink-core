@@ -69,16 +69,6 @@ class ApplicationController < ActionController::Base
     headers['Access-Control-Request-Origin'] = '*'
   end
 
-  def current_graph_user
-    return unless current_user
-    @current_graph_user ||= current_user.graph_user
-  end
-  helper_method :current_graph_user
-
-  def raise_404(message="Not Found")
-    fail ActionController::RoutingError.new(message)
-  end
-
   def backbone_responder &block
     respond_to do |format|
       format.html do
