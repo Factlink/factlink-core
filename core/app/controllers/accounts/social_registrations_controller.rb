@@ -109,7 +109,7 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
     @user.email = email
     @user.generate_username!
 
-    @user.save_and_index
+    @user.save
 
     if @user.errors.empty?
       finish_connecting

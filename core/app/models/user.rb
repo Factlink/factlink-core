@@ -284,10 +284,8 @@ class User
     super
   end
 
-  def save_and_index
-    successful = save
-    Backend::Users.index_user(username: username) if successful
-    successful
+  after_save do |user|
+    Backend::Users.index_user user: user
   end
 
   after_update do |user|

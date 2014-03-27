@@ -7,7 +7,7 @@ class CreateSearchIndexForUser
     user = User.find(user_id)
 
     if user
-      Backend::Users.index_user(username: user.username)
+      Backend::Users.index_user user: user
     else
       fail "Failed adding index for user with user_id: #{user_id}"
     end
