@@ -65,7 +65,7 @@ linters:
       - 'core/app/assets/stylesheets/devise_form.scss'
 
   Shorthand:
-    enabled: false
+    enabled: true
 
   SingleLinePerSelector:
     enabled: false
