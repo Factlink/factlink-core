@@ -43,11 +43,10 @@ class FactData
   end
 
   after_destroy do |fact_data|
-    Pavlov.command(:'text_search/delete_fact_data', object: fact_data)
+    ElasticSearch::Index.new('factdata').delete fact_data.id
 
     fact_data.comments.each do |comment|
       comment.destroy
     end
   end
-
 end
