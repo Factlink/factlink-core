@@ -26,7 +26,7 @@ linters:
       - 'core/app/assets/stylesheets/fontello.scss'
 
   EmptyRule:
-    enabled: false
+    enabled: true
 
   HexFormat:
     enabled: false
