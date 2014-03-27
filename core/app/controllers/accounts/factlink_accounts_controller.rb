@@ -22,7 +22,7 @@ class Accounts::FactlinkAccountsController < Accounts::BaseController
   def create_account
     @user_new_account = parse_user_new_account(params[:user_new_account] || {})
 
-    if @user_new_account.save
+    if @user_new_account.save_and_index
       remembered_sign_in(@user_new_account)
 
       render_success_event

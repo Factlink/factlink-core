@@ -285,15 +285,13 @@ class User
     super
   end
 
-  after_create do |user|
-    Backend::Users.index_user(username: user.username)
+  def save_and_index
+    result = save
+    Backend::Users.index_user(username: username)
+    result
   end
 
   after_update do |user|
     UserObserverTask.handle_changes user
-
-    if user.changed?
-      Backend::Users.index_user(username: user.username)
-    end
   end
 end

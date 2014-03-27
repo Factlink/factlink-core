@@ -16,6 +16,7 @@ module Interactors
                                    .delete_if {|k, v| v.nil? }
 
         user.update_attributes! new_attributes
+        Backend::Users.index_user(username: user.username)
 
         {}
       end
