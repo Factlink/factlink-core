@@ -72,7 +72,7 @@ module Queries
       case type
       when'factdata'
         fd = FactData.find(id)
-        query(:'facts/get_dead', id: fd.fact_id)
+        Backend::Facts.get(fact_id: fd.fact_id)
       when 'user'
         Backend::Users.by_ids(user_ids: [id]).first
       when 'test_class'
