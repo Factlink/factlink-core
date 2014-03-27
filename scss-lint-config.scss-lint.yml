@@ -77,7 +77,7 @@ linters:
     enabled: true
 
   SpaceAfterPropertyName:
-    enabled: false
+    enabled: true
 
   SpaceBeforeBrace:
     enabled: false
