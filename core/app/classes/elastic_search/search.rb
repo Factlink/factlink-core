@@ -11,8 +11,6 @@ class ElasticSearch
             "/#{types.join(',')}/" +
             "_search?q=#{process_keywords(keywords)}&from=#{from}&size=#{row_count}&analyze_wildcard=true"
 
-        puts url
-
       results = HTTParty.get url
       handle_httparty_error results
 
