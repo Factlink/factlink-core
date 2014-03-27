@@ -83,7 +83,7 @@ linters:
     enabled: true
 
   SpaceBetweenParens:
-    enabled: false
+    enabled: true
 
   StringQuotes:
     enabled: false
