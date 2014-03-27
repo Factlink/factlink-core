@@ -13,6 +13,8 @@ describe SearchController do
       ElasticSearch.stub synchronous: true
 
       user = create(:user, username: "Baron")
+      Backend::Users.index_user username: user.username
+
       create(:fact, data: create(:fact_data, displaystring: "Baron"))
 
       authenticate_user!(user)
