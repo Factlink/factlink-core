@@ -2,6 +2,10 @@ module Backend
   module Facts
     extend self
 
+    def get(fact_id:)
+      dead Fact[fact_id]
+    end
+
     def votes(fact_id:)
       votes_for(fact_id, 'believes') + votes_for(fact_id, 'disbelieves')
     end

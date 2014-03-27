@@ -8,7 +8,7 @@ describe Queries::ElasticSearchAll do
 
   before do
     stub_classes 'HTTParty', 'FactData', 'User',
-      'FactlinkUI::Application', 'KillObject', 'Queries::Facts::GetDead'
+      'FactlinkUI::Application', 'KillObject', 'Backend::Facts'
     FactlinkUI::Application.stub(config: double(elasticsearch_url: base_url))
   end
 
@@ -42,8 +42,7 @@ describe Queries::ElasticSearchAll do
           FactData.should_receive(:find).
             with(1).
             and_return(fd)
-          get_dead_fact = double call: return_object
-          Queries::Facts::GetDead.stub(:new).with(id: fd.fact_id).and_return(get_dead_fact)
+          Backend::Facts.stub(:get).with(fact_id: fd.fact_id).and_return(return_object)
         end
 
         expect(query.call).to eq [return_object]
