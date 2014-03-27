@@ -15,7 +15,7 @@ module Queries
 
       records.map do |record|
         get_object(record['_id'], record['_type'])
-      end
+      end.compact
     end
 
     private
@@ -24,6 +24,7 @@ module Queries
       case type
       when'factdata'
         fd = FactData.find(id)
+        return nil unless fd
         Backend::Facts.get(fact_id: fd.fact_id)
       when 'user'
         Backend::Users.by_ids(user_ids: [id]).first
