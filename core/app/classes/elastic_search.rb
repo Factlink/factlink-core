@@ -1,6 +1,7 @@
 require 'httparty'
 
 require_relative 'elastic_search/index'
+require_relative 'elastic_search/search'
 
 class ElasticSearch
   def self.url
