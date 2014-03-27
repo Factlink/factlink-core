@@ -30,24 +30,20 @@ class FactData
     fd and fd.fact_id and fd.fact
   end
 
-  after_create do |fact_data|
-    Pavlov.command :'text_search/index_fact_data', fact_data: fact_data
+  def update_search_index
+    fields = {displaystring: displaystring, title: title}
+    ElasticSearch::Index.new('factdata').add id, fields
   end
 
-  after_update do |fact_data|
-    return unless fact_data.changed?
-
-    Pavlov.command :'text_search/index_fact_data',
-                fact_data: fact_data,
-                changed: fact_data.changed
+  after_save do |fact_data|
+    fact_data.update_search_index
   end
 
   after_destroy do |fact_data|
-    Pavlov.command(:'text_search/delete_fact_data', object: fact_data)
+    ElasticSearch::Index.new('factdata').delete fact_data.id
 
     fact_data.comments.each do |comment|
       comment.destroy
     end
   end
-
 end
