@@ -35,6 +35,7 @@
     // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
     line-height: 0;
   }
+
   &:after {
     clear: both;
   }
@@ -44,9 +45,11 @@
   &:-moz-placeholder {
     color: $color;
   }
+
   &:-ms-input-placeholder {
     color: $color;
   }
+
   &::-webkit-input-placeholder {
     color: $color;
   }
@@ -56,6 +59,7 @@
   border-top-right-radius: $radius;
   border-top-left-radius: $radius;
 }
+
 @mixin border-bottom-radius($radius){
   border-bottom-right-radius: $radius;
   border-bottom-left-radius: $radius;

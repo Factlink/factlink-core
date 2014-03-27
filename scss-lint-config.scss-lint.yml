@@ -21,7 +21,9 @@ linters:
     enabled: true
 
   EmptyLineBetweenBlocks:
-    enabled: false
+    enabled: true
+    exclude:
+      - 'core/app/assets/stylesheets/fontello.scss'
 
   EmptyRule:
     enabled: false

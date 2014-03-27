@@ -22,15 +22,13 @@
   border-color: $darkerBackgroundColor;
 }
 
-
 .radio-toggle-button+label:first-of-type {
   border-radius: .3em 0 0 .3em;
 }
+
 .radio-toggle-button+label:last-of-type {
   border-radius: 0 .3em .3em 0;
 }
-
-
 
 .radio-toggle-button+label {
   color:  rgba(0,0,0,0.6);
@@ -56,4 +54,3 @@
           inset .5px .5px .3em 1px $darkerBackgroundColor,
           inset 0 .45em 1.3em .1em $darkerBackgroundColor;
 }
-

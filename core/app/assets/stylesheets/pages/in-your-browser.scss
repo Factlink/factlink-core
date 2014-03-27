@@ -31,6 +31,7 @@
 }
 
 $learnMoreColumnPadding: 20px;
+
 .learn-more-container {
   margin: 20px (-$learnMoreColumnPadding+5px);
 }
@@ -42,6 +43,7 @@ $learnMoreColumnPadding: 20px;
   padding: 0 $learnMoreColumnPadding;
   border-left: none;
   border-bottom: 1px lightgrey dotted;
+
   &:first-child {
     border-left: none;
   }

@@ -4,8 +4,13 @@
 }
 
 .image-16px { @include image-sized(16px); }
+
 .image-24px { @include image-sized(24px); }
+
 .image-30px { @include image-sized(30px); }
+
 .image-32px { @include image-sized(32px); }
+
 .image-48px { @include image-sized(48px); }
+
 .image-160px { @include image-sized(160px); }

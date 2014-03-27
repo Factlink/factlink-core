@@ -15,6 +15,7 @@
 }
 
 a.in-your-browser-bookmarklet { cursor: move !important; }
+
 a.in-your-browser-bookmarklet::after { content: 'Factlink bookmarklet'; }
 
 i.in-your-browser-icon-layer,

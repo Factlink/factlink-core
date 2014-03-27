@@ -75,6 +75,7 @@ h1, h2, h3, h4, h5, h6 {
 .header-column {
   padding: 10px 0;
   border-bottom: $emailBaseBorderStyling;
+
   &.no-border {
     padding-bottom: 0;
   }
