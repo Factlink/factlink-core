@@ -7,11 +7,11 @@
 
 .on-your-site-container {
   border-top: 1px lightgrey solid;
-  padding: 20px 0px;
+  padding: 20px 0;
   text-align: center;
 
   &:first-child {
-    padding: 0px 0px 20px;
+    padding: 0 0 20px;
     border-top: none;
   }
 }
@@ -135,8 +135,8 @@
 }
 
 .easy-integration-title {
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   line-height: 30px;
   vertical-align: top;
 }

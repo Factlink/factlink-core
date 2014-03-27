@@ -98,4 +98,4 @@ linters:
     enabled: true
 
   ZeroUnit:
-    enabled: false
+    enabled: true

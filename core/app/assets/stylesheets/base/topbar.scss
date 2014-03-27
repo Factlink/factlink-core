@@ -5,7 +5,7 @@
 
 .topbar-inner {
   @extend %centering-y;
-  padding: 0px $pageSidePadding;
+  padding: 0 $pageSidePadding;
   height: $topbarHeight;
   margin-left: auto;
   margin-right: auto;
@@ -48,7 +48,7 @@
 
 .topbar-menu-link {
   @extend %centering;
-  padding: 0px 15px;
+  padding: 0 15px;
   height: 100%;
   display: block;
 }
@@ -56,7 +56,7 @@
 
 .topbar-divider {
   border-right: 1px lightgrey solid;
-  width: 0px;
+  width: 0;
   height: $topbarHeight;
   float: left;
 }

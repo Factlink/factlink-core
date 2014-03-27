@@ -31,7 +31,7 @@
   }
 }
 
-@mixin triangle-arrow-up($color: $triangleArrowBorderColor, $arrow-fill-color: white, $borderExtraWidth: 0px) {
+@mixin triangle-arrow-up($color: $triangleArrowBorderColor, $arrow-fill-color: white, $borderExtraWidth: 0) {
   @include triangle-arrow($borderExtraWidth);
   margin-top: -$triangleSize;
   margin-left: -$triangleSize;
@@ -50,7 +50,7 @@
   }
 }
 
-@mixin triangle-arrow-left($color: $triangleArrowBorderColor, $borderExtraWidth: 0px) {
+@mixin triangle-arrow-left($color: $triangleArrowBorderColor, $borderExtraWidth: 0) {
   @include triangle-arrow($borderExtraWidth);
   margin-left: -$triangleSize;
   margin-top: -$triangleSize;
@@ -69,7 +69,7 @@
   }
 }
 
-@mixin triangle-arrow-right($color: $triangleArrowBorderColor, $borderExtraWidth: 0px) {
+@mixin triangle-arrow-right($color: $triangleArrowBorderColor, $borderExtraWidth: 0) {
   @include triangle-arrow($borderExtraWidth);
   margin-right: -$triangleSize;
   margin-top: -$triangleSize;
