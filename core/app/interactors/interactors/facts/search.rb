@@ -7,7 +7,11 @@ module Interactors
       arguments :keywords
 
       def execute
-        query :elastic_search_fact_data, keywords: keywords, page: 1, row_count: 20
+        records = ElasticSearch::Search.search keywords: keywords, types: [:factdata]
+
+        records.map do |record|
+          Backend::Facts.get_by_fact_data_id fact_data_id: record['_id']
+        end
       end
 
       def validate

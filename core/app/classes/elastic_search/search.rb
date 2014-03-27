@@ -4,7 +4,7 @@ class ElasticSearch
   module Search
     extend self
 
-    def search(keywords:, page:, row_count:, types:)
+    def search(keywords:, types:, page: 1, row_count: 20)
       from = (page - 1) * row_count
 
       url = ElasticSearch.url +
