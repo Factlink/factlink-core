@@ -69,10 +69,6 @@ class ApplicationController < ActionController::Base
     headers['Access-Control-Request-Origin'] = '*'
   end
 
-  def raise_404(message="Not Found")
-    fail ActionController::RoutingError.new(message)
-  end
-
   def backbone_responder &block
     respond_to do |format|
       format.html do
