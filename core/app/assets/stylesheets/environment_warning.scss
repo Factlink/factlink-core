@@ -2,7 +2,7 @@ $darkred: rgb(128, 0, 0);
 $black:   rgb(48, 48, 48);
 
 .environment-message {
-  background: repeating-linear-gradient(-45deg, $darkred, $darkred 14px, $black 14px, $black 28px, $darkred 28px) ;
+  background: repeating-linear-gradient(-45deg, $darkred, $darkred 14px, $black 14px, $black 28px, $darkred 28px);
 
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.5);

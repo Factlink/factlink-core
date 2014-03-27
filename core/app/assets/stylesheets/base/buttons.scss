@@ -197,7 +197,7 @@ $arrowSize: 5px;
 .button-opinion-active {
   &.button-opinion-believes {
     background-color: $green;
-    color: darken($green, 30)
+    color: darken($green, 30);
   }
 
   &.button-opinion-disbelieves {
