@@ -15,7 +15,7 @@ linters:
     enabled: false
 
   DeclarationOrder:
-    enabled: false
+    enabled: true
 
   DuplicateProperty:
     enabled: false
