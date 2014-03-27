@@ -7,11 +7,7 @@ describe 'elastic search' do
   end
 
   def insert_and_query text, query
-    object = TestClass.new '1', text
-    Pavlov.command :'text_search/index',
-                       object: object,
-                       type_name: :test_class,
-                       fields: [:test_field]
+    ElasticSearch::Index.new('test_class').add '1', {test_field: text}
 
     Pavlov.query :elastic_search,
                    keywords: query,
