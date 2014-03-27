@@ -9,18 +9,19 @@ $slideTime: 0.3s;
   cursor: pointer;
   color: $linkColor;
 }
-.sliding-button .icon-trash { margin-left:0; }
+
+.sliding-button .icon-trash { margin-left: 0; }
 
 .sliding-button-container-outer {
   position: absolute;
   right: 100%;
-  top:0;
+  top: 0;
   height: $baseButtonHeight;
   line-height: $baseButtonHeight;
   overflow: hidden;
   visibility: hidden;
   transition: visibility 0 $slideTime;
-  margin:0 0.2em;
+  margin: 0 0.2em;
 }
 
 .sliding-button-open .sliding-button-container-outer {

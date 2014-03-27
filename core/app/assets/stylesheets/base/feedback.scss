@@ -9,7 +9,7 @@ $feedback_frame_width: 430px;
 .feedback_form { //within an iframe!
   background: #fff;
   min-width: 0;
-  height:auto;
+  height: auto;
 
   form {
     @extend %clearfix;
@@ -52,8 +52,8 @@ e.g. https://github.com/Factlink/core/blob/40d54edf2e51e38e048c8cf25f485c655b19a
   visibility: visible;
   z-index: 1040;
   background: rgba(233, 234, 238, 0.7);
-  cursor: pointer; cursor: -webkit-zoom-out; cursor: -moz-zoom-out;
-  display:none;
+  cursor: pointer;
+  display: none;
 }
 
 .feedback-modal-layer:before {
@@ -65,13 +65,12 @@ e.g. https://github.com/Factlink/core/blob/40d54edf2e51e38e048c8cf25f485c655b19a
 }
 
 .feedback-modal-window {
+  @extend %white-block-with-shadow;
   display: inline-block;
   vertical-align: middle;
   //like centering-inner
-
   width: $feedback_frame_width;
   cursor: auto;
-  @extend %white-block-with-shadow;
 }
 
 .feedback-modal-window-header {

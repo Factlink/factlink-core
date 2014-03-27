@@ -6,9 +6,9 @@
   display: inline-block;
   width: 0;
   height: 0;
-  border-top:   4px solid $metaFontColor;
+  border-top: 4px solid $metaFontColor;
   border-right: 4px solid transparent;
-  border-left:  4px solid transparent;
+  border-left: 4px solid transparent;
   content: "";
   margin-top: 8px;
 }
@@ -17,14 +17,14 @@
   position: absolute;
   z-index: $zindexDropdown;
   visibility: hidden;
-  opacity:0;
-  transition: visibility 0s 0.6s, opacity 0.2s 0.4s;
+  opacity: 0;
+  transition: visibility 0 0.6s, opacity 0.2s 0.4s;
 
   padding: 5px 0;
   background-color: white;
   border: 1px solid $dropdownBorder;
   border-radius: 0 0 6px 6px;
-  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
   text-align: left;
   right: 0;
 
@@ -46,7 +46,7 @@
 .dropdown:hover {
   & > .dropdown-menu {
     visibility: visible;
-    opacity:1;
-    transition: visibility 0s, opacity 0.2s 0s;
+    opacity: 1;
+    transition: visibility 0, opacity 0.2s 0;
   }
 }

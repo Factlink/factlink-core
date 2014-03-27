@@ -13,11 +13,11 @@
 }
 
 .sub-comment {
+  @extend %clearfix;
   display: table;
   width: 100%;
   vertical-align: top;
   padding: 10px;
-  @extend %clearfix;
   border-bottom: 1px #E1E2E6 solid;
 }
 
@@ -46,8 +46,8 @@
 }
 
 .sub-comment-post-time {
-  line-height: 19px;
   @extend .comment-post-time;
+  line-height: 19px;
 }
 
 .sub-comment-post-delete {
