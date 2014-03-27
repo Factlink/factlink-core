@@ -10,8 +10,6 @@ describe SearchController do
     it "should render json successful and in the same way (approvals)" do
       FactoryGirl.reload
 
-      ElasticSearch.stub synchronous: true
-
       user = create(:user, username: "Baron")
       create(:fact, data: create(:fact_data, displaystring: "Baron"))
 

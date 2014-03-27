@@ -90,8 +90,6 @@ describe Fact do
     end
 
     it "deletes the fact from the search" do
-      ElasticSearch.stub synchronous: true
-
       fact = create :fact, data: (create :fact_data, displaystring: 'gekke gerrit is een hond')
       as(create :user) do |p|
         results = ElasticSearch::Search.search keywords: 'gerrit', types: [:factdata]

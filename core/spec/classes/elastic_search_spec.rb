@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe 'elastic search' do
-  before do
-    ElasticSearch.stub synchronous: true
-  end
-
   def insert_and_query text, query
     ElasticSearch::Index.new(:test_class).add '1', {test_field: text}
     ElasticSearch::Search.search keywords: query, types: [:test_class]

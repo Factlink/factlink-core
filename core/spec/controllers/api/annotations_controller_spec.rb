@@ -59,9 +59,6 @@ describe Api::AnnotationsController do
   end
 
   describe :search do
-    before do
-      ElasticSearch.stub synchronous: true
-    end
     it "should work" do
       authenticate_user!(user)
 

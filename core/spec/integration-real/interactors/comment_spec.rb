@@ -5,10 +5,6 @@ describe 'comments' do
 
   let(:current_user) { create :user }
 
-  before do
-    ElasticSearch.stub synchronous: true
-  end
-
   describe 'initially' do
     it 'a fact has no comments' do
       as(current_user) do |pavlov|

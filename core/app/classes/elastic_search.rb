@@ -8,10 +8,6 @@ class ElasticSearch
     "http://#{FactlinkUI::Application.config.elasticsearch_url}"
   end
 
-  def self.synchronous
-    false
-  end
-
   # http://www.elasticsearch.org/guide/reference/api/admin-indices-refresh.html
   def self.refresh
     refresh_url = ElasticSearch.url + "/_refresh"

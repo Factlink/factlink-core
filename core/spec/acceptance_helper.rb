@@ -84,8 +84,6 @@ RSpec.configure do |config|
     Ohm.flush
     DatabaseCleaner.clean
     FactoryGirl.reload
-
-    ElasticSearch.stub synchronous: true
     Capybara::Screenshot.autosave_on_failure = true
   end
 
