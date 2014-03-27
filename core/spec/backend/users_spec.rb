@@ -1,7 +1,9 @@
 require 'spec_helper'
 
-describe Commands::Users::AnonymizeUserModel do
-  describe '#call' do
+describe Backend::Users do
+  include PavlovSupport
+
+  describe '.delete' do
     it 'anonymizes fields of the deleted user that could contain personal data' do
       user = create :user, :confirmed,
         username: 'data',
@@ -19,9 +21,13 @@ describe Commands::Users::AnonymizeUserModel do
 
       expect(user.social_accounts.size).to eq 2
 
-      described_class.new(user_id: user.id).call
+      described_class.delete username: user.username
 
       saved_user = User.find(user.id)
+      expect(saved_user).to_not be_active
+      expect(saved_user).to be_hidden
+      expect(saved_user.deleted).to be_true
+
       expect(saved_user.full_name).to_not include('data')
       expect(saved_user.username).to_not include('data')
       expect(saved_user.location).to be_nil
@@ -40,15 +46,6 @@ describe Commands::Users::AnonymizeUserModel do
       expect(saved_user.confirmed?).to be_false
 
       expect(saved_user.email).to eq "deleted+#{saved_user.username}@factlink.com"
-    end
-
-    it "doesn't do anything for non-deleted users" do
-      user = create :user, username: 'data'
-
-      described_class.new(user_id: user.id).call
-
-      saved_user = User.find(user.id)
-      expect(saved_user.username).to eq 'data'
     end
   end
 end

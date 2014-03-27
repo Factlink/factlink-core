@@ -108,8 +108,8 @@ describe Activity do
     end
 
     it "should not be valid if the user is deleted" do
-      activity = Activity.create(user: gu, action: :followed_user)
-      Pavlov.command('users/mark_as_deleted', user:gu.user)
+      deleted_user = create :user, deleted: true
+      activity = Activity.create(user: deleted_user.graph_user, action: :followed_user)
       activity = Activity[activity.id]
       expect(activity).to_not be_still_valid
     end
