@@ -1,10 +1,7 @@
-require 'pavlov'
-
 class GraphUser < OurOhm;end # needed because of removed const_missing from ohm
 
 require_relative 'activity/listener'
 require_relative 'activity/create_listeners'
-require_relative '../interactors/interactors/send_mail_for_activity'
 
 class Activity < OurOhm
   reference :user, GraphUser
@@ -45,7 +42,7 @@ class Activity < OurOhm
     result = super
 
     Resque.enqueue(ProcessActivity, id)
-    Pavlov.interactor(:'send_mail_for_activity', activity: self, pavlov_options: { current_user: true })
+    Backend::Activities.send_mail_for_activity activity: self
 
     result
   end

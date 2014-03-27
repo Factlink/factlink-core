@@ -23,10 +23,7 @@ describe Activity do
   describe "mailing activities" do
     context "creating an activity" do
       it "should invoke send_mail_for_activity" do
-        interactor = double
-        Interactors::SendMailForActivity.stub(:new)
-            .and_return(interactor)
-        interactor.should_receive(:call)
+        Backend::Activities.should_receive(:send_mail_for_activity).with(activity: an_instance_of(Activity))
 
         Activity.create action: :followed_user
       end
