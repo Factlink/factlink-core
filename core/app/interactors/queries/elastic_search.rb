@@ -28,8 +28,6 @@ module Queries
         Backend::Facts.get(fact_id: fd.fact_id)
       when 'user'
         Backend::Users.by_ids(user_ids: [id]).first
-      when 'test_class'
-        TestClass.new(id)
       else
         fail 'Object type unknown.'
       end

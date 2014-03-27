@@ -3,17 +3,11 @@ require 'spec_helper'
 describe 'elastic search' do
   before do
     ElasticSearch.stub synchronous: true
-    stub_const 'TestClass', Struct.new(:id, :test_field)
   end
 
   def insert_and_query text, query
-    ElasticSearch::Index.new('test_class').add '1', {test_field: text}
-
-    Pavlov.query :elastic_search,
-                   keywords: query,
-                   page: 1,
-                   row_count: 10,
-                   types: [:test_class]
+    ElasticSearch::Index.new(:test_class).add '1', {test_field: text}
+    ElasticSearch::Search.search keywords: query, types: [:test_class]
   end
 
   it 'searches for operators' do
