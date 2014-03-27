@@ -80,7 +80,7 @@ linters:
     enabled: true
 
   SpaceBeforeBrace:
-    enabled: false
+    enabled: true
 
   SpaceBetweenParens:
     enabled: false
