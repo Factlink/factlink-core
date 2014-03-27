@@ -52,7 +52,7 @@ ReactDeleteProfile = React.createClass
       success: ->
         window.location = '/users/deleted'
       error: =>
-        FactlinkApp.NotificationCenter.error 'Your account could not be deleted. Did you enter the correct password?'
+        Factlink.notificationCenter.error 'Your account could not be deleted. Did you enter the correct password?'
 
   render: ->
     _div [],
@@ -115,12 +115,12 @@ window.ReactProfileEdit = React.createBackboneClass
         if usernameChanged
           window.location = @model().editLink()
         else
-          FactlinkApp.NotificationCenter.success 'Your profile has been updated!'
+          Factlink.notificationCenter.success 'Your profile has been updated!'
       error: =>
-        FactlinkApp.NotificationCenter.error 'Could not update your profile, please try again.'
+        Factlink.notificationCenter.error 'Could not update your profile, please try again.'
 
   render: ->
-    return _span([], 'Please sign in.') unless FactlinkApp.signedIn()
+    return _span([], 'Please sign in.') unless currentSession.signedIn()
 
     _div [],
       ReactUserTabs model: currentSession.user(), page: 'edit'

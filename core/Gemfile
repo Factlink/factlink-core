@@ -90,8 +90,6 @@ group :assets do
   # Very clear, no?
   gem "backbone-rails", '~> 1.0.0' #beware, backbone does not use semver!
 
-  gem "marionette-rails", '~> 1.4'
-
   gem "rails-assets-react"
   gem "rails-assets-jquery-autosize"
   gem 'rails-assets-tether'

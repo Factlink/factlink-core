@@ -2,7 +2,7 @@ NotificationSetting = React.createBackboneClass
   toggle: ->
     @model().set @props.field, !@model().get(@props.field)
     @model().save [],
-      error: -> FactlinkApp.NotificationCenter.error 'Something went wrong while saving your preferences'
+      error: -> Factlink.notificationCenter.error 'Something went wrong while saving your preferences'
 
   render: ->
     _label [],

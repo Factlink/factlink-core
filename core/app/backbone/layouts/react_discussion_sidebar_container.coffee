@@ -13,7 +13,7 @@ ReactDiscussionSidebarOuter = React.createClass
     @_closeModal() if $(event.target).hasClass('discussion-sidebar-outer')
 
   _closeModal: ->
-    FactlinkApp.vent.trigger 'close_discussion_sidebar'
+    Factlink.vent.trigger 'close_discussion_sidebar'
 
   render: ->
     _div [

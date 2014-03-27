@@ -29,11 +29,11 @@
 
       <% if params[:state] == 'success' %>
 
-        if (window.parent.FactlinkApp) {
+        if (window.parent.fadeoutFeedbackFrame) {
           window.parent.fadeoutFeedbackFrame();
           onCloseFrame();
 
-          window.parent.FactlinkApp.NotificationCenter.success('Your feedback has successfully been submitted.');
+          window.parent.Factlink.notificationCenter.success('Your feedback has successfully been submitted.');
         }
       <% end %>
     });
@@ -46,7 +46,7 @@
     <% if params[:state] %>
       <% if params[:state] == "error" %>
         <script>
-          window.parent.parent.FactlinkApp.NotificationCenter.error('Something went wrong while submitting your feedback, did you fill in all the fields?');
+          window.parent.parent.Factlink.notificationCenter.error('Something went wrong while submitting your feedback, did you fill in all the fields?');
         </script>
       <% end %>
     <% end %>

@@ -15,7 +15,7 @@ window.mp_track = (action, options) ->
   try
     load_mixpanel()
     if window.mixpanel
-      if FactlinkApp && FactlinkApp.started && FactlinkApp.signedIn()
+      if currentSession.signedIn()
         mixpanel.name_tag currentSession.user().get('username')
         mixpanel.identify currentSession.user().get('id')
       mixpanel.track(action, options)

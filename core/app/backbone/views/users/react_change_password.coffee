@@ -5,14 +5,14 @@ window.ReactChangePassword = React.createClass
   _submit: ->
     @props.model.save {},
       success: =>
-        FactlinkApp.NotificationCenter.success 'Your password has been changed!'
+        Factlink.notificationCenter.success 'Your password has been changed!'
         @props.model.clear()
       error: =>
-        FactlinkApp.NotificationCenter.error 'Could not change your password, please try again.'
+        Factlink.notificationCenter.error 'Could not change your password, please try again.'
         @props.model.clear()
 
   render: ->
-    return _span([], 'Please sign in.') unless FactlinkApp.signedIn()
+    return _span([], 'Please sign in.') unless currentSession.signedIn()
 
     _div [],
       ReactUserTabs model: currentSession.user(), page: 'change_password'
