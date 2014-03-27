@@ -4,39 +4,41 @@ ReactSocialConnect = React.createBackboneClass
   render: ->
     _div [],
       _div ['control-group'],
-        _label ['control-label'],
-          'Facebook'
-        _div ['controls'],
-          if @model().get('services').facebook
-            _span [],
-              _i ["icon-ok"]
-              ' Connected to Facebook. '
-              _a ['control-error', href: '/auth/facebook/deauthorize', 'data-method': 'delete'],
-                '(Disconnect)'
-          else
-            _a ["button-facebook js-accounts-popup-link",
-              href: "/auth/facebook"
-            ],
-              _i ["icon-facebook"]
-              ' Connect with Facebook'
+        _label [],
+          _span ['control-label'],
+            'Facebook'
+          _div ['controls'],
+            if @model().get('services').facebook
+              _span [],
+                _i ["icon-ok"]
+                ' Connected to Facebook. '
+                _a ['control-error', href: '/auth/facebook/deauthorize', 'data-method': 'delete'],
+                  '(Disconnect)'
+            else
+              _a ["button-facebook js-accounts-popup-link",
+                href: "/auth/facebook"
+              ],
+                _i ["icon-facebook"]
+                ' Connect with Facebook'
 
       _div ['control-group'],
-        _label ['control-label'],
-          'Twitter'
-        _div ['controls'],
-          if @model().get('services').twitter
-            _span [],
-              _i ["icon-ok"]
-              ' Connected to Twitter. '
-              _a ['control-error', href: '/auth/twitter/deauthorize', 'data-method': 'delete'],
-                '(Disconnect)'
-          else
-            _a ["button-twitter js-accounts-popup-link",
-              # The "?use_authorize=true&x_auth_access_type=write" part is for some weird twitter bug
-              href: "/auth/twitter?use_authorize=true&x_auth_access_type=write"
-            ],
-              _i ["icon-twitter"]
-              ' Connect with Twitter'
+        _label [],
+          _span ['control-label'],
+            'Twitter'
+          _div ['controls'],
+            if @model().get('services').twitter
+              _span [],
+                _i ["icon-ok"]
+                ' Connected to Twitter. '
+                _a ['control-error', href: '/auth/twitter/deauthorize', 'data-method': 'delete'],
+                  '(Disconnect)'
+            else
+              _a ["button-twitter js-accounts-popup-link",
+                # The "?use_authorize=true&x_auth_access_type=write" part is for some weird twitter bug
+                href: "/auth/twitter?use_authorize=true&x_auth_access_type=write"
+              ],
+                _i ["icon-twitter"]
+                ' Connect with Twitter'
 
 
 ReactDeleteProfile = React.createClass
@@ -68,19 +70,20 @@ ReactDeleteProfile = React.createClass
             'Fill in your password to confirm deleting your account.'
 
           _div ['control-group'],
-            _label ['control-label', htmlFor: 'password'],
-              'Password'
-            _div ['controls'],
-              _input [
-                'spec-delete-password'
-                id: 'password'
-                type: 'password'
-                onChange: (event) => @setState password: event.target.value
-              ]
+            _label [],
+              _span ['control-label'],
+                'Password'
+              _div ['controls'],
+                _input [
+                  'spec-delete-password'
+                  id: 'password'
+                  type: 'password'
+                  onChange: (event) => @setState password: event.target.value
+                ]
 
-              _div ['controls-information-item'],
-                _a [href: '/users/password/new'],
-                  'Forgot your password?'
+                _div ['controls-information-item'],
+                  _a [href: '/users/password/new'],
+                    'Forgot your password?'
 
           _div ['controls'],
             _button [
@@ -153,21 +156,22 @@ window.ReactProfileEdit = React.createBackboneClass
               attribute: 'biography'
 
             _div ['control-group'],
-              _label ['control-label'],
-                'Picture'
-              _div ['controls'],
-                _img [
-                  "image-80px avatar-container--large-avatar"
-                  style: {float: 'left', 'margin-right': '10px'}
-                  alt: " "
-                  src: @model().avatar_url(80)
-                ]
+              _label [],
+                _span ['control-label'],
+                  'Picture'
+                _div ['controls'],
+                  _img [
+                    "image-80px avatar-container--large-avatar"
+                    style: {float: 'left', 'margin-right': '10px'}
+                    alt: " "
+                    src: @model().avatar_url(80)
+                  ]
 
-                'This image is automatically grabbed from '
-                _a [href: 'http://gravatar.com'], 'Gravatar'
-                '. Edit your Gravatar account to edit the profile picture. We use '
-                @model().get('email')
-                '.'
+                  'This image is automatically grabbed from '
+                  _a [href: 'http://gravatar.com'], 'Gravatar'
+                  '. Edit your Gravatar account to edit the profile picture. We use '
+                  @model().get('email')
+                  '.'
 
             ReactInput {
               model: @model()
