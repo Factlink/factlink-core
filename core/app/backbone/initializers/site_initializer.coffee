@@ -1,5 +1,5 @@
 showComponent = (component)->
-  el = document.querySelector('#main-wrapper')
+  el = document.querySelector('#main-column')
   React.renderComponent(component, el)
 
 class FactlinkRouter extends Backbone.Router

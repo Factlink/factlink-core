@@ -36,7 +36,7 @@ describe 'Reserving an account', type: :feature do
     switch_to_user admin
     visit '/a/users'
 
-    within(find("#main-wrapper table tr>td", text: name).parent) do
+    within(find("#main-column table tr>td", text: name).parent) do
       page.should have_content('unconfirmed')
     end
   end
