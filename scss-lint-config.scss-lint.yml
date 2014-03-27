@@ -55,7 +55,9 @@ linters:
     enabled: false
 
   PropertySpelling:
-    enabled: false
+    enabled: true
+    exclude:
+      - 'core/app/assets/stylesheets/email/base.scss'
 
   SelectorDepth:
     enabled: false
