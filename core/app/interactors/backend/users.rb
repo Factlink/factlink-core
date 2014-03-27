@@ -33,5 +33,46 @@ module Backend
 
       User.find_by(username: /^#{username.downcase}$/i)
     end
+
+    def delete(username:)
+      user = user_by_username username: username
+      mark_as_deleted user
+      anonymize user
+    end
+
+    private
+
+    def mark_as_deleted user
+      user.deleted = true
+      user.save!
+    end
+
+    def anonymize user
+      return unless user.deleted
+
+      User.personal_information_fields.each do |field|
+        user[field] = User.fields[field].default_val
+      end
+
+      user.full_name = 'Deleted User'
+
+      anonymous_username = 'anonymous_' + SecureRandom.hex[0..9]
+      anonymous_password = SecureRandom.hex
+
+      user.username = anonymous_username
+      user.email = "deleted+#{anonymous_username}@factlink.com"
+      # TODO: at some point we can use an official invalid address (check RFCs)
+      # For now we want to easily see what mails deleted users still get
+
+      user.password              = anonymous_password
+      user.password_confirmation = anonymous_password
+
+      user.save!
+
+      user.social_accounts.each do |social_account|
+        # TODO: properly deauthorize facebook here
+        social_account.destroy
+      end
+    end
   end
 end

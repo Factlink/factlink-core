@@ -8,7 +8,7 @@ describe Backend::Users do
     stub_classes 'User'
   end
 
-  describe 'user_by_username' do
+  describe '.user_by_username' do
     it 'retrieves a user' do
       search_username = "GERARD"
 

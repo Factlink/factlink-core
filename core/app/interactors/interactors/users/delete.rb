@@ -9,14 +9,10 @@ module Interactors
       attribute :pavlov_options
 
       def authorized?
-        can? :destroy, user
+        can? :destroy, User.find(username)
       end
 
       private
-
-      def user
-        @user ||= User.find username
-      end
 
       def validate
         validate_string :username, username
@@ -28,8 +24,7 @@ module Interactors
       end
 
       def execute
-        command :'users/mark_as_deleted', user: user
-        command :'users/anonymize_user_model', user_id: user.id
+        Backend::Users.delete username: username
       end
     end
   end

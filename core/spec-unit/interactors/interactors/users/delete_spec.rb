@@ -28,30 +28,4 @@ describe Interactors::Users::Delete do
       expect(interactor.valid?).to eq(false)
     end
   end
-
-  describe '#call' do
-    it 'it calls the delete+anonymize commands' do
-      user = double(:user, id: 'a234', username: 'username')
-      pavlov_options = {
-          ability: double(can?: true),
-          current_user: double(valid_password?: true)
-      }
-
-      User.stub(:find).with(user.username).and_return(user)
-
-      interactor = described_class.new username: user.username,
-                                       current_user_password: '',
-                                       pavlov_options: pavlov_options
-
-      Pavlov.should_receive(:command)
-        .with(:'users/mark_as_deleted', user: user, pavlov_options: pavlov_options)
-        .ordered
-
-      Pavlov.should_receive(:command)
-        .with(:'users/anonymize_user_model', user_id: user.id, pavlov_options: pavlov_options)
-        .ordered
-
-      interactor.call
-    end
-  end
 end
