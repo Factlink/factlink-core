@@ -41,7 +41,7 @@ linters:
       - 'core/app/assets/stylesheets/browser_detection.scss'
       - 'core/app/assets/stylesheets/email/base.scss'
       - 'core/app/assets/stylesheets/mixins/mixins.scss'
-      
+
   LeadingZero:
     enabled: false
 
