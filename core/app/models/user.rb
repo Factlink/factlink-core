@@ -286,16 +286,14 @@ class User
   end
 
   after_create do |user|
-    Pavlov.command :'text_search/index_user', user: user
+    Backend::Users.index_user(username: user.username)
   end
 
   after_update do |user|
     UserObserverTask.handle_changes user
 
     if user.changed?
-      Pavlov.command :'text_search/index_user',
-                  user: user,
-                  changed: user.changed
+      Backend::Users.index_user(username: user.username)
     end
   end
 end
