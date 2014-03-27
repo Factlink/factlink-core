@@ -59,5 +59,5 @@ enhanceSearchFormNavigation = ->
 
 refreshOnSocialSignin = ->
   currentSession.on 'user_refreshed', ->
-    # We still have some static user-dependent stuff on the site (not client)
+    # Top bar is still static and user-dependent
     window.location.reload(true)
