@@ -44,9 +44,9 @@ cd ..
 if [ ! -e proxy ]; then
   git clone git://github.com/Factlink/web-proxy.git proxy
 else
-  cd proxy
+  pushd proxy
   git pull --ff-only
-  cd ..
+  popd
 fi
 
 proxy/bin/bootstrap
