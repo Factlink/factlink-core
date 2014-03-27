@@ -29,7 +29,6 @@ FactlinkUI::Application.routes.draw do
 
   # Javascript Client calls
   # TODO: replace /site/ gets with scoped '/sites/', and make it a resource (even if it only has show)
-  get   "/site/count" => "sites#facts_count_for_url"
   get   "/site" => "sites#facts_for_url"
 
   # Prepare a new Fact
