@@ -21,7 +21,7 @@
 }
 
 // keep in sync with jslib
-@mixin striped($angle: 45deg, $stripeColor: rgba(255,255,255,.15)){
+@mixin striped($angle: 45deg, $stripeColor: rgba(255, 255, 255, .15)){
   background-image: -webkit-linear-gradient($angle, $stripeColor 25%, transparent 25%, transparent 50%, $stripeColor 50%, $stripeColor 75%, transparent 75%, transparent);
   background-image: linear-gradient($angle, $stripeColor 25%, transparent 25%, transparent 50%, $stripeColor 50%, $stripeColor 75%, transparent 75%, transparent);
 }

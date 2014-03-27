@@ -40,7 +40,7 @@ $buttonBgTransition: all 0.3s ease;
     right: 0;
     left: 0;
     bottom: 0;
-    border: 1px solid rgba(0,0,0, 0.25);
+    border: 1px solid rgba(0, 0, 0, 0.25);
     border-bottom-width: 2px;
 
     border-radius: inherit;
@@ -54,11 +54,11 @@ $buttonBgTransition: all 0.3s ease;
   }
 
   &:focus:before {
-    border-color: rgba(0,0,0,0.45);
+    border-color: rgba(0, 0, 0, 0.45);
   }
 
   &:hover:not(:disabled):before, &:active:before {
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0, 0, 0, 0.1);
   }
 
   &:disabled {
