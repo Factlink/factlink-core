@@ -4,28 +4,7 @@ class SearchController < ApplicationController
   # to use a more advanced search on the Factlink website.
   def search
     backbone_responder do
-      row_count = 20
-
-      search_for = params[:s] || ""
-      page = 1
-
-      @results = []
-
-      if search_for.size > 0
-        @results = interactor(:'search', keywords: search_for, page: page, row_count: row_count)
-      end
-
-      real_results = @results.map do |result|
-        the_class = case result
-                    when DeadFact then "Annotation"
-                    when DeadUser then "User"
-                    end
-        {
-          the_class: the_class,
-          the_object: result
-        }
-      end
-      render json: real_results
+      render json: interactor(:'search', keywords: params[:s])
     end
   end
 end

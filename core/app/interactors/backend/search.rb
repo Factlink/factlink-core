@@ -19,13 +19,15 @@ module Backend
         fact_data = FactData.find(id)
         return nil if fact_data.nil? || FactData.invalid(fact_data)
 
-        Backend::Facts.get(fact_id: fact_data.fact_id)
+        fact = Backend::Facts.get(fact_id: fact_data.fact_id)
+
+        {the_class: 'Annotation', the_object: fact}
       when 'user'
         user = Backend::Users.by_ids(user_ids: [id]).first
 
         return nil if user.deleted
 
-        user
+        {the_class: 'User', the_object: user}
       else
         fail 'Object type unknown.'
       end
