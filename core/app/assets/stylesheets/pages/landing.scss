@@ -15,6 +15,7 @@
 }
 
 a.in-your-browser-bookmarklet { cursor: move !important; }
+
 a.in-your-browser-bookmarklet::after { content: 'Factlink bookmarklet'; }
 
 i.in-your-browser-icon-layer,
@@ -36,7 +37,7 @@ i.in-your-browser-icon-social {
   text-align: left;
   max-width: $siteWidth;
   min-height: 400px;
-  margin:auto;
+  margin: auto;
 }
 
 .in-your-browser-feed-more-button {

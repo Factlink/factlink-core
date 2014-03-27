@@ -1,7 +1,7 @@
 # TODO the tests should be refactored so they test this class directly
 # It is now inderectly integration tested via the other specs
 
-require 'uri'
+require_relative '../../classes/elastic_search'
 
 module Queries
   class ElasticSearch
@@ -10,63 +10,15 @@ module Queries
     arguments :keywords, :page, :row_count, :types
 
     def execute
-      from = (page - 1) * row_count
+      records = ::ElasticSearch::Search.search keywords: keywords, page: page,
+                                               row_count: row_count, types: types
 
-      url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/" +
-            "#{types.join(',')}/" +
-            "_search?q=#{processed_keywords}&from=#{from}&size=#{row_count}&analyze_wildcard=true"
-
-      results = HTTParty.get url
-      handle_httparty_error results
-
-      hits = results.parsed_response['hits']['hits']
-
-      hits.map do |record|
+      records.map do |record|
         get_object(record['_id'], record['_type'])
       end
     end
 
     private
-
-    def lucene_special_characters_escaped_keywords
-      # escaping && and || gives errors, use case is not so important, so removing.
-      keywords.gsub('&&', ' ')
-              .gsub('||', ' ')
-              .gsub(/\+|\-|\!|\(|\)|\{|\}|\[|\]|\^|\~|\*|\?|\:|\\/) do |x|
-                '\\' + x
-              end
-    end
-
-    def quoted_if_some_lucene_operators keyword
-      # http://lucene.apache.org/core/old_versioned_docs/versions/3_5_0/queryparsersyntax.html#Escaping%20Special%20Characters
-      # NOT and AND and OR could be interpreted as operators, maybe wildcard search for them doesn't work
-      if ['NOT', 'AND', 'OR'].include? keyword
-        "'#{keyword}'"
-      else
-        keyword
-      end
-    end
-
-    def processed_keywords
-      lucene_special_characters_escaped_keywords
-        .split(/\s+/)
-        .map { |keyword| quoted_if_some_lucene_operators keyword }
-        .map { |keyword| URI.escape(keyword) }
-        .map { |keyword| "(#{keyword}*+OR+#{keyword})" }
-        .join("+AND+")
-    end
-
-    def handle_httparty_error results
-      case results.code
-      when 200..299
-      when 400..499
-        fail "Client error, status code: #{results.code}, response: '#{results.response}'."
-      when 500..599
-        fail "Server error, status code: #{results.code}, response: '#{results.response}'."
-      else
-        fail "Unexpected status code: #{results.code}, response: '#{results.response}'."
-      end
-    end
 
     def get_object id, type
       case type

@@ -21,7 +21,7 @@
 }
 
 // keep in sync with jslib
-@mixin striped($angle: 45deg, $stripeColor: rgba(255,255,255,.15)){
+@mixin striped($angle: 45deg, $stripeColor: rgba(255, 255, 255, .15)) {
   background-image: -webkit-linear-gradient($angle, $stripeColor 25%, transparent 25%, transparent 50%, $stripeColor 50%, $stripeColor 75%, transparent 75%, transparent);
   background-image: linear-gradient($angle, $stripeColor 25%, transparent 25%, transparent 50%, $stripeColor 50%, $stripeColor 75%, transparent 75%, transparent);
 }
@@ -35,33 +35,37 @@
     // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
     line-height: 0;
   }
+
   &:after {
     clear: both;
   }
 }
 
-@mixin placeholder($color: $placeholderText){
+@mixin placeholder($color: $placeholderText) {
   &:-moz-placeholder {
     color: $color;
   }
+
   &:-ms-input-placeholder {
     color: $color;
   }
+
   &::-webkit-input-placeholder {
     color: $color;
   }
 }
 
-@mixin border-top-radius($radius){
+@mixin border-top-radius($radius) {
   border-top-right-radius: $radius;
   border-top-left-radius: $radius;
 }
-@mixin border-bottom-radius($radius){
+
+@mixin border-bottom-radius($radius) {
   border-bottom-right-radius: $radius;
   border-bottom-left-radius: $radius;
 }
 
-@mixin transform($args){
+@mixin transform($args) {
   -webkit-transform: $args;
      -moz-transform: $args;
       -ms-transform: $args;
@@ -69,7 +73,7 @@
           transform: $args;
 }
 
-@mixin transform-origin($args){
+@mixin transform-origin($args) {
   -webkit-transform-origin: $args;
   -moz-transform-origin: $args;
   -ms-transform-origin: $args;
@@ -78,13 +82,13 @@
 }
 
 
-@mixin background-clip($clip){
+@mixin background-clip($clip) {
   -webkit-background-clip: $clip;
      -moz-background-clip: $clip;
           background-clip: $clip;
 }
 
-@mixin box-sizing($boxmodel){
+@mixin box-sizing($boxmodel) {
      -moz-box-sizing: $boxmodel;
           box-sizing: $boxmodel;
   //TODO: box-sizing is scheduled to be unprefixed in FF; remove @ about 2014-sept.

@@ -7,7 +7,7 @@
 
 .admin-form-label-column {
   text-align: right;
-  padding-right:1em;
+  padding-right: 1em;
 }
 
 .admin-form-textarea {
@@ -54,7 +54,10 @@
   border-radius: $baseBorderRadius;
 }
 
-.admin-label-important         { background-color: $errorText; }
-.admin-label-warning           { background-color: $orange; }
-.admin-label-success           { background-color: $successText; }
-.admin-label-danger            { background-color: #d9534f; }
+.admin-label-important { background-color: $errorText; }
+
+.admin-label-warning { background-color: $orange; }
+
+.admin-label-success { background-color: $successText; }
+
+.admin-label-danger { background-color: #d9534f; }

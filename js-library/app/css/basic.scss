@@ -7,10 +7,12 @@
 
 span.factlink {
   // elementary reset
-  background: transparent !important;
   font: inherit !important;
   color: inherit !important;
   text-decoration: inherit !important;
+  transition: all $highlight_visibility_transition_time;
+
+  background: transparent !important;
 
   &.fl-active {
     background: $factlinkInactiveColor !important;
@@ -19,7 +21,4 @@ span.factlink {
   &.fl-core-highlight {
     background: $factlinkActiveColor !important;
   }
-
-  transition: all $highlight_visibility_transition_time;
 }
-
