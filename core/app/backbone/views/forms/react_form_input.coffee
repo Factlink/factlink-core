@@ -13,13 +13,14 @@ window.ReactInput = React.createBackboneClass
 
   render: ->
     _div ['control-group'],
-      _label ['control-label'],
-        @props.label
-      _div ['controls'],
-        @transferPropsTo _input [
-          value: @model().get(@props.attribute)
-          onChange: (event) => @model().set @props.attribute, event.target.value
-        ]
-        ReactFormError model: @model(), attribute: @props.attribute
-        _div ['controls-information-item'],
-          @props.children
+      _label [],
+        _span ['control-label'],
+          @props.label
+        _div ['controls'],
+          @transferPropsTo _input [
+            value: @model().get(@props.attribute)
+            onChange: (event) => @model().set @props.attribute, event.target.value
+          ]
+          ReactFormError model: @model(), attribute: @props.attribute
+          _div ['controls-information-item'],
+            @props.children
