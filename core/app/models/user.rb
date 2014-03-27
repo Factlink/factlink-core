@@ -34,7 +34,6 @@ class User
 
   field :receives_mailed_notifications,  type: Boolean, default: true
   field :receives_digest, type: Boolean, default: true
-  field :last_interaction_at,     type: DateTime, default: 0
 
   attr_accessible :username, :full_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,

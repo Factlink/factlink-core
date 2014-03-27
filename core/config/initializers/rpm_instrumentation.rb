@@ -33,7 +33,6 @@ if defined?(NewRelic)
     add_method_tracer :check_preferred_browser
     add_method_tracer :track_click
     add_method_tracer :initialize_mixpanel
-    add_method_tracer :set_last_interaction_for_user
   end
 
   Moped::Connection.class_eval do
