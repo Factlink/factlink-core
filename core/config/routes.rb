@@ -24,6 +24,7 @@ FactlinkUI::Application.routes.draw do
     put '/users/:username/password' => 'api/users#change_password'
     get '/session' => 'api/sessions#current'
     post '/users/:username/delete' => 'api/users#destroy'
+    get '/search' => "api/search#all"
   end
 
   # Javascript Client calls
@@ -61,9 +62,6 @@ FactlinkUI::Application.routes.draw do
 
   get "/:fact_slug/f/:id" => "facts#discussion_page_redirect"
   get "/f/:id" => "facts#discussion_page_redirect"
-
-  # Search
-  get "/search" => "search#search", as: "search"
 
   get "/in-your-browser" => "home#in_your_browser", as: 'in_your_browser'
   get "/on-your-site" => "home#on_your_site", as: 'on_your_site'
@@ -138,6 +136,9 @@ FactlinkUI::Application.routes.draw do
 
   get '/feed' => "frontend#show", as: 'feed'
   get '/:unused/feed', to: redirect("/feed")
+
+  get "/search" => "frontend#show", as: "search"
+
   scope "/:username" do
     get "/" => "frontend#user_profile", as: "user_profile"
     get "/edit" => "frontend#show", as: 'edit_user'

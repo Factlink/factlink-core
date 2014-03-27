@@ -3,6 +3,6 @@ class window.SearchResults extends Backbone.Factlink.Collection
 
   initialize: (models, options) -> @search = options.search
 
-  url: -> '/search.json?s=' + @search
+  url: -> '/api/beta/search.json?keywords=' + @search
 
   query: -> @search

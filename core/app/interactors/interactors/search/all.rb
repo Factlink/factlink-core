@@ -1,17 +1,16 @@
 module Interactors
-  module Facts
-    class Search
+  module Search
+    class All
       include Pavlov::Interactor
       include Util::CanCan
 
       arguments :keywords
 
       def execute
-        records = ElasticSearch::Search.search keywords: keywords, types: [:factdata]
+        row_count = 20 # WARNING: coupling with ReactSearchResults
 
-        records.map do |record|
-          Backend::Facts.get_by_fact_data_id fact_data_id: record['_id']
-        end
+        Backend::Search.search_all keywords: keywords, page: 1,
+                                   row_count: row_count, types: [:factdata, :user]
       end
 
       def validate

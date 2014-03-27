@@ -45,8 +45,6 @@ class ApplicationController < ActionController::Base
 
   helper :all
 
-  after_filter :set_access_control
-
   def after_sign_in_path_for(user)
     safe_return_to_path || feed_path
   end
@@ -64,18 +62,10 @@ class ApplicationController < ActionController::Base
 
   ##########
   # Set the Access Control, so XHR request from other domains are allowed.
+  after_filter :set_access_control
   def set_access_control
     headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Request-Origin'] = '*'
-  end
-
-  def backbone_responder &block
-    respond_to do |format|
-      format.html do
-        render inline: '', layout: 'frontend_with_backbone'
-      end
-      format.json { yield } if block_given?
-    end
   end
 
   private
