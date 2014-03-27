@@ -35,9 +35,13 @@ linters:
     enabled: false
 
   Indentation:
-    enabled: false
+    enabled: true
     width: 2
-
+    exclude:
+      - 'core/app/assets/stylesheets/browser_detection.scss'
+      - 'core/app/assets/stylesheets/email/base.scss'
+      - 'core/app/assets/stylesheets/mixins/mixins.scss'
+      
   LeadingZero:
     enabled: false
 
