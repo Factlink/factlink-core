@@ -419,6 +419,9 @@ GEM
     rubyzip (1.1.0)
     safe_yaml (1.0.1)
     sass (3.3.2)
+    scss-lint (0.7.0)
+      colorize
+      sass
     selenium (0.2.11)
       jar_wrapper
     selenium-webdriver (2.40.0)
@@ -556,6 +559,7 @@ DEPENDENCIES
   rspec-rails (~> 2.13)
   rubocop
   sass-rails (~> 4.0.1)!
+  scss-lint
   selenium
   selenium-webdriver
   sentry-raven (~> 0.7.1)
