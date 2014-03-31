@@ -48,6 +48,7 @@ cd ..
 
 if [ ! -e proxy ]; then
   git clone git://github.com/Factlink/web-proxy.git proxy
+  git remote add proxy-production dokku@188.226.211.29:proxy-production
 else
   pushd proxy
   git pull --ff-only
