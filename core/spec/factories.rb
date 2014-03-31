@@ -55,12 +55,12 @@ FactoryGirl.define do
 
   factory :fact_data do
     displaystring
+    site_url
     sequence(:title) { |n| "Fact title #{n}" }
   end
 
   factory :fact do
     association :data, :factory => :fact_data
-    association :site
   end
 
   factory :graph_user do
@@ -72,12 +72,8 @@ FactoryGirl.define do
     # If you need a graph_user with a user, make a user and use `user.graph_user`.
   end
 
-  sequence :url do |n|
+  sequence :site_url do |n|
     "http://example.org/#{n}.html"
-  end
-
-  factory :site do
-    url
   end
 
   factory :comment do

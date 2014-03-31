@@ -19,11 +19,10 @@ module Backend
       fact_data = FactData.new
       fact_data.displaystring = displaystring
       fact_data.title = site_title
+      fact_data.site_url = UrlNormalizer.normalize(url)
       fact_data.save!
 
-      site = Site.find_or_create_by url: url
-
-      fact = Fact.new site: site
+      fact = Fact.new
       fact.data = fact_data
       fact.save!
 
@@ -43,12 +42,11 @@ module Backend
       RecentlyViewedFacts.by_user_id(GraphUser[graph_user_id].user_id).add_fact_id fact_id
     end
 
-    def for_url(url:)
-      site = Site.find(url: url).first
-      facts = site ? site.facts.to_a : []
+    def for_url(site_url:)
+      fact_datas = FactData.where site_url: UrlNormalizer.normalize(site_url)
 
-      facts.map do |fact|
-        dead(fact)
+      fact_datas.map do |fact_data|
+        dead(fact_data.fact)
       end
     end
 
@@ -69,7 +67,7 @@ module Backend
 
     def dead(fact)
       DeadFact.new id:fact.id,
-                   site_url: fact.site.url,
+                   site_url: fact.data.site_url,
                    displaystring: fact.data.displaystring,
                    created_at: fact.data.created_at,
                    site_title: fact.data.title

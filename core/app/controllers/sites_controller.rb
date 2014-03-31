@@ -1,6 +1,6 @@
 class SitesController < ApplicationController
   def facts_for_url
-    render_jsonp Backend::Facts.for_url(url: params[:url])
+    render_jsonp Backend::Facts.for_url(site_url: params[:url])
   end
 
   private

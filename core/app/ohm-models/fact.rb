@@ -1,14 +1,8 @@
-class Site < OurOhm; end # needed because of removed const_missing from ohm
-
 class Fact < OurOhm
   include Pavlov::Helpers
 
   delegate :opinionated_users_ids, :opiniated, :add_opiniated, :remove_opinionateds,
            :to => :believable
-
-  def validate
-    assert_present :site
-  end
 
   def create
     require_saved_data
@@ -27,8 +21,6 @@ class Fact < OurOhm
   def created_at
     data.created_at.utc.to_s if data
   end
-
-  reference :site, Site # The site on which the factlink should be shown
 
   reference :data, ->(id) { id && FactData.find(id) }
 
@@ -72,7 +64,7 @@ class Fact < OurOhm
 
   # For compatibility with DeadFact
   def site_url
-    site.url
+    data.site_url
   end
 
   private
