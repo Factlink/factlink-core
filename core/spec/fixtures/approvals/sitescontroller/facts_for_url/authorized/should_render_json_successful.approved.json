@@ -1,7 +1,11 @@
 [
   {
     "id": "<id>",
+    "site_url": "http://bla.com/foo",
     "displaystring": "displaystring",
-    "title": "title"
+    "created_at": "<created_at>",
+    "site_title": "title",
+    "url": "/f/1",
+    "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fbla.com%2Ffoo#factlink-open-1"
   }
 ]
