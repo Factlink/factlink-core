@@ -37,10 +37,6 @@ class Fact < OurOhm
     @believable ||= Believable.new(key)
   end
 
-  def add_opinion(type, user)
-    add_opiniated(type,user)
-  end
-
   def remove_opinions(user)
     remove_opinionateds(user)
   end

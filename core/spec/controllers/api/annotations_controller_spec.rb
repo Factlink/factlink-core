@@ -19,7 +19,8 @@ describe Api::AnnotationsController do
                                      displaystring: 'displaystring',
                                      url: 'url',
                                      site_title: 'title')
-        Fact[fact.id].add_opinion :believes, user.graph_user
+
+        pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes')
       end
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
@@ -39,7 +40,8 @@ describe Api::AnnotationsController do
                                      displaystring: 'displaystring',
                                      url: 'url',
                                      site_title: 'title')
-        Fact[fact.id].add_opinion :believes, user.graph_user
+
+        pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes')
       end
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)

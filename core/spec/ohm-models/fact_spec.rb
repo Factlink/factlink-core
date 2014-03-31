@@ -12,12 +12,6 @@ describe Fact do
     Activity.stub(:create)
   end
 
-  it "has the GraphUser set when a opinion is added" do
-    parent = create :fact
-    parent.add_opinion(:believes, graph_user)
-    expect(parent.opiniated(:believes).to_a).to match_array [graph_user]
-  end
-
   describe "Mongoid properties: " do
     context "after setting a displaystring to 'hiephoi'" do
       it "the facts to_s is 'hiephoi'" do

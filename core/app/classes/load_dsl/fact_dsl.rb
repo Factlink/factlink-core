@@ -9,7 +9,6 @@ class LoadDsl
     end
 
     def comment(username, comment)
-
       user = User.where(username: username).first
 
       pavlov_options = {current_user: user}
@@ -19,8 +18,11 @@ class LoadDsl
 
     def set_opinion(opinion_type, *users)
       users.each do |username|
-        gu = User.where(username: username).first.graph_user || fail("user not found " + username)
-        fact.add_opinion opinion_type, gu
+        user = User.where(username: username).first || fail("user not found " + username)
+
+        pavlov_options = {current_user: user}
+
+        Pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: opinion_type.to_s, pavlov_options: pavlov_options)
       end
     end
   end
