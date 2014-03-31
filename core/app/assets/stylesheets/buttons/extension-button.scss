@@ -1,5 +1,4 @@
 %extension-install-button {
-  vertical-align: top;
   margin-right: 0.6em;
   display: inline-block;
   vertical-align: middle;
@@ -7,17 +6,20 @@
   width: 24px;
   background-repeat: no-repeat;
   background-size: contain;
-  margin-top:-3px;
+  margin-top: -3px;
 }
+
 .button-huge %extension-install-button {
   height: 32px;
   width: 32px;
 }
+
 html[data-factlink-extension-loaded] %extension-install-button {
-  pointer-events:none;
+  pointer-events: none;
   background: grey;
 
 }
+
 .install-chrome {
   @extend %extension-install-button;
   background-image: asset-data-url('browser-icons/Chrome-32x32.png');
