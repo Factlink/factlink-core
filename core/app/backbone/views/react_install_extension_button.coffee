@@ -25,17 +25,7 @@ window.ReactInstallExtensionButton = React.createClass
         disabled: true],
         'Factlink already installed.'
     else
-      _div [],
-        _div ['visible-when-chrome'],
-          _a ['button-success', extra_class, href: extension_link],
-            _span [icon_class]
-            'Install Factlink for ' + browserName.capitalize()
-        _div ['visible-when-firefox'],
-          _a ['button-success', extra_class, href: extension_link],
-            _span [icon_class]
-            'Install Factlink for ' + browserName.capitalize()
-        _div ['visible-when-safari'],
-          _a ['button-success', extra_class, href: extension_link],
-            _span [icon_class]
-            'Install Factlink for ' + browserName.capitalize()
+      _a ['button-success', extra_class, href: extension_link],
+        _span [icon_class]
+        'Install Factlink for ' + browserName.capitalize()
 
