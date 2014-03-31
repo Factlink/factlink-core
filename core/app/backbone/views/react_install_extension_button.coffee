@@ -19,12 +19,35 @@ window.ReactInstallExtensionButton = React.createClass
   render: ->
     browserName = determineBrowser()
     options = extension_install_options_by_browser[browserName]
+    _a ['button-success', @props.extra_class, href: options.href],
+      _span [options.iconClass]
+      'Install Factlink for ' + browserName.capitalize()
+
+
+window.ReactInstallExtensionOrBookmarklet = React.createClass
+  displayName: 'ReactInstallExtensionOrBookmarklet'
+  render: ->
+    extension_installed = document.documentElement.getAttribute('data-factlink-extension-loaded')?
+    console.log extension_installed
+    browserName = determineBrowser()
     extra_class = if @props.huge_button then 'button-huge' else null
-    if document.documentElement.getAttribute('data-factlink-extension-loaded') != undefined
+
+    if browserName == 'unsupported-browser' && !extension_installed && @props.huge_button
+      _div [],
+        _div ['in-your-browser-dashed-border'],
+          _a ["js-bookmarklet-button", "in-your-browser-bookmarklet",
+              "button-success", "button-huge",
+              onclick: ((e)-> e.preventDefault())],
+            _span [style: display: 'none'], 'Factlink'
+        _p [],
+          _em [],
+            'To install Factlink, drag this button to your bookmarks bar'
+    else if @props.huge_button && extension_installed
       _button ['button', extra_class,
         disabled: true],
         'Factlink already installed.'
+    else if !extension_installed && !@props.huge_button
+      []
     else
-      _a ['button-success', extra_class, href: options.href],
-        _span [options.iconClass]
-        'Install Factlink for ' + browserName.capitalize()
+      ReactInstallExtensionButton
+        extra_class: extra_class

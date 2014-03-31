@@ -60,13 +60,6 @@
         <p>Discuss anything, on any website. Help us make the web a better place by sharing your knowledge!</p>
         <div class="extend-your-browser-install-button js-install-extension-button"></div>
 
-        <div class="visible-when-unsupported-browser">
-          <div class="in-your-browser-dashed-border">
-            <a class="js-bookmarklet-button in-your-browser-bookmarklet button-success button-huge" onclick="return false"><span style="display: none">Factlink</span></a>
-          </div>
-
-          <p><em>To install Factlink, drag this button to your bookmarks bar</em></p>
-        </div>
       </div>
     </div>
   </div>
@@ -74,9 +67,9 @@
 
 <% content_for :specific_javascript do %>
   <script>
-    React.renderComponent(ReactInstallExtensionButton({huge_button:true}), $('.js-install-extension-upper-button')[0]);
+    React.renderComponent(ReactInstallExtensionOrBookmarklet({huge_button:true}), $('.js-install-extension-upper-button')[0]);
 
-    React.renderComponent(ReactInstallExtensionButton({huge_button:true}), $('.js-install-extension-button')[0]);
+    React.renderComponent(ReactInstallExtensionOrBookmarklet({huge_button:true}), $('.js-install-extension-button')[0]);
 
     $('.js-bookmarklet-button').attr('href', Factlink.Global.bookmarklet_link);
   </script>
