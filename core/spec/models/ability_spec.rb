@@ -41,13 +41,6 @@ describe Ability do
     end
   end
 
-  describe "to get the fact count of a site" do
-    context "as any user" do
-      it { subject.should   be_able_to :get_fact_count, Site }
-      it { anonymous.should be_able_to :get_fact_count, Site }
-    end
-  end
-
   describe "to manage facts" do
     let(:fact) { create :fact }
 

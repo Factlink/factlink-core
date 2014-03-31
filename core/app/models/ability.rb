@@ -30,7 +30,6 @@ class Ability
   end
 
   def define_anonymous_user_abilities
-    can :get_fact_count, Site
     can :new, Fact
     can :index, Fact
     can :read, Fact
