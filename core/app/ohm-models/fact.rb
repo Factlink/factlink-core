@@ -1,7 +1,7 @@
 class Fact < OurOhm
   include Pavlov::Helpers
 
-  delegate :opinionated_users_ids, :opiniated, :add_opiniated, :remove_opinionateds,
+  delegate :opinionated_users_ids, :add_opiniated,
            :to => :believable
 
   def create
