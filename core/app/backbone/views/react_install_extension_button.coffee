@@ -28,4 +28,3 @@ window.ReactInstallExtensionButton = React.createClass
       _a ['button-success', extra_class, href: options.href],
         _span [options.iconClass]
         'Install Factlink for ' + browserName.capitalize()
-
