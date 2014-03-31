@@ -9,6 +9,8 @@ class FactData
   field :site_url,        type: String
   field :fact_id,         type: String
 
+  index({ site_url: 1 })
+
   has_many :comments
 
   validates_format_of :displaystring, allow_nil: true, with: /\S/
