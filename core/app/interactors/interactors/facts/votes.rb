@@ -7,7 +7,13 @@ module Interactors
       arguments :fact_id
 
       def execute
-        Backend::Facts.votes fact_id: fact_id
+        Backend::Facts.votes(fact_id: fact_id).map do |vote|
+          {
+            username: vote[:user].username,
+            user: vote[:user],
+            type: vote[:type]
+          }
+        end
       end
 
       def authorized?

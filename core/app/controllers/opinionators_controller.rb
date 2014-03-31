@@ -3,13 +3,6 @@ class OpinionatorsController < ApplicationController
 
   def index
     votes = interactor(:'facts/votes', fact_id: params[:fact_id])
-              .map do |vote|
-                {
-                  username: vote[:user].username,
-                  user: vote[:user],
-                  type: vote[:type]
-                }
-              end
     render json: votes
   end
 
