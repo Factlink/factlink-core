@@ -70,7 +70,7 @@ module Backend
 
       DeadFact.new id:fact.id,
                    site_url: fact_data.site_url,
-                   displaystring: fact_data.displaystring
+                   displaystring: fact_data.displaystring,
                    created_at: fact_data.created_at,
                    site_title: fact_data.title
     end
