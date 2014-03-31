@@ -22,6 +22,10 @@ module Interactors
       def current_user
         pavlov_options[:current_user]
       end
+
+      def validate
+        validate_string :timestamp, timestamp
+      end
     end
   end
 end

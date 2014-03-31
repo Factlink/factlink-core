@@ -17,6 +17,11 @@ module Interactors
       def activities
         GlobalFeed.instance.all_activities
       end
+
+      def validate
+        validate_string :timestamp, timestamp
+        validate_string :count, count
+      end
     end
   end
 end
