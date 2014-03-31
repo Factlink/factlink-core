@@ -43,7 +43,7 @@ window.ReactInstallExtensionOrBookmarklet = React.createClass
     else if @props.huge_button && extension_installed
       _button ['button', 'button-huge',
         disabled: true],
-        'Factlink already installed.'
+        'Factlink has been installed!'
     else if (extension_installed || !browserName) && !@props.huge_button
       _div [] # nothing.
     else
