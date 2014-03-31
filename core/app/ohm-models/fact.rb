@@ -1,9 +1,6 @@
 class Fact < OurOhm
   include Pavlov::Helpers
 
-  delegate :add_opiniated,
-           :to => :believable
-
   def create
     require_saved_data
 

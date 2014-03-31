@@ -13,9 +13,15 @@ describe OpinionatorsController do
 
       fact = create :fact
 
-      fact.add_opiniated :believes,    (create :user).graph_user
-      fact.add_opiniated :disbelieves, (create :user).graph_user
-      fact.add_opiniated :disbelieves, (create :user).graph_user
+      as(create :user) do |pavlov|
+        pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes')
+      end
+      as(create :user) do |pavlov|
+        pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'disbelieves')
+      end
+      as(create :user) do |pavlov|
+        pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'disbelieves')
+      end
 
       get :index, fact_id: fact.id
 

@@ -51,7 +51,7 @@ describe Fact do
     it "is false when people have given their opinion on the fact" do
       fact = create :fact
 
-      fact.add_opiniated :believes, other_graph_user
+      Pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes', pavlov_options: {current_user: (create :user)})
 
       expect(fact.deletable?).to be_false
     end
