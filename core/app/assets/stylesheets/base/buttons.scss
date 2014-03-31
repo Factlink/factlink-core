@@ -146,6 +146,10 @@ $arrowSize: 5px;
 .button-success {
   @extend %button-base;
   background-color: $green;
+  &:disabled {
+    color:black;
+    background-color: mix( $green,white);
+  }
 }
 
 .button-danger {
