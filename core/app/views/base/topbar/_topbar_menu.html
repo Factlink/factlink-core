@@ -11,7 +11,7 @@
     <% if can? :access, Ability::AdminArea %>
       <li class="dropdown-menu-item"><%= link_to("Users", admin_users_path) %></li>
       <li class="dropdown-menu-item"><%= link_to("Clean actions", admin_clean_path) %></li>
-      <li class="dropdown-menu-item"><%= link_to("Feature Toggles", admin_global_feature_toggles_path) %></li>
+      <li class="dropdown-menu-item"><%= link_to("Global features", admin_global_feature_toggles_path) %></li>
       <li class="dropdown-menu-item"><%= link_to("Info", admin_info_path) %></li>
       <li class="dropdown-menu-item"><%= link_to("Cause Error", admin_cause_error_path) %></li>
       <li class="dropdown-menu-item"><%= link_to("Resque", '/a/resque') %></li>
