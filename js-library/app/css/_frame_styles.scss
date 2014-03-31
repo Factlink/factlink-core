@@ -9,6 +9,10 @@
   float: none;
   display: block;
 
+  // NO IDEA! This fixes a crazy Chrome bug where nothing is
+  // rendered at all (except when resizing the window)
+  -webkit-backface-visibility: hidden;
+
   // options below are overridden elsewhere
   left: 0;
   top: 0;
