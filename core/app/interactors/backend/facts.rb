@@ -43,7 +43,7 @@ module Backend
     end
 
     def for_url(site_url:)
-      fact_datas = FactData.where site_url: UrlNormalizer.normalize(site_url)
+      fact_datas = FactData.where(site_url: UrlNormalizer.normalize(site_url))
 
       fact_datas.map do |fact_data|
         {id: fact_data.fact_id, displaystring: fact_data.displaystring}
