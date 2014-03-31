@@ -22,7 +22,7 @@ test:
     - cd ~/factlink/js-library; grunt
     - bundle exec rspec spec/acceptance spec/screenshots --profile
     - bundle exec brakeman --except SessionSettings -q -z
-    - bundle exec scss-lint app/assets/stylesheets/ --config ../scss-lint-config.scss-lint.yml
-    - bundle exec scss-lint ../js-library/app/css/ --config ../scss-lint-config.scss-lint.yml
+    - bundle exec scss-lint app/assets/stylesheets/ --config ../.scss-lint.yml
+    - bundle exec scss-lint ../js-library/app/css/ --config ../.scss-lint.yml
     - bin/check_assets_updated.sh
     - bundle exec rails_best_practices --silent

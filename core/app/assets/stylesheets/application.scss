@@ -5,13 +5,6 @@
 @import "mixins/mixins";
 @import "mixins/triangle_arrows";
 
-@import "pages/about";
-@import "pages/blog";
-@import "pages/in-your-browser";
-@import "pages/landing";
-@import "pages/on-your-site";
-@import "pages/static-pages";
-
 @import "base/feedback/button";
 @import "base/topbar/dropdown_menu";
 @import "base/accounts_popup";
@@ -27,7 +20,13 @@
 @import "base/topbar";
 @import "base/typography";
 
-@import "browser_detection";
+@import "pages/about";
+@import "pages/blog";
+@import "pages/in-your-browser";
+@import "pages/landing";
+@import "pages/on-your-site";
+@import "pages/static-pages";
+
 @import "mobile_hacks";
 @import "search";
 @import "devise_form";

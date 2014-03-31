@@ -14,9 +14,16 @@
   margin-bottom: 10px;
 }
 
-a.in-your-browser-bookmarklet { cursor: move !important; }
+.bookmarklet-install-block {
+  display: inline-block;
+  background: rgba(white, 0.5);
+  padding: 1em 2em;
+  border-radius: 0.5em;
+}
 
-a.in-your-browser-bookmarklet::after { content: 'Factlink bookmarklet'; }
+.in-your-browser-bookmarklet { cursor: move !important; }
+
+.in-your-browser-bookmarklet::after { content: 'Factlink bookmarklet'; }
 
 i.in-your-browser-icon-layer,
 i.in-your-browser-icon-social {

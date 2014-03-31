@@ -9,7 +9,7 @@ module BrowserHelper
     elsif browser.safari?
       'safari'
     elsif browser.phantom_js?
-      'phantom_js unsupported-browser'
+      'phantom_js'
     else
       'unsupported-browser'
     end
