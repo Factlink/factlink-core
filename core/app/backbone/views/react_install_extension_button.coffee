@@ -1,5 +1,5 @@
 determineBrowser = ->
-  [ 'chrome', 'firefox', 'safari', 'phantom_js', 'unsupported-browser' ]
+  [ 'chrome', 'firefox', 'safari' ]
   .filter( (browser) -> $('html.'+browser).length
   )[0]
 
@@ -25,14 +25,16 @@ ReactInstallExtensionButton = React.createClass
 
 
 
+
 window.ReactInstallExtensionOrBookmarklet = React.createClass
   displayName: 'ReactInstallExtensionOrBookmarklet'
   render: ->
     extension_installed = document.documentElement.getAttribute('data-factlink-extension-loaded')?
     browserName = determineBrowser()
     extra_class = if @props.huge_button then 'button-huge' else null
-    if browserName == 'unsupported-browser' && !extension_installed && @props.huge_button
-      _div [],
+
+    if !browserName && !extension_installed && @props.huge_button
+      _div ['bookmarklet-install-block'],
         _div ['in-your-browser-dashed-border'],
           _a ["js-bookmarklet-button", "in-your-browser-bookmarklet",
               "button-success", "button-huge",
@@ -45,7 +47,7 @@ window.ReactInstallExtensionOrBookmarklet = React.createClass
       _button ['button', 'button-huge',
         disabled: true],
         'Factlink already installed.'
-    else if extension_installed && !@props.huge_button
+    else if (extension_installed || !browserName) && !@props.huge_button
       []
     else
       ReactInstallExtensionButton
