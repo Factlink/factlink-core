@@ -41,6 +41,10 @@ cd local_development
   bundle
 cd ..
 
+cd testserver
+  bundle
+cd ..
+
 web-proxy/bin/bootstrap
 
 js-library/bin/bootstrap
