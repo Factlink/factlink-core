@@ -1,8 +1,8 @@
 development:
   proxy:
     hostname: localhost
-    port: 4567
-    internal_port: 4567
+    port: 8080
+    internal_port: 8080
     protocol: http://
 
 test:

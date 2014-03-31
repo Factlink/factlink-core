@@ -1,5 +1,0 @@
-#!/bin/bash
-echo 'Setting up web-proxy...'
-cd "$( dirname "${BASH_SOURCE[0]}" )"/..
-
-npm install

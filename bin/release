@@ -40,12 +40,6 @@ cd ..
 
 echo "Deployed js-library"
 
-cd web-proxy
-  bundle
-  npm install
-  bundle exec cap $env deploy
-cd ..
-
-echo "Deployed web-proxy"
+echo "Did not deploy web-proxy!"
 
 echo "Done! Deployed to $env"
