@@ -7,8 +7,4 @@ class SubComment
 
   field :content,           type: String
   belongs_to :created_by, class_name: 'User'
-
-  def type
-    parent.type
-  end
 end
