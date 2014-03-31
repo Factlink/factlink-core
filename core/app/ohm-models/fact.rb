@@ -37,10 +37,6 @@ class Fact < OurOhm
     @believable ||= Believable.new(key)
   end
 
-  def remove_opinions(user)
-    remove_opinionateds(user)
-  end
-
   #returns whether a given fact should be considered
   #unsuitable for usage/viewing
   def self.invalid(f)
