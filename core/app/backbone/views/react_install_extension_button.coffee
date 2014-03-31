@@ -6,7 +6,7 @@ window.ReactInstallExtensionButton = React.createClass
       _div [],
         _button ['button', extra_class,
           disabled: true],
-          'Factlink extension installed!'
+          'Factlink already installed.'
     else
       _div [],
         _div ['visible-when-chrome'],
