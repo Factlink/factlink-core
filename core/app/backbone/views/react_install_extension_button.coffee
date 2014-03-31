@@ -14,7 +14,7 @@ extension_install_options_by_browser =
     href: 'javascript:chrome.webstore.install()'
     iconClass: 'install-chrome'
 
-window.ReactInstallExtensionButton = React.createClass
+ReactInstallExtensionButton = React.createClass
   displayName: 'ReactInstallExtensionButton'
   render: ->
     browserName = determineBrowser()
