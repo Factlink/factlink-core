@@ -43,6 +43,15 @@ module Backend
       RecentlyViewedFacts.by_user_id(GraphUser[graph_user_id].user_id).add_fact_id fact_id
     end
 
+    def for_url(url:)
+      site = Site.find(url: url).first
+      facts = site ? site.facts.to_a : []
+
+      facts.map do |fact|
+        dead(fact)
+      end
+    end
+
     private
 
     def votes_for(fact_id, type)
