@@ -23,9 +23,6 @@ ReactInstallExtensionButton = React.createClass
       _span [options.iconClass]
       'Install Factlink for ' + browserName.capitalize()
 
-
-
-
 window.ReactInstallExtensionOrBookmarklet = React.createClass
   displayName: 'ReactInstallExtensionOrBookmarklet'
   render: ->
@@ -48,7 +45,7 @@ window.ReactInstallExtensionOrBookmarklet = React.createClass
         disabled: true],
         'Factlink already installed.'
     else if (extension_installed || !browserName) && !@props.huge_button
-      []
+      _div [], # nothing.
     else
       ReactInstallExtensionButton
         extra_class: extra_class
