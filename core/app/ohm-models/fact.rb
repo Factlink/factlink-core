@@ -1,7 +1,7 @@
 class Fact < OurOhm
   include Pavlov::Helpers
 
-  delegate :opinionated_users_ids, :add_opiniated,
+  delegate :add_opiniated,
            :to => :believable
 
   def create
@@ -50,7 +50,7 @@ class Fact < OurOhm
   end
 
   def deletable?
-    opinionated_users_ids.length == 0 &&
+    believable.opinionated_users_ids.length == 0 &&
       Comment.where(fact_data_id: data_id).length == 0
   end
 

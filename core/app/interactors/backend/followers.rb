@@ -41,7 +41,7 @@ module Backend
     end
 
     def direct_followers_for_fact fact
-      fact.opinionated_users_ids
+      Believable.new(fact.key).opinionated_users_ids
     end
   end
 end
