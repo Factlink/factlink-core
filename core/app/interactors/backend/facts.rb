@@ -19,11 +19,10 @@ module Backend
       fact_data = FactData.new
       fact_data.displaystring = displaystring
       fact_data.title = site_title
+      fact_data.site_url = UrlNormalizer.normalize(url)
       fact_data.save!
 
-      site = Site.find_or_create_by url: url
-
-      fact = Fact.new site: site
+      fact = Fact.new
       fact.data = fact_data
       fact.save!
 
@@ -43,6 +42,14 @@ module Backend
       RecentlyViewedFacts.by_user_id(GraphUser[graph_user_id].user_id).add_fact_id fact_id
     end
 
+    def for_url(site_url:)
+      fact_datas = FactData.where(site_url: UrlNormalizer.normalize(site_url))
+
+      fact_datas.map do |fact_data|
+        {id: fact_data.fact_id, displaystring: fact_data.displaystring}
+      end
+    end
+
     private
 
     def votes_for(fact_id, type)
@@ -59,11 +66,13 @@ module Backend
     end
 
     def dead(fact)
+      fact_data = fact.data
+
       DeadFact.new id:fact.id,
-                   site_url: fact.site.url,
-                   displaystring: fact.data.displaystring,
-                   created_at: fact.data.created_at,
-                   site_title: fact.data.title
+                   site_url: fact_data.site_url,
+                   displaystring: fact_data.displaystring,
+                   created_at: fact_data.created_at,
+                   site_title: fact_data.title
     end
   end
 end

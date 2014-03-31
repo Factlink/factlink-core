@@ -7,12 +7,6 @@ describe SitesController do
 
   describe :facts_for_url do
     describe "authorized" do
-      it "should work with an existing site" do
-        @site = create(:site, url: "http://batman.org")
-        get :facts_for_url, url: @site.url
-        response.body.should eq("[]")
-      end
-
       it "should work with an non-existing site" do
         get :facts_for_url, url: "http://www.thebaronisinthebuilding.com/"
         response.body.should eq("[]")

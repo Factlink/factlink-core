@@ -6,7 +6,10 @@ class FactData
 
   field :title,           type: String
   field :displaystring,   type: String
+  field :site_url,        type: String
   field :fact_id,         type: String
+
+  index({ site_url: 1 })
 
   has_many :comments
 
