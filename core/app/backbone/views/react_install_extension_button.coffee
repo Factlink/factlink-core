@@ -42,7 +42,7 @@ window.ReactInstallExtensionOrBookmarklet = React.createClass
           _em [],
             'To install Factlink, drag this button to your bookmarks bar'
     else if @props.huge_button && extension_installed
-      _button ['button', extra_class,
+      _button ['button', 'button-huge',
         disabled: true],
         'Factlink already installed.'
     else if extension_installed && !@props.huge_button
