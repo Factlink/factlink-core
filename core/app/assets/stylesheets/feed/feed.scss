@@ -57,31 +57,32 @@ $headerBorder: 1px;
   }
 }
 
+.feed-activity-box-balloon {
+  color: $baseFontColor;
+  transition: 0.5s;
+}
+
 .feed-activity-content {
   color: $baseFontColor;
 
   &:hover .feed-comment-box-balloon:before {
+    @extend .feed-activity-box-balloon;
     border-right-color: darken($grayLighter, 10);
-    transition: 0.5s;
-    color: $baseFontColor;
   }
 
   &:hover .feed-comment-box-balloon {
+    @extend .feed-activity-box-balloon;
     background-color: darken($grayLighter, 10);
-    transition: 0.5s;
-    color: $baseFontColor;
   }
 
   &:hover .annotation-balloon:before {
+    @extend .feed-activity-box-balloon;
     border-right-color: darken($lightYellow, 10);
-    transition: 0.5s;
-    color: $baseFontColor;
   }
 
   &:hover .annotation-balloon {
+    @extend .feed-activity-box-balloon;
     background-color: darken($lightYellow, 10);
-    transition: 0.5s;
-    color: $baseFontColor;
   }
 }
 
