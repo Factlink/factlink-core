@@ -24,7 +24,7 @@ module Interactors
       end
 
       def validate
-        validate_string :timestamp, timestamp
+        validate_string :timestamp, timestamp if timestamp
       end
     end
   end

@@ -19,8 +19,8 @@ module Interactors
       end
 
       def validate
-        validate_string :timestamp, timestamp
-        validate_string :count, count
+        validate_string :timestamp, timestamp if timestamp
+        validate_string :count, count if count
       end
     end
   end
