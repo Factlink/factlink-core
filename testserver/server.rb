@@ -8,8 +8,7 @@ get '/' do
 end
 
 get '/delayed_javascript' do
-
-  sleep params.fetch(:delay, 3)
+  sleep params.fetch('delay', '3').to_f
 
   [
     200,
