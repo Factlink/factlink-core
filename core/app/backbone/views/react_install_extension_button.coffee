@@ -35,7 +35,7 @@ window.ReactInstallExtensionOrBookmarklet = React.createClass
         _div ['in-your-browser-dashed-border'],
           _a ["js-bookmarklet-button", "in-your-browser-bookmarklet",
               "button-success", "button-huge",
-              onclick: ((e)-> e.preventDefault())],
+              onClick: ((e)-> e.preventDefault())],
             _span [style: display: 'none'], 'Factlink'
         _div [],
           _em [],
