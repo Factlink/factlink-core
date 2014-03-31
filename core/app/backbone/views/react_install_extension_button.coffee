@@ -24,14 +24,13 @@ window.ReactInstallExtensionButton = React.createClass
       'Install Factlink for ' + browserName.capitalize()
 
 
+
 window.ReactInstallExtensionOrBookmarklet = React.createClass
   displayName: 'ReactInstallExtensionOrBookmarklet'
   render: ->
     extension_installed = document.documentElement.getAttribute('data-factlink-extension-loaded')?
-    console.log extension_installed
     browserName = determineBrowser()
     extra_class = if @props.huge_button then 'button-huge' else null
-    console.log extension_installed, @props.huge_button
     if browserName == 'unsupported-browser' && !extension_installed && @props.huge_button
       _div [],
         _div ['in-your-browser-dashed-border'],
@@ -47,7 +46,6 @@ window.ReactInstallExtensionOrBookmarklet = React.createClass
         disabled: true],
         'Factlink already installed.'
     else if extension_installed && !@props.huge_button
-      console.log 'here!'
       []
     else
       ReactInstallExtensionButton
