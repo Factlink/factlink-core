@@ -5,7 +5,15 @@ class Comment
   belongs_to :fact_data, class_name: 'FactData'
 
   field :content,           type: String
-  belongs_to :created_by, class_name: 'User', inverse_of: :comments
+
+  field :created_by_id, type: Moped::BSON::ObjectId
+  def created_by
+    User.where(id: created_by_id).first
+  end
+  def created_by=(user)
+    self[:created_by_id] = user.id
+  end
+
 
   has_many :sub_comments, inverse_of: :parent
 

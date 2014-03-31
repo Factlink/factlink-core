@@ -105,7 +105,10 @@ class User
     field :confirmed_at,         :type => Time
     field :confirmation_sent_at, :type => Time
 
-  has_many :comments, class_name: 'Comment', inverse_of: :created_by
+  def comments
+    Comments.where(created_by_id: self.id)
+  end
+
   has_many :social_accounts
 
   scope :active, where(:deleted.ne => true)
