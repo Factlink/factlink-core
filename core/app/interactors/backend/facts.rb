@@ -32,6 +32,14 @@ module Backend
       dead(fact)
     end
 
+    def remove_opinion(fact_id:, graph_user:)
+      Believable.new(Fact[fact_id].key).remove_opinionateds graph_user
+    end
+
+    def set_opinion(fact_id:, graph_user:, opinion:)
+      Believable.new(Fact[fact_id].key).add_opiniated opinion, graph_user
+    end
+
     def recently_viewed(graph_user_id:)
       RecentlyViewedFacts.by_user_id(GraphUser[graph_user_id].user_id).top(5).map do |fact|
         dead(fact)
