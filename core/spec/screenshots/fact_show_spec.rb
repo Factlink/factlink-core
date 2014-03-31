@@ -36,7 +36,7 @@ describe "factlink", type: :feature do
 
   it "the layout of the new discussion page is correct with believers on top,
       and adding supporting factlink" do
-    5.times do
+    3.times do
       as(create :user) do |pavlov|
         pavlov.interactor(:'facts/set_opinion', fact_id: @factlink.id, opinion: 'believes')
       end
@@ -46,10 +46,6 @@ describe "factlink", type: :feature do
       as(create :user) do |pavlov|
         pavlov.interactor(:'facts/set_opinion', fact_id: @factlink.id, opinion: 'disbelieves')
       end
-    end
-
-    as(create :user) do |pavlov|
-      pavlov.interactor(:'facts/set_opinion', fact_id: @factlink.id, opinion: 'believes')
     end
 
     open_discussion_sidebar_for @factlink
