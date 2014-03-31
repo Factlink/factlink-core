@@ -2,6 +2,12 @@ window.ReactInstallExtensionButton = React.createClass
   displayName: 'ReactInstallExtensionButton'
   render: ->
     extra_class = if @props.huge_button then 'button-huge' else null
+    if document.documentElement.getAttribute('data-factlink-extension-loaded') != undefined
+      _div [],
+        _button ['button', extra_class,
+          disabled: true],
+          'Factlink extension installed!'
+    else
       _div [],
         _div ['visible-when-chrome'],
           _a ['button-success', extra_class, href: 'javascript:chrome.webstore.install()'],
