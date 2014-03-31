@@ -20,9 +20,9 @@ $avatarSize: 32px;
 }
 
 .annotation-avatar {
+  @extend %centering-inner;
   max-width: $avatarSize;
   max-height: $avatarSize;
-  @extend %centering-inner;
 }
 
 .annotation-balloon {

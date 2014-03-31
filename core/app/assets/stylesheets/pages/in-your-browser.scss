@@ -31,6 +31,7 @@
 }
 
 $learnMoreColumnPadding: 20px;
+
 .learn-more-container {
   margin: 20px (-$learnMoreColumnPadding+5px);
 }
@@ -42,6 +43,7 @@ $learnMoreColumnPadding: 20px;
   padding: 0 $learnMoreColumnPadding;
   border-left: none;
   border-bottom: 1px lightgrey dotted;
+
   &:first-child {
     border-left: none;
   }
@@ -55,8 +57,8 @@ $learnMoreColumnPadding: 20px;
 }
 
 .learn-more-column-image {
-  height: 120px;
   @extend %centering-y;
+  height: 120px;
 }
 
 .learn-more-column-image-inner {
@@ -65,36 +67,35 @@ $learnMoreColumnPadding: 20px;
 }
 
 .extend-your-browser-container {
+  @extend %white-block-with-shadow;
   font-size: 14px;
   text-align: center;
   padding: 30px;
-  margin: 30px 0px;
-  @extend %white-block-with-shadow;
+  margin: 30px 0;
 }
 
 .extend-your-browser-install-button {
-  margin: 30px 0px 0px;
+  margin: 30px 0 0;
   text-align: center;
 }
 
 .social-conversation-comment {
-  text-align: left;
   @extend %centering-y;
-
+  text-align: left;
 }
 
 .social-conversation-reply {
-  text-align: right;
   @extend %centering-y;
+  text-align: right;
 }
 
 .social-conversation-talk-bubble {
+  @extend %white-block-with-shadow;
+  @extend %centering-inner;
   position: relative;
   font-size: 0.9em;
   margin: 0 0.5em;
   padding: 0.4em 0.6em;
-  @extend %white-block-with-shadow;
-  @extend %centering-inner;
 }
 
 .social-conversation-talk-bubble-icon-right {
@@ -110,15 +111,15 @@ $learnMoreColumnPadding: 20px;
 }
 
 .social-conversation-avatar {
+  @extend %centering-inner;
   height: 40px;
   width: 40px;
   border-radius: 20px;
-  @extend %centering-inner;
 }
 
 .best-comment {
-  width: 100%;
   @extend %white-block-with-shadow;
+  width: 100%;
 
   &:first-child {
     margin-bottom: 4px;
@@ -133,11 +134,11 @@ $learnMoreColumnPadding: 20px;
 }
 
 .best-comment-list {
+  @extend .focused-discussion-list;
   vertical-align: top;
   display: table-cell;
-  width:100%;
-  @extend .focused-discussion-list;
-  margin-right: 0px;
+  width: 100%;
+  margin-right: 0;
   margin-left: 25px;
 }
 
@@ -147,4 +148,3 @@ $learnMoreColumnPadding: 20px;
   padding: 4px;
   transition: background 0.5s ease;
 }
-

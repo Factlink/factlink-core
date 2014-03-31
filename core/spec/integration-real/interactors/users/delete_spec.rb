@@ -10,7 +10,7 @@ describe Interactors::Users::Delete do
     expect(user.deleted).to eq(false)
 
     as(user) do |pavlov|
-      pavlov.interactor :'users/delete', user_id: user.id, current_user_password: password
+      pavlov.interactor :'users/delete', username: user.username, current_user_password: password
     end
 
     reloaded_user = Backend::Users.by_ids(user_ids:[user.id])[0]

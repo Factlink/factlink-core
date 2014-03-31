@@ -2,6 +2,21 @@ module Backend
   module Activities
     extend self
 
+    def send_mail_for_activity(activity:)
+      listeners = Activity::Listener.all[{class: "GraphUser", list: :notifications}]
+
+      graph_user_ids = listeners.map do |listener|
+          listener.add_to(activity)
+        end.flatten
+
+      recipients = UserNotification.users_receiving('mailed_notifications')
+                                   .any_in(graph_user_id: graph_user_ids)
+
+      recipients.each do |user|
+        Resque.enqueue SendActivityMailToUser, user.id, activity.id
+      end
+    end
+
     def activities_older_than(activities_set:, timestamp: nil, count: nil)
       #watch out: don't use defaults other than nil since nill is automatically passed in at the rails controller level.
       timestamp = timestamp || 'inf'
@@ -43,14 +58,14 @@ module Backend
           when "created_comment"
             comment = Backend::Comments.by_ids(ids: [activity.subject_id.to_s]).first
             {
-                fact: Pavlov.query(:'facts/get_dead', id: activity.object_id.to_s),
+                fact: Backend::Facts.get(fact_id: activity.object_id.to_s),
                 comment: comment,
                 user: comment.created_by,
             }
           when "created_sub_comment"
             sub_comment = Backend::SubComments::dead_for(activity.subject)
             {
-                fact: Pavlov.query(:'facts/get_dead', id: activity.object_id.to_s),
+                fact: Backend::Facts.get(fact_id: activity.object_id.to_s),
                 comment: Backend::Comments.by_ids(ids: [activity.subject.parent_id.to_s]).first,
                 sub_comment: sub_comment,
                 user: sub_comment.created_by,

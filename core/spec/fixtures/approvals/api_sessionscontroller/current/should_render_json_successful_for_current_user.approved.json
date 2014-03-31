@@ -14,6 +14,10 @@
     "receives_digest": true,
     "confirmed": false,
     "created_at": "<created_at>",
+    "full_name": "John1 Doe1",
+    "email": "johndoe1@example.com",
+    "services": {
+    },
     "features": [
       "some_feature"
     ]

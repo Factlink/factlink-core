@@ -5,7 +5,7 @@ class window.SubComment extends Backbone.Model
 
   can_destroy: ->
     return false if @isNew()
-    FactlinkApp.isCurrentUser @creator()
+    currentSession.isCurrentUser @creator()
 
   validate: (attributes) ->
     'Content should not be empty' unless /\S/.test(attributes.content)

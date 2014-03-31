@@ -41,6 +41,11 @@ cd local_development
   bundle
 cd ..
 
+cd testserver
+  bundle
+cd ..
+
+
 if [ ! -e proxy ]; then
   git clone git://github.com/Factlink/web-proxy.git proxy
 else
@@ -48,6 +53,7 @@ else
   git pull --ff-only
   popd
 fi
+
 
 proxy/bin/bootstrap
 js-library/bin/bootstrap

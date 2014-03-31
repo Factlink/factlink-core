@@ -42,8 +42,8 @@ table td {
 
 table {
   border-collapse: collapse;
-  mso-table-lspace: 0pt;
-  mso-table-rspace: 0pt;
+  mso-table-lspace: 0;
+  mso-table-rspace: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -51,7 +51,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #wrapper {
-  margin: 0;
   padding: 0;
   width: 100% !important;
   line-height: 100% !important;
@@ -76,6 +75,7 @@ h1, h2, h3, h4, h5, h6 {
 .header-column {
   padding: 10px 0;
   border-bottom: $emailBaseBorderStyling;
+
   &.no-border {
     padding-bottom: 0;
   }
@@ -135,11 +135,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .unsubscribe-link {
-    color: $emailMutedFontColor;
-    font-weight: normal;
-    font-size: 12px;
-    text-decoration: underline;
-  }
+  color: $emailMutedFontColor;
+  font-weight: normal;
+  font-size: 12px;
+  text-decoration: underline;
+}
 
 .unsubscribe-link-devider {
   margin: 0 5px;

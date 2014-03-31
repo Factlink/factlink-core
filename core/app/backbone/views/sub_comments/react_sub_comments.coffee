@@ -32,7 +32,7 @@ ReactSubCommentsAdd = React.createBackboneClass
   _subComment: ->
     new SubComment
       content: $.trim(@state.text)
-      created_by: session.user().toJSON()
+      created_by: currentSession.user().toJSON()
 
   _submit: ->
     sub_comment = @_subComment()
@@ -52,7 +52,7 @@ ReactSubCommentsAdd = React.createBackboneClass
     _div ['sub-comment-add', 'spec-sub-comments-form'],
       _div ['sub-comment-avatar-container'],
         ReactOpinionatedAvatar
-          user: session.user()
+          user: currentSession.user()
           model: @props.fact_opinionators
           size: 30
       _div ['sub-comment-content-container sub-comment-add-area'],

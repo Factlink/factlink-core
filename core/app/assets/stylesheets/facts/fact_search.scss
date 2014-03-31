@@ -41,16 +41,15 @@
 }
 
 .fact-search-result {
+  @extend %ellipsis-inline-block;
   cursor: pointer;
   font-weight: 200;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
   overflow: hidden;
-
   padding: 5px 10px 3px;
-  @extend %ellipsis-inline-block;
-  display:block;
-  text-shadow: 0 1px 0 rgba(255,255,255, 0.5);
+  display: block;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 
   &.fact-search-result-selected {
     background-color: #ebf3f9;

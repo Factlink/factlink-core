@@ -6,10 +6,16 @@ module Interactors
 
       private
 
-      arguments :original_username, :fields
+      UPDATABLE_ATTRIBUTES = [:full_name, :username, :location, :biography,
+                              :receives_mailed_notifications, :receives_digest]
+
+      arguments :original_username, *UPDATABLE_ATTRIBUTES
 
       def execute
-        user.update_attributes! fields
+        new_attributes = attributes.slice(*UPDATABLE_ATTRIBUTES)
+                                   .delete_if {|k, v| v.nil? }
+
+        user.update_attributes! new_attributes
 
         {}
       end

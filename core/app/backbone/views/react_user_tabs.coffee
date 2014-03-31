@@ -1,6 +1,6 @@
 window.ReactUserTabs = React.createBackboneClass
   render: ->
-    return _span() unless FactlinkApp.isCurrentUser @model()
+    return _span() unless currentSession.isCurrentUser @model()
 
     spaced_middle_dot = " \u00b7 "
 
@@ -13,6 +13,8 @@ window.ReactUserTabs = React.createBackboneClass
         'About'
       spaced_middle_dot
       _a [
+        'main-region-tab-active' if @props.page == 'edit'
+        rel: 'backbone'
         href: "/#{@model().get('username')}/edit"
       ],
         'Edit'

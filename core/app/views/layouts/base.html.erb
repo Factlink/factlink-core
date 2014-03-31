@@ -46,9 +46,9 @@
     <%= render 'snippets/raven_js' %>
 
     <script>
-      FactlinkApp.start({factlinkAppMode: FactlinkAppMode.coreInSite});
+      Factlink.siteInitializer();
     </script>
-    
+
     <%= yield :alert_javascript %>
     <%= yield :specific_javascript %>
     <%= render 'snippets/google_analytics' %>

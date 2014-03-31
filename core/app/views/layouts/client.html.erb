@@ -20,13 +20,13 @@
 <body class="client">
   <div class="notification-center-alerts js-notification-center-alerts"></div>
 
-  <div class="js-discussion-sidebar-region"><%= yield %></div>
+  <div class="js-discussion-sidebar-region spec-discussion-sidebar-region"><%= yield %></div>
 
   <%= javascript_include_base %>
   <%= render 'snippets/raven_js' %>
 
   <script type="text/javascript">
-    FactlinkApp.start({factlinkAppMode: FactlinkAppMode.coreInClient});
+    Factlink.clientInitializer();
 
     Backbone.history.start({pushState: Modernizr.history});
   </script>

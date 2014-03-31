@@ -77,7 +77,6 @@ gem 'appsignal-redis'
 
 group :assets do
   gem 'uglifier', '~> 2.0'
-  gem 'hogan_assets', '~> 1.1.0' #1.2 or later include hogan 3.0 and somehow only generate empty templates.
 
   gem 'therubyracer', '~> 0.12.0'
 
@@ -90,8 +89,6 @@ group :assets do
   # Not the one you might typically find with Google
   # Very clear, no?
   gem "backbone-rails", '~> 1.0.0' #beware, backbone does not use semver!
-
-  gem "marionette-rails", '~> 1.4'
 
   gem "rails-assets-react"
   gem "rails-assets-jquery-autosize"
@@ -153,4 +150,5 @@ group :test, :development do # TODO why is there a :development here?
 
   gem 'sinon-chai-rails', '~> 1.0'
   gem 'sinon-rails', '~> 1.4'
+  gem 'scss-lint', '~> 0.20'
 end

@@ -1,9 +1,15 @@
+$form-line-height: 30px;
+
 .control-label {
   float: left;
   width: 160px;
-  padding-top: 5px;
+  line-height: $form-line-height;
   padding-right: 1em;
   text-align: right;
+}
+
+.controls {
+  line-height: $form-line-height;
 }
 
 .controls-information-item {
@@ -11,8 +17,8 @@
 }
 
 .control-group {
-  margin-bottom: 0.8em;
   @extend %clearfix;
+  margin-bottom: 0.8em;
 }
 
 .control-error {
@@ -20,11 +26,11 @@
 }
 
 .form-actions {
+  @extend %clearfix; // Adding clearfix to allow for float button containers
   background-color: transparent;
   padding: 15px 0;
   margin-top: 0.8em;
   margin-bottom: 0.8em;
   border-top: 1px solid #e5e5e5;
   padding-left: $horizontalComponentOffset;
-  @extend %clearfix; // Adding clearfix to allow for float button containers
 }

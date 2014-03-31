@@ -19,6 +19,7 @@ class window.User extends Backbone.Model
       "https://secure.gravatar.com/avatar/#{md5d_email}?size=#{size}&rating=PG&default=retro"
 
   link: -> "/#{@get('username')}"
+  editLink: -> "#{@link()}/edit"
 
   feed_activities: ->
     @_feed_activities ?= new UserActivities null, user: @
@@ -27,28 +28,38 @@ class window.User extends Backbone.Model
     !@following.isEmpty()
 
   follow: ->
-    session.user().following.create @,
+    currentSession.user().following.create @,
       error: =>
-        session.user().following.remove @
+        currentSession.user().following.remove @
         @set 'statistics_follower_count', @get('statistics_follower_count')-1
 
     @set 'statistics_follower_count', @get('statistics_follower_count')+1
     mp_track 'User: Followed'
 
   unfollow: ->
-    self = session.user().following.get(@id)
+    self = currentSession.user().following.get(@id)
     return unless self
 
     self.destroy
       error: =>
-        session.user().following.add @
+        currentSession.user().following.add @
         @set 'statistics_follower_count', @get('statistics_follower_count')+1
 
     @set 'statistics_follower_count', @get('statistics_follower_count')-1
     mp_track 'User: Unfollowed'
 
   followed_by_me: ->
-    session.user().following.some (model) =>
+    currentSession.user().following.some (model) =>
       model.get('username') == @get('username')
 
   password: -> @_password ?= new UserPassword {}, user: this
+
+  delete: (options) ->
+    # Sending data with DELETE request is not supported
+    # Most browsers support it anyway, except PhantomJS
+    default_options =
+      type: 'POST'
+      url: @url() + '/delete'
+      data: {password: options.password}
+
+    Backbone.ajax _.extend default_options, options

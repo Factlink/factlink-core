@@ -7,8 +7,8 @@ module PoltergeistStyleOverrides
         * { font-family:"Helvetica" !important;}
         html.phantom_js body { -webkit-transform: rotate(0.00001deg); }
         html.phantom_js body.client { overflow: auto; }
-        html.phantom_js .discussion-sidebar-container { position: absolute; min-height:100%; overflow-y: auto; bottom: auto; }
-        html.phantom_js .discussion-sidebar { position: relative; left: 300px; }
+        html.phantom_js .discussion-sidebar-outer { position: absolute; min-height:100%; overflow-y: auto; bottom: auto; }
+        html.phantom_js .discussion-sidebar-inner { position: relative; left: 300px; }
         img {
           display: inline-block;
           border: 1px solid #f0f;

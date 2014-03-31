@@ -34,7 +34,6 @@ class User
 
   field :receives_mailed_notifications,  type: Boolean, default: true
   field :receives_digest, type: Boolean, default: true
-  field :last_interaction_at,     type: DateTime, default: 0
 
   attr_accessible :username, :full_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
@@ -285,21 +284,20 @@ class User
     super
   end
 
-  after_create do |user|
-    Pavlov.command :'text_search/index_user', user: user
+  def update_search_index
+    if active?
+      fields = {username: username, full_name: full_name}
+      ElasticSearch::Index.new('user').add id, fields
+    else
+      ElasticSearch::Index.new('user').delete id
+    end
+  end
+
+  after_save do |user|
+    user.update_search_index
   end
 
   after_update do |user|
     UserObserverTask.handle_changes user
-
-    if user.changed?
-      Pavlov.command :'text_search/index_user',
-                  user: user,
-                  changed: user.changed
-    end
-  end
-
-  after_destroy do |user|
-    Pavlov.command(:'text_search/delete_user', object: user)
   end
 end

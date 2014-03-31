@@ -1,9 +1,9 @@
 checkConfirmedEmail = ->
-  return unless FactlinkApp.signedIn()
-  return if session.user().get('confirmed')
-  return if session.user().justCreated()
+  return unless currentSession.signedIn()
+  return if currentSession.user().get('confirmed')
+  return if currentSession.user().justCreated()
 
-  FactlinkApp.NotificationCenter.error """
+  Factlink.notificationCenter.error """
     Your email address has not yet been confirmed, please check your email inbox.
     <a href="/users/confirmation/new" target="_blank">
       Resend email.
@@ -14,4 +14,4 @@ checkConfirmedEmail = ->
 class window.NonConfirmedEmailWarning
   constructor: ->
     checkConfirmedEmail()
-    session.on 'change', checkConfirmedEmail
+    currentSession.on 'change', checkConfirmedEmail

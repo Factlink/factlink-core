@@ -120,11 +120,7 @@ describe User do
       it { expect(user).to_not be_hidden }
     end
     context "deleted user" do
-      let(:deleted_user) do
-        create(:user).tap do |user|
-          Pavlov.command('users/mark_as_deleted', user:user)
-        end
-      end
+      let(:deleted_user) { create :user, deleted: true }
       it { expect(deleted_user).to_not be_active }
       it { expect(deleted_user).to     be_hidden }
     end
@@ -133,9 +129,7 @@ describe User do
   describe 'scopes' do
     describe ".active" do
       it "doesn't return deleted users" do
-        user = create :user
-
-        Pavlov.command('users/mark_as_deleted', user:user)
+        user = create :user, deleted: true
 
         active_users = User.active.all
         expect(active_users).to be_empty

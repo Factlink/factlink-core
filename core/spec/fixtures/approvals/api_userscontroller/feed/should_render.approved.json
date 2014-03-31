@@ -6,12 +6,12 @@
     "id": "<id>",
     "fact": {
       "id": "<id>",
-      "site_url": "http://example.org/2.html",
-      "displaystring": "Fact 2",
+      "site_url": "http://example.org/1.html",
+      "displaystring": "Fact 1",
       "created_at": "<created_at>",
-      "site_title": "Fact title 2",
-      "url": "/f/2",
-      "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html#factlink-open-2"
+      "site_title": "Fact title 1",
+      "url": "/f/1",
+      "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html#factlink-open-1"
     },
     "comment": {
       "id": "<id>",
@@ -59,12 +59,12 @@
     "id": "<id>",
     "fact": {
       "id": "<id>",
-      "site_url": "http://example.org/2.html",
-      "displaystring": "Fact 2",
+      "site_url": "http://example.org/1.html",
+      "displaystring": "Fact 1",
       "created_at": "<created_at>",
-      "site_title": "Fact title 2",
-      "url": "/f/2",
-      "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html#factlink-open-2"
+      "site_title": "Fact title 1",
+      "url": "/f/1",
+      "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html#factlink-open-1"
     },
     "comment": {
       "id": "<id>",

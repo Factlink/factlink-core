@@ -16,7 +16,7 @@ window.ReactFeedSelection = React.createClass
 
   render: ->
     _div [],
-      if FactlinkApp.signedIn()
+      if currentSession.signedIn()
         _div ['feed-selection-row'],
           _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'global', id: 'FeedChoice_Global', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='global'  ]
           _label [ htmlFor: 'FeedChoice_Global' ],

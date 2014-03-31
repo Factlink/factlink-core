@@ -11,7 +11,7 @@ class ElasticSearch
     def add id, json_able
       HTTParty.put base_url + "/#{id}",
                    { body: json_able.to_json }
-      ElasticSearch.refresh if ElasticSearch.synchronous
+      ElasticSearch.refresh if Rails.env == 'test' # synchronous
     end
 
     def delete id

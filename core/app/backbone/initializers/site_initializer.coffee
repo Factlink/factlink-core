@@ -1,11 +1,55 @@
-window.FactlinkAppMode ?= {}
-window.FactlinkAppMode.coreInSite = (app) ->
-  app.onClientApp = false
-  FactlinkApp.addRegions(mainRegion: '#main-wrapper')
-  window.FactlinkApp.NotificationCenter = new NotificationCenter('.js-notification-center-alerts')
-  new window.NonConfirmedEmailWarning()
-  declareSiteRoutes()
+showComponent = (component)->
+  el = document.querySelector('#main-column')
+  React.renderComponent(component, el)
+
+class FactlinkRouter extends Backbone.Router
+  routes:
+    'feed': ->
+      showComponent ReactFeedSelection()
+      mp_track 'Viewed feed'
+
+    'search': 'search' # must be named
+
+    ':username/edit': ->
+      showComponent ReactProfileEdit model: currentSession.user()
+
+    ':username/notification-settings': ->
+      showComponent ReactNotificationSettings model: currentSession.user()
+
+    ':username/change-password': ->
+      showComponent ReactChangePassword model: currentSession.user().password()
+
+    ':username': (username) ->
+      user = new User(username: username)
+      user.fetch()
+
+      showComponent ReactProfile model: user
+
+  search: (params={}) ->
+    @once 'route', (route) ->
+      return if route == 'search'
+
+      $('.js-navbar-search-box').val('')
+
+    query = params['s']
+    $('.js-navbar-search-box').val(query)
+
+    results = new SearchResults [], search: query
+    results.fetch()
+
+    showComponent ReactSearchResults model: results
+
+    mp_track 'Search: Top bar search',
+      query: query
+
+
+Factlink.siteInitializer = ->
+  Factlink.commonInitializer()
+  Factlink.notificationCenter = new NotificationCenter('.js-notification-center-alerts')
+  new NonConfirmedEmailWarning
+  new FactlinkRouter
   enhanceSearchFormNavigation()
+  refreshOnSocialSignin()
 
 enhanceSearchFormNavigation = ->
   $('.js-navbar-search-form').on 'submit', ->
@@ -13,8 +57,7 @@ enhanceSearchFormNavigation = ->
     Backbone.history.navigate url, true
     false
 
-
-declareSiteRoutes = ->
-  new ProfileRouter #first, as then it doesn't match index pages such as "/m" using "/:username"
-  new SearchRouter
-  new FeedsController
+refreshOnSocialSignin = ->
+  currentSession.on 'user_refreshed', ->
+    # Top bar is still static and user-dependent
+    window.location.reload(true)

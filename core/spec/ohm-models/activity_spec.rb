@@ -23,10 +23,7 @@ describe Activity do
   describe "mailing activities" do
     context "creating an activity" do
       it "should invoke send_mail_for_activity" do
-        interactor = double
-        Interactors::SendMailForActivity.stub(:new)
-            .and_return(interactor)
-        interactor.should_receive(:call)
+        Backend::Activities.should_receive(:send_mail_for_activity).with(activity: an_instance_of(Activity))
 
         Activity.create action: :followed_user
       end
@@ -111,8 +108,8 @@ describe Activity do
     end
 
     it "should not be valid if the user is deleted" do
-      activity = Activity.create(user: gu, action: :followed_user)
-      Pavlov.command('users/mark_as_deleted', user:gu.user)
+      deleted_user = create :user, deleted: true
+      activity = Activity.create(user: deleted_user.graph_user, action: :followed_user)
       activity = Activity[activity.id]
       expect(activity).to_not be_still_valid
     end

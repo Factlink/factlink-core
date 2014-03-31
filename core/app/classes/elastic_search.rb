@@ -1,14 +1,11 @@
 require 'httparty'
 
 require_relative 'elastic_search/index'
+require_relative 'elastic_search/search'
 
 class ElasticSearch
   def self.url
     "http://#{FactlinkUI::Application.config.elasticsearch_url}"
-  end
-
-  def self.synchronous
-    false
   end
 
   # http://www.elasticsearch.org/guide/reference/api/admin-indices-refresh.html

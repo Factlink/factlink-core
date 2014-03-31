@@ -4,22 +4,18 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      attribute :user_id, String
+      attribute :username, String
       attribute :current_user_password, String
       attribute :pavlov_options
 
       def authorized?
-        can? :destroy, user
+        can? :destroy, User.find(username)
       end
 
       private
 
-      def user
-        @user ||= User.find user_id
-      end
-
       def validate
-        validate_hexadecimal_string :user_id, user_id
+        validate_string :username, username
         fail Pavlov::ValidationError, 'current_user_password is invalid.' unless password_valid
       end
 
@@ -28,8 +24,7 @@ module Interactors
       end
 
       def execute
-        command :'users/mark_as_deleted', user: user
-        command :'users/anonymize_user_model', user_id: user_id
+        Backend::Users.delete username: username
       end
     end
   end

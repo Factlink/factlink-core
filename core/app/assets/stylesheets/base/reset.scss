@@ -17,13 +17,13 @@ input, textarea {
   padding: 4px 6px;
   border-radius: $baseBorderRadius;
   border: 1px solid $inputBorder;
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
   transition: border linear .2s, box-shadow linear .2s;
 
   &:focus {
-    border-color: rgba(82,168,236,.8);
+    border-color: rgba(82, 168, 236, .8);
     outline: none;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
   }
 }
 
@@ -31,6 +31,7 @@ input, textarea {
 input:focus:invalid {
   color: #b94a48;
   border-color: #ee5f5b;
+
   &:focus {
     border-color: darken(#ee5f5b, 10%);
     box-shadow: 0 0 6px lighten(#ee5f5b, 20%);

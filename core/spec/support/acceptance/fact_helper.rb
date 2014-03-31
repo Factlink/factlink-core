@@ -4,7 +4,7 @@ module Acceptance
 
     def open_discussion_sidebar_for factlink
       visit '/client/blank'
-      find('.spec-discussion-sidebar-container')
+      find('.spec-discussion-sidebar-region')
       page.execute_script "clientEnvoy.showFactlink(#{factlink.id})"
       find('.spec-button-believes')
     end

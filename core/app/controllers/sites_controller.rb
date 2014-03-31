@@ -1,15 +1,4 @@
 class SitesController < ApplicationController
-  # this action is called so many times, and is so fast
-  # it totally distorts our newrelic stats, therefore
-  # not counted in apdex
-  newrelic_ignore_apdex only: [:facts_count_for_url] if defined?(NewRelic)
-
-  # OBSOLETE
-  # TODO REMOVE MARCH 15 2014
-  def facts_count_for_url
-    render_jsonp({ count: 0 })
-  end
-
   def facts_for_url
     url = params[:url]
 
