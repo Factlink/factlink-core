@@ -1,3 +1,7 @@
+determineBrowser = ->
+  [ 'chrome', 'firefox', 'safari', 'phantom_js', 'unsupported-browser' ]
+  .filter( (browser) -> $('html.'+browser).length
+  )[0]
 window.ReactInstallExtensionButton = React.createClass
   displayName: 'ReactInstallExtensionButton'
   render: ->
