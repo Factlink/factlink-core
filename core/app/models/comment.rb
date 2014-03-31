@@ -11,10 +11,6 @@ class Comment
 
   index({ fact_data: 1, opinion: 1, created_at: 1})
 
-  def to_s
-    content
-  end
-
   after_destroy do |comment|
     SubComment.destroy_all(parent_id: comment.id.to_s) #delete_all doesn't work?
   end
