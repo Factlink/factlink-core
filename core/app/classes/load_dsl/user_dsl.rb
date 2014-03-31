@@ -9,14 +9,10 @@ class LoadDsl
     end
 
     def load_fact(fact_string,url="http://example.org/", opts={})
-      f = Fact.create(site: load_site(url))
+      dead_fact = Backend::Facts.create displaystring: fact_string,
+        url: url, site_title: opts[:title] || url
 
-      f.require_saved_data
-      f.data.displaystring = fact_string
-      f.data.title = opts[:title] || url
-      f.data.save
-
-      f
+      Fact[dead_fact.id]
     end
 
     def fact(fact_string,url="http://example.org/", opts={}, &block)
