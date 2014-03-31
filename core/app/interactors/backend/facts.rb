@@ -66,11 +66,13 @@ module Backend
     end
 
     def dead(fact)
+      fact_data = fact.data
+
       DeadFact.new id:fact.id,
-                   site_url: fact.data.site_url,
-                   displaystring: fact.data.displaystring,
-                   created_at: fact.data.created_at,
-                   site_title: fact.data.title
+                   site_url: fact_data.site_url,
+                   displaystring: fact_data.displaystring
+                   created_at: fact_data.created_at,
+                   site_title: fact_data.title
     end
   end
 end
