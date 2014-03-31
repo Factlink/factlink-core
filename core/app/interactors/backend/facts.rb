@@ -46,7 +46,7 @@ module Backend
       fact_datas = FactData.where site_url: UrlNormalizer.normalize(site_url)
 
       fact_datas.map do |fact_data|
-        dead(fact_data.fact)
+        {id: fact_data.fact_id, displaystring: fact_data.displaystring}
       end
     end
 
