@@ -13,14 +13,5 @@ module Acceptance
       fact_data = create :fact_data, displaystring: 'long'*30
       create :fact, data: fact_data
     end
-
-    def click_agree fact, user
-      find('.spec-button-believes').click
-
-
-      eventually_succeeds do
-        expect(fact.believable.opinion_of_graph_user(user.graph_user)).to eq "believes"
-      end
-    end
   end
 end

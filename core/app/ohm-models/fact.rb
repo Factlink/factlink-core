@@ -30,10 +30,6 @@ class Fact < OurOhm
     self.data = localdata
   end
 
-  def believable
-    @believable ||= Believable.new(key)
-  end
-
   #returns whether a given fact should be considered
   #unsuitable for usage/viewing
   def self.invalid(f)
@@ -47,7 +43,7 @@ class Fact < OurOhm
   end
 
   def deletable?
-    believable.opinionated_users_ids.length == 0 &&
+    Believable.new(key).opinionated_users_ids.length == 0 &&
       Comment.where(fact_data_id: data_id).length == 0
   end
 

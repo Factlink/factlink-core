@@ -2,6 +2,7 @@ require 'acceptance_helper'
 
 describe "factlink", type: :feature do
   include FactHelper
+  include PavlovSupport
   include Acceptance::FactHelper
   include Acceptance::AuthenticationHelper
   include Acceptance::CommentHelper
@@ -14,7 +15,14 @@ describe "factlink", type: :feature do
     it "can be agreed" do
       @factlink = create :fact
       open_discussion_sidebar_for @factlink
-      click_agree @factlink, @user
+
+      find('.spec-button-believes').click
+
+      eventually_succeeds do
+        as(@user) do |pavlov|
+          expect(pavlov.interactor(:'facts/votes', fact_id: @factlink.id).length).to eq 1
+        end
+      end
     end
 
     it "should find a factlink when searching on a exact phrase containing small words" do
