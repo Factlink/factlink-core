@@ -6,5 +6,12 @@ class SubComment
   belongs_to :parent, class_name: 'Comment'
 
   field :content,           type: String
-  belongs_to :created_by, class_name: 'User'
+
+  field :created_by_id, type: Moped::BSON::ObjectId
+  def created_by
+    User.where(id: created_by_id).first
+  end
+  def created_by=(user)
+    self[:created_by_id] = user.id
+  end
 end
