@@ -10,6 +10,7 @@
 }
 
 .icon-firefox,
+.icon-star,
 .icon-ok,
 .icon-remove,
 .icon-info-sign,
@@ -53,6 +54,7 @@
 }
 
 .icon-firefox:before { content: '\e811'; } /* '' */
+.icon-star:before { content: '\e80b'; } /* '' */
 .icon-ok:before { content: '\e801'; } /* '' */
 .icon-remove:before { content: '\e802'; } /* '' */
 .icon-info-sign:before { content: '\e80d'; } /* '' */
