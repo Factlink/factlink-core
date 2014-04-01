@@ -100,6 +100,7 @@ window.ReactAddComment = React.createBackboneClass
   _onTextareaChange: (text) ->
     @setState(text: text)
     @setState(controlsOpened: true) if text.length > 0
+    mp_track "Annotation: Started typing"
 
   _onSearchInsert: (text) ->
     @refs.textarea.insert text
