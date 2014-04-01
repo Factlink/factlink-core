@@ -34,7 +34,7 @@ class ClientEnvoy
 
     fact.once 'sync', =>
       @_senderEnvoy 'highlightNewFactlink', displaystring, fact.id
-      mp_track 'Factlink: Created'
+      mp_track 'Annotation: Created'
 
     showInSidebar ReactDiscussion
       model: fact

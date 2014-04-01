@@ -112,7 +112,7 @@ window.ReactAddComment = React.createBackboneClass
     @model().unshift(comment)
     comment.saveWithFactAndWithState {},
       success: ->
-        mp_track "Factlink: Added comment",
+        mp_track "Annotation: Added comment",
           factlink_id: comment.collection.fact.id
 
     @setState @getInitialState()
