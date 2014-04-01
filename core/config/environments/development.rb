@@ -40,6 +40,7 @@ FactlinkUI::Application.configure do
   config.action_controller.perform_caching = true
 
   $stdout.sync = true
+  $stderr.sync = true
 
   config.lograge.enabled = true
 
