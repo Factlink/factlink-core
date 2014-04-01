@@ -67,7 +67,8 @@ sudo apt-get -y install \
            icedtea-7-plugin \
            stress \
            htop \
-           postgresql \
+           postgresql-9.3 \
+           pgadmin3 \
            libpq-dev \
            imagemagick \
            php5-curl \
