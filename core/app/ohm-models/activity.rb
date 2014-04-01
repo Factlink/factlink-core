@@ -71,14 +71,6 @@ class Activity < OurOhm
     res
   end
 
-  def to_hash_without_time
-    h = { user: user,
-          action: action.to_sym,
-          subject: subject }
-    h[:object] = object if object
-    h
-  end
-
   # WARNING: if this method returns false, we assume it will never become
   #          valid again either, and remove/destroy freely.
   def still_valid?
