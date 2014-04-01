@@ -26,29 +26,6 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
   padding-right: $votePadding;
 }
 
-.comment-believes,
-.comment-disbelieves,
-.comment-no-opinion {
-  height: 100%;
-  display: inline-block;
-  vertical-align: middle;
-  border-radius: 4px;
-  width: 3px;
-  margin-right: 1px;
-}
-
-.comment-believes {
-  background: $believesEvidenceImpactColor;
-}
-
-.comment-disbelieves {
-  background: $disbelievesEvidenceImpactColor;
-}
-
-.comment-no-opinion {
-  background: $doubtsEvidenceImpactColor;
-}
-
 .comment-post-heading {
   margin-bottom: 5px;
 }
