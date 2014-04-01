@@ -193,20 +193,8 @@ $arrowSize: 5px;
   }
 }
 
-.button-opinion-believes, .button-opinion-disbelieves {
+.button-interesting {
   @extend .button;
-  padding: 0 5px;
+  padding: 0 5px 0 0;
   transition: background-color 0.5s ease;
-}
-
-.button-opinion-active {
-  &.button-opinion-believes {
-    background-color: $green;
-    color: darken($green, 30);
-  }
-
-  &.button-opinion-disbelieves {
-    background-color: $red;
-    color: darken($red, 45);
-  }
 }
