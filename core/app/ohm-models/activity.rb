@@ -42,7 +42,6 @@ class Activity < OurOhm
     result = super
 
     Resque.enqueue(ProcessActivity, id)
-    Backend::Activities.send_mail_for_activity activity: self
 
     result
   end

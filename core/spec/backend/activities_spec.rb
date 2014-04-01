@@ -18,7 +18,7 @@ describe Backend::Activities do
         }
       end
 
-      create_default_activities_for user
+      create_default_activities_for user, send_mails: true
 
       verify { mails_by_username_and_activity }
     end

@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Fact do
+  include PavlovSupport
+
   subject(:fact) { create :fact }
 
   let(:factlink) { create :fact }
@@ -51,7 +53,9 @@ describe Fact do
     it "is false when people have given their opinion on the fact" do
       fact = create :fact
 
-      Pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes', pavlov_options: {current_user: (create :user)})
+      as(create :user) do |pavlov|
+        pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes')
+      end
 
       expect(fact.deletable?).to be_false
     end
@@ -59,7 +63,9 @@ describe Fact do
     it "is false when a comment has been given" do
       fact = create :fact
 
-      Pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, content: 'foo', pavlov_options: {current_user: (create :user)})
+      as(create :user) do |pavlov|
+        pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, content: 'foo')
+      end
 
       expect(fact.deletable?).to be_false
     end

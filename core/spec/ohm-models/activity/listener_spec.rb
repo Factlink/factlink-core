@@ -21,12 +21,6 @@ describe Activity::Listener do
     Activity::ListenerCreator.new.create_activity_listeners
   end
 
-
-  def send_mail_for_activity_should_be_invoked
-    Backend::Activities.should_receive(:send_mail_for_activity).with(activity: an_instance_of(Activity))
-  end
-
-
   describe :new do
     it "should call its dsl with the block if there is a block" do
       block = proc { puts "hoi" }
@@ -45,8 +39,6 @@ describe Activity::Listener do
       subject.activity_for = Blob
       subject.listname = 'foo'
 
-      send_mail_for_activity_should_be_invoked
-
       @a = Activity.create subject: b1, object: f1, action: :followed_user
     end
 
@@ -62,10 +54,6 @@ describe Activity::Listener do
   end
 
   describe '#matches_any?' do
-    before do
-      send_mail_for_activity_should_be_invoked
-    end
-
     it "should return no result when no queries are defined" do
       listener = Activity::Listener.new do
         activity_for "Blob"
@@ -109,8 +97,6 @@ describe Activity::Listener do
       subject.activity_for = Blob
       subject.listname = 'foo'
 
-      send_mail_for_activity_should_be_invoked
-
       @a = Activity.create subject: b1, object: f1, action: :followed_user
     end
 
@@ -151,10 +137,6 @@ describe Activity::Listener do
   end
 
   describe :process do
-    before do
-      send_mail_for_activity_should_be_invoked
-    end
-
     it "should add the activities to a timestamped set on the object" do
       subject.activity_for = 'Foo'
       subject.listname = :activities

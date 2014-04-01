@@ -20,21 +20,7 @@ describe Activity do
     end
   end
 
-  describe "mailing activities" do
-    context "creating an activity" do
-      it "should invoke send_mail_for_activity" do
-        Backend::Activities.should_receive(:send_mail_for_activity).with(activity: an_instance_of(Activity))
-
-        Activity.create action: :followed_user
-      end
-    end
-  end
-
   context "after creating one activity" do
-    before do
-      Pavlov.stub(:interactor).with(:'send_mail_for_activity', activity: anything, pavlov_options: anything)
-    end
-
     before :each do
       a = Activity.create(
              :user => gu,

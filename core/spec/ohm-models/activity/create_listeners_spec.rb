@@ -9,13 +9,6 @@ describe 'activity queries' do
 
   let(:pavlov_options) { {ability: (double can?: true)} }
 
-  before do
-    # TODO: remove this once creating an activity does not cause an email to be sent
-    stub_const 'Interactors::SendMailForActivity', Class.new
-    Interactors::SendMailForActivity.stub(new: double(call: nil),
-                                          attribute_set: [double(name:'pavlov_options'),double(name: 'activity')])
-  end
-
   describe :comments do
     context "creating a comment" do
       it "creates a notification for the interacting users" do
