@@ -24,11 +24,7 @@ class window.Opinionators extends Backbone.Factlink.Collection
     @fact.saveUnlessNew =>
       current_vote = @vote_for(currentSession.user().get('username'))
       if current_vote
-        if current_vote.get('type') == type
-          current_vote.destroy()
-        else
-          current_vote.set type: type
-          current_vote.save()
+        current_vote.destroy()
       else
         @create
           username: currentSession.user().get('username')
