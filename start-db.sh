@@ -4,7 +4,7 @@ onexit() {
   kill $(jobs -p)
   echo "Waiting for children to exit..."
   sleep 1
-  kill -9 0
+  kill -9 -$$ 2>/dev/null
 }
 trap onexit SIGINT SIGTERM EXIT INT QUIT TERM
 cd "$( dirname "${BASH_SOURCE[0]}" )"
