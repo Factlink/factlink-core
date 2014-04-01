@@ -7,8 +7,6 @@ describe 'activity queries' do
 
   include PavlovSupport
 
-  let(:pavlov_options) { {ability: (double can?: true)} }
-
   describe :comments do
     context "creating a comment" do
       it "creates a notification for the interacting users" do
@@ -19,10 +17,10 @@ describe 'activity queries' do
 
         user = create(:user)
 
-        interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
-                                                       type: 'believes', content: 'tex message',
-                                                       pavlov_options: { current_user: user })
-        comment = interactor.call
+        comment = nil
+        as(user) do |pavlov|
+          comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'believes', content: 'content')
+        end
 
         gu1.notifications.map(&:to_hash_without_time).should == [
           {user: user.graph_user, action: :created_comment, subject: Comment.find(comment.id), object: fact }
@@ -35,10 +33,10 @@ describe 'activity queries' do
         end
         user = create(:user)
 
-        interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
-                                                       type: 'believes', content: 'tex message',
-                                                       pavlov_options: { current_user: user })
-        comment = interactor.call
+        comment = nil
+        as(user) do |pavlov|
+          comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'believes', content: 'content')
+        end
 
         gu1.stream_activities.map(&:to_hash_without_time).should == [
           {user: user.graph_user, action: :created_comment, subject: Comment.find(comment.id), object: fact }
@@ -52,10 +50,10 @@ describe 'activity queries' do
           pavlov.interactor(:'users/follow_user', username: user.username)
         end
 
-        interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
-                                                       type: 'believes', content: 'tex message',
-                                                       pavlov_options: { current_user: user })
-        comment = interactor.call
+        comment = nil
+        as(user) do |pavlov|
+          comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'believes', content: 'content')
+        end
 
         gu1.stream_activities.map(&:to_hash_without_time).should == [
           {user: user.graph_user, action: :created_comment, subject: Comment.find(comment.id), object: fact }
