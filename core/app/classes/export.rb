@@ -1,23 +1,5 @@
-def marshall(object, name)
-  value = object.send(name)
-
-  if value.is_a?(Time)
-    return 'Time.parse(' + value.utc.iso8601.inspect + ')'
-  else
-    return value.inspect
-  end
-end
-
-def hash_field_for(object, name)
-  name + ': ' + marshall(object, name) + ', '
-end
-
-def assignment_for(object, object_name, name)
-  object_name + '.' + name + ' = ' + marshall(object, name) + '; '
-end
-
-def export_database(filename:)
-  File.open(filename, 'w') do |file|
+class Export
+  def export
     output = ''
 
     User.all.each do |user|
@@ -67,6 +49,26 @@ def export_database(filename:)
       end
     end
 
-    file.write output
+    output
+  end
+
+  private
+
+  def marshall(object, name)
+    value = object.send(name)
+
+    if value.is_a?(Time)
+      return 'Time.parse(' + value.utc.iso8601.inspect + ')'
+    else
+      return value.inspect
+    end
+  end
+
+  def hash_field_for(object, name)
+    name + ': ' + marshall(object, name) + ', '
+  end
+
+  def assignment_for(object, object_name, name)
+    object_name + '.' + name + ' = ' + marshall(object, name) + '; '
   end
 end

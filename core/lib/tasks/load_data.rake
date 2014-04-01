@@ -28,8 +28,9 @@ namespace :db do
   end
 
   task :export, [:filename] => [:environment, :migrate] do |task, args|
-    require File.expand_path('../../../db/export.rb', __FILE__)
-    export_database filename: args[:filename]
+    File.open(args[:filename], 'w') do |file|
+      file.write Export.new.export
+    end
   end
 
   task :help do
