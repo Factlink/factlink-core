@@ -10,7 +10,7 @@ sleep 1
 bundle exec rake db:migrate
 bundle exec rake db:init
 
-kill ${FOREMAN_PID}
+kill $FOREMAN_PID
 wait
 
 bin/check_dependencies.sh || exit 1
