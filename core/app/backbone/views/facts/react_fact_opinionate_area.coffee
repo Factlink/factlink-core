@@ -60,15 +60,16 @@ FactOpinionateButton = React.createBackboneClass
 
     _div ["fact-opinionate-button"],
       _button [
-            "button button-opinion-#{@props.opinion_type}"
-            "spec-button-#{@props.opinion_type}"
-            'button-opinion-active' if is_opinion
+            "button button-interesting spec-button-interesting"
             onClick: => @refs.signinPopover.submit(=> @_onClick())
           ],
         _div ['interesting-tally'],
           opinionTallyTotal
 
-        _i ["icon-thumbs-#{@props.opinion_type}"]
+        _i [
+          "icon-thumbs-believes"
+          'button-interesting-active' if is_opinion
+        ]
         'interesting'
 
         ReactSigninPopover

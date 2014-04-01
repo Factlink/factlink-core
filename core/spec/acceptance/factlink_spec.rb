@@ -16,7 +16,7 @@ describe "factlink", type: :feature do
       @factlink = create :fact
       open_discussion_sidebar_for @factlink
 
-      find('.spec-button-believes').click
+      find('.spec-button-interesting').click
 
       eventually_succeeds do
         as(@user) do |pavlov|
