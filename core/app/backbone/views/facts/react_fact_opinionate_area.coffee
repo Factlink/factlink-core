@@ -19,7 +19,6 @@ ReactOpinionatorsAvatars = React.createClass
 
   _opinionators: ->
     @props.model
-      .filter( (opinionator) => opinionator.get('type') == @props.opinion_type)
 
   render: ->
     number_of_places = 5
@@ -92,9 +91,6 @@ window.ReactOpinionateArea = React.createBackboneClass
       ReactOpinionatorsAvatars
         model: @model()
         opinion_type: 'believes'
-      ReactOpinionatorsAvatars
-        model: @model()
-        opinion_type: 'disbelieves'
 
   render: ->
     _div [''],
