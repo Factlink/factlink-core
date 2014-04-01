@@ -12,20 +12,13 @@ class Export
       output << hash_field_for(user, 'receives_digest')
       output << '}); '
 
-      output << assignment_for(user, 'user', 'created_at')
-      output << assignment_for(user, 'user', 'updated_at')
-      output << assignment_for(user, 'user', 'deleted')
-      output << assignment_for(user, 'user', 'admin')
-      output << assignment_for(user, 'user', 'email')
-      output << assignment_for(user, 'user', 'registration_code')
-      output << assignment_for(user, 'user', 'reset_password_token')
-      output << assignment_for(user, 'user', 'reset_password_sent_at')
-      output << assignment_for(user, 'user', 'remember_created_at')
-      output << assignment_for(user, 'user', 'sign_in_count')
-      output << assignment_for(user, 'user', 'current_sign_in_at')
-      output << assignment_for(user, 'user', 'last_sign_in_at')
-      output << assignment_for(user, 'user', 'current_sign_in_ip')
-      output << assignment_for(user, 'user', 'last_sign_in_ip')
+      output << ['created_at', 'updated_at', 'deleted', 'admin', 'email',
+       'registration_code', 'reset_password_token', 'reset_password_sent_at',
+       'remember_created_at', 'sign_in_count', 'current_sign_in_at',
+       'last_sign_in_at', 'current_sign_in_ip', 'last_sign_in_ip'].map do |name|
+
+        assignment_for(user, 'user', name)
+      end.join('')
 
       output << 'user.password = "some_dummy"; ' # before setting encrypted_password
       output << assignment_for(user, 'user', 'encrypted_password')
