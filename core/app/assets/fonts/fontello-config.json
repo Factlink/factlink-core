@@ -113,18 +113,6 @@
       "css": "twitter",
       "code": 59414,
       "src": "fontawesome"
-    },
-    {
-      "uid": "tau7t0t38662eqxrb80ozeiase5em2x9",
-      "css": "thumbs-up",
-      "code": 59392,
-      "src": "typicons"
-    },
-    {
-      "uid": "ani12ucvy2plqmykysnk4zd9i24cmxqp",
-      "css": "thumbs-down",
-      "code": 59399,
-      "src": "typicons"
     }
   ]
 }
