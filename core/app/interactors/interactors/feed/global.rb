@@ -19,8 +19,8 @@ module Interactors
       end
 
       def validate
-        validate_string :timestamp, timestamp if timestamp
-        validate_string :count, count if count
+        validate_string :timestamp, timestamp unless timestamp.nil?
+        validate_string :count, count unless count.nil?
       end
     end
   end
