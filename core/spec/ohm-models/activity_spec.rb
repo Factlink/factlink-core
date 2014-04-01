@@ -88,23 +88,6 @@ describe Activity do
     end
   end
 
-  describe :to_hash_without_time do
-    it "should return a hash without time" do
-      hash = {user: gu, action: :does, subject: b1, object: b2}
-      Activity.new(hash).to_hash_without_time.should == hash
-    end
-
-    it "should work when object is nil" do
-      hash = {user: gu, action: :does, subject: b1}
-      Activity.new(hash).to_hash_without_time.should == hash
-    end
-
-    it "should always return the action as a symbol" do
-      hash =  {user: gu, action: "does", subject: b1}
-      Activity.new(hash).to_hash_without_time.should == {user: gu, action: :does, subject: b1}
-    end
-  end
-
   describe 'list management' do
     let(:activity) do Activity.create(
              :user => gu,
