@@ -63,4 +63,14 @@ fi
 
 proxy/bin/bootstrap
 
-echo "Your factlink development environment is done.  Happy hacking!"
+
+if [ "$PROXY_BRANCH" != "refs/heads/master" ]; then
+  echo -e "\n\n"
+  for i in {1..5}
+  do
+    echo 'WARNING: Your proxy subrepo is NOT at the master branch!'
+  done
+else
+  echo "Your factlink development environment is done.  Happy hacking!"
+fi
+
