@@ -1,9 +1,9 @@
 ReactOpinionatorsAvatar = React.createClass
+  displayName: 'ReactOpinionatorsAvatar'
+
   mixins: [
     React.BackboneMixin('user')
   ]
-
-  displayName: 'ReactOpinionatorsAvatar'
 
   render: ->
     _span ['opinionators-avatar'],
