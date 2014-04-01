@@ -15,6 +15,8 @@ $avatarSize: 24px;
 .button-interesting-star {
   color: lightgrey;
   transition: color 0.5s ease;
+  position: relative;
+  top: 1px;
 }
 
 .button-interesting-star-active {
