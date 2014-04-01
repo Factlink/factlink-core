@@ -20,7 +20,7 @@ ReactOpinionatorsAvatars = React.createClass
     @props.model
 
   render: ->
-    number_of_places = 5
+    number_of_places = 10
 
     if @_opinionators().length <= number_of_places
       take = number_of_places
