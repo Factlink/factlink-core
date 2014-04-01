@@ -27,6 +27,11 @@ namespace :db do
     puts "Imported #{file} succesfully"
   end
 
+  task :export, [:filename] => [:environment, :migrate] do |task, args|
+    require File.expand_path('../../../db/export.rb', __FILE__)
+    export_database filename: args[:filename]
+  end
+
   task :help do
     message = <<-eos
 
@@ -39,6 +44,8 @@ namespace :db do
       rake db:truncate              # Truncate database
       rake db:truncate_keep_users   # Truncate database, but keep the users
       rake db:init                  # Import the dump to the database
+      rake db:export[dump.rb]       # Export the database to dump.rb
+      |                             # Import with 'rails c < dump.rb'
       rake db:help                  # Show this help file
 
     eos
