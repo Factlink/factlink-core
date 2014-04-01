@@ -1,0 +1,55 @@
+[
+  {
+    "timestamp": "<timestamp>",
+    "action": "created_sub_comment",
+    "created_at": "<created_at>",
+    "id": "<id>",
+    "fact": {
+      "id": "<id>",
+      "site_url": "http://example.org/9.html",
+      "displaystring": "Fact 9",
+      "created_at": "<created_at>",
+      "site_title": "Fact title 9",
+      "url": "/f/1",
+      "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F9.html#factlink-open-1"
+    },
+    "comment": {
+      "id": "<id>",
+      "created_by": {
+        "id": "<id>",
+        "name": "John18 Doe18",
+        "username": "johndoe18",
+        "gravatar_hash": "c3b4056730f63ce25983dd7d1e66ceab",
+        "deleted": false
+      },
+      "created_at": "<created_at>",
+      "formatted_content": "content",
+      "sub_comments_count": 2,
+      "is_deletable": false,
+      "tally": {
+        "believes": 1,
+        "disbelieves": 0,
+        "current_user_opinion": "no_vote"
+      }
+    },
+    "sub_comment": {
+      "id": "<id>",
+      "created_by": {
+        "id": "<id>",
+        "name": "John18 Doe18",
+        "username": "johndoe18",
+        "gravatar_hash": "c3b4056730f63ce25983dd7d1e66ceab",
+        "deleted": false
+      },
+      "created_at": "<created_at>",
+      "formatted_content": "content"
+    },
+    "user": {
+      "id": "<id>",
+      "name": "John18 Doe18",
+      "username": "johndoe18",
+      "gravatar_hash": "c3b4056730f63ce25983dd7d1e66ceab",
+      "deleted": false
+    }
+  }
+]

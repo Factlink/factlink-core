@@ -1,0 +1,43 @@
+[
+  {
+    "timestamp": "<timestamp>",
+    "action": "created_comment",
+    "created_at": "<created_at>",
+    "id": "<id>",
+    "fact": {
+      "id": "<id>",
+      "site_url": "http://example.org/2.html",
+      "displaystring": "Fact 2",
+      "created_at": "<created_at>",
+      "site_title": "Fact title 2",
+      "url": "/f/1",
+      "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html#factlink-open-1"
+    },
+    "comment": {
+      "id": "<id>",
+      "created_by": {
+        "id": "<id>",
+        "name": "John4 Doe4",
+        "username": "johndoe4",
+        "gravatar_hash": "4a44954117cfc0852a0cbd709a634789",
+        "deleted": false
+      },
+      "created_at": "<created_at>",
+      "formatted_content": "content",
+      "sub_comments_count": 0,
+      "is_deletable": true,
+      "tally": {
+        "believes": 1,
+        "disbelieves": 0,
+        "current_user_opinion": "no_vote"
+      }
+    },
+    "user": {
+      "id": "<id>",
+      "name": "John4 Doe4",
+      "username": "johndoe4",
+      "gravatar_hash": "4a44954117cfc0852a0cbd709a634789",
+      "deleted": false
+    }
+  }
+]

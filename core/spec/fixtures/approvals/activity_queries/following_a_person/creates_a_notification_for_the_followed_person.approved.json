@@ -1,0 +1,8 @@
+[
+  {
+    "username": "johndoe23",
+    "subject_class": "GraphUser",
+    "object_class": null,
+    "action": "followed_user"
+  }
+]
