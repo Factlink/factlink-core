@@ -2,12 +2,6 @@
 //       since it's quite distinct from voting (on comments)
 
 $avatarSize: 24px;
-
-.fact-opinionators {
-  margin-top: 10px;
-  display: inline-block;
-}
-
 .opinionators-avatar,
 .opinionators-more {
   margin-right: 4px;
@@ -45,4 +39,7 @@ $avatarSize: 24px;
   color: #F5A623;
 }
 
+.interested-avatars {
+  margin-bottom: 10px;
+}
 

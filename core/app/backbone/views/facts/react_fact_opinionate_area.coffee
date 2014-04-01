@@ -30,7 +30,7 @@ ReactOpinionatorsAvatars = React.createClass
       take = number_of_places - 1
       show_plus = true
 
-    _div ["fact-opinionators"],
+    _div ["interested-avatars"],
       @_opinionators()
         .slice(0,take)
         .map (opinionator) ->
