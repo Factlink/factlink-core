@@ -2,24 +2,6 @@
 //       since it's quite distinct from voting (on comments)
 
 $avatarSize: 24px;
-.opinionators-avatar,
-.opinionators-more {
-  margin-right: 4px;
-}
-
-.opinionators-avatar-image {
-  vertical-align: top;
-  border-radius: 3px;
-}
-
-.opinionators-more {
-  background: $green;
-  font-weight: 600;
-  color: white;
-  padding: 0 5px;
-  border-radius: 3px;
-  line-height: $avatarSize;
-}
 
 .button-interesting-tally {
   font-weight: 600;
@@ -41,5 +23,31 @@ $avatarSize: 24px;
 
 .interested-avatars {
   margin-bottom: 10px;
+}
+
+.interested-avatar {
+  display: inline-block;
+  margin-left: 4px;
+  &:first-child {
+    margin-left: 0px;
+  }
+}
+
+.opinionators-avatar-image {
+  vertical-align: top;
+  border-radius: 3px;
+}
+
+.interested-avatars-more {
+  margin-left: 3px;
+  background: $blue;
+  font-weight: 600;
+  color: white;
+  padding: 0 5px;
+  border-radius: 3px;
+  display: inline-block;
+  min-width: $avatarSize;
+  line-height: $avatarSize;
+  vertical-align: top;
 }
 

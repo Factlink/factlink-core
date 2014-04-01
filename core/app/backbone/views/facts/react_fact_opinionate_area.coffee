@@ -6,10 +6,9 @@ ReactOpinionatorsAvatar = React.createClass
   ]
 
   render: ->
-    _span ['opinionators-avatar'],
-      _a [ href: @props.user.link(), rel:"backbone"],
-        _img ["image-24px", "opinionators-avatar-image",
-              src: @props.user.avatar_url(24)]
+    _a ["interested-avatar", href: @props.user.link(), rel:"backbone"],
+      _img ["image-24px", "opinionators-avatar-image",
+            src: @props.user.avatar_url(24)]
 
 ReactOpinionatorsAvatars = React.createClass
   displayName: 'ReactOpinionatorsAvatars'
@@ -39,7 +38,7 @@ ReactOpinionatorsAvatars = React.createClass
             key: opinionator.get('username') + '-' + opinionator.get('type')
 
       if show_plus
-        _span ["opinionators-more"],
+        _span ["interested-avatars-more"],
           "+" + (@_opinionators().length - number_of_places + 1)
 
 
