@@ -90,7 +90,6 @@ window.ReactOpinionateArea = React.createBackboneClass
     _div ["fact-opinionators"],
       ReactOpinionatorsAvatars
         model: @model()
-        opinion_type: 'believes'
 
   render: ->
     _div [''],
