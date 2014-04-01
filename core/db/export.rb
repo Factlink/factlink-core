@@ -18,54 +18,55 @@ end
 
 def export_database(filename:)
   File.open(filename, 'w') do |file|
+    output = ''
+
     User.all.each do |user|
-      user_export = 'user = User.new({'
-      user_export += hash_field_for(user, 'username')
-      user_export += hash_field_for(user, 'full_name')
-      user_export += hash_field_for(user, 'location')
-      user_export += hash_field_for(user, 'biography')
-      user_export += hash_field_for(user, 'receives_mailed_notifications')
-      user_export += hash_field_for(user, 'receives_digest')
-      user_export += '}); '
+      output << 'user = User.new({'
+      output << hash_field_for(user, 'username')
+      output << hash_field_for(user, 'full_name')
+      output << hash_field_for(user, 'location')
+      output << hash_field_for(user, 'biography')
+      output << hash_field_for(user, 'receives_mailed_notifications')
+      output << hash_field_for(user, 'receives_digest')
+      output << '}); '
 
+      output << assignment_for(user, 'user', 'created_at')
+      output << assignment_for(user, 'user', 'updated_at')
+      output << assignment_for(user, 'user', 'deleted')
+      output << assignment_for(user, 'user', 'admin')
+      output << assignment_for(user, 'user', 'email')
+      output << assignment_for(user, 'user', 'registration_code')
+      output << assignment_for(user, 'user', 'reset_password_token')
+      output << assignment_for(user, 'user', 'reset_password_sent_at')
+      output << assignment_for(user, 'user', 'remember_created_at')
+      output << assignment_for(user, 'user', 'sign_in_count')
+      output << assignment_for(user, 'user', 'current_sign_in_at')
+      output << assignment_for(user, 'user', 'last_sign_in_at')
+      output << assignment_for(user, 'user', 'current_sign_in_ip')
+      output << assignment_for(user, 'user', 'last_sign_in_ip')
 
-      user_export += assignment_for(user, 'user', 'created_at')
-      user_export += assignment_for(user, 'user', 'updated_at')
-      user_export += assignment_for(user, 'user', 'deleted')
-      user_export += assignment_for(user, 'user', 'admin')
-      user_export += assignment_for(user, 'user', 'email')
-      user_export += assignment_for(user, 'user', 'registration_code')
-      user_export += assignment_for(user, 'user', 'reset_password_token')
-      user_export += assignment_for(user, 'user', 'reset_password_sent_at')
-      user_export += assignment_for(user, 'user', 'remember_created_at')
-      user_export += assignment_for(user, 'user', 'sign_in_count')
-      user_export += assignment_for(user, 'user', 'current_sign_in_at')
-      user_export += assignment_for(user, 'user', 'last_sign_in_at')
-      user_export += assignment_for(user, 'user', 'current_sign_in_ip')
-      user_export += assignment_for(user, 'user', 'last_sign_in_ip')
+      output << 'user.password = "some_dummy"; ' # before setting encrypted_password
+      output << assignment_for(user, 'user', 'encrypted_password')
 
-      user_export += 'user.password = "some_dummy"; ' # before setting encrypted_password
-      user_export += assignment_for(user, 'user', 'encrypted_password')
-
-      user_export += 'user.skip_confirmation_notification!; '
-      user_export += 'user.save!; '
-      user_export += assignment_for(user, 'user', 'confirmed_at')
-      user_export += assignment_for(user, 'user', 'confirmation_token')
-      user_export += assignment_for(user, 'user', 'confirmation_sent_at')
-      user_export += assignment_for(user, 'user', 'updated_at') # set here again explicitly to prevent overwriting
-      user_export += 'user.save!'
-
-      file.puts user_export
+      output << 'user.skip_confirmation_notification!; '
+      output << 'user.save!; '
+      output << assignment_for(user, 'user', 'confirmed_at')
+      output << assignment_for(user, 'user', 'confirmation_token')
+      output << assignment_for(user, 'user', 'confirmation_sent_at')
+      output << assignment_for(user, 'user', 'updated_at') # set here again explicitly to prevent overwriting
+      output << 'user.save!'
+      output << "\n"
 
       user.social_accounts.each do |social_account|
-        social_account_export = 'SocialAccount.create!({'
-        social_account_export += hash_field_for(social_account, 'provider_name')
-        social_account_export += hash_field_for(social_account, 'omniauth_obj')
-        social_account_export += 'user: User.find(' + marshall(user, 'username') + '), '
-        social_account_export += '})'
-
-        file.puts social_account_export
+        output << 'SocialAccount.create!({'
+        output << hash_field_for(social_account, 'provider_name')
+        output << hash_field_for(social_account, 'omniauth_obj')
+        output << 'user: User.find(' + marshall(user, 'username') + '), '
+        output << '})'
+        output << "\n"
       end
     end
+
+    file.write output
   end
 end
