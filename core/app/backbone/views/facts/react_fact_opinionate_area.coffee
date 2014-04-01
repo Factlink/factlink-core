@@ -82,8 +82,6 @@ FactOpinionatorsTable = React.createBackboneClass
     _div ["fact-opinionators-table"],
       _table ["fact-opinionators-table-table"],
         _tr [],
-          _td ["fact-opinionators-table-believes"], opinionTally.believes
-          _td ["fact-opinionators-table-disbelieves"], opinionTally.disbelieves
           _td ["fact-opinionators-table-disbelieves"], opinionTallyTotal
 
 window.ReactOpinionateArea = React.createBackboneClass
