@@ -12,12 +12,6 @@ describe Fact do
     Activity.stub(:create)
   end
 
-  it "has the GraphUser set when a opinion is added" do
-    parent = create :fact
-    parent.add_opinion(:believes, graph_user)
-    expect(parent.opiniated(:believes).to_a).to match_array [graph_user]
-  end
-
   describe "Mongoid properties: " do
     context "after setting a displaystring to 'hiephoi'" do
       it "the facts to_s is 'hiephoi'" do
@@ -57,7 +51,7 @@ describe Fact do
     it "is false when people have given their opinion on the fact" do
       fact = create :fact
 
-      fact.add_opiniated :believes, other_graph_user
+      Pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes', pavlov_options: {current_user: (create :user)})
 
       expect(fact.deletable?).to be_false
     end

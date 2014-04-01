@@ -20,7 +20,9 @@ describe 'activity queries' do
     context "creating a comment" do
       it "creates a notification for the interacting users" do
         fact = create(:fact)
-        fact.add_opinion(:believes, gu1)
+        as(gu1.user) do |pavlov|
+          pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes')
+        end
 
         user = create(:user)
 
@@ -35,7 +37,9 @@ describe 'activity queries' do
       end
       it "creates a stream activity for the interacting users" do
         fact = create(:fact)
-        fact.add_opinion(:believes, gu1)
+        as(gu1.user) do |pavlov|
+          pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes')
+        end
         user = create(:user)
 
         interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
@@ -82,7 +86,9 @@ describe 'activity queries' do
             comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'disbelieves', content: 'content')
           end
 
-          fact.add_opinion :believes, gu1
+          as(gu1.user) do |pavlov|
+            pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes')
+          end
 
           as(current_user) do |pavlov|
             sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
@@ -102,7 +108,9 @@ describe 'activity queries' do
             comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'disbelieves', content: 'content')
           end
 
-          fact.add_opinion :believes, gu1
+          as(gu1.user) do |pavlov|
+            pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes')
+          end
 
           as(current_user) do |pavlov|
             sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')

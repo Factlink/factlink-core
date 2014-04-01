@@ -2,41 +2,16 @@ class OpinionatorsController < ApplicationController
   respond_to :json
 
   def index
-    votes = interactor(:'facts/votes', fact_id: params[:fact_id])
-              .map do |vote|
-                {
-                  username: vote[:user].username,
-                  user: vote[:user],
-                  type: vote[:type]
-                }
-              end
-    render json: votes
+    render json: interactor(:'facts/votes', fact_id: params[:fact_id])
   end
 
 
   def create
-    @fact = Fact[fact_id]
-    authorize! :opinionate, @fact
-
-    type = params[:type]
-    @fact.add_opinion(type, current_user.graph_user)
-
-    render json: {}
+    render json: interactor(:'facts/set_opinion', fact_id: params[:fact_id], opinion: params[:type])
   end
   alias :update :create
 
   def destroy
-    @fact = Fact[fact_id]
-    authorize! :opinionate, @fact
-
-    @fact.remove_opinions(current_user.graph_user)
-
-    render json: {}
-  end
-
-  private
-
-  def fact_id
-    params[:fact_id].to_i
+    render json: interactor(:'facts/remove_opinion', fact_id: params[:fact_id])
   end
 end

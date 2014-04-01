@@ -11,14 +11,16 @@ describe "factlink", type: :feature do
     @factlink = backend_create_fact_with_long_text
     comment_text = "A comment...\n\n...with newlines!"
 
-    @factlink.add_opiniated :believes, @user.graph_user
+    as(@user) do |pavlov|
+      pavlov.interactor(:'facts/set_opinion', fact_id: @factlink.id, opinion: 'believes')
+    end
+
     as(@user) do |p|
       c = p.interactor(:'comments/create', fact_id: @factlink.id.to_i, type: 'believes', content: comment_text)
       p.interactor(:'comments/update_opinion', comment_id: c.id.to_s, opinion: 'disbelieves')
     end
 
     supporting_factlink = backend_create_fact_with_long_text
-    supporting_factlink.add_opiniated :believes, @user.graph_user
     sub_comment_text = "\n\nThis is a subcomment\n\nwith some  whitespace \n\n"
 
     as(@user) do |p|
@@ -34,13 +36,17 @@ describe "factlink", type: :feature do
 
   it "the layout of the new discussion page is correct with believers on top,
       and adding supporting factlink" do
-    5.times do
-      @factlink.add_opiniated :disbelieves, (create :user).graph_user
-      @factlink.add_opiniated :believes, (create :user).graph_user
-      @factlink.add_opiniated :believes, (create :user).graph_user
+    3.times do
+      as(create :user) do |pavlov|
+        pavlov.interactor(:'facts/set_opinion', fact_id: @factlink.id, opinion: 'believes')
+      end
+      as(create :user) do |pavlov|
+        pavlov.interactor(:'facts/set_opinion', fact_id: @factlink.id, opinion: 'disbelieves')
+      end
+      as(create :user) do |pavlov|
+        pavlov.interactor(:'facts/set_opinion', fact_id: @factlink.id, opinion: 'disbelieves')
+      end
     end
-
-    @factlink.add_opiniated :believes, (create :user).graph_user
 
     open_discussion_sidebar_for @factlink
 
