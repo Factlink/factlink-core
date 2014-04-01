@@ -8,7 +8,8 @@ describe Export do
     user.confirmation_sent_at = Time.at(2000)
     user.save!
 
-    create :social_account, :twitter, user: user
+    create :social_account, :twitter, user: user,
+      created_at: Time.at(0), updated_at: Time.at(1000)
 
     verify(format: :text) { Export.new.export }
   end

@@ -36,6 +36,8 @@ class Export
         output << 'SocialAccount.create!({'
         output << hash_field_for(social_account, 'provider_name')
         output << hash_field_for(social_account, 'omniauth_obj')
+        output << hash_field_for(social_account, 'created_at')
+        output << hash_field_for(social_account, 'updated_at')
         output << 'user: User.find(' + to_ruby(user, 'username') + '), '
         output << '})'
         output << "\n"
