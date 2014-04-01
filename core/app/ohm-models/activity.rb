@@ -58,19 +58,6 @@ class Activity < OurOhm
     containing_sorted_sets.del
   end
 
-
-  # OBSOLETE
-  # Please don't use this method in new stuff
-  # only tests still uses this
-  def self.for(search_for)
-    res = find(subject_id: search_for.id, subject_class: search_for.class) |
-          find(object_id: search_for.id, object_class: search_for.class)
-
-    res |= find(user_id: search_for.id) if search_for.class == GraphUser
-
-    res
-  end
-
   # WARNING: if this method returns false, we assume it will never become
   #          valid again either, and remove/destroy freely.
   def still_valid?

@@ -10,15 +10,6 @@ describe Activity do
 
   let(:gu2) { GraphUser.create }
   let(:gu3) { GraphUser.create }
-  context "initially" do
-    describe ".for" do
-      it "should be empty" do
-        Activity.for(b1).to_a.should =~ []
-        Activity.for(b2).to_a.should =~ []
-        Activity.for(gu).to_a.should =~ []
-      end
-    end
-  end
 
   context "after creating one activity" do
     before :each do
@@ -33,14 +24,6 @@ describe Activity do
     it { @activity.user.should == gu }
     it { @activity.subject.should == b1 }
     it { @activity.object.should == b2 }
-    describe "should be retrievable with Activity.for" do
-      it { Activity.for(gu).to_a.should =~ [@activity] }
-      it "should give no results for an object without activities" do
-        Activity.for(Foo.create).to_a.should =~ []
-      end
-      it { Activity.for(b1).to_a.should =~ [@activity] }
-      it { Activity.for(b2).to_a.should =~ [@activity] }
-    end
   end
 
   context "when dealing with activities on graphusers" do
@@ -56,14 +39,6 @@ describe Activity do
     it { @activity.user.should == gu }
     it { @activity.subject.should == gu2 }
     it { @activity.object.should == gu3 }
-    describe "should be retrievable with Activity.for" do
-      it { Activity.for(gu).to_a.should =~ [@activity] }
-      it "should give no results for an object without activities" do
-        Activity.for(Foo.create).to_a.should =~ []
-      end
-      it { Activity.for(gu2).to_a.should =~ [@activity] }
-      it { Activity.for(gu3).to_a.should =~ [@activity] }
-    end
   end
 
   describe "still_valid?" do
