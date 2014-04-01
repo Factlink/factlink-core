@@ -107,8 +107,8 @@ fi
 RBENV_INIT
   fi
 
-  if [[ ! -f $shell_init_file ]] || ! grep -q '/usr/lib/postgresql/9.1/bin/' $shell_init_file; then
-    echo -e '\nexport PATH="$PATH:/usr/lib/postgresql/9.1/bin/"\n' >> $shell_init_file
+  if [[ ! -f $shell_init_file ]] || ! grep -q '/usr/lib/postgresql/9.3/bin/' $shell_init_file; then
+    echo -e '\nexport PATH="/usr/lib/postgresql/9.3/bin:$PATH"\n' >> $shell_init_file
   fi
 
 
@@ -130,7 +130,7 @@ if [ -d "$HOME/.rbenv" ] ; then
   export PATH="$HOME/.rbenv/bin:$PATH"
   eval "$(rbenv init -)" || :
 fi
-export PATH="$PATH:/usr/lib/postgresql/9.1/bin/"
+export PATH="/usr/lib/postgresql/9.3/bin:$PATH"
 export PATH="~/.node/bin:$PATH"
 export PATH=$PATH:/usr/share/elasticsearch/bin/
 
