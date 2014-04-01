@@ -25,14 +25,15 @@ $avatarSize: 24px;
 
 .interested-avatars {
   display: block;
-  margin: 10px 0px;
+  margin: 10px 0;
 }
 
 .interested-avatar {
   display: inline-block;
   margin-left: 4px;
+
   &:first-child {
-    margin-left: 0px;
+    margin-left: 0;
   }
 }
 
