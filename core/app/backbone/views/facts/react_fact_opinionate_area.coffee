@@ -53,6 +53,7 @@ FactOpinionateButton = React.createBackboneClass
 
   render: ->
     is_opinion = @model().opinion_for_current_user() == @props.opinion_type
+
     _div ["fact-opinionate-button"],
       _button [
             "button button-opinion-#{@props.opinion_type}"
@@ -63,6 +64,7 @@ FactOpinionateButton = React.createBackboneClass
          _i ["icon-thumbs-#{@props.opinion_type}"]
          _span [''],
           'interesting'
+
         ReactSigninPopover
           ref: 'signinPopover'
 
@@ -75,12 +77,14 @@ FactOpinionatorsTable = React.createBackboneClass
     _.defaults opinionTally,
       believes: 0,
       disbelieves: 0
+    opinionTallyTotal = opinionTally.believes + opinionTally.disbelieves
 
     _div ["fact-opinionators-table"],
       _table ["fact-opinionators-table-table"],
         _tr [],
           _td ["fact-opinionators-table-believes"], opinionTally.believes
           _td ["fact-opinionators-table-disbelieves"], opinionTally.disbelieves
+          _td ["fact-opinionators-table-disbelieves"], opinionTallyTotal
 
 window.ReactOpinionateArea = React.createBackboneClass
   displayName: 'ReactOpinionateArea'
