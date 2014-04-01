@@ -66,24 +66,6 @@ FactOpinionateButton = React.createBackboneClass
         ReactSigninPopover
           ref: 'signinPopover'
 
-
-FactOpinionTallyChart = React.createClass
-  displayName: 'FactOpinionTallyChart'
-
-  render: ->
-    laplace_smoothing_offset = 0.2
-    total = @props.believes + @props.disbelieves + 2*laplace_smoothing_offset
-    believe_percentage = 100 * (@props.believes + laplace_smoothing_offset) / total
-    disbelieve_percentage = 100 * (@props.disbelieves + laplace_smoothing_offset) / total
-
-    _table ["fact-opinion-tally-chart"],
-      _tbody [],
-        _tr [],
-          _td ["fact-opinion-tally-chart-believers"
-               style: {width: "#{believe_percentage}%"}]
-          _td ["fact-opinion-tally-chart-disbelievers"
-               style: {width: "#{disbelieve_percentage}%"}]
-
 FactOpinionatorsTable = React.createBackboneClass
   displayName: 'FactOpinionatorsTable'
   changeOptions: 'add remove reset sort' + ' change'
@@ -98,10 +80,6 @@ FactOpinionatorsTable = React.createBackboneClass
       _table ["fact-opinionators-table-table"],
         _tr [],
           _td ["fact-opinionators-table-believes"], opinionTally.believes
-          _td [],
-            FactOpinionTallyChart
-              believes: opinionTally.believes
-              disbelieves: opinionTally.disbelieves
           _td ["fact-opinionators-table-disbelieves"], opinionTally.disbelieves
 
 window.ReactOpinionateArea = React.createBackboneClass
