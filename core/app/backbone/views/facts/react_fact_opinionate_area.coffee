@@ -50,7 +50,7 @@ FactOpinionateButton = React.createBackboneClass
     @model().clickCurrentUserOpinion @props.opinion_type
 
   render: ->
-    is_opinion = @model().opinion_for_current_user() != 'no_vote'
+    is_interested = @model().opinion_for_current_user() != 'no_vote'
     opinionTally = @model().countBy (opinionator) -> opinionator.get('type')
     _.defaults opinionTally,
       believes: 0,
@@ -66,7 +66,7 @@ FactOpinionateButton = React.createBackboneClass
 
       _i [
         "icon-star button-interesting-star"
-        'button-interesting-star-active' if is_opinion
+        'button-interesting-star-active' if is_interested
       ]
       'interesting'
 
