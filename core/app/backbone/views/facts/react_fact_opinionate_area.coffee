@@ -61,6 +61,8 @@ FactOpinionateButton = React.createBackboneClass
             onClick: => @refs.signinPopover.submit(=> @_onClick())
           ],
          _i ["icon-thumbs-#{@props.opinion_type}"]
+         _span [''],
+          'interesting'
         ReactSigninPopover
           ref: 'signinPopover'
 
