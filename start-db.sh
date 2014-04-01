@@ -1,7 +1,7 @@
 #!/bin/bash
 onexit() {
-  kill -2 $(jobs -p)
-  kill $(jobs -p)
+  kill -2 -$$ 2>/dev/null
+  kill -TERM -$$ 2>/dev/null
   echo "Waiting for children to exit..."
   sleep 1
   kill -9 -$$ 2>/dev/null
