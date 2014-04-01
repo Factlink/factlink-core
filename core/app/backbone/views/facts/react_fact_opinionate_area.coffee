@@ -86,9 +86,6 @@ window.ReactOpinionateArea = React.createBackboneClass
       FactOpinionateButton
         model: @model()
         opinion_type: 'believes'
-      FactOpinionateButton
-        model: @model()
-        opinion_type: 'disbelieves'
 
   _opinionators: ->
     _div ["fact-opinionators"],
