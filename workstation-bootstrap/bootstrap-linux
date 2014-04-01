@@ -132,7 +132,7 @@ if [ -d "$HOME/.rbenv" ] ; then
 fi
 export PATH="/usr/lib/postgresql/9.3/bin:$PATH"
 export PATH="~/.node/bin:$PATH"
-export PATH=$PATH:/usr/share/elasticsearch/bin/
+export PATH=$PATH:/usr/share/elasticsearch/bin
 
 echo 'setting up npm to install as your user...'
 # This is important, otherwise npm install -g won't execute without sudo
