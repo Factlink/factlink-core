@@ -30,7 +30,7 @@ ReactOpinionatorsAvatars = React.createClass
       take = number_of_places - 1
       show_plus = true
 
-    _div ["fact-opinionators-#{@props.opinion_type}"],
+    _div ["fact-opinionators"],
       @_opinionators()
         .slice(0,take)
         .map (opinionator) ->
@@ -58,22 +58,21 @@ FactOpinionateButton = React.createBackboneClass
       disbelieves: 0
     opinionTallyTotal = opinionTally.believes + opinionTally.disbelieves
 
-    _div ["fact-opinionate-button"],
-      _button [
-            "button button-interesting spec-button-interesting"
-            onClick: => @refs.signinPopover.submit(=> @_onClick())
-          ],
-        _div ['interesting-tally'],
-          opinionTallyTotal
+    _button [
+          "button button-interesting spec-button-interesting"
+          onClick: => @refs.signinPopover.submit(=> @_onClick())
+        ],
+      _div ['interesting-tally'],
+        opinionTallyTotal
 
-        _i [
-          "icon-thumbs-believes"
-          'button-interesting-active' if is_opinion
-        ]
-        'interesting'
+      _i [
+        "icon-thumbs-believes"
+        'button-interesting-active' if is_opinion
+      ]
+      'interesting'
 
-        ReactSigninPopover
-          ref: 'signinPopover'
+      ReactSigninPopover
+        ref: 'signinPopover'
 
 window.ReactOpinionateArea = React.createBackboneClass
   displayName: 'ReactOpinionateArea'
@@ -82,17 +81,15 @@ window.ReactOpinionateArea = React.createBackboneClass
     @model().fetchIfUnloaded()
 
   _opinionate: ->
-    _div className: 'fact-opinionate',
-      FactOpinionateButton
-        model: @model()
-        opinion_type: 'believes'
+    FactOpinionateButton
+      model: @model()
+      opinion_type: 'believes'
 
   _opinionators: ->
-    _div ["fact-opinionators"],
-      ReactOpinionatorsAvatars
-        model: @model()
+    ReactOpinionatorsAvatars
+      model: @model()
 
   render: ->
-    _div [''],
+    _div ['annotation-options'],
       @_opinionate()
       @_opinionators()

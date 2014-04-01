@@ -1,16 +1,9 @@
 .add-comment-container {
-  margin-top: 12px;
   border-top: 1px lightgrey solid;
 }
 
 .add-comment {
   padding: $votePadding;
-}
-
-.add-comment-arrow {
-  position: absolute;
-  left: 50%;
-  @include triangle-arrow-up();
 }
 
 .add-comment-controls {

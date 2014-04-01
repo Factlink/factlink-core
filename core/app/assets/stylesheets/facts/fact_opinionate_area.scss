@@ -3,32 +3,18 @@
 
 $avatarSize: 24px;
 
-.fact-opinionate {
-  display: table;
-  margin: 10px 0;
-}
-
-.fact-opinionate-button {
-  display: table-cell;
-}
-
-.fact-opinion-indicator {
-  font-size: 15px;
-  color: $grayLight;
-}
-
 .fact-opinionators {
-  display: table;
-  width: 100%;
+  margin-top: 10px;
+  display: inline-block;
 }
 
 .opinionators-avatar,
 .opinionators-more {
-    float: left;
-    margin-right: 4px;
+  margin-right: 4px;
 }
 
 .opinionators-avatar-image {
+  vertical-align: top;
   border-radius: 3px;
 }
 
@@ -42,12 +28,16 @@ $avatarSize: 24px;
 }
 
 .interesting-tally {
+  font-weight: 600;
   display: inline-block;
   border-right: 1px #BEC1CD solid;
   min-width: 34px;
+  margin-right: 5px;
   text-align: center;
 }
 
 .button-interesting-active {
-  color: yellow;
+  color: #F5A623;
 }
+
+
