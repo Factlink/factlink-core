@@ -105,19 +105,8 @@ window.ReactOpinionatedAvatar = React.createBackboneClass
     user: React.PropTypes.instanceOf(User).isRequired
     size:  React.PropTypes.number
 
-  _user_opinion: -> @model().vote_for(@props.user.get('username'))?.get('type')
-
-  _typeCss: ->
-    return 'comment-no-opinion' unless @canHaz('opinions_of_users_and_comments')
-
-    switch @_user_opinion()
-      when 'believes' then 'comment-believes'
-      when 'disbelieves' then 'comment-disbelieves'
-      else 'comment-no-opinion'
-
   render: ->
     _span ["opinionated-avatar", style: { height: @props.size + 'px' }],
-      _span [@_typeCss()]
       _span ["post-creator-avatar", style: { width: @props.size + 'px'}],
         _img ["avatar-image", src: @props.user.avatar_url(@props.size)]
 
