@@ -43,7 +43,7 @@ class Export
         output << 'SocialAccount.create!({'
         output << hash_field_for(social_account, 'provider_name')
         output << hash_field_for(social_account, 'omniauth_obj')
-        output << 'user: User.find(' + marshall(user, 'username') + '), '
+        output << 'user: User.find(' + to_ruby(user, 'username') + '), '
         output << '})'
         output << "\n"
       end
@@ -54,7 +54,7 @@ class Export
 
   private
 
-  def marshall(object, name)
+  def to_ruby(object, name)
     value = object.send(name)
 
     if value.is_a?(Time)
@@ -65,10 +65,10 @@ class Export
   end
 
   def hash_field_for(object, name)
-    name + ': ' + marshall(object, name) + ', '
+    name + ': ' + to_ruby(object, name) + ', '
   end
 
   def assignment_for(object, object_name, name)
-    object_name + '.' + name + ' = ' + marshall(object, name) + '; '
+    object_name + '.' + name + ' = ' + to_ruby(object, name) + '; '
   end
 end
