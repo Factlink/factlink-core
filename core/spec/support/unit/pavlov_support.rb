@@ -29,6 +29,8 @@ module PavlovSupport
       {
         current_user: user,
         ability: Ability.new(user),
+        time: Time.at(0),
+        send_mails: false,
       }
     end
 

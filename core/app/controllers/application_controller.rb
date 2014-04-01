@@ -12,8 +12,10 @@ class ApplicationController < ActionController::Base
 
   def pavlov_options
     {
-      current_user: user,
+      current_user: current_user,
       ability: current_ability,
+      time: Time.now,
+      send_mails: true,
     }
   end
 
