@@ -57,10 +57,13 @@ class Export
   def to_ruby(object, name)
     value = object.send(name)
 
-    if value.is_a?(Time)
+    case value
+    when Time
       return 'Time.parse(' + value.utc.iso8601.inspect + ')'
-    else
+    when String, Integer, NilClass, TrueClass, FalseClass, Hash
       return value.inspect
+    else
+      fail "Unsupported type: " + value.class.name
     end
   end
 
