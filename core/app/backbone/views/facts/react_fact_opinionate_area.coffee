@@ -66,8 +66,8 @@ FactOpinionateButton = React.createBackboneClass
         opinionTallyTotal
 
       _i [
-        "icon-thumbs-believes"
-        'button-interesting-active' if is_opinion
+        "icon-thumbs-believes button-interesting-star"
+        'button-interesting-star-active' if is_opinion
       ]
       'interesting'
 

@@ -36,7 +36,12 @@ $avatarSize: 24px;
   text-align: center;
 }
 
-.button-interesting-active {
+.button-interesting-star {
+  color: lightgrey;
+  transition: color 0.5s ease;
+}
+
+.button-interesting-star-active {
   color: #F5A623;
 }
 
