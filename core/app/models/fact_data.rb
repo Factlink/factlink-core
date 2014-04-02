@@ -19,10 +19,6 @@ class FactData
     displaystring || ""
   end
 
-  def fact
-    @fact ||= Fact[fact_id]
-  end
-
   #returns whether a given factdata should be considered
   #unsuitable for usage/viewing
   def self.invalid(fd)
@@ -30,7 +26,7 @@ class FactData
   end
 
   def self.valid(fd)
-    fd and fd.fact_id and fd.fact
+    fd and fd.fact_id
   end
 
   def update_search_index
