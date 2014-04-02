@@ -6,16 +6,16 @@
     "id": "<id>",
     "followed_user": {
       "id": "<id>",
-      "name": "John26 Doe26",
-      "username": "johndoe26",
-      "gravatar_hash": "a3a683aab8898fde93deed0f391d6dc6",
+      "name": "John3 Doe3",
+      "username": "johndoe3",
+      "gravatar_hash": "0c0b78bf3bb3107091bdb93c94ba73a3",
       "deleted": false
     },
     "user": {
       "id": "<id>",
-      "name": "John25 Doe25",
-      "username": "johndoe25",
-      "gravatar_hash": "349b9b8c7d99f7e521bd8b7a87788a18",
+      "name": "John2 Doe2",
+      "username": "johndoe2",
+      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
       "deleted": false
     }
   }

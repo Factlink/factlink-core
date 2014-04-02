@@ -7,6 +7,8 @@ describe 'activity queries' do
   let(:other_user) { create :user }
 
   before :each do
+    FactoryGirl.reload
+
     @mails_by_username_and_activity = []
     SendActivityMailToUser.stub(:perform) do |user_id, activity_id|
       @mails_by_username_and_activity << {

@@ -6,20 +6,20 @@
     "id": "<id>",
     "fact": {
       "id": "<id>",
-      "site_url": "http://example.org/4.html",
-      "displaystring": "Fact 4",
+      "site_url": "http://example.org/1.html",
+      "displaystring": "Fact 1",
       "created_at": "<created_at>",
-      "site_title": "Fact title 4",
+      "site_title": "Fact title 1",
       "url": "/f/1",
-      "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F4.html#factlink-open-1"
+      "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html#factlink-open-1"
     },
     "comment": {
       "id": "<id>",
       "created_by": {
         "id": "<id>",
-        "name": "John7 Doe7",
-        "username": "johndoe7",
-        "gravatar_hash": "e8b0eb29d2da7486dc4058d598870cd6",
+        "name": "John1 Doe1",
+        "username": "johndoe1",
+        "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
         "deleted": false
       },
       "created_at": "<created_at>",
@@ -36,9 +36,9 @@
       "id": "<id>",
       "created_by": {
         "id": "<id>",
-        "name": "John7 Doe7",
-        "username": "johndoe7",
-        "gravatar_hash": "e8b0eb29d2da7486dc4058d598870cd6",
+        "name": "John1 Doe1",
+        "username": "johndoe1",
+        "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
         "deleted": false
       },
       "created_at": "<created_at>",
@@ -46,9 +46,9 @@
     },
     "user": {
       "id": "<id>",
-      "name": "John7 Doe7",
-      "username": "johndoe7",
-      "gravatar_hash": "e8b0eb29d2da7486dc4058d598870cd6",
+      "name": "John1 Doe1",
+      "username": "johndoe1",
+      "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "deleted": false
     }
   }
