@@ -1,4 +1,5 @@
 #!/bin/bash
+
 onexit() {
   pids=`(pstree -p $$)`
   pids=`echo $pids| grep -o '([0-9]\+)' | grep -o '[0-9]\+' |grep -v $$`
@@ -9,7 +10,12 @@ onexit() {
   pids=`echo $pids| grep -o '([0-9]\+)' | grep -o '[0-9]\+' |grep -v $$`
   for pid in $pids; do kill -9 $pid 2>/dev/null; done;
 }
-trap onexit SIGINT SIGTERM EXIT INT QUIT TERM
+noop_func() {
+echo;
+}
+trap onexit EXIT
+trap noop_func SIGINT SIGTERM INT QUIT TERM
+
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 (cd core && elasticsearch -f -Des.config=config/developmentservers/elasticsearch.yml -Des.cluster.name="elasticsearch_$(hostname)"  || kill $$)  2>&1| perl -pe "s/^/\x1b[0;31m[elasticsearch] \x1b[0m/" &
