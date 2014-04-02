@@ -66,7 +66,7 @@ cd testserver
 cd ..
 
 js-library/bin/bootstrap
-core/bin/bootstrap
+core/bin/bootstrap $1
 
 
 wait
