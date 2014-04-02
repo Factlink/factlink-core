@@ -83,7 +83,7 @@ module Backend
       end
     end
 
-    def create(graph_user:, action:, subject:, object:nil, time:, send_mails:)
+    def create(graph_user:, action:, subject:, time:, send_mails:)
       activity = Activity.create(user: graph_user, action: action, subject: subject,
         created_at: time.utc.to_s)
 
