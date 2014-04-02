@@ -7,12 +7,18 @@ md5sum --check Gemfile.lock.md5cache || (
   md5sum Gemfile.lock > Gemfile.lock.md5cache
 )
 
-../start-db.sh &
-FOREMAN_PID=$!
-sleep 1
+exec 6<>/dev/tcp/127.0.0.1/9200 && ERROR_STATUS="" || ERROR_STATUS="closed"; exec 6>&-; exec 6<&-
+
+if [[ -n "$ERROR_STATUS" ]]; then
+  ../start-db.sh &
+  FOREMAN_PID=$!
+  sleep 3
+fi
+
 bundle exec rake db:migrate
 bundle exec rake db:init
 
-kill $FOREMAN_PID
-wait
-
+if [[ -n "$FOREMAN_PID" ]]; then
+  kill $FOREMAN_PID
+  wait
+fi
