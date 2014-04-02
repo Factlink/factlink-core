@@ -2,7 +2,10 @@
 echo 'Setting up core...'
 cd "$( dirname "${BASH_SOURCE[0]}" )"/..
 
-bundle install
+md5sum --check Gemfile.lock.md5cache || (
+  bundle
+  md5sum Gemfile.lock > Gemfile.lock.md5cache
+)
 
 ../start-db.sh &
 FOREMAN_PID=$!
