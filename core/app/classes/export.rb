@@ -12,11 +12,12 @@ class Export
       output << hash_field_for(user, 'receives_digest')
       output << '}); '
 
-      output << ['created_at', 'updated_at', 'deleted', 'admin', 'email',
+      assignment_fields = ['created_at', 'updated_at', 'deleted', 'admin', 'email',
        'registration_code', 'reset_password_token', 'reset_password_sent_at',
        'remember_created_at', 'sign_in_count', 'current_sign_in_at',
-       'last_sign_in_at', 'current_sign_in_ip', 'last_sign_in_ip'].map do |name|
+       'last_sign_in_at', 'current_sign_in_ip', 'last_sign_in_ip']
 
+      output << assignment_fields.map do |name|
         assignment_for(user, 'user', name)
       end.join('')
 
