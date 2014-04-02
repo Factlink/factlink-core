@@ -15,7 +15,6 @@ if [[ -n "$ERROR_STATUS" ]]; then
   sleep 3
 fi
 
-bundle exec rake db:migrate
 bundle exec rake db:init
 
 if [[ -n "$FOREMAN_PID" ]]; then
