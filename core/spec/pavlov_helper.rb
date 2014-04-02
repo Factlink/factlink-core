@@ -10,4 +10,4 @@ require_relative 'support/unit/pavlov_support.rb'
 require_relative '../app/classes/opinion_type.rb'
 require_relative '../app/entities/dead_fact.rb'
 require_relative '../app/entities/dead_sub_comment.rb'
- I18n.enforce_available_locales = false
+I18n.enforce_available_locales = true
