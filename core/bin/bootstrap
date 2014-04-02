@@ -7,6 +7,10 @@ shasum --check Gemfile.lock.sha-cache || (
   shasum Gemfile.lock > Gemfile.lock.sha-cache
 )
 
+cat db/*.rb db/migrate/*.rb > .db-dir-concat
+
+shasum --check .db-dir-concat.sha-cache && exit 0
+
 exec 6<>/dev/tcp/127.0.0.1/9200 && ERROR_STATUS="" || ERROR_STATUS="closed"; exec 6>&-; exec 6<&-
 
 if [[ -n "$ERROR_STATUS" ]]; then
@@ -21,3 +25,5 @@ if [[ -n "$FOREMAN_PID" ]]; then
   kill $FOREMAN_PID
   wait
 fi
+
+shasum .db-dir-concat > .db-dir-concat.sha-cache

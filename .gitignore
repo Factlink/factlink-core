@@ -8,3 +8,4 @@ server-management/growth-hacking/analyze-publishers/access.json
 server-management/growth-hacking/analyze-publishers/access.log
 /proxy
 *.sha-cache
+core/.db-dir-concat
