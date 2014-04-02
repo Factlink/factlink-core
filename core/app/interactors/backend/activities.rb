@@ -85,7 +85,7 @@ module Backend
 
     def create(graph_user:, action:, subject:, object: nil, time:, send_mails:)
       activity = Activity.create(user: graph_user, action: action, subject: subject,
-        object: object, created_at: time)
+        object: object, created_at: time.to_s)
 
       send_mail_for_activity activity: activity if send_mails
 
