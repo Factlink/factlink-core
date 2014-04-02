@@ -1,6 +1,9 @@
 require 'rubygems'
 require 'sinatra'
 
+$stdout.sync = true
+$stderr.sync = true
+
 set :port, 12345 # keep in synch with testfile
 
 get '/' do

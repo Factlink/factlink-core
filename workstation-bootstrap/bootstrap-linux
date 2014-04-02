@@ -11,6 +11,9 @@ type apt-add-repository || sudo apt-get -y install python-software-properties
 # depending on your option during install this is already there
 sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 
+sudo apt-key list | grep -q -e "ACCC4CF8" || wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main"
+
 sudo apt-add-repository -y "deb http://dl.google.com/linux/chrome/deb/ stable main"
 
 sudo apt-key list | grep -q -e "Google, Inc. Linux Package Signing Key" || wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -64,7 +67,8 @@ sudo apt-get -y install \
            icedtea-7-plugin \
            stress \
            htop \
-           postgresql \
+           postgresql-9.3 \
+           pgadmin3 \
            libpq-dev \
            imagemagick \
            php5-curl \
@@ -103,8 +107,8 @@ fi
 RBENV_INIT
   fi
 
-  if [[ ! -f $shell_init_file ]] || ! grep -q '/usr/lib/postgresql/9.1/bin/' $shell_init_file; then
-    echo -e '\nexport PATH="$PATH:/usr/lib/postgresql/9.1/bin/"\n' >> $shell_init_file
+  if [[ ! -f $shell_init_file ]] || ! grep -q '/usr/lib/postgresql/9.3/bin/' $shell_init_file; then
+    echo -e '\nexport PATH="/usr/lib/postgresql/9.3/bin:$PATH"\n' >> $shell_init_file
   fi
 
 
@@ -126,9 +130,10 @@ if [ -d "$HOME/.rbenv" ] ; then
   export PATH="$HOME/.rbenv/bin:$PATH"
   eval "$(rbenv init -)" || :
 fi
-export PATH="$PATH:/usr/lib/postgresql/9.1/bin/"
+export PATH="/usr/lib/postgresql/9.3/bin:$PATH"
+sudo chmod 777 /var/run/postgresql/ # this is necessary to mitigate ubuntu's unhandy compiled-in constant postgres socket dir.
 export PATH="~/.node/bin:$PATH"
-export PATH=$PATH:/usr/share/elasticsearch/bin/
+export PATH=$PATH:/usr/share/elasticsearch/bin
 
 echo 'setting up npm to install as your user...'
 # This is important, otherwise npm install -g won't execute without sudo

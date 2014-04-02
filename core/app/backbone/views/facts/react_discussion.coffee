@@ -68,9 +68,10 @@ window.ReactDiscussion = React.createBackboneClass
           else
             _div ["loading-indicator-centered"],
               ReactLoadingIndicator()
-        if @canHaz('opinions_of_users_and_comments')
-          ReactOpinionateArea
-            model: @model().getOpinionators()
+
+      if @canHaz('opinions_of_users_and_comments')
+        ReactOpinionateArea
+          model: @model().getOpinionators()
       ReactAddComment
         model: @model().comments()
         initiallyFocus: @props.initiallyFocusAddComment

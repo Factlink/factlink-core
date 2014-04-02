@@ -68,7 +68,6 @@ window.ReactAddComment = React.createBackboneClass
 
   render: ->
     _div ['add-comment-container comment-container'],
-      _span ['add-comment-arrow']
       _div ['add-comment spec-add-comment-form'],
         _div ['add-comment-question'],
           'What do you think?'
@@ -100,6 +99,7 @@ window.ReactAddComment = React.createBackboneClass
   _onTextareaChange: (text) ->
     @setState(text: text)
     @setState(controlsOpened: true) if text.length > 0
+    mp_track "Annotation: Started typing"
 
   _onSearchInsert: (text) ->
     @refs.textarea.insert text
@@ -112,7 +112,7 @@ window.ReactAddComment = React.createBackboneClass
     @model().unshift(comment)
     comment.saveWithFactAndWithState {},
       success: ->
-        mp_track "Factlink: Added comment",
+        mp_track "Annotation: Added comment",
           factlink_id: comment.collection.fact.id
 
     @setState @getInitialState()

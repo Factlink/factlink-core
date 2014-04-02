@@ -40,7 +40,7 @@ $headerBorder: 1px;
   @include remove-element-below(600px);
 }
 
-a.feed-activity-container {
+.feed-activity-container {
   display: block;
   vertical-align: top;
   padding: 0 10px;
@@ -55,9 +55,34 @@ a.feed-activity-container {
     margin-left: $headerHeight + 2*$feedPadding;
     min-height: $headerHeight;
   }
+}
 
-  &:hover {
-    background: #f7f7f7;
+.feed-activity-box-balloon {
+  color: $baseFontColor;
+  transition: 0.5s;
+}
+
+.feed-activity-content {
+  color: $baseFontColor;
+
+  &:hover .feed-comment-box-balloon:before {
+    @extend .feed-activity-box-balloon;
+    border-right-color: darken($grayLighter, 10);
+  }
+
+  &:hover .feed-comment-box-balloon {
+    @extend .feed-activity-box-balloon;
+    background-color: darken($grayLighter, 10);
+  }
+
+  &:hover .annotation-balloon:before {
+    @extend .feed-activity-box-balloon;
+    border-right-color: darken($lightYellow, 10);
+  }
+
+  &:hover .annotation-balloon {
+    @extend .feed-activity-box-balloon;
+    background-color: darken($lightYellow, 10);
   }
 }
 

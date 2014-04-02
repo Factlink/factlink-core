@@ -6,7 +6,7 @@ module Acceptance
       visit '/client/blank'
       find('.spec-discussion-sidebar-region')
       page.execute_script "clientEnvoy.showFactlink(#{factlink.id})"
-      find('.spec-button-believes')
+      find('.spec-button-interesting')
     end
 
     def backend_create_fact_with_long_text

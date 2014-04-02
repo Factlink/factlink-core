@@ -45,6 +45,10 @@ cd testserver
   bundle
 cd ..
 
+js-library/bin/bootstrap
+core/bin/bootstrap
+
+PROXY_BRANCH=''
 
 if [ ! -e proxy ]; then
   git clone git://github.com/Factlink/web-proxy.git proxy
@@ -52,12 +56,21 @@ if [ ! -e proxy ]; then
 else
   pushd proxy
   git pull --ff-only
+  PROXY_BRANCH=`git symbolic-ref HEAD 2>/dev/null`
   popd
 fi
 
 
 proxy/bin/bootstrap
-js-library/bin/bootstrap
-core/bin/bootstrap
 
-echo "Your factlink development environment is done.  Happy hacking!"
+
+if [ "$PROXY_BRANCH" != "refs/heads/master" ]; then
+  echo -e "\n\n"
+  for i in {1..5}
+  do
+    echo 'WARNING: Your proxy subrepo is NOT at the master branch!'
+  done
+else
+  echo "Your factlink development environment is done.  Happy hacking!"
+fi
+
