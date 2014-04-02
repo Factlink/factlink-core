@@ -39,11 +39,17 @@ rbenv rehash || :
 rbenv shell --unset
 
 cd local_development
-  bundle
+  md5sum --check Gemfile.lock.md5cache || (
+    bundle
+    md5sum Gemfile.lock > Gemfile.lock.md5cache
+  )
 cd ..
 
 cd testserver
-  bundle
+  md5sum --check Gemfile.lock.md5cache || (
+    bundle
+    md5sum Gemfile.lock > Gemfile.lock.md5cache
+  )
 cd ..
 
 js-library/bin/bootstrap
