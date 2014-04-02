@@ -87,6 +87,7 @@ module Backend
       activity = Activity.create(user: graph_user, action: action, subject: subject,
         object: object, created_at: time.utc.to_s)
 
+      Resque.enqueue(ProcessActivity, activity.id)
       send_mail_for_activity activity: activity if send_mails
 
       activity

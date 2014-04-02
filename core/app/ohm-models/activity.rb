@@ -35,14 +35,6 @@ class Activity < OurOhm
     old_set_user new_user.graph_user
   end
 
-  def create
-    result = super
-
-    Resque.enqueue(ProcessActivity, id)
-
-    result
-  end
-
   def delete
     remove_from_containing_sorted_sets
     super

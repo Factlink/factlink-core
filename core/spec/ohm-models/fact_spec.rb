@@ -9,11 +9,6 @@ describe Fact do
 
   let(:graph_user) { create(:graph_user) }
 
-  before do
-    # TODO: remove this once activities are not created in the models any more, but in interactors
-    Activity.stub(:create)
-  end
-
   describe "Mongoid properties: " do
     context "after setting a displaystring to 'hiephoi'" do
       it "the facts to_s is 'hiephoi'" do
