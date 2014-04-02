@@ -1,7 +1,5 @@
 module Acceptance
   module FactHelper
-    include ::FactHelper
-
     def open_discussion_sidebar_for factlink
       visit '/client/blank'
       find('.spec-discussion-sidebar-region')

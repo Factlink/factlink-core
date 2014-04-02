@@ -1,7 +1,6 @@
 require 'acceptance_helper'
 
 describe "factlink", type: :feature do
-  include FactHelper
   include PavlovSupport
   include Acceptance::FactHelper
   include Acceptance::AuthenticationHelper
