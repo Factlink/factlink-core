@@ -33,7 +33,8 @@ fi
 
 rbenv shell "${RUBY_VERSION}"
 
-gem install bundler git-up
+type git-up 2>/dev/null || gem install git-up
+type bundler 2>/dev/null || gem install bundler
 rbenv rehash || :
 rbenv shell --unset
 
