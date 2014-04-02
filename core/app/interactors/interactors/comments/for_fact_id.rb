@@ -7,7 +7,7 @@ module Interactors
       arguments :fact_id
 
       def authorized?
-        can? :show, Fact
+        true
       end
 
       def validate

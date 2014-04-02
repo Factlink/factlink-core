@@ -30,21 +30,11 @@ class Ability
   end
 
   def define_anonymous_user_abilities
-    can :new, Fact
-    can :index, Fact
-    can :read, Fact
-    can :create, Fact
     can :read, Comment
 
     can :read, User do |u|
       u.active? || u.deleted # we show a special page for deleted users
     end
-  end
-
-  def define_fact_abilities
-    return unless signed_in?
-
-    can :opinionate, Fact
   end
 
   def define_comment_abilities

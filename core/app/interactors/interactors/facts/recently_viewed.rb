@@ -13,7 +13,7 @@ module Interactors
       end
 
       def authorized?
-        can? :index, Fact
+        true
       end
     end
   end

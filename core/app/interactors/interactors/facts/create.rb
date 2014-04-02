@@ -7,7 +7,7 @@ module Interactors
       arguments :displaystring, :url, :site_title
 
       def authorized?
-        can? :create, Fact
+        true
       end
 
       private
