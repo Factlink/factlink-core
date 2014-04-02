@@ -53,7 +53,7 @@ cd testserver
 cd ..
 
 js-library/bin/bootstrap
-core/bin/bootstrap
+core/bin/bootstrap &
 
 PROXY_BRANCH=''
 
@@ -67,7 +67,7 @@ else
   popd
 fi
 
-
+wait
 proxy/bin/bootstrap
 
 
