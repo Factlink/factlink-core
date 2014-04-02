@@ -13,4 +13,3 @@ bundle exec rake db:init
 kill $FOREMAN_PID
 wait
 
-bin/check_dependencies.sh || exit 1
