@@ -1,15 +1,8 @@
 #!/bin/bash
-onexit() {
-  kill -2 $(jobs -p)
-  kill $(jobs -p)
-  echo "Waiting for children to exit..."
-  sleep 1.1
-  kill -9 0
-}
-trap onexit SIGINT SIGTERM EXIT INT QUIT TERM
 cd "$( dirname "${BASH_SOURCE[0]}" )"
+. bin/kill-descendants-on-exit.sh
 
 (./start-db.sh ; kill $$) &
+bin/bootstrap --no-db-start
 (./start-web.sh ; kill $$) &
-(cd js-library; grunt && grunt watch; kill $$) &
 wait

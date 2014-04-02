@@ -2,15 +2,44 @@
 echo 'Setting up core...'
 cd "$( dirname "${BASH_SOURCE[0]}" )"/..
 
-bundle install
+shasum --check Gemfile.lock.sha-cache || (
+  bundle -j4
+  shasum Gemfile.lock > Gemfile.lock.sha-cache
+)
 
-../start-db.sh &
-FOREMAN_PID=$!
-sleep 1
-bundle exec rake db:migrate
+cat db/*.rb db/migrate/*.rb > .db-dir-concat
+
+shasum --check .db-dir-concat.sha-cache && exit 0
+
+if [[ "$1" = "--no-db-start" ]]; then
+  while :; do
+
+    exec 6<>/dev/tcp/127.0.0.1/9200 && ERROR_STATUS="" || ERROR_STATUS="closed"; exec 6>&-; exec 6<&-
+
+    if [[ -z "$ERROR_STATUS" ]]; then
+      break;
+    else
+      echo "Waiting for db's to start..."
+      sleep 0.2
+    fi
+  done
+fi
+
+exec 6<>/dev/tcp/127.0.0.1/9200 && ERROR_STATUS="" || ERROR_STATUS="closed"; exec 6>&-; exec 6<&-
+
+
+if [[ -n "$ERROR_STATUS" ]]; then
+  ../start-db.sh &
+  FOREMAN_PID=$!
+  sleep 3
+fi
+
 bundle exec rake db:init
 
-kill $FOREMAN_PID
-wait
+if [[ -n "$FOREMAN_PID" ]]; then
+  kill $FOREMAN_PID
+  wait
+fi
 
-bin/check_dependencies.sh || exit 1
+
+shasum .db-dir-concat > .db-dir-concat.sha-cache

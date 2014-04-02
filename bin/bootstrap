@@ -6,6 +6,18 @@ set -e
 
 cd "$( dirname "${BASH_SOURCE[0]}" )"/..
 
+PROXY_BRANCH=''
+
+if [ ! -e proxy ]; then
+  git clone git://github.com/Factlink/web-proxy.git proxy
+  git remote add proxy-production dokku@188.226.211.29:proxy-production
+else
+  pushd proxy
+  PROXY_BRANCH=`git symbolic-ref HEAD 2>/dev/null`
+  git pull --ff-only &
+  popd
+fi
+
 RUBY_VERSION=`cat core/.ruby-version`
 
 echo "Checking for ruby ${RUBY_VERSION}"
@@ -33,34 +45,32 @@ fi
 
 rbenv shell "${RUBY_VERSION}"
 
-gem install bundler git-up
+type git-up 2>/dev/null || gem install git-up
+type bundler 2>/dev/null || gem install bundler
 rbenv rehash || :
 rbenv shell --unset
 
+
+
 cd local_development
-  bundle
+  shasum --check Gemfile.lock.sha-cache || (
+    bundle -j4
+    shasum Gemfile.lock > Gemfile.lock.sha-cache
+  )
 cd ..
 
 cd testserver
-  bundle
+  shasum --check Gemfile.lock.sha-cache || (
+    bundle -j4
+    shasum Gemfile.lock > Gemfile.lock.sha-cache
+  )
 cd ..
 
 js-library/bin/bootstrap
-core/bin/bootstrap
-
-PROXY_BRANCH=''
-
-if [ ! -e proxy ]; then
-  git clone git://github.com/Factlink/web-proxy.git proxy
-  git remote add proxy-production dokku@188.226.211.29:proxy-production
-else
-  pushd proxy
-  git pull --ff-only
-  PROXY_BRANCH=`git symbolic-ref HEAD 2>/dev/null`
-  popd
-fi
+core/bin/bootstrap $1
 
 
+wait
 proxy/bin/bootstrap
 
 

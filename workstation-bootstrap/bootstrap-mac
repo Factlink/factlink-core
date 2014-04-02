@@ -38,9 +38,10 @@ ensureBrew node
 ensureBrew git-flow
 ensureBrew qt
 ensureBrew phantomjs
+ensureBrew postgresql
 ensureBrew pstree
-
 ensureBrew rbenv
+
 if egrep -q '^eval "\$\(rbenv init -\)"$' ~/.bash_profile ; then
   echo "rbenv already installed in .bash_profile"
 else
@@ -80,6 +81,12 @@ if ! type grunt 2>&1 >/dev/null; then
     exit 1
   fi
   echo 'export PATH=$PATH:/usr/local/share/npm/bin' >> ~/.bash_profile
+fi
+
+#NOTE: Make unix socket writeable for Postgresql
+if [ ! -d '/var/pgsql_socket/' ]; then
+  sudo mkdir -p /var/pgsql_socket/
+  sudo chmod 777 /var/pgsql_socket/
 fi
 
 rbenv shell $RUBY_VERSION
