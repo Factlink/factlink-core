@@ -23,8 +23,6 @@ describe Api::AnnotationsController do
         pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes')
       end
 
-      ability.should_receive(:can?).with(:show, Fact).and_return(true)
-
       get :show, id: fact.id, format: :json
 
       verify { response.body }
@@ -43,8 +41,6 @@ describe Api::AnnotationsController do
 
         pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes')
       end
-
-      ability.should_receive(:can?).with(:show, Fact).and_return(true)
 
       get :show, id: fact.id, format: :json
 

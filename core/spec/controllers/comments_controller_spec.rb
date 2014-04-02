@@ -31,8 +31,6 @@ describe CommentsController do
         pavlov.interactor(:'comments/update_opinion', comment_id: comment.id.to_s, opinion: 'disbelieves')
       end
 
-      ability.should_receive(:can?).with(:show, Fact).and_return(true)
-
       get :index, id: fact.id, format: :json
 
       verify { response.body }
