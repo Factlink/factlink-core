@@ -22,7 +22,6 @@ class Ability
 
     define_anonymous_user_abilities
 
-    define_fact_abilities
     define_comment_abilities
     define_sub_comment_abilities
     define_user_abilities
