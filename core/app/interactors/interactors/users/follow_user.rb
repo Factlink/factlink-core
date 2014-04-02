@@ -44,7 +44,9 @@ module Interactors
         Backend::Activities.create \
           graph_user: current_user.graph_user,
           action: :followed_user,
-          subject: user_to_follow.graph_user
+          subject: user_to_follow.graph_user,
+          time: pavlov_options[:time],
+          send_mails: pavlov_options[:send_mails]
 
 
         Backend::Activities.add_activities_to_follower_stream(

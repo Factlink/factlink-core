@@ -1,16 +1,13 @@
 require 'spec_helper'
 
 describe Fact do
+  include PavlovSupport
+
   subject(:fact) { create :fact }
 
   let(:factlink) { create :fact }
 
   let(:graph_user) { create(:graph_user) }
-
-  before do
-    # TODO: remove this once activities are not created in the models any more, but in interactors
-    Activity.stub(:create)
-  end
 
   describe "Mongoid properties: " do
     context "after setting a displaystring to 'hiephoi'" do
@@ -51,7 +48,9 @@ describe Fact do
     it "is false when people have given their opinion on the fact" do
       fact = create :fact
 
-      Pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes', pavlov_options: {current_user: (create :user)})
+      as(create :user) do |pavlov|
+        pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes')
+      end
 
       expect(fact.deletable?).to be_false
     end
@@ -59,7 +58,9 @@ describe Fact do
     it "is false when a comment has been given" do
       fact = create :fact
 
-      Pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, content: 'foo', pavlov_options: {current_user: (create :user)})
+      as(create :user) do |pavlov|
+        pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, content: 'foo')
+      end
 
       expect(fact.deletable?).to be_false
     end

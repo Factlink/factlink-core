@@ -32,7 +32,9 @@ module Interactors
           graph_user: pavlov_options[:current_user].graph_user,
           action: :created_sub_comment,
           subject: sub_comment,
-          object: top_fact
+          object: top_fact,
+          time: pavlov_options[:time],
+          send_mails: pavlov_options[:send_mails]
       end
 
       def create_sub_comment

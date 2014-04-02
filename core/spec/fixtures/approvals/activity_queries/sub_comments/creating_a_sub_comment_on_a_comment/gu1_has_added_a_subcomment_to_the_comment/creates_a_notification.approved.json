@@ -1,0 +1,8 @@
+[
+  {
+    "username": "johndoe2",
+    "subject_class": "SubComment",
+    "object_class": "Fact",
+    "action": "created_sub_comment"
+  }
+]

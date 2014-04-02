@@ -21,12 +21,6 @@ describe Activity::Listener do
     Activity::ListenerCreator.new.create_activity_listeners
   end
 
-
-  def send_mail_for_activity_should_be_invoked
-    Backend::Activities.should_receive(:send_mail_for_activity).with(activity: an_instance_of(Activity))
-  end
-
-
   describe :new do
     it "should call its dsl with the block if there is a block" do
       block = proc { puts "hoi" }
@@ -45,9 +39,7 @@ describe Activity::Listener do
       subject.activity_for = Blob
       subject.listname = 'foo'
 
-      send_mail_for_activity_should_be_invoked
-
-      @a = Activity.create subject: b1, object: f1, action: :followed_user
+      @a = Activity.create subject: b1, object: f1, action: :followed_user, created_at: Time.now.utc.to_s
     end
 
     it "should return no result when no queries are defined" do
@@ -62,17 +54,13 @@ describe Activity::Listener do
   end
 
   describe '#matches_any?' do
-    before do
-      send_mail_for_activity_should_be_invoked
-    end
-
     it "should return no result when no queries are defined" do
       listener = Activity::Listener.new do
         activity_for "Blob"
         named :foo
       end
 
-      activity = Activity.create subject: Blob.create, action: :followed_user
+      activity = Activity.create subject: Blob.create, action: :followed_user, created_at: Time.now.utc.to_s
       expect(listener.matches_any?(activity)).to eq false
     end
 
@@ -85,7 +73,7 @@ describe Activity::Listener do
                  action: :followed_user
       end
 
-      activity = Activity.create subject: Blob.create, action: :followed_user
+      activity = Activity.create subject: Blob.create, action: :followed_user, created_at: Time.now.utc.to_s
       expect(listener.matches_any?(activity)).to eq true
     end
 
@@ -98,7 +86,7 @@ describe Activity::Listener do
                  action: :followed_user
       end
 
-      activity = Activity.create subject: Blob.create, action: :followed_user
+      activity = Activity.create subject: Blob.create, action: :followed_user, created_at: Time.now.utc.to_s
       expect(listener.matches_any?(activity)).to eq false
     end
   end
@@ -109,9 +97,7 @@ describe Activity::Listener do
       subject.activity_for = Blob
       subject.listname = 'foo'
 
-      send_mail_for_activity_should_be_invoked
-
-      @a = Activity.create subject: b1, object: f1, action: :followed_user
+      @a = Activity.create subject: b1, object: f1, action: :followed_user, created_at: Time.now.utc.to_s
     end
 
     it "should not match for an empty query" do
@@ -151,16 +137,12 @@ describe Activity::Listener do
   end
 
   describe :process do
-    before do
-      send_mail_for_activity_should_be_invoked
-    end
-
     it "should add the activities to a timestamped set on the object" do
       subject.activity_for = 'Foo'
       subject.listname = :activities
       subject.queries << {subject_class: Foo, write_ids: ->(a) { [f1.id] } }
 
-      a1 = Activity.create subject: f1, object: f1, action: :followed_user
+      a1 = Activity.create subject: f1, object: f1, action: :followed_user, created_at: Time.now.utc.to_s
       subject.process a1
       expect(f1.activities.ids).to match_array [a1.id]
       expect(f2.activities.ids).to match_array []
@@ -171,7 +153,7 @@ describe Activity::Listener do
       subject.listname = :activities
       subject.queries << {subject_class: Foo, write_ids: ->(a) { [a.subject.id] } }
 
-      a1 = Activity.create subject: f1, object: f1, action: :followed_user
+      a1 = Activity.create subject: f1, object: f1, action: :followed_user, created_at: Time.now.utc.to_s
       subject.process a1
       expect(f1.activities.ids).to match_array [a1.id]
       expect(f2.activities.ids).to match_array []

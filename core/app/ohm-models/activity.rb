@@ -7,7 +7,6 @@ class Activity < OurOhm
   reference :user, GraphUser
 
   attribute :created_at
-  attribute :updated_at
 
   generic_reference :subject
   generic_reference :object
@@ -36,17 +35,6 @@ class Activity < OurOhm
     old_set_user new_user.graph_user
   end
 
-  def create
-    self.created_at ||= Time.now.utc.to_s
-
-    result = super
-
-    Resque.enqueue(ProcessActivity, id)
-    Backend::Activities.send_mail_for_activity activity: self
-
-    result
-  end
-
   def delete
     remove_from_containing_sorted_sets
     super
@@ -57,27 +45,6 @@ class Activity < OurOhm
       Nest.new(list).zrem id
     end
     containing_sorted_sets.del
-  end
-
-
-  # OBSOLETE
-  # Please don't use this method in new stuff
-  # only tests still uses this
-  def self.for(search_for)
-    res = find(subject_id: search_for.id, subject_class: search_for.class) |
-          find(object_id: search_for.id, object_class: search_for.class)
-
-    res |= find(user_id: search_for.id) if search_for.class == GraphUser
-
-    res
-  end
-
-  def to_hash_without_time
-    h = { user: user,
-          action: action.to_sym,
-          subject: subject }
-    h[:object] = object if object
-    h
   end
 
   # WARNING: if this method returns false, we assume it will never become
@@ -98,14 +65,6 @@ class Activity < OurOhm
   def remove_from_list list
     list.delete self
     containing_sorted_sets.srem list.key.to_s
-  end
-
-  protected
-
-  def write
-    self.updated_at = Time.now.utc.to_s
-
-    super
   end
 
   private

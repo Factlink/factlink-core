@@ -2,21 +2,6 @@ module Backend
   module Activities
     extend self
 
-    def send_mail_for_activity(activity:)
-      listeners = Activity::Listener.all[{class: "GraphUser", list: :notifications}]
-
-      graph_user_ids = listeners.map do |listener|
-          listener.add_to(activity)
-        end.flatten
-
-      recipients = UserNotification.users_receiving('mailed_notifications')
-                                   .any_in(graph_user_id: graph_user_ids)
-
-      recipients.each do |user|
-        Resque.enqueue SendActivityMailToUser, user.id, activity.id
-      end
-    end
-
     def activities_older_than(activities_set:, timestamp: nil, count: nil)
       #watch out: don't use defaults other than nil since nill is automatically passed in at the rails controller level.
       timestamp = timestamp || 'inf'
@@ -98,8 +83,31 @@ module Backend
       end
     end
 
-    def create(graph_user:, action:, subject:, object: nil)
-      Activity.create(user: graph_user, action: action, subject: subject, object: object)
+    def create(graph_user:, action:, subject:, object: nil, time:, send_mails:)
+      activity = Activity.create(user: graph_user, action: action, subject: subject,
+        object: object, created_at: time.utc.to_s)
+
+      Resque.enqueue(ProcessActivity, activity.id)
+      send_mail_for_activity activity: activity if send_mails
+
+      activity
+    end
+
+    private
+
+    def send_mail_for_activity(activity:)
+      listeners = Activity::Listener.all[{class: "GraphUser", list: :notifications}]
+
+      graph_user_ids = listeners.map do |listener|
+          listener.add_to(activity)
+        end.flatten
+
+      recipients = UserNotification.users_receiving('mailed_notifications')
+                                   .any_in(graph_user_id: graph_user_ids)
+
+      recipients.each do |user|
+        Resque.enqueue SendActivityMailToUser, user.id, activity.id
+      end
     end
   end
 end

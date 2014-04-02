@@ -11,7 +11,12 @@ class ApplicationController < ActionController::Base
   DEFAULT_LAYOUT = 'frontend'
 
   def pavlov_options
-    Util::PavlovContextSerialization.pavlov_context_by_user current_user, current_ability
+    {
+      current_user: current_user,
+      ability: current_ability,
+      time: Time.now,
+      send_mails: true,
+    }
   end
 
   def params_for_interactor(interactor_class)

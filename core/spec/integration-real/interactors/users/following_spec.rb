@@ -32,24 +32,6 @@ describe 'user following' do
         end
       end
     end
-
-    describe 'stream activities' do
-      it "adds relevant activities" do
-        a4 = nil
-
-        as(user2) do |pavlov|
-          a4 = Activity.create user: user2.graph_user,
-            action: :followed_user, subject: user3.graph_user
-        end
-
-        as(user1) do |pavlov|
-          pavlov.interactor(:'users/follow_user', username: user2.username)
-        end
-
-        expect(user1.graph_user.stream_activities.ids)
-          .to match_array [a4.id]
-      end
-    end
   end
 
   describe 'unfollowing a user' do

@@ -25,8 +25,15 @@ module PavlovSupport
   class ExecuteAsUser < Struct.new(:user)
     include Pavlov::Helpers
 
+    attr_writer :send_mails
+
     def pavlov_options
-      Util::PavlovContextSerialization.pavlov_context_by_user user
+      {
+        current_user: user,
+        ability: Ability.new(user),
+        time: Time.now,
+        send_mails: @send_mails || false,
+      }
     end
 
     def execute &block
