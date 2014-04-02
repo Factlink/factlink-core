@@ -3,7 +3,7 @@ echo 'Setting up core...'
 cd "$( dirname "${BASH_SOURCE[0]}" )"/..
 
 shasum --check Gemfile.lock.sha-cache || (
-  bundle
+  bundle -j4
   shasum Gemfile.lock > Gemfile.lock.sha-cache
 )
 
