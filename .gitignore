@@ -7,4 +7,4 @@ node_modules/
 server-management/growth-hacking/analyze-publishers/access.json
 server-management/growth-hacking/analyze-publishers/access.log
 /proxy
-*.md5cache
+*.sha-cache

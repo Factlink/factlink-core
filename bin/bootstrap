@@ -39,16 +39,16 @@ rbenv rehash || :
 rbenv shell --unset
 
 cd local_development
-  md5sum --check Gemfile.lock.md5cache || (
+  shasum --check Gemfile.lock.sha-cache || (
     bundle
-    md5sum Gemfile.lock > Gemfile.lock.md5cache
+    shasum Gemfile.lock > Gemfile.lock.sha-cache
   )
 cd ..
 
 cd testserver
-  md5sum --check Gemfile.lock.md5cache || (
+  shasum --check Gemfile.lock.sha-cache || (
     bundle
-    md5sum Gemfile.lock > Gemfile.lock.md5cache
+    shasum Gemfile.lock > Gemfile.lock.sha-cache
   )
 cd ..
 

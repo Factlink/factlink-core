@@ -2,9 +2,9 @@
 echo 'Setting up core...'
 cd "$( dirname "${BASH_SOURCE[0]}" )"/..
 
-md5sum --check Gemfile.lock.md5cache || (
+shasum --check Gemfile.lock.sha-cache || (
   bundle
-  md5sum Gemfile.lock > Gemfile.lock.md5cache
+  shasum Gemfile.lock > Gemfile.lock.sha-cache
 )
 
 exec 6<>/dev/tcp/127.0.0.1/9200 && ERROR_STATUS="" || ERROR_STATUS="closed"; exec 6>&-; exec 6<&-

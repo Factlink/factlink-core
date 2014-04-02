@@ -1,8 +1,8 @@
 #!/bin/bash
 echo 'Setting up js-library...'
 cd "$( dirname "${BASH_SOURCE[0]}" )"/..
-md5sum --check Gemfile.lock.md5cache || (
+shasum --check Gemfile.lock.sha-cache || (
   bundle
-  md5sum Gemfile.lock > Gemfile.lock.md5cache
+  shasum Gemfile.lock > Gemfile.lock.sha-cache
 )
 npm install
