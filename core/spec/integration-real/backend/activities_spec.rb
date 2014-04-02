@@ -14,7 +14,6 @@ describe 'activity queries' do
       @mails_by_username_and_activity << {
         username: User.find(user_id).username,
         subject_class: Activity[activity_id].subject_class,
-        object_class: Activity[activity_id].object_class,
         action: Activity[activity_id].action
       }
     end
