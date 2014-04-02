@@ -3,7 +3,10 @@ module Backend
     extend self
 
     def get(fact_id:)
-      dead Fact[fact_id]
+      fact = Fact[fact_id]
+      raise Mongoid::Errors::DocumentNotFound, "Fact #{fact_id}" unless fact
+
+      dead(fact)
     end
 
     # TODO: only use fact_id!

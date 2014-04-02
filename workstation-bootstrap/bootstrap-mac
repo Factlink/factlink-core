@@ -39,8 +39,9 @@ ensureBrew git-flow
 ensureBrew qt
 ensureBrew phantomjs
 ensureBrew postgresql
-
+ensureBrew pstree
 ensureBrew rbenv
+
 if egrep -q '^eval "\$\(rbenv init -\)"$' ~/.bash_profile ; then
   echo "rbenv already installed in .bash_profile"
 else
