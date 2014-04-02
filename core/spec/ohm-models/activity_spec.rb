@@ -18,7 +18,7 @@ describe Activity do
              :action => :followed_user,
              :subject => b1,
              :object => b2,
-             :created_at => Time.at(0).to_s
+             :created_at => Time.at(0).utc.to_s
            )
       @activity = Activity[a.id]
     end
@@ -34,7 +34,7 @@ describe Activity do
              :action => :followed_user,
              :subject => gu2,
              :object => gu3,
-             :created_at => Time.at(0).to_s
+             :created_at => Time.at(0).utc.to_s
            )
       @activity = Activity[a.id]
     end
@@ -45,46 +45,46 @@ describe Activity do
 
   describe "still_valid?" do
     it "should be valid for an activity with everything set" do
-      activity = Activity.create(user: gu, action: :followed_user, subject: gu2, object: gu3, created_at: Time.at(0).to_s)
+      activity = Activity.create(user: gu, action: :followed_user, subject: gu2, object: gu3, created_at: Time.at(0).utc.to_s)
       expect(activity).to be_still_valid
     end
 
     it "should be valid when the user is not set" do
-      activity = Activity.create(action: :followed_user, subject: gu2, object: gu3, created_at: Time.at(0).to_s)
+      activity = Activity.create(action: :followed_user, subject: gu2, object: gu3, created_at: Time.at(0).utc.to_s)
       expect(activity).to be_still_valid
     end
 
     it "should be valid when the subject is unset/not set" do
-      activity = Activity.create(user: gu, action: :followed_user, object: gu3, created_at: Time.at(0).to_s)
+      activity = Activity.create(user: gu, action: :followed_user, object: gu3, created_at: Time.at(0).utc.to_s)
       expect(activity).to be_still_valid
     end
 
     it "should be valid when the object is unset/not set" do
-      activity = Activity.create(user: gu, action: :followed_user, subject: gu2, created_at: Time.at(0).to_s)
+      activity = Activity.create(user: gu, action: :followed_user, subject: gu2, created_at: Time.at(0).utc.to_s)
       expect(activity).to be_still_valid
     end
 
     it "should not be valid if the graph_user object is deleted" do
-      activity = Activity.create(user: gu, action: :followed_user, created_at: Time.at(0).to_s)
+      activity = Activity.create(user: gu, action: :followed_user, created_at: Time.at(0).utc.to_s)
       gu.delete
       expect(activity).to_not be_still_valid
     end
 
     it "should not be valid if the user is deleted" do
       deleted_user = create :user, deleted: true
-      activity = Activity.create(user: deleted_user.graph_user, action: :followed_user, created_at: Time.at(0).to_s)
+      activity = Activity.create(user: deleted_user.graph_user, action: :followed_user, created_at: Time.at(0).utc.to_s)
       activity = Activity[activity.id]
       expect(activity).to_not be_still_valid
     end
 
     it "should not be valid if the subject is deleted" do
-      activity = Activity.create(action: :followed_user, subject: gu2, created_at: Time.at(0).to_s)
+      activity = Activity.create(action: :followed_user, subject: gu2, created_at: Time.at(0).utc.to_s)
       gu2.delete
       expect(activity).to_not be_still_valid
     end
 
     it "should not be valid if the object is deleted" do
-      activity = Activity.create(action: :followed_user, object: gu3, created_at: Time.at(0).to_s)
+      activity = Activity.create(action: :followed_user, object: gu3, created_at: Time.at(0).utc.to_s)
       gu3.delete
       expect(activity).to_not be_still_valid
     end
@@ -96,7 +96,7 @@ describe Activity do
              :action => :followed_user,
              :subject => b1,
              :object => b2,
-             :created_at => Time.at(0).to_s
+             :created_at => Time.at(0).utc.to_s
            )
     end
     let (:activity2) do Activity.create(
@@ -104,7 +104,7 @@ describe Activity do
                :action => :followed_user,
                :subject => b1,
                :object => b2,
-               :created_at => Time.at(0).to_s
+               :created_at => Time.at(0).utc.to_s
              )
     end
 
