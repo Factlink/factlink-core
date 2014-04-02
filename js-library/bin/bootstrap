@@ -1,5 +1,8 @@
 #!/bin/bash
 echo 'Setting up js-library...'
 cd "$( dirname "${BASH_SOURCE[0]}" )"/..
-bundle install
+md5sum --check Gemfile.lock.md5cache || (
+  bundle
+  md5sum Gemfile.lock > Gemfile.lock.md5cache
+)
 npm install
