@@ -14,11 +14,6 @@ class RecentlyViewedFacts
     @nest_key = nest_key
   end
 
-  def top count
-    top_ids(count).map {|id| Fact[id]}
-                  .compact
-  end
-
   def add_fact_id id
     nest_key.zadd self.class.current_time, id
   end
@@ -27,7 +22,6 @@ class RecentlyViewedFacts
     nest_key.zremrangebyrank 0, -keep_count-1
   end
 
-  private
   def top_ids count
     nest_key.zrevrange 0, count-1
   end

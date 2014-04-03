@@ -9,13 +9,13 @@ describe RecentlyViewedFacts do
 
       recently_viewed_facts.add_fact_id fact_data.fact_id
 
-      expect(recently_viewed_facts.top(1).map(&:id)).to eq [fact_data.fact_id]
+      expect(recently_viewed_facts.top_ids(1)).to eq [fact_data.fact_id]
     end
   end
 
   # All the sleeps below this line, are to make sure our timpstamp based sorting works.
   # This is sorted on milisecond precision, so if we wait 2 miliseconds nothing can go wrong.
-  describe '.top' do
+  describe '.top_ids' do
     it 'returns "count" facts' do
       fact_data_1 = create :fact_data
       fact_data_2 = create :fact_data
@@ -24,7 +24,7 @@ describe RecentlyViewedFacts do
       sleep 0.002
       recently_viewed_facts.add_fact_id fact_data_2.fact_id
 
-      expect(recently_viewed_facts.top(1).map(&:id)).to eq [fact_data_2.fact_id]
+      expect(recently_viewed_facts.top_ids(1)).to eq [fact_data_2.fact_id]
     end
 
     it 'returns the facts sorted by viewed time' do
@@ -38,7 +38,7 @@ describe RecentlyViewedFacts do
       sleep 0.002
       recently_viewed_facts.add_fact_id fact_data_3.fact_id
 
-      expect(recently_viewed_facts.top(3).map(&:id)).to eq [fact_data_3.fact_id, fact_data_2.fact_id, fact_data_1.fact_id]
+      expect(recently_viewed_facts.top_ids(3)).to eq [fact_data_3.fact_id, fact_data_2.fact_id, fact_data_1.fact_id]
     end
 
     it 'handles viewing a factlink multiple times correctly' do
@@ -51,7 +51,7 @@ describe RecentlyViewedFacts do
       sleep 0.002
       recently_viewed_facts.add_fact_id fact_data_1.fact_id
 
-      expect(recently_viewed_facts.top(3).map(&:id)).to eq [fact_data_1.fact_id, fact_data_2.fact_id]
+      expect(recently_viewed_facts.top_ids(3)).to eq [fact_data_1.fact_id, fact_data_2.fact_id]
     end
   end
 
@@ -72,7 +72,7 @@ describe RecentlyViewedFacts do
 
       recently_viewed_facts.truncate 1
 
-      expect(recently_viewed_facts.top(3).map(&:id)).to eq [fact_data_4.fact_id]
+      expect(recently_viewed_facts.top_ids(3)).to eq [fact_data_4.fact_id]
     end
 
   end
