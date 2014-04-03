@@ -2,7 +2,7 @@ module Backend
   module Followers
     extend self
 
-    def followers_for_fact fact_id
+    def followers_for_fact_id fact_id
       comments = FactData.where(fact_id: fact_id).first.comments
       [
         direct_followers_for_fact(fact_id),
