@@ -25,7 +25,7 @@ set :repository,  "."
 
 set :deploy_to, "/applications/#{application}"
 set :deploy_via, :copy    # only fetch changes since since last
-set :copy_exclude, %w(tmp spec spec-unit log)
+set :copy_exclude, %w(tmp spec log)
 
 ssh_options[:forward_agent] = true
 
