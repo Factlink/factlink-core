@@ -12,20 +12,18 @@ describe Api::AnnotationsController do
       FactoryGirl.reload
 
       authenticate_user!(user)
-      fact = nil
+      dead_fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.interactor(:'facts/create',
+        dead_fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
                                      site_title: 'title')
 
-        pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes')
+        pavlov.interactor(:'facts/set_opinion', fact_id: dead_fact.id, opinion: 'believes')
       end
 
-      ability.should_receive(:can?).with(:show, Fact).and_return(true)
-
-      get :show, id: fact.id, format: :json
+      get :show, id: dead_fact.id, format: :json
 
       verify { response.body }
     end
@@ -33,20 +31,18 @@ describe Api::AnnotationsController do
     it "should render json successful for non-logged in users" do
       FactoryGirl.reload
 
-      fact = nil
+      dead_fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.interactor(:'facts/create',
+        dead_fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
                                      url: 'url',
                                      site_title: 'title')
 
-        pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: 'believes')
+        pavlov.interactor(:'facts/set_opinion', fact_id: dead_fact.id, opinion: 'believes')
       end
 
-      ability.should_receive(:can?).with(:show, Fact).and_return(true)
-
-      get :show, id: fact.id, format: :json
+      get :show, id: dead_fact.id, format: :json
 
       verify { response.body }
     end

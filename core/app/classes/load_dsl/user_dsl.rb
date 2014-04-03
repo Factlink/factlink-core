@@ -4,7 +4,7 @@ class LoadDsl
       dead_fact = Backend::Facts.create displaystring: fact_string,
         url: url, site_title: opts.fetch(:title, url)
 
-      FactDsl.new(Fact[dead_fact.id]).instance_eval(&block) if block_given?
+      FactDsl.new(dead_fact).instance_eval(&block) if block_given?
     end
 
   end

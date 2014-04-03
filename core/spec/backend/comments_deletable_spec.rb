@@ -5,12 +5,12 @@ describe Backend::Comments do
 
   context 'Comment' do
     let(:user) { create :user }
-    let(:fact) { create :fact }
+    let(:fact_data) { create :fact_data }
 
     let(:comment) do
       dead_comment = as(user) do |context|
         context.interactor(:'comments/create',
-                           fact_id: fact.id.to_i,
+                           fact_id: fact_data.fact_id.to_i,
                            type: 'believes',
                            content: 'content')
       end

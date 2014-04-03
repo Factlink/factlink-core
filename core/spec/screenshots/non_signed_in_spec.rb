@@ -8,7 +8,7 @@ describe "Non signed in pages:", type: :feature do
     it "renders correctly" do
       @user = sign_in_user create :user
 
-      factlink = create :fact
+      create :fact_data
 
       sign_out_user
       visit user_profile_path(@user)

@@ -3,10 +3,10 @@ module Backend
     extend self
 
     def get(fact_id:)
-      fact = Fact[fact_id]
-      raise Mongoid::Errors::DocumentNotFound, "Fact #{fact_id}" unless fact
+      fact_data = FactData.where(fact_id: fact_id).first
+      raise Mongoid::Errors::DocumentNotFound, "Fact #{fact_id}" unless fact_data
 
-      dead(fact)
+      dead(fact_data)
     end
 
     # TODO: only use fact_id!
@@ -25,27 +25,20 @@ module Backend
       fact_data.site_url = UrlNormalizer.normalize(url)
       fact_data.save!
 
-      fact = Fact.new
-      fact.data = fact_data
-      fact.save!
-
-      fact.data.fact_id = fact.id
-      fact.data.save!
-
-      dead(fact)
+      dead(fact_data)
     end
 
     def remove_opinion(fact_id:, graph_user:)
-      Believable.new(Fact[fact_id].key).remove_opinionateds graph_user
+      believable(fact_id).remove_opinionateds graph_user
     end
 
     def set_opinion(fact_id:, graph_user:, opinion:)
-      Believable.new(Fact[fact_id].key).add_opiniated opinion, graph_user
+      believable(fact_id).add_opiniated opinion, graph_user
     end
 
     def recently_viewed(graph_user_id:)
-      RecentlyViewedFacts.by_user_id(GraphUser[graph_user_id].user_id).top(5).map do |fact|
-        dead(fact)
+      RecentlyViewedFacts.by_user_id(GraphUser[graph_user_id].user_id).top_ids(5).map do |fact_id|
+        get(fact_id: fact_id)
       end
     end
 
@@ -76,10 +69,8 @@ module Backend
       Believable.new Nest.new("Fact:#{fact_id}")
     end
 
-    def dead(fact)
-      fact_data = fact.data
-
-      DeadFact.new id:fact.id,
+    def dead(fact_data)
+      DeadFact.new id: fact_data.fact_id,
                    site_url: fact_data.site_url,
                    displaystring: fact_data.displaystring,
                    created_at: fact_data.created_at,

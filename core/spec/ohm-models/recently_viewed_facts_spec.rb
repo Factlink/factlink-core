@@ -5,74 +5,74 @@ describe RecentlyViewedFacts do
 
   describe '.add_fact_id' do
     it 'pushes a fact id on the list' do
-      fact = create :fact
+      fact_data = create :fact_data
 
-      recently_viewed_facts.add_fact_id fact.id
+      recently_viewed_facts.add_fact_id fact_data.fact_id
 
-      expect(recently_viewed_facts.top(1).map(&:id)).to eq [fact.id]
+      expect(recently_viewed_facts.top_ids(1)).to eq [fact_data.fact_id]
     end
   end
 
   # All the sleeps below this line, are to make sure our timpstamp based sorting works.
   # This is sorted on milisecond precision, so if we wait 2 miliseconds nothing can go wrong.
-  describe '.top' do
+  describe '.top_ids' do
     it 'returns "count" facts' do
-      fact1 = create :fact
-      fact2 = create :fact
+      fact_data_1 = create :fact_data
+      fact_data_2 = create :fact_data
 
-      recently_viewed_facts.add_fact_id fact1.id
+      recently_viewed_facts.add_fact_id fact_data_1.fact_id
       sleep 0.002
-      recently_viewed_facts.add_fact_id fact2.id
+      recently_viewed_facts.add_fact_id fact_data_2.fact_id
 
-      expect(recently_viewed_facts.top(1).map(&:id)).to eq [fact2.id]
+      expect(recently_viewed_facts.top_ids(1)).to eq [fact_data_2.fact_id]
     end
 
     it 'returns the facts sorted by viewed time' do
-      fact1 = create :fact
-      fact2 = create :fact
-      fact3 = create :fact
+      fact_data_1 = create :fact_data
+      fact_data_2 = create :fact_data
+      fact_data_3 = create :fact_data
 
-      recently_viewed_facts.add_fact_id fact1.id
+      recently_viewed_facts.add_fact_id fact_data_1.fact_id
       sleep 0.002
-      recently_viewed_facts.add_fact_id fact2.id
+      recently_viewed_facts.add_fact_id fact_data_2.fact_id
       sleep 0.002
-      recently_viewed_facts.add_fact_id fact3.id
+      recently_viewed_facts.add_fact_id fact_data_3.fact_id
 
-      expect(recently_viewed_facts.top(3).map(&:id)).to eq [fact3.id, fact2.id, fact1.id]
+      expect(recently_viewed_facts.top_ids(3)).to eq [fact_data_3.fact_id, fact_data_2.fact_id, fact_data_1.fact_id]
     end
 
     it 'handles viewing a factlink multiple times correctly' do
-      fact1 = create :fact
-      fact2 = create :fact
+      fact_data_1 = create :fact_data
+      fact_data_2 = create :fact_data
 
-      recently_viewed_facts.add_fact_id fact1.id
+      recently_viewed_facts.add_fact_id fact_data_1.fact_id
       sleep 0.002
-      recently_viewed_facts.add_fact_id fact2.id
+      recently_viewed_facts.add_fact_id fact_data_2.fact_id
       sleep 0.002
-      recently_viewed_facts.add_fact_id fact1.id
+      recently_viewed_facts.add_fact_id fact_data_1.fact_id
 
-      expect(recently_viewed_facts.top(3).map(&:id)).to eq [fact1.id, fact2.id]
+      expect(recently_viewed_facts.top_ids(3)).to eq [fact_data_1.fact_id, fact_data_2.fact_id]
     end
   end
 
   describe '.truncate' do
     it 'removes factlinks except the last "keep_count" number of factlinks' do
-      fact1 = create :fact
-      fact2 = create :fact
-      fact3 = create :fact
-      fact4 = create :fact
+      fact_data_1 = create :fact_data
+      fact_data_2 = create :fact_data
+      fact_data_3 = create :fact_data
+      fact_data_4 = create :fact_data
 
-      recently_viewed_facts.add_fact_id fact1.id
+      recently_viewed_facts.add_fact_id fact_data_1.fact_id
       sleep 0.002
-      recently_viewed_facts.add_fact_id fact2.id
+      recently_viewed_facts.add_fact_id fact_data_2.fact_id
       sleep 0.002
-      recently_viewed_facts.add_fact_id fact3.id
+      recently_viewed_facts.add_fact_id fact_data_3.fact_id
       sleep 0.002
-      recently_viewed_facts.add_fact_id fact4.id
+      recently_viewed_facts.add_fact_id fact_data_4.fact_id
 
       recently_viewed_facts.truncate 1
 
-      expect(recently_viewed_facts.top(3).map(&:id)).to eq [fact4.id]
+      expect(recently_viewed_facts.top_ids(3)).to eq [fact_data_4.fact_id]
     end
 
   end

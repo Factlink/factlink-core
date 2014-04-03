@@ -17,12 +17,12 @@ describe "searching", type: :feature do
   end
 
   it "finds an annotation" do
-    fact = create :fact
+    fact_data = create :fact_data
 
     visit root_path
-    fill_in "factlink_search", with: fact.to_s
+    fill_in "factlink_search", with: fact_data.displaystring
     page.execute_script("$('#factlink_search').parent().submit()")
 
-    page.should have_content(fact.to_s)
+    page.should have_content(fact_data.displaystring)
   end
 end

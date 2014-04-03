@@ -1,5 +1,5 @@
 class LoadDsl
-  FactDsl = Struct.new(:fact) do
+  FactDsl = Struct.new(:dead_fact) do
     def believers(*l)
       set_opinion(:believes, *l)
     end
@@ -13,7 +13,7 @@ class LoadDsl
 
       pavlov_options = {current_user: user}
 
-      Pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, content: comment, pavlov_options: pavlov_options)
+      Pavlov.interactor(:'comments/create', fact_id: dead_fact.id.to_i, content: comment, pavlov_options: pavlov_options)
     end
 
     def set_opinion(opinion_type, *users)
@@ -22,7 +22,7 @@ class LoadDsl
 
         pavlov_options = {current_user: user}
 
-        Pavlov.interactor(:'facts/set_opinion', fact_id: fact.id, opinion: opinion_type.to_s, pavlov_options: pavlov_options)
+        Pavlov.interactor(:'facts/set_opinion', fact_id: dead_fact.id, opinion: opinion_type.to_s, pavlov_options: pavlov_options)
       end
     end
   end

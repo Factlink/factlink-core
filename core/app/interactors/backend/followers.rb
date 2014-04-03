@@ -2,10 +2,10 @@ module Backend
   module Followers
     extend self
 
-    def followers_for_fact fact
-      comments = Comment.where(fact_data_id: fact.data_id)
+    def followers_for_fact_id fact_id
+      comments = FactData.where(fact_id: fact_id).first.comments
       [
-        direct_followers_for_fact(fact),
+        direct_followers_for_fact(fact_id),
         followers_for_comments(comments),
       ].flatten.uniq
     end
@@ -40,8 +40,8 @@ module Backend
                   .map {|id| User.where(id: id).first.graph_user_id}
     end
 
-    def direct_followers_for_fact fact
-      Believable.new(fact.key).opinionated_users_ids
+    def direct_followers_for_fact fact_id
+      Believable.new(Ohm::Key.new('Fact')[fact_id]).opinionated_users_ids
     end
   end
 end

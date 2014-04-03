@@ -23,7 +23,7 @@ class Activity < OurOhm
       {
         subject_class: "Comment",
         action: :created_comment,
-        write_ids: ->(a) { reject_self(Backend::Followers.followers_for_fact(a.subject.fact_data.fact),a) }
+        write_ids: ->(a) { reject_self(Backend::Followers.followers_for_fact_id(a.subject.fact_data.fact_id),a) }
       }
     end
 
@@ -50,7 +50,7 @@ class Activity < OurOhm
       {
         subject_class: "SubComment",
         action: :created_sub_comment,
-        write_ids: ->(a) { reject_self(Backend::Followers.followers_for_fact(a.subject.parent.fact_data.fact),a) }
+        write_ids: ->(a) { reject_self(Backend::Followers.followers_for_fact_id(a.subject.parent.fact_data.fact_id),a) }
       }
     end
 

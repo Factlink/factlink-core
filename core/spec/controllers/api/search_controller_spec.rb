@@ -10,8 +10,8 @@ describe Api::SearchController do
     it "should render json successful and in the same way (approvals)" do
       FactoryGirl.reload
 
-      user = create(:user, username: "Baron")
-      create(:fact, data: create(:fact_data, displaystring: "Baron"))
+      user = create :user, username: "Baron"
+      create :fact_data, displaystring: "Baron"
 
       authenticate_user!(user)
       get :all, keywords: "Baron"

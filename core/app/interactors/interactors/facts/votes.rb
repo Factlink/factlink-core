@@ -17,7 +17,7 @@ module Interactors
       end
 
       def authorized?
-        can? :show, Fact
+        true
       end
 
       def validate

@@ -41,30 +41,6 @@ describe Ability do
     end
   end
 
-  describe "to manage facts" do
-    let(:fact) { create :fact }
-
-    it { subject.should be_able_to :index, Fact }
-    it { subject.should be_able_to :create, Fact }
-
-    describe "of someone else" do
-      it { subject.should_not  be_able_to :update, fact }
-      it { subject.should      be_able_to :read, fact }
-      it { subject.should      be_able_to :opinionate, fact }
-    end
-
-    describe "without logging in" do
-      it { anonymous.should      be_able_to :index, Fact }
-      it { anonymous.should      be_able_to :read, fact }
-      it { anonymous.should      be_able_to :create, Fact }
-
-      it { anonymous.should_not  be_able_to :update, fact }
-      it { anonymous.should_not  be_able_to :opinionate, Fact }
-      it { anonymous.should_not  be_able_to :add_evidence, fact }
-      it { anonymous.should_not  be_able_to :share, fact }
-    end
-  end
-
   describe "to manage Comments" do
     let(:c1) { create :comment, created_by: user }
     let(:c2) { create :comment, created_by: other_user }
