@@ -43,14 +43,14 @@ module Backend
           when "created_comment"
             comment = Backend::Comments.by_ids(ids: [activity.subject_id.to_s]).first
             {
-                fact: Backend::Facts.get(fact_id: activity.object_id.to_s),
+                fact: Backend::Facts.get(fact_id: activity.subject.fact_data.fact_id),
                 comment: comment,
                 user: comment.created_by,
             }
           when "created_sub_comment"
             sub_comment = Backend::SubComments::dead_for(activity.subject)
             {
-                fact: Backend::Facts.get(fact_id: activity.object_id.to_s),
+                fact: Backend::Facts.get(fact_id: activity.subject.parent.fact_data.fact_id),
                 comment: Backend::Comments.by_ids(ids: [activity.subject.parent_id.to_s]).first,
                 sub_comment: sub_comment,
                 user: sub_comment.created_by,
@@ -83,9 +83,9 @@ module Backend
       end
     end
 
-    def create(graph_user:, action:, subject:, object: nil, time:, send_mails:)
+    def create(graph_user:, action:, subject:, time:, send_mails:)
       activity = Activity.create(user: graph_user, action: action, subject: subject,
-        object: object, created_at: time.utc.to_s)
+        created_at: time.utc.to_s)
 
       Resque.enqueue(ProcessActivity, activity.id)
       send_mail_for_activity activity: activity if send_mails

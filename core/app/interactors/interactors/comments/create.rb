@@ -26,7 +26,6 @@ module Interactors
                     graph_user: pavlov_options[:current_user].graph_user,
                     action: :created_comment,
                     subject: comment,
-                    object: comment.fact_data.fact,
                     time: pavlov_options[:time],
                     send_mails: pavlov_options[:send_mails]
       end

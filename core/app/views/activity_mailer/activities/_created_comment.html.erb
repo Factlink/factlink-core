@@ -1,3 +1,7 @@
+<%
+  dead_fact = Backend::Facts.get(fact_id: @activity.subject.fact_data.fact_id)
+%>
+
 <% content_for :email_header do %>
   <h1 class="header-title">Hello <%= @user.name %></h1>
   <h2 class="header-subtitle"><%= @activity.user.user %> commented</h2>
@@ -7,8 +11,8 @@
   <tr>
     <td colspan="3" class="added-comment-message-header">
       <h3>
-        <%= link_to FactUrl.new(@activity.object).proxy_open_url, class: "message-title" do %>
-          <%= @activity.object.data.displaystring %>
+        <%= link_to dead_fact.url.proxy_open_url, class: "message-title" do %>
+          <%= dead_fact.displaystring %>
         <% end %>
       </h3>
     </td>
@@ -39,7 +43,7 @@
 <table class="button" align="center" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td class="button-inner">
-      <%= link_to FactUrl.new(@activity.object).proxy_open_url do %>
+      <%= link_to dead_fact.url.proxy_open_url do %>
         <div class="button-link">
           Reply to this comment
         </div>
