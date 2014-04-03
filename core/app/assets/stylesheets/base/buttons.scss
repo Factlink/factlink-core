@@ -194,7 +194,8 @@ $arrowSize: 5px;
 }
 
 .button-interesting {
-  @extend %button-base;
+  @extend .button;
+
   background-color: white;
   padding: 0 10px 0 0;
   margin: 10px 0 0;
