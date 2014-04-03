@@ -1,0 +1,20 @@
+[
+  {
+    "id": "<id>",
+    "site_url": "http://example.org/",
+    "displaystring": "doei",
+    "created_at": "<created_at>",
+    "site_title": "",
+    "url": "/f/2",
+    "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F#factlink-open-2"
+  },
+  {
+    "id": "<id>",
+    "site_url": "http://example.org/",
+    "displaystring": "hoi",
+    "created_at": "<created_at>",
+    "site_title": "",
+    "url": "/f/1",
+    "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F#factlink-open-1"
+  }
+]
