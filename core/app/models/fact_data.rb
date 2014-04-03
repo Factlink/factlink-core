@@ -34,14 +34,19 @@ class FactData
     ElasticSearch::Index.new('factdata').add id, fields
   end
 
+  before_save do |fact_data|
+    fact = Fact.create
+    fact_data.fact_id = fact.id
+  end
+
   after_save do |fact_data|
     fact_data.update_search_index
   end
 
   after_destroy do |fact_data|
-    ElasticSearch::Index.new('factdata').delete fact_data.id
-
+    Fact[fact_id].delete
     Believable.new(Nest.new("Fact:#{fact_id}")).delete
+    ElasticSearch::Index.new('factdata').delete fact_data.id
 
     fact_data.comments.each do |comment|
       comment.destroy

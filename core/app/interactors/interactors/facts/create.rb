@@ -13,14 +13,14 @@ module Interactors
       private
 
       def execute
-        fact = Backend::Facts.create displaystring: displaystring,
+        dead_fact = Backend::Facts.create displaystring: displaystring,
           url: url, site_title: site_title
 
         if user
-          Backend::Facts.add_to_recently_viewed fact_id: fact.id, graph_user_id: user.graph_user_id
+          Backend::Facts.add_to_recently_viewed fact_id: dead_fact.id, graph_user_id: user.graph_user_id
         end
 
-        fact
+        dead_fact
       end
 
       def user

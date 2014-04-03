@@ -9,7 +9,7 @@ module Backend
     end
 
     def by_fact_id(fact_id:, current_graph_user: nil)
-      fact_data_id = Fact[fact_id].data_id
+      fact_data_id = FactData.where(fact_id: fact_id).first.id
       Comment.where(fact_data_id: fact_data_id).map do |comment|
         dead(comment: comment, current_graph_user: current_graph_user)
       end
@@ -29,10 +29,10 @@ module Backend
     end
 
     def create(fact_id:, content:, user_id:)
-      fact = Fact[fact_id]
+      fact_data = FactData.where(fact_id: fact_id).first
 
       comment = Comment.new
-      comment.fact_data_id = fact.data_id
+      comment.fact_data_id = fact_data.id
       comment.created_by_id = user_id
       comment.content = content
       comment.save!

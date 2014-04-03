@@ -1,15 +1,15 @@
 class FactUrl
 
-  def initialize fact
-    @fact = fact
+  def initialize dead_fact
+    @dead_fact = dead_fact
   end
 
   def fact_url
-    full_url "facts/#{@fact.id}"
+    full_url "facts/#{@dead_fact.id}"
   end
 
   def friendly_fact_path
-    "/f/#{@fact.id}"
+    "/f/#{@dead_fact.id}"
   end
 
   def friendly_fact_url
@@ -17,8 +17,8 @@ class FactUrl
   end
 
   def proxy_open_url
-    proxy_url + "/?url=" + CGI.escape(@fact.site_url) +
-      "#factlink-open-" + URI.escape(@fact.id)
+    proxy_url + "/?url=" + CGI.escape(@dead_fact.site_url) +
+      "#factlink-open-" + URI.escape(@dead_fact.id)
   end
 
   def sharing_url

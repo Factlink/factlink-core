@@ -6,14 +6,14 @@ describe Interactors::Feed::Global do
   describe '#call' do
     it 'filters out invalid activities' do
       user = create :user
-      fact = create :fact
+      fact_data = create :fact_data
       as(user) do |pavlov|
 
-        comment1 = pavlov.interactor :'comments/create', fact_id: fact.id.to_i, content: 'hallo1'
+        comment1 = pavlov.interactor :'comments/create', fact_id: fact_data.fact_id.to_i, content: 'hallo1'
         sleep 0.001
-        comment2 = pavlov.interactor :'comments/create', fact_id: fact.id.to_i, content: 'hallo2'
+        comment2 = pavlov.interactor :'comments/create', fact_id: fact_data.fact_id.to_i, content: 'hallo2'
         sleep 0.001
-        comment3 = pavlov.interactor :'comments/create', fact_id: fact.id.to_i, content: 'hallo3'
+        comment3 = pavlov.interactor :'comments/create', fact_id: fact_data.fact_id.to_i, content: 'hallo3'
 
         feed_before_delete = pavlov.interactor :'feed/global', count: '2'
         p feed_before_delete.map{|c|c[:comment].formatted_content}

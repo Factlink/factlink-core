@@ -8,14 +8,14 @@ describe 'recently viewed facts' do
 
     user = create :user
     other_user = create :user
-    fact = nil
+    dead_fact = nil
 
     as(other_user) do |pavlov|
-      fact = pavlov.interactor(:'facts/create', displaystring: 'hoi', url: 'http://example.org', site_title: '')
+      dead_fact = pavlov.interactor(:'facts/create', displaystring: 'hoi', url: 'http://example.org', site_title: '')
     end
 
     as(user) do |pavlov|
-      pavlov.interactor(:'facts/get', id: fact.id)
+      pavlov.interactor(:'facts/get', id: dead_fact.id)
       pavlov.interactor(:'facts/create', displaystring: 'doei', url: 'http://example.org', site_title: '')
 
       recently_viewed = pavlov.interactor(:'facts/recently_viewed')

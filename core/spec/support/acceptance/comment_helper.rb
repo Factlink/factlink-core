@@ -29,10 +29,8 @@ module Acceptance
         wait_until_comment_has_one_vote text
       end
 
-      def add_existing_factlink evidence_factlink
+      def add_existing_factlink text
         open_search_factlink
-
-        text = evidence_factlink.to_s
 
         within '.spec-add-comment-form' do
           comment_input = find('.text_area_view')

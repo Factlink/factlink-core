@@ -8,9 +8,10 @@ describe 'fact' do
     user = create :user
 
     as(user) do |pavlov|
-      fact = pavlov.interactor(:'facts/create', displaystring: displaystring, url: 'http://example.org', site_title: '')
+      dead_fact = pavlov.interactor(:'facts/create', displaystring: displaystring, url: 'http://example.org', site_title: '')
 
-      expect(Fact[fact.id].data.displaystring).to eq displaystring
+      dead_fact_again = pavlov.interactor(:'facts/get', id: dead_fact.id)
+      expect(dead_fact_again.displaystring).to eq displaystring
     end
   end
 end

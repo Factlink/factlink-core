@@ -12,14 +12,14 @@ describe "factlink", type: :feature do
     end
 
     it "can be agreed" do
-      @factlink = create :fact
-      open_discussion_sidebar_for @factlink
+      @factlink = create :fact_data
+      open_discussion_sidebar_for @factlink.fact_id
 
       find('.spec-button-interesting').click
 
       eventually_succeeds do
         as(@user) do |pavlov|
-          expect(pavlov.interactor(:'facts/votes', fact_id: @factlink.id).length).to eq 1
+          expect(pavlov.interactor(:'facts/votes', fact_id: @factlink.fact_id).length).to eq 1
         end
       end
     end
@@ -27,21 +27,19 @@ describe "factlink", type: :feature do
     it "should find a factlink when searching on a exact phrase containing small words" do
       displaystring = 'feathers is not a four letter groom betters'
 
-      @factlink = create :fact
+      @factlink = create :fact_data
 
-      @factlink_evidence = create :fact
-      @factlink_evidence.data.displaystring = "Fact: " + displaystring
-      @factlink_evidence.data.save
+      @factlink_evidence = create :fact_data, displaystring: "Fact: " + displaystring
 
-      open_discussion_sidebar_for @factlink
-      add_existing_factlink @factlink_evidence
+      open_discussion_sidebar_for @factlink.fact_id
+      add_existing_factlink @factlink_evidence.displaystring
     end
   end
 
   it "a non logged user can log in now" do
-    factlink = create :fact
+    factlink = create :fact_data
 
-    open_discussion_sidebar_for factlink
+    open_discussion_sidebar_for factlink.fact_id
 
     fill_in_comment_textarea 'Some text to show Post button'
     click_button 'Post'

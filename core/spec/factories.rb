@@ -57,10 +57,7 @@ FactoryGirl.define do
     displaystring
     site_url
     sequence(:title) { |n| "Fact title #{n}" }
-  end
-
-  factory :fact do
-    association :data, :factory => :fact_data
+    sequence(:fact_id) { |n| "#{n}" }
   end
 
   factory :graph_user do

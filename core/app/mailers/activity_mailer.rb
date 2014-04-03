@@ -29,19 +29,20 @@ class ActivityMailer < ActionMailer::Base
   end
 
   def get_mail_subject_for_activity activity
-    user = activity.user.user
-
     case activity.action
     when 'created_comment'
-      factlink = activity.subject.fact_data.displaystring.strip.truncate(50)
-      "Discussion on \"#{factlink}\""
+      subject_for activity.subject.fact_data
     when 'created_sub_comment'
-      factlink = activity.subject.parent.fact_data.displaystring.strip.truncate(50)
-      "Discussion on \"#{factlink}\""
+      subject_for activity.subject.parent.fact_data
     when 'followed_user'
-      "#{user} is now following you on Factlink"
+      "#{activity.user.user} is now following you on Factlink"
     else
       'New notification!'
     end
+  end
+
+  def subject_for fact_data
+    factlink = fact_data.displaystring.strip.truncate(50)
+    "Discussion on \"#{factlink}\""
   end
 end

@@ -25,11 +25,11 @@ describe FormattedCommentContent do
     it 'turns factlink urls into special links (even with port in core_url)' do
       FactlinkUI::Application.config.stub(core_url: 'http://factlink.com:80')
 
-      fact = create :fact
-      fact_url = FactUrl.new(fact)
+      fact_data = create :fact_data
+      fact_url = Backend::Facts.get(fact_id: fact_data.fact_id).url
       friendly_fact_url = fact_url.friendly_fact_url
       proxy_open_url = fact_url.proxy_open_url
-      displaystring = fact.data.displaystring
+      displaystring = fact_data.displaystring
 
       formatted_comment = described_class.new friendly_fact_url
       expected_html = content_tag :a, displaystring, href: proxy_open_url, rel: 'backbone',
@@ -38,20 +38,20 @@ describe FormattedCommentContent do
       expect(formatted_comment.html).to eq expected_html
     end
 
-    # it 'turns factlink urls that have been deleted into <deleted annotation>' do
-    #   FactlinkUI::Application.config.stub(core_url: 'http://factlink.com:80')
+    it 'turns factlink urls that have been deleted into <deleted annotation>' do
+      FactlinkUI::Application.config.stub(core_url: 'http://factlink.com:80')
 
-    #   fact = create :fact
-    #   fact_url = FactUrl.new(fact)
-    #   friendly_fact_url = fact_url.friendly_fact_url
+      fact_data = create :fact_data
+      fact_url = Backend::Facts.get(fact_id: fact_data.fact_id).url
+      friendly_fact_url = fact_url.friendly_fact_url
 
-    #   fact.delete
+      fact_data.destroy
 
-    #   formatted_comment = described_class.new friendly_fact_url
-    #   expected_html = content_tag :span, '<deleted annotation>',
-    #     class: 'formatted-comment-content-factlink'
+      formatted_comment = described_class.new friendly_fact_url
+      expected_html = content_tag :span, '<deleted annotation>',
+        class: 'formatted-comment-content-factlink'
 
-    #   expect(formatted_comment.html).to eq expected_html
-    # end
+      expect(formatted_comment.html).to eq expected_html
+    end
   end
 end
