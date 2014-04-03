@@ -41,6 +41,8 @@ class FactData
   after_destroy do |fact_data|
     ElasticSearch::Index.new('factdata').delete fact_data.id
 
+    Believable.new(Nest.new("Fact:#{fact_id}")).delete
+
     fact_data.comments.each do |comment|
       comment.destroy
     end

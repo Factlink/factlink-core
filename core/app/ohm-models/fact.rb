@@ -27,17 +27,6 @@ class Fact < OurOhm
     !f || !f.data_id
   end
 
-  def delete
-    raise unless deletable?
-    data.destroy
-    super
-  end
-
-  def deletable?
-    Believable.new(key).opinionated_users_ids.length == 0 &&
-      Comment.where(fact_data_id: data_id).length == 0
-  end
-
   # For compatibility with DeadFact
   def site_url
     data.site_url
