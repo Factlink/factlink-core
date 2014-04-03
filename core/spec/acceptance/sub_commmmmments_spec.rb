@@ -33,28 +33,4 @@ feature "sub_comments", type: :feature do
     click_link '(1) Reply'
     assert_sub_comment_exists sub_comment_text
   end
-
-  scenario "After adding a subcomment the evidence can not be removed any more" do
-    pending
-    @fact_relation_user_b = create :fact
-    @factlink_user_a.add_evidence("believes", @fact_relation_user_b, @user_a)
-
-    sub_comment_text = "Sub Comment 1"
-
-    open_discussion_sidebar_for @factlink_user_a
-
-    page.should have_selector('.spec-evidence-box .delete-button-first')
-
-    click_link 'Reply'
-
-    add_sub_comment(sub_comment_text)
-    assert_sub_comment_exists sub_comment_text
-
-
-    page.should have_no_selector('.spec-evidence-box .delete-button-first')
-
-    open_discussion_sidebar_for @factlink_user_a
-
-    page.should have_no_selector('.spec-evidence-box .delete-button-first')
-  end
 end
