@@ -19,7 +19,7 @@ class Believable
   end
 
   def opinionated_users_ids
-    (opiniated(:believes) | opiniated(:disbelieves)).ids
+    opiniated(:believes).ids + opiniated(:disbelieves).ids
   end
 
   def opiniated(type)
