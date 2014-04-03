@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe Activity::Listener do
-  let(:gu1) { GraphUser.create }
-  let(:gu2) { GraphUser.create }
   let(:b1)  { Blob.create }
   let(:b2)  { Blob.create }
   let(:f1)  { Foo.create }
@@ -39,7 +37,7 @@ describe Activity::Listener do
       subject.activity_for = Blob
       subject.listname = 'foo'
 
-      @a = Activity.create subject: b1, object: f1, action: :followed_user, created_at: Time.now.utc.to_s
+      @a = Activity.create subject: b1, action: :followed_user, created_at: Time.now.utc.to_s
     end
 
     it "should return no result when no queries are defined" do
@@ -97,7 +95,7 @@ describe Activity::Listener do
       subject.activity_for = Blob
       subject.listname = 'foo'
 
-      @a = Activity.create subject: b1, object: f1, action: :followed_user, created_at: Time.now.utc.to_s
+      @a = Activity.create subject: b1, action: :followed_user, created_at: Time.now.utc.to_s
     end
 
     it "should not match for an empty query" do
@@ -106,13 +104,11 @@ describe Activity::Listener do
 
     it "should match if a property is the same" do
       expect(subject.matches({subject_class: Blob },@a)).to be_true
-      expect(subject.matches({object_class: Foo },@a)).to be_true
       expect(subject.matches({action: :followed_user},@a)).to be_true
     end
 
     it "should not match if a property is different" do
       expect(subject.matches({subject_class: Foo },@a)).to be_false
-      expect(subject.matches({object_class: Blob },@a)).to be_false
       expect(subject.matches({action: :barfoo},@a)).to be_false
     end
 
@@ -142,7 +138,7 @@ describe Activity::Listener do
       subject.listname = :activities
       subject.queries << {subject_class: Foo, write_ids: ->(a) { [f1.id] } }
 
-      a1 = Activity.create subject: f1, object: f1, action: :followed_user, created_at: Time.now.utc.to_s
+      a1 = Activity.create subject: f1, action: :followed_user, created_at: Time.now.utc.to_s
       subject.process a1
       expect(f1.activities.ids).to match_array [a1.id]
       expect(f2.activities.ids).to match_array []
@@ -153,7 +149,7 @@ describe Activity::Listener do
       subject.listname = :activities
       subject.queries << {subject_class: Foo, write_ids: ->(a) { [a.subject.id] } }
 
-      a1 = Activity.create subject: f1, object: f1, action: :followed_user, created_at: Time.now.utc.to_s
+      a1 = Activity.create subject: f1, action: :followed_user, created_at: Time.now.utc.to_s
       subject.process a1
       expect(f1.activities.ids).to match_array [a1.id]
       expect(f2.activities.ids).to match_array []

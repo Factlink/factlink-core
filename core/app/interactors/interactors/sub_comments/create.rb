@@ -32,7 +32,6 @@ module Interactors
           graph_user: pavlov_options[:current_user].graph_user,
           action: :created_sub_comment,
           subject: sub_comment,
-          object: top_fact,
           time: pavlov_options[:time],
           send_mails: pavlov_options[:send_mails]
       end
@@ -41,10 +40,6 @@ module Interactors
         Backend::SubComments.create!(parent_id: comment_id,
                                      content: content,
                                      user: pavlov_options[:current_user])
-      end
-
-      def top_fact
-        @top_fact ||= comment.fact_data.fact
       end
 
       def comment

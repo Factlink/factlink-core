@@ -82,38 +82,4 @@ describe Interactors::SubComments::Create do
        .to raise_error(Pavlov::ValidationError, "parent does not exist any more")
     end
   end
-
-  describe '.top_fact' do
-    it 'returns the top fact for the comment_id' do
-      comment_id = '2a'
-      fact = double
-      comment = double(fact_data: double(fact:fact))
-      Comment.should_receive(:find).with(comment_id).and_return(comment)
-      ability = double can?: true
-
-      interactor = described_class.new comment_id: comment_id, content: 'hoi',
-                                       pavlov_options: { current_user: double, ability: ability }
-
-      result = interactor.top_fact
-
-      result.should eq fact
-    end
-
-    it 'caches the fact' do
-      comment_id = '2a'
-      fact = double
-      comment = double(fact_data: double(fact:fact))
-      Comment.should_receive(:find).with(comment_id).and_return(comment)
-      ability = double can?: true
-
-      interactor = described_class.new comment_id: comment_id, content: 'hoi',
-                                       pavlov_options: { current_user: double, ability: ability }
-
-      result = interactor.top_fact
-
-      result2 = interactor.top_fact
-
-      result2.should eq fact
-    end
-  end
 end

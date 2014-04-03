@@ -14,10 +14,6 @@ class Activity < OurOhm
       ->(a) { reject_self(Backend::Followers.followers_for_sub_comments([a.subject]), a) }
     end
 
-    def people_who_follow_a_fact_which_is_object
-      ->(a) { reject_self(Backend::Followers.followers_for_fact(a.object),a) }
-    end
-
     def people_who_follow_user_of_activity
       ->(a) { reject_self(Backend::UserFollowers.follower_ids(followee_id: a.user_id), a) }
     end
@@ -27,7 +23,7 @@ class Activity < OurOhm
       {
         subject_class: "Comment",
         action: :created_comment,
-        write_ids: people_who_follow_a_fact_which_is_object
+        write_ids: ->(a) { reject_self(Backend::Followers.followers_for_fact(a.subject.fact_data.fact),a) }
       }
     end
 
@@ -54,7 +50,7 @@ class Activity < OurOhm
       {
         subject_class: "SubComment",
         action: :created_sub_comment,
-        write_ids: people_who_follow_a_fact_which_is_object
+        write_ids: ->(a) { reject_self(Backend::Followers.followers_for_fact(a.subject.parent.fact_data.fact),a) }
       }
     end
 

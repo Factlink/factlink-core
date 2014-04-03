@@ -9,7 +9,6 @@ class Activity < OurOhm
   attribute :created_at
 
   generic_reference :subject
-  generic_reference :object
 
   attribute :action
   index     :action
@@ -50,7 +49,7 @@ class Activity < OurOhm
   # WARNING: if this method returns false, we assume it will never become
   #          valid again either, and remove/destroy freely.
   def still_valid?
-    valid? and user_still_valid? and subject_still_valid? and object_still_valid?
+    valid? and user_still_valid? and subject_still_valid?
   end
 
   def timestamp
@@ -83,12 +82,6 @@ class Activity < OurOhm
     return true unless subject_id
 
     Kernel.const_defined?(subject_class) and subject
-  end
-
-  def object_still_valid?
-    return true unless object_id
-
-    Kernel.const_defined?(object_class) and object
   end
 end
 
