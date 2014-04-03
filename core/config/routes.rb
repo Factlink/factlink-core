@@ -111,7 +111,6 @@ FactlinkUI::Application.routes.draw do
       get 'clean'
       get 'cause_error'
       get 'cleanup_feed'
-      get 'remove_empty_facts'
       resource :global_feature_toggles,
             controller: :global_feature_toggles,
             only: [:show, :update ]
