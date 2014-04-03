@@ -31,7 +31,7 @@ class Activity < OurOhm
 
   alias :old_set_user :user= unless method_defined?(:old_set_user)
   def user=(new_user)
-    old_set_user new_user.graph_user
+    old_set_user new_user
   end
 
   def delete
