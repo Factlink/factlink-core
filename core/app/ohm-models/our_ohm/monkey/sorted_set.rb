@@ -7,29 +7,6 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     apply(key,:zunionstore,[set.key],{:aggregate => :max})
   end
 
-  def &(other)
-    apply(key+"*INTERSECT*"+other.key,:zinterstore,[key,other.key],{:aggregate => :max})
-  end
-
-  def |(other)
-    apply(key+"*UNION*"+other.key,:zunionstore,[key,other.key],{:aggregate => :max})
-  end
-
-  def -(other)
-    result_key = key + "*DIFF*" + other.key
-    result = apply(result_key,:zunionstore,[key],{:aggregate => :max})
-    other.each do |item| # do this more efficient later
-      result.delete(item)
-    end
-    result
-  end
-
-  def count_above(minimumKey)
-    # Function implies exclusive but zcount is inclusive so we add 1, to
-    # get the desired behaviour.
-    key.zcount(minimumKey + 1, '+inf')
-  end
-
   def below(limit,opts={})
     if opts[:count]
       redis_opts = { limit: [0, opts[:count]] }

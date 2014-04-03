@@ -16,7 +16,6 @@ dependencies:
     - cd ~/factlink/js-library; npm install
 test:
   override:
-    - rspec spec-unit --profile
     - bundle exec rspec spec --profile
     - bundle exec rake konacha:load_poltergeist konacha:run
     - cd ~/factlink/js-library; grunt

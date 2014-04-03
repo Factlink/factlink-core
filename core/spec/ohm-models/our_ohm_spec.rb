@@ -15,27 +15,11 @@ describe Ohm::Model::Set do
     @c1.items << @a
     @c2.items << @b
   end
-  it "should have a working union" do
-    union = @c1.items | @c2.items
-    @c1.items.all.should =~ [@a]
-    @c2.items.all.should =~ [@b]
-    union.all.should =~ [@a,@b]
-  end
 
   it "should be able to return the list of ids" do
     @c1.items << @b
     @c1.items.ids.should =~ [@a.id,@b.id]
   end
-
-  describe :make_empty do
-    it "should remove all elements" do
-      @c1.items << @b
-      @c1.items.make_empty
-      @c1.items.ids.should =~ []
-    end
-
-  end
-
 end
 
 
