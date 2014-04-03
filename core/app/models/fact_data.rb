@@ -35,8 +35,15 @@ class FactData
   end
 
   before_save do |fact_data|
-    fact = Fact.send(:create)
-    fact_data.fact_id = fact.id
+    id_key = Nest.new('Fact')[:id]
+
+    if fact_data.fact_id
+      if fact_data.fact_id.to_i > id_key.get.to_i
+        id_key.set fact_data.fact_id
+      end
+    else
+      fact_data.fact_id = id_key.incr.to_s
+    end
   end
 
   after_save do |fact_data|
@@ -44,7 +51,6 @@ class FactData
   end
 
   after_destroy do |fact_data|
-    Fact.send(:[], fact_id).delete
     Believable.new(Nest.new("Fact:#{fact_id}")).delete
     ElasticSearch::Index.new('factdata').delete fact_data.id
 
