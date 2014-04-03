@@ -15,6 +15,7 @@ feature "sub_comments", type: :feature do
     end
     sub_comment_text = "Berlioz' death was predicted by the man with the pince-nez"
 
+    switch_to_user(user)
     open_discussion_sidebar_for fact_data.fact_id
 
     click_link '(0) Reply'
@@ -22,7 +23,7 @@ feature "sub_comments", type: :feature do
     add_sub_comment(sub_comment_text)
     assert_sub_comment_exists sub_comment_text
 
-    switch_to_user(user)
+    switch_to_user(create :user)
 
     open_discussion_sidebar_for fact_data.fact_id
 
