@@ -83,8 +83,8 @@ module Backend
       end
     end
 
-    def create(graph_user:, action:, subject:, time:, send_mails:)
-      activity = Activity.create(user: graph_user, action: action, subject: subject,
+    def create(graph_user_id:, action:, subject:, time:, send_mails:)
+      activity = Activity.create(user_id: graph_user_id, action: action, subject: subject,
         created_at: time.utc.to_s)
 
       Resque.enqueue(ProcessActivity, activity.id)

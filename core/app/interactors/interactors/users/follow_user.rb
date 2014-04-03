@@ -42,7 +42,7 @@ module Interactors
           followee_id: user_to_follow.graph_user_id
 
         Backend::Activities.create \
-          graph_user: current_user.graph_user,
+          graph_user_id: current_user.graph_user_id,
           action: :followed_user,
           subject: user_to_follow.graph_user,
           time: pavlov_options[:time],

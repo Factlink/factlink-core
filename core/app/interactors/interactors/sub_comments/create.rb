@@ -29,7 +29,7 @@ module Interactors
 
       def create_activity sub_comment
         Backend::Activities.create \
-          graph_user: pavlov_options[:current_user].graph_user,
+          graph_user_id: pavlov_options[:current_user].graph_user_id,
           action: :created_sub_comment,
           subject: sub_comment,
           time: pavlov_options[:time],
