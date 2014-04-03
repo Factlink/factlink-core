@@ -59,7 +59,7 @@ FactOpinionateButton = React.createBackboneClass
 
     _button [
           "button-interesting spec-button-interesting"
-          onClick: => @refs.signinPopover.submit(=> @_onClick())
+          onClick: => @refs.signinPopover.submit(@_onClick)
         ],
       _div ['button-interesting-tally'],
         opinionTallyTotal
