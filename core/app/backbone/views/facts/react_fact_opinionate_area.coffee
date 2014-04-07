@@ -46,6 +46,8 @@ FactOpinionateButton = React.createBackboneClass
   displayName: 'FactOpinionateButton'
   changeOptions: 'add remove reset sort' + ' change'
 
+  mixins: [ UpdateOnSignInOrOutMixin ]
+
   render: ->
     model = @model()
     is_interested = model.is_current_user_interested()
