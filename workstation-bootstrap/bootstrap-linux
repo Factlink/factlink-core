@@ -131,6 +131,7 @@ if [ -d "$HOME/.rbenv" ] ; then
   eval "$(rbenv init -)" || :
 fi
 export PATH="/usr/lib/postgresql/9.3/bin:$PATH"
+sudo mkdir -p /var/run/postgresql/
 sudo chmod 777 /var/run/postgresql/ # this is necessary to mitigate ubuntu's unhandy compiled-in constant postgres socket dir.
 export PATH="~/.node/bin:$PATH"
 export PATH=$PATH:/usr/share/elasticsearch/bin
