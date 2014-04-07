@@ -25,4 +25,7 @@ describe LoadDsl do
     end.to raise_error
   end
 
+  it "doesn't crash in our setup" do
+    require File.expand_path('../../../db/init.rb', __FILE__)
+  end
 end

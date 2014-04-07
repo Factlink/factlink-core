@@ -65,11 +65,7 @@ ReactCreatedCommentActivity = React.createBackboneClass
     user = new User @model().get('user')
     fact = new Fact @model().get('fact')
     comment = new Comment @model().get('comment')
-    proxy_url =
-      if @canHaz('ruby_proxy')
-        fact.get('proxy_open_url').replace('fct.li', 'beta.fct.li')
-      else
-        fact.get('proxy_open_url')
+    proxy_url = fact.get('proxy_open_url')
 
     ReactGenericActivity {
         model: user
@@ -94,11 +90,7 @@ ReactCreatedSubCommentActivity = React.createBackboneClass
     fact = new Fact @model().get('fact')
     comment = new Comment @model().get('comment')
     sub_comment = new Comment @model().get('sub_comment')
-    proxy_url =
-      if @canHaz('ruby_proxy')
-        fact.get('proxy_open_url').replace('fct.li', 'beta.fct.li')
-      else
-        fact.get('proxy_open_url')
+    proxy_url = fact.get('proxy_open_url')
 
     ReactGenericActivity {
         model: user

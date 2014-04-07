@@ -1,38 +1,49 @@
 class UserFollowingUsers
-
-  attr_reader :graph_user_id, :relation
+  attr_reader :graph_user_id, :relation, :following_key, :followers_key
   private :relation
 
-  def initialize graph_user_id, relation=DirectedRelationsTimestampedWithReverse.new(Nest.new(:user)[:following_users])
+  def initialize graph_user_id
+    nest_key = Nest.new(:user)[:following_users]
+    @following_key = nest_key[:relation]
+    @followers_key = nest_key[:reverse_relation]
+
     @graph_user_id = graph_user_id
     @relation = relation
   end
 
   def follow other_id
-    relation.add_now graph_user_id, other_id
+    score = time_to_score(DateTime.now)
+
+    following_key[graph_user_id].zadd score, other_id
+    followers_key[other_id].zadd score, graph_user_id
   end
 
   def unfollow other_id
-    relation.remove graph_user_id, other_id
+    following_key[graph_user_id].zrem other_id
+    followers_key[other_id].zrem graph_user_id
   end
 
   def followee_ids
-    relation.ids graph_user_id
+    following_key[graph_user_id].zrange 0, -1
   end
 
   def followers_ids
-    relation.reverse_ids graph_user_id
+    followers_key[graph_user_id].zrange 0, -1
   end
 
   def follows? other_id
-    relation.has? graph_user_id, other_id
+    not following_key[graph_user_id].zrank(other_id).nil?
   end
 
   def following_count
-    relation.count graph_user_id
+    following_key[graph_user_id].zcard
   end
 
   def followers_count
-    relation.reverse_count graph_user_id
+    followers_key[graph_user_id].zcard
+  end
+
+  private def time_to_score(time)
+    (time.to_time.to_f*1000).to_i
   end
 end
