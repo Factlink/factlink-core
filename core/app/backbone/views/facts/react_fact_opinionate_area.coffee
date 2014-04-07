@@ -46,12 +46,11 @@ FactOpinionateButton = React.createBackboneClass
   displayName: 'FactOpinionateButton'
   changeOptions: 'add remove reset sort' + ' change'
 
-  _onClick: ->
-    @model().clickCurrentUserOpinion @props.opinion_type
-
   render: ->
-    is_interested = @model().opinion_for_current_user() != 'no_vote'
-    opinionTally = @model().countBy (opinionator) -> opinionator.get('type')
+    model = @model()
+    is_interested = model.opinion_for_current_user() != 'no_vote'
+
+    opinionTally = model.countBy (opinionator) -> opinionator.get('type')
     _.defaults opinionTally,
       believes: 0,
       disbelieves: 0
@@ -59,7 +58,7 @@ FactOpinionateButton = React.createBackboneClass
 
     _button [
           "button-interesting spec-button-interesting"
-          onClick: => @refs.signinPopover.submit(@_onClick)
+          onClick: => @refs.signinPopover.submit(-> model.setInterested(!is_interested))
         ],
       _div ['button-interesting-tally'],
         opinionTallyTotal

@@ -18,18 +18,20 @@ class window.Opinionators extends Backbone.Factlink.Collection
   vote_for: (username) ->
     @find (vote) -> vote.get('username') == username
 
-  clickCurrentUserOpinion: (type) ->
+  setInterested: (is_interested) ->
     return unless currentSession.signedIn()
+    #TODO: why this guard - this shouldn't be possible, right?
 
     @fact.saveUnlessNew =>
       current_vote = @vote_for(currentSession.user().get('username'))
-      if current_vote
+
+      if !is_interested && current_vote
         current_vote.destroy()
-      else
+      else if is_interested && !current_vote
         @create
           username: currentSession.user().get('username')
           user: currentSession.user().attributes
-          type: type
+          type: 'believes'
 
   fetchIfUnloaded: ->
     return if @fact.isNew() # TODO: Save a fact in the backend when submitting a comment
