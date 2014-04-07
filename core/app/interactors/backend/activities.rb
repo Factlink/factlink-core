@@ -2,6 +2,10 @@ module Backend
   module Activities
     extend self
 
+    def get(activity_id:)
+      dead(Activity[activity_id])
+    end
+
     def activities_older_than(activities_set:, timestamp: nil, count: nil)
       #watch out: don't use defaults other than nil since nill is automatically passed in at the rails controller level.
       timestamp = timestamp || 'inf'
@@ -29,59 +33,17 @@ module Backend
         .to_a
     end
 
-    def add_activities_to_follower_stream(followed_user_graph_user_id:, current_graph_user_id:)
-      activities_set = GraphUser[followed_user_graph_user_id].own_activities
+    private def scored_activity_to_dead_activity(item: , score:)
+      dead_activity = dead(item)
+      return nil if dead_activity.nil?
 
-      activities = activities_set.below('inf',
-                    count: 7,
-                    reversed: true,
-                    withscores: false).compact
-
-      current_graph_user = GraphUser[current_graph_user_id]
-
-      activities.each do |activity|
-        activity.add_to_list_with_score current_graph_user.stream_activities
-      end
+      dead_activity.merge(timestamp: score)
     end
 
-    def create(graph_user:, action:, subject:, time:, send_mails:)
-      activity = Activity.create(user: graph_user, action: action, subject: subject,
-        created_at: time.utc.to_s)
-
-      Resque.enqueue(ProcessActivity, activity.id)
-      send_mail_for_activity activity: activity if send_mails
-
-      nil
-    end
-
-    def get(activity_id:)
-      scored_activity_to_dead_activity(item: Activity[activity_id], score: 0)
-    end
-
-    private
-
-    def send_mail_for_activity(activity:)
-      listeners = Activity::Listener.all[{class: "GraphUser", list: :notifications}]
-
-      graph_user_ids = listeners.map do |listener|
-          listener.add_to(activity)
-        end.flatten
-
-      recipients = UserNotification.users_receiving('mailed_notifications')
-                                   .any_in(graph_user_id: graph_user_ids)
-
-      recipients.each do |user|
-        Resque.enqueue SendActivityMailToUser, user.id, activity.id
-      end
-    end
-
-    def scored_activity_to_dead_activity(item: , score:)
-      activity = item
-
+    private def dead(activity)
       return nil unless activity.still_valid?
 
       base_activity_data = {
-          timestamp: score,
           action: activity.action,
           created_at: activity.created_at.to_time,
           id: activity.id,
@@ -114,6 +76,48 @@ module Backend
     rescue
       nil #activities may become "invalid" in which case the facts/comments/users they refer to
       #are gone.  This  causes errors.  We ignore such activities.
+    end
+
+    def add_activities_to_follower_stream(followed_user_graph_user_id:, current_graph_user_id:)
+      activities_set = GraphUser[followed_user_graph_user_id].own_activities
+
+      activities = activities_set.below('inf',
+                    count: 7,
+                    reversed: true,
+                    withscores: false).compact
+
+      current_graph_user = GraphUser[current_graph_user_id]
+
+      activities.each do |activity|
+        activity.add_to_list_with_score current_graph_user.stream_activities
+      end
+    end
+
+    def create(graph_user:, action:, subject:, time:, send_mails:)
+      activity = Activity.create(user: graph_user, action: action, subject: subject,
+        created_at: time.utc.to_s)
+
+      Resque.enqueue(ProcessActivity, activity.id)
+      send_mail_for_activity activity: activity if send_mails
+
+      nil
+    end
+
+    private
+
+    def send_mail_for_activity(activity:)
+      listeners = Activity::Listener.all[{class: "GraphUser", list: :notifications}]
+
+      graph_user_ids = listeners.map do |listener|
+          listener.add_to(activity)
+        end.flatten
+
+      recipients = UserNotification.users_receiving('mailed_notifications')
+                                   .any_in(graph_user_id: graph_user_ids)
+
+      recipients.each do |user|
+        Resque.enqueue SendActivityMailToUser, user.id, activity.id
+      end
     end
   end
 end
