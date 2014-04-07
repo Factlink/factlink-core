@@ -55,7 +55,7 @@ module Backend
     end
 
     def get(activity_id:)
-      scored_activity_to_dead_activity(item: Activity[id], score: 0)
+      scored_activity_to_dead_activity(item: Activity[activity_id], score: 0)
     end
 
     private
