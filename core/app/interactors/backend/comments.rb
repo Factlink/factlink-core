@@ -63,7 +63,7 @@ module Backend
     end
 
     def believable(comment_id)
-      ::Believable::Commentje.new(comment_id)
+      ::Believable.new(Ohm::Key.new("Comment:#{comment_id}:believable"))
     end
   end
 end
