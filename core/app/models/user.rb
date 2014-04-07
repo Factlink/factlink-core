@@ -182,7 +182,7 @@ class User
   end
 
   private def activity_set(name:)
-    key = GraphUser.key[graph_user_id][name]
+    key = Nest.new('GraphUser')[graph_user_id][name]
     Ohm::Model::TimestampedSet.new(key, Ohm::Model::Wrapper.wrap(Activity))
   end
 
