@@ -40,6 +40,15 @@ module Backend
       anonymize user
     end
 
+    def statistics(username:)
+      user = user_by_username username: username
+
+      {
+        followers_count: UserFollowingUsers.new(user.graph_user_id).followers_count,
+        following_count: UserFollowingUsers.new(user.graph_user_id).following_count,
+      }
+    end
+
     private
 
     def mark_as_deleted user

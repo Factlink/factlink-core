@@ -1,8 +1,7 @@
 <%
-  gu_id = @activity.user_id
-
-  follower_count  = UserFollowingUsers.new(gu_id).followers_count
-  following_count = UserFollowingUsers.new(gu_id).following_count
+  statistics = Backend::Users.statistics(username: @activity.user.user.username)
+  follower_count  = statistics[:followers_count]
+  following_count = statistics[:following_count]
 %>
 
 <% content_for :email_header do %>

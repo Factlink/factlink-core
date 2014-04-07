@@ -36,8 +36,8 @@ module Interactors
           gravatar_hash:                 user.gravatar_hash,
           deleted: user.deleted,
 
-          statistics_follower_count: UserFollowingUsers.new(user.graph_user_id).followers_count,
-          statistics_following_count: UserFollowingUsers.new(user.graph_user_id).following_count,
+          statistics_follower_count: statistics[:followers_count],
+          statistics_following_count: statistics[:following_count],
 
           location: nil_if_empty(user.location),
           biography: nil_if_empty(user.biography)
@@ -70,6 +70,10 @@ module Interactors
             services[:facebook] = true
           end
         end
+      end
+
+      def statistics
+        @statistics ||= Backend::Users.statistics(username: username)
       end
 
       def validate
