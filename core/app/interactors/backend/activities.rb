@@ -51,7 +51,7 @@ module Backend
       Resque.enqueue(ProcessActivity, activity.id)
       send_mail_for_activity activity: activity if send_mails
 
-      activity
+      nil
     end
 
     private
