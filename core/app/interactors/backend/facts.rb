@@ -28,12 +28,12 @@ module Backend
       dead(fact_data)
     end
 
-    def remove_opinion(fact_id:, graph_user:)
-      believable(fact_id).remove_opinionated_id graph_user.id
+    def remove_opinion(fact_id:, graph_user_id:)
+      believable(fact_id).remove_opinionated_id graph_user_id
     end
 
-    def set_opinion(fact_id:, graph_user:, opinion:)
-      believable(fact_id).add_opiniated_id opinion, graph_user.id
+    def set_opinion(fact_id:, graph_user_id:, opinion:)
+      believable(fact_id).add_opiniated_id opinion, graph_user_id
     end
 
     def recently_viewed(graph_user_id:)
