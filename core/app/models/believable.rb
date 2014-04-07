@@ -6,47 +6,46 @@ class Believable
 
   def votes
     {
-      believes: opiniated(:believes).count,
-      disbelieves: opiniated(:disbelieves).count
+      believes: opiniated_key(:believes).scard,
+      disbelieves: opiniated_key(:disbelieves).scard
     }
   end
 
   def opinion_of_graph_user graph_user
     OpinionType.types.each do |opinion|
-      return opinion if opiniated(opinion).include? graph_user
+      return opinion if opiniated_key(opinion).sismember graph_user.id
     end
     return :no_vote
   end
 
   def opinionated_users_ids
-    opiniated(:believes).ids + opiniated(:disbelieves).ids
-  end
-
-  def opiniated(type)
-    fail 'Unknown opinion type' unless OpinionType.include?(type.to_s)
-
-    graph_user_set "people_#{type.to_s}"
+    opiniated_key(:believes).smembers +
+      opiniated_key(:disbelieves).smembers
   end
 
   def add_opiniated(type, graph_user)
     remove_opinionateds graph_user
-    opiniated(type).add(graph_user)
+    opiniated_key(type).sadd graph_user.id
   end
 
   def remove_opinionateds(graph_user)
     OpinionType.types.each do |type|
-      opiniated(type).delete(graph_user)
+      opiniated_key(type).srem graph_user.id
     end
   end
 
   def delete
-    opiniated(:believes).clear
-    opiniated(:disbelieves).clear
+    opiniated_key(:believes).del
+    opiniated_key(:disbelieves).del
   end
 
-  private
+  def opiniated_ids(type)
+    opiniated_key(type).smembers
+  end
 
-  def graph_user_set name
-    Ohm::Model::Set.new(@key[name],Ohm::Model::Wrapper.wrap(GraphUser))
+  private def opiniated_key(type)
+    fail 'Unknown opinion type' unless OpinionType.include?(type.to_s)
+
+    key["people_#{type.to_s}"]
   end
 end
