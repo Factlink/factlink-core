@@ -40,7 +40,22 @@ module Backend
       anonymize user
     end
 
+    def profile(username:)
+      user = user_by_username username: username
+
+      {
+        location: nil_if_empty(user.location),
+        biography: nil_if_empty(user.biography),
+        followers_count: UserFollowingUsers.new(user.graph_user_id).followers_count,
+        following_count: UserFollowingUsers.new(user.graph_user_id).following_count,
+      }
+    end
+
     private
+
+    def nil_if_empty x
+      x.blank? ? nil : x
+    end
 
     def mark_as_deleted user
       user.deleted = true

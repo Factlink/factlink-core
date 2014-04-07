@@ -241,12 +241,6 @@ class User
     super || from_param(param)
   end
 
-  def avatar_url(options={})
-    options[:default] ||= :retro
-    options[:rating] ||= :PG
-    Gravatar.gravatar_url(email,options)
-  end
-
   def gravatar_hash
     Gravatar.hash(email)
   end

@@ -1,6 +1,5 @@
 [
   {
-    "timestamp": "<timestamp>",
     "action": "created_sub_comment",
     "created_at": "<created_at>",
     "id": "<id>",
@@ -50,6 +49,7 @@
       "username": "johndoe3",
       "gravatar_hash": "0c0b78bf3bb3107091bdb93c94ba73a3",
       "deleted": false
-    }
+    },
+    "timestamp": "<timestamp>"
   }
 ]

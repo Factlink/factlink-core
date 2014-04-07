@@ -2,6 +2,10 @@ module Backend
   module Activities
     extend self
 
+    def get(activity_id:)
+      dead(Activity[activity_id])
+    end
+
     def activities_older_than(activities_set:, timestamp: nil, count: nil)
       #watch out: don't use defaults other than nil since nill is automatically passed in at the rails controller level.
       timestamp = timestamp || 'inf'
@@ -29,11 +33,17 @@ module Backend
         .to_a
     end
 
-    def scored_activity_to_dead_activity(item: , score:)
-      activity = item
+    private def scored_activity_to_dead_activity(item: , score:)
+      dead_activity = dead(item)
+      return nil if dead_activity.nil?
+
+      dead_activity.merge(timestamp: score)
+    end
+
+    private def dead(activity)
+      return nil unless activity.still_valid?
 
       base_activity_data = {
-          timestamp: score,
           action: activity.action,
           created_at: activity.created_at.to_time,
           id: activity.id,
@@ -90,7 +100,7 @@ module Backend
       Resque.enqueue(ProcessActivity, activity.id)
       send_mail_for_activity activity: activity if send_mails
 
-      activity
+      nil
     end
 
     private

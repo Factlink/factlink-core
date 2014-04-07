@@ -3,6 +3,6 @@ DeadUser = StrictStruct.new(
   :name,
   :username,
   :gravatar_hash,
-  :deleted,
+  :deleted
 ) do
 end
