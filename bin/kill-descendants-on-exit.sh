@@ -1,13 +1,18 @@
 pids=''
+expected_pid_count=0
 get_pids() {
   if [[ `uname` == 'Darwin' ]]; then
     # OS X
     tree=`(pstree $$)`
     pids=`echo $tree | grep -o '[=-] [0-9]\+' | grep -o '[0-9]\+' | grep -v $$`
+    expected_pid_count=3
+    #bash, pstree, ps
   else
     # Linux
     tree=`(pstree -p $$)`
     pids=`echo $tree | grep -o '([0-9]\+)' | grep -o '[0-9]\+' | grep -v $$`
+    expected_pid_count=2
+    #bash, pstree
   fi
 }
 
@@ -16,9 +21,10 @@ onexit() {
   for i in {1..100}
   do
     get_pids
-    if [[ `echo $pids | wc -w` -lt 4 ]]; then
+    if [[ `echo $pids | wc -w` -le $expected_pid_count ]]; then
       echo 'Exiting with # processes still running:'
       echo $pids | wc -w
+      echo Expected at most $expected_pid_count
       break
     fi
 

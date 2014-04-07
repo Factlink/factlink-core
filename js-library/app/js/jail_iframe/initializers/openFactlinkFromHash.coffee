@@ -6,5 +6,5 @@ FactlinkJailRoot.core_loaded_promise.then ->
     # If it is removed, previously shared URI's (before 2014-feb) may break
     # and only link to the host page, without opening the intended factlink.
   if open_id
-    FactlinkJailRoot.scrollTo parseInt(open_id)
-    FactlinkJailRoot.openFactlinkModal parseInt(open_id)
+    FactlinkJailRoot.scrollTo open_id
+    FactlinkJailRoot.openFactlinkModal open_id
