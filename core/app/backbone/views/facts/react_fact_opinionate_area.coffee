@@ -48,7 +48,7 @@ FactOpinionateButton = React.createBackboneClass
 
   render: ->
     model = @model()
-    is_interested = model.opinion_for_current_user() != 'no_vote'
+    is_interested = model.is_current_user_interested()
 
     opinionTally = model.countBy (opinionator) -> opinionator.get('type')
     _.defaults opinionTally,

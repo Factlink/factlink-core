@@ -7,13 +7,8 @@ class window.InterestedUsers extends Backbone.Factlink.Collection
   url: ->
     "/facts/#{@fact.id}/opinionators"
 
-  opinion_for_current_user:  ->
-    return 'no_vote' unless currentSession.signedIn()
-    current_state = user_interest_state(currentSession.user().get('username'))
-    if current_state
-      current_state.get('type')
-    else
-      'no_vote'
+  is_current_user_interested: ->
+    !!user_interest_state(currentSession.user().get('username'))
 
   user_interest_state: (username) ->
     @find (vote) -> vote.get('username') == username
