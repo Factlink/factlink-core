@@ -13,9 +13,10 @@ class ActivityMailer < ActionMailer::Base
     return unless @activity.still_valid?
     return unless @user
 
-    mail to: @user.email,
+    mail from: from,
+         to: @user.email,
          subject: get_mail_subject_for_activity(@activity),
-         from: from
+         template_name: @activity.action
   end
 
   private
@@ -37,7 +38,7 @@ class ActivityMailer < ActionMailer::Base
     when 'followed_user'
       "#{activity.user.user} is now following you on Factlink"
     else
-      'New notification!'
+      fail 'Unknown action'
     end
   end
 
