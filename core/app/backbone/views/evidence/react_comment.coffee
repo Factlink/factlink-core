@@ -2,6 +2,7 @@
 
 window.ReactComment = React.createBackboneClass
   displayName: 'ReactComment'
+  mixins: [React.BackboneMixin('tally')]
   propTypes:
     fact_opinionators: React.PropTypes.instanceOf(Opinionators).isRequired
     model: React.PropTypes.instanceOf(Comment).isRequired
@@ -53,11 +54,11 @@ window.ReactComment = React.createBackboneClass
     @model().saveWithState()
 
   render: ->
-    relevant = @model().argumentTally().relevance() >= 0
+    relevant = @props.tally.relevance() >= 0
 
     _div ["comment-container", "spec-evidence-box", "comment-irrelevant" unless relevant],
       _div ["comment-votes-container"],
-        ReactCommentVote model: @model().argumentTally()
+        ReactCommentVote model: @props.tally
       _div ["comment-content-container"],
         ReactCommentHeading
           fact_opinionators: @props.fact_opinionators
