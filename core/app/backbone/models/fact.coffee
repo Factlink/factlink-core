@@ -2,7 +2,7 @@ class window.Fact extends Backbone.Model
   urlRoot: "/api/beta/annotations"
 
   getOpinionators: ->
-    @_opinionators ?= new Opinionators [], fact: @
+    @_opinionators ?= new InterestedUsers [], fact: @
 
   comments: ->
     @_comments ?= new Comments null, fact: @

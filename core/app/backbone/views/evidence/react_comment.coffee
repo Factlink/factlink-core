@@ -3,7 +3,7 @@
 window.ReactComment = React.createBackboneClass
   displayName: 'ReactComment'
   propTypes:
-    fact_opinionators: React.PropTypes.instanceOf(Opinionators).isRequired
+    fact_opinionators: React.PropTypes.instanceOf(InterestedUsers).isRequired
     model: React.PropTypes.instanceOf(Comment).isRequired
 
   getInitialState: ->
@@ -75,7 +75,7 @@ window.ReactComment = React.createBackboneClass
 ReactCommentHeading = React.createBackboneClass
   displayName: 'ReactCommentHeading'
   propTypes:
-    fact_opinionators: React.PropTypes.instanceOf(Opinionators).isRequired
+    fact_opinionators: React.PropTypes.instanceOf(InterestedUsers).isRequired
     model: React.PropTypes.instanceOf(Comment).isRequired
 
   render: ->
@@ -101,7 +101,7 @@ window.ReactOpinionatedAvatar = React.createBackboneClass
   changeOptions: 'add remove reset sort' + ' change'
 
   propTypes:
-    model: React.PropTypes.instanceOf(Opinionators).isRequired
+    model: React.PropTypes.instanceOf(InterestedUsers).isRequired
     user: React.PropTypes.instanceOf(User).isRequired
     size:  React.PropTypes.number
 
