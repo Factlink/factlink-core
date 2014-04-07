@@ -15,7 +15,7 @@ class ActivityMailer < ActionMailer::Base
     mail from: from,
          to: @user.email,
          subject: get_mail_subject_for_activity(@activity),
-         template_name: @activity.action
+         template_name: @activity[:action]
   end
 
   private
