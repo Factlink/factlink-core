@@ -18,7 +18,7 @@ class window.InterestedUsers extends Backbone.Factlink.Collection
     #TODO: why this guard - this shouldn't be possible, right?
 
     @fact.saveUnlessNew =>
-      current_state = user_interest_state(currentSession.user().get('username'))
+      current_state = @user_interest_state(currentSession.user().get('username'))
 
       if !is_interested && current_state
         current_state.destroy()
