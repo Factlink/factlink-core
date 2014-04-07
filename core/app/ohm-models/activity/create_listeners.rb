@@ -105,7 +105,7 @@ class Activity < OurOhm
       end
 
       Activity::Listener.register do
-        activity_for "GraphUser"
+        activity_for "User"
         named :notifications
         notification_activities.each { |a| activity a }
       end
@@ -128,13 +128,13 @@ class Activity < OurOhm
       end
 
       Activity::Listener.register do
-        activity_for "GraphUser"
+        activity_for "User"
         named :stream_activities
         stream_activities.each { |a| activity a }
       end
 
       Activity::Listener.register do
-        activity_for "GraphUser"
+        activity_for "User"
         named :own_activities
         stream_activities.each do |a|
           activity a.merge({

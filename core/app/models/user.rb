@@ -7,6 +7,11 @@ class User
   include Mongoid::Timestamps
   include Redis::Objects
 
+  # For compatibility with Activity::Listener
+  def self.[](graph_user_id)
+    User.where(graph_user_id: graph_user_id).first
+  end
+
   embeds_one :user_notification, autobuild: true
 
   USERNAME_MAX_LENGTH = 20 # WARNING: must be shorter than mongo ids(24 chars) to avoid confusing ids with usernames!
@@ -165,11 +170,20 @@ class User
   end
 
   def stream_activities
-    GraphUser[graph_user_id].stream_activities
+    activity_set(name: :stream_activities)
   end
 
   def own_activities
-    GraphUser[graph_user_id].own_activities
+    activity_set(name: :own_activities)
+  end
+
+  def notifications
+    activity_set(name: :notifications)
+  end
+
+  private def activity_set(name:)
+    key = GraphUser.key[graph_user_id][name]
+    Ohm::Model::TimestampedSet.new(key, Ohm::Model::Wrapper.wrap(Activity))
   end
 
   private def create_graph_user
