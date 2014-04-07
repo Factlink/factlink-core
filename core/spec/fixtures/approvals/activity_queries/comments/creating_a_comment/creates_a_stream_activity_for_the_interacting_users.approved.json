@@ -1,6 +1,5 @@
 [
   {
-    "timestamp": "<timestamp>",
     "action": "created_comment",
     "created_at": "<created_at>",
     "id": "<id>",
@@ -20,8 +19,7 @@
         "name": "John2 Doe2",
         "username": "johndoe2",
         "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
-        "deleted": false,
-        "biography": null
+        "deleted": false
       },
       "created_at": "<created_at>",
       "formatted_content": "content",
@@ -38,8 +36,8 @@
       "name": "John2 Doe2",
       "username": "johndoe2",
       "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
-      "deleted": false,
-      "biography": null
-    }
+      "deleted": false
+    },
+    "timestamp": "<timestamp>"
   }
 ]

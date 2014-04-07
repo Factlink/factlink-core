@@ -1,6 +1,5 @@
 [
   {
-    "timestamp": "<timestamp>",
     "action": "created_sub_comment",
     "created_at": "<created_at>",
     "id": "<id>",
@@ -20,8 +19,7 @@
         "name": "John1 Doe1",
         "username": "johndoe1",
         "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
-        "deleted": false,
-        "biography": null
+        "deleted": false
       },
       "created_at": "<created_at>",
       "formatted_content": "hoi",
@@ -40,8 +38,7 @@
         "name": "John1 Doe1",
         "username": "johndoe1",
         "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
-        "deleted": false,
-        "biography": null
+        "deleted": false
       },
       "created_at": "<created_at>",
       "formatted_content": "moi"
@@ -51,12 +48,11 @@
       "name": "John1 Doe1",
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
-      "deleted": false,
-      "biography": null
-    }
+      "deleted": false
+    },
+    "timestamp": "<timestamp>"
   },
   {
-    "timestamp": "<timestamp>",
     "action": "created_comment",
     "created_at": "<created_at>",
     "id": "<id>",
@@ -76,8 +72,7 @@
         "name": "John1 Doe1",
         "username": "johndoe1",
         "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
-        "deleted": false,
-        "biography": null
+        "deleted": false
       },
       "created_at": "<created_at>",
       "formatted_content": "hoi",
@@ -94,12 +89,11 @@
       "name": "John1 Doe1",
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
-      "deleted": false,
-      "biography": null
-    }
+      "deleted": false
+    },
+    "timestamp": "<timestamp>"
   },
   {
-    "timestamp": "<timestamp>",
     "action": "followed_user",
     "created_at": "<created_at>",
     "id": "<id>",
@@ -108,16 +102,15 @@
       "name": "John2 Doe2",
       "username": "johndoe2",
       "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
-      "deleted": false,
-      "biography": null
+      "deleted": false
     },
     "user": {
       "id": "<id>",
       "name": "John1 Doe1",
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
-      "deleted": false,
-      "biography": null
-    }
+      "deleted": false
+    },
+    "timestamp": "<timestamp>"
   }
 ]
