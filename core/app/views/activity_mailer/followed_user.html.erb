@@ -1,20 +1,17 @@
 <%
-  gu_id = @activity.user_id
-
-  follower_count  = UserFollowingUsers.new(gu_id).followers_count
-  following_count = UserFollowingUsers.new(gu_id).following_count
+  profile = Backend::Users.profile(username: @activity[:user].username)
 %>
 
 <% content_for :email_header do %>
   <h1 class="header-title">Hello <%= @user.name %></h1>
-  <h2 class="header-subtitle"><%= @activity.user.user %> is now following you on Factlink</h2>
+  <h2 class="header-subtitle"><%= @activity[:user].name %> is now following you on Factlink</h2>
 <% end %>
 
 <table cellpadding="0" cellspacing="0" border="0" id="user" width="100%">
   <tr>
     <td class="user-header">
-      <img class="user-image" src="<%= @activity.user.user.avatar_url(size: 32) %>" width="32" height="32" alt="<%= @activity.user.user %>" />
-      <%= link_to_possibly_dead_user @activity.user.user, class: "user-name" %>
+      <img class="user-image" src="<%= Gravatar.url(hash: @activity[:user].gravatar_hash, size: 32) %>" width="32" height="32" alt="<%= @activity[:user].name %>" />
+      <%= link_to_possibly_dead_user @activity[:user], class: "user-name" %>
     </td>
   </tr>
 
@@ -23,20 +20,20 @@
       <table cellpadding="20" cellspacing="0" border="0" id="user-info" width="100%">
         <tr>
           <td class="user-info-description" colspan="3">
-            <p><%= @activity.user.user.biography %></p>
+            <p><%= profile[:biography] %></p>
           </td>
         </tr>
         <tr>
           <td class="user-info-stat" width="50px">
             <span class="muted">Followers</span><br />
             <span class="user-info-value">
-              <%= follower_count %>
+              <%= profile[:followers_count] %>
             </span>
           </td>
           <td class="user-info-stat no-border" width="50px">
             <span class="muted">Following</span><br />
             <span class="user-info-value">
-              <%= following_count %>
+              <%= profile[:following_count] %>
             </span>
           </td>
         </tr>
@@ -50,9 +47,9 @@
 <table class="button" align="center" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td class="button-inner">
-      <a href="<%= user_profile_url(@activity.user.user) %>">
+      <a href="<%= user_profile_url(@activity[:user].username) %>">
         <div class="button-link">
-          Follow <%= @activity.user.user %>
+          Follow <%= @activity[:user].name %>
         </div>
       </a>
     </td>

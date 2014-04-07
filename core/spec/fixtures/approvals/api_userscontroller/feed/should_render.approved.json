@@ -1,6 +1,5 @@
 [
   {
-    "timestamp": "<timestamp>",
     "action": "created_sub_comment",
     "created_at": "<created_at>",
     "id": "<id>",
@@ -50,10 +49,10 @@
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "deleted": false
-    }
+    },
+    "timestamp": "<timestamp>"
   },
   {
-    "timestamp": "<timestamp>",
     "action": "created_comment",
     "created_at": "<created_at>",
     "id": "<id>",
@@ -91,10 +90,10 @@
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "deleted": false
-    }
+    },
+    "timestamp": "<timestamp>"
   },
   {
-    "timestamp": "<timestamp>",
     "action": "followed_user",
     "created_at": "<created_at>",
     "id": "<id>",
@@ -111,6 +110,7 @@
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "deleted": false
-    }
+    },
+    "timestamp": "<timestamp>"
   }
 ]

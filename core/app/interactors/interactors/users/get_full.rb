@@ -24,10 +24,6 @@ module Interactors
         can? :show, user
       end
 
-      def nil_if_empty x
-        x.blank? ? nil : x
-      end
-
       def normal_properties
         {
           id:                            user.id.to_s,
@@ -36,11 +32,11 @@ module Interactors
           gravatar_hash:                 user.gravatar_hash,
           deleted: user.deleted,
 
-          statistics_follower_count: UserFollowingUsers.new(user.graph_user_id).followers_count,
-          statistics_following_count: UserFollowingUsers.new(user.graph_user_id).following_count,
+          statistics_follower_count: profile[:followers_count],
+          statistics_following_count: profile[:following_count],
 
-          location: nil_if_empty(user.location),
-          biography: nil_if_empty(user.biography)
+          location: profile[:location],
+          biography: profile[:biography]
         }
       end
 
@@ -70,6 +66,10 @@ module Interactors
             services[:facebook] = true
           end
         end
+      end
+
+      def profile
+        @profile ||= Backend::Users.profile(username: username)
       end
 
       def validate

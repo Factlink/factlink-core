@@ -11,7 +11,7 @@ class LoadDsl
     def comment(username, comment)
       user = User.where(username: username).first
 
-      pavlov_options = {current_user: user}
+      pavlov_options = {current_user: user, time: Time.now}
 
       Pavlov.interactor(:'comments/create', fact_id: dead_fact.id.to_i, content: comment, pavlov_options: pavlov_options)
     end
@@ -20,7 +20,7 @@ class LoadDsl
       users.each do |username|
         user = User.where(username: username).first || fail("user not found " + username)
 
-        pavlov_options = {current_user: user}
+        pavlov_options = {current_user: user, time: Time.now}
 
         Pavlov.interactor(:'facts/set_opinion', fact_id: dead_fact.id, opinion: opinion_type.to_s, pavlov_options: pavlov_options)
       end
