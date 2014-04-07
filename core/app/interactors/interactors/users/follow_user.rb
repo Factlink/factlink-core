@@ -44,7 +44,8 @@ module Interactors
         Backend::Activities.create \
           graph_user_id: current_user.graph_user_id,
           action: :followed_user,
-          subject: user_to_follow.graph_user,
+          subject_id: user_to_follow.graph_user_id,
+          subject_class: 'GraphUser',
           time: pavlov_options[:time],
           send_mails: pavlov_options[:send_mails]
 

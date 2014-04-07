@@ -8,10 +8,6 @@ describe User do
     it "isn't admin" do
       expect(subject.admin).to be_false
     end
-
-    it "has a GraphUser" do
-      expect(subject.graph_user).to be_a(GraphUser)
-    end
   end
 
   describe :assign_attributes do

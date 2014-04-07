@@ -6,42 +6,17 @@ class Foo < OurOhm ;end
 describe Activity do
   let(:b1) { Blob.create }
   let(:b2) { Blob.create }
-  let(:gu) { create(:user).graph_user }
+
+  let(:userblabla) { create(:user) }
+  let(:gu) { userblabla.graph_user }
+  let(:gu_id) {userblabla.graph_user_id}
 
   let(:gu2) { GraphUser.create }
   let(:gu3) { GraphUser.create }
 
-  context "after creating one activity" do
-    before :each do
-      a = Activity.create(
-             :user => gu,
-             :action => :followed_user,
-             :subject => b1,
-             :created_at => Time.at(0).utc.to_s
-           )
-      @activity = Activity[a.id]
-    end
-    it { @activity.user.should == gu }
-    it { @activity.subject.should == b1 }
-  end
-
-  context "when dealing with activities on graphusers" do
-    before :each do
-      a = Activity.create(
-             :user => gu,
-             :action => :followed_user,
-             :subject => gu2,
-             :created_at => Time.at(0).utc.to_s
-           )
-      @activity = Activity[a.id]
-    end
-    it { @activity.user.should == gu }
-    it { @activity.subject.should == gu2 }
-  end
-
   describe "still_valid?" do
     it "should be valid for an activity with everything set" do
-      activity = Activity.create(user: gu, action: :followed_user, subject: gu2, created_at: Time.at(0).utc.to_s)
+      activity = Activity.create(user_id: gu_id, action: :followed_user, subject: gu2, created_at: Time.at(0).utc.to_s)
       expect(activity).to be_still_valid
     end
 
@@ -51,13 +26,13 @@ describe Activity do
     end
 
     it "should be valid when the subject is unset/not set" do
-      activity = Activity.create(user: gu, action: :followed_user, created_at: Time.at(0).utc.to_s)
+      activity = Activity.create(user_id: gu_id, action: :followed_user, created_at: Time.at(0).utc.to_s)
       expect(activity).to be_still_valid
     end
 
     it "should not be valid if the user is deleted" do
       deleted_user = create :user, deleted: true
-      activity = Activity.create(user: deleted_user.graph_user, action: :followed_user, created_at: Time.at(0).utc.to_s)
+      activity = Activity.create(user_id: deleted_user.graph_user_id, action: :followed_user, created_at: Time.at(0).utc.to_s)
       activity = Activity[activity.id]
       expect(activity).to_not be_still_valid
     end
@@ -71,14 +46,14 @@ describe Activity do
 
   describe 'list management' do
     let(:activity) do Activity.create(
-             :user => gu,
+             :user_id => gu_id,
              :action => :followed_user,
              :subject => b1,
              :created_at => Time.at(0).utc.to_s
            )
     end
     let (:activity2) do Activity.create(
-               :user => gu,
+               :user_id => gu_id,
                :action => :followed_user,
                :subject => b1,
                :created_at => Time.at(0).utc.to_s
@@ -87,16 +62,16 @@ describe Activity do
 
     describe :remove_from_containing_lists do
       it "should remove the activity from the list" do
-        activity.add_to_list_with_score(gu.stream_activities)
+        activity.add_to_list_with_score(userblabla.stream_activities)
         activity.remove_from_containing_sorted_sets
-        gu.stream_activities.all.should == []
+        userblabla.stream_activities.all.should == []
       end
 
       it "should leave other activities intact" do
-        activity.add_to_list_with_score(gu.stream_activities)
-        activity2.add_to_list_with_score(gu.stream_activities)
+        activity.add_to_list_with_score(userblabla.stream_activities)
+        activity2.add_to_list_with_score(userblabla.stream_activities)
         activity.remove_from_containing_sorted_sets
-        gu.stream_activities.all.should == [activity2]
+        userblabla.stream_activities.all.should == [activity2]
       end
     end
     describe :delete do

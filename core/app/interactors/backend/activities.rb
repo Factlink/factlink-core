@@ -83,9 +83,19 @@ module Backend
       end
     end
 
-    def create(graph_user_id:, action:, subject:, time:, send_mails:)
-      activity = Activity.create(user_id: graph_user_id, action: action, subject: subject,
-        created_at: time.utc.to_s)
+    def create(graph_user_id:, action:, subject: nil, subject_id: nil, subject_class: nil, time:, send_mails:)
+      if subject
+        subject_id = subject.id.to_s
+        subject_class = subject.class.to_s
+      elsif not (subject_id && subject_class)
+        raise "INVALID SUBJECT"
+      end
+      activity = Activity.create \
+        user_id: graph_user_id,
+        action: action,
+        subject_id: subject_id,
+        subject_class: subject_class,
+        created_at: time.utc.to_s
 
       Resque.enqueue(ProcessActivity, activity.id)
       send_mail_for_activity activity: activity if send_mails

@@ -168,6 +168,10 @@ class User
     @graph_user ||= GraphUser[graph_user_id]
   end
 
+  def stream_activities
+    GraphUser[graph_user_id].stream_activities
+  end
+
   def graph_user=(guser)
     @graph_user = nil
     self.graph_user_id = guser.id
