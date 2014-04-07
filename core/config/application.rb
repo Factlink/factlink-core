@@ -3,6 +3,7 @@ require File.expand_path('../boot', __FILE__)
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
+require "active_record/railtie"
 require "pavlov/alpha_compatibility"
 
 Mime::Type.register "image/png", :png unless Mime::Type.lookup_by_extension(:png)
@@ -45,9 +46,8 @@ module FactlinkUI
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Use Mongoid as ORM
     config.generators do |g|
-      g.orm             :mongoid
+      g.orm             :active_record
     end
 
     # Custom directories with classes and modules you want to be autoloadable.
