@@ -1,5 +1,5 @@
 <%
-  statistics = Backend::Users.statistics(username: @activity[:user].username)
+  profile = Backend::Users.profile(username: @activity[:user].username)
 %>
 
 <% content_for :email_header do %>
@@ -20,20 +20,20 @@
       <table cellpadding="20" cellspacing="0" border="0" id="user-info" width="100%">
         <tr>
           <td class="user-info-description" colspan="3">
-            <p><%= @activity[:user].biography %></p>
+            <p><%= profile[:biography] %></p>
           </td>
         </tr>
         <tr>
           <td class="user-info-stat" width="50px">
             <span class="muted">Followers</span><br />
             <span class="user-info-value">
-              <%= statistics[:followers_count] %>
+              <%= profile[:followers_count] %>
             </span>
           </td>
           <td class="user-info-stat no-border" width="50px">
             <span class="muted">Following</span><br />
             <span class="user-info-value">
-              <%= statistics[:following_count] %>
+              <%= profile[:following_count] %>
             </span>
           </td>
         </tr>

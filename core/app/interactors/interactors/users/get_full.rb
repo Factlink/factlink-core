@@ -36,11 +36,11 @@ module Interactors
           gravatar_hash:                 user.gravatar_hash,
           deleted: user.deleted,
 
-          statistics_follower_count: statistics[:followers_count],
-          statistics_following_count: statistics[:following_count],
+          statistics_follower_count: profile[:followers_count],
+          statistics_following_count: profile[:following_count],
 
-          location: nil_if_empty(user.location),
-          biography: nil_if_empty(user.biography)
+          location: profile[:location],
+          biography: profile[:biography]
         }
       end
 
@@ -72,8 +72,8 @@ module Interactors
         end
       end
 
-      def statistics
-        @statistics ||= Backend::Users.statistics(username: username)
+      def profile
+        @profile ||= Backend::Users.profile(username: username)
       end
 
       def validate

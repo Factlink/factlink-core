@@ -21,8 +21,7 @@ module Backend
           name: user.name,
           username: user.username,
           gravatar_hash: user.gravatar_hash,
-          deleted: user.deleted,
-          biography: user.biography
+          deleted: user.deleted
       end
     end
 
@@ -41,10 +40,12 @@ module Backend
       anonymize user
     end
 
-    def statistics(username:)
+    def profile(username:)
       user = user_by_username username: username
 
       {
+        location: user.location.blank? ? nil : user.location,
+        biography: user.biography.blank? ? nil : user.biography,
         followers_count: UserFollowingUsers.new(user.graph_user_id).followers_count,
         following_count: UserFollowingUsers.new(user.graph_user_id).following_count,
       }
