@@ -74,8 +74,11 @@ class Activity < OurOhm
 
   def user_still_valid?
     return true if not user_id
+    return false unless user
 
-    user and user.user and not user.user.deleted
+    real_user = User.where(graph_user_id: user.id).first
+
+    real_user and not real_user.deleted
   end
 
   def subject_still_valid?

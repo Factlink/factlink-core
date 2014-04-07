@@ -172,27 +172,16 @@ class User
     GraphUser[graph_user_id].own_activities
   end
 
-  def graph_user=(guser)
-    @graph_user = nil
-    self.graph_user_id = guser.id
+  private def create_graph_user
+    graph_user = GraphUser.new
+    graph_user.save
+    self.graph_user_id = graph_user.id
   end
-
-  def create_graph_user
-    guser = GraphUser.new
-    guser.save
-    self.graph_user = guser
-    yield
-
-    guser.user = self
-    guser.save
-  end
+  before_create :create_graph_user
 
   def self.human_attribute_name(attr, options = {})
     attr.to_s == 'non_field_error' ? '' : super
   end
-
-  private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved
-  around_create :create_graph_user
 
   def to_s
     name

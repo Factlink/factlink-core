@@ -36,14 +36,14 @@ module Backend
       believable(fact_id).add_opiniated_id opinion, graph_user_id
     end
 
-    def recently_viewed(graph_user_id:)
-      RecentlyViewedFacts.by_user_id(GraphUser[graph_user_id].user_id).top_ids(5).map do |fact_id|
+    def recently_viewed(user_id:)
+      RecentlyViewedFacts.by_user_id(user_id).top_ids(5).map do |fact_id|
         get(fact_id: fact_id)
       end
     end
 
-    def add_to_recently_viewed(fact_id:, graph_user_id:)
-      RecentlyViewedFacts.by_user_id(GraphUser[graph_user_id].user_id).add_fact_id fact_id
+    def add_to_recently_viewed(fact_id:, user_id:)
+      RecentlyViewedFacts.by_user_id(user_id).add_fact_id fact_id
     end
 
     def for_url(site_url:)
