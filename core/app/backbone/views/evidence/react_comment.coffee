@@ -94,14 +94,11 @@ ReactCommentHeading = React.createBackboneClass
           className: "comment-post-time"
           time: @model().get('created_at')
 
-window.ReactOpinionatedAvatar = React.createBackboneClass
+window.ReactOpinionatedAvatar = React.createClass
   displayName: "ReactOpinionatedAvatar"
-  mixins: [UpdateOnFeaturesChangeMixin] # opinions_of_users_and_comments
-
   changeOptions: 'add remove reset sort' + ' change'
 
   propTypes:
-    model: React.PropTypes.instanceOf(Opinionators).isRequired
     user: React.PropTypes.instanceOf(User).isRequired
     size:  React.PropTypes.number
 

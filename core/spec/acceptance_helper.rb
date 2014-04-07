@@ -87,10 +87,6 @@ RSpec.configure do |config|
     Capybara::Screenshot.autosave_on_failure = true
   end
 
-  config.before(:each) do
-    enable_global_features(:opinions_of_users_and_comments)
-  end
-
   config.after(:each) do
     execute_script('localStorage.clear();sessionStorage.clear();');
 
