@@ -164,12 +164,12 @@ class User
     !deleted
   end
 
-  def graph_user
-    @graph_user ||= GraphUser[graph_user_id]
-  end
-
   def stream_activities
     GraphUser[graph_user_id].stream_activities
+  end
+
+  def own_activities
+    GraphUser[graph_user_id].own_activities
   end
 
   def graph_user=(guser)

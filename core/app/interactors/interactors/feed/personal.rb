@@ -16,7 +16,7 @@ module Interactors
       end
 
       def activities
-        current_user.graph_user.stream_activities
+        current_user.stream_activities
       end
 
       def current_user
