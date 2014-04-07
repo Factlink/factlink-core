@@ -31,7 +31,7 @@ class Activity < OurOhm
 
   alias :old_set_user :user= unless method_defined?(:old_set_user)
   def user=(new_user)
-    old_set_user new_user.graph_user
+    old_set_user new_user
   end
 
   def delete
@@ -74,8 +74,11 @@ class Activity < OurOhm
 
   def user_still_valid?
     return true if not user_id
+    return false unless user
 
-    user and user.user and not user.user.deleted
+    real_user = User.where(graph_user_id: user.id).first
+
+    real_user && !real_user.deleted
   end
 
   def subject_still_valid?

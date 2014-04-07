@@ -51,7 +51,7 @@ module Backend
       specialized_data =
           case activity.action
           when "created_comment"
-            comment = Backend::Comments.by_ids(ids: [activity.subject_id.to_s]).first
+            comment = Backend::Comments.by_ids(ids: [activity.subject_id.to_s], current_graph_user_id: nil).first
             {
                 fact: Backend::Facts.get(fact_id: activity.subject.fact_data.fact_id),
                 comment: comment,
@@ -61,7 +61,7 @@ module Backend
             sub_comment = Backend::SubComments::dead_for(activity.subject)
             {
                 fact: Backend::Facts.get(fact_id: activity.subject.parent.fact_data.fact_id),
-                comment: Backend::Comments.by_ids(ids: [activity.subject.parent_id.to_s]).first,
+                comment: Backend::Comments.by_ids(ids: [activity.subject.parent_id.to_s], current_graph_user_id: nil).first,
                 sub_comment: sub_comment,
                 user: sub_comment.created_by,
             }
@@ -79,23 +79,33 @@ module Backend
     end
 
     def add_activities_to_follower_stream(followed_user_graph_user_id:, current_graph_user_id:)
-      activities_set = GraphUser[followed_user_graph_user_id].own_activities
+      activities_set = User.where(graph_user_id: followed_user_graph_user_id).first.own_activities
 
       activities = activities_set.below('inf',
                     count: 7,
                     reversed: true,
                     withscores: false).compact
 
-      current_graph_user = GraphUser[current_graph_user_id]
+      current_user = User.where(graph_user_id: current_graph_user_id).first
 
       activities.each do |activity|
-        activity.add_to_list_with_score current_graph_user.stream_activities
+        activity.add_to_list_with_score current_user.stream_activities
       end
     end
 
-    def create(graph_user:, action:, subject:, time:, send_mails:)
-      activity = Activity.create(user: graph_user, action: action, subject: subject,
-        created_at: time.utc.to_s)
+    def create(graph_user_id:, action:, subject: nil, subject_id: nil, subject_class: nil, time:, send_mails:)
+      if subject
+        subject_id = subject.id.to_s
+        subject_class = subject.class.to_s
+      elsif not (subject_id && subject_class)
+        raise "INVALID SUBJECT"
+      end
+      activity = Activity.create \
+        user_id: graph_user_id,
+        action: action,
+        subject_id: subject_id,
+        subject_class: subject_class,
+        created_at: time.utc.to_s
 
       Resque.enqueue(ProcessActivity, activity.id)
       send_mail_for_activity activity: activity if send_mails
@@ -106,7 +116,7 @@ module Backend
     private
 
     def send_mail_for_activity(activity:)
-      listeners = Activity::Listener.all[{class: "GraphUser", list: :notifications}]
+      listeners = Activity::Listener.all[{class: "User", list: :notifications}]
 
       graph_user_ids = listeners.map do |listener|
           listener.add_to(activity)

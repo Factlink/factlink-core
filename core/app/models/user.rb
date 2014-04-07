@@ -7,6 +7,11 @@ class User
   include Mongoid::Timestamps
   include Redis::Objects
 
+  # For compatibility with Activity::Listener
+  def self.[](graph_user_id)
+    User.where(graph_user_id: graph_user_id).first
+  end
+
   embeds_one :user_notification, autobuild: true
 
   USERNAME_MAX_LENGTH = 20 # WARNING: must be shorter than mongo ids(24 chars) to avoid confusing ids with usernames!
@@ -164,31 +169,33 @@ class User
     !deleted
   end
 
-  def graph_user
-    @graph_user ||= GraphUser[graph_user_id]
+  def stream_activities
+    activity_set(name: :stream_activities)
   end
 
-  def graph_user=(guser)
-    @graph_user = nil
-    self.graph_user_id = guser.id
+  def own_activities
+    activity_set(name: :own_activities)
   end
 
-  def create_graph_user
-    guser = GraphUser.new
-    guser.save
-    self.graph_user = guser
-    yield
-
-    guser.user = self
-    guser.save
+  def notifications
+    activity_set(name: :notifications)
   end
+
+  private def activity_set(name:)
+    key = Nest.new('GraphUser')[graph_user_id][name]
+    Ohm::Model::TimestampedSet.new(key, Ohm::Model::Wrapper.wrap(Activity))
+  end
+
+  private def create_graph_user
+    graph_user = GraphUser.new
+    graph_user.save
+    self.graph_user_id = graph_user.id
+  end
+  before_create :create_graph_user
 
   def self.human_attribute_name(attr, options = {})
     attr.to_s == 'non_field_error' ? '' : super
   end
-
-  private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved
-  around_create :create_graph_user
 
   def to_s
     name

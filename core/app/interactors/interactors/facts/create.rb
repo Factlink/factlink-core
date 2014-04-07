@@ -17,7 +17,9 @@ module Interactors
           url: url, site_title: site_title
 
         if user
-          Backend::Facts.add_to_recently_viewed fact_id: dead_fact.id, graph_user_id: user.graph_user_id
+          Backend::Facts.add_to_recently_viewed \
+            fact_id: dead_fact.id,
+            user_id: user.id
         end
 
         dead_fact

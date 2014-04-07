@@ -28,22 +28,22 @@ module Backend
       dead(fact_data)
     end
 
-    def remove_opinion(fact_id:, graph_user:)
-      believable(fact_id).remove_opinionateds graph_user
+    def remove_opinion(fact_id:, graph_user_id:)
+      believable(fact_id).remove_opinionated_id graph_user_id
     end
 
-    def set_opinion(fact_id:, graph_user:, opinion:)
-      believable(fact_id).add_opiniated opinion, graph_user
+    def set_opinion(fact_id:, graph_user_id:, opinion:)
+      believable(fact_id).add_opiniated_id opinion, graph_user_id
     end
 
-    def recently_viewed(graph_user_id:)
-      RecentlyViewedFacts.by_user_id(GraphUser[graph_user_id].user_id).top_ids(5).map do |fact_id|
+    def recently_viewed(user_id:)
+      RecentlyViewedFacts.by_user_id(user_id).top_ids(5).map do |fact_id|
         get(fact_id: fact_id)
       end
     end
 
-    def add_to_recently_viewed(fact_id:, graph_user_id:)
-      RecentlyViewedFacts.by_user_id(GraphUser[graph_user_id].user_id).add_fact_id fact_id
+    def add_to_recently_viewed(fact_id:, user_id:)
+      RecentlyViewedFacts.by_user_id(user_id).add_fact_id fact_id
     end
 
     def for_url(site_url:)
@@ -57,7 +57,7 @@ module Backend
     private
 
     def votes_for(fact_id, type)
-      graph_user_ids = believable(fact_id).opiniated(type).ids
+      graph_user_ids = believable(fact_id).opiniated_ids(type)
       dead_users = Backend::Users.by_ids(user_ids: graph_user_ids, by: :graph_user_id)
 
       dead_users.map do |user|

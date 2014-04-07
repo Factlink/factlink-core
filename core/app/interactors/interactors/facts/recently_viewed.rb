@@ -9,7 +9,7 @@ module Interactors
       def execute
         return [] unless pavlov_options[:current_user]
 
-        Backend::Facts.recently_viewed graph_user_id: pavlov_options[:current_user].graph_user_id
+        Backend::Facts.recently_viewed user_id: pavlov_options[:current_user].id
       end
 
       def authorized?
