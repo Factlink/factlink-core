@@ -33,7 +33,6 @@ class ActivityMailer < ActionMailer::Base
     when 'created_comment', 'created_sub_comment'
       factlink = activity[:fact].displaystring.strip.truncate(50)
       "Discussion on \"#{factlink}\""
-      subject_for activity.subject.parent.fact_data
     when 'followed_user'
       "#{activity[:user].name} is now following you on Factlink"
     else
