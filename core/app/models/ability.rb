@@ -41,7 +41,7 @@ class Ability
 
     can :read, Comment
     can :destroy, Comment do |comment|
-      dead_comment = Backend::Comments.by_ids(ids: comment.id.to_s).first
+      dead_comment = Backend::Comments.by_ids(ids: comment.id.to_s, current_graph_user_id: nil).first
       comment.created_by.id == user.id && dead_comment.is_deletable
     end
   end

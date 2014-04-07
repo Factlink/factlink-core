@@ -2,16 +2,16 @@ module Backend
   module Comments
     extend self
 
-    def by_ids(ids:, current_graph_user: nil)
+    def by_ids(ids:, current_graph_user_id:)
       Comment.all_in(_id: Array(ids)).map do |comment|
-        dead(comment: comment, current_graph_user: current_graph_user)
+        dead(comment: comment, current_graph_user_id: current_graph_user_id)
       end
     end
 
-    def by_fact_id(fact_id:, current_graph_user: nil)
+    def by_fact_id(fact_id:, current_graph_user_id:)
       fact_data_id = FactData.where(fact_id: fact_id).first.id
       Comment.where(fact_data_id: fact_data_id).map do |comment|
-        dead(comment: comment, current_graph_user: current_graph_user)
+        dead(comment: comment, current_graph_user_id: current_graph_user_id)
       end
     end
 
@@ -42,8 +42,8 @@ module Backend
 
     private
 
-    def dead(comment:, current_graph_user:)
-      current_user_opinion = current_user_opinion_for(comment_id: comment.id, current_graph_user: current_graph_user)
+    def dead(comment:, current_graph_user_id:)
+      current_user_opinion = current_user_opinion_for(comment_id: comment.id, current_graph_user_id: current_graph_user_id)
 
       DeadComment.new(
         id: comment.id,
@@ -56,10 +56,10 @@ module Backend
       )
     end
 
-    def current_user_opinion_for(comment_id:, current_graph_user:)
-      return :no_vote unless current_graph_user
+    def current_user_opinion_for(comment_id:, current_graph_user_id:)
+      return :no_vote unless current_graph_user_id
 
-      believable(comment_id).opinion_of_graph_user_id current_graph_user.id
+      believable(comment_id).opinion_of_graph_user_id current_graph_user_id
     end
 
     def believable(comment_id)

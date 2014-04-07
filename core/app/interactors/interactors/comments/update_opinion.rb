@@ -17,7 +17,8 @@ module Interactors
             graph_user_id: pavlov_options[:current_user].graph_user_id
         end
 
-        Backend::Comments.by_ids(ids: comment_id).first
+        # TODO: why is there no current graph_user passed in here?
+        Backend::Comments.by_ids(ids: comment_id, current_graph_user_id: nil).first
       end
 
       def validate
