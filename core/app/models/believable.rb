@@ -11,9 +11,9 @@ class Believable
     }
   end
 
-  def opinion_of_graph_user graph_user
+  def opinion_of_graph_user_id graph_user_id
     OpinionType.types.each do |opinion|
-      return opinion if opiniated_key(opinion).sismember graph_user.id
+      return opinion if opiniated_key(opinion).sismember graph_user_id
     end
     return :no_vote
   end
@@ -23,14 +23,14 @@ class Believable
       opiniated_key(:disbelieves).smembers
   end
 
-  def add_opiniated(type, graph_user)
-    remove_opinionateds graph_user
-    opiniated_key(type).sadd graph_user.id
+  def add_opiniated_id(type, graph_user_id)
+    remove_opinionated_id graph_user_id
+    opiniated_key(type).sadd graph_user_id
   end
 
-  def remove_opinionateds(graph_user)
+  def remove_opinionated_id(graph_user_id)
     OpinionType.types.each do |type|
-      opiniated_key(type).srem graph_user.id
+      opiniated_key(type).srem graph_user_id
     end
   end
 

@@ -29,11 +29,11 @@ module Backend
     end
 
     def remove_opinion(fact_id:, graph_user:)
-      believable(fact_id).remove_opinionateds graph_user
+      believable(fact_id).remove_opinionated_id graph_user.id
     end
 
     def set_opinion(fact_id:, graph_user:, opinion:)
-      believable(fact_id).add_opiniated opinion, graph_user
+      believable(fact_id).add_opiniated_id opinion, graph_user.id
     end
 
     def recently_viewed(graph_user_id:)

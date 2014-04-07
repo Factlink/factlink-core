@@ -16,11 +16,11 @@ module Backend
     end
 
     def remove_opinion(comment_id:, graph_user:)
-      believable(comment_id).remove_opinionateds graph_user
+      believable(comment_id).remove_opinionated_id graph_user.id
     end
 
     def set_opinion(comment_id:, graph_user:, opinion:)
-      believable(comment_id).add_opiniated opinion, graph_user
+      believable(comment_id).add_opiniated_id opinion, graph_user.id
     end
 
     def deletable?(comment_id)
@@ -59,7 +59,7 @@ module Backend
     def current_user_opinion_for(comment_id:, current_graph_user:)
       return :no_vote unless current_graph_user
 
-      believable(comment_id).opinion_of_graph_user current_graph_user
+      believable(comment_id).opinion_of_graph_user_id current_graph_user.id
     end
 
     def believable(comment_id)
