@@ -15,12 +15,12 @@ module Backend
       end
     end
 
-    def remove_opinion(comment_id:, graph_user:)
-      believable(comment_id).remove_opinionated_id graph_user.id
+    def remove_opinion(comment_id:, graph_user_id:)
+      believable(comment_id).remove_opinionated_id graph_user_id
     end
 
-    def set_opinion(comment_id:, graph_user:, opinion:)
-      believable(comment_id).add_opiniated_id opinion, graph_user.id
+    def set_opinion(comment_id:, graph_user_id:, opinion:)
+      believable(comment_id).add_opiniated_id opinion, graph_user_id
     end
 
     def deletable?(comment_id)

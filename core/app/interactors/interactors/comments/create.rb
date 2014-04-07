@@ -13,7 +13,7 @@ module Interactors
 
         Backend::Comments.set_opinion \
           comment_id: comment.id.to_s, opinion: 'believes',
-          graph_user: pavlov_options[:current_user].graph_user
+          graph_user_id: pavlov_options[:current_user].graph_user_id
 
         create_activity comment
 
