@@ -9,13 +9,13 @@ class window.InterestedUsers extends Backbone.Factlink.Collection
 
   opinion_for_current_user:  ->
     return 'no_vote' unless currentSession.signedIn()
-    vote = @vote_for(window.currentSession.user().get('username'))
-    if vote
-      vote.get('type')
+    current_state = user_interest_state(currentSession.user().get('username'))
+    if current_state
+      current_state.get('type')
     else
       'no_vote'
 
-  vote_for: (username) ->
+  user_interest_state: (username) ->
     @find (vote) -> vote.get('username') == username
 
   setInterested: (is_interested) ->
@@ -23,11 +23,11 @@ class window.InterestedUsers extends Backbone.Factlink.Collection
     #TODO: why this guard - this shouldn't be possible, right?
 
     @fact.saveUnlessNew =>
-      current_vote = @vote_for(currentSession.user().get('username'))
+      current_state = user_interest_state(currentSession.user().get('username'))
 
-      if !is_interested && current_vote
-        current_vote.destroy()
-      else if is_interested && !current_vote
+      if !is_interested && current_state
+        current_state.destroy()
+      else if is_interested && !current_state
         @create
           username: currentSession.user().get('username')
           user: currentSession.user().attributes
