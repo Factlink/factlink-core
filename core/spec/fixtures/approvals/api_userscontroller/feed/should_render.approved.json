@@ -20,7 +20,8 @@
         "name": "John1 Doe1",
         "username": "johndoe1",
         "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
-        "deleted": false
+        "deleted": false,
+        "biography": null
       },
       "created_at": "<created_at>",
       "formatted_content": "hoi",
@@ -39,7 +40,8 @@
         "name": "John1 Doe1",
         "username": "johndoe1",
         "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
-        "deleted": false
+        "deleted": false,
+        "biography": null
       },
       "created_at": "<created_at>",
       "formatted_content": "moi"
@@ -49,7 +51,8 @@
       "name": "John1 Doe1",
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
-      "deleted": false
+      "deleted": false,
+      "biography": null
     }
   },
   {
@@ -73,7 +76,8 @@
         "name": "John1 Doe1",
         "username": "johndoe1",
         "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
-        "deleted": false
+        "deleted": false,
+        "biography": null
       },
       "created_at": "<created_at>",
       "formatted_content": "hoi",
@@ -90,7 +94,8 @@
       "name": "John1 Doe1",
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
-      "deleted": false
+      "deleted": false,
+      "biography": null
     }
   },
   {
@@ -103,14 +108,16 @@
       "name": "John2 Doe2",
       "username": "johndoe2",
       "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
-      "deleted": false
+      "deleted": false,
+      "biography": null
     },
     "user": {
       "id": "<id>",
       "name": "John1 Doe1",
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
-      "deleted": false
+      "deleted": false,
+      "biography": null
     }
   }
 ]

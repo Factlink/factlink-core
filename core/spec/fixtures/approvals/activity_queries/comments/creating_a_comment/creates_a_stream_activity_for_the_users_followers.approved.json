@@ -20,7 +20,8 @@
         "name": "John1 Doe1",
         "username": "johndoe1",
         "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
-        "deleted": false
+        "deleted": false,
+        "biography": null
       },
       "created_at": "<created_at>",
       "formatted_content": "content",
@@ -37,7 +38,8 @@
       "name": "John1 Doe1",
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
-      "deleted": false
+      "deleted": false,
+      "biography": null
     }
   }
 ]
