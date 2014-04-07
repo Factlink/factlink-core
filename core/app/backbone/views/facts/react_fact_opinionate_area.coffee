@@ -42,8 +42,8 @@ ReactOpinionatorsAvatars = React.createClass
           "+" + (@_opinionators().length - number_of_places + 1)
 
 
-FactOpinionateButton = React.createBackboneClass
-  displayName: 'FactOpinionateButton'
+FactInterestedButton = React.createBackboneClass
+  displayName: 'FactInterestedButton'
   changeOptions: 'add remove reset sort' + ' change'
 
   mixins: [ UpdateOnSignInOrOutMixin ]
@@ -81,7 +81,7 @@ window.ReactOpinionateArea = React.createBackboneClass
     @model().fetchIfUnloaded()
 
   _opinionate: ->
-    FactOpinionateButton
+    FactInterestedButton
       model: @model()
       opinion_type: 'believes'
 
