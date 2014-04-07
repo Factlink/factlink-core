@@ -24,10 +24,6 @@ module Interactors
         can? :show, user
       end
 
-      def nil_if_empty x
-        x.blank? ? nil : x
-      end
-
       def normal_properties
         {
           id:                            user.id.to_s,
