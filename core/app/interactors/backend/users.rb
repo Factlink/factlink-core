@@ -44,8 +44,8 @@ module Backend
       user = user_by_username username: username
 
       {
-        location: user.location.blank? ? nil : user.location,
-        biography: user.biography.blank? ? nil : user.biography,
+        location: user.location? && user.location,
+        biography: user.biography? && user.biography,
         followers_count: UserFollowingUsers.new(user.graph_user_id).followers_count,
         following_count: UserFollowingUsers.new(user.graph_user_id).following_count,
       }
