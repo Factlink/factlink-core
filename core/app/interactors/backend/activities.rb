@@ -54,6 +54,10 @@ module Backend
       nil
     end
 
+    def get(activity_id:)
+      scored_activity_to_dead_activity(item: Activity[id], score: 0)
+    end
+
     private
 
     def send_mail_for_activity(activity:)
@@ -73,6 +77,8 @@ module Backend
 
     def scored_activity_to_dead_activity(item: , score:)
       activity = item
+
+      return nil unless activity.still_valid?
 
       base_activity_data = {
           timestamp: score,

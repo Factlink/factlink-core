@@ -21,7 +21,8 @@ module Backend
           name: user.name,
           username: user.username,
           gravatar_hash: user.gravatar_hash,
-          deleted: user.deleted
+          deleted: user.deleted,
+          biography: user.biography
       end
     end
 
