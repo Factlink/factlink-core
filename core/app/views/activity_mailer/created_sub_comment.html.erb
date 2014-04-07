@@ -23,7 +23,7 @@
       <table cellpadding="0" cellspacing="0" border="0" class="added-comment-message-box">
         <tr>
           <td valign="top" class="message-user-image">
-            <img src="<%= subject_parent_user.avatar_url(size: 32) %>" width="32" height="32" alt="<%= subject_parent_user %>" />
+            <img src="<%= Gravatar.url(hash: subject_parent_user.gravatar_hash, size: 32) %>" width="32" height="32" alt="<%= subject_parent_user %>" />
             <%= link_to_possibly_dead_user(subject_parent_user, class: "user-name") %>
           </td>
         </tr>
@@ -41,7 +41,7 @@
             <table cellpadding="0" cellspacing="0" border="0" class="subcomment-container">
               <tr>
                 <td valign="top" class="message-user-image">
-                  <img src="<%= @activity.user.user.avatar_url(size: 24) %>" width="24" height="24" alt="<%= @activity.user.user %>" />
+                  <img src="<%= Gravatar.url(hash: @activity.user.user.gravatar_hash, size: 24) %>" width="24" height="24" alt="<%= @activity.user.user %>" />
                   <%= link_to_possibly_dead_user(@activity.user.user, class: "user-name subcomment-user-name") %>
                 </td>
               </tr>
