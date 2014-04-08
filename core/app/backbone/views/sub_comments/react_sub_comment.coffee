@@ -1,7 +1,7 @@
 window.ReactSubComment = React.createBackboneClass
   displayName: 'ReactSubComment'
   propTypes:
-    fact_opinionators: React.PropTypes.instanceOf(Opinionators).isRequired
+    fact_opinionators: React.PropTypes.instanceOf(InterestedUsers).isRequired
     model: React.PropTypes.instanceOf(SubComment).isRequired
 
   _save: ->

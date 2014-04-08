@@ -42,16 +42,17 @@ ReactOpinionatorsAvatars = React.createClass
           "+" + (@_opinionators().length - number_of_places + 1)
 
 
-FactOpinionateButton = React.createBackboneClass
-  displayName: 'FactOpinionateButton'
+FactInterestedButton = React.createBackboneClass
+  displayName: 'FactInterestedButton'
   changeOptions: 'add remove reset sort' + ' change'
 
-  _onClick: ->
-    @model().clickCurrentUserOpinion @props.opinion_type
+  mixins: [ UpdateOnSignInOrOutMixin ]
 
   render: ->
-    is_interested = @model().opinion_for_current_user() != 'no_vote'
-    opinionTally = @model().countBy (opinionator) -> opinionator.get('type')
+    model = @model()
+    is_interested = model.is_current_user_interested()
+
+    opinionTally = model.countBy (opinionator) -> opinionator.get('type')
     _.defaults opinionTally,
       believes: 0,
       disbelieves: 0
@@ -59,7 +60,7 @@ FactOpinionateButton = React.createBackboneClass
 
     _button [
           "button-interesting spec-button-interesting"
-          onClick: => @refs.signinPopover.submit(@_onClick)
+          onClick: => @refs.signinPopover.submit(-> model.setInterested(!is_interested))
         ],
       _div ['button-interesting-tally'],
         opinionTallyTotal
@@ -80,7 +81,7 @@ window.ReactOpinionateArea = React.createBackboneClass
     @model().fetchIfUnloaded()
 
   _opinionate: ->
-    FactOpinionateButton
+    FactInterestedButton
       model: @model()
       opinion_type: 'believes'
 
