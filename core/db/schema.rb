@@ -11,6 +11,35 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20140407154017) do
+
+  create_table "comments", :force => true do |t|
+    t.integer  "fact_data_id"
+    t.text     "content"
+    t.string   "created_by_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "comments", ["fact_data_id"], :name => "index_comments_on_fact_data_id"
+
+  create_table "fact_data", :force => true do |t|
+    t.text     "title"
+    t.text     "displaystring"
+    t.text     "site_url"
+    t.string   "fact_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "sub_comments", :force => true do |t|
+    t.integer  "parent_id"
+    t.text     "content"
+    t.string   "created_by_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "sub_comments", ["parent_id"], :name => "index_sub_comments_on_parent_id"
 
 end

@@ -3,7 +3,7 @@ module Backend
     extend self
 
     def by_ids(ids:, current_graph_user_id:)
-      Comment.all_in(_id: Array(ids)).map do |comment|
+      Comment.where(id: ids).map do |comment|
         dead(comment: comment, current_graph_user_id: current_graph_user_id)
       end
     end

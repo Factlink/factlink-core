@@ -7,7 +7,7 @@ module Interactors
       arguments :id
 
       def validate
-        validate_hexadecimal_string :id, id
+        validate_integer_string :id, id
       end
 
       def authorized?
