@@ -27,11 +27,10 @@ window.ReactInstallExtensionOrBookmarklet = React.createClass
   displayName: 'ReactInstallExtensionOrBookmarklet'
   componentWillMount: ->
     check = =>
-      if !@state || !@state.extension_installed
-        @setState(
-          extension_installed:
-            document.documentElement.getAttribute('data-factlink-extension-loaded')?
-        )
+      @setState(
+        extension_installed:
+          document.documentElement.getAttribute('data-factlink-extension-loaded')?
+      )
     document.addEventListener('readystatechange', check)
     check()
 
