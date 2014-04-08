@@ -25,12 +25,21 @@ ReactInstallExtensionButton = React.createClass
 
 window.ReactInstallExtensionOrBookmarklet = React.createClass
   displayName: 'ReactInstallExtensionOrBookmarklet'
+  componentWillMount: ->
+    check = =>
+      if !@state || !@state.extension_installed
+        @setState(
+          extension_installed:
+            document.documentElement.getAttribute('data-factlink-extension-loaded')?
+        )
+    document.addEventListener('readystatechange', check)
+    check()
+
   render: ->
-    extension_installed = document.documentElement.getAttribute('data-factlink-extension-loaded')?
     browserName = determineBrowser()
     extra_class = if @props.huge_button then 'button-huge' else null
 
-    if !browserName && !extension_installed && @props.huge_button
+    if !browserName && !@state.extension_installed && @props.huge_button
       _div ['bookmarklet-install-block'],
         _div ['in-your-browser-dashed-border'],
           _a ["js-bookmarklet-button", "in-your-browser-bookmarklet",
@@ -40,11 +49,11 @@ window.ReactInstallExtensionOrBookmarklet = React.createClass
         _div [],
           _em [],
             'To install Factlink, drag this button to your bookmarks bar'
-    else if @props.huge_button && extension_installed
+    else if @props.huge_button && @state.extension_installed
       _button ['button', 'button-huge',
         disabled: true],
         'Factlink has been installed!'
-    else if (extension_installed || !browserName) && !@props.huge_button
+    else if (@state.extension_installed || !browserName) && !@props.huge_button
       _div [] # nothing.
     else
       ReactInstallExtensionButton
