@@ -40,6 +40,10 @@ cd ..
 
 echo "Deployed js-library"
 
-echo "Did not deploy web-proxy!"
+cd proxy
+  git push proxy-$env master
+cd ..
+
+echo "Deployed web-proxy!"
 
 echo "Done! Deployed to $env"

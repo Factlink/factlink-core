@@ -22,6 +22,7 @@ ReactComments = React.createBackboneClass
       @model().map (comment) =>
         ReactComment
           model: comment
+          tally: comment.argumentTally() # hack to allow use BackboneMixin
           key: comment.get('id') || ('new' + new_comment_id++)
           fact_opinionators: @model().fact.getOpinionators()
 

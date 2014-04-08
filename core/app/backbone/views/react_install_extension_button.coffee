@@ -6,13 +6,13 @@ determineBrowser = ->
 extension_install_options_by_browser =
   firefox:
     href: 'https://static.factlink.com/extension/firefox/factlink-latest.xpi'
-    iconClass: 'install-firefox'
+    iconClass: 'firefox-icon'
   safari:
     href: 'https://static.factlink.com/extension/firefox/factlink.safariextz'
-    iconClass: 'install-safari'
+    iconClass: 'safari-icon'
   chrome:
     href: 'javascript:chrome.webstore.install()'
-    iconClass: 'install-chrome'
+    iconClass: 'chrome-icon'
 
 ReactInstallExtensionButton = React.createClass
   displayName: 'ReactInstallExtensionButton'
@@ -25,26 +25,35 @@ ReactInstallExtensionButton = React.createClass
 
 window.ReactInstallExtensionOrBookmarklet = React.createClass
   displayName: 'ReactInstallExtensionOrBookmarklet'
+  componentWillMount: ->
+    check = =>
+      @setState(
+        extension_installed:
+          document.documentElement.getAttribute('data-factlink-extension-loaded')?
+      )
+    document.addEventListener('readystatechange', check)
+    check()
+
   render: ->
-    extension_installed = document.documentElement.getAttribute('data-factlink-extension-loaded')?
     browserName = determineBrowser()
     extra_class = if @props.huge_button then 'button-huge' else null
 
-    if !browserName && !extension_installed && @props.huge_button
+    if !browserName && !@state.extension_installed && @props.huge_button
       _div ['bookmarklet-install-block'],
         _div ['in-your-browser-dashed-border'],
-          _a ["js-bookmarklet-button", "in-your-browser-bookmarklet",
+          _a ["in-your-browser-bookmarklet",
               "button-success", "button-huge",
+              href: Factlink.Global.bookmarklet_link
               onClick: ((e)-> e.preventDefault())],
             _span [style: display: 'none'], 'Factlink'
         _div [],
           _em [],
             'To install Factlink, drag this button to your bookmarks bar'
-    else if @props.huge_button && extension_installed
+    else if @props.huge_button && @state.extension_installed
       _button ['button', 'button-huge',
         disabled: true],
         'Factlink has been installed!'
-    else if (extension_installed || !browserName) && !@props.huge_button
+    else if (@state.extension_installed || !browserName) && !@props.huge_button
       _div [] # nothing.
     else
       ReactInstallExtensionButton
