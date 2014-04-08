@@ -87,7 +87,6 @@ RSpec.configure do |config|
     Capybara::Screenshot.autosave_on_failure = true
   end
 
-
   config.before(:each) do
     enable_global_features # always enable global features even if there aren't any, otherwise the screenshots will change.
   end
