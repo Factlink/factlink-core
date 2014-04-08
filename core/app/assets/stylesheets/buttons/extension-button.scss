@@ -14,11 +14,6 @@
   width: 32px;
 }
 
-html[data-factlink-extension-loaded] %extension-install-button {
-  pointer-events: none;
-  background: grey;
-}
-
 .chrome-icon {
   @extend %extension-install-button;
   background-image: asset-data-url('browser-icons/Chrome-32x32.png');
