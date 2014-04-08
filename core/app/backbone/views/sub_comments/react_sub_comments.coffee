@@ -53,7 +53,6 @@ ReactSubCommentsAdd = React.createBackboneClass
       _div ['sub-comment-avatar-container'],
         ReactOpinionatedAvatar
           user: currentSession.user()
-          model: @props.fact_opinionators
           size: 30
       _div ['sub-comment-content-container sub-comment-add-area'],
         ReactTextArea

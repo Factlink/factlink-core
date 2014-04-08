@@ -23,7 +23,6 @@ window.ReactSubComment = React.createBackboneClass
       _div ['sub-comment-avatar-container'],
         ReactOpinionatedAvatar
           user: creator
-          model: @props.fact_opinionators
           size: 30
 
       _div ['sub-comment-content-container'],

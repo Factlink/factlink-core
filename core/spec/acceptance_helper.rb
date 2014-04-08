@@ -88,11 +88,11 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    enable_global_features(:opinions_of_users_and_comments)
+    enable_global_features # always enable global features even if there aren't any, otherwise the screenshots will change.
   end
 
   config.after(:each) do
-    execute_script('localStorage.clear();sessionStorage.clear();');
+    execute_script 'localStorage.clear();sessionStorage.clear();'
 
     TestRequestSyncer.increment_counter
     # after incrementing the counter, no new ajax requests will *start* to run.
