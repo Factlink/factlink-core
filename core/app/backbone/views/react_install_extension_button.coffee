@@ -42,8 +42,9 @@ window.ReactInstallExtensionOrBookmarklet = React.createClass
     if !browserName && !@state.extension_installed && @props.huge_button
       _div ['bookmarklet-install-block'],
         _div ['in-your-browser-dashed-border'],
-          _a ["js-bookmarklet-button", "in-your-browser-bookmarklet",
+          _a ["in-your-browser-bookmarklet",
               "button-success", "button-huge",
+              href: Factlink.Global.bookmarklet_link
               onClick: ((e)-> e.preventDefault())],
             _span [style: display: 'none'], 'Factlink'
         _div [],
