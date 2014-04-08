@@ -8,16 +8,19 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"/..
 
 PROXY_BRANCH=''
 
-if [ ! -e proxy ]; then
-  git clone git://github.com/Factlink/web-proxy.git proxy
+if [[ ! -e proxy ]]; then
+  git clone git://github.com/Factlink/web-proxy.git proxy &
 else
   pushd proxy
-  PROXY_BRANCH=`git symbolic-ref HEAD 2>/dev/null`
-  git remote add proxy-production dokku@188.226.211.29:proxy-production
-  git remote add proxy-staging dokku@188.226.211.29:proxy-staging
-  git pull --ff-only &
+    PROXY_BRANCH=`git symbolic-ref HEAD 2>/dev/null`
+    git pull --ff-only &
   popd
 fi
+
+pushd proxy
+  git remote add proxy-production dokku@188.226.211.29:proxy-production
+  git remote add proxy-staging dokku@188.226.211.29:proxy-staging
+popd
 
 RUBY_VERSION=`cat core/.ruby-version`
 
