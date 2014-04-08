@@ -39,10 +39,21 @@ class Export
         output << hash_field_for(social_account, 'omniauth_obj')
         output << hash_field_for(social_account, 'created_at')
         output << hash_field_for(social_account, 'updated_at')
-        output << 'user: User.find(' + to_ruby(user, 'username') + '), '
+        output << 'user: User.find(' + to_ruby(user.username) + '), '
         output << '})'
         output << "\n"
       end
+    end
+
+    FactData.all.each do |fact_data|
+      output << 'Pavlov.interactor(:"facts/create", {'
+      output << hash_field_for(fact_data, 'fact_id')
+      output << hash_field_for(fact_data, 'displaystring')
+      output << 'site_title: ' + to_ruby(fact_data.title) + ', '
+      output << 'url: ' + to_ruby(fact_data.site_url) + ', '
+      output << pavlov_options(time: fact_data.created_at)
+      output << '})'
+      output << "\n"
     end
 
     output
@@ -50,9 +61,7 @@ class Export
 
   private
 
-  def to_ruby(object, name)
-    value = object.send(name)
-
+  def to_ruby(value)
     case value
     when Time
       return 'Time.parse(' + value.utc.iso8601.inspect + ')'
@@ -64,10 +73,22 @@ class Export
   end
 
   def hash_field_for(object, name)
-    name + ': ' + to_ruby(object, name) + ', '
+    name + ': ' + to_ruby(object.send(name)) + ', '
   end
 
   def assignment_for(object, object_name, name)
-    object_name + '.' + name + ' = ' + to_ruby(object, name) + '; '
+    object_name + '.' + name + ' = ' + to_ruby(object.send(name)) + '; '
+  end
+
+  def pavlov_options(time:, user: nil)
+    output = "pavlov_options: {"
+    output << "time: #{to_ruby(time)}, "
+    output << "send_mails: false, "
+    if user
+      output << "current_user: User.find(#{to_ruby(user.send(username))}), "
+      output << "ability: Ability.new(User.find(#{to_ruby(user.send(username))})), "
+    end
+    output << "}, "
+    output
   end
 end
