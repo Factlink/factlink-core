@@ -6,13 +6,13 @@ determineBrowser = ->
 extension_install_options_by_browser =
   firefox:
     href: 'https://static.factlink.com/extension/firefox/factlink-latest.xpi'
-    iconClass: 'install-firefox'
+    iconClass: 'firefox-icon'
   safari:
     href: 'https://static.factlink.com/extension/firefox/factlink.safariextz'
-    iconClass: 'install-safari'
+    iconClass: 'safari-icon'
   chrome:
     href: 'javascript:chrome.webstore.install()'
-    iconClass: 'install-chrome'
+    iconClass: 'chrome-icon'
 
 ReactInstallExtensionButton = React.createClass
   displayName: 'ReactInstallExtensionButton'
