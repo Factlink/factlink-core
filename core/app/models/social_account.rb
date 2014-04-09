@@ -4,6 +4,8 @@ class SocialAccount
 
   field :provider_name, type: String
   field :omniauth_obj, type: Hash
+  field :omniauth_obj_id, type: String
+
   validates_presence_of :provider_name
   validates_presence_of :omniauth_obj
   validate :presence_of_uid
@@ -12,11 +14,11 @@ class SocialAccount
 
   belongs_to :user, index: true
 
-  index({provider_name: 1, 'omniauth_obj.uid' => 1}, { unique: true })
+  index({provider_name: 1, omniauth_obj_id: 1}, { unique: true })
 
   class << self
     def find_by_provider_and_uid(provider_name, uid)
-      find_by(:provider_name => provider_name, :'omniauth_obj.uid' => uid)
+      find_by(provider_name: provider_name, omniauth_obj_id: uid)
     end
   end
 
@@ -51,7 +53,16 @@ class SocialAccount
     end
   end
 
+  def update_omniauth_obj!(omniauth_obj)
+    self.update_attributes!(omniauth_obj: omniauth_obj)
+  end
+
   private
+
+  before_validation :add_uid_to_model
+  def add_uid_to_model
+    self.omniauth_obj_id = omniauth_obj['uid']
+  end
 
   before_save :strip_twitter_access_token
   def strip_twitter_access_token
@@ -69,7 +80,7 @@ class SocialAccount
   end
 
   def presence_of_uid
-    unless omniauth_obj['uid']
+    unless omniauth_obj_id
       errors.add :omniauth_obj, 'does not contain uid'
     end
   end
