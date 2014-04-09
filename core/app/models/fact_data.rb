@@ -6,7 +6,7 @@ class FactData
 
   field :title,           type: String
   field :displaystring,   type: String
-  field :site_url,        type: String
+  field :site_url,        type: String # TODO: after SQL conversion call this "url"
   field :fact_id,         type: String
 
   index({ site_url: 1 })
@@ -14,6 +14,10 @@ class FactData
   has_many :comments
 
   validates_format_of :displaystring, allow_nil: true, with: /\S/
+
+  def url
+    site_url
+  end
 
   def to_s
     displaystring || ""

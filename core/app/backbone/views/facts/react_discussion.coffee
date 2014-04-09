@@ -22,6 +22,7 @@ ReactComments = React.createBackboneClass
       @model().map (comment) =>
         ReactComment
           model: comment
+          tally: comment.argumentTally() # hack to allow use BackboneMixin
           key: comment.get('id') || ('new' + new_comment_id++)
           fact_opinionators: @model().fact.getOpinionators()
 
@@ -55,7 +56,6 @@ ReactCollapsedText = React.createClass
 
 window.ReactDiscussion = React.createBackboneClass
   displayName: 'ReactDiscussion'
-  mixins: [UpdateOnFeaturesChangeMixin] # opinions_of_users_and_comments
 
   render: ->
     _div ['discussion'],
@@ -69,9 +69,8 @@ window.ReactDiscussion = React.createBackboneClass
             _div ["loading-indicator-centered"],
               ReactLoadingIndicator()
 
-      if @canHaz('opinions_of_users_and_comments')
-        ReactOpinionateArea
-          model: @model().getOpinionators()
+      ReactOpinionateArea
+        model: @model().getOpinionators()
       ReactAddComment
         model: @model().comments()
         initiallyFocus: @props.initiallyFocusAddComment

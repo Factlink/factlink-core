@@ -7,8 +7,8 @@ module Interactors
       attribute :displaystring, String
       attribute :url, String
       attribute :site_title, String
-      attribute :pavlov_options, Hash
       attribute :fact_id, String, default: nil
+      attribute :pavlov_options, Hash
 
       def authorized?
         true
@@ -18,7 +18,8 @@ module Interactors
 
       def execute
         dead_fact = Backend::Facts.create displaystring: displaystring,
-          url: url, site_title: site_title, fact_id: fact_id, created_at: pavlov_options[:time]
+          url: url, site_title: site_title, created_at: pavlov_options[:time],
+          fact_id: (pavlov_options[:import] ? fact_id : nil)
 
         if user
           Backend::Facts.add_to_recently_viewed \
@@ -38,7 +39,7 @@ module Interactors
         validate_string :site_title, site_title
         validate_string :url, url
 
-        unless fact_id.nil?
+        if pavlov_options[:import]
           validate_integer_string :fact_id, fact_id
         end
       end

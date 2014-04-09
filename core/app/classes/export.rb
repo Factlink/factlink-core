@@ -3,69 +3,28 @@ class Export
     output = ''
 
     User.all.each do |user|
-      output << 'user = User.new({'
-      output << hash_field_for(user, 'username')
-      output << hash_field_for(user, 'full_name')
-      output << hash_field_for(user, 'location')
-      output << hash_field_for(user, 'biography')
-      output << hash_field_for(user, 'receives_mailed_notifications')
-      output << hash_field_for(user, 'receives_digest')
-      output << '}); '
-
-      assignment_fields = ['created_at', 'updated_at', 'deleted', 'admin', 'email',
-       'registration_code', 'reset_password_token', 'reset_password_sent_at',
-       'remember_created_at', 'sign_in_count', 'current_sign_in_at',
-       'last_sign_in_at', 'current_sign_in_ip', 'last_sign_in_ip']
-
-      output << assignment_fields.map do |name|
-        assignment_for(user, 'user', name)
-      end.join('')
-
-      output << 'user.password = "some_dummy"; ' # before setting encrypted_password
-      output << assignment_for(user, 'user', 'encrypted_password')
-
-      output << 'user.skip_confirmation_notification!; '
-      output << 'user.save!; '
-      output << assignment_for(user, 'user', 'confirmed_at')
-      output << assignment_for(user, 'user', 'confirmation_token')
-      output << assignment_for(user, 'user', 'confirmation_sent_at')
-      output << 'user.save!; '
-
-      # set here again explicitly, without other assignments, to prevent overwriting
-      output << assignment_for(user, 'user', 'updated_at')
-      output << 'user.save!'
-      output << "\n"
+      output << import('user', user, User.import_export_simple_fields + [
+        :encrypted_password, :confirmed_at, :confirmation_token,
+        :confirmation_sent_at, :updated_at
+      ])
 
       user.social_accounts.each do |social_account|
-        output << 'SocialAccount.create!({'
-        output << hash_field_for(social_account, 'provider_name')
-        output << hash_field_for(social_account, 'omniauth_obj')
-        output << hash_field_for(social_account, 'created_at')
-        output << hash_field_for(social_account, 'updated_at')
-        output << 'user: User.find(' + to_ruby(user.username) + '), '
-        output << '})'
-        output << "\n"
+        output << import('social_account', social_account,
+          SocialAccount.import_export_simple_fields,
+          additional: {username: user.username})
       end
     end
 
     FactData.all.each do |fact_data|
-      output << 'Pavlov.interactor(:"facts/create", {'
-      output << hash_field_for(fact_data, 'fact_id')
-      output << hash_field_for(fact_data, 'displaystring')
-      output << 'site_title: ' + to_ruby(fact_data.title) + ', '
-      output << 'url: ' + to_ruby(fact_data.site_url) + ', '
-      output << pavlov_options(time: fact_data.created_at)
-      output << '})'
-      output << "\n"
+      output << import('fact', fact_data, [
+        :fact_id, :displaystring, :title, :url, :created_at
+      ])
     end
 
     Comment.all.each do |comment|
-      output << 'Pavlov.interactor(:"comments/create", {'
-      output << hash_field_for(comment, 'content')
-      output << 'fact_id: ' + to_ruby(comment.fact_data.fact_id) + ', '
-      output << pavlov_options(time: comment.created_at, user: comment.created_by)
-      output << '})'
-      output << "\n"
+      output << import('comment', comment, [:content, :created_at],
+        additional: {fact_id: comment.fact_data.fact_id,
+          username: comment.created_by.username})
     end
 
     output
@@ -84,23 +43,18 @@ class Export
     end
   end
 
+  def name_value_to_string(name, value)
+    name.to_s + ': ' + to_ruby(value) + ', '
+  end
+
   def hash_field_for(object, name)
-    name + ': ' + to_ruby(object.send(name)) + ', '
+    name_value_to_string(name, object.public_send(name))
   end
 
-  def assignment_for(object, object_name, name)
-    object_name + '.' + name + ' = ' + to_ruby(object.send(name)) + '; '
-  end
+  def import(name, object, fields, additional:{})
+    object_fields = fields.map { |name| hash_field_for(object, name) }.join
+    additional_string = additional.map{ |name, value| name_value_to_string(name, value)}.join
 
-  def pavlov_options(time:, user: nil)
-    output = "pavlov_options: {"
-    output << "time: #{to_ruby(time)}, "
-    output << "send_mails: false, "
-    if user
-      output << "current_user: User.find(#{to_ruby(user.username)}), "
-      output << "ability: Ability.new(User.find(#{to_ruby(user.username)})), "
-    end
-    output << "}, "
-    output
+    "FactlinkImport.new.#{name}({#{object_fields}#{additional_string}})\n"
   end
 end
