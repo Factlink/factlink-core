@@ -31,7 +31,7 @@ describe 'activity queries' do
         comment = nil
         as(create :user) do |pavlov|
           pavlov.send_mails = true
-          comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_i, type: 'believes', content: 'content')
+          comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'believes', content: 'content')
         end
 
         verify { @mails_by_username_and_activity }
@@ -44,7 +44,7 @@ describe 'activity queries' do
 
         comment = nil
         as(create :user) do |pavlov|
-          comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_i, type: 'believes', content: 'content')
+          comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'believes', content: 'content')
         end
 
         as(current_user) do |pavlov|
@@ -61,7 +61,7 @@ describe 'activity queries' do
 
         comment = nil
         as(followee) do |pavlov|
-          comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_i, type: 'believes', content: 'content')
+          comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'believes', content: 'content')
         end
 
         as(current_user) do |pavlov|
@@ -81,7 +81,7 @@ describe 'activity queries' do
           fact_data = create :fact_data
 
           as(other_user) do |pavlov|
-            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_i, type: 'disbelieves', content: 'content')
+            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'disbelieves', content: 'content')
           end
 
           as(current_user) do |pavlov|
@@ -104,7 +104,7 @@ describe 'activity queries' do
 
           as(other_user) do |pavlov|
             pavlov.send_mails = true
-            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_i, type: 'disbelieves', content: 'content')
+            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'disbelieves', content: 'content')
           end
 
           as(current_user) do |pavlov|
@@ -126,7 +126,7 @@ describe 'activity queries' do
           fact_data = create :fact_data
 
           as(create :user) do |pavlov|
-            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_i, type: 'disbelieves', content: 'content')
+            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'disbelieves', content: 'content')
           end
 
           as(current_user) do |pavlov|
@@ -150,7 +150,7 @@ describe 'activity queries' do
           fact_data = create :fact_data
 
           as(other_user) do |pavlov|
-            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_i, type: 'disbelieves', content: 'content')
+            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'disbelieves', content: 'content')
           end
 
           as(current_user) do |pavlov|
@@ -173,7 +173,7 @@ describe 'activity queries' do
 
           as(other_user) do |pavlov|
             pavlov.send_mails = true
-            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_i, type: 'disbelieves', content: 'content')
+            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'disbelieves', content: 'content')
           end
 
           as(current_user) do |pavlov|
@@ -197,7 +197,7 @@ describe 'activity queries' do
           fact_data = create :fact_data
 
           as(other_user) do |pavlov|
-            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_i, type: 'disbelieves', content: 'content')
+            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'disbelieves', content: 'content')
           end
 
           as(current_user) do |pavlov|
@@ -220,7 +220,7 @@ describe 'activity queries' do
 
           as(other_user) do |pavlov|
             pavlov.send_mails = true
-            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_i, type: 'disbelieves', content: 'content')
+            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'disbelieves', content: 'content')
           end
 
           as(current_user) do |pavlov|

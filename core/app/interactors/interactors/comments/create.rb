@@ -37,7 +37,7 @@ module Interactors
       def validate
         validate_regex   :content, content, /\S/,
           "should not be empty."
-        validate_integer :fact_id, fact_id
+        validate_integer_string :fact_id, fact_id
       end
     end
   end

@@ -16,7 +16,7 @@ describe "factlink", type: :feature do
     end
 
     as(@user) do |p|
-      c = p.interactor(:'comments/create', fact_id: @factlink.fact_id.to_i, type: 'believes', content: comment_text)
+      c = p.interactor(:'comments/create', fact_id: @factlink.fact_id, type: 'believes', content: comment_text)
       p.interactor(:'comments/update_opinion', comment_id: c.id.to_s, opinion: 'disbelieves')
     end
 
@@ -26,7 +26,7 @@ describe "factlink", type: :feature do
     as(@user) do |p|
       fact_data = create :fact_data
       fact_url = Backend::Facts.get(fact_id: fact_data.fact_id).url
-      c = p.interactor(:'comments/create', fact_id: @factlink.fact_id.to_i, type: 'believes', content: fact_url.friendly_fact_url)
+      c = p.interactor(:'comments/create', fact_id: @factlink.fact_id, type: 'believes', content: fact_url.friendly_fact_url)
       p.interactor(:'comments/update_opinion', comment_id: c.id.to_s, opinion: 'believes')
       p.interactor(:'sub_comments/create', comment_id: c.id.to_s, content: "A short subcomment")
       p.interactor(:'sub_comments/create', comment_id: c.id.to_s, content: sub_comment_text)

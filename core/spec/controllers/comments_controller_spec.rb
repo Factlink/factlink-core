@@ -23,11 +23,11 @@ describe CommentsController do
                                      site_title: 'title')
       end
       as(other_user) do |pavlov|
-        pavlov.interactor(:'comments/create', fact_id: dead_fact.id.to_i, content: 'a comment')
+        pavlov.interactor(:'comments/create', fact_id: dead_fact.id, content: 'a comment')
       end
 
       as(user) do |pavlov|
-        comment = pavlov.interactor(:'comments/create', fact_id: dead_fact.id.to_i, content: 'a comment')
+        comment = pavlov.interactor(:'comments/create', fact_id: dead_fact.id, content: 'a comment')
         pavlov.interactor(:'comments/update_opinion', comment_id: comment.id.to_s, opinion: 'disbelieves')
       end
 

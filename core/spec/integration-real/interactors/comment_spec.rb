@@ -22,8 +22,8 @@ describe 'comments' do
       as(current_user) do |pavlov|
         dead_fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', site_title: ''
 
-        comment1 = pavlov.interactor :'comments/create', fact_id: dead_fact.id.to_i, content: 'Gekke Gerrit'
-        comment2 = pavlov.interactor :'comments/create', fact_id: dead_fact.id.to_i, content: 'Handige Harrie'
+        comment1 = pavlov.interactor :'comments/create', fact_id: dead_fact.id, content: 'Gekke Gerrit'
+        comment2 = pavlov.interactor :'comments/create', fact_id: dead_fact.id, content: 'Handige Harrie'
 
         pavlov.interactor :'comments/update_opinion', comment_id: comment1.id.to_s, opinion: 'disbelieves'
 
@@ -38,8 +38,8 @@ describe 'comments' do
     as(current_user) do |pavlov|
       fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', site_title: ''
 
-      comment1 = pavlov.interactor :'comments/create', fact_id: fact.id.to_i, content: 'Gekke Gerrit'
-      comment2 = pavlov.interactor :'comments/create', fact_id: fact.id.to_i, content: 'Handige Harrie'
+      comment1 = pavlov.interactor :'comments/create', fact_id: fact.id, content: 'Gekke Gerrit'
+      comment2 = pavlov.interactor :'comments/create', fact_id: fact.id, content: 'Handige Harrie'
       pavlov.interactor :'comments/delete', comment_id: comment1.id.to_s
 
       comments = pavlov.interactor :'comments/for_fact_id', fact_id: fact.id.to_s
