@@ -26,7 +26,6 @@ describe "factlink", type: :feature do
     as(@user) do |p|
       fact_data = create :fact_data
       friendly_fact_url = FactlinkUI::Application.config.core_url + "/f/#{fact_data.fact_id}"
-
       c = p.interactor(:'comments/create', fact_id: @factlink.fact_id.to_i, type: 'believes', content: friendly_fact_url)
       p.interactor(:'comments/update_opinion', comment_id: c.id.to_s, opinion: 'believes')
       p.interactor(:'sub_comments/create', comment_id: c.id.to_s, content: "A short subcomment")
