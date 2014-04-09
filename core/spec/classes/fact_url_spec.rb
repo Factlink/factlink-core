@@ -13,14 +13,14 @@ describe DeadFact do
     FactlinkUI::Application.stub(config: config)
   end
 
-  def mock_fact_for_url url
-     DeadFact.new(
-        id: '123',
-        site_url: url,
-        displaystring: nil,
-        created_at: nil,
-        site_title: nil
-     )
+  def mock_fact_for_url(url)
+    DeadFact.new(
+      id: '123',
+      site_url: url,
+      displaystring: nil,
+      created_at: nil,
+      site_title: nil
+    )
   end
 
   describe '.proxy_open_url' do
