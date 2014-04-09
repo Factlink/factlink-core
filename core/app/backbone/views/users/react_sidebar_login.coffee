@@ -5,6 +5,6 @@ window.ReactSidebarLogin = React.createBackboneClass
 
   render: ->
     if !currentSession.signedIn()
-      ReactSigninLinks()
+      ReactSigninLinks(className: "discussion-login")
     else
       _span []

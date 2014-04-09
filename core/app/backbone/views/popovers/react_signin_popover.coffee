@@ -69,6 +69,6 @@ window.ReactSigninPopover = React.createClass
   render: ->
     if @state.opened && !currentSession.signedIn()
       ReactPopover className: 'white-popover', attachment: 'right',
-        ReactSigninLinks()
+        ReactSigninLinks(className: "signin-popover")
     else
       _span()
