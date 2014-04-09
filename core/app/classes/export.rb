@@ -10,7 +10,8 @@ class Export
 
       user.social_accounts.each do |social_account|
         output << import('social_account', social_account,
-          SocialAccount.import_export_simple_fields, 'username: ' + to_ruby(user.username))
+          SocialAccount.import_export_simple_fields,
+          additional: {username: user.username})
       end
     end
 
@@ -36,12 +37,18 @@ class Export
     end
   end
 
-  def hash_field_for(object, name)
-    name.to_s + ': ' + to_ruby(object.public_send(name)) + ', '
+  def name_value_to_string(name, value)
+    name.to_s + ': ' + to_ruby(value) + ', '
   end
 
-  def import(name, object, fields, additional_fields="")
-    object_fields = fields.map { |name| hash_field_for(object, name) }.join('')
-    "FactlinkImport.new.#{name}({#{object_fields}#{additional_fields}})\n"
+  def hash_field_for(object, name)
+    name_value_to_string(name, object.public_send(name))
+  end
+
+  def import(name, object, fields, additional:{})
+    object_fields = fields.map { |name| hash_field_for(object, name) }.join
+    additional_string = additional.map{ |name, value| name_value_to_string(name, value)}.join
+
+    "FactlinkImport.new.#{name}({#{object_fields}#{additional_string}})\n"
   end
 end
