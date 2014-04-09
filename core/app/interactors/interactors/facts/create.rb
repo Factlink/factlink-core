@@ -5,7 +5,7 @@ module Interactors
       include Util::CanCan
 
       attribute :displaystring, String
-      attribute :url, String
+      attribute :site_url, String
       attribute :site_title, String
       attribute :fact_id, String, default: nil
       attribute :pavlov_options, Hash
@@ -18,7 +18,7 @@ module Interactors
 
       def execute
         dead_fact = Backend::Facts.create displaystring: displaystring,
-          url: url, site_title: site_title, created_at: pavlov_options[:time],
+                                          site_url: site_url, site_title: site_title, created_at: pavlov_options[:time],
           fact_id: (pavlov_options[:import] ? fact_id : nil)
 
         if user
@@ -37,7 +37,7 @@ module Interactors
       def validate
         validate_nonempty_string :displaystring, displaystring
         validate_string :site_title, site_title
-        validate_string :url, url
+        validate_string :site_url, site_url
 
         if pavlov_options[:import]
           validate_integer_string :fact_id, fact_id

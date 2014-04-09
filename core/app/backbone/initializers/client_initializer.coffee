@@ -29,7 +29,7 @@ class ClientEnvoy
 
     fact = new Fact
       displaystring: displaystring
-      url: url
+      site_url: url
       site_title: site_title
 
     fact.once 'sync', =>

@@ -18,11 +18,11 @@ module Backend
       votes_for(fact_id, 'believes') + votes_for(fact_id, 'disbelieves')
     end
 
-    def create(displaystring:, site_title:, url:, created_at:, fact_id: nil)
+    def create(displaystring:, site_title:, site_url:, created_at:, fact_id: nil)
       fact_data = FactData.new
       fact_data.displaystring = displaystring
       fact_data.title = site_title
-      fact_data.site_url = UrlNormalizer.normalize(url)
+      fact_data.site_url = UrlNormalizer.normalize(site_url)
       fact_data.fact_id = fact_id
       fact_data.created_at = created_at
       fact_data.updated_at = created_at
