@@ -59,8 +59,7 @@ window.ReactDiscussion = React.createBackboneClass
 
   render: ->
     _div ['discussion'],
-      #_div ['discussion-login'],
-      #  ReactSidebarLogin()
+      ReactSidebarLogin()
 
       _div ['top-annotation'],
         _div ['top-annotation-text'],
