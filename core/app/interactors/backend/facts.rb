@@ -25,6 +25,7 @@ module Backend
       fact_data.site_url = UrlNormalizer.normalize(url)
       fact_data.fact_id = fact_id
       fact_data.created_at = created_at
+      fact_data.updated_at = created_at
       fact_data.save!
 
       dead(fact_data)
