@@ -1,3 +1,9 @@
+hostATag = document.createElement('a')
+hrefToHost = (href) ->
+  hostATag.href = href
+  hostATag.host
+
+
 FactlinkJailRoot.host_loaded_promise.then ->
   FactlinkJailRoot.trigger 'reposition_icons'
 
@@ -64,14 +70,25 @@ class IconButton
 
     @$el.css
       'line-height': style.lineHeight
-      'font-size': Math.max 15, Math.min 20, parseInt style.fontSize
+      'font-size': style.fontSize
+      'font-family': style.fontFamily
 
     @$el.find('factlink-icon-button-bubble').css
       'background-color': targetColor
       'color': if targetBrightness > 0.5 then 'black' else 'white'
+      'font-size': Math.max 12, Math.min 16, Math.round 0.8*parseInt(style.fontSize)
 
     @$el.find('factlink-icon-button-bubble-triangle').css
       'border-top-color': targetColor
+
+    @$el.css @_siteSpecificStyles()
+
+  _siteSpecificStyles: ->
+    switch hrefToHost FactlinkJailRoot.siteUrl()
+      when 'medium.com'
+        'margin-left': '2em'
+      else
+        {}
 
 
 findTextContainer = (el) ->

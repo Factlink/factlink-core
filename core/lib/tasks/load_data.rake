@@ -33,6 +33,10 @@ namespace :db do
     end
   end
 
+  task :import, [:filename] => [:environment, :truncate, :migrate] do |task, args|
+    require File.expand_path(args[:filename], Dir.pwd)
+  end
+
   task :help do
     message = <<-eos
 
@@ -46,7 +50,7 @@ namespace :db do
       rake db:truncate_keep_users   # Truncate database, but keep the users
       rake db:init                  # Import the dump to the database
       rake db:export[dump.rb]       # Export the database to dump.rb
-      |                             # Import with 'rails c < dump.rb'
+      rake db:import[dump.rb]       # Import the database from dump.rb
       rake db:help                  # Show this help file
 
     eos
