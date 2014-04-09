@@ -3,11 +3,11 @@ class SocialAccount
   include Mongoid::Timestamps
 
   field :provider_name, type: String
-  field :omniauth_obj, type: Hash
+  field :omniauth_obj_string, type: String
   field :omniauth_obj_id, type: String
 
   validates_presence_of :provider_name
-  validates_presence_of :omniauth_obj
+  validates_presence_of :omniauth_obj_string
   validates_presence_of :omniauth_obj_id
   validate :provider_matches_omniauth_provider
   validate :uniqueness_of_uid
@@ -22,8 +22,12 @@ class SocialAccount
     end
 
     def import_export_simple_fields
-      [:provider_name, :omniauth_obj, :created_at, :updated_at]
+      [:provider_name, :omniauth_obj_string, :created_at, :updated_at]
     end
+  end
+
+  def omniauth_obj
+    JSON.parse(omniauth_obj_string)
   end
 
   def uid
@@ -58,7 +62,13 @@ class SocialAccount
   end
 
   def update_omniauth_obj!(omniauth_obj)
-    self.update_attributes!(omniauth_obj: omniauth_obj)
+    if provider_name == 'twitter' && omniauth_obj['extra'] && omniauth_obj['extra']['access_token']
+      omniauth_obj['extra']['oath_version'] = omniauth_obj['extra']['access_token'].consumer.options['oauth_version']
+      omniauth_obj['extra']['signature_method'] = omniauth_obj['extra']['access_token'].consumer.options['signature_method']
+      omniauth_obj['extra'].delete 'access_token'
+    end
+
+    self.update_attributes!(omniauth_obj_string: omniauth_obj.to_json)
   end
 
   private
@@ -66,15 +76,6 @@ class SocialAccount
   before_validation :add_uid_to_model
   def add_uid_to_model
     self.omniauth_obj_id = omniauth_obj['uid']
-  end
-
-  before_save :strip_twitter_access_token
-  def strip_twitter_access_token
-    if provider_name == 'twitter' && omniauth_obj['extra'] && omniauth_obj['extra']['access_token']
-      omniauth_obj['extra']['oath_version'] = omniauth_obj['extra']['access_token'].consumer.options['oauth_version']
-      omniauth_obj['extra']['signature_method'] = omniauth_obj['extra']['access_token'].consumer.options['signature_method']
-      omniauth_obj['extra'].delete 'access_token'
-    end
   end
 
   def provider_matches_omniauth_provider
