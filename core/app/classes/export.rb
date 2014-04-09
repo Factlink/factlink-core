@@ -3,21 +3,14 @@ class Export
     output = ''
 
     User.all.each do |user|
-      output << import('user', user, [
-        :username, :full_name, :location, :biography,
-        :receives_digest, :receives_mailed_notifications, :created_at,
-        :updated_at, :deleted, :admin, :email,
-        :registration_code, :reset_password_token, :reset_password_sent_at,
-        :remember_created_at, :sign_in_count, :current_sign_in_at,
-        :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip,
-        :encrypted_password, :confirmed_at, :confirmation_token, :confirmation_sent_at,
-        :updated_at
+      output << import('user', user, User.import_export_simple_fields + [
+        :encrypted_password, :confirmed_at, :confirmation_token,
+        :confirmation_sent_at, :updated_at
       ])
 
       user.social_accounts.each do |social_account|
-        output << import('social_account', social_account, [
-          :provider_name, :omniauth_obj, :created_at, :updated_at
-        ], 'username: ' + to_ruby(user.username))
+        output << import('social_account', social_account,
+          SocialAccount.import_export_simple_fields, 'username: ' + to_ruby(user.username))
       end
     end
 

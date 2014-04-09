@@ -2,13 +2,7 @@ class FactlinkImport
   def user fields
     user = User.new
 
-    field_names = [:username, :full_name, :location, :biography,
-      :receives_digest, :receives_mailed_notifications, :created_at,
-      :updated_at, :deleted, :admin, :email,
-      :registration_code, :reset_password_token, :reset_password_sent_at,
-      :remember_created_at, :sign_in_count, :current_sign_in_at,
-      :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip]
-    field_names.each do |name|
+    User.import_export_simple_fields.each do |name|
       user.public_send("#{name}=", fields[name])
     end
     user.password = "some_dummy" # before setting encrypted_password
@@ -27,8 +21,8 @@ class FactlinkImport
   end
 
   def social_account fields
-    field_names = [:provider_name, :omniauth_obj, :created_at, :updated_at]
-    SocialAccount.create! fields.slice(*field_names) + [user: User.find(fields[:username])]
+    create_fields = fields.slice(SocialAccount.import_export_simple_fields) + [user: User.find(fields[:username])]
+    SocialAccount.create! create_fields
   end
 
   def fact fields
