@@ -88,8 +88,8 @@ class Export
     output << "time: #{to_ruby(time)}, "
     output << "send_mails: false, "
     if user
-      output << "current_user: User.find(#{to_ruby(user.send(username))}), "
-      output << "ability: Ability.new(User.find(#{to_ruby(user.send(username))})), "
+      output << "current_user: User.find(#{to_ruby(user.username)}), "
+      output << "ability: Ability.new(User.find(#{to_ruby(user.username)})), "
     end
     output << "}, "
     output
