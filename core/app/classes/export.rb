@@ -29,7 +29,10 @@ class Export
       output << assignment_for(user, 'user', 'confirmed_at')
       output << assignment_for(user, 'user', 'confirmation_token')
       output << assignment_for(user, 'user', 'confirmation_sent_at')
-      output << assignment_for(user, 'user', 'updated_at') # set here again explicitly to prevent overwriting
+      output << 'user.save!; '
+
+      # set here again explicitly, without other assignments, to prevent overwriting
+      output << assignment_for(user, 'user', 'updated_at')
       output << 'user.save!'
       output << "\n"
 
