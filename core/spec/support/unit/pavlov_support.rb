@@ -26,12 +26,13 @@ module PavlovSupport
     include Pavlov::Helpers
 
     attr_writer :send_mails
+    attr_writer :time
 
     def pavlov_options
       {
         current_user: user,
         ability: Ability.new(user),
-        time: Time.now,
+        time: @time || Time.now,
         send_mails: @send_mails || false,
       }
     end
