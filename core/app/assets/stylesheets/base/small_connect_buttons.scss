@@ -1,17 +1,5 @@
 .small-connect-button {
-  height: $smallConnectButtonSize;
-  width: $smallConnectButtonSize;
-  padding: 0;
-  text-align: center;
-  font-size: 11px;
-  vertical-align: middle;
-
-  .icon-twitter, .icon-facebook {
-    margin: 2px 0 0;
-    font-size: 170%;
-    vertical-align: sub;
-    -webkit-font-smoothing: antialiased; // OS X makes fonts bolder than normal. This looks weird with those icons.
-  }
+  @extend .button-connect;
 }
 
 .small-connect-separator {
