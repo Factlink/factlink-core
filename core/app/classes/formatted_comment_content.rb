@@ -37,10 +37,7 @@ class FormattedCommentContent
       return content_tag :span, '<deleted annotation>', class: 'formatted-comment-content-factlink'
     end
 
-    fact_url = FactUrl.new(dead_fact)
-    proxy_open_url = fact_url.proxy_open_url
-
-    content_tag :a, dead_fact.displaystring, href: proxy_open_url, rel: 'backbone',
+    content_tag :a, dead_fact.displaystring, href: dead_fact.proxy_open_url, rel: 'backbone',
       class: 'formatted-comment-content-factlink'
   end
 end
