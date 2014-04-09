@@ -16,7 +16,7 @@ class Export
 
     FactData.all.each do |fact_data|
       output << import('fact', fact_data, [
-        :fact_id, :displaystring, :title, :site_url, :created_at
+        :fact_id, :displaystring, :title, :url, :created_at
       ])
     end
 
