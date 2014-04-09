@@ -5,12 +5,13 @@ class FactUrl
   end
 
   def friendly_fact_url
-    full_url "/f/#{@dead_fact.id}"
+    FactlinkUI::Application.config.core_url + "/f/#{@dead_fact.id}"
   end
 
   def proxy_open_url
-    proxy_url + "/?url=" + CGI.escape(@dead_fact.site_url) +
-      "#factlink-open-" + URI.escape(@dead_fact.id)
+    FactlinkUI::Application.config.proxy_url +
+        "/?url=" + CGI.escape(@dead_fact.site_url) +
+        "#factlink-open-" + URI.escape(@dead_fact.id)
   end
 
   def sharing_url
@@ -20,19 +21,4 @@ class FactUrl
 
     proxy_open_url
   end
-
-  private
-
-  def full_url uri
-    URI.join(application_url, uri).to_s
-  end
-
-  def application_url
-    FactlinkUI::Application.config.core_url
-  end
-
-  def proxy_url
-    FactlinkUI::Application.config.proxy_url
-  end
-
 end
