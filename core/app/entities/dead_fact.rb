@@ -10,10 +10,6 @@ DeadFact = StrictStruct.new(
     displaystring || ""
   end
 
-  def url
-    @fact_url ||= FactUrl.new(self)
-  end
-
   def trimmed_quote max_length
     TrimmedString.new(displaystring).trimmed_quote(max_length)
   end
@@ -24,6 +20,6 @@ DeadFact = StrictStruct.new(
 
   def to_hash
     super.merge \
-      proxy_open_url: url.proxy_open_url
+      proxy_open_url: FactUrl.new(self).proxy_open_url
   end
 end
