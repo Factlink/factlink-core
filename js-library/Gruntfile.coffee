@@ -3,6 +3,10 @@
 timer = require 'grunt-timer'
 path = require 'path'
 fs = require 'fs'
+compress_command = (file) -> "7z a -tgzip -mfb=258  -mx=9 -mpass=15 '#{file}.gz' '#{file}'"
+
+#compresses less: gzip -9 -f < "{}" > "{}.gz"
+
 
 module.exports = (grunt) ->
   timer.init(grunt)
@@ -58,8 +62,7 @@ module.exports = (grunt) ->
           'build/js/loader/loader_common.min.js':       ['build/js/loader/loader_common.js']
     shell:
       gzip_js_files:
-        command: ' find build/js/loader/ -iname \'*.js\'  -maxdepth 1  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
-
+        command: compress_command('build/js/loader/loader_common.min.js')
     copy:
       dist_loader_aliases:
         files: [
