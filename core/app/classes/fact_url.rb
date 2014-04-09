@@ -8,12 +8,8 @@ class FactUrl
     full_url "facts/#{@dead_fact.id}"
   end
 
-  def friendly_fact_path
-    "/f/#{@dead_fact.id}"
-  end
-
   def friendly_fact_url
-    full_url friendly_fact_path
+    full_url "/f/#{@dead_fact.id}"
   end
 
   def proxy_open_url
