@@ -1,0 +1,14 @@
+.discussion-login {
+  background: white;
+  margin-bottom: 9px;
+  border-bottom: 1px lightgrey solid;
+  padding: 8px $votePadding;
+  text-align: center;
+}
+
+.discussion-login >.small-connect-button {
+  height: 24px;
+  width: 24px;
+  line-height: 24px;
+  font-size: 10px;
+}
