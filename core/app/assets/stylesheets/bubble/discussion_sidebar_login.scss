@@ -1,7 +1,6 @@
 .discussion-login {
-  background: white;
+  @extend %white-box-grey-border-bottom;
   margin-bottom: 9px;
-  border-bottom: 1px lightgrey solid;
   padding: 8px $votePadding;
   text-align: center;
 }
