@@ -4,7 +4,11 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      arguments :displaystring, :url, :site_title
+      attribute :displaystring, String
+      attribute :url, String
+      attribute :site_title, String
+      attribute :fact_id, String, default: nil
+      attribute :pavlov_options, Hash
 
       def authorized?
         true
@@ -14,7 +18,8 @@ module Interactors
 
       def execute
         dead_fact = Backend::Facts.create displaystring: displaystring,
-          url: url, site_title: site_title
+          url: url, site_title: site_title, created_at: pavlov_options[:time],
+          fact_id: (pavlov_options[:import] ? fact_id : nil)
 
         if user
           Backend::Facts.add_to_recently_viewed \
@@ -33,6 +38,10 @@ module Interactors
         validate_nonempty_string :displaystring, displaystring
         validate_string :site_title, site_title
         validate_string :url, url
+
+        if pavlov_options[:import]
+          validate_integer_string :fact_id, fact_id
+        end
       end
     end
   end
