@@ -65,6 +65,7 @@ class IconButton
     @$el.css
       'line-height': style.lineHeight
       'font-size': style.fontSize
+      'font-family': style.fontFamily
 
     @$el.find('factlink-icon-button-bubble').css
       'background-color': targetColor
