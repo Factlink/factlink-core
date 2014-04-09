@@ -17,11 +17,11 @@ class FormattedCommentContent
     factlink_pretty_url_re = %r{#{application_url}/(?<id>[0-9]+)}i
 
     text.gsub(auto_link_re) do |given_url|
-      if Regexp.last_match[:scheme]
-        url = given_url
-      else
-        url = 'http://' + given_url
-      end
+      url = if Regexp.last_match[:scheme]
+              given_url
+            else
+              'http://' + given_url
+            end
 
       case url
       when factlink_pretty_url_re
