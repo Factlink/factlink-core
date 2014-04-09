@@ -4,10 +4,6 @@ class FactUrl
     @dead_fact = dead_fact
   end
 
-  def fact_url
-    full_url "facts/#{@dead_fact.id}"
-  end
-
   def friendly_fact_url
     full_url "/f/#{@dead_fact.id}"
   end

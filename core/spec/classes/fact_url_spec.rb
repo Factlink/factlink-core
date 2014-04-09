@@ -11,17 +11,6 @@ describe FactUrl do
     FactlinkUI::Application.stub(config: config)
   end
 
-  describe '.fact_url' do
-    it 'returns the correct url' do
-      fact = double id: '1'
-
-      fact_url = FactUrl.new fact
-
-      expect(fact_url.fact_url)
-        .to eq 'https://site.com/facts/1'
-    end
-  end
-
   describe '.friendly_fact_url' do
     it 'returns the correct url' do
       fact = double id: '2'
