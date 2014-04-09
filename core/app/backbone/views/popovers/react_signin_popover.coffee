@@ -29,6 +29,8 @@ window.ReactSigninLinks = React.createClass
 
 
 window.ReactSigninPopover = React.createClass
+  displayName: "ReactSigninPopover"
+
   getInitialState: ->
     opened: false
     callback: null
