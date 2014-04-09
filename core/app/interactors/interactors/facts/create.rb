@@ -7,8 +7,8 @@ module Interactors
       attribute :displaystring, String
       attribute :url, String
       attribute :site_title, String
-      attribute :pavlov_options, Hash
       attribute :fact_id, String, default: nil
+      attribute :pavlov_options, Hash
 
       def authorized?
         true
