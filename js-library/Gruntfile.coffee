@@ -62,6 +62,7 @@ module.exports = (grunt) ->
           'build/js/loader/loader_common.min.js':       ['build/js/loader/loader_common.js']
     shell:
       gzip_js_files:
+        options: failOnError: true
         command: compress_command('build/js/loader/loader_common.min.js')
     copy:
       dist_loader_aliases:
