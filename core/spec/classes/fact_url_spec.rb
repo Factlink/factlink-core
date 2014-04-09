@@ -58,23 +58,23 @@ describe FactUrl do
   describe 'xss protection' do
     describe '.friendly_fact_url' do
       it 'does not contain tags' do
-        fact = double id: '22', to_s: 'this<script>funky stuff'
+        fact = double id: '22', site_url: 'this<script>funky stuff'
 
         fact_url = FactUrl.new fact
 
-        expect(fact_url.friendly_fact_url)
+        expect(fact_url.proxy_open_url)
           .not_to match '<'
-        expect(fact_url.friendly_fact_url)
+        expect(fact_url.proxy_open_url)
           .not_to match '>'
       end
       it 'does not escape from quotes' do
-        fact = double id: '22', to_s: 'double " single \' quote'
+        fact = double id: '22', site_url: 'double " single \' quote'
 
         fact_url = FactUrl.new fact
 
-        expect(fact_url.friendly_fact_url)
+        expect(fact_url.proxy_open_url)
           .not_to match "'"
-        expect(fact_url.friendly_fact_url)
+        expect(fact_url.proxy_open_url)
           .not_to match '"'
       end
     end
