@@ -59,6 +59,15 @@ class Export
       output << "\n"
     end
 
+    Comment.all.each do |comment|
+      output << 'Pavlov.interactor(:"comments/create", {'
+      output << hash_field_for(comment, 'content')
+      output << 'fact_id: ' + to_ruby(comment.fact_data.fact_id) + ', '
+      output << pavlov_options(time: comment.created_at, user: comment.created_by)
+      output << '})'
+      output << "\n"
+    end
+
     output
   end
 

@@ -9,7 +9,8 @@ module Interactors
         comment = Backend::Comments.create \
           fact_id: fact_id,
           content: content,
-          user_id: pavlov_options[:current_user].id.to_s
+          user_id: pavlov_options[:current_user].id.to_s,
+          created_at: pavlov_options[:time]
 
         Backend::Comments.set_opinion \
           comment_id: comment.id.to_s, opinion: 'believes',
