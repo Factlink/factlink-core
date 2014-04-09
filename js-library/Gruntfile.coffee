@@ -117,6 +117,10 @@ module.exports = (grunt) ->
         options:
           run: true
 
+  grunt.task.registerTask 'disable_compression', 'Inline code from one file into another',  ->
+
+    grunt.config.set('shell.gzip_js_files.command', ':') #urgh, I feel dirty.
+
   grunt.task.registerTask 'code_inliner', 'Inline code from one file into another',  ->
     config_file = null
     grunt.file.recurse "build/js/jail_iframe/config/",
@@ -158,7 +162,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'postprocessor', [
     'concat', 'mocha', 'uglify', 'code_inliner', 'shell:gzip_js_files', 'copy:dist_loader_aliases', 'copy:dist_static_content' ]
 
-  grunt.registerTask 'compile_development', [ 'preprocessor', 'copy:config_development', 'postprocessor' ]
+  grunt.registerTask 'compile_development', [ 'disable_compression', 'preprocessor', 'copy:config_development', 'postprocessor', ]
   grunt.registerTask 'compile_staging',     [ 'preprocessor', 'copy:config_staging',     'postprocessor' ]
   grunt.registerTask 'compile_production',  [ 'preprocessor', 'copy:config_production',  'postprocessor' ]
 
