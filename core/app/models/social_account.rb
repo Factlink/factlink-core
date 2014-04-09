@@ -23,7 +23,7 @@ class SocialAccount
   end
 
   def uid
-    omniauth_obj['uid']
+    omniauth_obj_id
   end
 
   def token
