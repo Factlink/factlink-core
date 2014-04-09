@@ -73,6 +73,14 @@ class IconButton
     @$el.find('factlink-icon-button-bubble-triangle').css
       'border-top-color': targetColor
 
+    @$el.css @_siteSpecificStyles()
+
+  _siteSpecificStyles: ->
+    if /:\/\/medium.com/.test FactlinkJailRoot.siteUrl()
+      'margin-left': '2em'
+    else
+      {}
+
 
 findTextContainer = (el) ->
   for el in $(el).parents()
