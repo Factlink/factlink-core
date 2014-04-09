@@ -11,17 +11,6 @@ describe FactUrl do
     FactlinkUI::Application.stub(config: config)
   end
 
-  describe '.friendly_fact_url' do
-    it 'returns the correct url' do
-      fact = double id: '2'
-
-      fact_url = FactUrl.new fact
-
-      expect(fact_url.friendly_fact_url)
-        .to eq "https://site.com/f/2"
-    end
-  end
-
   describe '.proxy_open_url' do
     it 'returns the correct url' do
       fact = double id: '3', site_url: 'http://sciencedaily.com'
