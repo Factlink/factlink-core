@@ -43,6 +43,7 @@ class FactlinkImport
       ability: nil,
       send_mails: false,
       time: time,
+      import: true,
     }
   end
 end
