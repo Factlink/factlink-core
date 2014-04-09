@@ -45,7 +45,7 @@ describe FactUrl do
   end
 
   describe 'xss protection' do
-    describe '.friendly_fact_url' do
+    describe '.proxy_open_url' do
       it 'does not contain tags' do
         fact = double id: '22', site_url: 'this<script>funky stuff'
 
