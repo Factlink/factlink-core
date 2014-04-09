@@ -13,9 +13,7 @@ class FormattedCommentContent
 
   def urls_to_link_tags text
     auto_link_re = %r{(?:(?<scheme>http|https)://|www\.)[^\s<\u00A0]+}i
-    application_url = URI.join(FactlinkUI::Application.config.core_url, 'f').to_s
-    factlink_pretty_url_re = %r{#{application_url}/(?<id>[0-9]+)}i
-
+    factlink_pretty_url_re = %r{#{FactlinkUI::Application.config.core_url}/f/(?<id>[0-9]+)}i
     text.gsub(auto_link_re) do |given_url|
       url = if Regexp.last_match[:scheme]
               given_url
