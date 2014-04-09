@@ -20,6 +20,10 @@ class SocialAccount
     def find_by_provider_and_uid(provider_name, uid)
       find_by(provider_name: provider_name, omniauth_obj_id: uid)
     end
+
+    def import_export_simple_fields
+      [:provider_name, :omniauth_obj, :created_at, :updated_at]
+    end
   end
 
   def uid
