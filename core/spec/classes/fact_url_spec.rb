@@ -22,17 +22,6 @@ describe FactUrl do
     end
   end
 
-  describe '.friendly_fact_path' do
-    it 'returns the correct path' do
-      fact = double id: '2'
-
-      fact_url = FactUrl.new fact
-
-      expect(fact_url.friendly_fact_path)
-        .to eq "/f/2"
-    end
-  end
-
   describe '.friendly_fact_url' do
     it 'returns the correct url' do
       fact = double id: '2'
