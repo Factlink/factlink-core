@@ -13,7 +13,7 @@ describe DeadFact do
     FactlinkUI::Application.stub(config: config)
   end
 
-  def mock_fact_for_url(url)
+  def dead_fact_with_url(url)
     DeadFact.new(
       id: '123',
       site_url: url,
@@ -25,7 +25,7 @@ describe DeadFact do
 
   describe '.proxy_open_url' do
     it 'returns the correct url' do
-      fact = mock_fact_for_url 'http://sciencedaily.com'
+      fact = dead_fact_with_url 'http://sciencedaily.com'
 
       expect(fact.proxy_open_url)
         .to eq 'http://proxy.com/?url=http%3A%2F%2Fsciencedaily.com#factlink-open-123'
@@ -35,7 +35,7 @@ describe DeadFact do
   describe 'xss protection' do
     describe '.proxy_open_url' do
       it 'does not contain tags' do
-        fact = mock_fact_for_url 'this<script>funky stuff'
+        fact = dead_fact_with_url 'this<script>funky stuff'
 
         expect(fact.proxy_open_url)
           .not_to match '<'
@@ -43,7 +43,7 @@ describe DeadFact do
           .not_to match '>'
       end
       it 'does not escape from quotes' do
-        fact = mock_fact_for_url 'double " single \' quote'
+        fact = dead_fact_with_url 'double " single \' quote'
 
         expect(fact.proxy_open_url)
           .not_to match "'"
