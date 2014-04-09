@@ -67,13 +67,17 @@ window.ReactAddComment = React.createBackboneClass
     searchOpened: false
 
   render: ->
+    comment_add_uid = @model().fact.id || "u" + string_hash(@model().fact.get('site_url'))
+    #note: we'd like to save incomplete comments per page, but site_url is loaded
+    #with the Fact model - asynchronously.
+
     _div ['add-comment-container comment-container'],
       _div ['add-comment spec-add-comment-form'],
         _div ['add-comment-question'],
           'What do you think?'
         ReactTextArea
           ref: 'textarea'
-          storageKey: "add_comment_to_fact_#{@model().fact.id}"
+          storageKey: "add_comment_to_fact_#{comment_add_uid}"
           onChange: @_onTextareaChange
           onSubmit: => @refs.signinPopover.submit(=> @_submit())
         _div [
