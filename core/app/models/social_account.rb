@@ -8,7 +8,7 @@ class SocialAccount
 
   validates_presence_of :provider_name
   validates_presence_of :omniauth_obj
-  validate :presence_of_uid
+  validates_presence_of :omniauth_obj_id
   validate :provider_matches_omniauth_provider
   validate :uniqueness_of_uid
 
@@ -80,12 +80,6 @@ class SocialAccount
   def provider_matches_omniauth_provider
     if provider_name != omniauth_obj['provider']
       errors.add :provider_name, 'does not match omniauth_obj provider'
-    end
-  end
-
-  def presence_of_uid
-    unless omniauth_obj_id
-      errors.add :omniauth_obj, 'does not contain uid'
     end
   end
 
