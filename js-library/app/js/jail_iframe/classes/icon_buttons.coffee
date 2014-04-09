@@ -1,3 +1,9 @@
+hostATag = document.createElement('a')
+hrefToHost = (href) ->
+  hostATag.href = href
+  hostATag.host
+
+
 FactlinkJailRoot.host_loaded_promise.then ->
   FactlinkJailRoot.trigger 'reposition_icons'
 
@@ -76,10 +82,11 @@ class IconButton
     @$el.css @_siteSpecificStyles()
 
   _siteSpecificStyles: ->
-    if /:\/\/medium.com/.test FactlinkJailRoot.siteUrl()
-      'margin-left': '2em'
-    else
-      {}
+    switch hrefToHost FactlinkJailRoot.siteUrl()
+      when 'medium.com'
+        'margin-left': '2em'
+      else
+        {}
 
 
 findTextContainer = (el) ->
