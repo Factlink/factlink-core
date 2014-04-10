@@ -20,7 +20,7 @@ class Export
         :fact_id, :displaystring, :title, :url, :created_at
       ])) + " do\n"
 
-      sorted_votes = Backend::Facts.votes(fact_id: fact_data.fact_id).sort do |a,b|
+      sorted_votes = Backend::Facts.votes(fact_id: fact_data.fact_id).sort do |a, b|
         a[:username] <=> b[:username]
       end
 
