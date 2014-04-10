@@ -22,26 +22,6 @@ module PavlovSupport
     include message
   end
 
-  class ExecuteAsUser < Struct.new(:user)
-    include Pavlov::Helpers
-
-    attr_accessor :send_mails
-    attr_accessor :time
-
-    def pavlov_options
-      {
-        current_user: user,
-        ability: Ability.new(user),
-        time: time || Time.now,
-        send_mails: send_mails || false,
-      }
-    end
-
-    def execute &block
-      yield self
-    end
-  end
-
   def as user, &block
     ExecuteAsUser.new(user).execute &block
   end
