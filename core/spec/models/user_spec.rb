@@ -186,7 +186,7 @@ describe User do
     it "should be set on user creation" do
       user = User.create! valid_attributes, as: :admin
 
-      token = user.user_notification.notification_settings_edit_token
+      token = user.notification_settings_edit_token
 
       expect(token).to match /\A\w{4,}\Z/
     end
@@ -195,8 +195,8 @@ describe User do
       user1 = User.create!(valid_attributes, as: :admin)
       user2 = User.create!(valid_attributes.merge({username: 'Hello', email: 'hello@example.org'}), as: :admin)
 
-      token1 = user1.user_notification.notification_settings_edit_token
-      token2 = user2.user_notification.notification_settings_edit_token
+      token1 = user1.notification_settings_edit_token
+      token2 = user2.notification_settings_edit_token
 
       expect(token1).to_not eq token2
     end
@@ -204,9 +204,9 @@ describe User do
     it "should not reset on account update without password change" do
       user1 = User.create! valid_attributes, as: :admin
 
-      old_token = user1.user_notification.notification_settings_edit_token
+      old_token = user1.notification_settings_edit_token
       user1.update_attribute :email, 'pietje@example.org'
-      new_token = user1.user_notification.notification_settings_edit_token
+      new_token = user1.notification_settings_edit_token
 
       expect(new_token).to eq old_token
     end
@@ -214,9 +214,9 @@ describe User do
     it "should reset on password change" do
       user1 = User.create! valid_attributes, as: :admin
 
-      old_token = user1.user_notification.notification_settings_edit_token
+      old_token = user1.notification_settings_edit_token
       user1.reset_password! 'hellohello', 'hellohello'
-      new_token = user1.user_notification.notification_settings_edit_token
+      new_token = user1.notification_settings_edit_token
 
       expect(new_token).to_not eq old_token
     end

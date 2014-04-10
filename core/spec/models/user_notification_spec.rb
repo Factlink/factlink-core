@@ -5,49 +5,49 @@ describe UserNotification do
     let(:user) { create :user, :confirmed, receives_digest: true, receives_mailed_notifications: true }
 
     it "unsubscribes you from a digest mailing" do
-      user.user_notification.unsubscribe('digest')
+      Backend::Notifications.unsubscribe(user: user, type: 'digest')
 
-      expect(user.user_notification.can_receive?('digest')).to be_false
+      expect(Backend::Notifications.can_receive?(user: user, type: 'digest')).to be_false
     end
 
     it "unsubscribes you persisted from a digest mailing" do
-      user.user_notification.unsubscribe('digest')
+      Backend::Notifications.unsubscribe(user: user, type: 'digest')
 
       refetched_user = User.find(user.id)
 
-      expect(refetched_user.user_notification.can_receive?('digest')).to be_false
+      expect(Backend::Notifications.can_receive?(user: refetched_user, type: 'digest')).to be_false
     end
 
     it "unsubscribes you from a mailed_notifications mailing" do
-      user.user_notification.unsubscribe('mailed_notifications')
+      Backend::Notifications.unsubscribe(user: user, type: 'mailed_notifications')
 
       expect(user.receives_mailed_notifications).to be_false
     end
 
     it "raises an exception when trying to unsubscribe from a non-existing mailing" do
       expect do
-        user.user_notification.unsubscribe('pokemon_newsletter')
+        Backend::Notifications.unsubscribe(user: user, type: 'pokemon_newsletter')
       end.to raise_error
     end
 
     it "returns true when unsubscribe was possible" do
-      return_value = user.user_notification.unsubscribe('digest')
+      return_value = Backend::Notifications.unsubscribe(user: user, type: 'digest')
       expect(return_value).to be_true
     end
 
     it "returns false when already unsubscribed" do
-      user.user_notification.unsubscribe('digest')
-      return_value = user.user_notification.unsubscribe('digest')
+      Backend::Notifications.unsubscribe(user: user, type: 'digest')
+      return_value = Backend::Notifications.unsubscribe(user: user, type: 'digest')
       expect(return_value).to be_false
     end
 
     it "unsubscribes from all types if you pass in all" do
-      user.user_notification.unsubscribe('all')
+      Backend::Notifications.unsubscribe(user: user, type: 'all')
 
       subscribed_digest =
-        user.user_notification.unsubscribe('digest')
+        Backend::Notifications.unsubscribe(user: user, type: 'digest')
       subscribed_mailed_notifications =
-        user.user_notification.unsubscribe('mailed_notifications')
+        Backend::Notifications.unsubscribe(user: user, type: 'mailed_notifications')
 
       expect(subscribed_digest).to be_false
       expect(subscribed_mailed_notifications).to be_false
@@ -58,37 +58,37 @@ describe UserNotification do
     let(:user) { create :user, :confirmed, receives_digest: false, receives_mailed_notifications: false }
 
     it "subscribes you to a digest mailing" do
-      expect(user.user_notification.can_receive?('digest')).to be_false
+      expect(Backend::Notifications.can_receive?(user: user, type: 'digest')).to be_false
 
-      user.user_notification.subscribe('digest')
+      Backend::Notifications.subscribe(user: user, type: 'digest')
 
-      expect(user.user_notification.can_receive?('digest')).to be_true
+      expect(Backend::Notifications.can_receive?(user: user, type: 'digest')).to be_true
     end
 
     it "subscribes you persisted to a digest mailing" do
-      expect(user.user_notification.can_receive?('digest')).to be_false
+      expect(Backend::Notifications.can_receive?(user: user, type: 'digest')).to be_false
 
-      user.user_notification.subscribe('digest')
+      Backend::Notifications.subscribe(user: user, type: 'digest')
 
       refetched_user = User.find(user.id)
 
-      expect(refetched_user.user_notification.can_receive?('digest')).to be_true
+      expect(Backend::Notifications.can_receive?(user: refetched_user, type: 'digest')).to be_true
     end
 
     it "raises an exception when trying to subscribe to a non-existing mailing" do
       expect do
-        user.user_notification.subscribe('pokemon_newsletter')
+        Backend::Notifications.subscribe(user: user, type: 'pokemon_newsletter')
       end.to raise_error
     end
 
     it "returns true when subscribe was possible" do
-      return_value = user.user_notification.subscribe('digest')
+      return_value = Backend::Notifications.subscribe(user: user, type: 'digest')
       expect(return_value).to be_true
     end
 
     it "returns false when already subscribed" do
-      user.user_notification.subscribe('digest')
-      return_value = user.user_notification.subscribe('digest')
+      Backend::Notifications.subscribe(user: user, type: 'digest')
+      return_value = Backend::Notifications.subscribe(user: user, type: 'digest')
       expect(return_value).to be_false
     end
   end
@@ -97,7 +97,7 @@ describe UserNotification do
     it 'returns false if a user is not confirmed' do
       unconfirmed_user = create :user, receives_digest: true, receives_mailed_notifications: true
 
-      expect(unconfirmed_user.user_notification.can_receive?('digest')).to be_false
+      expect(Backend::Notifications.can_receive?(user: unconfirmed_user, type: 'digest')).to be_false
     end
   end
 
@@ -108,7 +108,7 @@ describe UserNotification do
       confirmed_user_without_digest = create :user, :confirmed, receives_digest: false
       confirmed_user = create :user, :confirmed, receives_digest: true
 
-      digest_users = UserNotification.users_receiving('digest')
+      digest_users = Backend::Notifications.users_receiving(type: 'digest')
 
       expect(digest_users).to eq [confirmed_user]
     end

@@ -122,8 +122,8 @@ module Backend
           listener.add_to(activity)
         end.flatten
 
-      recipients = UserNotification.users_receiving('mailed_notifications')
-                                   .any_in(graph_user_id: graph_user_ids)
+      recipients = Backend::Notifications.users_receiving(type: 'mailed_notifications')
+                                         .any_in(graph_user_id: graph_user_ids)
 
       recipients.each do |user|
         Resque.enqueue SendActivityMailToUser, user.id, activity.id
