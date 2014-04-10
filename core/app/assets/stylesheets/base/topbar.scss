@@ -16,12 +16,11 @@
   @extend %centering-inner;
   @include remove-element-below(430px);
   margin-right: 20px;
-  }
-
-.topbar-logo-img {
-  display: block;
   height: 20px;
   width: 108px;
+  background: asset-data-url("base/topbar/logo.svg") 0 0 no-repeat;
+  display: inline-block;
+  background-size: 100%;
 }
 
 .topbar-search {

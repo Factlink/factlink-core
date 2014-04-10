@@ -29,10 +29,10 @@ class FactlinkRouter extends Backbone.Router
     @once 'route', (route) ->
       return if route == 'search'
 
-      $('.js-navbar-search-box').val('')
+      Factlink.topbarSearchModel.clear()
 
     query = params['s']
-    $('.js-navbar-search-box').val(query)
+    Factlink.topbarSearchModel.set {query}
 
     results = new SearchResults [], search: query
     results.fetch()
@@ -45,19 +45,11 @@ class FactlinkRouter extends Backbone.Router
 
 Factlink.siteInitializer = ->
   Factlink.commonInitializer()
+  Factlink.topbarSearchModel = new Backbone.Model
   Factlink.notificationCenter = new NotificationCenter('.js-notification-center-alerts')
   new NonConfirmedEmailWarning
   new FactlinkRouter
-  enhanceSearchFormNavigation()
-  refreshOnSocialSignin()
+  renderTopbar()
 
-enhanceSearchFormNavigation = ->
-  $('.js-navbar-search-form').on 'submit', ->
-    url = '/search?s=' + encodeURIComponent $('.js-navbar-search-box').val()
-    Backbone.history.navigate url, true
-    false
-
-refreshOnSocialSignin = ->
-  currentSession.on 'user_refreshed', ->
-    # Top bar is still static and user-dependent
-    window.location.reload(true)
+renderTopbar = ->
+  React.renderComponent ReactTopbar(), document.querySelector('#js-topbar-region')

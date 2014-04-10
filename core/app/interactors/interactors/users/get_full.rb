@@ -52,7 +52,8 @@ module Interactors
           full_name: user.full_name,
           email: user.email,
           services: services,
-          features: interactor(:'global_features/all') + user.features.to_a
+          features: interactor(:'global_features/all') + user.features.to_a,
+          admin: user.admin,
         }
       end
 
