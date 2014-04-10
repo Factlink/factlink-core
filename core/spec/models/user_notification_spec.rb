@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UserNotification do
+describe 'UserNotification' do
   describe '#unsubscribe' do
     let(:user) { create :user, :confirmed, receives_digest: true, receives_mailed_notifications: true }
 

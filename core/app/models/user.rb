@@ -12,10 +12,7 @@ class User
     User.where(graph_user_id: graph_user_id).first
   end
 
-  embeds_one :user_notification, autobuild: true
-  def notification_settings_edit_token
-    user_notification.notification_settings_edit_token
-  end
+  field :notification_settings_edit_token, type: String
 
   USERNAME_MAX_LENGTH = 20 # WARNING: must be shorter than mongo ids(24 chars) to avoid confusing ids with usernames!
 

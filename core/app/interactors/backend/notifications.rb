@@ -36,7 +36,7 @@ module Backend
     end
 
     def reset_edit_token(user:)
-      user.user_notification.notification_settings_edit_token =
+      user.notification_settings_edit_token =
         generate_token(:notification_settings_edit_token)
     end
 
@@ -65,7 +65,7 @@ module Backend
     private def generate_token(column)
       loop do
         token = Devise.friendly_token
-        break token if UserNotification.find({ column => token }).empty?
+        break token if User.find({ column => token }).empty?
       end
     end
   end
