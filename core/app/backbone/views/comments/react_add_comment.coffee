@@ -77,6 +77,25 @@ window.ReactAddComment = React.createBackboneClass
       onChange: @_onTextareaChange
       onSubmit: => @refs.signinPopover.submit(=> @_submit())
 
+  _renderSearchRegion: ->
+    _div [],
+      ReactSearchLink
+        opened: @state.searchOpened
+        onToggle: (opened) => @setState searchOpened: opened
+      ReactSearchFacts
+        opened: @state.searchOpened
+        onInsert: @_onSearchInsert
+
+  _renderSubmitButton: ->
+    _button ['button-confirm button-small add-comment-post-button'
+      onClick: => @refs.signinPopover.submit(=> @_submit())
+      disabled: !@_comment().isValid()
+      ref: 'post'
+    ],
+      Factlink.Global.t.post_comment
+      ReactSigninPopover
+        ref: 'signinPopover'
+
   render: ->
     _div ['add-comment-container comment-container'],
       _div ['add-comment spec-add-comment-form'],
@@ -88,21 +107,8 @@ window.ReactAddComment = React.createBackboneClass
           'add-comment-controls'
           'add-comment-controls-visible' if @state.controlsOpened
         ],
-          _button ['button-confirm button-small add-comment-post-button'
-            onClick: => @refs.signinPopover.submit(=> @_submit())
-            disabled: !@_comment().isValid()
-            ref: 'post'
-          ],
-            Factlink.Global.t.post_comment
-            ReactSigninPopover
-              ref: 'signinPopover'
-          _div [],
-            ReactSearchLink
-              opened: @state.searchOpened
-              onToggle: (opened) => @setState searchOpened: opened
-            ReactSearchFacts
-              opened: @state.searchOpened
-              onInsert: @_onSearchInsert
+          @_renderSubmitButton()
+          @_renderSearchRegion()
 
   _onTextareaChange: (text) ->
     @setState(text: text)
