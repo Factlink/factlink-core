@@ -65,8 +65,8 @@ window.ReactTopbarSearch = React.createBackboneClass
   render: ->
     _div ['topbar-search'],
       _form [onSubmit: @_onSubmit],
-        _input ['topbar-search-field', id: 'factlink_search',
-                onFocus: @_onFocus, onChange: @_onChange, value: @model().get('query')]
+        _input ['topbar-search-field', id: 'spec-search', onFocus: @_onFocus,
+                onChange: @_onChange, value: @model().get('query')]
 
 window.ReactTopbar = React.createClass
   displayName: 'ReactTopbar'
