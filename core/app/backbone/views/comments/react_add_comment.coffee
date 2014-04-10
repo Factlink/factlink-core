@@ -68,8 +68,9 @@ window.ReactAddComment = React.createBackboneClass
 
   render: ->
     comment_add_uid = @model().fact.id || "u" + string_hash(@model().fact.get('site_url'))
-    #note: we'd like to save incomplete comments per page, but site_url is loaded
-    #with the Fact model - asynchronously.
+    #note: we'd can't rely on *any* model attributes for the uid because
+    #the id is missing for new models, and everything else is missing for existing
+    #but not entirely loaded models.
 
     _div ['add-comment-container comment-container'],
       _div ['add-comment spec-add-comment-form'],
