@@ -26,18 +26,25 @@ class FactlinkImport
   end
 
   def fact fields
-    Pavlov.interactor(:'facts/create', fact_id: fields[:fact_id],
-      displaystring: fields[:displaystring], site_title: fields[:title],
-      site_url: fields[:url], pavlov_options: pavlov_options(time: fields[:created_at]))
+    ExecuteAsUser.new(nil).execute do |pavlov|
+      pavlov.import = true
+      pavlov.time = fields[:created_at]
+      pavlov.interactor(:'facts/create', fact_id: fields[:fact_id],
+        displaystring: fields[:displaystring], site_title: fields[:title],
+        site_url: fields[:url])
+    end
   end
 
-  private def pavlov_options(time:)
-    {
-      current_user: nil,
-      ability: nil,
-      send_mails: false,
-      time: time,
-      import: true,
-    }
+  def comment fields
+    ExecuteAsUser.new(user_for(fields[:username])).execute do |pavlov|
+      pavlov.import = true
+      pavlov.time = fields[:created_at]
+      pavlov.interactor(:'comments/create', fact_id: fields[:fact_id], content: fields[:content])
+    end
+  end
+
+  private def user_for username
+    @user_for ||= {}
+    @user_for[username] ||= User.find(username) or fail "Username '#{username}' not found"
   end
 end

@@ -21,6 +21,12 @@ class Export
       ])
     end
 
+    Comment.all.each do |comment|
+      output << import('comment', comment, [:content, :created_at],
+        additional: {fact_id: comment.fact_data.fact_id,
+          username: comment.created_by.username})
+    end
+
     output
   end
 

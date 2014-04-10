@@ -13,7 +13,7 @@ class LoadDsl
 
       pavlov_options = {current_user: user, time: Time.now}
 
-      Pavlov.interactor(:'comments/create', fact_id: dead_fact.id.to_i, content: comment, pavlov_options: pavlov_options)
+      Pavlov.interactor(:'comments/create', fact_id: dead_fact.id, content: comment, pavlov_options: pavlov_options)
     end
 
     def set_opinion(opinion_type, *users)
