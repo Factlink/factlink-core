@@ -36,6 +36,9 @@
     white-space: nowrap;
   }
 }
+.dropdown-menu-item {
+  display:block;
+}
 
 .dropdown-menu-item:hover a, .dropdown-menu-item:focus a {
   text-decoration: none;
