@@ -31,7 +31,7 @@
     <%= render 'flash/notification_center', notice: notice, alert: alert %>
     <%= render 'feedback/button' unless defined? dont_render_feedback %>
 
-    <%= render "base/topbar" %>
+    <div id="js-topbar-region"></div>
 
     <%= yield :main %>
 

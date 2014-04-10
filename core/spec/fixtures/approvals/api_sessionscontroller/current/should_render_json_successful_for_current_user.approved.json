@@ -20,6 +20,7 @@
     },
     "features": [
       "some_feature"
-    ]
+    ],
+    "admin": false
   }
 }

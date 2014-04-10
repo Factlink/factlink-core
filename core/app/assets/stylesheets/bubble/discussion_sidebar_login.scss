@@ -1,6 +1,35 @@
-.discussion-login {
+.discussion-login, .discussion-menu {
   @extend %white-box-grey-border-bottom;
   margin-bottom: 9px;
-  padding: 8px $votePadding;
+}
+
+.discussion-login {
   text-align: center;
+  padding: 8px $votePadding;
+}
+
+.discussion-menu {
+  @extend %centering-y;
+  display: inline-block; // new block formatting context
+  width: 100%;
+  height: $topbarHeight;
+  text-align: right;
+  padding: 0 $votePadding;
+}
+
+.discussion-menu-item {
+  @extend %centering-inner;
+  padding: 0 5px;
+}
+
+.discussion-menu-link {
+  @extend %centering-inner;
+  @extend %centering;
+  height: 100%;
+  display: block;
+}
+
+.discussion-menu-avatar {
+  vertical-align: middle;
+  border-radius: $baseBorderRadius;
 }

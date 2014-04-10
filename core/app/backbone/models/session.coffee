@@ -19,5 +19,5 @@ class window.Session extends Backbone.Model
 
   # TODO: only used in account_success; just return the session there
   refreshCurrentUser: (response) ->
+    @user().clear()
     @user().set response
-    @trigger 'user_refreshed' # TODO: remove when topbar is in React
