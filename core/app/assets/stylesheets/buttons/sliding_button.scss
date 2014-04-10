@@ -35,6 +35,7 @@ $slideTime: 0.3s;
   opacity: 0;
   transition: right $slideTime, opacity $slideTime;
   white-space: nowrap;
+  padding-right: 1px; // fixes one-off pixel bug
 }
 
 .sliding-button-open .sliding-button-container-inner {
