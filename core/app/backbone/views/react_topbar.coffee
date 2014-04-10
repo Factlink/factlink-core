@@ -107,6 +107,3 @@ window.ReactTopbar = React.createClass
                 ReactSigninLinks()
 
           _a ['topbar-logo', href: '/']
-
-
-
