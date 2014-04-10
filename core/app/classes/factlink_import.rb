@@ -53,7 +53,7 @@ module FactlinkImport
         site_url: fields[:url])
     end
 
-    FactlinkImportFact.new(dead_fact.id).instance_eval(&block) if block_given?
+    FactlinkImportFact.new(dead_fact.id).instance_eval(&block)
   end
 
   def comment(fields)
