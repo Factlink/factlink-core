@@ -9,8 +9,8 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 }
 
 .comment-container {
-  position: relative;
   @extend %white-box-grey-border-bottom;
+  position: relative;
   margin-bottom: $sidebarMarginBetween;
 }
 
