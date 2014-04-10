@@ -8,7 +8,7 @@ class Export
       ])) + "\n"
 
       user.social_accounts.each do |social_account|
-        output << import('social_account',
+        output << import('FactlinkImport.social_account',
           fields_from_object(social_account, SocialAccount.import_export_simple_fields).merge(
             username: user.username)
         ) + "\n"
