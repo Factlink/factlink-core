@@ -9,10 +9,10 @@
 }
 
 .discussion-menu {
+  @extend %centering-y;
   display: inline-block; // new block formatting context
   width: 100%;
   height: $topbarHeight;
-  @extend %centering-y;
   text-align: right;
   padding: 0 $votePadding;
 }
