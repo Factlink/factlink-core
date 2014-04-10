@@ -12,7 +12,7 @@ describe "Non signed in pages:", type: :feature do
 
       sign_out_user
       visit user_profile_path(@user)
-
+      sleep 5
       assume_unchanged_screenshot "non_signed_in_profile"
     end
   end
