@@ -35,6 +35,7 @@ $slideTime: 0.3s;
   opacity: 0;
   transition: right $slideTime, opacity $slideTime;
   white-space: nowrap;
+  padding-right: 1px; // fixes one-off pixel bug
 }
 
 .sliding-button-open .sliding-button-container-inner {
@@ -71,12 +72,9 @@ $slideTime: 0.3s;
 }
 
 %sliding-share-button {
-  @extend .button-small;
+  @extend .button-connect-small;
 
   vertical-align: top;
-  padding: 0;
-  width: $baseButtonHeight;
-  text-align: center;
 
   // Workaround to fix flickering frame in Chrome
   // (See: http://stackoverflow.com/questions/5814101/css3-transition-transform-translate3d-causes-severe-flicker-on-first-or-last-fr)
