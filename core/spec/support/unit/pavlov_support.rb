@@ -25,15 +25,15 @@ module PavlovSupport
   class ExecuteAsUser < Struct.new(:user)
     include Pavlov::Helpers
 
-    attr_writer :send_mails
-    attr_writer :time
+    attr_accessor :send_mails
+    attr_accessor :time
 
     def pavlov_options
       {
         current_user: user,
         ability: Ability.new(user),
-        time: @time || Time.now,
-        send_mails: @send_mails || false,
+        time: time || Time.now,
+        send_mails: send_mails || false,
       }
     end
 
