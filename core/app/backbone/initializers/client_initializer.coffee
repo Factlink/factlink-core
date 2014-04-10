@@ -24,12 +24,12 @@ class ClientEnvoy
       initiallyFocusAddComment: true
       key: getComponentKey()
 
-  prepareNewFactlink: (displaystring, url, site_title) =>
+  prepareNewFactlink: (displaystring, site_url, site_title) =>
     Factlink.load_client_dependencies()
 
     fact = new Fact
       displaystring: displaystring
-      site_url: url
+      site_url: site_url
       site_title: site_title
 
     fact.once 'sync', =>
