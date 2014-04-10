@@ -6,8 +6,8 @@ class ActivityMailer < ActionMailer::Base
   layout "email_notification"
 
   def new_activity(user_id, activity_id)
-    @user = UserNotification.users_receiving('mailed_notifications')
-                            .find(user_id)
+    @user = Backend::Notifications.users_receiving(type: 'mailed_notifications')
+                                  .find(user_id)
     @activity = Backend::Activities.get(activity_id: activity_id)
 
     return unless @user && @activity

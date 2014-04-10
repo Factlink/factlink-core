@@ -12,7 +12,7 @@ class User
     User.where(graph_user_id: graph_user_id).first
   end
 
-  embeds_one :user_notification, autobuild: true
+  field :notification_settings_edit_token, type: String
 
   USERNAME_MAX_LENGTH = 20 # WARNING: must be shorter than mongo ids(24 chars) to avoid confusing ids with usernames!
 
@@ -166,7 +166,7 @@ class User
 
   before_save do |user|
     if user.changes.include? 'encrypted_password'
-      user.user_notification.reset_notification_settings_edit_token
+      Backend::Notifications.reset_edit_token user: self
     end
   end
 
