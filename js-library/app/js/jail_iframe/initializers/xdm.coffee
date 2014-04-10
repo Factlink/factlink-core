@@ -11,6 +11,6 @@ FactlinkJailRoot.perf.add_timing_event('inserted core iframe')
 
 FactlinkJailRoot.openFactlinkModal = (id) ->
   FactlinkJailRoot.openModalOverlay()
-  FactlinkJailRoot.factlinkCoreEnvoy 'showFactlink', id
+  FactlinkJailRoot.factlinkCoreEnvoy 'showFactlink', id, FactlinkJailRoot.siteUrl()
 
 FactlinkJailRoot.$sidebarFrame = $(iframe)
