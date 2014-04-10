@@ -10,10 +10,6 @@ DeadFact = StrictStruct.new(
     displaystring || ""
   end
 
-  def url
-    @fact_url ||= FactUrl.new(self)
-  end
-
   def trimmed_quote max_length
     TrimmedString.new(displaystring).trimmed_quote(max_length)
   end
@@ -22,9 +18,14 @@ DeadFact = StrictStruct.new(
     URI.parse(site_url).host
   end
 
+  def proxy_open_url
+    FactlinkUI::Application.config.proxy_url +
+        "/?url=" + CGI.escape(site_url) +
+        "#factlink-open-" + URI.escape(id)
+  end
+
   def to_hash
     super.merge \
-      url: url.friendly_fact_path,
-      proxy_open_url: url.proxy_open_url
+      proxy_open_url: proxy_open_url
   end
 end

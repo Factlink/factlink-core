@@ -17,7 +17,7 @@ describe Api::AnnotationsController do
       as(user) do |pavlov|
         dead_fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
-                                     url: 'url',
+                                     site_url: 'url',
                                      site_title: 'title')
 
         pavlov.interactor(:'facts/set_opinion', fact_id: dead_fact.id, opinion: 'believes')
@@ -36,7 +36,7 @@ describe Api::AnnotationsController do
       as(user) do |pavlov|
         dead_fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
-                                     url: 'url',
+                                     site_url: 'url',
                                      site_title: 'title')
 
         pavlov.interactor(:'facts/set_opinion', fact_id: dead_fact.id, opinion: 'believes')
@@ -51,7 +51,7 @@ describe Api::AnnotationsController do
   describe :create do
     it "should work with json" do
       authenticate_user!(user)
-      post 'create', format: :json, url: "http://example.org/", displaystring: "Facity Fact", site_title: "Title"
+      post 'create', format: :json, site_url: "http://example.org/", displaystring: "Facity Fact", site_title: "Title"
       response.code.should eq("200")
     end
   end
@@ -63,16 +63,16 @@ describe Api::AnnotationsController do
       as(user) do |pavlov|
         pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
-                                     url: 'url',
+                                     site_url: 'url',
                                      site_title: 'title')
 
         pavlov.interactor(:'facts/create',
                               displaystring: 'oil dobedoo',
-                              url: 'url',
+                              site_url: 'url',
                               site_title: 'title')
         pavlov.interactor(:'facts/create',
                               displaystring: 'you got oil mister?',
-                              url: 'url',
+                              site_url: 'url',
                               site_title: 'title')
 
       end

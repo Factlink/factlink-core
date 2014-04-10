@@ -13,15 +13,13 @@ class FormattedCommentContent
 
   def urls_to_link_tags text
     auto_link_re = %r{(?:(?<scheme>http|https)://|www\.)[^\s<\u00A0]+}i
-    application_url = URI.join(FactlinkUI::Application.config.core_url, 'f').to_s
-    factlink_pretty_url_re = %r{#{application_url}/(?<id>[0-9]+)}i
-
+    factlink_pretty_url_re = %r{#{FactlinkUI::Application.config.core_url}/f/(?<id>[0-9]+)}i
     text.gsub(auto_link_re) do |given_url|
-      if Regexp.last_match[:scheme]
-        url = given_url
-      else
-        url = 'http://' + given_url
-      end
+      url = if Regexp.last_match[:scheme]
+              given_url
+            else
+              'http://' + given_url
+            end
 
       case url
       when factlink_pretty_url_re
@@ -39,10 +37,7 @@ class FormattedCommentContent
       return content_tag :span, '<deleted annotation>', class: 'formatted-comment-content-factlink'
     end
 
-    fact_url = FactUrl.new(dead_fact)
-    proxy_open_url = fact_url.proxy_open_url
-
-    content_tag :a, dead_fact.displaystring, href: proxy_open_url, rel: 'backbone',
+    content_tag :a, dead_fact.displaystring, href: dead_fact.proxy_open_url, rel: 'backbone',
       class: 'formatted-comment-content-factlink'
   end
 end
