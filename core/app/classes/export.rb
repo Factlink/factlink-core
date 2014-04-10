@@ -3,28 +3,29 @@ class Export
     output = ''
 
     User.all.each do |user|
-      output << import('user', user, User.import_export_simple_fields + [
-        :encrypted_password, :confirmed_at, :confirmation_token,
-        :confirmation_sent_at, :updated_at
-      ]) + "\n"
+      output << import('user', fields_from_object(user, User.import_export_simple_fields + [
+        :encrypted_password, :confirmed_at, :confirmation_token, :confirmation_sent_at
+      ])) + "\n"
 
       user.social_accounts.each do |social_account|
-        output << import('social_account', social_account,
-          SocialAccount.import_export_simple_fields,
-          additional: {username: user.username}) + "\n"
+        output << import('social_account',
+          fields_from_object(social_account, SocialAccount.import_export_simple_fields).merge(
+            username: user.username)
+        ) + "\n"
       end
     end
 
     FactData.all.each do |fact_data|
-      output << import('fact', fact_data, [
+      output << import('fact', fields_from_object(fact_data, [
         :fact_id, :displaystring, :title, :url, :created_at
-      ]) + "\n"
+      ])) + "\n"
     end
 
     Comment.all.each do |comment|
-      output << import('comment', comment, [:content, :created_at],
-        additional: {fact_id: comment.fact_data.fact_id,
-          username: comment.created_by.username}) + "\n"
+      output << import('comment',
+        fields_from_object(comment, [:content, :created_at]).merge(
+          fact_id: comment.fact_data.fact_id, username: comment.created_by.username)
+      ) + "\n"
     end
 
     output
@@ -47,14 +48,13 @@ class Export
     name.to_s + ': ' + to_ruby(value) + ', '
   end
 
-  def hash_field_for(object, name)
-    name_value_to_string(name, object.public_send(name))
+  def fields_from_object(object, field_names)
+    field_names.inject({}) { |hash, name| hash.merge(name => object.public_send(name)) }
   end
 
-  def import(name, object, fields, additional:{})
-    object_fields = fields.map { |name| hash_field_for(object, name) }.join
-    additional_string = additional.map{ |name, value| name_value_to_string(name, value)}.join
+  def import(name, fields)
+    fields_string = fields.map{ |name, value| name_value_to_string(name, value)}.join
 
-    "FactlinkImport.#{name}({#{object_fields}#{additional_string}})"
+    "FactlinkImport.#{name}({#{fields_string}})"
   end
 end
