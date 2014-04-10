@@ -6,25 +6,25 @@ class Export
       output << import('user', user, User.import_export_simple_fields + [
         :encrypted_password, :confirmed_at, :confirmation_token,
         :confirmation_sent_at, :updated_at
-      ])
+      ]) + "\n"
 
       user.social_accounts.each do |social_account|
         output << import('social_account', social_account,
           SocialAccount.import_export_simple_fields,
-          additional: {username: user.username})
+          additional: {username: user.username}) + "\n"
       end
     end
 
     FactData.all.each do |fact_data|
       output << import('fact', fact_data, [
         :fact_id, :displaystring, :title, :url, :created_at
-      ])
+      ]) + "\n"
     end
 
     Comment.all.each do |comment|
       output << import('comment', comment, [:content, :created_at],
         additional: {fact_id: comment.fact_data.fact_id,
-          username: comment.created_by.username})
+          username: comment.created_by.username}) + "\n"
     end
 
     output
@@ -55,6 +55,6 @@ class Export
     object_fields = fields.map { |name| hash_field_for(object, name) }.join
     additional_string = additional.map{ |name, value| name_value_to_string(name, value)}.join
 
-    "FactlinkImport.#{name}({#{object_fields}#{additional_string}})\n"
+    "FactlinkImport.#{name}({#{object_fields}#{additional_string}})"
   end
 end
