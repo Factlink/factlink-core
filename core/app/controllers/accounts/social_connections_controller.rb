@@ -17,7 +17,7 @@ class Accounts::SocialConnectionsController < Accounts::BaseController
       social_account.destroy
     end
 
-    current_user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
+    current_user.social_account(provider_name).update_omniauth_obj!(omniauth_obj)
     render_success_event
   end
 
@@ -47,8 +47,8 @@ class Accounts::SocialConnectionsController < Accounts::BaseController
   private
 
   def deauthorize_facebook social_account
-    uid = social_account.omniauth_obj['uid']
-    token = social_account.omniauth_obj['credentials']['token']
+    uid = social_account.omniauth_obj_id
+    token = social_account.token
 
     social_account.destroy
 
