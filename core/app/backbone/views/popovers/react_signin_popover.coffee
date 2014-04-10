@@ -4,7 +4,7 @@ window.ReactSigninLinks = React.createClass
   render: ->
     container =
       if window.localStorageIsEnabled
-        _div [],
+        _span [],
           'Sign in with: ',
           _a ["button-twitter js-accounts-popup-link",
             @props.buttonClassName || 'button-connect'
@@ -23,12 +23,11 @@ window.ReactSigninLinks = React.createClass
           ],
             "or sign in/up with email."
       else
-        _div [],
+        _span [],
             "Your privacy settings block you from interacting."
             _br {}
             " Please enable (third-party) cookies from factlink.com"
 
-    @transferPropsTo container
 
 window.ReactSigninPopover = React.createClass
   displayName: "ReactSigninPopover"
