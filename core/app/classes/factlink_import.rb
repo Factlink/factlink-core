@@ -1,5 +1,22 @@
-class FactlinkImport
-  def user fields
+module FactlinkImport
+  extend self
+
+  class FactlinkImportFact
+    def initialize(fact_id)
+      @fact_id = fact_id
+    end
+
+    def interesting(fields)
+      ExecuteAsUser.new(FactlinkImport.user_for(fields[:username])).execute do |pavlov|
+        pavlov.import = true
+        pavlov.time = nil
+        dead_fact = pavlov.interactor(:'facts/set_opinion', fact_id: @fact_id,
+          opinion: 'believes')
+      end
+    end
+  end
+
+  def user(fields)
     user = User.new
 
     User.import_export_simple_fields.each do |name|
@@ -20,22 +37,26 @@ class FactlinkImport
     user.save!
   end
 
-  def social_account fields
-    create_fields = fields.slice(SocialAccount.import_export_simple_fields) + [user: User.find(fields[:username])]
+  def social_account(fields)
+    create_fields = fields.slice(*SocialAccount.import_export_simple_fields)
+    create_fields[:user] = user_for(fields[:username])
     SocialAccount.create! create_fields
   end
 
-  def fact fields
+  def fact(fields, &block)
+    dead_fact = nil
     ExecuteAsUser.new(nil).execute do |pavlov|
       pavlov.import = true
       pavlov.time = fields[:created_at]
-      pavlov.interactor(:'facts/create', fact_id: fields[:fact_id],
+      dead_fact = pavlov.interactor(:'facts/create', fact_id: fields[:fact_id],
         displaystring: fields[:displaystring], site_title: fields[:title],
         site_url: fields[:url])
     end
+
+    FactlinkImportFact.new(dead_fact.id).instance_eval(&block)
   end
 
-  def comment fields
+  def comment(fields)
     ExecuteAsUser.new(user_for(fields[:username])).execute do |pavlov|
       pavlov.import = true
       pavlov.time = fields[:created_at]
@@ -43,7 +64,7 @@ class FactlinkImport
     end
   end
 
-  private def user_for username
+  def user_for(username)
     @user_for ||= {}
     @user_for[username] ||= User.find(username) or fail "Username '#{username}' not found"
   end

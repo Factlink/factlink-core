@@ -34,7 +34,7 @@ if [[ -n "$ERROR_STATUS" ]]; then
   sleep 3
 fi
 
-bundle exec rake db:init
+bundle exec rake db:import[dump.rb]
 
 if [[ -n "$FOREMAN_PID" ]]; then
   kill $FOREMAN_PID
