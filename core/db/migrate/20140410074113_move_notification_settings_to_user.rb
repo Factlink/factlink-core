@@ -7,7 +7,15 @@ class MoveNotificationSettingsToUser < Mongoid::Migration
         user['notification_settings_edit_token'] ||=
           user['user_notification']['notification_settings_edit_token']
       end
-      user.save!
+      ok=false
+      begin
+        user.save!
+        ok=true
+      ensure
+        if !ok
+          puts user.to_json
+        end
+      end
     end
   end
 
