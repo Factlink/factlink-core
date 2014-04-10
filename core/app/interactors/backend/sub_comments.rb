@@ -1,10 +1,12 @@
 module Backend
   module SubComments
-    def self.count(parent_id:)
+    extend self
+
+    def count(parent_id:)
       SubComment.where(parent_id: parent_id.to_s).count
     end
 
-    def self.index(parent_ids_in:)
+    def index(parent_ids_in:)
       parent_ids = Array(parent_ids_in)
       sub_comments = SubComment.any_in(parent_id: parent_ids).asc(:created_at)
       sub_comments.map do |sub_comment|
@@ -12,11 +14,11 @@ module Backend
       end
     end
 
-    def self.destroy!(id:)
+    def destroy!(id:)
       SubComment.find(id).destroy
     end
 
-    def self.create!(parent_id:, content:, user:)
+    def create!(parent_id:, content:, user:)
       sub_comment = SubComment.new
       sub_comment.parent_id = parent_id.to_s
       sub_comment.created_by = user
@@ -26,7 +28,7 @@ module Backend
       sub_comment
     end
 
-    def self.dead_for(sub_comment)
+    def dead_for(sub_comment)
       created_by = Backend::Users.by_ids(user_ids: [sub_comment.created_by_id]).first
       DeadSubComment.new id: sub_comment.id,
                          created_by: created_by,
