@@ -3,16 +3,16 @@ window.ReactTopbarMenu = React.createClass
   mixins: [UpdateOnSignInOrOutMixin]
 
   render: ->
-    _li ['dropdown topbar-menu-item'],
-      _a ['dropdown-toggle topbar-menu-link', 'data-toggle': 'dropdown', href: 'javascript:'],
+    @transferPropsTo _li ['dropdown'],
+      _a ['dropdown-toggle', @props.linkClass, 'data-toggle': 'dropdown', href: 'javascript:'],
         _b ['caret']
       _ul ['dropdown-menu'],
         _li ['dropdown-menu-item'],
-         _a [href: '/in-your-browser'],
+         _a [href: '/in-your-browser', rel: 'backbone'],
            _i ['icon-globe']
            " In your browser"
         _li ['dropdown-menu-item'],
-         _a [href: '/on-your-site'],
+         _a [href: '/on-your-site', rel: 'backbone'],
            _i ['icon-bookmark']
            " On your site"
         _li ['dropdown-menu-item'],
@@ -83,7 +83,7 @@ window.ReactTopbar = React.createClass
                 _img ['topbar-profile-image image-30px', src: currentSession.user().avatar_url(30)]
                 currentSession.user().get('name')
             _li ['topbar-divider']
-            ReactTopbarMenu()
+            ReactTopbarMenu className: 'topbar-menu-item', linkClass: 'topbar-menu-link'
 
           _a ['topbar-logo', href: '/feed', rel: 'backbone']
 
