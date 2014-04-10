@@ -2,6 +2,27 @@ window.ReactTopbarMenu = React.createClass
   displayName: 'ReactTopbarMenu'
   mixins: [UpdateOnSignInOrOutMixin]
 
+  _adminItems: ->
+    _span [],
+      _li ['dropdown-menu-item'],
+        _a [href: '/a/users'],
+          'Users'
+      _li ['dropdown-menu-item'],
+        _a [href: '/a/clean'],
+          'Clean actions'
+      _li ['dropdown-menu-item'],
+        _a [href: '/a/global_feature_toggles'],
+          'Global features'
+      _li ['dropdown-menu-item'],
+        _a [href: '/a/info'],
+          'Info'
+      _li ['dropdown-menu-item'],
+        _a [href: '/a/cause_error'],
+          'Cause Error'
+      _li ['dropdown-menu-item'],
+        _a [href: '/a/resque'],
+          'Resque'
+
   render: ->
     @transferPropsTo _li ['dropdown'],
       _a ['dropdown-toggle', @props.linkClass, 'data-toggle': 'dropdown', href: 'javascript:'],
@@ -25,25 +46,7 @@ window.ReactTopbarMenu = React.createClass
            " Sign out"
 
         if currentSession.user().get('admin')
-          _span [],
-            _li ['dropdown-menu-item'],
-              _a [href: '/a/users'],
-                'Users'
-            _li ['dropdown-menu-item'],
-              _a [href: '/a/clean'],
-                'Clean actions'
-            _li ['dropdown-menu-item'],
-              _a [href: '/a/global_feature_toggles'],
-                'Global features'
-            _li ['dropdown-menu-item'],
-              _a [href: '/a/info'],
-                'Info'
-            _li ['dropdown-menu-item'],
-              _a [href: '/a/cause_error'],
-                'Cause Error'
-            _li ['dropdown-menu-item'],
-              _a [href: '/a/resque'],
-                'Resque'
+          @_adminItems()
 
 window.ReactTopbarSearch = React.createBackboneClass
   displayName: 'ReactTopbarSearch'
