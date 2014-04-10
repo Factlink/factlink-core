@@ -66,21 +66,24 @@ window.ReactAddComment = React.createBackboneClass
     controlsOpened: false
     searchOpened: false
 
-  render: ->
+  _renderTextArea: ->
     comment_add_uid = string_hash(@props.site_url)
     #note: we'd can't rely on *any* model attributes for the uid because
     #the id is missing for new models, and everything else is missing for existing
     #but not entirely loaded models.
+    ReactTextArea
+      ref: 'textarea'
+      storageKey: "add_comment_to_fact_#{comment_add_uid}"
+      onChange: @_onTextareaChange
+      onSubmit: => @refs.signinPopover.submit(=> @_submit())
 
+  render: ->
     _div ['add-comment-container comment-container'],
       _div ['add-comment spec-add-comment-form'],
         _div ['add-comment-question'],
           'What do you think?'
-        ReactTextArea
-          ref: 'textarea'
-          storageKey: "add_comment_to_fact_#{comment_add_uid}"
-          onChange: @_onTextareaChange
-          onSubmit: => @refs.signinPopover.submit(=> @_submit())
+
+        @_renderTextArea()
         _div [
           'add-comment-controls'
           'add-comment-controls-visible' if @state.controlsOpened
