@@ -3,7 +3,7 @@ module Acceptance
     def open_discussion_sidebar_for fact_id
       visit '/client/blank'
       find('.spec-discussion-sidebar-region')
-      page.execute_script "clientEnvoy.showFactlink(#{fact_id})"
+      page.execute_script "clientEnvoy.showFactlink(#{fact_id}, 'invalid://example.org/testing')"
       find('.spec-button-interesting')
     end
 

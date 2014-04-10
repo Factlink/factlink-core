@@ -77,5 +77,6 @@ window.ReactDiscussion = React.createBackboneClass
       ReactAddComment
         model: @model().comments()
         initiallyFocus: @props.initiallyFocusAddComment
+        site_url: @props.site_url
       ReactComments
         model: @model().comments()

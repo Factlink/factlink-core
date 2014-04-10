@@ -12,7 +12,7 @@ class ClientEnvoy
   constructor: (senderEnvoy) ->
     @_senderEnvoy = senderEnvoy
 
-  showFactlink: (fact_id) ->
+  showFactlink: (fact_id, site_url) ->
     Factlink.load_client_dependencies()
 
     fact = new Fact id: fact_id
@@ -23,6 +23,7 @@ class ClientEnvoy
       model: fact
       initiallyFocusAddComment: true
       key: getComponentKey()
+      site_url: site_url
 
   prepareNewFactlink: (displaystring, site_url, site_title) =>
     Factlink.load_client_dependencies()
@@ -40,17 +41,18 @@ class ClientEnvoy
       model: fact
       initiallyFocusAddComment: true
       key: getComponentKey()
+      site_url: site_url
 
 printDevelopmentHelp = ->
   return unless Factlink.Global.environment == 'development'
 
   console.group 'Factlink'
   console.log 'Greetings, stranger. Put any of the following commands in your console:'
-  console.log '  clientEnvoy.showFactlink(3)'
-  console.log '  clientEnvoy.prepareNewFactlink("Hello World", "http://example.org", "Example")'
+  console.log '  clientEnvoy.showFactlink(3, "http://example.org/")'
+  console.log '  clientEnvoy.prepareNewFactlink("Hello World", "http://example.org/", "Example")'
   console.log 'Or put one of these commands in your hash (and reload):'
-  console.log '  localhost:3000/client/blank#clientEnvoy.showFactlink(3)'
-  console.log '  localhost:3000/client/blank#clientEnvoy.prepareNewFactlink("Hello World", "http://example.org", "Example")'
+  console.log '  localhost:3000/client/blank#clientEnvoy.showFactlink(3, "http://example.org/")'
+  console.log '  localhost:3000/client/blank#clientEnvoy.prepareNewFactlink("Hello World", "http://example.org/", "Example")'
   console.log 'Now, how about a nice game of chess?'
   console.groupEnd()
 
