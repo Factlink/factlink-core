@@ -2,7 +2,7 @@ class Export
   def export
     output = ''
 
-    User.all.each do |user|
+    User.all.order_by(username: 1).each do |user|
       output << import('FactlinkImport.user', fields_from_object(user, User.import_export_simple_fields + [
         :encrypted_password, :confirmed_at, :confirmation_token, :confirmation_sent_at
       ])) + "\n"
@@ -15,12 +15,16 @@ class Export
       end
     end
 
-    FactData.all.each do |fact_data|
+    FactData.all.order_by(fact_id: 1).each do |fact_data|
       output << import('FactlinkImport.fact', fields_from_object(fact_data, [
         :fact_id, :displaystring, :title, :url, :created_at
       ])) + " do\n"
 
-      Backend::Facts.votes(fact_id: fact_data.fact_id).each do |vote|
+      sorted_votes = Backend::Facts.votes(fact_id: fact_data.fact_id).sort do |a,b|
+        a[:username] <=> b[:username]
+      end
+
+      sorted_votes.each do |vote|
         output << '  '
         output << import('interesting', username: vote[:user].username)
         output << "\n"
@@ -29,7 +33,7 @@ class Export
       output << "end\n"
     end
 
-    Comment.all.each do |comment|
+    Comment.all.order_by(fact_id: 1, created_at: 1).each do |comment|
       output << import('FactlinkImport.comment',
         fields_from_object(comment, [:content, :created_at]).merge(
           fact_id: comment.fact_data.fact_id, username: comment.created_by.username)
