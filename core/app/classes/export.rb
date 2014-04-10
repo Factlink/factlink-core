@@ -55,6 +55,6 @@ class Export
     object_fields = fields.map { |name| hash_field_for(object, name) }.join
     additional_string = additional.map{ |name, value| name_value_to_string(name, value)}.join
 
-    "FactlinkImport.new.#{name}({#{object_fields}#{additional_string}})\n"
+    "FactlinkImport.#{name}({#{object_fields}#{additional_string}})\n"
   end
 end

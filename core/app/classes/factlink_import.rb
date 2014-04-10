@@ -1,4 +1,6 @@
-class FactlinkImport
+module FactlinkImport
+  extend self
+
   def user fields
     user = User.new
 
