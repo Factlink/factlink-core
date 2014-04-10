@@ -2,11 +2,11 @@ module FactlinkImport
   extend self
 
   class FactlinkImportFact
-    def initialize fact_id
+    def initialize(fact_id)
       @fact_id = fact_id
     end
 
-    def interesting fields
+    def interesting(fields)
       ExecuteAsUser.new(FactlinkImport.user_for(fields[:username])).execute do |pavlov|
         pavlov.import = true
         pavlov.time = nil
@@ -16,7 +16,7 @@ module FactlinkImport
     end
   end
 
-  def user fields
+  def user(fields)
     user = User.new
 
     User.import_export_simple_fields.each do |name|
@@ -37,13 +37,13 @@ module FactlinkImport
     user.save!
   end
 
-  def social_account fields
+  def social_account(fields)
     create_fields = fields.slice(*SocialAccount.import_export_simple_fields)
     create_fields[:user] = user_for(fields[:username])
     SocialAccount.create! create_fields
   end
 
-  def fact fields, &block
+  def fact(fields, &block)
     dead_fact = nil
     ExecuteAsUser.new(nil).execute do |pavlov|
       pavlov.import = true
@@ -56,7 +56,7 @@ module FactlinkImport
     FactlinkImportFact.new(dead_fact.id).instance_eval(&block) if block_given?
   end
 
-  def comment fields
+  def comment(fields)
     ExecuteAsUser.new(user_for(fields[:username])).execute do |pavlov|
       pavlov.import = true
       pavlov.time = fields[:created_at]
@@ -64,7 +64,7 @@ module FactlinkImport
     end
   end
 
-  def user_for username
+  def user_for(username)
     @user_for ||= {}
     @user_for[username] ||= User.find(username) or fail "Username '#{username}' not found"
   end
