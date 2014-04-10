@@ -3,7 +3,7 @@ class Export
     output = ''
 
     User.all.each do |user|
-      output << import('user', fields_from_object(user, User.import_export_simple_fields + [
+      output << import('FactlinkImport.user', fields_from_object(user, User.import_export_simple_fields + [
         :encrypted_password, :confirmed_at, :confirmation_token, :confirmation_sent_at
       ])) + "\n"
 
@@ -16,13 +16,21 @@ class Export
     end
 
     FactData.all.each do |fact_data|
-      output << import('fact', fields_from_object(fact_data, [
+      output << import('FactlinkImport.fact', fields_from_object(fact_data, [
         :fact_id, :displaystring, :title, :url, :created_at
-      ])) + "\n"
+      ])) + " do\n"
+
+      Backend::Facts.votes(fact_id: fact_data.fact_id).each do |vote|
+        output << '  '
+        output << import('interesting', username: vote[:user].username)
+        output << "\n"
+      end
+
+      output << "end\n"
     end
 
     Comment.all.each do |comment|
-      output << import('comment',
+      output << import('FactlinkImport.comment',
         fields_from_object(comment, [:content, :created_at]).merge(
           fact_id: comment.fact_data.fact_id, username: comment.created_by.username)
       ) + "\n"
@@ -55,6 +63,6 @@ class Export
   def import(name, fields)
     fields_string = fields.map{ |name, value| name_value_to_string(name, value)}.join
 
-    "FactlinkImport.#{name}({#{fields_string}})"
+    "#{name}({#{fields_string}})"
   end
 end

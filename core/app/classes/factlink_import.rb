@@ -1,6 +1,21 @@
 module FactlinkImport
   extend self
 
+  class FactlinkImportFact
+    def initialize fact_id
+      @fact_id = fact_id
+    end
+
+    def interesting fields
+      ExecuteAsUser.new(FactlinkImport.user_for(fields[:username])).execute do |pavlov|
+        pavlov.import = true
+        pavlov.time = nil
+        dead_fact = pavlov.interactor(:'facts/set_opinion', fact_id: @fact_id,
+          opinion: 'believes')
+      end
+    end
+  end
+
   def user fields
     user = User.new
 
@@ -28,14 +43,17 @@ module FactlinkImport
     SocialAccount.create! create_fields
   end
 
-  def fact fields
+  def fact fields, &block
+    dead_fact = nil
     ExecuteAsUser.new(nil).execute do |pavlov|
       pavlov.import = true
       pavlov.time = fields[:created_at]
-      pavlov.interactor(:'facts/create', fact_id: fields[:fact_id],
+      dead_fact = pavlov.interactor(:'facts/create', fact_id: fields[:fact_id],
         displaystring: fields[:displaystring], site_title: fields[:title],
         site_url: fields[:url])
     end
+
+    FactlinkImportFact.new(dead_fact.id).instance_eval(&block) if block_given?
   end
 
   def comment fields
@@ -46,7 +64,7 @@ module FactlinkImport
     end
   end
 
-  private def user_for username
+  def user_for username
     @user_for ||= {}
     @user_for[username] ||= User.find(username) or fail "Username '#{username}' not found"
   end
