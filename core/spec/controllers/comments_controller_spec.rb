@@ -19,7 +19,7 @@ describe CommentsController do
       as(user) do |pavlov|
         dead_fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
-                                     url: 'url',
+                                     site_url: 'url',
                                      site_title: 'title')
       end
       as(other_user) do |pavlov|
@@ -47,7 +47,7 @@ describe CommentsController do
       as(user) do |pavlov|
         dead_fact = pavlov.interactor(:'facts/create',
                                      displaystring: 'displaystring',
-                                     url: 'url',
+                                     site_url: 'url',
                                      site_title: 'title')
       end
 

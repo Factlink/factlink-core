@@ -28,7 +28,7 @@ class FactlinkImport
   def fact fields
     Pavlov.interactor(:'facts/create', fact_id: fields[:fact_id],
       displaystring: fields[:displaystring], site_title: fields[:title],
-      url: fields[:url], pavlov_options: pavlov_options(time: fields[:created_at]))
+      site_url: fields[:url], pavlov_options: pavlov_options(time: fields[:created_at]))
   end
 
   def comment fields

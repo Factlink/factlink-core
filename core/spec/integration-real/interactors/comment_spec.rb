@@ -8,7 +8,7 @@ describe 'comments' do
   describe 'initially' do
     it 'a fact has no comments' do
       as(current_user) do |pavlov|
-        dead_fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', site_title: ''
+        dead_fact = pavlov.interactor :'facts/create', displaystring: 'a fact', site_url: 'http://example.org', site_title: ''
 
         comments = pavlov.interactor :'comments/for_fact_id', fact_id: dead_fact.id.to_s
 
@@ -20,7 +20,7 @@ describe 'comments' do
   describe 'adding a few comments' do
     it 'the fact should get the comments we add, sorted by votes' do
       as(current_user) do |pavlov|
-        dead_fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', site_title: ''
+        dead_fact = pavlov.interactor :'facts/create', displaystring: 'a fact', site_url: 'http://example.org', site_title: ''
 
         comment1 = pavlov.interactor :'comments/create', fact_id: dead_fact.id, content: 'Gekke Gerrit'
         comment2 = pavlov.interactor :'comments/create', fact_id: dead_fact.id, content: 'Handige Harrie'
@@ -36,7 +36,7 @@ describe 'comments' do
 
   it "removing a few comments" do
     as(current_user) do |pavlov|
-      fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: 'http://example.org', site_title: ''
+      fact = pavlov.interactor :'facts/create', displaystring: 'a fact', site_url: 'http://example.org', site_title: ''
 
       comment1 = pavlov.interactor :'comments/create', fact_id: fact.id, content: 'Gekke Gerrit'
       comment2 = pavlov.interactor :'comments/create', fact_id: fact.id, content: 'Handige Harrie'
