@@ -71,8 +71,8 @@ window.ReactTopbar = React.createClass
 
   render: ->
     _div ['topbar'],
-      _div ['topbar-inner'],
-        if currentSession.signedIn()
+      if currentSession.signedIn()
+        _div ['topbar-inner'],
           _ul ['topbar-menu'],
             _li ['topbar-menu-item'],
               _a ['topbar-menu-link', href: '/feed', rel: 'backbone'],
@@ -84,7 +84,12 @@ window.ReactTopbar = React.createClass
                 currentSession.user().get('name')
             _li ['topbar-divider']
             ReactTopbarMenu()
-        else
+
+          _a ['topbar-logo', href: '/feed', rel: 'backbone']
+
+          ReactTopbarSearch model: Factlink.topbarSearchModel
+      else
+        _div ['topbar-inner'],
           _ul ['topbar-menu'],
             _li ['topbar-menu-item topbar-in-your-browser'],
               _a ['topbar-menu-link', href: '/in-your-browser'],
@@ -98,11 +103,7 @@ window.ReactTopbar = React.createClass
               _div ['topbar-connect'],
                 ReactSigninLinks()
 
-        if currentSession.signedIn()
-          _a ['topbar-logo', href: '/feed', rel: 'backbone']
-        else
           _a ['topbar-logo', href: '/']
 
-        ReactTopbarSearch model: Factlink.topbarSearchModel
 
 
