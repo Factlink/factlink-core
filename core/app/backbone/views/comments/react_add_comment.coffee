@@ -67,7 +67,7 @@ window.ReactAddComment = React.createBackboneClass
     searchOpened: false
 
   render: ->
-    comment_add_uid = @model().fact.id || "u" + string_hash(@model().fact.get('site_url'))
+    comment_add_uid = string_hash(@props.site_url)
     #note: we'd can't rely on *any* model attributes for the uid because
     #the id is missing for new models, and everything else is missing for existing
     #but not entirely loaded models.
