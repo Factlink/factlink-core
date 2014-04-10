@@ -44,6 +44,7 @@ class FactlinkImport
   end
 
   private def user_for username
-    User.find(username) or fail "Username '#{username}' not found"
+    @user_for ||= {}
+    @user_for[username] ||= User.find(username) or fail "Username '#{username}' not found"
   end
 end
