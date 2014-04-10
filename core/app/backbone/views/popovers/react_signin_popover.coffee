@@ -6,12 +6,14 @@ window.ReactSigninLinks = React.createClass
       if window.localStorageIsEnabled
         _div [],
           'Sign in with: ',
-          _a ["button-twitter small-connect-button js-accounts-popup-link",
+          _a ["button-twitter js-accounts-popup-link",
+            @props.buttonClassName || 'button-connect'
             href: "/auth/twitter"
           ],
             _i ["icon-twitter"]
           ' ',
-          _a ["button-facebook small-connect-button js-accounts-popup-link",
+          _a ["button-facebook js-accounts-popup-link",
+            @props.buttonClassName || 'button-connect'
             href: "/auth/facebook"
           ],
             _i ["icon-facebook"]
