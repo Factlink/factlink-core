@@ -39,7 +39,8 @@ module Interactors
       def follow_user
         Backend::UserFollowers.follow \
           follower_id: current_user.graph_user_id,
-          followee_id: user_to_follow.graph_user_id
+          followee_id: user_to_follow.graph_user_id,
+          time: pavlov_options[:time]
 
         Backend::Activities.create \
           graph_user_id: current_user.graph_user_id,

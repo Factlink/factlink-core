@@ -11,8 +11,8 @@ class UserFollowingUsers
     @relation = relation
   end
 
-  def follow other_id
-    score = time_to_score(DateTime.now)
+  def follow other_id, time
+    score = time_to_score(time)
 
     following_key[graph_user_id].zadd score, other_id
     followers_key[other_id].zadd score, graph_user_id
