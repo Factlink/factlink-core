@@ -39,7 +39,8 @@ module Interactors
       def create_sub_comment
         Backend::SubComments.create!(parent_id: comment_id,
                                      content: content,
-                                     user: pavlov_options[:current_user])
+                                     user: pavlov_options[:current_user],
+                                     created_at: pavlov_options[:time])
       end
 
       def comment

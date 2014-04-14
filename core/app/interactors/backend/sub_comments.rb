@@ -18,11 +18,13 @@ module Backend
       SubComment.find(id).destroy
     end
 
-    def create!(parent_id:, content:, user:)
+    def create!(parent_id:, content:, user:, created_at:)
       sub_comment = SubComment.new
       sub_comment.parent_id = parent_id.to_s
       sub_comment.created_by = user
       sub_comment.content = content
+      sub_comment.created_at = created_at
+      sub_comment.updated_at = created_at
       sub_comment.save!
 
       sub_comment
