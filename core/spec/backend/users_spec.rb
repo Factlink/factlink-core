@@ -16,8 +16,8 @@ describe Backend::Users do
         reset_password_token: 'data',
         confirmation_token: 'data'
 
-      create :social_account, :twitter, user: user
-      create :social_account, :facebook, user: user
+      create :social_account, :twitter, user_id: user.id.to_s
+      create :social_account, :facebook, user_id: user.id.to_s
 
       expect(user.social_accounts.size).to eq 2
 

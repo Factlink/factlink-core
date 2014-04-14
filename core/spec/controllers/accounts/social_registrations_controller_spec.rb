@@ -78,7 +78,7 @@ describe Accounts::SocialRegistrationsController do
     end
 
     it 'gives an error when an already connected social account has been given' do
-      twitter_account = create :social_account, :twitter, user: create(:user)
+      twitter_account = create :social_account, :twitter, user_id: create(:user).id.to_s
 
       session[:register_social_account_id] = twitter_account.id
       post :create
