@@ -12,9 +12,11 @@ module Interactors
           user_id: pavlov_options[:current_user].id.to_s,
           created_at: pavlov_options[:time]
 
-        Backend::Comments.set_opinion \
-          comment_id: comment.id.to_s, opinion: 'believes',
-          graph_user_id: pavlov_options[:current_user].graph_user_id
+        unless pavlov_options[:import]
+          Backend::Comments.set_opinion \
+            comment_id: comment.id.to_s, opinion: 'believes',
+            graph_user_id: pavlov_options[:current_user].graph_user_id
+        end
 
         create_activity comment
 
