@@ -5,6 +5,7 @@ class SocialAccount
   field :provider_name, type: String
   field :omniauth_obj_string, type: String
   field :omniauth_obj_id, type: String
+  field :user_id, type: String
 
   validates_presence_of :provider_name
   validates_presence_of :omniauth_obj_string
@@ -12,13 +13,19 @@ class SocialAccount
   validate :provider_matches_omniauth_provider
   validate :uniqueness_of_uid
 
-  belongs_to :user, index: true
+  def user
+    User.where(id: user_id).first
+  end
 
-  index({provider_name: 1, omniauth_obj_id: 1}, { unique: true })
+  def user=(user)
+    self.user_id = user.id.to_s
+  end
+
+  #index({provider_name: 1, omniauth_obj_id: 1}, { unique: true })
 
   class << self
     def find_by_provider_and_uid(provider_name, uid)
-      find_by(provider_name: provider_name, omniauth_obj_id: uid)
+      where(provider_name: provider_name, omniauth_obj_id: uid.to_s).first
     end
 
     def import_export_simple_fields

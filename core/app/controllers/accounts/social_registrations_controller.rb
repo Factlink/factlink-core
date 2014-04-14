@@ -46,7 +46,8 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
   end
 
   def finish_connecting
-    @user.social_accounts.push @social_account
+    @social_account.user = @user
+    @social_account.save!
     remembered_sign_in(@user)
 
     render_success_event
