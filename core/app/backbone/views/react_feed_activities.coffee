@@ -19,8 +19,10 @@ window.ReactFeedActivitiesAutoLoading = React.createBackboneClass
   componentDidMount: ->
     if !@model().length
       @model().loadMore()
-    @model().on "remove stopLoading", @checkScrolledPosition, @
     $(window).on "scroll", @checkScrolledPosition
+    @checkScrolledPosition()
+
+  componentDidUpdate: -> @checkScrolledPosition()
 
   componentWillUnmount: ->
     # createBackboneClass unbinds model
