@@ -29,3 +29,9 @@
   height: 100%;
   display: block;
 }
+
+.discussion-menu-username {
+  vertical-align: middle;
+  @extend %ellipsis-inline-block;
+  max-width: 200px;
+}
