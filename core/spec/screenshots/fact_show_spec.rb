@@ -52,7 +52,7 @@ describe "factlink", type: :feature do
 
     page.should have_content @factlink.displaystring
 
-    find_link('(2) Reply').click
+    find_link('(2) Reply') #open by default, no need to click
 
     find('.sub-comment + .sub-comment .icon-trash').click #open delete so it's tested too
     #implicitly, the previous line is also necessary to wait for the second subcomment to appear
@@ -65,7 +65,7 @@ describe "factlink", type: :feature do
     sign_out_user
 
     open_discussion_sidebar_for @factlink.fact_id
-    find_link('(2) Reply').click
+    find_link('(2) Reply') #open by default, no need to click
     find('.sub-comment+.sub-comment')
 
     page.should have_content @factlink.displaystring
