@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140407154017) do
+ActiveRecord::Schema.define(:version => 20140410094333) do
 
   create_table "comments", :force => true do |t|
     t.integer  "fact_data_id"
@@ -30,6 +30,15 @@ ActiveRecord::Schema.define(:version => 20140407154017) do
     t.string   "fact_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "social_accounts", :force => true do |t|
+    t.string   "provider_name"
+    t.string   "omniauth_obj_id"
+    t.string   "user_id"
+    t.text     "omniauth_obj_string"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "sub_comments", :force => true do |t|

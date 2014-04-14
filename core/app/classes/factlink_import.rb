@@ -69,7 +69,7 @@ module FactlinkImport
 
   def social_account(fields)
     create_fields = fields.slice(*SocialAccount.import_export_simple_fields)
-    create_fields[:user] = user_for(fields[:username])
+    create_fields[:user_id] = user_for(fields[:username]).id.to_s
     SocialAccount.create! create_fields
   end
 
