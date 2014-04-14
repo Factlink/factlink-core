@@ -22,7 +22,7 @@ GIT
 
 GIT
   remote: git://github.com/Factlink/url_normalizer.git
-  revision: a0b6ab63edc21a0491073aebd25111e7ed23d498
+  revision: 39e9a6d291aac9313be8c9497934ee90b9127cea
   specs:
     url_normalizer (0.0.2)
       addressable
@@ -76,7 +76,7 @@ GEM
     activesupport (3.2.17)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
-    addressable (2.3.5)
+    addressable (2.3.6)
     approvals (0.0.13)
       nokogiri (~> 1.6)
       thor (~> 0.18)
