@@ -10,16 +10,17 @@
 
 .discussion-menu {
   @extend %centering-y;
-  display: inline-block; // new block formatting context
-  width: 100%;
-  height: $topbarHeight;
   text-align: right;
-  padding: 0 $votePadding;
 }
 
 .discussion-menu-item {
   @extend %centering-inner;
-  padding: 0 5px;
+  padding: 5px 10px;
+  font-weight: 600;
+
+  &:first-child {
+    border-right: 1px lightgrey solid;
+  }
 }
 
 .discussion-menu-link {
@@ -29,7 +30,8 @@
   display: block;
 }
 
-.discussion-menu-avatar {
+.discussion-menu-username {
+  @extend %ellipsis-inline-block;
   vertical-align: middle;
-  border-radius: $baseBorderRadius;
+  max-width: 200px;
 }

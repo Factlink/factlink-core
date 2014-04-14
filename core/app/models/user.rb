@@ -114,8 +114,6 @@ class User
     Comments.where(created_by_id: self.id)
   end
 
-  has_many :social_accounts
-
   scope :active, where(:deleted.ne => true)
 
   class << self
@@ -280,8 +278,12 @@ class User
     @count ||= features.to_a.select { |f| Ability::FEATURES.include? f }.count
   end
 
+  def social_accounts
+    SocialAccount.where(user_id: id.to_s)
+  end
+
   def social_account provider_name
-    social_accounts.find_or_initialize_by(provider_name: provider_name)
+    SocialAccount.where(provider_name: provider_name, user_id: id.to_s).first_or_initialize
   end
 
   # Override login mechanism to allow username or email logins

@@ -27,7 +27,8 @@ feature "sub_comments", type: :feature do
 
     open_discussion_sidebar_for fact_data.fact_id
 
-    click_link '(1) Reply'
+    find_link('(1) Reply') #open by default, no need to click
+
     assert_sub_comment_exists sub_comment_text
   end
 end

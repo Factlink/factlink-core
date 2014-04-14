@@ -43,8 +43,8 @@ namespace :db do
 
       rake db:truncate              # Truncate database
       rake db:truncate_keep_users   # Truncate database, but keep the users
-      rake db:export[dump.rb]       # Export the database to dump.rb
-      rake db:import[dump.rb]       # Import the database from dump.rb
+      rake db:export[db/dump.rb]    # Export the database to db/dump.rb
+      rake db:import[db/dump.rb]    # Import the database from db/dump.rb
       rake db:help                  # Show this help file
 
     eos

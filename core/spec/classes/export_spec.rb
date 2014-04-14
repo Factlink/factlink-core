@@ -4,7 +4,7 @@ describe Export do
   include PavlovSupport
 
   it '#export' do
-    dump_file_path = File.expand_path('../../../dump.rb', __FILE__)
+    dump_file_path = File.expand_path('../../../db/dump.rb', __FILE__)
 
     require dump_file_path
 
