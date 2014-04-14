@@ -2,7 +2,7 @@ class UserFollowingUsers
   attr_reader :graph_user_id, :relation, :following_key, :followers_key
   private :relation
 
-  def initialize graph_user_id
+  def initialize(graph_user_id)
     nest_key = Nest.new(:user)[:following_users]
     @following_key = nest_key[:relation]
     @followers_key = nest_key[:reverse_relation]
@@ -11,14 +11,14 @@ class UserFollowingUsers
     @relation = relation
   end
 
-  def follow other_id, time
+  def follow(other_id, time)
     score = time_to_score(time)
 
     following_key[graph_user_id].zadd score, other_id
     followers_key[other_id].zadd score, graph_user_id
   end
 
-  def unfollow other_id
+  def unfollow(other_id)
     following_key[graph_user_id].zrem other_id
     followers_key[other_id].zrem graph_user_id
   end
@@ -31,7 +31,7 @@ class UserFollowingUsers
     followers_key[graph_user_id].zrange 0, -1
   end
 
-  def follows? other_id
+  def follows?(other_id)
     not following_key[graph_user_id].zrank(other_id).nil?
   end
 
