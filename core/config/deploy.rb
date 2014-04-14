@@ -1,5 +1,8 @@
 require 'appsignal/capistrano'
 
+# Show only important output
+logger.level = Logger::IMPORTANT
+
 #############
 # Application
 set :application, "core"

@@ -1,3 +1,6 @@
+# Show only important output
+logger.level = Logger::IMPORTANT
+
 #############
 # Application
 set :application, "js-library"
