@@ -1,5 +1,8 @@
 require 'appsignal/capistrano'
 
+# Show only important output
+logger.level = Logger::IMPORTANT
+
 #############
 # Application
 set :application, "core"
@@ -83,6 +86,8 @@ namespace :mongoid do
   end
 end
 
+$stdout.sync = true
+
 before 'deploy:all',      'deploy'
 after 'deploy:all',       'deploy:restart'
 
@@ -90,10 +95,33 @@ before 'deploy:migrate',  'action:stop_background_processes'
 
 after 'deploy',           'deploy:migrate'
 
-after 'deploy:migrate',   'action:start_resque'
-
 after 'deploy:update',    'deploy:check_installed_packages'
 
 after 'deploy:check_installed_packages', 'deploy:cleanup'
+
+before "deploy:update_code" do
+  print "Updating Code........"
+end
+
+after "deploy:update_code" do
+  puts "Done."
+end
+
+before "deploy:migrate" do
+  print "Migrating.........."
+end
+
+after "deploy:migrate" do
+  'action:start_resque'
+  puts "Done."
+end
+
+before "deploy:cleanup" do
+  print "Cleaning Up.........."
+end
+
+after "deploy:cleanup" do
+  puts "Done."
+end
 
 require './config/boot'
