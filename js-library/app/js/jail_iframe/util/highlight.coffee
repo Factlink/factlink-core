@@ -135,11 +135,20 @@ fetchFacts = (siteUrl) ->
     success: -> FactlinkJailRoot.perf.add_timing_event 'fetchFacts:done'
 
 facts_promise = null
+initial_fetch_facts_url = null
 
-FactlinkJailRoot.jail_ready_promise.done( -> facts_promise = fetchFacts FactlinkJailRoot.siteUrl())
+FactlinkJailRoot.jail_ready_promise.done ->
+  initial_fetch_facts_url = FactlinkJailRoot.siteUrl()
+  facts_promise = fetchFacts initial_fetch_facts_url
 
 FactlinkJailRoot.host_ready_promise.done ->
   console.info "FactlinkJailRoot:", "startHighlighting"
+
+  if initial_fetch_facts_url != FactlinkJailRoot.siteUrl()
+    # Somewhere in the document a <link rel="canonical"> appeared in the meantime
+    facts_promise.abort()
+    facts_promise = fetchFacts FactlinkJailRoot.siteUrl()
+
   facts_promise.done(highlightFacts)
 
 # Don't check for highlighting here, as this is a
