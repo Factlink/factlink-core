@@ -3,25 +3,42 @@ class SocialAccount
   include Mongoid::Timestamps
 
   field :provider_name, type: String
-  field :omniauth_obj, type: Hash
+  field :omniauth_obj_string, type: String
+  field :omniauth_obj_id, type: String
+  field :user_id, type: String
+
   validates_presence_of :provider_name
-  validates_presence_of :omniauth_obj
-  validate :presence_of_uid
+  validates_presence_of :omniauth_obj_string
+  validates_presence_of :omniauth_obj_id
   validate :provider_matches_omniauth_provider
   validate :uniqueness_of_uid
 
-  belongs_to :user, index: true
+  def user
+    User.where(id: user_id).first
+  end
 
-  index({provider_name: 1, 'omniauth_obj.uid' => 1}, { unique: true })
+  def user=(user)
+    self.user_id = user.id.to_s
+  end
+
+  #index({provider_name: 1, omniauth_obj_id: 1}, { unique: true })
 
   class << self
     def find_by_provider_and_uid(provider_name, uid)
-      find_by(:provider_name => provider_name, :'omniauth_obj.uid' => uid)
+      where(provider_name: provider_name, omniauth_obj_id: uid.to_s).first
+    end
+
+    def import_export_simple_fields
+      [:provider_name, :omniauth_obj_string, :created_at, :updated_at]
     end
   end
 
+  def omniauth_obj
+    JSON.parse(omniauth_obj_string)
+  end
+
   def uid
-    omniauth_obj['uid']
+    omniauth_obj_id
   end
 
   def token
@@ -51,26 +68,26 @@ class SocialAccount
     end
   end
 
-  private
-
-  before_save :strip_twitter_access_token
-  def strip_twitter_access_token
+  def update_omniauth_obj!(omniauth_obj)
     if provider_name == 'twitter' && omniauth_obj['extra'] && omniauth_obj['extra']['access_token']
       omniauth_obj['extra']['oath_version'] = omniauth_obj['extra']['access_token'].consumer.options['oauth_version']
       omniauth_obj['extra']['signature_method'] = omniauth_obj['extra']['access_token'].consumer.options['signature_method']
       omniauth_obj['extra'].delete 'access_token'
     end
+
+    self.update_attributes!(omniauth_obj_string: omniauth_obj.to_json)
+  end
+
+  private
+
+  before_validation :add_uid_to_model
+  def add_uid_to_model
+    self.omniauth_obj_id = omniauth_obj['uid']
   end
 
   def provider_matches_omniauth_provider
     if provider_name != omniauth_obj['provider']
       errors.add :provider_name, 'does not match omniauth_obj provider'
-    end
-  end
-
-  def presence_of_uid
-    unless omniauth_obj['uid']
-      errors.add :omniauth_obj, 'does not contain uid'
     end
   end
 

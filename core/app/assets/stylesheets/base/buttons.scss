@@ -172,10 +172,29 @@ $arrowSize: 5px;
   font-size: 12px;
   @include button-height($baseButtonHeight);
   padding: 0 $baseButtonPadding;
+}
+
+.button-connect {
+  height: $smallConnectButtonSize;
+  width: $smallConnectButtonSize;
+  padding: 0;
+  text-align: center;
+  font-size: 16px;
+  vertical-align: middle;
 
   .icon-twitter, .icon-facebook {
-    margin: 1px 0 0;
+    vertical-align: sub;
+    -webkit-font-smoothing: antialiased; // OS X makes fonts bolder than normal. This looks weird with those icons.
   }
+}
+
+.button-connect-small {
+  @extend .button-connect;
+
+  font-size: 12px;
+  width: $baseButtonHeight;
+  height: $baseButtonHeight;
+  line-height: $baseButtonHeight - 4px;
 }
 
 .button-huge {

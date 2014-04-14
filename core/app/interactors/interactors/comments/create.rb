@@ -9,21 +9,22 @@ module Interactors
         comment = Backend::Comments.create \
           fact_id: fact_id,
           content: content,
-          user_id: pavlov_options[:current_user].id.to_s
+          user_id: pavlov_options[:current_user].id.to_s,
+          created_at: pavlov_options[:time]
 
         Backend::Comments.set_opinion \
           comment_id: comment.id.to_s, opinion: 'believes',
-          graph_user: pavlov_options[:current_user].graph_user
+          graph_user_id: pavlov_options[:current_user].graph_user_id
 
         create_activity comment
 
         Backend::Comments.by_ids(ids: comment.id,
-          current_graph_user: pavlov_options[:current_user].graph_user).first
+          current_graph_user_id: pavlov_options[:current_user].graph_user_id).first
       end
 
       def create_activity comment
         Backend::Activities.create \
-                    graph_user: pavlov_options[:current_user].graph_user,
+                    graph_user_id: pavlov_options[:current_user].graph_user_id,
                     action: :created_comment,
                     subject: comment,
                     time: pavlov_options[:time],
@@ -37,7 +38,7 @@ module Interactors
       def validate
         validate_regex   :content, content, /\S/,
           "should not be empty."
-        validate_integer :fact_id, fact_id
+        validate_integer_string :fact_id, fact_id
       end
     end
   end

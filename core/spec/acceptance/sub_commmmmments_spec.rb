@@ -11,7 +11,7 @@ feature "sub_comments", type: :feature do
     user = create :user
 
     as(user) do |pavlov|
-      pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_i, type: "believes", content: "test", pavlov_options: pavlov_options)
+      pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: "believes", content: "test", pavlov_options: pavlov_options)
     end
     sub_comment_text = "Berlioz' death was predicted by the man with the pince-nez"
 

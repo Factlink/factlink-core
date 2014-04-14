@@ -7,7 +7,7 @@
   <tr>
     <td colspan="3" class="added-comment-message-header">
       <h3>
-        <%= link_to @activity[:fact].url.proxy_open_url, class: "message-title" do %>
+        <%= link_to @activity[:fact].proxy_open_url, class: "message-title" do %>
           <%= @activity[:fact].displaystring %>
         <% end %>
       </h3>
@@ -58,7 +58,7 @@
 <table class="button" align="center" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td class="button-inner">
-      <%= link_to @activity[:fact].url.proxy_open_url do %>
+      <%= link_to @activity[:fact].proxy_open_url do %>
         <div class="button-link">
           Reply to this comment
         </div>

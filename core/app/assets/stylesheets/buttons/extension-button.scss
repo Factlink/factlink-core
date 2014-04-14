@@ -14,23 +14,17 @@
   width: 32px;
 }
 
-html[data-factlink-extension-loaded] %extension-install-button {
-  pointer-events: none;
-  background: grey;
-
-}
-
-.install-chrome {
+.chrome-icon {
   @extend %extension-install-button;
   background-image: asset-data-url('browser-icons/Chrome-32x32.png');
 }
 
-.install-firefox {
+.firefox-icon {
   @extend %extension-install-button;
   background-image: asset-data-url('browser-icons/Firefox-32x32.png');
 }
 
-.install-safari {
+.safari-icon {
   @extend %extension-install-button;
   background-image: asset-data-url('browser-icons/Safari-32x32.png');
 }

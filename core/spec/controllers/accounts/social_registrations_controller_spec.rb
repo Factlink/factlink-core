@@ -10,7 +10,7 @@ describe Accounts::SocialRegistrationsController do
         omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
         user = create :user
 
-        user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
+        user.social_account(provider_name).update_omniauth_obj!(omniauth_obj)
 
         controller.request.env['omniauth.auth'] = omniauth_obj
         get :callback, provider_name: 'twitter'
@@ -78,7 +78,7 @@ describe Accounts::SocialRegistrationsController do
     end
 
     it 'gives an error when an already connected social account has been given' do
-      twitter_account = create :social_account, :twitter, user: create(:user)
+      twitter_account = create :social_account, :twitter, user_id: create(:user).id.to_s
 
       session[:register_social_account_id] = twitter_account.id
       post :create
@@ -93,7 +93,7 @@ describe Accounts::SocialRegistrationsController do
 
         omniauth_obj = {'provider' => 'twitter', 'uid' => 'some_twitter_uid',
                         'credentials' => {'token' => 'token', 'secret' => 'secret'}, 'info' => {'name' => name}}
-        twitter_account = SocialAccount.new provider_name: 'twitter', omniauth_obj: omniauth_obj
+        twitter_account = SocialAccount.new provider_name: 'twitter', omniauth_obj_string: omniauth_obj.to_json
         twitter_account.save!
 
         session[:register_social_account_id] = twitter_account.id
@@ -125,7 +125,7 @@ describe Accounts::SocialRegistrationsController do
         twitter_account = create :social_account, :twitter
         other_omniauth_obj = {'provider' => 'facebook', 'uid' => '10'}
 
-        user.social_account('facebook').update_attributes!(omniauth_obj: other_omniauth_obj)
+        user.social_account('facebook').update_omniauth_obj!(other_omniauth_obj)
 
         session[:register_social_account_id] = twitter_account.id
         post :create, user: {email: email}

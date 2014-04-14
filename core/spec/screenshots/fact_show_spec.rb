@@ -16,7 +16,7 @@ describe "factlink", type: :feature do
     end
 
     as(@user) do |p|
-      c = p.interactor(:'comments/create', fact_id: @factlink.fact_id.to_i, type: 'believes', content: comment_text)
+      c = p.interactor(:'comments/create', fact_id: @factlink.fact_id, type: 'believes', content: comment_text)
       p.interactor(:'comments/update_opinion', comment_id: c.id.to_s, opinion: 'disbelieves')
     end
 
@@ -25,8 +25,8 @@ describe "factlink", type: :feature do
 
     as(@user) do |p|
       fact_data = create :fact_data
-      fact_url = Backend::Facts.get(fact_id: fact_data.fact_id).url
-      c = p.interactor(:'comments/create', fact_id: @factlink.fact_id.to_i, type: 'believes', content: fact_url.friendly_fact_url)
+      friendly_fact_url = FactlinkUI::Application.config.core_url + "/f/#{fact_data.fact_id}"
+      c = p.interactor(:'comments/create', fact_id: @factlink.fact_id, type: 'believes', content: friendly_fact_url)
       p.interactor(:'comments/update_opinion', comment_id: c.id.to_s, opinion: 'believes')
       p.interactor(:'sub_comments/create', comment_id: c.id.to_s, content: "A short subcomment")
       p.interactor(:'sub_comments/create', comment_id: c.id.to_s, content: sub_comment_text)
@@ -56,6 +56,8 @@ describe "factlink", type: :feature do
 
     find('.sub-comment + .sub-comment .icon-trash').click #open delete so it's tested too
     #implicitly, the previous line is also necessary to wait for the second subcomment to appear
+
+    find('.discussion-menu-link').click #open menubar for screenshot test.
     assume_unchanged_screenshot "fact_show"
   end
 
@@ -68,6 +70,7 @@ describe "factlink", type: :feature do
 
     page.should have_content @factlink.displaystring
 
+    find('.spec-button-interesting').click #show sign-in overlay for screenshots
     assume_unchanged_screenshot "fact_show_for_non_signed_in_user"
   end
 end

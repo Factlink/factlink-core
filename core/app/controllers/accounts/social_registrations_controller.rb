@@ -14,7 +14,8 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
         social_account.destroy
       end
 
-      @social_account = SocialAccount.create! provider_name: provider_name, omniauth_obj: omniauth_obj
+      @social_account = SocialAccount.new provider_name: provider_name
+      @social_account.update_omniauth_obj! omniauth_obj
       session[:register_social_account_id] = @social_account.id.to_s
 
       @user = User.new
@@ -45,7 +46,8 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
   end
 
   def finish_connecting
-    @user.social_accounts.push @social_account
+    @social_account.user = @user
+    @social_account.save!
     remembered_sign_in(@user)
 
     render_success_event

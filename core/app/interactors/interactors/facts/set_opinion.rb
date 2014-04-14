@@ -9,7 +9,7 @@ module Interactors
         Backend::Facts.set_opinion \
           fact_id: fact_id,
           opinion: opinion,
-          graph_user: pavlov_options[:current_user].graph_user
+          graph_user_id: pavlov_options[:current_user].graph_user_id
 
         Backend::Facts.get(fact_id: fact_id)
       end

@@ -11,8 +11,8 @@ describe "searching", type: :feature do
     visit root_path
 
     search_text = "searching for nothing and results for free"
-    fill_in "factlink_search", with: search_text
-    page.execute_script("$('#factlink_search').parent().submit()")
+    fill_in "spec-search", with: search_text
+    find('#spec-search').native.send_key(:Enter)
     page.should have_content("Sorry, your search didn't return any results.")
   end
 
@@ -20,8 +20,8 @@ describe "searching", type: :feature do
     fact_data = create :fact_data
 
     visit root_path
-    fill_in "factlink_search", with: fact_data.displaystring
-    page.execute_script("$('#factlink_search').parent().submit()")
+    fill_in "spec-search", with: fact_data.displaystring
+    find('#spec-search').native.send_key(:Enter)
 
     page.should have_content(fact_data.displaystring)
   end

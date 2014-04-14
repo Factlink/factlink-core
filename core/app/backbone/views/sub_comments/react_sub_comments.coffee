@@ -1,7 +1,7 @@
 window.ReactSubComments = React.createBackboneClass
   displayName: 'ReactSubComments'
   propTypes:
-    fact_opinionators: React.PropTypes.instanceOf(Opinionators).isRequired
+    fact_opinionators: React.PropTypes.instanceOf(InterestedUsers).isRequired
     model: React.PropTypes.instanceOf(SubComments).isRequired
 
   componentWillMount: ->
@@ -53,7 +53,6 @@ ReactSubCommentsAdd = React.createBackboneClass
       _div ['sub-comment-avatar-container'],
         ReactOpinionatedAvatar
           user: currentSession.user()
-          model: @props.fact_opinionators
           size: 30
       _div ['sub-comment-content-container sub-comment-add-area'],
         ReactTextArea

@@ -6,8 +6,8 @@ class ActivityMailer < ActionMailer::Base
   layout "email_notification"
 
   def new_activity(user_id, activity_id)
-    @user = UserNotification.users_receiving('mailed_notifications')
-                            .find(user_id)
+    @user = Backend::Notifications.users_receiving(type: 'mailed_notifications')
+                                  .find(user_id)
     @activity = Backend::Activities.get(activity_id: activity_id)
 
     return unless @user && @activity
@@ -33,7 +33,6 @@ class ActivityMailer < ActionMailer::Base
     when 'created_comment', 'created_sub_comment'
       factlink = activity[:fact].displaystring.strip.truncate(50)
       "Discussion on \"#{factlink}\""
-      subject_for activity.subject.parent.fact_data
     when 'followed_user'
       "#{activity[:user].name} is now following you on Factlink"
     else

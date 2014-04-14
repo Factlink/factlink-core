@@ -1,0 +1,6 @@
+LineLength:
+  Max: 160
+
+# Single Quotes
+StringLiterals:
+  Enabled: false

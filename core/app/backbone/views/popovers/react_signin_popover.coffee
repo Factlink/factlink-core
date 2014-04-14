@@ -1,4 +1,37 @@
+window.ReactSigninLinks = React.createClass
+  displayName: "ReactSigninLinks"
+
+  render: ->
+    container =
+      if window.localStorageIsEnabled
+        _span [],
+          'Sign in with: ',
+          _a ["button-twitter js-accounts-popup-link",
+            @props.buttonClassName || 'button-connect'
+            href: "/auth/twitter"
+          ],
+            _i ["icon-twitter"]
+          ' ',
+          _a ["button-facebook js-accounts-popup-link",
+            @props.buttonClassName || 'button-connect'
+            href: "/auth/facebook"
+          ],
+            _i ["icon-facebook"]
+          ' ',
+          _a ["js-accounts-popup-link",
+            href: "/users/sign_in_or_up"
+          ],
+            "or sign in/up with email."
+      else
+        _span [],
+            "Your privacy settings block you from interacting."
+            _br {}
+            " Please enable (third-party) cookies from factlink.com"
+
+
 window.ReactSigninPopover = React.createClass
+  displayName: "ReactSigninPopover"
+
   getInitialState: ->
     opened: false
     callback: null
@@ -36,29 +69,8 @@ window.ReactSigninPopover = React.createClass
 
   render: ->
     if @state.opened && !currentSession.signedIn()
-      if window.localStorageIsEnabled
-        ReactPopover className: 'white-popover', attachment: 'right',
-          _span ["signin-popover"],
-            'Sign in with: ',
-            _a ["button-twitter small-connect-button js-accounts-popup-link",
-              href: "/auth/twitter"
-            ],
-              _i ["icon-twitter"]
-            ' ',
-            _a ["button-facebook small-connect-button js-accounts-popup-link",
-              href: "/auth/facebook"
-            ],
-              _i ["icon-facebook"]
-            ' ',
-            _a ["js-accounts-popup-link",
-              href: "/users/sign_in_or_up"
-            ],
-              "or sign in/up with email."
-      else
-        ReactPopover className: 'white-popover', attachment: 'right',
-          _p ["signin-popover"],
-              "Your privacy settings block you from interacting."
-              _br {}
-              " Please enable (third-party) cookies from factlink.com"
+      ReactPopover className: 'white-popover', attachment: 'right',
+        _div ['signin-popover'],
+          ReactSigninLinks()
     else
       _span()

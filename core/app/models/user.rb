@@ -7,7 +7,12 @@ class User
   include Mongoid::Timestamps
   include Redis::Objects
 
-  embeds_one :user_notification, autobuild: true
+  # For compatibility with Activity::Listener
+  def self.[](graph_user_id)
+    User.where(graph_user_id: graph_user_id).first
+  end
+
+  field :notification_settings_edit_token, type: String
 
   USERNAME_MAX_LENGTH = 20 # WARNING: must be shorter than mongo ids(24 chars) to avoid confusing ids with usernames!
 
@@ -109,8 +114,6 @@ class User
     Comments.where(created_by_id: self.id)
   end
 
-  has_many :social_accounts
-
   scope :active, where(:deleted.ne => true)
 
   class << self
@@ -148,11 +151,20 @@ class User
 
       not find_by(username: case_insensitive_regexp) and validators.all? { |regex| regex.match(username) }
     end
+
+    def import_export_simple_fields
+      [:username, :full_name, :location, :biography,
+      :receives_digest, :receives_mailed_notifications, :created_at,
+      :updated_at, :deleted, :admin, :email,
+      :registration_code, :reset_password_token, :reset_password_sent_at,
+      :remember_created_at, :sign_in_count, :current_sign_in_at,
+      :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip]
+    end
   end
 
   before_save do |user|
     if user.changes.include? 'encrypted_password'
-      user.user_notification.reset_notification_settings_edit_token
+      Backend::Notifications.reset_edit_token user: self
     end
   end
 
@@ -164,31 +176,33 @@ class User
     !deleted
   end
 
-  def graph_user
-    @graph_user ||= GraphUser[graph_user_id]
+  def stream_activities
+    activity_set(name: :stream_activities)
   end
 
-  def graph_user=(guser)
-    @graph_user = nil
-    self.graph_user_id = guser.id
+  def own_activities
+    activity_set(name: :own_activities)
   end
 
-  def create_graph_user
-    guser = GraphUser.new
-    guser.save
-    self.graph_user = guser
-    yield
-
-    guser.user = self
-    guser.save
+  def notifications
+    activity_set(name: :notifications)
   end
+
+  private def activity_set(name:)
+    key = Nest.new('GraphUser')[graph_user_id][name]
+    Ohm::Model::TimestampedSet.new(key, Ohm::Model::Wrapper.wrap(Activity))
+  end
+
+  private def create_graph_user
+    graph_user = GraphUser.new
+    graph_user.save
+    self.graph_user_id = graph_user.id
+  end
+  before_create :create_graph_user
 
   def self.human_attribute_name(attr, options = {})
     attr.to_s == 'non_field_error' ? '' : super
   end
-
-  private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved
-  around_create :create_graph_user
 
   def to_s
     name
@@ -264,8 +278,12 @@ class User
     @count ||= features.to_a.select { |f| Ability::FEATURES.include? f }.count
   end
 
+  def social_accounts
+    SocialAccount.where(user_id: id.to_s)
+  end
+
   def social_account provider_name
-    social_accounts.find_or_initialize_by(provider_name: provider_name)
+    SocialAccount.where(provider_name: provider_name, user_id: id.to_s).first_or_initialize
   end
 
   # Override login mechanism to allow username or email logins

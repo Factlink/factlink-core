@@ -22,15 +22,14 @@ namespace :db do
     truncate(:users => :keep)
   end
 
-  task :init => [:environment,:migrate] do
-    require File.expand_path('../../../db/init.rb', __FILE__)
-    puts "Imported #{file} succesfully"
-  end
-
   task :export, [:filename] => [:environment, :migrate] do |task, args|
     File.open(args[:filename], 'w') do |file|
       file.write Export.new.export
     end
+  end
+
+  task :import, [:filename] => [:environment, :truncate, :migrate] do |task, args|
+    require File.expand_path(args[:filename], Dir.pwd)
   end
 
   task :help do
@@ -44,9 +43,8 @@ namespace :db do
 
       rake db:truncate              # Truncate database
       rake db:truncate_keep_users   # Truncate database, but keep the users
-      rake db:init                  # Import the dump to the database
       rake db:export[dump.rb]       # Export the database to dump.rb
-      |                             # Import with 'rails c < dump.rb'
+      rake db:import[dump.rb]       # Import the database from dump.rb
       rake db:help                  # Show this help file
 
     eos

@@ -29,7 +29,8 @@ module Backend
       comments_creators_ids = comments.map(&:created_by).map(&:graph_user_id)
       comments_opinionated_ids =
         comments.flat_map do |comment|
-          Believable::Commentje.new(comment.id.to_s).opinionated_users_ids
+          believable = ::Believable.new(Ohm::Key.new("Comment:#{comment.id}:believable"))
+          believable.opinionated_users_ids
         end
       comments_creators_ids + comments_opinionated_ids
     end

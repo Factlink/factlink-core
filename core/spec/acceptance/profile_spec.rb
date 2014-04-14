@@ -69,8 +69,8 @@ feature 'the profile page', type: :feature do
     displaystring = 'this is a displaystring for fact'
 
     as(followed_user) do |backend|
-      dead_fact = backend.interactor(:'facts/create', displaystring: displaystring, url: 'http://example.org', site_title: 'title')
-      backend.interactor(:'comments/create', fact_id: dead_fact.id.to_i, type: 'believes', content: "so true")
+      dead_fact = backend.interactor(:'facts/create', displaystring: displaystring, site_url: 'http://example.org', site_title: 'title')
+      backend.interactor(:'comments/create', fact_id: dead_fact.id, type: 'believes', content: "so true")
     end
 
     visit feed_path

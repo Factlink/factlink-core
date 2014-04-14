@@ -21,17 +21,17 @@ class MailSubscriptionsController < ApplicationController
   private
 
   def get_user
-    @user = User.where("user_notification.notification_settings_edit_token" => params[:token]).first
+    @user = User.where(notification_settings_edit_token: params[:token]).first
   end
 
   def update_subscription(subscribe_action, type, user)
     case subscribe_action.to_s
     when 'unsubscribe'
-      success = user.user_notification.unsubscribe(type)
+      success = Backend::Notifications.unsubscribe(user: user, type: type)
       SubscriptionsMailer.unsubscribe(user.id, type).deliver
       success
     when 'subscribe'
-      user.user_notification.subscribe(type)
+      Backend::Notifications.subscribe(user: user, type: type)
     else
       false
     end

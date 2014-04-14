@@ -6,12 +6,17 @@ describe "Non signed in pages:", type: :feature do
 
   describe "Profile page page" do
     it "renders correctly" do
-      @user = sign_in_user create :user
+      user = sign_in_user create :user
 
-      create :fact_data
-
+      fact_data = create :fact_data, displaystring: 'Throngs of them!!1!'
+      as(user) do |pavlov|
+        pavlov.interactor(:'comments/create',
+                           fact_id: fact_data.fact_id,
+                           content: 'content')
+      end
       sign_out_user
-      visit user_profile_path(@user)
+      visit user_profile_path(user)
+      find('.spec-feed-activity')
 
       assume_unchanged_screenshot "non_signed_in_profile"
     end

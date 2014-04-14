@@ -7,29 +7,22 @@ describe Believable do
   let(:user2) { create(:graph_user) }
 
   context "initially" do
-    [:believes, :disbelieves].each do |opinion|
-      it { expect(believable.opiniated(opinion).count).to eq 0 }
-      it { expect(believable.opiniated(opinion).all).to eq [] }
-    end
-
     it { expect(believable.votes).to eq(believes: 0, disbelieves: 0) }
   end
 
   context "after 1 person has stated its believes" do
     it do
-      believable.add_opiniated(:believes, user)
+      believable.add_opiniated_id(:believes, user.id)
 
-      expect(believable.opiniated(:believes).count).to eq 1
       expect(believable.votes).to eq(believes: 1, disbelieves: 0)
     end
   end
 
   context "after 1 person has stated its believes twice" do
     it do
-      believable.add_opiniated(:believes, user)
-      believable.add_opiniated(:believes, user)
+      believable.add_opiniated_id(:believes, user.id)
+      believable.add_opiniated_id(:believes, user.id)
 
-      expect(believable.opiniated(:believes).count).to eq 1
       expect(believable.votes).to eq(believes: 1, disbelieves: 0)
     end
   end
@@ -37,45 +30,41 @@ describe Believable do
 
   context "after one person who believes is added and deleted" do
     it do
-      believable.add_opiniated(:believes, user)
-      believable.remove_opinionateds user
+      believable.add_opiniated_id(:believes, user.id)
+      believable.remove_opinionated_id user.id
 
-      expect(believable.opiniated(:believes).count).to eq 0
       expect(believable.votes).to eq(believes: 0, disbelieves: 0)
     end
   end
 
   context "after two believers are added" do
     it do
-      believable.add_opiniated(:believes, user)
-      believable.add_opiniated(:believes, user2)
+      believable.add_opiniated_id(:believes, user.id)
+      believable.add_opiniated_id(:believes, user2.id)
 
-      expect(believable.opiniated(:believes).count).to eq 2
       expect(believable.votes).to eq(believes: 2, disbelieves: 0)
     end
   end
 
   context "when two persons start with believes, after person changes its opinion from believes to disbelieves" do
     it do
-      believable.add_opiniated(:believes, user)
-      believable.add_opiniated(:believes, user2)
+      believable.add_opiniated_id(:believes, user.id)
+      believable.add_opiniated_id(:believes, user2.id)
 
-      believable.add_opiniated(:disbelieves, user)
+      believable.add_opiniated_id(:disbelieves, user.id)
 
-      expect(believable.opiniated(:believes).count).to eq 1
       expect(believable.votes).to eq(believes: 1, disbelieves: 1)
     end
   end
 
   context "when two persons start with believes, after both existing believers change their opinion from believes to disbelieves" do
     it do
-      believable.add_opiniated(:believes, user)
-      believable.add_opiniated(:believes, user2)
+      believable.add_opiniated_id(:believes, user.id)
+      believable.add_opiniated_id(:believes, user2.id)
 
-      believable.add_opiniated(:disbelieves, user)
-      believable.add_opiniated(:disbelieves, user2)
+      believable.add_opiniated_id(:disbelieves, user.id)
+      believable.add_opiniated_id(:disbelieves, user2.id)
 
-      expect(believable.opiniated(:believes).count).to eq 0
       expect(believable.votes).to eq(believes: 0, disbelieves: 2)
     end
   end

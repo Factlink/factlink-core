@@ -1,7 +1,7 @@
 window.ReactSubComment = React.createBackboneClass
   displayName: 'ReactSubComment'
   propTypes:
-    fact_opinionators: React.PropTypes.instanceOf(Opinionators).isRequired
+    fact_opinionators: React.PropTypes.instanceOf(InterestedUsers).isRequired
     model: React.PropTypes.instanceOf(SubComment).isRequired
 
   _save: ->
@@ -23,7 +23,6 @@ window.ReactSubComment = React.createBackboneClass
       _div ['sub-comment-avatar-container'],
         ReactOpinionatedAvatar
           user: creator
-          model: @props.fact_opinionators
           size: 30
 
       _div ['sub-comment-content-container'],

@@ -2,47 +2,42 @@ class Export
   def export
     output = ''
 
-    User.all.each do |user|
-      output << 'user = User.new({'
-      output << hash_field_for(user, 'username')
-      output << hash_field_for(user, 'full_name')
-      output << hash_field_for(user, 'location')
-      output << hash_field_for(user, 'biography')
-      output << hash_field_for(user, 'receives_mailed_notifications')
-      output << hash_field_for(user, 'receives_digest')
-      output << '}); '
-
-      assignment_fields = ['created_at', 'updated_at', 'deleted', 'admin', 'email',
-       'registration_code', 'reset_password_token', 'reset_password_sent_at',
-       'remember_created_at', 'sign_in_count', 'current_sign_in_at',
-       'last_sign_in_at', 'current_sign_in_ip', 'last_sign_in_ip']
-
-      output << assignment_fields.map do |name|
-        assignment_for(user, 'user', name)
-      end.join('')
-
-      output << 'user.password = "some_dummy"; ' # before setting encrypted_password
-      output << assignment_for(user, 'user', 'encrypted_password')
-
-      output << 'user.skip_confirmation_notification!; '
-      output << 'user.save!; '
-      output << assignment_for(user, 'user', 'confirmed_at')
-      output << assignment_for(user, 'user', 'confirmation_token')
-      output << assignment_for(user, 'user', 'confirmation_sent_at')
-      output << assignment_for(user, 'user', 'updated_at') # set here again explicitly to prevent overwriting
-      output << 'user.save!'
-      output << "\n"
+    User.all.order_by(username: 1).each do |user|
+      output << import('FactlinkImport.user', fields_from_object(user, User.import_export_simple_fields + [
+        :encrypted_password, :confirmed_at, :confirmation_token, :confirmation_sent_at
+      ])) + "\n"
 
       user.social_accounts.each do |social_account|
-        output << 'SocialAccount.create!({'
-        output << hash_field_for(social_account, 'provider_name')
-        output << hash_field_for(social_account, 'omniauth_obj')
-        output << hash_field_for(social_account, 'created_at')
-        output << hash_field_for(social_account, 'updated_at')
-        output << 'user: User.find(' + to_ruby(user, 'username') + '), '
-        output << '})'
+        output << import('FactlinkImport.social_account',
+          fields_from_object(social_account, SocialAccount.import_export_simple_fields).merge(
+            username: user.username)
+        ) + "\n"
+      end
+    end
+
+    FactData.all.order_by(fact_id: 1).each do |fact_data|
+      output << import('FactlinkImport.fact', fields_from_object(fact_data, [
+        :fact_id, :displaystring, :title, :url, :created_at
+      ])) + " do\n"
+
+      sorted_votes = Backend::Facts.votes(fact_id: fact_data.fact_id).sort do |a, b|
+        a[:username] <=> b[:username]
+      end
+
+      sorted_votes.each do |vote|
+        output << '  '
+        output << import('interesting', username: vote[:user].username)
         output << "\n"
       end
+
+      output << "end\n"
+    end
+
+    Comment.all.order_by(fact_id: 1, created_at: 1).each do |comment|
+      output << import('FactlinkImport.comment',
+        fields_from_object(comment, [:content, :created_at]).merge(
+          fact_id: comment.fact_data.fact_id, username: comment.created_by.username)
+      ) + "\n"
     end
 
     output
@@ -50,9 +45,7 @@ class Export
 
   private
 
-  def to_ruby(object, name)
-    value = object.send(name)
-
+  def to_ruby(value)
     case value
     when Time
       return 'Time.parse(' + value.utc.iso8601.inspect + ')'
@@ -63,11 +56,17 @@ class Export
     end
   end
 
-  def hash_field_for(object, name)
-    name + ': ' + to_ruby(object, name) + ', '
+  def name_value_to_string(name, value)
+    name.to_s + ': ' + to_ruby(value) + ', '
   end
 
-  def assignment_for(object, object_name, name)
-    object_name + '.' + name + ' = ' + to_ruby(object, name) + '; '
+  def fields_from_object(object, field_names)
+    field_names.inject({}) { |hash, name| hash.merge(name => object.public_send(name)) }
+  end
+
+  def import(name, fields)
+    fields_string = fields.map{ |name, value| name_value_to_string(name, value)}.join
+
+    "#{name}({#{fields_string}})"
   end
 end

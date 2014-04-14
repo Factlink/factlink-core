@@ -1,18 +1,13 @@
 require 'spec_helper'
 
 describe Export do
+  include PavlovSupport
+
   it '#export' do
-    FactoryGirl.reload
+    dump_file_path = File.expand_path('../../../dump.rb', __FILE__)
 
-    user = create :user, created_at: Time.at(0)
-    user.updated_at = Time.at(1000)
-    user.confirmation_token = 'moi'
-    user.confirmation_sent_at = Time.at(2000)
-    user.save!
+    require dump_file_path
 
-    create :social_account, :twitter, user: user,
-      created_at: Time.at(3000), updated_at: Time.at(4000)
-
-    verify(format: :text) { Export.new.export }
+    expect(Export.new.export).to eq File.read(dump_file_path)
   end
 end

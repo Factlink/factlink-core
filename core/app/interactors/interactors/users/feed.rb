@@ -15,7 +15,7 @@ module Interactors
 
       def activities
         user = User.where(username: username).first
-        user.graph_user.own_activities
+        user.own_activities
       end
     end
   end
