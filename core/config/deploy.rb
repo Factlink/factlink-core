@@ -86,7 +86,7 @@ namespace :mongoid do
   end
 end
 
-STDOUT.sync
+$stdout.sync = true
 
 before 'deploy:all',      'deploy'
 after 'deploy:all',       'deploy:restart'

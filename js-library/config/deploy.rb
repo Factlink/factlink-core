@@ -26,7 +26,7 @@ ssh_options[:forward_agent] = true
 # don't touch all static files:
 set :normalize_asset_timestamps, false
 
-STDOUT.sync
+$stdout.sync = true
 
 after 'deploy:update', 'deploy:cleanup'
 
