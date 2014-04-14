@@ -33,7 +33,7 @@ class Export
       output << "end\n"
     end
 
-    Comment.all.order_by(fact_id: 1, created_at: 1).each do |comment|
+    Comment.all.order_by(created_at: 1, content: 1).each do |comment|
       output << import('FactlinkImport.comment',
         fields_from_object(comment, [:content, :created_at]).merge(
           fact_id: comment.fact_data.fact_id, username: comment.created_by.username)
