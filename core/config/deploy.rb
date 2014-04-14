@@ -100,28 +100,28 @@ after 'deploy:update',    'deploy:check_installed_packages'
 after 'deploy:check_installed_packages', 'deploy:cleanup'
 
 before "deploy:update_code" do
-    print "Updating Code........"
+  print "Updating Code........"
 end
 
 after "deploy:update_code" do
-    puts "Done."
+  puts "Done."
 end
 
 before "deploy:migrate" do
-    print "Migrating.........."
+  print "Migrating.........."
 end
 
 after "deploy:migrate" do
-    'action:start_resque'
-    puts "Done."
+  'action:start_resque'
+  puts "Done."
 end
 
 before "deploy:cleanup" do
-    print "Cleaning Up.........."
+  print "Cleaning Up.........."
 end
 
 after "deploy:cleanup" do
-    puts "Done."
+  puts "Done."
 end
 
 require './config/boot'

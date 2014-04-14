@@ -42,17 +42,17 @@ before "deploy" do
 end
 
 before "deploy:update_code" do
-    print "Updating Code........"
+  print "Updating Code........"
 end
 
 after "deploy:update_code" do
-    puts "Done."
+  puts "Done."
 end
 
 before "deploy:cleanup" do
-    print "Cleaning Up.........."
+  print "Cleaning Up.........."
 end
 
 after "deploy:cleanup" do
-    puts "Done."
+  puts "Done."
 end
