@@ -2,7 +2,7 @@ module Acceptance
   module FactHelper
     def open_discussion_sidebar_for fact_id
       visit '/client/blank'
-      find('.spec-discussion-sidebar-region')
+      find('.spec-discussion-sidebar-region', visible: false) # width:0 is hidden in Selenium
       page.execute_script "clientEnvoy.showFactlink(#{fact_id}, 'invalid://example.org/testing')"
       find('.spec-button-interesting')
     end
