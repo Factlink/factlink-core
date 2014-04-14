@@ -10,4 +10,4 @@ role :app, "factlink.com"                          # This may be the same as you
 
 role :db,  "factlink.com", :primary => true # This is where Rails migrations will run
 
-after "deploy:update", "newrelic:notice_deployment"
+after "deploy:update"
