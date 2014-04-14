@@ -53,13 +53,13 @@ describe Interactors::SubComments::Create do
 
       Comment.should_receive(:find).with(comment.id).and_return(comment)
 
-      pavlov_options = { current_user: user, ability: ability }
+      pavlov_options = { current_user: user, ability: ability, time: double }
       interactor = described_class.new comment_id: comment.id, content: content,
                                        pavlov_options: pavlov_options
 
       Backend::SubComments
         .should_receive(:create!)
-        .with(parent_id: comment.id, content: content, user: user)
+        .with(parent_id: comment.id, content: content, user: user, created_at: pavlov_options[:time])
         .and_return(sub_comment)
       interactor.should_receive(:create_activity).with(sub_comment)
       Backend::SubComments.should_receive(:dead_for).with(sub_comment).
