@@ -28,6 +28,11 @@ module Backend
       !has_subcomments
     end
 
+    def opiniated(comment_id:, type:)
+      Backend::Users.by_ids(user_ids: believable(comment_id).opiniated_ids(type),
+        by: :graph_user_id)
+    end
+
     def create(fact_id:, content:, user_id:, created_at:)
       fact_data = FactData.where(fact_id: fact_id).first
 

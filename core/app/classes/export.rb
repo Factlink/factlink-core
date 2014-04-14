@@ -47,6 +47,18 @@ class Export
           fact_id: comment.fact_data.fact_id, username: comment.created_by.username)
       ) + " do\n"
 
+      Backend::Comments.opiniated(comment_id: comment.id.to_s, type: 'believes').each do |believer|
+        output << '  '
+        output << import('opinion', opinion: 'believes', username: believer.username)
+        output << "\n"
+      end
+
+      Backend::Comments.opiniated(comment_id: comment.id.to_s, type: 'disbelieves').each do |disbeliever|
+        output << '  '
+        output << import('opinion', opinion: 'disbelieves', username: disbeliever.username)
+        output << "\n"
+      end
+
       comment.sub_comments.each do |sub_comment|
         output << '  '
         output << import('sub_comment', fields_from_object(sub_comment, [:content, :created_at]).merge(
