@@ -8,13 +8,19 @@ window.ReactComment = React.createBackboneClass
     model: React.PropTypes.instanceOf(Comment).isRequired
 
   getInitialState: ->
-    show_subcomments: false
+    show_subcomments: undefined
+
+  _show_subcomments: ->
+    if @state.show_subcomments != undefined
+      @state.show_subcomments
+    else
+      !!@model().get('sub_comments_count')
 
   _onDelete: ->
      @model().destroy wait: true
 
   _toggleSubcomments: ->
-    @setState show_subcomments: !@state.show_subcomments
+    @setState show_subcomments: !@_show_subcomments()
 
   _content: ->
     if @model().get('formatted_content')
@@ -45,7 +51,7 @@ window.ReactComment = React.createBackboneClass
         @_separator()
         ReactSlidingShareButton
           model: @model()
-      if @state.show_subcomments
+      if @_show_subcomments()
         ReactSubComments
           model: @model().sub_comments()
           fact_opinionators: @props.fact_opinionators
