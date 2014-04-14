@@ -45,7 +45,16 @@ class Export
       output << import('FactlinkImport.comment',
         fields_from_object(comment, [:content, :created_at]).merge(
           fact_id: comment.fact_data.fact_id, username: comment.created_by.username)
-      ) + "\n"
+      ) + " do\n"
+
+      comment.sub_comments.each do |sub_comment|
+        output << '  '
+        output << import('sub_comment', fields_from_object(sub_comment, [:content, :created_at]).merge(
+          username: sub_comment.created_by.username))
+        output << "\n"
+      end
+
+      output << "end\n"
     end
 
     output

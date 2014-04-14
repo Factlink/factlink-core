@@ -48,7 +48,7 @@ module Backend
       current_user_opinion = current_user_opinion_for(comment_id: comment.id, current_graph_user_id: current_graph_user_id)
 
       DeadComment.new(
-        id: comment.id,
+        id: comment.id.to_s,
         created_by: Backend::Users.by_ids(user_ids: comment.created_by_id).first,
         created_at: comment.created_at.utc.iso8601,
         formatted_content: FormattedCommentContent.new(comment.content).html,
