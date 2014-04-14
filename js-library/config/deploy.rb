@@ -26,8 +26,9 @@ ssh_options[:forward_agent] = true
 # don't touch all static files:
 set :normalize_asset_timestamps, false
 
-after 'deploy:update', 'deploy:cleanup'
+STDOUT.sync
 
+after 'deploy:update', 'deploy:cleanup'
 
 before "deploy" do
 
@@ -38,4 +39,20 @@ before "deploy" do
 
     fail "\nWRONG CONFIGURATION:\n\nExpected only config file #{stage}.js in #{config_path}, found #{config_files}\n\nDid you forget to run 'grunt compile_#{stage}'?\n\n"
   end
+end
+
+before "deploy:update_code" do
+    print "Updating Code........"
+end
+
+after "deploy:update_code" do
+    puts "Done."
+end
+
+before "deploy:cleanup" do
+    print "Cleaning Up.........."
+end
+
+after "deploy:cleanup" do
+    puts "Done."
 end
