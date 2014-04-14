@@ -95,6 +95,8 @@ before 'deploy:migrate',  'action:stop_background_processes'
 
 after 'deploy',           'deploy:migrate'
 
+after 'deploy:migrate',   'action:start_resque'
+
 after 'deploy:update',    'deploy:check_installed_packages'
 
 after 'deploy:check_installed_packages', 'deploy:cleanup'
@@ -112,7 +114,6 @@ before "deploy:migrate" do
 end
 
 after "deploy:migrate" do
-  'action:start_resque'
   puts "Done."
 end
 
