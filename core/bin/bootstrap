@@ -43,3 +43,4 @@ fi
 
 
 shasum .db-dir-concat > .db-dir-concat.sha-cache
+rm .db-dir-concat
