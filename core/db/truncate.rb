@@ -1,12 +1,11 @@
 def self.truncate(opts)
   if Rails.env.development?
     # truncate redis
-    Ohm.flush
+    Redis.current.flushall
 
     # truncate redis resque
     resque_redis_conf = YAML::load_file(Rails.root.join('config/resque.yml'))[Rails.env]
-    Ohm.connect(:url => "redis://#{resque_redis_conf}/0")
-    Ohm.flush
+    Redis.new(url: "redis://#{resque_redis_conf}/0").flushall
 
     # truncate elasticsearch
     ElasticSearch.truncate

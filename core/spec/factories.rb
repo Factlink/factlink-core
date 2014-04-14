@@ -50,7 +50,7 @@ FactoryGirl.define do
   end
 
   sequence :displaystring do |n|
-    "Fact #{n}"
+    "Fact #{n} " + 'bla' * 100
   end
 
   factory :fact_data do

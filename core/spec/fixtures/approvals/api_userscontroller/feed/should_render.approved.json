@@ -6,7 +6,7 @@
     "fact": {
       "id": "<id>",
       "site_url": "http://example.org/1.html",
-      "displaystring": "Fact 1",
+      "displaystring": "Fact 1 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla",
       "created_at": "<created_at>",
       "site_title": "Fact title 1",
       "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html#factlink-open-1"
@@ -58,7 +58,7 @@
     "fact": {
       "id": "<id>",
       "site_url": "http://example.org/1.html",
-      "displaystring": "Fact 1",
+      "displaystring": "Fact 1 blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla",
       "created_at": "<created_at>",
       "site_title": "Fact title 1",
       "proxy_open_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html#factlink-open-1"
