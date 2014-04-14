@@ -85,10 +85,19 @@ end
 FactlinkImport.fact({fact_id: "9", displaystring: "The plant Arabidopsis thaliana is found throughout the entire northern hemisphere", title: "http://www.sciencedaily.com/", url: "http://www.sciencedaily.com/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
   interesting({username: "jjoos", })
 end
-FactlinkImport.comment({content: "I totally agree, because I like plants and stuff.", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "1", username: "jens", })
-FactlinkImport.comment({content: "Are you on crack?", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "1", username: "luuk", })
-FactlinkImport.comment({content: "Let's stay on topic and buy cr4ck at http://goo.gl/shine", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "1", username: "tomdev", })
-FactlinkImport.comment({content: "This was because nutrients such as nitrogen and phosphorus -- usually essential to enable microbes to grow and make new cells -- were scarce in the water and oil in the slick.", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "2", username: "eamon", })
-FactlinkImport.comment({content: "All your base are belong to us. So give your Pokémon and your children and head towards the mountains with the horses we provided.", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "3", username: "mark", })
-FactlinkImport.comment({content: "?", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "3", username: "remon", })
-FactlinkImport.comment({content: "I like money $$$$", created_at: Time.parse("2014-04-10T12:13:04Z"), fact_id: "12", username: "luuk", })
+FactlinkImport.comment({content: "I totally agree, because I like plants and stuff.", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "1", username: "jens", }) do
+end
+FactlinkImport.comment({content: "Are you on crack?", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "1", username: "luuk", }) do
+end
+FactlinkImport.comment({content: "Let's stay on topic and buy cr4ck at http://goo.gl/shine", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "1", username: "tomdev", }) do
+end
+FactlinkImport.comment({content: "This was because nutrients such as nitrogen and phosphorus -- usually essential to enable microbes to grow and make new cells -- were scarce in the water and oil in the slick.", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "2", username: "eamon", }) do
+end
+FactlinkImport.comment({content: "All your base are belong to us. So give your Pokémon and your children and head towards the mountains with the horses we provided.", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "3", username: "mark", }) do
+  sub_comment({content: "Super weird...", created_at: Time.parse("2014-04-14T09:35:17Z"), username: "remon", })
+  sub_comment({content: "Or should I say, extremely strange!", created_at: Time.parse("2014-04-14T09:35:17Z"), username: "remon", })
+end
+FactlinkImport.comment({content: "?", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "3", username: "remon", }) do
+end
+FactlinkImport.comment({content: "I like money $$$$", created_at: Time.parse("2014-04-10T12:13:04Z"), fact_id: "12", username: "luuk", }) do
+end

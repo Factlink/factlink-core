@@ -16,6 +16,21 @@ module FactlinkImport
     end
   end
 
+  class FactlinkImportComment
+    def initialize(comment_id)
+      @comment_id = comment_id
+    end
+
+    def sub_comment(fields)
+      ExecuteAsUser.new(FactlinkImport.user_for(fields[:username])).execute do |pavlov|
+        pavlov.import = true
+        pavlov.time = fields[:created_at]
+        dead_fact = pavlov.interactor(:'sub_comments/create', comment_id: @comment_id,
+          content: fields[:content])
+      end
+    end
+  end
+
   def user(fields)
     user = User.new
 
@@ -56,12 +71,15 @@ module FactlinkImport
     FactlinkImportFact.new(dead_fact.id).instance_eval(&block)
   end
 
-  def comment(fields)
+  def comment(fields, &block)
+    dead_comment = nil
     ExecuteAsUser.new(user_for(fields[:username])).execute do |pavlov|
       pavlov.import = true
       pavlov.time = fields[:created_at]
-      pavlov.interactor(:'comments/create', fact_id: fields[:fact_id], content: fields[:content])
+      dead_comment = pavlov.interactor(:'comments/create', fact_id: fields[:fact_id], content: fields[:content])
     end
+
+    FactlinkImportComment.new(dead_comment.id).instance_eval(&block)
   end
 
   def user_for(username)
