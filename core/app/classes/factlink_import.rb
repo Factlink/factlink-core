@@ -64,6 +64,14 @@ module FactlinkImport
     end
   end
 
+  def follow(fields)
+    ExecuteAsUser.new(user_for(fields[:follower_username])).execute do |pavlov|
+      pavlov.import = true
+      pavlov.time = fields[:created_at]
+      pavlov.interactor(:'users/follow_user', username: fields[:followee_username])
+    end
+  end
+
   def user_for(username)
     @user_for ||= {}
     @user_for[username] ||= User.find(username) or fail "Username '#{username}' not found"
