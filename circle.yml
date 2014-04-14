@@ -5,7 +5,7 @@ machine:
   services:
     - elasticsearch
 database:
-  post:
+  override:
   - cp config/mongoid.yml.ci config/mongoid.yml
 dependencies:
   cache_directories:
