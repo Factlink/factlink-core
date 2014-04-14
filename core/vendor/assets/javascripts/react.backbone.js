@@ -18,9 +18,8 @@
     };
 
     var subscribe = function(component, model, changeOptions) {
-        if (!model) {
+        if (!model)
             return;
-        }
 
         var throttledForceUpdate = _.debounce(function(){
             if (! component.isMounted()) {
