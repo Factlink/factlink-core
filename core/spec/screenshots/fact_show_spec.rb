@@ -56,6 +56,8 @@ describe "factlink", type: :feature do
 
     find('.sub-comment + .sub-comment .icon-trash').click #open delete so it's tested too
     #implicitly, the previous line is also necessary to wait for the second subcomment to appear
+
+    find('.discussion-menu-link').click #open menubar for screenshot test.
     assume_unchanged_screenshot "fact_show"
   end
 
@@ -68,6 +70,7 @@ describe "factlink", type: :feature do
 
     page.should have_content @factlink.displaystring
 
+    find('.spec-button-interesting').click #show sign-in overlay for screenshots
     assume_unchanged_screenshot "fact_show_for_non_signed_in_user"
   end
 end
