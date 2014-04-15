@@ -126,46 +126,6 @@ describe User do
     end
   end
 
-  describe "#valid_full_name_and_email?" do
-    it "validates normal name and email address fine" do
-      user = User.new
-      user.full_name = "Some Name"
-      user.email = "some@email.com"
-
-      result = user.valid_full_name_and_email?
-      errors = user.errors
-
-      expect(result).to be_true
-      expect(errors.size).to eq 0
-    end
-
-    it "keeps an error if the name is invalid" do
-      user = User.new
-      user.full_name = ""
-      user.email = "some@email.com"
-
-      result = user.valid_full_name_and_email?
-      errors = user.errors
-
-      expect(result).to be_false
-      expect(errors.size).to eq 1
-      expect(errors[:full_name].any?).to be_true
-    end
-
-    it "keeps an error if the email is invalid" do
-      user = User.new
-      user.full_name = "Some Name"
-      user.email = "a"
-
-      result = user.valid_full_name_and_email?
-      errors = user.errors
-
-      expect(result).to be_false
-      expect(errors.size).to eq 1
-      expect(errors[:email].any?).to be_true
-    end
-  end
-
   describe "#notification_settings_edit_token" do
     let (:valid_attributes) do
       {
