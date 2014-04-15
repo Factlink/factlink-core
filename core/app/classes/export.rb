@@ -43,17 +43,12 @@ class Export
       output << "end\n"
     end
 
-    comment_sorter = lambda do |c1, c2|
-      created_at_ordering = c1.created_at.utc.to_s <=> c2.created_at.utc.to_s
-      if created_at_ordering == 0
-        c1.content <=> c2.content
-      else
-        created_at_ordering
-      end
+    comment_sorter = lambda do |comment_or_subcomment|
+      comment_or_subcomment.created_at.utc.to_s + comment_or_subcomment.content + comment_or_subcomment.created_by.username
     end
 
     comment_array = Comment.all.to_a
-    comment_array.sort(&comment_sorter).each do |comment|
+    comment_array.sort_by(&comment_sorter).each do |comment|
       output << import('FactlinkImport.comment',
         fields_from_object(comment, [:content, :created_at]).merge(
           fact_id: comment.fact_data.fact_id, username: comment.created_by.username)
@@ -71,7 +66,7 @@ class Export
         output << "\n"
       end
 
-      comment.sub_comments.to_a.sort(&comment_sorter).each do |sub_comment|
+      comment.sub_comments.to_a.sort_by(&comment_sorter).each do |sub_comment|
         output << '  '
         output << import('sub_comment', fields_from_object(sub_comment, [:content, :created_at]).merge(
           username: sub_comment.created_by.username))
