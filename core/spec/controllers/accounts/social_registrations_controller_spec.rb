@@ -102,7 +102,7 @@ describe Accounts::SocialRegistrationsController do
         expect(response.body).to match 'eventName = "account_success"'
 
         created_user = User.first
-        expect(created_user.name).to eq name
+        expect(created_user.full_name).to eq name
         expect(created_user.social_account(:twitter).uid).to eq twitter_account.uid
       end
     end

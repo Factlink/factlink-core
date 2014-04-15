@@ -9,7 +9,7 @@ feature 'the profile page', type: :feature do
     following_user = sign_in_user create :user, :confirmed
     followed_user = create :user, :confirmed
 
-    visit user_profile_path(followed_user)
+    go_to_profile_page_of followed_user
 
     # initial state check of other user profile
     check_follower_following_count 0, 0
@@ -21,13 +21,13 @@ feature 'the profile page', type: :feature do
     check_follower_following_count 0, 1
 
     # visit own profile
-    visit user_profile_path(following_user)
+    go_to_profile_page_of following_user
 
     # check if own profile is updated
     check_follower_following_count 1, 0
 
     # goto followed user profile with a full refresh
-    visit user_profile_path(followed_user)
+    go_to_profile_page_of followed_user
 
     # check if info is persisted
     check_follower_following_count 0, 1
@@ -39,13 +39,13 @@ feature 'the profile page', type: :feature do
     check_follower_following_count 0, 0
 
     # refresh page
-    visit user_profile_path(followed_user)
+    go_to_profile_page_of followed_user
 
     # check if info is persisted
     check_follower_following_count 0, 0
 
     # visit own profile
-    visit user_profile_path(following_user)
+    go_to_profile_page_of following_user
 
     # check if own profile is updated
     check_follower_following_count 0, 0
@@ -55,7 +55,7 @@ feature 'the profile page', type: :feature do
     following_user = sign_in_user create :user, :confirmed
     followed_user = create :user, :confirmed
 
-    visit user_profile_path(followed_user)
+    go_to_profile_page_of followed_user
 
     # initial state check of other user profile
     check_follower_following_count 0, 0

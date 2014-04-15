@@ -61,7 +61,7 @@ describe 'Reserving an account', type: :feature do
 
     current_email.find(:xpath, '//a', text: 'Confirm email address').click
 
-    user = User.find('jane_doe')
+    user = Backend::Users.user_by_username(username: 'jane_doe')
     eventually_succeeds do
       expect(user).to be_confirmed
     end
