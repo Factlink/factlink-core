@@ -26,10 +26,6 @@ window.ReactFeedSelection = React.createClass
           _label [ htmlFor: 'FeedChoice_Personal' ],
             'Personal'
 
-          _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'challenges', id: 'FeedChoice_challenges', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='challenges' ]
-          _label [ htmlFor: 'FeedChoice_challenges' ],
-            'challenges'
-
           _div ['feed-selection-install-extension-button'],
             ReactInstallExtensionOrBookmarklet()
 
