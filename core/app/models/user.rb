@@ -204,10 +204,6 @@ class User
     attr.to_s == 'non_field_error' ? '' : super
   end
 
-  def to_s
-    name
-  end
-
   def name
     full_name.blank? ? username : full_name
   end
