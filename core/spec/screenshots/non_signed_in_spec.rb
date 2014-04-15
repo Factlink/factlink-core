@@ -3,6 +3,7 @@ require 'acceptance_helper'
 describe "Non signed in pages:", type: :feature do
   include ScreenshotTest
   include Acceptance::FactHelper
+  include Acceptance::ProfileHelper
 
   describe "Profile page page" do
     it "renders correctly" do
@@ -15,7 +16,7 @@ describe "Non signed in pages:", type: :feature do
                            content: 'content')
       end
       sign_out_user
-      visit user_profile_path(user)
+      go_to_profile_page_of user
       find('.spec-feed-activity')
 
       assume_unchanged_screenshot "non_signed_in_profile"

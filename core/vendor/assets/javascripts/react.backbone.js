@@ -15,14 +15,15 @@
     };
     var model_behavior = {
       change_options: 'change',
-      update_scheduler: function(func){ return func; }
+      update_scheduler: _.identity
       //note: if we debounce models too we can no longer use model attributes
       //as properties to react controlled components due to https://github.com/facebook/react/issues/955
     };
 
     var subscribe = function(component, model, customChangeOptions) {
-        if (!model)
+        if (!model) {
             return;
+        }
 
         var behavior = model instanceof Backbone.Collection ? collection_behavior : model_behavior;
 

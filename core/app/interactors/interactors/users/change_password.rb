@@ -21,7 +21,7 @@ module Interactors
       end
 
       def user
-        User.find params[:username]
+        Backend::Users.user_by_username(username: params[:username])
       end
     end
   end

@@ -27,9 +27,9 @@ module Interactors
       def normal_properties
         {
           id:                            user.id.to_s,
-          name:                          user.name,
+          name:                          user.full_name.strip, # MAYBE It might be better to do strip on save
           username:                      user.username,
-          gravatar_hash:                 user.gravatar_hash,
+          gravatar_hash:                 Gravatar.hash(user.email),
           deleted: user.deleted,
 
           statistics_follower_count: profile[:followers_count],
