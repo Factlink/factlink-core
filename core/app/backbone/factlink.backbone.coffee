@@ -18,6 +18,3 @@
 #= require_tree ./layouts/
 #= require_tree ./views/
 #= require_tree ./initializers
-
-window.Kennisland = true
-
