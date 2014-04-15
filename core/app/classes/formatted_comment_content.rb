@@ -6,7 +6,7 @@ class FormattedCommentContent
   end
 
   def html
-    urls_to_link_tags ERB::Util.html_escape(@text).to_str
+    urls_to_link_tags(ERB::Util.html_escape(@text).to_str).html_safe
   end
 
   private
