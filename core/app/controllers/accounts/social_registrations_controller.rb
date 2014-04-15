@@ -55,7 +55,7 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
 
   def sign_in_and_connect_existing_user email, password
     return if email.blank?
-    return unless User.find_by(email: email)
+    return unless User.where(email: email).first
 
     @user = user_authenticated_with_warden(email, password) ||
       user_with_wrong_password(email)

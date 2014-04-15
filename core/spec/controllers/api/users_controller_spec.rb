@@ -59,7 +59,7 @@ describe Api::UsersController do
     it "should redirect to the correct path after changing a username" do
       put :update, original_username: user.username, username: 'nice_username'
 
-      User.find('nice_username').should_not be_nil
+      Backend::Users.user_by_username(username: 'nice_username').should_not be_nil
     end
 
     it "should not allow people to update their passwords" do

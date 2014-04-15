@@ -3,7 +3,7 @@
 %>
 
 <% content_for :email_header do %>
-  <h1 class="header-title">Hello <%= @user.name %></h1>
+  <h1 class="header-title">Hello <%= @user.full_name %></h1>
   <h2 class="header-subtitle"><%= @activity[:user].name %> is now following you on Factlink</h2>
 <% end %>
 

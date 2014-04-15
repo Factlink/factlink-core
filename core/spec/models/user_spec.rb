@@ -46,16 +46,9 @@ describe User do
     end
   end
 
-  describe :to_param do
-    it { expect(subject.to_param).to eq subject.username }
-  end
-
   describe ".find" do
     it "works with numerical ids" do
       expect(User.find(subject.id)).to eq subject
-    end
-    it "works with usernames" do
-      expect(User.find(subject.username)).to eq subject
     end
   end
 
@@ -70,23 +63,6 @@ describe User do
     it "can be just one letter" do
       new_user.full_name = "a"
       expect(new_user.valid?).to be_true
-    end
-  end
-
-  describe :to_json do
-    let(:json) { subject.to_json }
-    it "contains no password" do
-      expect(json).to_not include(subject.encrypted_password)
-    end
-    [
-      :admin, :'confirmation_sent_at', :confirmation_token,
-      :confirmed_at, :current_sign_in_at, :current_sign_in_ip, :encrypted_password,
-      :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :reset_password_token,
-      :sign_in_count
-    ].map { |x| x.to_s }.each do |field|
-      it "does not contain other sensitive information: #{field}" do
-        expect(json).to_not include(field)
-      end
     end
   end
 
@@ -130,46 +106,6 @@ describe User do
         active_users = User.active.all
         expect(active_users).to be_empty
       end
-    end
-  end
-
-  describe "#valid_full_name_and_email?" do
-    it "validates normal name and email address fine" do
-      user = User.new
-      user.full_name = "Some Name"
-      user.email = "some@email.com"
-
-      result = user.valid_full_name_and_email?
-      errors = user.errors
-
-      expect(result).to be_true
-      expect(errors.size).to eq 0
-    end
-
-    it "keeps an error if the name is invalid" do
-      user = User.new
-      user.full_name = ""
-      user.email = "some@email.com"
-
-      result = user.valid_full_name_and_email?
-      errors = user.errors
-
-      expect(result).to be_false
-      expect(errors.size).to eq 1
-      expect(errors[:full_name].any?).to be_true
-    end
-
-    it "keeps an error if the email is invalid" do
-      user = User.new
-      user.full_name = "Some Name"
-      user.email = "a"
-
-      result = user.valid_full_name_and_email?
-      errors = user.errors
-
-      expect(result).to be_false
-      expect(errors.size).to eq 1
-      expect(errors[:email].any?).to be_true
     end
   end
 

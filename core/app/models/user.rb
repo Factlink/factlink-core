@@ -204,59 +204,12 @@ class User
     attr.to_s == 'non_field_error' ? '' : super
   end
 
-  def to_s
-    name
-  end
-
-  def to_param
-    username
-  end
-
-  def name
-    full_name.blank? ? username : full_name
-  end
-
-  def full_name=(new_name)
-    super new_name.strip
-  end
-
-  def valid_full_name_and_email?
-    unless valid?
-      errors.keys.each do |key|
-        errors.delete key unless key == :full_name or key == :email
-      end
-    end
-    not errors.any?
-  end
-
   def generate_username!
     return unless full_name
 
     self.username = UsernameGenerator.new.generate_from full_name, USERNAME_MAX_LENGTH do |username|
       self.class.valid_username?(username)
     end
-  end
-
-  def serializable_hash(options={})
-    options ||= {}
-    options[:except] ||= []
-    options[:except] += [:admin]
-    super(options)
-  end
-
-  def self.from_param(param)
-    find_by username: param
-  end
-
-  # This function provides backwards compatibility with using #find(username)
-  # Please refrain from doing this and use #find_by(username: username) instead
-  # Remove this method when we don't use this crazy behaviour any more
-  def self.find(param,*args)
-    super || from_param(param)
-  end
-
-  def gravatar_hash
-    Gravatar.hash(email)
   end
 
   # Don't require being confirmed for being active for authentication
@@ -272,10 +225,6 @@ class User
     values.each do |val|
       features << val
     end
-  end
-
-  def features_count
-    @count ||= features.to_a.select { |f| Ability::FEATURES.include? f }.count
   end
 
   def social_accounts
