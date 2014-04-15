@@ -35,6 +35,5 @@ navigateTo = (url) ->
       window.open url
       window.focus()
 
-if !document.querySelector('body.client')
-  # HACK: this is needed because internal events did not seem to work
-  $(document).on "click", "a[rel=backbone]", defaultClickHandler
+# HACK: this is needed because internal events did not seem to work
+$(document).on "click", "a[rel=backbone]", defaultClickHandler
