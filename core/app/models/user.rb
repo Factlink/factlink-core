@@ -229,13 +229,6 @@ class User
     end
   end
 
-  def serializable_hash(options={})
-    options ||= {}
-    options[:except] ||= []
-    options[:except] += [:admin]
-    super(options)
-  end
-
   # Don't require being confirmed for being active for authentication
   # Do check for deleted accounts though!
   def active_for_authentication?
