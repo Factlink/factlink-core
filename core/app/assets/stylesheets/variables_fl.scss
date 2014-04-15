@@ -1,0 +1,13 @@
+// VARIABLES FACTLINK
+
+%logo {
+  height: 20px;
+  width: 108px;
+  background: asset-data-url("base/topbar/logo.svg") 0 0 no-repeat;
+}
+
+%comment-width {
+  max-width: $discussionSidebarMaxWidth;
+  min-width: 320px;
+  width: 25%;
+}
