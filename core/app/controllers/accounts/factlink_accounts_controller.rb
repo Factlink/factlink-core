@@ -43,7 +43,7 @@ class Accounts::FactlinkAccountsController < Accounts::BaseController
 
     unless user = warden.authenticate(scope: :user)
       user = User.new
-      user.errors.add :login, 'incorrect email address or password'
+      user.errors.add :email, 'incorrect email address or password'
     end
 
     user
