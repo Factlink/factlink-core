@@ -274,10 +274,6 @@ class User
     end
   end
 
-  def features_count
-    @count ||= features.to_a.select { |f| Ability::FEATURES.include? f }.count
-  end
-
   def social_accounts
     SocialAccount.where(user_id: id.to_s)
   end
