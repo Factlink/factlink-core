@@ -25,7 +25,7 @@
       <tr>
         <td>
           <% if (user.username) %>
-            <%= link_to user.username, user_profile_path(user) %>
+            <%= link_to user.username, user_profile_path(user.username) %>
           <% else %>
             &mdash;
           <% end %>
