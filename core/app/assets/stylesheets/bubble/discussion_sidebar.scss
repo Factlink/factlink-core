@@ -16,8 +16,10 @@ $discussionSidebarTransitionTime: 0.4s;
 }
 
 .discussion-sidebar-inner {
-  @extend %comment-width;
   position: absolute;
+  max-width: $discussionSidebarMaxWidth;
+  min-width: 320px;
+  width: 25%;
   cursor: auto;
   min-height: 100%;
   background-color: $factlinkBackgroundColor;

@@ -6,7 +6,10 @@
   background: asset-data-url("base/topbar/logo-fgf.svg") 0 0 no-repeat;
 }
 
-%comment-width {
-  width: 100%;
+%header-image {
+  background: image-url('base/header/background-fgf.png') no-repeat center top;
 }
 
+.header-earth {
+  display: none;
+}

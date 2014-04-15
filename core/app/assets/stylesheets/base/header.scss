@@ -12,7 +12,7 @@
 }
 
 .header-stars {
-  background: image-url('base/header/background.jpg') no-repeat center top;
+  @extend %header-image;
   background-size: cover;
   height: 100%;
   z-index: -2;
