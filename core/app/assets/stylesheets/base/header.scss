@@ -6,13 +6,13 @@
   left: 0;
   overflow: hidden;
   text-align: center;
-  background-color: #00294e;
+  background-color: $header-background-color;
   //move the really dark image to overlay the topbar's bottom border which isn't intended to
   margin-top: -1px; //lead into a dark background.
 }
 
 .header-stars {
-  background: image-url('base/header/background.jpg') no-repeat center top;
+  @extend %header-image;
   background-size: cover;
   height: 100%;
   z-index: -2;
@@ -33,15 +33,15 @@
   font-weight: 400;
   font-size: 30px;
   font-family: $sansFontFamily;
-  color: white;
+  color: $font-header-heading-color;
   text-shadow: none;
 }
 
 .header-tagline {
   margin-top: 25px;
   margin-bottom: 30px;
-  color: #c9dcfb;
+  color: $font-header-tagline-color;
   font-weight: 100;
   font-size: 18px;
-  text-shadow: 0 1px 0 #000;
+  text-shadow: 0 1px 0 $font-header-tagline-shadow-color;
 }
