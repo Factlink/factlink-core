@@ -4,40 +4,44 @@ showComponent = (component)->
 
 class FactlinkRouter extends Backbone.Router
   routes:
-    'feed': ->
-      showComponent ReactFeedSelection()
-      mp_track 'Viewed feed'
+    _.extend(
+      if window.Kennisland
+        'f/:fact_id': (fact_id) ->
+          Factlink.load_client_dependencies()
 
-    'search': 'search' # must be named
+          fact = new Fact id: fact_id
+          fact.fetch()
 
-    ':username/edit': ->
-      showComponent ReactProfileEdit model: currentSession.user()
+          showComponent ReactDiscussionStandalone
+            model: fact
+            initiallyFocusAddComment: true
+            key: fact_id
+            site_url: ('f/' + fact_id)
+      else
+        {}
+    ,
 
-    ':username/notification-settings': ->
-      showComponent ReactNotificationSettings model: currentSession.user()
+      'feed': ->
+        showComponent ReactFeedSelection()
+        mp_track 'Viewed feed'
 
-    ':username/change-password': ->
-      showComponent ReactChangePassword model: currentSession.user().password()
+      'search': 'search' # must be named
 
-    ':username': (username) ->
-      user = new User(username: username)
-      user.fetch()
+      ':username/edit': ->
+        showComponent ReactProfileEdit model: currentSession.user()
 
-      showComponent ReactProfile model: user
+      ':username/notification-settings': ->
+        showComponent ReactNotificationSettings model: currentSession.user()
 
-    'f/:fact_id': (fact_id) ->
-      Factlink.load_client_dependencies()
+      ':username/change-password': ->
+        showComponent ReactChangePassword model: currentSession.user().password()
 
-      fact = new Fact id: fact_id
-      fact.fetch()
+      ':username': (username) ->
+        user = new User(username: username)
+        user.fetch()
 
-      showComponent ReactDiscussionStandalone
-        model: fact
-        initiallyFocusAddComment: true
-        key: fact_id
-        site_url: ('f/' + fact_id)
-
-
+        showComponent ReactProfile model: user
+    )
   search: (params={}) ->
     @once 'route', (route) ->
       return if route == 'search'
