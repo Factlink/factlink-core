@@ -21,8 +21,6 @@ class User
 
   index(username: 1)
 
-  field :registration_code
-
   field :location
   field :biography
 
@@ -41,7 +39,7 @@ class User
                   :receives_digest
   attr_accessible :username, :full_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
-                  :receives_digest, :email, :admin, :registration_code,
+                  :receives_digest, :email, :admin,
         as: :admin
 
   USERNAME_BLACKLIST = [
@@ -152,7 +150,7 @@ class User
       [:username, :full_name, :location, :biography,
       :receives_digest, :receives_mailed_notifications, :created_at,
       :updated_at, :deleted, :admin, :email,
-      :registration_code, :reset_password_token, :reset_password_sent_at,
+      :reset_password_token, :reset_password_sent_at,
       :remember_created_at, :sign_in_count, :current_sign_in_at,
       :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip]
     end
