@@ -4,23 +4,6 @@ showComponent = (component)->
 
 class FactlinkRouter extends Backbone.Router
   routes:
-    _.extend(
-      if window.Kennisland
-        'f/:fact_id': (fact_id) ->
-          Factlink.load_client_dependencies()
-
-          fact = new Fact id: fact_id
-          fact.fetch()
-
-          showComponent ReactDiscussionStandalone
-            model: fact
-            initiallyFocusAddComment: true
-            key: fact_id
-            site_url: ('f/' + fact_id)
-      else
-        {}
-    ,
-
       'feed': ->
         showComponent ReactFeedSelection()
         mp_track 'Viewed feed'
@@ -41,7 +24,20 @@ class FactlinkRouter extends Backbone.Router
         user.fetch()
 
         showComponent ReactProfile model: user
-    )
+      'd/:fact_id': (fact_id) ->
+        if !window.Kennisland
+          alert('This is not supported in factlink mode!')
+
+        Factlink.load_client_dependencies()
+
+        fact = new Fact id: fact_id
+        fact.fetch()
+
+        showComponent ReactDiscussionStandalone
+          model: fact
+          initiallyFocusAddComment: true
+          key: fact_id
+          site_url: ('f/' + fact_id)
   search: (params={}) ->
     @once 'route', (route) ->
       return if route == 'search'
