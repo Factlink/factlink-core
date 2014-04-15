@@ -20,7 +20,7 @@ module Backend
           id: user.id.to_s,
           name: user.name,
           username: user.username,
-          gravatar_hash: user.gravatar_hash,
+          gravatar_hash: Gravatar.hash(user.email),
           deleted: user.deleted
       end
     end
