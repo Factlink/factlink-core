@@ -15,7 +15,9 @@ class Comment
   end
 
 
-  has_many :sub_comments, inverse_of: :parent
+  def sub_comments
+    SubComment.where(parent_id: self.id)
+  end
 
   index({ fact_data: 1, opinion: 1, created_at: 1})
 
