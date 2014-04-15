@@ -21,8 +21,9 @@
     };
 
     var subscribe = function(component, model, customChangeOptions) {
-        if (!model)
+        if (!model) {
             return;
+        }
 
         var behavior = model instanceof Backbone.Collection ? collection_behavior : model_behavior;
 
