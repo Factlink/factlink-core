@@ -18,8 +18,12 @@ module Admin::UsersHelper
     end
   end
 
+  def features_count_for(user)
+    user.features.count { |f| Ability::FEATURES.include? f }
+  end
+
   def features_count_class_for(user)
-    case user.features_count
+    case features_count_for(user)
     when 0
       "error"
     else
