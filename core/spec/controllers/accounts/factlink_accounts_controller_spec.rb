@@ -18,7 +18,7 @@ describe Accounts::FactlinkAccountsController do
         password = '123hoi'
         user = create :user, email: email, password: password
 
-        post :create_session, user_new_session: {login: email, password: password}
+        post :create_session, user_new_session: {email: email, password: password}
 
         expect(response.body).to match 'eventName = "account_success"'
       end
