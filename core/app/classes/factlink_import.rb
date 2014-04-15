@@ -29,6 +29,15 @@ module FactlinkImport
           content: fields[:content])
       end
     end
+
+    def opinion(fields)
+      ExecuteAsUser.new(FactlinkImport.user_for(fields[:username])).execute do |pavlov|
+        pavlov.import = true
+        pavlov.time = nil
+        dead_fact = pavlov.interactor(:'comments/update_opinion', comment_id: @comment_id,
+          opinion: fields[:opinion])
+      end
+    end
   end
 
   def user(fields)
