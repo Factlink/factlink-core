@@ -1,0 +1,71 @@
+<% content_for :header do %>
+  <div class="static-pages-header">
+    <h1 class="header-heading">Your innovation only becomes social when it is shared!</h1>
+    <p class="header-tagline">Start sharing stories and exchanging feedback to build a better future today.</p>
+
+    <%= link_to 'Join Feedback Go Forward', in_your_browser_path, class: 'button-success button-huge' %>
+  </div>
+<% end %>
+
+<% content_for :content do %>
+  <div class="static-pages-content">
+    <p><strong>Make innovation social</strong></br>
+    Make your innovation social by connecting to your innovation society</p>
+
+    <p><strong>Make innovation better</strong></br>
+    Make your innovation better by receiving real-time and automatic feedback from your innovation society</p>
+
+    <p><strong>Build visually attractive projects</strong></br>
+    Build a visually attractive, user-friendly project space to support your innovation initiative.</p>
+  </div><!--
+No whitespace because of inline-block
+--><div class="static-pages-content">
+    <p><strong>Connect to collectives</strong></br>
+    Connect to a global collective of change makers to improve your ideas</p>
+
+    <p><strong>Share stories</strong></br>
+    Share your stories with your innovation society to show what you are doing</p>
+
+    <p><strong>Exchange Feedback</strong></br>
+    Give and get feedback from your collective of change makers to generate new ideas, advice and insights from innovations elsewhere</p>
+  </div>
+<% end %>
+
+<% content_for :below_content do %>
+  <div class="static-pages-below-content">
+    <div class="container">
+      <div class="content-aligned-center">
+        <h1 class="static-pages-heading-h1">Recent activity</h1>
+        <div class="js-in-your-browser-feed in-your-browser-feed"></div>
+      </div>
+
+      <div class="content-aligned-center">
+        <%= link_to 'Discover more', feed_path, class: 'button in-your-browser-feed-more-button' %>
+      </div>
+
+      <div class="content-aligned-center">
+        <div class="in-your-browser-cta-container">
+          <div class="static-pages-below-content-box">
+            <h1 class="static-pages-heading-h1">Join the revolution!</h1>
+            <p>Discussion and access to information are key to a well-functioning society. Install Factlink in your browser to share your knowledge and stay updated.</p>
+            <%= link_to "Learn more", in_your_browser_path, class: "button-confirm" %>
+          </div>
+          <div class="static-pages-below-content-box">
+            <h1 class="static-pages-heading-h1">Have your own site?</h1>
+            <p>You can use Factlink to have better discussions and more user engagement. Factlink is free and can be implemented on your site with a single line of code.</p>
+            <%= link_to "Learn more", on_your_site_path, class: "button-confirm" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :specific_javascript do %>
+  <script>
+    var feedActivities = new GlobalFeedActivities([], {count: 7});
+    feedActivities.fetch();
+
+    React.renderComponent(ReactFeedActivitiesFixed({model: feedActivities}), $('.js-in-your-browser-feed')[0]);
+  </script>
+<% end %>
