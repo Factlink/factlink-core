@@ -46,10 +46,6 @@ describe User do
     end
   end
 
-  describe :to_param do
-    it { expect(subject.to_param).to eq subject.username }
-  end
-
   describe ".find" do
     it "works with numerical ids" do
       expect(User.find(subject.id)).to eq subject

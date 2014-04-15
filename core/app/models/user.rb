@@ -208,10 +208,6 @@ class User
     name
   end
 
-  def to_param
-    username
-  end
-
   def name
     full_name.blank? ? username : full_name
   end
@@ -242,10 +238,6 @@ class User
     options[:except] ||= []
     options[:except] += [:admin]
     super(options)
-  end
-
-  def self.from_param(param)
-    find_by username: param
   end
 
   # Don't require being confirmed for being active for authentication
