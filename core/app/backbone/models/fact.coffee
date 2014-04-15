@@ -14,11 +14,11 @@ class window.Fact extends Backbone.Model
     new Backbone.Factlink.Url(fact_url).host()
 
   friendly_fact_url: ->
-    '/f/' + @id
+    Factlink.Global.core_url + '/f/' + @id
 
   fact_show_url:
     if window.Kennisland
-      -> @friendly_fact_url()
+      -> '/d/' + @id
     else
       -> @get('proxy_open_url')
 
