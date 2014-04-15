@@ -6,7 +6,7 @@ module Interactors
       arguments :username
 
       def authorized?
-        !!pavlov_options[:current_user]
+        true
       end
 
       def validate

@@ -15,6 +15,16 @@ class Export
       end
     end
 
+    User.all.order_by(username: 1).each do |follower|
+      Pavlov.interactor(:'users/following', username: follower.username).sort_by(&:username).each do |followee|
+        created_at = hack_to_get_following_time(follower_username: follower.username,
+          followee_username: followee.username)
+
+        output << import('FactlinkImport.follow', follower_username: follower.username,
+          followee_username: followee.username, created_at: created_at) + "\n"
+      end
+    end
+
     FactData.all.order_by(fact_id: 1).each do |fact_data|
       output << import('FactlinkImport.fact', fields_from_object(fact_data, [
         :fact_id, :displaystring, :title, :url, :created_at
@@ -75,6 +85,13 @@ class Export
   end
 
   private
+
+  def hack_to_get_following_time(follower_username:, followee_username:)
+    follower_graph_user_id = User.find(follower_username).graph_user_id
+    followee_graph_user_id = User.find(followee_username).graph_user_id
+
+    Time.at Nest.new(:user)[:following_users][:relation][follower_graph_user_id].zscore(followee_graph_user_id).to_f/1000
+  end
 
   def to_ruby(value)
     case value
