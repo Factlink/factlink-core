@@ -1,0 +1,17 @@
+// VARIABLES FACTLINK
+
+%logo {
+  height: 20px;
+  width: 108px;
+  background: asset-data-url("base/topbar/logo.svg") 0 0 no-repeat;
+}
+
+%header-image {
+  background: image-url('base/header/background.jpg') no-repeat center top;
+}
+
+$header-background-color:            #00294e;
+
+$font-header-heading-color:          white;
+$font-header-tagline-color:          #c9dcfb;
+$font-header-tagline-shadow-color:   black;

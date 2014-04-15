@@ -1,0 +1,22 @@
+// VARIABLES KENNISLAND
+
+%logo {
+  height: 20px;
+  width: 220px;
+  background: asset-data-url("base/topbar/logo-fgf.svg") 0 0 no-repeat;
+}
+
+%header-image {
+  background: image-url('base/header/background-fgf.png') no-repeat center top;
+}
+
+.header-earth {
+  display: none;
+}
+
+$header-background-color:            lightgrey;
+
+$font-header-heading-color:          black;
+$font-header-tagline-color:          black;
+$font-header-tagline-shadow-color:   white;
+
