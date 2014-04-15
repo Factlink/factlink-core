@@ -51,6 +51,8 @@ module FactlinkImport
     user.skip_confirmation_notification!
     user.save!
 
+    user.features = fields[:features].split(' ')
+
     user.confirmed_at = fields[:confirmed_at]
     user.confirmation_token = fields[:confirmation_token]
     user.confirmation_sent_at = fields[:confirmation_sent_at]
