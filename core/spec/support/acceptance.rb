@@ -3,7 +3,7 @@ module Acceptance
 
   def sign_in_user(user)
     visit factlink_accounts_new_path
-    fill_in "user_new_session[login]", with: user.email
+    fill_in "user_new_session[email]", with: user.email
     fill_in "user_new_session[password]", with: user.password
     click_button "Sign in"
 
