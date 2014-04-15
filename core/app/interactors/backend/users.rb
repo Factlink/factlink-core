@@ -18,7 +18,7 @@ module Backend
       User.any_in(by => user_ids).map do |user|
         DeadUser.new \
           id: user.id.to_s,
-          name: user.name,
+          name: user.full_name.strip, # MAYBE It might be better to do strip on save
           username: user.username,
           gravatar_hash: Gravatar.hash(user.email),
           deleted: user.deleted

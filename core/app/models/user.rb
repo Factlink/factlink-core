@@ -204,14 +204,6 @@ class User
     attr.to_s == 'non_field_error' ? '' : super
   end
 
-  def name
-    full_name.blank? ? username : full_name
-  end
-
-  def full_name=(new_name)
-    super new_name.strip
-  end
-
   def generate_username!
     return unless full_name
 
