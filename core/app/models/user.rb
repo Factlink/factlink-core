@@ -248,13 +248,6 @@ class User
     find_by username: param
   end
 
-  # This function provides backwards compatibility with using #find(username)
-  # Please refrain from doing this and use #find_by(username: username) instead
-  # Remove this method when we don't use this crazy behaviour any more
-  def self.find(param,*args)
-    super || from_param(param)
-  end
-
   # Don't require being confirmed for being active for authentication
   # Do check for deleted accounts though!
   def active_for_authentication?

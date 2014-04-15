@@ -9,7 +9,7 @@ module Interactors
       attribute :pavlov_options
 
       def authorized?
-        can? :destroy, User.find(username)
+        can? :destroy, Backend::Users.user_by_username(username: username)
       end
 
       private

@@ -87,8 +87,8 @@ class Export
   private
 
   def hack_to_get_following_time(follower_username:, followee_username:)
-    follower_graph_user_id = User.find(follower_username).graph_user_id
-    followee_graph_user_id = User.find(followee_username).graph_user_id
+    follower_graph_user_id = Backend::Users.user_by_username(username: follower_username).graph_user_id
+    followee_graph_user_id = Backend::Users.user_by_username(username: followee_username).graph_user_id
 
     Time.at Nest.new(:user)[:following_users][:relation][follower_graph_user_id].zscore(followee_graph_user_id).to_f/1000
   end

@@ -101,6 +101,6 @@ module FactlinkImport
 
   def user_for(username)
     @user_for ||= {}
-    @user_for[username] ||= User.find(username) or fail "Username '#{username}' not found"
+    @user_for[username] ||= Backend::Users.user_by_username(username: username) or fail "Username '#{username}' not found"
   end
 end
