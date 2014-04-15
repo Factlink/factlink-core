@@ -35,15 +35,6 @@ No whitespace because of inline-block
   <div class="static-pages-below-content">
     <div class="container">
       <div class="content-aligned-center">
-        <h1 class="static-pages-heading-h1">Recent activity</h1>
-        <div class="js-in-your-browser-feed in-your-browser-feed"></div>
-      </div>
-
-      <div class="content-aligned-center">
-        <%= link_to 'Discover more', feed_path, class: 'button in-your-browser-feed-more-button' %>
-      </div>
-
-      <div class="content-aligned-center">
         <div class="in-your-browser-cta-container">
           <div class="static-pages-below-content-box">
             <h1 class="static-pages-heading-h1">Join the revolution!</h1>
@@ -59,13 +50,4 @@ No whitespace because of inline-block
       </div>
     </div>
   </div>
-<% end %>
-
-<% content_for :specific_javascript do %>
-  <script>
-    var feedActivities = new GlobalFeedActivities([], {count: 7});
-    feedActivities.fetch();
-
-    React.renderComponent(ReactFeedActivitiesFixed({model: feedActivities}), $('.js-in-your-browser-feed')[0]);
-  </script>
 <% end %>
