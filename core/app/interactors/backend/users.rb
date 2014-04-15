@@ -65,8 +65,9 @@ module Backend
     def anonymize user
       return unless user.deleted
 
+      default_user = User.new
       User.personal_information_fields.each do |field|
-        user[field] = User.fields[field].default_val
+        user[field] = default_user.attributes[field]
       end
 
       user.full_name = 'Deleted User'
