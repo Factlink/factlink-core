@@ -2,6 +2,7 @@ class Export
   def export
     output = ''
 
+    global_features(output)
     users(output)
     facts(output)
     comments(output)
@@ -11,11 +12,15 @@ class Export
 
   private
 
+  def global_features(output)
+    output << import('FactlinkImport.global_features', features: Backend::GlobalFeatures.all.sort.join(' ')) + "\n"
+  end
+
   def users(output)
     User.all.order_by(username: 1).each do |user|
       output << import('FactlinkImport.user', fields_from_object(user, User.import_export_simple_fields + [
         :encrypted_password, :confirmed_at, :confirmation_token, :confirmation_sent_at
-      ])) + "\n"
+      ]).merge(features: user.features.to_a.sort.join(' '))) + "\n"
 
       user.social_accounts.each do |social_account|
         output << import('FactlinkImport.social_account',

@@ -40,6 +40,10 @@ module FactlinkImport
     end
   end
 
+  def global_features(fields)
+    Backend::GlobalFeatures.set fields[:features].split(' ')
+  end
+
   def user(fields)
     user = User.new
 
@@ -50,6 +54,8 @@ module FactlinkImport
     user.encrypted_password = fields[:encrypted_password]
     user.skip_confirmation_notification!
     user.save!
+
+    user.features = fields[:features].split(' ')
 
     user.confirmed_at = fields[:confirmed_at]
     user.confirmation_token = fields[:confirmation_token]
