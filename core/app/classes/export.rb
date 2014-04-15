@@ -107,9 +107,9 @@ class Export
     field_names.inject({}) { |hash, name| hash.merge(name => object.public_send(name)) }
   end
 
-  def import(name, fields)
+  def import(import_name, fields)
     fields_string = fields.map{ |name, value| name_value_to_string(name, value)}.join
 
-    "#{name}({#{fields_string}})"
+    "#{import_name}({#{fields_string}})"
   end
 end
