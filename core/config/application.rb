@@ -24,6 +24,11 @@ ActiveSupport.escape_html_entities_in_json = true
 
 
 module FactlinkUI
+  def self.Kennisland?
+    puts "called!"
+    true #If merging to factlink's master, must be false
+  end
+
   class Application < Rails::Application
     config.autoload_paths << "#{config.root}/lib"
     config.autoload_paths << "#{config.root}/app/classes"
