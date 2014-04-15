@@ -204,10 +204,6 @@ class User
     attr.to_s == 'non_field_error' ? '' : super
   end
 
-  def to_s
-    name
-  end
-
   def name
     full_name.blank? ? username : full_name
   end
@@ -222,13 +218,6 @@ class User
     self.username = UsernameGenerator.new.generate_from full_name, USERNAME_MAX_LENGTH do |username|
       self.class.valid_username?(username)
     end
-  end
-
-  def serializable_hash(options={})
-    options ||= {}
-    options[:except] ||= []
-    options[:except] += [:admin]
-    super(options)
   end
 
   # Don't require being confirmed for being active for authentication

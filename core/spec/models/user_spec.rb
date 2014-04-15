@@ -66,23 +66,6 @@ describe User do
     end
   end
 
-  describe :to_json do
-    let(:json) { subject.to_json }
-    it "contains no password" do
-      expect(json).to_not include(subject.encrypted_password)
-    end
-    [
-      :admin, :'confirmation_sent_at', :confirmation_token,
-      :confirmed_at, :current_sign_in_at, :current_sign_in_ip, :encrypted_password,
-      :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :reset_password_token,
-      :sign_in_count
-    ].map { |x| x.to_s }.each do |field|
-      it "does not contain other sensitive information: #{field}" do
-        expect(json).to_not include(field)
-      end
-    end
-  end
-
   describe 'forbidden names' do
     let(:new_user) { build :user }
     it "can have GerardEkdom as name" do
