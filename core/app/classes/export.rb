@@ -2,6 +2,7 @@ class Export
   def export
     output = ''
 
+    global_features(output)
     users(output)
     facts(output)
     comments(output)
@@ -10,6 +11,10 @@ class Export
   end
 
   private
+
+  def global_features(output)
+    output << import('FactlinkImport.global_features', features: Backend::GlobalFeatures.all.sort.join(' ')) + "\n"
+  end
 
   def users(output)
     User.all.order_by(username: 1).each do |user|

@@ -40,6 +40,10 @@ module FactlinkImport
     end
   end
 
+  def global_features(fields)
+    Backend::GlobalFeatures.set fields[:features].split(' ')
+  end
+
   def user(fields)
     user = User.new
 
