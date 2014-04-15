@@ -59,8 +59,13 @@ FactlinkUI::Application.routes.draw do
 
   resources :feedback # TODO: RESTRICT
 
-  get "/:fact_slug/f/:id" => "facts#discussion_page_redirect"
-  get "/f/:id" => "facts#discussion_page_redirect"
+  if FactlinkUI.Kennisland?
+    get "/:fact_slug/f/:id" => "frontend#show"
+    get "/f/:id" => "frontend#show"
+  else
+    get "/:fact_slug/f/:id" => "facts#discussion_page_redirect"
+    get "/f/:id" => "facts#discussion_page_redirect"
+  end
 
   get "/in-your-browser" => "home#in_your_browser", as: 'in_your_browser'
   get "/on-your-site" => "home#on_your_site", as: 'on_your_site'
