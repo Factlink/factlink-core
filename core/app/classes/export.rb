@@ -49,13 +49,13 @@ class Export
           fact_id: comment.fact_data.fact_id, username: comment.created_by.username)
       ) + " do\n"
 
-      Backend::Comments.opiniated(comment_id: comment.id.to_s, type: 'believes').each do |believer|
+      Backend::Comments.opiniated(comment_id: comment.id.to_s, type: 'believes').to_a.sort_by(&:username).each do |believer|
         output << '  '
         output << import('opinion', opinion: 'believes', username: believer.username)
         output << "\n"
       end
 
-      Backend::Comments.opiniated(comment_id: comment.id.to_s, type: 'disbelieves').each do |disbeliever|
+      Backend::Comments.opiniated(comment_id: comment.id.to_s, type: 'disbelieves').to_a.sort_by(&:username).each do |disbeliever|
         output << '  '
         output << import('opinion', opinion: 'disbelieves', username: disbeliever.username)
         output << "\n"
