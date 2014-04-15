@@ -220,15 +220,6 @@ class User
     super new_name.strip
   end
 
-  def valid_full_name_and_email?
-    unless valid?
-      errors.keys.each do |key|
-        errors.delete key unless key == :full_name or key == :email
-      end
-    end
-    not errors.any?
-  end
-
   def generate_username!
     return unless full_name
 
