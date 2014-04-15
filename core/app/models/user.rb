@@ -255,10 +255,6 @@ class User
     super || from_param(param)
   end
 
-  def gravatar_hash
-    Gravatar.hash(email)
-  end
-
   # Don't require being confirmed for being active for authentication
   # Do check for deleted accounts though!
   def active_for_authentication?
