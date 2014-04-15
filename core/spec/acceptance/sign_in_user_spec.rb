@@ -19,7 +19,7 @@ describe 'When a user signs in', type: :feature do
     user = create :user, :confirmed
 
     visit factlink_accounts_new_path
-    fill_in "user_new_session[login]", with: user.email
+    fill_in "user_new_session[email]", with: user.email
     fill_in "user_new_session[password]", with: user.password + '1'
     click_button "Sign in"
 

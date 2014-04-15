@@ -16,10 +16,6 @@ class User
 
   USERNAME_MAX_LENGTH = 20 # WARNING: must be shorter than mongo ids(24 chars) to avoid confusing ids with usernames!
 
-  # Virtual attribute for authenticating by either username or email
-  # This is in addition to a real persisted field like 'username'
-  attr_accessor :login
-
   field :username
   field :full_name    # TODO:EMN minimum length?  require space?
 
@@ -233,12 +229,6 @@ class User
 
   def social_account provider_name
     SocialAccount.where(provider_name: provider_name, user_id: id.to_s).first_or_initialize
-  end
-
-  # Override login mechanism to allow username or email logins
-  def self.find_for_database_authentication(conditions)
-    login = conditions.delete(:login)
-    any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
   end
 
   # this backports a bug introduced by devise_invitable

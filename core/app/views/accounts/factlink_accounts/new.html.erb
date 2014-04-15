@@ -5,9 +5,9 @@
 
       <h1 class="accounts-popup-half-form-heading">Sign in to Factlink</h1>
 
-      <%= f.label :login, 'Email address' %>
-      <%= f.text_field :login, placeholder: 'john@smith.com' %>
-      <%= possible_error_for_field(@user_new_session, :login) %>
+      <%= f.label :email, 'Email address' %>
+      <%= f.text_field :email, placeholder: 'john@smith.com' %>
+      <%= possible_error_for_field(@user_new_session, :email) %>
 
       <%= f.label :password %>
       <%= f.password_field :password %>
