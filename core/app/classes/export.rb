@@ -2,6 +2,16 @@ class Export
   def export
     output = ''
 
+    users(output)
+    facts(output)
+    comments(output)
+
+    output
+  end
+
+  private
+
+  def users(output)
     User.all.order_by(username: 1).each do |user|
       output << import('FactlinkImport.user', fields_from_object(user, User.import_export_simple_fields + [
         :encrypted_password, :confirmed_at, :confirmation_token, :confirmation_sent_at
@@ -24,7 +34,9 @@ class Export
           followee_username: followee.username, created_at: created_at) + "\n"
       end
     end
+  end
 
+  def facts(output)
     FactData.all.order_by(fact_id: 1).each do |fact_data|
       output << import('FactlinkImport.fact', fields_from_object(fact_data, [
         :fact_id, :displaystring, :title, :url, :created_at
@@ -42,7 +54,9 @@ class Export
 
       output << "end\n"
     end
+  end
 
+  def comments(output)
     comment_sorter = lambda do |comment_or_subcomment|
       comment_or_subcomment.created_at.utc.to_s + comment_or_subcomment.content + comment_or_subcomment.created_by.username
     end
@@ -75,11 +89,7 @@ class Export
 
       output << "end\n"
     end
-
-    output
   end
-
-  private
 
   def hack_to_get_following_time(follower_username:, followee_username:)
     follower_graph_user_id = User.find(follower_username).graph_user_id
