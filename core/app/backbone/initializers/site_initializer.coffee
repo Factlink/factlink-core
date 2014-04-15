@@ -25,6 +25,19 @@ class FactlinkRouter extends Backbone.Router
 
       showComponent ReactProfile model: user
 
+    'f/:fact_id': (fact_id) ->
+      Factlink.load_client_dependencies()
+
+      fact = new Fact id: fact_id
+      fact.fetch()
+
+      showComponent ReactDiscussionStandalone
+        model: fact
+        initiallyFocusAddComment: true
+        key: fact_id
+        site_url: ('f/' + fact_id)
+
+
   search: (params={}) ->
     @once 'route', (route) ->
       return if route == 'search'
