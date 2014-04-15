@@ -16,7 +16,7 @@ class Export
     end
 
     User.all.order_by(username: 1).each do |follower|
-      Pavlov.interactor(:'users/following', username: follower.username).each do |followee|
+      Pavlov.interactor(:'users/following', username: follower.username).sort_by(&:username).each do |followee|
         created_at = hack_to_get_following_time(follower_username: follower.username,
           followee_username: followee.username)
 
