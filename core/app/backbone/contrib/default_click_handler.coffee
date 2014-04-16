@@ -2,38 +2,21 @@
 
 # Add a default clickhandler so we can use hrefs
 defaultClickHandler = (e) ->
-  if Backbone.History.started # Capitalization in Backbone.[H]istory is intentional
+  #handle clicks when...
+  if !(e.metaKey || e.ctrlKey || e.altKey)  # no user-new-tab-keys are pressed
     $link = $(e.target).closest("a")
-    url = $link.attr("href")
+    if !$link.attr("target") && $link.attr("rel") == 'backbone' && $link.attr("href") # and there's real link without target
+      if navigateTo($link.attr("href")) # and it's routable via backbone
+        e.preventDefault() #if we handle clicks, abort browser default.
 
-    if e.metaKey or e.ctrlKey or e.altKey
-      target = "_blank"
-    else
-      target = $link.attr("target")
 
-    if target?
-      window.open url, target
-    else
-      navigateTo url
-
-    false # prevent default
-  else
-    true
 
 navigateTo = (url) ->
-  if "/" + Backbone.history.fragment is url
-    # Allow reloads by clicking links without polluting the history
-    Backbone.history.fragment = null
-    Backbone.history.navigate url,
-      trigger: true
-      replace: true
+  status = Backbone.history.navigate(url, true)
+  if status == undefined #means url unchanged; nothing happened.
+    Backbone.history.loadUrl(url) #reload on navigate to current location.
   else
-    if Backbone.history.loadUrl(url) # Try if there is a Backbone route available
-      Backbone.history.fragment = null # Force creating a state in the history
-      Backbone.history.navigate url, false
-    else
-      window.open url
-      window.focus()
+    status
 
 # HACK: this is needed because internal events did not seem to work
-$(document).on "click", ":not(body.client) a[rel=backbone]", defaultClickHandler
+$(document).on "click", defaultClickHandler
