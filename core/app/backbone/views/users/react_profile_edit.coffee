@@ -110,16 +110,9 @@ window.ReactProfileEdit = React.createBackboneClass
     @model().off 'change', null, @
 
   _submit: ->
-    usernameChanged = @model().get('username') != @_modelClone.get('username')
-    url = @model().url() # Can change when changing username
-
     @model().save @_modelClone.attributes,
-      url: url
       success: =>
-        if usernameChanged
-          window.location = @model().editLink()
-        else
-          Factlink.notificationCenter.success 'Your profile has been updated!'
+        Factlink.notificationCenter.success 'Your profile has been updated!'
       error: =>
         Factlink.notificationCenter.error 'Could not update your profile, please try again.'
 
@@ -139,11 +132,6 @@ window.ReactProfileEdit = React.createBackboneClass
               model: @_modelClone
               label: 'Full name'
               attribute: 'full_name'
-
-            ReactInput
-              model: @_modelClone
-              label: 'Username'
-              attribute: 'username'
 
             ReactInput
               model: @_modelClone
