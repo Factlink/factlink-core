@@ -14,24 +14,34 @@ window.ReactFeedSelection = React.createClass
       @setState
         feedChoice: e.target.value
 
+  _toggle_create_challenge: ->
+    console.log 'hey', @state
+    @setState show_create_challenge: !@state.show_create_challenge
+
   render: ->
     _div [],
       if currentSession.signedIn()
-        _div ['feed-selection-row'],
-          _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'global', id: 'FeedChoice_Global', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='global'  ]
-          _label [ htmlFor: 'FeedChoice_Global' ],
-            'Global'
+        [
+          _div ['feed-selection-row'],
+            _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'global', id: 'FeedChoice_Global', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='global'  ]
+            _label [ htmlFor: 'FeedChoice_Global' ],
+              'Global'
 
-          _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'personal', id: 'FeedChoice_Personal', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='personal' ]
-          _label [ htmlFor: 'FeedChoice_Personal' ],
-            'Personal'
+            _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'personal', id: 'FeedChoice_Personal', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='personal' ]
+            _label [ htmlFor: 'FeedChoice_Personal' ],
+              'Personal'
 
-          if window.is_kennisland
-            _div ['button-success feed-selection-install-extension-button'],
-              "Create challenge"
-          else
-            _div ['feed-selection-install-extension-button'],
-              ReactInstallExtensionOrBookmarklet()
+            if window.is_kennisland
+              _button ['button-success feed-selection-install-extension-button', onClick: @_toggle_create_challenge],
+                "Create challenge"
+            else
+              _div ['feed-selection-install-extension-button'],
+                ReactInstallExtensionOrBookmarklet()
+
+          if window.is_kennisland & @state.show_create_challenge
+            _div ['challenges-create'],
+              "hello world"
+        ]
 
       ReactFeedActivitiesAutoLoading
         model: @state.feeds[@state.feedChoice]
