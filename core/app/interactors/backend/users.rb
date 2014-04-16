@@ -46,8 +46,8 @@ module Backend
       {
         location: nil_if_empty(user.location),
         biography: nil_if_empty(user.biography),
-        followers_count: UserFollowingUsers.new(user.graph_user_id).followers_count,
-        following_count: UserFollowingUsers.new(user.graph_user_id).following_count,
+        followers_count: Backend::UserFollowers.follower_ids(followee_id: user.id).length,
+        following_count: Backend::UserFollowers.followee_ids(follower_id: user.id).length,
       }
     end
 

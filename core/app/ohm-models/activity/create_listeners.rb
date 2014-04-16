@@ -7,7 +7,7 @@ class Activity < OurOhm
     #
 
     def reject_self followers, activity
-      followers.reject {|id| id == activity.user_id}
+      followers.reject {|id| id.to_s == activity.user_id.to_s }
     end
 
     def people_who_follow_sub_comment
@@ -15,7 +15,7 @@ class Activity < OurOhm
     end
 
     def people_who_follow_user_of_activity
-      ->(a) { reject_self(Backend::UserFollowers.follower_ids(followee_id: a.user_id), a) }
+      ->(a) { reject_self(Backend::UserFollowers.follower_ids(followee_id: User[a.user_id].id).map {|id| User.find(id).graph_user_id }, a) } # WARNING user.id != user_id
     end
 
     # notifications, stream_activities
@@ -78,7 +78,10 @@ class Activity < OurOhm
       {
         subject_class: 'GraphUser',
         action: 'followed_user',
-        write_ids: ->(a) { Backend::UserFollowers.follower_ids(followee_id: a.user_id) - [a.subject_id] }
+        write_ids: ->(a) {
+         (Backend::UserFollowers.follower_ids(followee_id: User[a.user_id].id)).map {|id| User.find(id).graph_user_id } -  # WARNING user.id != user_id
+           [a.subject_id]
+         }
       }
     end
 

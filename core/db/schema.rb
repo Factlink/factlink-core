@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140415143331) do
+ActiveRecord::Schema.define(:version => 20140416122841) do
 
   create_table "comments", :force => true do |t|
     t.integer  "fact_data_id"
@@ -32,14 +32,26 @@ ActiveRecord::Schema.define(:version => 20140415143331) do
     t.datetime "updated_at",    :null => false
   end
 
+  create_table "followings", :force => true do |t|
+    t.integer  "followee_id"
+    t.integer  "follower_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "followings", ["followee_id"], :name => "index_followings_on_followee_id"
+  add_index "followings", ["follower_id"], :name => "index_followings_on_follower_id"
+
   create_table "social_accounts", :force => true do |t|
     t.string   "provider_name"
     t.string   "omniauth_obj_id"
-    t.string   "user_id"
+    t.integer  "user_id"
     t.text     "omniauth_obj_string"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
+
+  add_index "social_accounts", ["user_id"], :name => "index_social_accounts_on_user_id"
 
   create_table "sub_comments", :force => true do |t|
     t.integer  "parent_id"
