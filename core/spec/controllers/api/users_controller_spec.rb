@@ -86,7 +86,7 @@ describe Api::UsersController do
 
       delete :destroy, username: 'someone', password: 'password'
 
-      User.find('someone').should be_nil
+      User.where(username: 'someone').first.should be_nil
     end
   end
 end
