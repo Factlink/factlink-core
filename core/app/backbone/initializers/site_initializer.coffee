@@ -25,7 +25,7 @@ class FactlinkRouter extends Backbone.Router
 
       showComponent ReactProfile model: user
     'd/:fact_id': (fact_id) ->
-      if !window.Kennisland
+      if !window.is_kennisland
         alert('This is not supported in factlink mode!')
 
       Factlink.load_client_dependencies()

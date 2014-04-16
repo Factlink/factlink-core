@@ -17,7 +17,7 @@ class window.Fact extends Backbone.Model
     Factlink.Global.core_url + '/f/' + @id
 
   fact_show_url:
-    if window.Kennisland
+    if window.is_kennisland
       -> '/d/' + @id
     else
       -> @get('proxy_open_url')
