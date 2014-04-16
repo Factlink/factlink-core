@@ -3,7 +3,11 @@ require 'spec_helper'
 describe Api::UsersController do
   include FeedHelper
 
-  let(:user) { create(:user, features: ['some_feature']) }
+  let(:user) do
+    create(:user).tap do |user|
+      user.features = ['some_feature']
+    end
+  end
 
   describe "#feed" do
     include PavlovSupport
@@ -86,7 +90,7 @@ describe Api::UsersController do
 
       delete :destroy, username: 'someone', password: 'password'
 
-      User.find('someone').should be_nil
+      User.where(username: 'someone').first.should be_nil
     end
   end
 end

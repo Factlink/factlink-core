@@ -31,24 +31,10 @@ describe User do
   end
 
   describe :username do
-    it "respects the username's case" do
-      user = build :user, username: "TestUser"
-      user.save!
-
-      retrieved_username = User.find(user.id).username
-      expect(retrieved_username).to eq "TestUser"
-    end
-
     it "checks uniqueness case insensitively" do
-      user1 = create :user, username: "TestUser"
+      create :user, username: "TestUser"
       user2 = build  :user, username: "testuser"
       expect(user2.save).to be_false
-    end
-  end
-
-  describe ".find" do
-    it "works with numerical ids" do
-      expect(User.find(subject.id)).to eq subject
     end
   end
 

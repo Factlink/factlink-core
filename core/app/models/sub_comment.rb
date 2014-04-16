@@ -12,6 +12,6 @@ class SubComment
     User.where(id: created_by_id).first
   end
   def created_by=(user)
-    self[:created_by_id] = user.id
+    self.created_by_id = user.id.to_s
   end
 end
