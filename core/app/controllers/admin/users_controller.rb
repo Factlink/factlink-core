@@ -42,7 +42,7 @@ class Admin::UsersController < AdminController
   end
 
   def sort_column
-    User.fields.collect { |field| field[0] }.include?(params[:sort]) ? params[:sort] : "username"
+    params[:sort] || "username"
   end
 
   def sort_direction
