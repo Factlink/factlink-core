@@ -8,6 +8,8 @@ defaultClickHandler = (e) ->
     if !$link.attr("target") && $link.attr("rel") == 'backbone' && $link.attr("href") # and there's real link without target
       if navigateTo($link.attr("href")) # and it's routable via backbone
         e.preventDefault() #if we handle clicks, abort browser default.
+      else
+        $link.attr("target", "_blank") # all unhandled clicks: new window.
 
 
 
