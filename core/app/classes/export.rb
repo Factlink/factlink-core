@@ -22,7 +22,7 @@ class Export
         :encrypted_password, :confirmed_at, :confirmation_token, :confirmation_sent_at
       ]).merge(features: user.features.to_a.sort.join(' '))) + "\n"
 
-      user.social_accounts.each do |social_account|
+      user.social_accounts.sort_by(&:provider_name).each do |social_account|
         output << import('FactlinkImport.social_account',
           fields_from_object(social_account, SocialAccount.import_export_simple_fields).merge(
             username: user.username)
