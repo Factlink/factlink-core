@@ -42,7 +42,7 @@ class Admin::UsersController < AdminController
   end
 
   def sort_column
-    params[:sort] || "username"
+    %w[username email sign_in_count full_name current_sign_in_at].include?(params[:sort]) ? params[:sort] : "username"
   end
 
   def sort_direction
