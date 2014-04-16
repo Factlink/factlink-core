@@ -45,6 +45,8 @@ window.ReactFeedSelection = React.createClass
                 id: 'challenge-description'
                 ref: 'textarea'
                 placeholder: 'Describe the challenge'
+              _button ["button-confirm"],
+                "post"
 
         ]
 
