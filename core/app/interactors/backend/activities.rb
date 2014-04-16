@@ -123,7 +123,7 @@ module Backend
         end.flatten
 
       recipients = Backend::Notifications.users_receiving(type: 'mailed_notifications')
-                                         .any_in(graph_user_id: graph_user_ids)
+                                         .where(graph_user_id: graph_user_ids)
 
       recipients.each do |user|
         Resque.enqueue SendActivityMailToUser, user.id, activity.id

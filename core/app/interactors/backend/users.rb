@@ -9,13 +9,13 @@ module Backend
     # both because we want it to have an index, and because we don't want to
     # leak too much of the internals
     def by_ids(user_ids:, by: nil)
-      by ||= :_id
+      by ||= :id
       user_ids = Array(user_ids)
 
-      fail "invalid id type: #{by}" unless [:_id, :graph_user_id].include? by
+      fail "invalid id type: #{by}" unless [:id, :graph_user_id].include? by
 
 
-      User.any_in(by => user_ids).map do |user|
+      User.where(by => user_ids).map do |user|
         DeadUser.new \
           id: user.id.to_s,
           name: user.full_name.strip, # MAYBE It might be better to do strip on save
