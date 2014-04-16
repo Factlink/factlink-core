@@ -3,7 +3,11 @@ require 'spec_helper'
 describe Api::UsersController do
   include FeedHelper
 
-  let(:user) { create(:user, features: ['some_feature']) }
+  let(:user) do
+    create(:user).tap do |user|
+      user.features = ['some_feature']
+    end
+  end
 
   describe "#feed" do
     include PavlovSupport
