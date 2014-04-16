@@ -26,8 +26,9 @@ window.ReactFeedSelection = React.createClass
           _label [ htmlFor: 'FeedChoice_Personal' ],
             'Personal'
 
-          _div ['feed-selection-install-extension-button'],
-            ReactInstallExtensionOrBookmarklet()
+          if !window.is_kennisland
+            _div ['feed-selection-install-extension-button'],
+              ReactInstallExtensionOrBookmarklet()
 
       ReactFeedActivitiesAutoLoading
         model: @state.feeds[@state.feedChoice]
