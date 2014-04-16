@@ -9,7 +9,7 @@ module ScreenshotTest
 
     def old_file
       kl_prefix = FactlinkUI.Kennisland? ? 'kl-' : ''
-      Rails.root.join('spec','screenshots', kl_prefix + 'screenshots',"#{@title}.png")
+      Rails.root.join("spec/screenshots/#{kl_prefix}screenshots", "#{@title}.png")
     end
 
     def new_file
