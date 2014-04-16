@@ -7,6 +7,7 @@ window.ReactFeedSelection = React.createClass
     feeds:
       global: new GlobalFeedActivities
       personal: new PersonalFeedActivities
+      discussions: new DiscussionsFeedActivities
 
 
   _handleFeedChoiceChange: (e) ->
@@ -25,6 +26,9 @@ window.ReactFeedSelection = React.createClass
           _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'personal', id: 'FeedChoice_Personal', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='personal' ]
           _label [ htmlFor: 'FeedChoice_Personal' ],
             'Personal'
+          _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'discussions', id: 'FeedChoice_Discussions', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='discussions' ]
+          _label [ htmlFor: 'FeedChoice_Discussions' ],
+            'Discussions'
 
           _div ['feed-selection-install-extension-button'],
             ReactInstallExtensionOrBookmarklet()
