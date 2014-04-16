@@ -3,7 +3,11 @@ require 'spec_helper'
 describe Api::SessionsController do
   include FeedHelper
 
-  let(:user) { create(:user, features: ['some_feature']) }
+  let(:user) do
+    create(:user).tap do |user|
+      user.features = ['some_feature']
+    end
+  end
 
   describe :current do
     it "should render json successful for current user" do
