@@ -13,8 +13,8 @@ defaultClickHandler = (e) ->
 
 navigateTo = (url) ->
   status = Backbone.history.navigate(url, true)
-  if status == undefined
-    Backbone.history.loadUrl(url)
+  if status == undefined #means url unchanged; nothing happened.
+    Backbone.history.loadUrl(url) #reload on navigate to current location.
   else
     status
 
