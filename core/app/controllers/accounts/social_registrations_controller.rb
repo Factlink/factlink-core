@@ -63,7 +63,7 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
     if @user.errors.empty?
       finish_connecting
     else
-      @alternative_provider_name = alternative_provider_name_for User.find_by(email: email)
+      @alternative_provider_name = alternative_provider_name_for User.where(email: email).first
 
       render :'accounts/social_registrations/existing'
     end

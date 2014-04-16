@@ -2,7 +2,6 @@ class Ability
   class AdminArea;end
   class FactlinkWebapp;end
 
-
   include CanCan::Ability
 
   attr_reader :user
@@ -51,7 +50,7 @@ class Ability
 
     can :create, SubComment
     can :destroy, SubComment do |sub_comment|
-      sub_comment.created_by_id == user.id
+      sub_comment.created_by_id.to_s == user.id.to_s
     end
   end
 
