@@ -5,7 +5,6 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'webmock/rspec'
 require 'rubygems'
-require 'database_cleaner'
 require 'pavlov_helper'
 require 'webmock'
 require 'approvals/rspec'
@@ -32,15 +31,15 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :view
   config.include Devise::TestHelpers, type: :controller
 
+  config.use_transactional_examples = true
+
   config.before(:suite) do
     ElasticSearch.create
-    DatabaseCleaner[:active_record].strategy = :truncation
   end
 
   config.before(:each) do
     ElasticSearch.clean
     Ohm.flush
-    DatabaseCleaner.clean
   end
 end
 
