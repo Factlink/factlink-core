@@ -22,7 +22,7 @@ class Export
         :encrypted_password, :confirmed_at, :confirmation_token, :confirmation_sent_at
       ]).merge(features: user.features.to_a.sort.join(' '))) + "\n"
 
-      user.social_accounts.each do |social_account|
+      user.social_accounts.sort_by(&:provider_name).each do |social_account|
         output << import('FactlinkImport.social_account',
           fields_from_object(social_account, SocialAccount.import_export_simple_fields).merge(
             username: user.username)
@@ -62,40 +62,39 @@ class Export
   end
 
   def comments(output)
-    comment_sorter = lambda do |comment|
-      comment.created_at.utc.to_s + comment.fact_data.fact_id + comment.content + comment.created_by.username
-    end
-    sub_comment_sorter = lambda do |sub_comment|
-      sub_comment.created_at.utc.to_s + sub_comment.content + sub_comment.created_by.username
-    end
-
-    comment_array = Comment.all.to_a
-    comment_array.sort_by(&comment_sorter).each do |comment|
-      output << import('FactlinkImport.comment',
-        fields_from_object(comment, [:content, :created_at]).merge(
-          fact_id: comment.fact_data.fact_id, username: comment.created_by.username)
-      ) + " do\n"
-
-      Backend::Comments.opiniated(comment_id: comment.id.to_s, type: 'believes').to_a.sort_by(&:username).each do |believer|
-        output << '  '
-        output << import('opinion', opinion: 'believes', username: believer.username)
-        output << "\n"
+    FactData.all.order_by(fact_id: 1).each do |fact_data|
+      comment_sorter = lambda do |comment|
+        comment.created_at.utc.to_s + comment.content + comment.created_by.username
       end
 
-      Backend::Comments.opiniated(comment_id: comment.id.to_s, type: 'disbelieves').to_a.sort_by(&:username).each do |disbeliever|
-        output << '  '
-        output << import('opinion', opinion: 'disbelieves', username: disbeliever.username)
-        output << "\n"
-      end
+      comment_array = fact_data.comments
+      comment_array.sort_by(&comment_sorter).each do |comment|
+        output << import('FactlinkImport.comment',
+          fields_from_object(comment, [:content, :created_at]).merge(
+            fact_id: fact_data.fact_id, username: comment.created_by.username)
+        ) + " do\n"
 
-      comment.sub_comments.to_a.sort_by(&sub_comment_sorter).each do |sub_comment|
-        output << '  '
-        output << import('sub_comment', fields_from_object(sub_comment, [:content, :created_at]).merge(
-          username: sub_comment.created_by.username))
-        output << "\n"
-      end
+        Backend::Comments.opiniated(comment_id: comment.id.to_s, type: 'believes').to_a.sort_by(&:username).each do |believer|
+          output << '  '
+          output << import('opinion', opinion: 'believes', username: believer.username)
+          output << "\n"
+        end
 
-      output << "end\n"
+        Backend::Comments.opiniated(comment_id: comment.id.to_s, type: 'disbelieves').to_a.sort_by(&:username).each do |disbeliever|
+          output << '  '
+          output << import('opinion', opinion: 'disbelieves', username: disbeliever.username)
+          output << "\n"
+        end
+
+        comment.sub_comments.to_a.sort_by(&comment_sorter).each do |sub_comment|
+          output << '  '
+          output << import('sub_comment', fields_from_object(sub_comment, [:content, :created_at]).merge(
+            username: sub_comment.created_by.username))
+          output << "\n"
+        end
+
+        output << "end\n"
+      end
     end
   end
 
