@@ -90,14 +90,6 @@ end
 FactlinkImport.fact({fact_id: "9", displaystring: "The plant Arabidopsis thaliana is found throughout the entire northern hemisphere", title: "http://www.sciencedaily.com/", url: "http://www.sciencedaily.com/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
   interesting({username: "jjoos", })
 end
-FactlinkImport.comment({content: "?", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "3", username: "remon", }) do
-  opinion({opinion: "believes", username: "remon", })
-end
-FactlinkImport.comment({content: "All your base are belong to us. So give your Pokémon and your children and head towards the mountains with the horses we provided.", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "3", username: "mark", }) do
-  sub_comment({content: "Super weird...", created_at: Time.parse("2014-04-14T09:00:00Z"), username: "remon", })
-  sub_comment({content: "Or should I say, extremely strange!", created_at: Time.parse("2014-04-14T10:00:00Z"), username: "remon", })
-  sub_comment({content: "SDF", created_at: Time.parse("2014-04-14T11:00:00Z"), username: "remon", })
-end
 FactlinkImport.comment({content: "Are you on crack?", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "1", username: "luuk", }) do
 end
 FactlinkImport.comment({content: "I totally agree, because I like plants and stuff.", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "1", username: "jens", }) do
@@ -108,6 +100,14 @@ FactlinkImport.comment({content: "Let's stay on topic and buy cr4ck at http://go
   opinion({opinion: "disbelieves", username: "remon", })
 end
 FactlinkImport.comment({content: "This was because nutrients such as nitrogen and phosphorus -- usually essential to enable microbes to grow and make new cells -- were scarce in the water and oil in the slick.", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "2", username: "eamon", }) do
+end
+FactlinkImport.comment({content: "?", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "3", username: "remon", }) do
+  opinion({opinion: "believes", username: "remon", })
+end
+FactlinkImport.comment({content: "All your base are belong to us. So give your Pokémon and your children and head towards the mountains with the horses we provided.", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "3", username: "mark", }) do
+  sub_comment({content: "Super weird...", created_at: Time.parse("2014-04-14T09:00:00Z"), username: "remon", })
+  sub_comment({content: "Or should I say, extremely strange!", created_at: Time.parse("2014-04-14T10:00:00Z"), username: "remon", })
+  sub_comment({content: "SDF", created_at: Time.parse("2014-04-14T11:00:00Z"), username: "remon", })
 end
 FactlinkImport.comment({content: "I like money $$$$", created_at: Time.parse("2014-04-10T12:13:04Z"), fact_id: "12", username: "luuk", }) do
 end
