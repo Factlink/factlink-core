@@ -67,12 +67,13 @@ ReactCreatedCommentActivity = React.createBackboneClass
     user = new User @model().get('user')
     fact = new Fact @model().get('fact')
     comment = new Comment @model().get('comment')
-    target_url = fact.fact_show_url()
+    fact_link = fact.fact_show_link()
 
     ReactGenericActivity {
         model: user
         time: @model().get('created_at')
-        href: target_url
+        href: fact_link.href
+        target: fact_link.target
         activity_header_action: [
           _span ["feed-activity-description"],
             "commented on"
@@ -91,12 +92,13 @@ ReactCreatedSubCommentActivity = React.createBackboneClass
     fact = new Fact @model().get('fact')
     comment = new Comment @model().get('comment')
     sub_comment = new Comment @model().get('sub_comment')
-    target_url = fact.fact_show_url()
+    fact_link = fact.fact_show_link()
 
     ReactGenericActivity {
         model: user
         time: @model().get('created_at')
-        href: target_url
+        href: fact_link.href
+        target: fact_link.target
         activity_header_action: [
           _span ["feed-activity-description"],
             "replied to"
