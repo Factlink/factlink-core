@@ -23,5 +23,3 @@ class window.PersonalFeedActivities extends Backbone.Collection
   model: Activity
 
   url: -> '/api/beta/feed/personal'
-
-
