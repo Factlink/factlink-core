@@ -39,8 +39,6 @@ FactlinkUI::Application.configure do
     I18n.default_locale = :nl
   end
 
-  end
-
   config.force_ssl = false
 
   config.action_controller.perform_caching = true
