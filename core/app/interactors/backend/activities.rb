@@ -70,6 +70,11 @@ module Backend
                 followed_user: Backend::Users.by_ids(by: :graph_user_id, user_ids: activity.subject_id).first,
                 user: Backend::Users.by_ids(by: :graph_user_id, user_ids: activity.user_id).first,
             }
+          when "created_fact"
+            {
+                fact: Backend::Facts.get(fact_id: activity.subject.fact_id),
+                user: Backend::Users.by_ids(user_ids: [activity.user_id], by: :graph_user_id)
+            }
           end
 
       base_activity_data.merge(specialized_data)
