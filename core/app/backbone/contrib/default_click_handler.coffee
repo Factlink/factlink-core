@@ -21,7 +21,7 @@ defaultClickHandler = (e) ->
     true
 
 navigateTo = (url) ->
-  if "/" + Backbone.history.fragment is url
+  if "/" + Backbone.history.fragment == url
     # Allow reloads by clicking links without polluting the history
     Backbone.history.fragment = null
     Backbone.history.navigate url,
@@ -36,4 +36,4 @@ navigateTo = (url) ->
       window.focus()
 
 # HACK: this is needed because internal events did not seem to work
-$(document).on "click", ":not(body.client) a[rel=backbone]", defaultClickHandler
+$(document).on "click", "a[rel=backbone]", defaultClickHandler

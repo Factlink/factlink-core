@@ -1,0 +1,5 @@
+kl:
+  mail_subscriptions:
+    mailed_notifications: "notification"
+    digest: "digest"
+    all: "all"
