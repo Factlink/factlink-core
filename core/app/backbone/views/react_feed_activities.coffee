@@ -67,13 +67,12 @@ ReactCreatedCommentActivity = React.createBackboneClass
     user = new User @model().get('user')
     fact = new Fact @model().get('fact')
     comment = new Comment @model().get('comment')
-    proxy_url = fact.get('proxy_open_url')
+    target_url = fact.fact_show_url()
 
     ReactGenericActivity {
         model: user
         time: @model().get('created_at')
-        href: proxy_url
-        target: '_blank'
+        href: target_url
         activity_header_action: [
           _span ["feed-activity-description"],
             "commented on"
@@ -92,13 +91,12 @@ ReactCreatedSubCommentActivity = React.createBackboneClass
     fact = new Fact @model().get('fact')
     comment = new Comment @model().get('comment')
     sub_comment = new Comment @model().get('sub_comment')
-    proxy_url = fact.get('proxy_open_url')
+    target_url = fact.fact_show_url()
 
     ReactGenericActivity {
         model: user
         time: @model().get('created_at')
-        href: proxy_url
-        target: '_blank'
+        href: target_url
         activity_header_action: [
           _span ["feed-activity-description"],
             "replied to"
