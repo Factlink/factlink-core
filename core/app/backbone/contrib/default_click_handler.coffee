@@ -5,7 +5,7 @@ defaultClickHandler = (e) ->
   #handle clicks when...
   if !(e.metaKey || e.ctrlKey || e.altKey)  # no user-new-tab-keys are pressed
     $link = $(e.target).closest("a")
-    if !$link.attr("target") && $link.attr("href") # and there's real link without target
+    if !$link.attr("target") && $link.attr("rel") == 'backbone' && $link.attr("href") # and there's real link without target
       if navigateTo($link.attr("href")) # and it's routable via backbone
         e.preventDefault() #if we handle clicks, abort browser default.
 
