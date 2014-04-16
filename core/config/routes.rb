@@ -59,7 +59,7 @@ FactlinkUI::Application.routes.draw do
 
   resources :feedback # TODO: RESTRICT
 
-  get "/d/:id" => "frontend#show" # edit discussion/annotation/factlink on site
+  get "/d/:id" => "frontend#show" #KL: edit discussion/annotation/factlink on site
 
   get "/:fact_slug/f/:id" => "facts#discussion_page_redirect"
   get "/f/:id" => "facts#discussion_page_redirect"
