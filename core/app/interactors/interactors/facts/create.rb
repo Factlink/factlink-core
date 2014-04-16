@@ -32,7 +32,7 @@ module Interactors
         dead_fact
       end
 
-      def create_activity dead_fact
+      def create_activity(dead_fact)
         Backend::Activities.create \
           graph_user_id: pavlov_options[:current_user].graph_user_id,
           action: :created_fact,
