@@ -104,10 +104,6 @@ class User
     field :confirmed_at,         :type => Time
     field :confirmation_sent_at, :type => Time
 
-  def comments
-    Comments.where(created_by_id: self.id)
-  end
-
   scope :active, where(:deleted.ne => true)
 
   class << self
