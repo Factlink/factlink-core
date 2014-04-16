@@ -11,14 +11,10 @@ defaultClickHandler = (e) ->
       else
         $link.attr("target", "_blank") # all unhandled clicks: new window.
 
-
-
 navigateTo = (url) ->
   status = Backbone.history.navigate(url, true)
   if status == undefined #means url unchanged; nothing happened.
     Backbone.history.loadUrl(url) #reload on navigate to current location.
   else
     status
-
-# HACK: this is needed because internal events did not seem to work
 $(document).on "click", defaultClickHandler
