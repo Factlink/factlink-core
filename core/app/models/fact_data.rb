@@ -3,6 +3,11 @@ class FactData
   include Mongoid::Timestamps
 
   attr_accessible []
+  # For compatibility with Activity::Listener
+  def self.[](fact_id)
+    FactData.where(fact_id: fact_id).first
+  end
+
 
   field :title,           type: String
   field :displaystring,   type: String
