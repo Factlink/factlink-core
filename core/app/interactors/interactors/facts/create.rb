@@ -27,7 +27,19 @@ module Interactors
             user_id: user.id
         end
 
+        create_activity dead_fact
+
         dead_fact
+      end
+
+      def create_activity dead_fact
+        Backend::Activities.create \
+          graph_user_id: pavlov_options[:current_user].graph_user_id,
+          action: :created_fact,
+          subject_id: dead_fact.id,
+          subject_class: "FactData",
+          time: pavlov_options[:time],
+          send_mails: pavlov_options[:send_mails]
       end
 
       def user
