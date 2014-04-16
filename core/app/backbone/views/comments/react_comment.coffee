@@ -103,7 +103,6 @@ ReactCommentHeading = React.createBackboneClass
 
 window.ReactOpinionatedAvatar = React.createClass
   displayName: "ReactOpinionatedAvatar"
-  changeOptions: 'add remove reset sort' + ' change'
 
   propTypes:
     user: React.PropTypes.instanceOf(User).isRequired
