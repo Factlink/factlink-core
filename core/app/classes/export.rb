@@ -65,6 +65,9 @@ class Export
     comment_sorter = lambda do |comment|
       comment.created_at.utc.to_s + comment.fact_data.fact_id + comment.content + comment.created_by.username
     end
+    sub_comment_sorter = lambda do |sub_comment|
+      sub_comment.created_at.utc.to_s + sub_comment.content + sub_comment.created_by.username
+    end
 
     comment_array = Comment.all.to_a
     comment_array.sort_by(&comment_sorter).each do |comment|
@@ -83,10 +86,6 @@ class Export
         output << '  '
         output << import('opinion', opinion: 'disbelieves', username: disbeliever.username)
         output << "\n"
-      end
-
-      sub_comment_sorter = lambda do |sub_comment|
-        sub_comment.created_at.utc.to_s + sub_comment.content + sub_comment.created_by.username
       end
 
       comment.sub_comments.to_a.sort_by(&sub_comment_sorter).each do |sub_comment|
