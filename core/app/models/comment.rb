@@ -8,10 +8,11 @@ class Comment
 
   field :created_by_id, type: Moped::BSON::ObjectId
   def created_by
-    User.where(id: created_by_id).first
+    user = User.where(id: created_by_id).first
+    user or fail "created by not found for comment '#{content}' user_id: #{created_by_id}"
   end
   def created_by=(user)
-    self[:created_by_id] = user.id
+    self.created_by_id = user.id.to_s
   end
 
 
