@@ -62,8 +62,8 @@ class Export
   end
 
   def comments(output)
-    comment_sorter = lambda do |comment_or_subcomment|
-      comment_or_subcomment.created_at.utc.to_s + comment_or_subcomment.content + comment_or_subcomment.created_by.username
+    comment_sorter = lambda do |comment|
+      comment.created_at.utc.to_s + comment.fact_data.fact_id + comment.content + comment.created_by.username
     end
 
     comment_array = Comment.all.to_a
@@ -85,7 +85,11 @@ class Export
         output << "\n"
       end
 
-      comment.sub_comments.to_a.sort_by(&comment_sorter).each do |sub_comment|
+      sub_comment_sorter = lambda do |sub_comment|
+        sub_comment.created_at.utc.to_s + sub_comment.content + sub_comment.created_by.username
+      end
+
+      comment.sub_comments.to_a.sort_by(&sub_comment_sorter).each do |sub_comment|
         output << '  '
         output << import('sub_comment', fields_from_object(sub_comment, [:content, :created_at]).merge(
           username: sub_comment.created_by.username))
