@@ -26,7 +26,10 @@ window.ReactFeedSelection = React.createClass
           _label [ htmlFor: 'FeedChoice_Personal' ],
             'Personal'
 
-          if !window.is_kennisland
+          if window.is_kennisland
+            _div ['button-success feed-selection-install-extension-button'],
+              "Create challenge"
+          else
             _div ['feed-selection-install-extension-button'],
               ReactInstallExtensionOrBookmarklet()
 
