@@ -13,7 +13,7 @@ class FactData
 
   has_many :comments
 
-  validates_format_of :displaystring, allow_nil: true, with: /\A.*\S.*\z/
+  validates_format_of :displaystring, allow_nil: true, with: /\A.*\S.*\z/m
 
   def url
     site_url

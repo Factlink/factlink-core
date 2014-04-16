@@ -31,7 +31,7 @@ module Backend
     def user_by_username username: username
       return nil unless username.match /\A[A-Za-z0-9_]*\Z/i
 
-      User.find_by(username: /^#{username.downcase}$/i)
+      User.where(username: username.downcase).first
     end
 
     def delete(username:)

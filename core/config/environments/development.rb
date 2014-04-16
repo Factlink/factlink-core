@@ -35,9 +35,9 @@ FactlinkUI::Application.configure do
 
   if FactlinkUI.Kennisland?
     I18n.default_locale = :kl
-
   else
     I18n.default_locale = :nl
+  end
 
   end
 
