@@ -56,9 +56,12 @@ class User
                           :with => Regexp.new('^' + (USERNAME_BLACKLIST.map { |x| '(?!'+x.to_s+'$)' }.join '') + '.*'),
                           :message => "this username is reserved"
   validates_format_of     :username,
-                          :with => /\A[A-Za-z0-9_]*\Z/i,
-                          :message => "only letters, digits and _ are allowed"
-
+                          :with => /\A[a-z0-9_]*\Z/i,
+                          :message => "only (lowercase) letters, digits and _ are allowed"
+  before_validation :username_to_lowercase
+  def username_to_lowercase
+    self.username = self.username.downcase if self.username
+  end
 
   validates_uniqueness_of :username, :message => "Username already in use", :case_sensitive => false
 

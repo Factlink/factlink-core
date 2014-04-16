@@ -48,4 +48,30 @@ describe Backend::Users do
       expect(saved_user.email).to eq "deleted+#{saved_user.username}@factlink.com"
     end
   end
+
+  describe ".user_by_username" do
+    it "retrieves a user" do
+      user = build :user, username: "TestUser", full_name: "Gerrit Gerritsen"
+      user.save!
+
+      found = Backend::Users.user_by_username(username: 'TestUser')
+      expect(found.full_name).to eq "Gerrit Gerritsen"
+    end
+
+    it "retrieves a username when searched for with lowercase" do
+      user = build :user, username: "TestUser", full_name: "Jan Janssen"
+      user.save!
+
+      found = Backend::Users.user_by_username(username: 'testuser')
+      expect(found.full_name).to eq "Jan Janssen"
+    end
+
+    it "retrieves a username when searched for with uppercase" do
+      user = build :user, username: "TestUser", full_name: "Gerard Gerardsen"
+      user.save!
+
+      found = Backend::Users.user_by_username(username: 'TESTUSER')
+      expect(found.full_name).to eq "Gerard Gerardsen"
+    end
+  end
 end
