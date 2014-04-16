@@ -34,10 +34,10 @@ module Backend
     end
 
     def create(fact_id:, content:, user_id:, created_at:)
-      fact_data = FactData.where(fact_id: fact_id).first
+      fact_data = FactData.where(fact_id: fact_id.to_s).first
 
       comment = Comment.new
-      comment.fact_data_id = fact_data.id
+      comment.fact_data_id = fact_data.id.to_s
       comment.created_by_id = user_id
       comment.content = content
       comment.created_at = created_at

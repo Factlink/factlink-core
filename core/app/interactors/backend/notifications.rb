@@ -60,7 +60,7 @@ module Backend
     private def generate_token(column)
       loop do
         token = Devise.friendly_token
-        break token if User.find({ column => token }).empty?
+        break token if User.where({ column => token }).empty?
       end
     end
   end
