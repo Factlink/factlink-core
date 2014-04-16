@@ -40,7 +40,12 @@ window.ReactFeedSelection = React.createClass
 
           if window.is_kennisland & @state.show_create_challenge
             _div ['challenges-create'],
-              "hello world"
+              _input ["challenge-name-input", id: 'challenge-name', placeholder: 'Challenge name']
+              ReactTextArea
+                id: 'challenge-description'
+                ref: 'textarea'
+                placeholder: 'Describe the challenge'
+
         ]
 
       ReactFeedActivitiesAutoLoading
