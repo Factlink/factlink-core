@@ -16,6 +16,12 @@ class window.Fact extends Backbone.Model
   friendly_fact_url: ->
     Factlink.Global.core_url + '/f/' + @id
 
+  fact_show_url:
+    if window.Kennisland
+      -> '/d/' + @id
+    else
+      -> @get('proxy_open_url')
+
   factUrlTitle: ->
     @get('site_title') || @factUrlHost()
 

@@ -2,10 +2,25 @@ class Export
   def export
     output = ''
 
+    global_features(output)
+    users(output)
+    facts(output)
+    comments(output)
+
+    output
+  end
+
+  private
+
+  def global_features(output)
+    output << import('FactlinkImport.global_features', features: Backend::GlobalFeatures.all.sort.join(' ')) + "\n"
+  end
+
+  def users(output)
     User.all.order_by(username: 1).each do |user|
       output << import('FactlinkImport.user', fields_from_object(user, User.import_export_simple_fields + [
         :encrypted_password, :confirmed_at, :confirmation_token, :confirmation_sent_at
-      ])) + "\n"
+      ]).merge(features: user.features.to_a.sort.join(' '))) + "\n"
 
       user.social_accounts.each do |social_account|
         output << import('FactlinkImport.social_account',
@@ -24,7 +39,9 @@ class Export
           followee_username: followee.username, created_at: created_at) + "\n"
       end
     end
+  end
 
+  def facts(output)
     FactData.all.order_by(fact_id: 1).each do |fact_data|
       output << import('FactlinkImport.fact', fields_from_object(fact_data, [
         :fact_id, :displaystring, :title, :url, :created_at
@@ -42,18 +59,15 @@ class Export
 
       output << "end\n"
     end
+  end
 
-    comment_sorter = lambda do |c1, c2|
-      created_at_ordering = c1.created_at.utc.to_s <=> c2.created_at.utc.to_s
-      if created_at_ordering == 0
-        c1.content <=> c2.content
-      else
-        created_at_ordering
-      end
+  def comments(output)
+    comment_sorter = lambda do |comment_or_subcomment|
+      comment_or_subcomment.created_at.utc.to_s + comment_or_subcomment.content + comment_or_subcomment.created_by.username
     end
 
     comment_array = Comment.all.to_a
-    comment_array.sort(&comment_sorter).each do |comment|
+    comment_array.sort_by(&comment_sorter).each do |comment|
       output << import('FactlinkImport.comment',
         fields_from_object(comment, [:content, :created_at]).merge(
           fact_id: comment.fact_data.fact_id, username: comment.created_by.username)
@@ -71,7 +85,7 @@ class Export
         output << "\n"
       end
 
-      comment.sub_comments.to_a.sort(&comment_sorter).each do |sub_comment|
+      comment.sub_comments.to_a.sort_by(&comment_sorter).each do |sub_comment|
         output << '  '
         output << import('sub_comment', fields_from_object(sub_comment, [:content, :created_at]).merge(
           username: sub_comment.created_by.username))
@@ -80,11 +94,7 @@ class Export
 
       output << "end\n"
     end
-
-    output
   end
-
-  private
 
   def hack_to_get_following_time(follower_username:, followee_username:)
     follower_graph_user_id = Backend::Users.user_by_username(username: follower_username).graph_user_id
@@ -112,9 +122,9 @@ class Export
     field_names.inject({}) { |hash, name| hash.merge(name => object.public_send(name)) }
   end
 
-  def import(name, fields)
+  def import(import_name, fields)
     fields_string = fields.map{ |name, value| name_value_to_string(name, value)}.join
 
-    "#{name}({#{fields_string}})"
+    "#{import_name}({#{fields_string}})"
   end
 end
