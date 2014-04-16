@@ -14,7 +14,6 @@ FactlinkUI::Application.routes.draw do
   scope '/api/beta' do
     get '/feed' => "api/feed#global"
     get '/feed/personal' => "api/feed#personal"
-    get '/annotations/recently_viewed' => 'api/annotations#recently_viewed'
     get '/annotations/search' => 'api/annotations#search'
     post '/annotations' => 'api/annotations#create'
     get '/annotations/:id' => 'api/annotations#show'
