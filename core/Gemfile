@@ -6,9 +6,6 @@ ruby '2.1.0'
 gem 'rails', '3.2.17' # this is too important to update automatically
 gem 'rake', '~> 10.1.0', require: false
 
-# Mongo
-gem 'mongoid', '~> 3.1.6'
-
 # Postgres
 gem 'pg'
 

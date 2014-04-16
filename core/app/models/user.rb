@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
     User.where(graph_user_id: graph_user_id).first
   end
 
-  USERNAME_MAX_LENGTH = 20 # WARNING: must be shorter than mongo ids(24 chars) to avoid confusing ids with usernames!
+  USERNAME_MAX_LENGTH = 20
 
   #index(username: 1)
   #index(graph_user_id: 1)

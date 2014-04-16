@@ -3,7 +3,7 @@ module Backend
     extend self
 
     # This query returns dead user objects, retrieved by their ids
-    # You have the option to call it with mongo ids, or with (Ohm) GraphUser
+    # You have the option to call it with user ids, or with (Ohm) GraphUser
     # ids.
     # Please try to avoid to add support for all other kinds of fields,
     # both because we want it to have an index, and because we don't want to
