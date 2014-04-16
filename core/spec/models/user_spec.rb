@@ -46,12 +46,6 @@ describe User do
     end
   end
 
-  describe ".find" do
-    it "works with numerical ids" do
-      expect(User.find(subject.id)).to eq subject
-    end
-  end
-
   describe '#full_name' do
     let(:new_user) { build :user }
 
