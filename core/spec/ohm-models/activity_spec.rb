@@ -29,7 +29,7 @@ describe Activity do
 
     it "should not be valid if the user is deleted" do
       deleted_user = create :user, deleted: true
-      activity = Activity.create(user_id: deleted_user.graph_user_id, action: :followed_user, created_at: Time.at(0).utc.to_s)
+      activity = Activity.create(user_id: deleted_user.id, action: :followed_user, created_at: Time.at(0).utc.to_s)
       activity = Activity[activity.id]
       expect(activity).to_not be_still_valid
     end
