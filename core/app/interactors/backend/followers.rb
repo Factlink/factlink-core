@@ -5,7 +5,7 @@ module Backend
     def followers_for_fact_id fact_id
       comments = FactData.where(fact_id: fact_id).first.comments
       [
-        direct_followers_for_fact(fact_id),
+        direct_followers_for_fact(fact_id).map { |id| User.find(id).graph_user_id },
         followers_for_comments(comments),
       ].flatten.uniq
     end
