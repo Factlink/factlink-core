@@ -1,1 +1,0 @@
-class GraphUser < OurOhm; end

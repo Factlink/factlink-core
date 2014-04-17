@@ -7,7 +7,7 @@ class Activity < OurOhm
     #
 
     def reject_self followers, activity
-      followers.reject {|id| id.to_s == activity.user_id.to_s }
+      followers.reject {|id| id.to_s == activity.user.graph_user_id.to_s }
     end
 
     def people_who_follow_sub_comment
@@ -15,7 +15,10 @@ class Activity < OurOhm
     end
 
     def people_who_follow_user_of_activity
-      ->(a) { reject_self(Backend::UserFollowers.follower_ids(followee_id: User[a.user_id].id).map {|id| User.find(id).graph_user_id }, a) } # WARNING user.id != user_id
+      ->(a) {
+        reject_self(
+          Backend::UserFollowers.follower_ids(followee_id: a.user_id)
+                                .map {|id| User.find(id).graph_user_id }, a) }
     end
 
     # notifications, stream_activities
@@ -66,9 +69,9 @@ class Activity < OurOhm
     # notifications
     def forGraphUser_someone_followed_you
       {
-        subject_class: 'GraphUser',
+        subject_class: 'User',
         action: 'followed_user',
-        write_ids: ->(a) { [a.subject_id]}
+        write_ids: ->(a) { [a.subject.graph_user_id]}
       }
     end
 
@@ -76,12 +79,12 @@ class Activity < OurOhm
       # If you follow someone, you get activities when they follow someone,
       # except when they follow you
       {
-        subject_class: 'GraphUser',
+        subject_class: 'User',
         action: 'followed_user',
         write_ids: ->(a) {
-         (Backend::UserFollowers.follower_ids(followee_id: User[a.user_id].id)).map {|id| User.find(id).graph_user_id } -  # WARNING user.id != user_id
-           [a.subject_id]
-         }
+         (Backend::UserFollowers.follower_ids(followee_id: a.user_id) - [a.subject_id.to_i])
+            .map { |id| User.find(id).graph_user_id }
+        }
       }
     end
 
@@ -141,7 +144,7 @@ class Activity < OurOhm
         named :own_activities
         stream_activities.each do |a|
           activity a.merge({
-            write_ids: ->(a) {[a.user_id]}
+            write_ids: ->(a) {[a.user.graph_user_id]}
           })
         end
       end

@@ -7,16 +7,13 @@ describe Activity do
   let(:b1) { Blob.create }
   let(:b2) { Blob.create }
 
-  let(:userblabla) { create(:user) }
-  let(:gu) { userblabla.graph_user }
-  let(:gu_id) {userblabla.graph_user_id}
-
-  let(:gu2) { GraphUser.create }
-  let(:gu3) { GraphUser.create }
+  let(:gu) { create :user }
+  let(:gu2) { create :user }
+  let(:gu3) { create :user }
 
   describe "still_valid?" do
     it "should be valid for an activity with everything set" do
-      activity = Activity.create(user_id: gu_id, action: :followed_user, subject: gu2, created_at: Time.at(0).utc.to_s)
+      activity = Activity.create(user_id: gu.id, action: :followed_user, subject: gu2, created_at: Time.at(0).utc.to_s)
       expect(activity).to be_still_valid
     end
 
@@ -26,7 +23,7 @@ describe Activity do
     end
 
     it "should be valid when the subject is unset/not set" do
-      activity = Activity.create(user_id: gu_id, action: :followed_user, created_at: Time.at(0).utc.to_s)
+      activity = Activity.create(user_id: gu.id, action: :followed_user, created_at: Time.at(0).utc.to_s)
       expect(activity).to be_still_valid
     end
 
@@ -46,14 +43,14 @@ describe Activity do
 
   describe 'list management' do
     let(:activity) do Activity.create(
-             :user_id => gu_id,
+             :user_id => gu.id,
              :action => :followed_user,
              :subject => b1,
              :created_at => Time.at(0).utc.to_s
            )
     end
     let (:activity2) do Activity.create(
-               :user_id => gu_id,
+               :user_id => gu.id,
                :action => :followed_user,
                :subject => b1,
                :created_at => Time.at(0).utc.to_s
@@ -62,16 +59,16 @@ describe Activity do
 
     describe :remove_from_containing_lists do
       it "should remove the activity from the list" do
-        activity.add_to_list_with_score(userblabla.stream_activities)
+        activity.add_to_list_with_score(gu.stream_activities)
         activity.remove_from_containing_sorted_sets
-        userblabla.stream_activities.all.should == []
+        gu.stream_activities.all.should == []
       end
 
       it "should leave other activities intact" do
-        activity.add_to_list_with_score(userblabla.stream_activities)
-        activity2.add_to_list_with_score(userblabla.stream_activities)
+        activity.add_to_list_with_score(gu.stream_activities)
+        activity2.add_to_list_with_score(gu.stream_activities)
         activity.remove_from_containing_sorted_sets
-        userblabla.stream_activities.all.should == [activity2]
+        gu.stream_activities.all.should == [activity2]
       end
     end
     describe :delete do

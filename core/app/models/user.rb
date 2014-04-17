@@ -165,12 +165,18 @@ class User < ActiveRecord::Base
     Ohm::Model::TimestampedSet.new(key, Ohm::Model::Wrapper.wrap(Activity))
   end
 
-  private def create_graph_user
-    graph_user = GraphUser.new
-    graph_user.save
-    self.graph_user_id = graph_user.id
+  before_save do |user|
+    id_key = Nest.new('GraphUser')[:id]
+
+    if user.graph_user_id
+      if user.graph_user_id.to_i > id_key.get.to_i
+        id_key.set user.graph_user_id
+      end
+    else
+      user.graph_user_id = id_key.incr.to_s
+    end
   end
-  before_create :create_graph_user
+
 
   def self.human_attribute_name(attr, options = {})
     attr.to_s == 'non_field_error' ? '' : super

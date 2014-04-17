@@ -67,8 +67,8 @@ module Backend
             }
           when "followed_user"
             {
-                followed_user: Backend::Users.by_ids(by: :graph_user_id, user_ids: activity.subject_id).first,
-                user: Backend::Users.by_ids(by: :graph_user_id, user_ids: activity.user_id).first,
+                followed_user: Backend::Users.by_ids(user_ids: activity.subject_id).first,
+                user: Backend::Users.by_ids(user_ids: activity.user_id).first,
             }
           end
 
@@ -93,7 +93,7 @@ module Backend
       end
     end
 
-    def create(graph_user_id:, action:, subject: nil, subject_id: nil, subject_class: nil, time:, send_mails:)
+    def create(user_id:, action:, subject: nil, subject_id: nil, subject_class: nil, time:, send_mails:)
       if subject
         subject_id = subject.id.to_s
         subject_class = subject.class.to_s
@@ -101,7 +101,7 @@ module Backend
         raise "INVALID SUBJECT"
       end
       activity = Activity.create \
-        user_id: graph_user_id,
+        user_id: user_id,
         action: action,
         subject_id: subject_id,
         subject_class: subject_class,
