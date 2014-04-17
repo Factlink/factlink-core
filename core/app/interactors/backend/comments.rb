@@ -67,7 +67,7 @@ module Backend
     def current_user_opinion_for(comment_id:, current_user_id:)
       return :no_vote unless current_user_id
 
-      believable(comment_id).opinion_of_graph_user_id current_user_id
+      believable(comment_id).opinion_of_user_id current_user_id
     end
 
     def believable(comment_id)
