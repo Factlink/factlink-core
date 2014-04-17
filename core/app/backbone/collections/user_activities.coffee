@@ -1,4 +1,4 @@
-class window.UserActivities extends Backbone.Collection
+class window.UserActivities extends Backbone.Factlink.Collection
   _.extend @prototype, AutoloadCollectionOnTimestamp
   model: Activity
 
