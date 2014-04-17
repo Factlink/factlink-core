@@ -30,7 +30,7 @@ module Backend
       comments_opinionated_ids =
         comments.flat_map do |comment|
           believable = ::Believable.new(Ohm::Key.new("Comment:#{comment.id}:believable"))
-          believable.opinionated_users_ids
+          believable.opinionated_users_ids.map {|id| User.where(id: id).first.graph_user_id }
         end
       comments_creators_ids + comments_opinionated_ids
     end

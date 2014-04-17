@@ -3,24 +3,26 @@ module Backend
     extend self
 
     def by_ids(ids:, current_graph_user_id:)
+      current_user_id = current_graph_user_id && User.where(graph_user_id: current_graph_user_id).first.id
       Comment.where(id: ids).map do |comment|
-        dead(comment: comment, current_graph_user_id: current_graph_user_id)
+        dead(comment: comment, current_user_id: current_user_id)
       end
     end
 
     def by_fact_id(fact_id:, current_graph_user_id:)
+      current_user_id = current_graph_user_id && User.where(graph_user_id: current_graph_user_id).first.id
       fact_data_id = FactData.where(fact_id: fact_id).first.id
       Comment.where(fact_data_id: fact_data_id).map do |comment|
-        dead(comment: comment, current_graph_user_id: current_graph_user_id)
+        dead(comment: comment, current_user_id: current_user_id)
       end
     end
 
-    def remove_opinion(comment_id:, graph_user_id:)
-      believable(comment_id).remove_opinionated_id graph_user_id
+    def remove_opinion(comment_id:, user_id:)
+      believable(comment_id).remove_opinionated_id user_id
     end
 
-    def set_opinion(comment_id:, graph_user_id:, opinion:)
-      believable(comment_id).add_opiniated_id opinion, graph_user_id
+    def set_opinion(comment_id:, user_id:, opinion:)
+      believable(comment_id).add_opiniated_id opinion, user_id
     end
 
     def deletable?(comment_id)
@@ -29,8 +31,7 @@ module Backend
     end
 
     def opiniated(comment_id:, type:)
-      Backend::Users.by_ids(user_ids: believable(comment_id).opiniated_ids(type),
-        by: :graph_user_id)
+      Backend::Users.by_ids(user_ids: believable(comment_id).opiniated_ids(type))
     end
 
     def create(fact_id:, content:, user_id:, created_at:)
@@ -49,8 +50,8 @@ module Backend
 
     private
 
-    def dead(comment:, current_graph_user_id:)
-      current_user_opinion = current_user_opinion_for(comment_id: comment.id, current_graph_user_id: current_graph_user_id)
+    def dead(comment:, current_user_id:)
+      current_user_opinion = current_user_opinion_for(comment_id: comment.id, current_user_id: current_user_id)
 
       DeadComment.new(
         id: comment.id.to_s,
@@ -63,10 +64,10 @@ module Backend
       )
     end
 
-    def current_user_opinion_for(comment_id:, current_graph_user_id:)
-      return :no_vote unless current_graph_user_id
+    def current_user_opinion_for(comment_id:, current_user_id:)
+      return :no_vote unless current_user_id
 
-      believable(comment_id).opinion_of_graph_user_id current_graph_user_id
+      believable(comment_id).opinion_of_graph_user_id current_user_id
     end
 
     def believable(comment_id)

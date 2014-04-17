@@ -15,7 +15,7 @@ module Interactors
         unless pavlov_options[:import]
           Backend::Comments.set_opinion \
             comment_id: comment.id.to_s, opinion: 'believes',
-            graph_user_id: pavlov_options[:current_user].graph_user_id
+            user_id: pavlov_options[:current_user].id
         end
 
         create_activity comment
