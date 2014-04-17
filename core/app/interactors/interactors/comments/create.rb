@@ -21,7 +21,7 @@ module Interactors
         create_activity comment
 
         Backend::Comments.by_ids(ids: comment.id,
-          current_graph_user_id: pavlov_options[:current_user].graph_user_id).first
+          current_user_id: pavlov_options[:current_user].id).first
       end
 
       def create_activity comment

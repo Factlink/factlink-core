@@ -51,7 +51,7 @@ module Backend
       specialized_data =
           case activity.action
           when "created_comment"
-            comment = Backend::Comments.by_ids(ids: [activity.subject_id.to_s], current_graph_user_id: nil).first
+            comment = Backend::Comments.by_ids(ids: [activity.subject_id.to_s], current_user_id: nil).first
             {
                 fact: Backend::Facts.get(fact_id: activity.subject.fact_data.fact_id),
                 comment: comment,
@@ -61,7 +61,7 @@ module Backend
             sub_comment = Backend::SubComments::dead_for(activity.subject)
             {
                 fact: Backend::Facts.get(fact_id: activity.subject.parent.fact_data.fact_id),
-                comment: Backend::Comments.by_ids(ids: [activity.subject.parent_id.to_s], current_graph_user_id: nil).first,
+                comment: Backend::Comments.by_ids(ids: [activity.subject.parent_id.to_s], current_user_id: nil).first,
                 sub_comment: sub_comment,
                 user: sub_comment.created_by,
             }
