@@ -52,8 +52,8 @@ module Interactors
 
 
         Backend::Activities.add_activities_to_follower_stream(
-          followed_user_graph_user_id: user_to_follow.graph_user_id,
-          current_graph_user_id: current_user.graph_user_id)
+          followed_user_id: user_to_follow.id,
+          current_user_id: current_user.id)
       end
 
 

@@ -78,15 +78,15 @@ module Backend
       #are gone.  This  causes errors.  We ignore such activities.
     end
 
-    def add_activities_to_follower_stream(followed_user_graph_user_id:, current_graph_user_id:)
-      activities_set = User.where(graph_user_id: followed_user_graph_user_id).first.own_activities
+    def add_activities_to_follower_stream(followed_user_id:, current_user_id:)
+      activities_set = User.where(id: followed_user_id).first.own_activities
 
       activities = activities_set.below('inf',
                     count: 7,
                     reversed: true,
                     withscores: false).compact
 
-      current_user = User.where(graph_user_id: current_graph_user_id).first
+      current_user = User.where(id: current_user_id).first
 
       activities.each do |activity|
         activity.add_to_list_with_score current_user.stream_activities
