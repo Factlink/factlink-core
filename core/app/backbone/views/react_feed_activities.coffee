@@ -9,20 +9,22 @@ stripLinks = (formatted_content) ->
 
 window.ReactFeedActivitiesAutoLoading = React.createBackboneClass
   displayName: 'ReactFeedActivitiesAutoLoading'
+  changeOptions: 'sync'
 
   # this function loads more activities, if we're almost at the bottom of the list
   checkScrolledPosition: ->
     pixels_under_fold = $(document).height() - ($(window).scrollTop() + $(window).height())
-
     @model().loadMore() if pixels_under_fold < 700
 
   componentDidMount: ->
-    if !@model().length
-      @model().loadMore()
     $(window).on "scroll", @checkScrolledPosition
     @checkScrolledPosition()
 
   componentDidUpdate: -> @checkScrolledPosition()
+
+  componentWillMount: ->
+    if !@model().length
+      @model().loadMore()
 
   componentWillUnmount: ->
     # createBackboneClass unbinds model
@@ -30,6 +32,8 @@ window.ReactFeedActivitiesAutoLoading = React.createBackboneClass
 
   render: ->
     _div [],
+      if !@model().length && !@model().loading()
+        'There aren\'t any comments.'
       @model().map (model) =>
         ReactActivity model: model, key: model.id
       ReactLoadingIndicator model: @model()
