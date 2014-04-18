@@ -2,9 +2,6 @@ class window.FactSearchResults extends Backbone.Factlink.Collection
   model: Fact
 
   initialize: (models, options) ->
-    @_recently_viewed_facts = options.recently_viewed_facts
-    @listenTo @_recently_viewed_facts, 'sync', @_search
-
     @searchFor ''
 
   url: -> "/api/beta/annotations/search.json?keywords=#{@_encodedQuery()}"
@@ -20,9 +17,8 @@ class window.FactSearchResults extends Backbone.Factlink.Collection
   throttle = (method) -> _.throttle method, 300
   _search: throttle ->
     @jqxhr?.abort()
+    @reset []
     if @query == ''
-      @reset @_recently_viewed_facts.models
       @trigger 'sync'
     else
-      @reset []
       @jqxhr = @fetch()

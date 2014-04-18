@@ -1,15 +1,17 @@
 $avatarSize: 32px;
+$avatarOffset: $avatarSize + 10px;
 
 .annotation {
   position: relative;
   min-height: $avatarSize;
+  margin-left: $avatarOffset;
 }
 
 .annotation-avatar-container {
   @extend %centering;
 
   position: absolute;
-  left: 0;
+  left: -$avatarOffset;
   top: 0;
 
   width: $avatarSize;
@@ -26,9 +28,9 @@ $avatarSize: 32px;
 }
 
 .annotation-balloon {
-  margin-left: $avatarSize + 10px;
   background: $lightYellow;
   word-wrap: break-word;
+  max-width: 100%;
   display: inline-block;
   padding: 5px 8px;
   border-radius: $baseBorderRadius;

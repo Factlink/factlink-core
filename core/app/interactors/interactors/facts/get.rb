@@ -7,17 +7,7 @@ module Interactors
       arguments :id
 
       def execute
-        add_to_recently_viewed
-
         Backend::Facts.get(fact_id: id)
-      end
-
-      def add_to_recently_viewed
-        return unless pavlov_options[:current_user]
-
-        Backend::Facts.add_to_recently_viewed \
-          fact_id: id,
-          user_id: pavlov_options[:current_user].id
       end
 
       def authorized?

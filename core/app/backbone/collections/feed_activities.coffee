@@ -8,7 +8,7 @@ class window.GlobalFeedActivities extends Backbone.Factlink.Collection
   url: -> "/api/beta/feed.json?count=#{@_count}"
 
 
-class window.PersonalFeedActivities extends Backbone.Collection
+class window.PersonalFeedActivities extends Backbone.Factlink.Collection
   _.extend @prototype, AutoloadCollectionOnTimestamp
   model: Activity
 
