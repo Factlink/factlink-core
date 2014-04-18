@@ -17,8 +17,7 @@ describe "Non signed in pages:", type: :feature do
       end
       sign_out_user
       go_to_profile_page_of user
-      find('.spec-feed-activity')
-
+      find('.spec-feed-activity+.spec-loading-indicator-done')
       assume_unchanged_screenshot "non_signed_in_profile"
     end
   end
