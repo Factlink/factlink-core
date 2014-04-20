@@ -28,6 +28,12 @@ GIT
       addressable
 
 GIT
+  remote: git://github.com/markijbema/turbo_dev_assets.git
+  revision: 9fb7f561bca2bb7cd39fa6661cb2dab6c4326b0e
+  specs:
+    turbo_dev_assets (0.0.1)
+
+GIT
   remote: git@github.com:logdown/sass-rails.git
   revision: 8e23667f86e3b3669835957bb6604ab06eb9256b
   specs:
@@ -560,6 +566,7 @@ DEPENDENCIES
   terminal-notifier-guard (~> 1.5)
   therubyracer (~> 0.12.0)
   thin (~> 1)
+  turbo_dev_assets!
   uglifier (~> 2.0)
   url_normalizer!
   webmock

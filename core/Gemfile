@@ -99,6 +99,7 @@ group :development do
 
   # mesa want speed:
   gem 'rails-dev-tweaks', '~> 0'
+  gem 'turbo_dev_assets', github: 'markijbema/turbo_dev_assets'
   gem 'pry', '~> 0', require: false
 
   #for static files serving
