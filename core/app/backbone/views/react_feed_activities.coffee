@@ -23,7 +23,7 @@ window.ReactFeedActivitiesAutoLoading = React.createBackboneClass
   componentDidUpdate: -> @checkScrolledPosition()
 
   componentWillMount: ->
-    if !@model().length
+    if @model().length == 0
       @model().loadMore()
 
   componentWillUnmount: ->
