@@ -26,7 +26,7 @@ ActiveSupport.escape_html_entities_in_json = true
 
 module FactlinkUI
   def self.Kennisland?
-    !ENV['KL'].nil?
+    !ENV['KENNISLAND'].nil?
   end
 
   class Application < Rails::Application
