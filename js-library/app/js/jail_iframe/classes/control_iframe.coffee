@@ -28,12 +28,12 @@ class FactlinkJailRoot.ControlIframe
     @_sizeFrameToFitContent()
 
   _sizeFrameToFitContent: ->
-    @el.style.width = @frameBody.clientWidth  + 'px'
-    @el.style.height = @frameBody.clientHeight + 'px'
+    @el.style.width = @frameBody.firstChild.clientWidth  + 'px'
+    @el.style.height = @frameBody.firstChild.clientHeight + 'px'
 
     # Also resize the frame <html> itself for iOS Safari,
     # which resizes iframes themselves based on their inner size
-    @frameBody.parentElement.style.width = @frameBody.clientWidth  + 'px'
+    @frameBody.parentElement.style.width = @frameBody.firstChild.clientWidth  + 'px'
 
   fadeIn: ->
     @$el.addClass 'factlink-control-visible'

@@ -24,8 +24,8 @@ module Interactors
 
       def already_following
         Backend::UserFollowers.following? \
-          follower_id: current_user.graph_user_id,
-          followee_id: user_to_follow.graph_user_id
+          follower_id: current_user.id,
+          followee_id: user_to_follow.id
       end
 
       def current_user
@@ -38,22 +38,22 @@ module Interactors
 
       def follow_user
         Backend::UserFollowers.follow \
-          follower_id: current_user.graph_user_id,
-          followee_id: user_to_follow.graph_user_id,
+          follower_id: current_user.id,
+          followee_id: user_to_follow.id,
           time: pavlov_options[:time]
 
         Backend::Activities.create \
-          graph_user_id: current_user.graph_user_id,
+          user_id: current_user.id,
           action: :followed_user,
-          subject_id: user_to_follow.graph_user_id,
-          subject_class: 'GraphUser',
+          subject_id: user_to_follow.id,
+          subject_class: 'User',
           time: pavlov_options[:time],
           send_mails: pavlov_options[:send_mails]
 
 
         Backend::Activities.add_activities_to_follower_stream(
-          followed_user_graph_user_id: user_to_follow.graph_user_id,
-          current_graph_user_id: current_user.graph_user_id)
+          followed_user_id: user_to_follow.id,
+          current_user_id: current_user.id)
       end
 
 

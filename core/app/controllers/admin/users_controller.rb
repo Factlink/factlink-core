@@ -50,8 +50,7 @@ class Admin::UsersController < AdminController
   end
 
   def get_users
-    # TODO eliminate to_sym on the next line. This is a DoS
-    @users = User.order_by([sort_column.to_sym, sort_direction.to_sym])
+    @users = User.order(sort_column + " " + sort_direction.upcase)
   end
 
   def set_available_user_features

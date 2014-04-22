@@ -26,7 +26,9 @@ describe OurOhm::GenericReference do
 
     amo = ActiveModelObject.new
     amo.stub(id: "13")
-    ActiveModelObject.should_receive(:find).with(amo.id).and_return(amo)
+
+    finder = double first: amo
+    ActiveModelObject.should_receive(:where).with(id: amo.id).and_return(finder)
 
     gt = GenTest.new
     gt.foo = amo

@@ -30,11 +30,11 @@ window.ReactTopbarMenu = React.createClass
       _ul ['dropdown-menu'],
         if !window.is_kennisland
           _li ['dropdown-menu-item'],
-           _a [href: '/in-your-browser', rel: 'backbone'],
+           _a [href: '/in-your-browser'],
              _i ['icon-globe']
              " In your browser"
           _li ['dropdown-menu-item'],
-           _a [href: '/on-your-site', rel: 'backbone'],
+           _a [href: '/on-your-site'],
              _i ['icon-bookmark']
              " On your site"
         _li ['dropdown-menu-item'],
