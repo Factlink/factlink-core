@@ -17,7 +17,7 @@ module Backend
 
     def remove_opinion(comment_id:, user_id:)
       CommentVote.where(comment_id: comment_id, user_id: user_id)
-                 .map {|comment_vote| comment_vote.destroy}
+                 .each {|comment_vote| comment_vote.destroy}
     end
 
     def set_opinion(comment_id:, user_id:, opinion:)
@@ -73,7 +73,9 @@ module Backend
     def current_user_opinion_for(comment_id:, current_user_id:)
       return :no_vote unless current_user_id
 
-      comment_vote = CommentVote.where(user_id: current_user_id, comment_id: comment_id).first or return :no_vote
+      comment_vote = CommentVote.where(user_id: current_user_id, comment_id: comment_id).first
+      return :no_vote if comment_vote.nil?
+
       comment_vote.opinion
     end
   end
