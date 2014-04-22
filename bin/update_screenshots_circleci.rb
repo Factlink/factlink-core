@@ -37,7 +37,7 @@ class ScreenshotUpdater
 
     screenshot_infos
         .map{|artifact| artifact['url']}
-        .select{|url| url.end_with?('.png') && ! url.end_with?('-diff.png')}
+        .select{|url| url.end_with?('.png') && !url.end_with?('-diff.png')}
         .map{|url| url + circle_token_query}
   end
 
