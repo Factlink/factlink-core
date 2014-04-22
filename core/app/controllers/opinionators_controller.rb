@@ -7,7 +7,7 @@ class OpinionatorsController < ApplicationController
 
 
   def create
-    render json: interactor(:'facts/set_opinion', fact_id: params[:fact_id], opinion: params[:type])
+    render json: interactor(:'facts/set_opinion', fact_id: params[:fact_id], opinion: 'believes')
   end
   alias :update :create
 

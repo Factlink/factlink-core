@@ -26,7 +26,6 @@ class window.InterestedUsers extends Backbone.Factlink.Collection
         @create
           username: currentSession.user().get('username')
           user: currentSession.user().attributes
-          type: 'believes'
 
   fetchIfUnloaded: ->
     if !@fact.isNew()
