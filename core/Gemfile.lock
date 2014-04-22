@@ -8,14 +8,6 @@ GIT
       rack
 
 GIT
-  remote: git://github.com/Factlink/ohm.git
-  revision: 63b8f73c251ca1498d497a3df3b1fc1d29caffc8
-  ref: 63b8f73c251ca1498d497a3df3b1fc1d29caffc8
-  specs:
-    ohm (0.2.0)
-      nest (~> 1.0)
-
-GIT
   remote: git://github.com/Factlink/rack-xframe-options.git
   revision: 09c759164ea0add2c9eb48f0365b1beb79172377
   specs:
@@ -260,6 +252,8 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (~> 1.2)
+    ohm (0.1.3)
+      nest (~> 1.0)
     oily_png (1.1.1)
       chunky_png (~> 1.3.0)
     omniauth (1.2.1)
@@ -509,7 +503,7 @@ DEPENDENCIES
   lograge (~> 0)
   mixpanel!
   multi_json (~> 1.7)
-  ohm!
+  ohm (= 0.1.3)
   oily_png (~> 1.1)
   omniauth-facebook (~> 1.6.0)
   omniauth-twitter (~> 1.0.1)
