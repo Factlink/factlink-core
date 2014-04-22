@@ -1,15 +1,9 @@
-class FactData
-  include Mongoid::Document
-  include Mongoid::Timestamps
+class FactData < ActiveRecord::Base
+  # TODO: already choose a good database name here
+  # TODO: after SQL conversion call "site_url" "url" ?
+  attr_accessible :displaystring, :fact_id, :site_url, :title
 
-  attr_accessible []
-
-  field :title,           type: String
-  field :displaystring,   type: String
-  field :site_url,        type: String # TODO: after SQL conversion call this "url"
-  field :fact_id,         type: String
-
-  index({ site_url: 1 })
+  #index({ site_url: 1 })
 
   has_many :comments
 
@@ -30,7 +24,7 @@ class FactData
   end
 
   def self.valid(fd)
-    fd and fd.fact_id
+    fd
   end
 
   def update_search_index

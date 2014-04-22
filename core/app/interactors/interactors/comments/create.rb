@@ -15,18 +15,18 @@ module Interactors
         unless pavlov_options[:import]
           Backend::Comments.set_opinion \
             comment_id: comment.id.to_s, opinion: 'believes',
-            graph_user_id: pavlov_options[:current_user].graph_user_id
+            user_id: pavlov_options[:current_user].id
         end
 
         create_activity comment
 
         Backend::Comments.by_ids(ids: comment.id,
-          current_graph_user_id: pavlov_options[:current_user].graph_user_id).first
+          current_user_id: pavlov_options[:current_user].id).first
       end
 
       def create_activity comment
         Backend::Activities.create \
-                    graph_user_id: pavlov_options[:current_user].graph_user_id,
+                    user_id: pavlov_options[:current_user].id,
                     action: :created_comment,
                     subject: comment,
                     time: pavlov_options[:time],

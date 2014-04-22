@@ -17,7 +17,7 @@ class Export
   end
 
   def users(output)
-    User.all.order_by(username: 1).each do |user|
+    User.all.sort_by(&:username).each do |user|
       output << import('FactlinkImport.user', fields_from_object(user, User.import_export_simple_fields + [
         :encrypted_password, :confirmed_at, :confirmation_token, :confirmation_sent_at
       ]).merge(features: user.features.to_a.sort.join(' '))) + "\n"
@@ -30,10 +30,9 @@ class Export
       end
     end
 
-    User.all.order_by(username: 1).each do |follower|
+    User.all.sort_by(&:username).each do |follower|
       Pavlov.interactor(:'users/following', username: follower.username).sort_by(&:username).each do |followee|
-        created_at = hack_to_get_following_time(follower_username: follower.username,
-          followee_username: followee.username)
+        created_at = hack_to_get_following_time(follower_id: follower.id, followee_id: followee.id)
 
         output << import('FactlinkImport.follow', follower_username: follower.username,
           followee_username: followee.username, created_at: created_at) + "\n"
@@ -42,7 +41,7 @@ class Export
   end
 
   def facts(output)
-    FactData.all.order_by(fact_id: 1).each do |fact_data|
+    FactData.all.sort_by(&:fact_id).each do |fact_data|
       output << import('FactlinkImport.fact', fields_from_object(fact_data, [
         :fact_id, :displaystring, :title, :url, :created_at
       ])) + " do\n"
@@ -62,7 +61,7 @@ class Export
   end
 
   def comments(output)
-    FactData.all.order_by(fact_id: 1).each do |fact_data|
+    FactData.all.sort_by(&:fact_id).each do |fact_data|
       comment_sorter = lambda do |comment|
         comment.created_at.utc.to_s + comment.content + comment.created_by.username
       end
@@ -98,11 +97,8 @@ class Export
     end
   end
 
-  def hack_to_get_following_time(follower_username:, followee_username:)
-    follower_graph_user_id = Backend::Users.user_by_username(username: follower_username).graph_user_id
-    followee_graph_user_id = Backend::Users.user_by_username(username: followee_username).graph_user_id
-
-    Time.at Nest.new(:user)[:following_users][:relation][follower_graph_user_id].zscore(followee_graph_user_id).to_f/1000
+  def hack_to_get_following_time(follower_id:, followee_id:)
+    Following.where(follower_id: follower_id, followee_id: followee_id).first.created_at
   end
 
   def to_ruby(value)

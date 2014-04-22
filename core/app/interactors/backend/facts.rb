@@ -31,12 +31,12 @@ module Backend
       dead(fact_data)
     end
 
-    def remove_opinion(fact_id:, graph_user_id:)
-      believable(fact_id).remove_opinionated_id graph_user_id
+    def remove_opinion(fact_id:, user_id:)
+      believable(fact_id).remove_opinionated_id user_id
     end
 
-    def set_opinion(fact_id:, graph_user_id:, opinion:)
-      believable(fact_id).add_opiniated_id opinion, graph_user_id
+    def set_opinion(fact_id:, user_id:, opinion:)
+      believable(fact_id).add_opiniated_id opinion, user_id
     end
 
     def for_url(site_url:)
@@ -50,8 +50,8 @@ module Backend
     private
 
     def votes_for(fact_id, type)
-      graph_user_ids = believable(fact_id).opiniated_ids(type)
-      dead_users = Backend::Users.by_ids(user_ids: graph_user_ids, by: :graph_user_id)
+      user_ids = believable(fact_id).opiniated_ids(type)
+      dead_users = Backend::Users.by_ids(user_ids: user_ids)
 
       dead_users.map do |user|
         { username: user.username, user: user, type: type }
