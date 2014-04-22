@@ -3,7 +3,9 @@ echo 'Setting up core...'
 cd "$( dirname "${BASH_SOURCE[0]}" )"/..
 
 
-initdb './tmp/postgres' -E utf8 --locale en_US.utf8  || echo "database already exists (?), ignoring."
+if [[ ! -d './tmp/postgres' ]]; then
+  initdb './tmp/postgres' -E utf8 --locale en_US.utf8 
+fi
 
 shasum --check Gemfile.lock.sha-cache || (
   bundle -j4
