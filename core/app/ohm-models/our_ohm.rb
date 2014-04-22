@@ -1,5 +1,4 @@
 require_relative 'our_ohm/generic_reference'
-require_relative 'our_ohm/monkey'
 require_relative 'our_ohm/timestamped_set'
 
 class OurOhm < Ohm::Model
@@ -10,22 +9,6 @@ class OurOhm < Ohm::Model
   self.base = self
 
   class << self
-    def set(name,model)
-      super
-      define_method(:"#{name}=") do |value|
-        @_memo.delete(name)
-        send(name).assign(value)
-      end
-    end
-
-    def sorted_set(name,model, &block)
-      super
-      define_method(:"#{name}=") do |value|
-        @_memo.delete(name)
-        send(name).assign(value)
-      end
-    end
-
     def timestamped_set(name, model, &block)
       define_memoized_method(name) do
          Ohm::Model::TimestampedSet.new(key[name], Ohm::Model::Wrapper.wrap(model)) do |x|

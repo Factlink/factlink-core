@@ -2,13 +2,15 @@ require 'spec_helper'
 
 class Item < OurOhm;end
 class SortedContainer < OurOhm
-  sorted_set :items, Item do |x|
-    1
+  def items
+    Ohm::Model::TimestampedSet.new(key, Ohm::Model::Wrapper.wrap(Item)) do |x|
+      1
+    end
   end
 end
 
 
-describe Ohm::Model::SortedSet do
+describe Ohm::Model::TimestampedSet do
   let(:c1) { SortedContainer.create }
   let(:c2) { SortedContainer.create }
   let(:c3) { SortedContainer.create }
@@ -16,15 +18,6 @@ describe Ohm::Model::SortedSet do
   let(:i1) { Item.create }
   let(:i2) { Item.create }
   let(:i3) { Item.create }
-
-
-
-  it "should have a working assignment" do
-    c1.items << i1 << i2
-    c2.items = c1.items
-    c2.items.count.should == 2
-    SortedContainer[c2.id].items.count.should == 2
-  end
 
   describe "#below" do
     it "should return an empty list for an empty set" do

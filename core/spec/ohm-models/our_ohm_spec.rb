@@ -6,23 +6,6 @@ class Container < OurOhm
   set :items, Item
 end
 
-describe Ohm::Model::Set do
-  before do
-    @c1 = Container.create()
-    @c2 = Container.create()
-    @a = Item.create()
-    @b = Item.create()
-    @c1.items << @a
-    @c2.items << @b
-  end
-
-  it "should be able to return the list of ids" do
-    @c1.items << @b
-    @c1.items.ids.should =~ [@a.id,@b.id]
-  end
-end
-
-
 describe OurOhm do
   subject { OurOhm.create }
   it "should do normal with collections" do
