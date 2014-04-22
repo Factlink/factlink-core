@@ -15,7 +15,6 @@ window.ReactFeedSelection = React.createClass
         feedChoice: e.target.value
 
   _toggle_create_challenge: ->
-    console.log 'hey', @state
     @setState show_create_challenge: !@state.show_create_challenge
 
   render: ->
