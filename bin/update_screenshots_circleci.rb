@@ -34,8 +34,11 @@ class ScreenshotUpdater
     screenshot_infos =
         get_json(ci_artifacts_uri(build_num))
         .select{|artifact| artifact['pretty_path'].match(/^\$CIRCLE_ARTIFACTS\/capybara_output\//)}
+
     screenshot_infos
-      .map{|artifact| artifact['url'] + circle_token_query}
+        .map{|artifact| artifact['url']}
+        .select{|url| url.end_with?('.png') && ! url.end_with?('-diff.png')}
+        .map{|url| url + circle_token_query}
   end
 
   def get_latest_build_num
