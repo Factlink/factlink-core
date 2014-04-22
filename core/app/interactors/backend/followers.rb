@@ -26,7 +26,7 @@ module Backend
     end
 
     def direct_followers_for_comments comments
-      comments_creators_ids = comments.map(&:created_by).map(&:graph_user_id)
+      comments_creators_ids = comments.map(&:created_by).map(&:id)
       comments_opinionated_ids =
         comments.flat_map do |comment|
           believable = ::Believable.new(Ohm::Key.new("Comment:#{comment.id}:believable"))
@@ -38,7 +38,6 @@ module Backend
     def direct_followers_for_subcomments sub_comments
       sub_comments.map(&:created_by)
                   .map(&:id)
-                  .map {|id| User.where(id: id).first.graph_user_id}
     end
 
     def direct_followers_for_fact fact_id

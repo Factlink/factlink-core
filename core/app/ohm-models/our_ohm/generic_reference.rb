@@ -27,7 +27,7 @@ class OurOhm < Ohm::Model
           if klass.ancestors.include? Ohm::Model
             klass[id]
           else
-            klass.find(id) # Return the ActiveModel object
+            klass.where(id: id).first # Return the ActiveModel object
           end
         end
       end
