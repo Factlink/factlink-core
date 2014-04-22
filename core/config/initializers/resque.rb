@@ -15,4 +15,3 @@ end
 
 Resque::Failure::Multiple.classes = [Resque::Failure::Redis, Resque::Failure::Sentry]
 Resque::Failure.backend = Resque::Failure::Multiple
-Resque.after_fork = Proc.new { ActiveRecord::Base.establish_connection }
