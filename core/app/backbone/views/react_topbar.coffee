@@ -29,14 +29,16 @@ window.ReactTopbarMenu = React.createClass
         _b ['caret']
       _ul ['dropdown-menu'],
         if !window.is_kennisland
-          _li ['dropdown-menu-item'],
-           _a [href: '/in-your-browser'],
-             _i ['icon-globe']
-             " In your browser"
-          _li ['dropdown-menu-item'],
-           _a [href: '/on-your-site'],
-             _i ['icon-bookmark']
-             " On your site"
+          [
+            _li ['dropdown-menu-item'],
+             _a [href: '/in-your-browser'],
+               _i ['icon-globe']
+               " In your browser"
+            _li ['dropdown-menu-item'],
+             _a [href: '/on-your-site'],
+               _i ['icon-bookmark']
+               " On your site"
+          ]
         _li ['dropdown-menu-item'],
          _a [href: "/#{currentSession.user().get('username')}/edit", rel: 'backbone'],
            _i ['icon-cog']
@@ -96,13 +98,15 @@ window.ReactTopbar = React.createClass
         _div ['topbar-inner'],
           _ul ['topbar-menu'],
             if !window.is_kennisland
-              _li ['topbar-menu-item topbar-in-your-browser'],
-                _a ['topbar-menu-link', href: '/in-your-browser'],
-                  "In your browser"
-              _li ['topbar-divider topbar-in-your-browser']
-              _li ['topbar-menu-item topbar-on-your-site'],
-                _a ['topbar-menu-link', href: '/on-your-site'],
-                  "On your site"
+              [
+                _li ['topbar-menu-item topbar-in-your-browser'],
+                  _a ['topbar-menu-link', href: '/in-your-browser'],
+                    "In your browser"
+                _li ['topbar-divider topbar-in-your-browser']
+                _li ['topbar-menu-item topbar-on-your-site'],
+                  _a ['topbar-menu-link', href: '/on-your-site'],
+                    "On your site"
+              ]
             _li ['topbar-divider topbar-on-your-site']
             _li ['topbar-menu-item'],
               _div ['topbar-connect'],
