@@ -16,10 +16,6 @@ class User < ActiveRecord::Base
   :confirmable,   # Require e-mail verification
   :registerable   # Allow registration
 
-  # Setup accessible (or protected) attributes for your model
-  #attr_accessible :email, :password, :password_confirmation, :remember_me
-  #attr_accessible :admin, :biography, :deleted, :full_name, :location, :notification_settings_edit_token, :receives_digest, :receives_mailed_notifications, :username
-
   attr_accessible :username, :full_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
                   :receives_digest
@@ -112,8 +108,6 @@ class User < ActiveRecord::Base
 
     def valid_username?(username)
       validators = self.validators.select { |v| v.attributes == [:username] && v.options[:with].class == Regexp }.map { |v| v.options[:with] }
-      # TODO fix properly
-      #case_insensitive_regexp = /\A#{Regexp.escape(username)}\z/i
 
       where(username: username.downcase).count == 0 and validators.all? { |regex| regex.match(username) }
     end
