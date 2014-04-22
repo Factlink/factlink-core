@@ -3,9 +3,7 @@ require 'spec_helper'
 class Item < OurOhm;end
 class SortedContainer < OurOhm
   def items
-    Ohm::Model::TimestampedSet.new(key, Ohm::Model::Wrapper.wrap(Item)) do |x|
-      1
-    end
+    Ohm::Model::TimestampedSet.new(key, Ohm::Model::Wrapper.wrap(Item))
   end
 end
 
