@@ -1,4 +1,4 @@
-def self.truncate(opts)
+def self.truncate
   if Rails.env.development?
     # truncate redis
     Redis.current.flushall
