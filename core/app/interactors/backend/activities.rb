@@ -73,7 +73,8 @@ module Backend
           end
 
       base_activity_data.merge(specialized_data)
-    rescue
+    rescue StandardError => e
+      raise e if Rails.env.test?
       nil #activities may become "invalid" in which case the facts/comments/users they refer to
       #are gone.  This  causes errors.  We ignore such activities.
     end
