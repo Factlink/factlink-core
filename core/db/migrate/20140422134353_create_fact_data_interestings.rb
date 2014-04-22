@@ -6,5 +6,8 @@ class CreateFactDataInterestings < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :fact_data_interestings, :fact_data_id
+    add_index :fact_data_interestings, :user_id
   end
 end
