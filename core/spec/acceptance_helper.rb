@@ -74,8 +74,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     ElasticSearch.create
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.orm = "mongoid"
+    DatabaseCleaner[:active_record].strategy = :truncation
   end
 
   config.before(:each) do

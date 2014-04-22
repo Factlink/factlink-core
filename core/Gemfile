@@ -6,8 +6,8 @@ ruby '2.1.0'
 gem 'rails', '3.2.17' # this is too important to update automatically
 gem 'rake', '~> 10.1.0', require: false
 
-# Mongo
-gem 'mongoid', '~> 3.1.6'
+# Postgres
+gem 'pg'
 
 gem 'pavlov', '= 0.1.9.0'
 
@@ -33,9 +33,6 @@ gem "resque-sentry", '~> 1.1.1'
 
 # Everyone loves JSON
 gem 'json', '~> 1.8'
-
-# Needed for migrations to be compatible when no sql backend is available
-gem 'mongoid_rails_migrations', '1.0.1' # TODO look if this needs to be pinned
 
 # User authentication and authorization
 gem 'devise', '~> 2.2.3'

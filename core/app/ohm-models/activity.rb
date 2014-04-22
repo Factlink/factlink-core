@@ -1,10 +1,9 @@
-class GraphUser < OurOhm;end # needed because of removed const_missing from ohm
-
 require_relative 'activity/listener'
 require_relative 'activity/create_listeners'
 
 class Activity < OurOhm
-  reference :user, GraphUser
+  attribute :user_id
+  index :user_id
 
   attribute :created_at
 
@@ -29,9 +28,12 @@ class Activity < OurOhm
     assert self.class.valid_actions.include?(action.to_s), "invalid action: #{action.to_s}"
   end
 
-  alias :old_set_user :user= unless method_defined?(:old_set_user)
   def user=(new_user)
-    old_set_user new_user
+    self.user_id = new_user.id.to_s
+  end
+
+  def user
+    User.where(id: user_id).first
   end
 
   def delete
@@ -76,7 +78,7 @@ class Activity < OurOhm
     return true if not user_id
     return false unless user
 
-    real_user = User.where(graph_user_id: user.id).first
+    real_user = User.where(id: user.id).first
 
     real_user && !real_user.deleted
   end
