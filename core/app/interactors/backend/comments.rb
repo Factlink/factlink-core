@@ -16,11 +16,14 @@ module Backend
     end
 
     def remove_opinion(comment_id:, user_id:)
-      believable(comment_id).remove_opinionated_id user_id
+      CommentVote.where(comment_id: comment_id, user_id: user_id)
+                 .map {|comment_vote| comment_vote.destroy}
     end
 
     def set_opinion(comment_id:, user_id:, opinion:)
-      believable(comment_id).add_opiniated_id opinion, user_id
+      remove_opinion(comment_id: comment_id, user_id: user_id)
+
+      CommentVote.create! comment_id: comment_id, user_id: user_id, opinion: opinion
     end
 
     def deletable?(comment_id)
@@ -29,7 +32,7 @@ module Backend
     end
 
     def opiniated(comment_id:, type:)
-      Backend::Users.by_ids(user_ids: believable(comment_id).opiniated_ids(type))
+      Backend::Users.by_ids(user_ids: CommentVote.where(comment_id: comment_id, opinion: type).map(&:user_id))
     end
 
     def create(fact_id:, content:, user_id:, created_at:)
@@ -49,6 +52,7 @@ module Backend
     private
 
     def dead(comment:, current_user_id:)
+      votes_counts = CommentVote.where(comment_id: comment.id).count(group: :opinion)
       current_user_opinion = current_user_opinion_for(comment_id: comment.id, current_user_id: current_user_id)
 
       DeadComment.new(
@@ -58,18 +62,19 @@ module Backend
         formatted_content: FormattedCommentContent.new(comment.content).html,
         sub_comments_count: Backend::SubComments.count(parent_id: comment.id),
         is_deletable: Backend::Comments.deletable?(comment.id),
-        tally: believable(comment.id).votes.merge(current_user_opinion: current_user_opinion)
+        tally: {
+          believes: votes_counts['believes'] || 0,
+          disbelieves: votes_counts['disbelieves'] || 0,
+          current_user_opinion: current_user_opinion,
+        }
       )
     end
 
     def current_user_opinion_for(comment_id:, current_user_id:)
       return :no_vote unless current_user_id
 
-      believable(comment_id).opinion_of_user_id current_user_id
-    end
-
-    def believable(comment_id)
-      ::Believable.new(Ohm::Key.new("Comment:#{comment_id}:believable"))
+      comment_vote = CommentVote.where(user_id: current_user_id, comment_id: comment_id).first or return :no_vote
+      comment_vote.opinion
     end
   end
 end
