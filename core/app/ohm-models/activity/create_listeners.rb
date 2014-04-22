@@ -15,8 +15,7 @@ class Activity < OurOhm
     end
 
     def people_who_follow_user_of_activity
-      ->(a) {
-        reject_self(Backend::UserFollowers.follower_ids(followee_id: a.user_id), a) }
+      ->(a) { reject_self(Backend::UserFollowers.follower_ids(followee_id: a.user_id), a) }
     end
 
     # notifications, stream_activities
