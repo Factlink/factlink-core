@@ -53,14 +53,19 @@ ReactCollapsedText = React.createClass
         ],
           '(more)'
 
-
-window.ReactDiscussion = React.createBackboneClass
-  displayName: 'ReactDiscussion'
-
+window.ReactDiscussionSidebar = React.createBackboneClass
+  displayName: "ReactDiscussionSidebar"
   render: ->
     _div ['discussion'],
       ReactSidebarLogin()
+      @transferPropsTo ReactDiscussionStandalone()
 
+
+window.ReactDiscussionStandalone = React.createBackboneClass
+  displayName: 'ReactDiscussionStandalone'
+
+  render: ->
+    _div [],
       _div ['top-annotation'],
         _div ['top-annotation-text'],
           if @model().get('displaystring')

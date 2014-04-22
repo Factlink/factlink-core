@@ -1,0 +1,13 @@
+.challenges-create {
+  background: white;
+  border-radius: $baseBorderRadius;
+  border-bottom: $headerBorder lightgrey solid;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.challenge-name-input {
+  width: 100%;
+  margin-bottom: 10px;
+  font-size: $subHeadingFontSize;
+}
