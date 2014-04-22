@@ -7,11 +7,11 @@ class OpinionatorsController < ApplicationController
 
 
   def create
-    render json: interactor(:'facts/set_opinion', fact_id: params[:fact_id], opinion: 'believes')
+    render json: interactor(:'facts/set_interesting', fact_id: params[:fact_id])
   end
   alias :update :create
 
   def destroy
-    render json: interactor(:'facts/remove_opinion', fact_id: params[:fact_id])
+    render json: interactor(:'facts/remove_interesting', fact_id: params[:fact_id])
   end
 end

@@ -1,12 +1,12 @@
 module Interactors
   module Facts
-    class RemoveOpinion
+    class SetInteresting
       include Pavlov::Interactor
 
       arguments :fact_id
 
       def execute
-        Backend::Facts.remove_interesting \
+        Backend::Facts.set_interesting \
           fact_id: fact_id,
           user_id: pavlov_options[:current_user].id
 
