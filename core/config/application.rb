@@ -108,7 +108,7 @@ module FactlinkUI
 
     # Version of your assets, change this if you want to expire all your assets
     # Therefore, we change the asset version for whenever kennisland is toggled.
-    config.assets.version = FactlinkUI.Kennisland? ? '2.0': '1.0'
+    config.assets.version = FactlinkUI.Kennisland? ? '2.0' : '1.0'
 
     config.assets.precompile = [
       /\w+\.(?!js|css|less).+/,
