@@ -15,7 +15,13 @@ module Backend
     end
 
     def votes(fact_id:)
-      votes_for(fact_id, 'believes') + votes_for(fact_id, 'disbelieves')
+      fact_data_id = FactData.where(fact_id: fact_id).first.id
+      user_ids = FactDataInteresting.where(fact_data_id: fact_data_id).map(&:user_id)
+      dead_users = Backend::Users.by_ids(user_ids: user_ids)
+
+      dead_users.map do |user|
+        { username: user.username, user: user }
+      end
     end
 
     def create(displaystring:, site_title:, site_url:, created_at:, fact_id: nil)
@@ -32,11 +38,17 @@ module Backend
     end
 
     def remove_interesting(fact_id:, user_id:)
-      believable(fact_id).remove_opinionated_id user_id
+      fact_data_id = FactData.where(fact_id: fact_id).first.id
+
+      FactDataInteresting.where(fact_data_id: fact_data_id, user_id: user_id)
+                         .each {|interesting| interesting.destroy}
     end
 
     def set_interesting(fact_id:, user_id:)
-      believable(fact_id).add_opiniated_id 'believes', user_id
+      remove_interesting fact_id: fact_id, user_id: user_id
+
+      fact_data_id = FactData.where(fact_id: fact_id).first.id
+      FactDataInteresting.create! fact_data_id: fact_data_id, user_id: user_id
     end
 
     def for_url(site_url:)
@@ -48,19 +60,6 @@ module Backend
     end
 
     private
-
-    def votes_for(fact_id, type)
-      user_ids = believable(fact_id).opiniated_ids(type)
-      dead_users = Backend::Users.by_ids(user_ids: user_ids)
-
-      dead_users.map do |user|
-        { username: user.username, user: user, type: type }
-      end
-    end
-
-    def believable(fact_id)
-      Believable.new Nest.new("Fact:#{fact_id}")
-    end
 
     def dead(fact_data)
       DeadFact.new id: fact_data.fact_id,
