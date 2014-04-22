@@ -55,7 +55,7 @@ class Activity < OurOhm
   end
 
   def timestamp
-    Ohm::Model::TimestampedSet.current_time(DateTime.parse(created_at))
+    TimestampedSet.current_time(DateTime.parse(created_at))
   end
 
   def add_to_list_with_score list
