@@ -1,5 +1,15 @@
 require_relative 'our_ohm/generic_reference'
 
+class Ohm::Model
+  def initialize(attrs = {})
+    @id = nil
+    @_memo ||= {}
+    @_attributes ||= Hash.new { |hash, key| hash[key] = lazy_fetch(key) }
+    super()
+    update_local(attrs)
+  end
+end
+
 class OurOhm < Ohm::Model
   extend ActiveModel::Naming
   extend OurOhm::GenericReference

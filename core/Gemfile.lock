@@ -9,7 +9,8 @@ GIT
 
 GIT
   remote: git://github.com/Factlink/ohm.git
-  revision: bc6339a9d8119db59fd4cc379369b6a2ad1aa2ac
+  revision: 63b8f73c251ca1498d497a3df3b1fc1d29caffc8
+  ref: 63b8f73c251ca1498d497a3df3b1fc1d29caffc8
   specs:
     ohm (0.2.0)
       nest (~> 1.0)
