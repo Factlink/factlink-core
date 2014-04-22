@@ -4,7 +4,7 @@ module Backend
 
     def get(fact_id:)
       fact_data = FactData.where(fact_id: fact_id).first
-      raise Mongoid::Errors::DocumentNotFound, FactData, {fact_id: fact_id} unless fact_data
+      raise ActiveRecord::RecordNotFound, ["FactData", {fact_id: fact_id}] unless fact_data
 
       dead(fact_data)
     end
