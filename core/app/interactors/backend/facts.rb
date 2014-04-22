@@ -31,12 +31,12 @@ module Backend
       dead(fact_data)
     end
 
-    def remove_opinion(fact_id:, user_id:)
+    def remove_interesting(fact_id:, user_id:)
       believable(fact_id).remove_opinionated_id user_id
     end
 
-    def set_opinion(fact_id:, user_id:, opinion:)
-      believable(fact_id).add_opiniated_id opinion, user_id
+    def set_interesting(fact_id:, user_id:)
+      believable(fact_id).add_opiniated_id 'believes', user_id
     end
 
     def for_url(site_url:)

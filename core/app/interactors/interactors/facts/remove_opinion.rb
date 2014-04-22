@@ -6,7 +6,7 @@ module Interactors
       arguments :fact_id
 
       def execute
-        Backend::Facts.remove_opinion \
+        Backend::Facts.remove_interesting \
           fact_id: fact_id,
           user_id: pavlov_options[:current_user].id
 

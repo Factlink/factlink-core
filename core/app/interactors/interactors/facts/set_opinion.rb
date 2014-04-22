@@ -6,9 +6,8 @@ module Interactors
       arguments :fact_id, :opinion
 
       def execute
-        Backend::Facts.set_opinion \
+        Backend::Facts.set_interesting \
           fact_id: fact_id,
-          opinion: opinion,
           user_id: pavlov_options[:current_user].id
 
         Backend::Facts.get(fact_id: fact_id)
