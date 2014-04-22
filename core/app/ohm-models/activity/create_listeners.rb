@@ -20,7 +20,7 @@ class Activity < OurOhm
     end
 
     # notifications, stream_activities
-    def forGraphUser_comment_was_added_to_a_fact_you_follow
+    def forUser_comment_was_added_to_a_fact_you_follow
       {
         subject_class: "Comment",
         action: :created_comment,
@@ -29,7 +29,7 @@ class Activity < OurOhm
     end
 
     # stream_activities
-    def forGraphUser_follower_created_comment
+    def forUser_follower_created_comment
       {
         subject_class: "Comment",
         action: :created_comment,
@@ -38,7 +38,7 @@ class Activity < OurOhm
     end
 
     # notifications
-    def forGraphUser_someone_added_a_subcomment_to_your_comment
+    def forUser_someone_added_a_subcomment_to_your_comment
       {
         subject_class: "SubComment",
         action: :created_sub_comment,
@@ -47,7 +47,7 @@ class Activity < OurOhm
     end
 
     # stream_activities
-    def forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow
+    def forUser_someone_added_a_subcomment_to_a_fact_you_follow
       {
         subject_class: "SubComment",
         action: :created_sub_comment,
@@ -56,7 +56,7 @@ class Activity < OurOhm
     end
 
     # stream_activities
-    def forGraphUser_follower_created_sub_comment
+    def forUser_follower_created_sub_comment
       {
         subject_class: "SubComment",
         action: :created_sub_comment,
@@ -65,7 +65,7 @@ class Activity < OurOhm
     end
 
     # notifications
-    def forGraphUser_someone_followed_you
+    def forUser_someone_followed_you
       {
         subject_class: 'User',
         action: 'followed_user',
@@ -94,9 +94,9 @@ class Activity < OurOhm
     def create_notification_activities
       # NOTE: Please update the tags above and in _activity.json.jbuilder when changing this!!
       notification_activities = [
-        forGraphUser_comment_was_added_to_a_fact_you_follow,
-        forGraphUser_someone_added_a_subcomment_to_your_comment,
-        forGraphUser_someone_followed_you
+        forUser_comment_was_added_to_a_fact_you_follow,
+        forUser_someone_added_a_subcomment_to_your_comment,
+        forUser_someone_followed_you
       ]
 
       notification_activities.map{ |a| a[:action] }.flatten.map(&:to_s).each do |action|
@@ -116,10 +116,10 @@ class Activity < OurOhm
       # NOTE: Please update the tags above and in _activity.json.jbuilder when changing this!!
       stream_activities = [
         followed_someone_else,
-        forGraphUser_comment_was_added_to_a_fact_you_follow,
-        forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow,
-        forGraphUser_follower_created_comment,
-        forGraphUser_follower_created_sub_comment,
+        forUser_comment_was_added_to_a_fact_you_follow,
+        forUser_someone_added_a_subcomment_to_a_fact_you_follow,
+        forUser_follower_created_comment,
+        forUser_follower_created_sub_comment,
       ]
 
       stream_activities.map{ |a| a[:action] }.flatten.map(&:to_s).each do |action|
