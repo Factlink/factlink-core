@@ -9,7 +9,7 @@ gem 'rake', '~> 10.1.0', require: false
 # Postgres
 gem 'pg'
 
-gem 'pavlov', '= 0.1.9.0'
+gem 'pavlov', github: 'Factlink/pavlov'
 
 # Simple value objects
 gem 'strict_struct', '= 0.0.4' # by @markijbema, ask him if he pushed breaking changes in new versions
