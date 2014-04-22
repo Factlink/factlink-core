@@ -19,6 +19,6 @@ class GlobalFeed
 
   def all_activities
     key = @key[:all_activities]
-    Ohm::Model::TimestampedSet.new(key, Ohm::Model::Wrapper.wrap(Activity))
+    TimestampedSet.new(key, Activity)
   end
 end

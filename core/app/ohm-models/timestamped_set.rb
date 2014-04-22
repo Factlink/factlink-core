@@ -1,12 +1,18 @@
-class Ohm::Model::TimestampedSet < Ohm::Model::SortedSet
+class TimestampedSet
   def self.current_time(time=nil)
     time ||= DateTime.now
     (time.to_time.to_f*1000).to_i
   end
-  def initialize(*args)
-    super(*args) do |f|
-      self.class.current_time
-    end
+
+  attr_reader :key, :model
+  def initialize key, model_class
+    @key = key
+    @model = model_class
+  end
+
+  def add object, timestamp
+    timestamp ||= self.class.current_time
+    @key.zadd timestamp, object.id
   end
 
   def below(limit,opts={})
@@ -38,6 +44,10 @@ class Ohm::Model::TimestampedSet < Ohm::Model::SortedSet
 
   def ids
     key.zrange(0, -1)
+  end
+
+  def all
+    ids.map { |id| model[id] }
   end
 
   def inspect

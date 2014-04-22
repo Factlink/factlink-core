@@ -150,7 +150,7 @@ class User < ActiveRecord::Base
 
   private def activity_set(name:)
     key = Nest.new('User')[id][name]
-    Ohm::Model::TimestampedSet.new(key, Ohm::Model::Wrapper.wrap(Activity))
+    TimestampedSet.new(key, Activity)
   end
 
   def self.human_attribute_name(attr, options = {})

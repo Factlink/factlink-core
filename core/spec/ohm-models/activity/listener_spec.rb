@@ -11,7 +11,7 @@ describe Activity::Listener do
     stub_const 'Foo', Class.new(OurOhm)
     class Foo
       def activities
-        Ohm::Model::TimestampedSet.new(key, Ohm::Model::Wrapper.wrap(Activity))
+        TimestampedSet.new(key, Activity)
       end
     end
     stub_const 'Interactors::SendMailForActivity', double

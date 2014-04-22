@@ -1,5 +1,4 @@
 require_relative 'our_ohm/generic_reference'
-require_relative 'our_ohm/timestamped_set'
 
 class OurOhm < Ohm::Model
   extend ActiveModel::Naming

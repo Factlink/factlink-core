@@ -3,12 +3,12 @@ require 'spec_helper'
 class Item < OurOhm;end
 class SortedContainer < OurOhm
   def items
-    Ohm::Model::TimestampedSet.new(key, Ohm::Model::Wrapper.wrap(Item))
+    TimestampedSet.new(key, Item)
   end
 end
 
 
-describe Ohm::Model::TimestampedSet do
+describe TimestampedSet do
   let(:c1) { SortedContainer.create }
   let(:c2) { SortedContainer.create }
   let(:c3) { SortedContainer.create }
