@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   #attr_accessible :email, :password, :password_confirmation, :remember_me
-  #attr_accessible :admin, :biography, :deleted, :full_name, :graph_user_id, :location, :notification_settings_edit_token, :receives_digest, :receives_mailed_notifications, :username
+  #attr_accessible :admin, :biography, :deleted, :full_name, :location, :notification_settings_edit_token, :receives_digest, :receives_mailed_notifications, :username
 
   attr_accessible :username, :full_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
@@ -40,15 +40,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  # For compatibility with Activity::Listener
-  def self.[](graph_user_id)
-    User.where(graph_user_id: graph_user_id).first
-  end
-
   USERNAME_MAX_LENGTH = 20
 
   #index(username: 1)
-  #index(graph_user_id: 1)
 
   USERNAME_BLACKLIST = [
     :users, :facts, :site, :templates, :search, :system, :tos, :pages, :privacy,
@@ -161,22 +155,9 @@ class User < ActiveRecord::Base
   end
 
   private def activity_set(name:)
-    key = Nest.new('GraphUser')[graph_user_id][name]
+    key = Nest.new('User')[id][name]
     Ohm::Model::TimestampedSet.new(key, Ohm::Model::Wrapper.wrap(Activity))
   end
-
-  before_save do |user|
-    id_key = Nest.new('GraphUser')[:id]
-
-    if user.graph_user_id
-      if user.graph_user_id.to_i > id_key.get.to_i
-        id_key.set user.graph_user_id
-      end
-    else
-      user.graph_user_id = id_key.incr.to_s
-    end
-  end
-
 
   def self.human_attribute_name(attr, options = {})
     attr.to_s == 'non_field_error' ? '' : super

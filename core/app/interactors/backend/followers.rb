@@ -5,7 +5,7 @@ module Backend
     def followers_for_fact_id fact_id
       comments = FactData.where(fact_id: fact_id).first.comments
       [
-        direct_followers_for_fact(fact_id).map { |id| User.find(id).graph_user_id },
+        direct_followers_for_fact(fact_id),
         followers_for_comments(comments),
       ].flatten.uniq
     end
@@ -26,11 +26,11 @@ module Backend
     end
 
     def direct_followers_for_comments comments
-      comments_creators_ids = comments.map(&:created_by).map(&:graph_user_id)
+      comments_creators_ids = comments.map(&:created_by).map(&:id)
       comments_opinionated_ids =
         comments.flat_map do |comment|
           believable = ::Believable.new(Ohm::Key.new("Comment:#{comment.id}:believable"))
-          believable.opinionated_users_ids.map {|id| User.where(id: id).first.graph_user_id }
+          believable.opinionated_users_ids
         end
       comments_creators_ids + comments_opinionated_ids
     end
@@ -38,7 +38,6 @@ module Backend
     def direct_followers_for_subcomments sub_comments
       sub_comments.map(&:created_by)
                   .map(&:id)
-                  .map {|id| User.where(id: id).first.graph_user_id}
     end
 
     def direct_followers_for_fact fact_id

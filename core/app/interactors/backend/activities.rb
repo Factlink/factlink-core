@@ -119,12 +119,12 @@ module Backend
     def send_mail_for_activity(activity:)
       listeners = Activity::Listener.all[{class: "User", list: :notifications}]
 
-      graph_user_ids = listeners.map do |listener|
+      user_ids = listeners.map do |listener|
           listener.add_to(activity)
         end.flatten
 
       recipients = Backend::Notifications.users_receiving(type: 'mailed_notifications')
-                                         .where(graph_user_id: graph_user_ids)
+                                         .where(id: user_ids)
 
       recipients.each do |user|
         Resque.enqueue SendActivityMailToUser, user.id, activity.id

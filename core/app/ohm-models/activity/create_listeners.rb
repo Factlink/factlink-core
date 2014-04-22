@@ -7,7 +7,7 @@ class Activity < OurOhm
     #
 
     def reject_self followers, activity
-      followers.reject {|id| id.to_s == activity.user.graph_user_id.to_s }
+      followers.reject {|id| id.to_s == activity.user_id.to_s }
     end
 
     def people_who_follow_sub_comment
@@ -16,9 +16,7 @@ class Activity < OurOhm
 
     def people_who_follow_user_of_activity
       ->(a) {
-        reject_self(
-          Backend::UserFollowers.follower_ids(followee_id: a.user_id)
-                                .map {|id| User.find(id).graph_user_id }, a) }
+        reject_self(Backend::UserFollowers.follower_ids(followee_id: a.user_id), a) }
     end
 
     # notifications, stream_activities
@@ -71,7 +69,7 @@ class Activity < OurOhm
       {
         subject_class: 'User',
         action: 'followed_user',
-        write_ids: ->(a) { [a.subject.graph_user_id]}
+        write_ids: ->(a) { [a.subject_id]}
       }
     end
 
@@ -81,10 +79,7 @@ class Activity < OurOhm
       {
         subject_class: 'User',
         action: 'followed_user',
-        write_ids: ->(a) {
-         (Backend::UserFollowers.follower_ids(followee_id: a.user_id) - [a.subject_id.to_i])
-            .map { |id| User.find(id).graph_user_id }
-        }
+        write_ids: ->(a) { (Backend::UserFollowers.follower_ids(followee_id: a.user_id) - [a.subject_id.to_i]) }
       }
     end
 
@@ -144,7 +139,7 @@ class Activity < OurOhm
         named :own_activities
         stream_activities.each do |a|
           activity a.merge({
-            write_ids: ->(a) {[a.user.graph_user_id]}
+            write_ids: ->(a) {[a.user_id]}
           })
         end
       end

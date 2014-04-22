@@ -132,31 +132,6 @@ describe Activity::Listener do
     end
   end
 
-  describe :process do
-    it "should add the activities to a timestamped set on the object" do
-      subject.activity_for = 'Foo'
-      subject.listname = :activities
-      subject.queries << {subject_class: Foo, write_ids: ->(a) { [f1.id] } }
-
-      a1 = Activity.create subject: f1, action: :followed_user, created_at: Time.now.utc.to_s
-      subject.process a1
-      expect(f1.activities.ids).to match_array [a1.id]
-      expect(f2.activities.ids).to match_array []
-    end
-
-    it "should pass the activity to the write_ids" do
-      subject.activity_for = 'Foo'
-      subject.listname = :activities
-      subject.queries << {subject_class: Foo, write_ids: ->(a) { [a.subject.id] } }
-
-      a1 = Activity.create subject: f1, action: :followed_user, created_at: Time.now.utc.to_s
-      subject.process a1
-      expect(f1.activities.ids).to match_array [a1.id]
-      expect(f2.activities.ids).to match_array []
-
-    end
-  end
-
   describe ".register" do
     it "should contain the registered query in the .all" do
       Activity::Listener.reset

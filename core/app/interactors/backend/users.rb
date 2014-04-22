@@ -3,19 +3,14 @@ module Backend
     extend self
 
     # This query returns dead user objects, retrieved by their ids
-    # You have the option to call it with user ids, or with (Ohm) GraphUser
-    # ids.
     # Please try to avoid to add support for all other kinds of fields,
     # both because we want it to have an index, and because we don't want to
     # leak too much of the internals
-    def by_ids(user_ids:, by: nil)
-      by ||= :id
+    def by_ids(user_ids:)
       user_ids = Array(user_ids)
 
-      fail "invalid id type: #{by}" unless [:id, :graph_user_id].include? by
 
-
-      User.where(by => user_ids).map do |user|
+      User.where(id: user_ids).map do |user|
         DeadUser.new \
           id: user.id.to_s,
           name: user.full_name.strip, # MAYBE It might be better to do strip on save
