@@ -34,7 +34,6 @@ module FactlinkUI
 
     config.log_level = :info
 
-    require_dependency "#{config.root}/app/classes/redis_utils.rb"
     require_dependency "#{config.root}/app/ohm-models/our_ohm.rb"
     require_dependency "#{config.root}/app/ohm-models/activity.rb"
     require_dependency "#{config.root}/app/ohm-models/graph_user.rb"
