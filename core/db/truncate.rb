@@ -1,4 +1,4 @@
-def self.truncate(opts)
+def self.truncate
   if Rails.env.development?
     # truncate redis
     Redis.current.flushall
@@ -10,29 +10,23 @@ def self.truncate(opts)
     # truncate elasticsearch
     ElasticSearch.truncate
 
-    #truncate mongoid
-    mongoid_conf = YAML::load_file(Rails.root.join('config/mongoid.yml'))[Rails.env]['sessions']['default']
-
-    session = Moped::Session.new([mongoid_conf['hosts'][0]])
-    session.use mongoid_conf['database'].to_sym
-
-    session.collections.each do |collection|
-      unless collection.name == "users" and collection.name != "system.indexes"
-        collection.drop()
+    # from http://stackoverflow.com/a/6150228/623827
+    config = ActiveRecord::Base.configurations[::Rails.env]
+    ActiveRecord::Base.establish_connection
+    case config["adapter"]
+    when "mysql", "postgresql"
+      ActiveRecord::Base.connection.tables.each do |table|
+        next if table == 'schema_migrations'
+        ActiveRecord::Base.connection.execute("TRUNCATE #{table}")
       end
-    end
+    when "sqlite", "sqlite3"
+      ActiveRecord::Base.connection.tables.each do |table|
+        next if table == 'schema_migrations'
 
-    if opts[:users] == :truncate
-      # HACK; sorry, don't know efficient way, and shouldn't matter to much for development
-      session.collections.each do |collection|
-        if collection.name == "users"
-          collection.drop()
-        end
+        ActiveRecord::Base.connection.execute("DELETE FROM #{table}")
+        ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence where name='#{table}'")
       end
-    else
-      User.all.each do |u|
-        u.send(:create_graph_user) {}
-      end
+      ActiveRecord::Base.connection.execute("VACUUM")
     end
 
   else

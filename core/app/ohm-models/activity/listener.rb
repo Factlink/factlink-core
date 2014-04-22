@@ -76,7 +76,7 @@ class Activity < OurOhm
       add_to(activity).each do |id|
                                      # constantize
         klass = activity_for.split('::').inject(Kernel) { |x,y|x.const_get(y) }
-        instance = klass[id]
+        instance = klass.where(id: id).first
         activity.add_to_list_with_score(instance.send(listname)) if instance
       end
     end

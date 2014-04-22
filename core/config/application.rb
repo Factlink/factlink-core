@@ -3,6 +3,7 @@ require File.expand_path('../boot', __FILE__)
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
+require "active_record/railtie"
 require "pavlov/alpha_compatibility"
 
 Mime::Type.register "image/png", :png unless Mime::Type.lookup_by_extension(:png)
@@ -34,10 +35,8 @@ module FactlinkUI
 
     config.log_level = :info
 
-    require_dependency "#{config.root}/app/classes/redis_utils.rb"
     require_dependency "#{config.root}/app/ohm-models/our_ohm.rb"
     require_dependency "#{config.root}/app/ohm-models/activity.rb"
-    require_dependency "#{config.root}/app/ohm-models/graph_user.rb"
 
     Rails.application.config.generators.template_engine :erb
 
@@ -45,9 +44,8 @@ module FactlinkUI
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Use Mongoid as ORM
     config.generators do |g|
-      g.orm             :mongoid
+      g.orm             :active_record
     end
 
     # Custom directories with classes and modules you want to be autoloadable.

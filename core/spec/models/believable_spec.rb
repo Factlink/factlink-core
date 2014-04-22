@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Believable do
   subject(:believable) { Believable.new Nest.new('gerrit') }
 
-  let(:user)  { create(:graph_user) }
-  let(:user2) { create(:graph_user) }
+  let(:user)  { create(:user) }
+  let(:user2) { create(:user) }
 
   context "initially" do
     it { expect(believable.votes).to eq(believes: 0, disbelieves: 0) }

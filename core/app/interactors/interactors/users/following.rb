@@ -14,14 +14,14 @@ module Interactors
       end
 
       def execute
-        Backend::Users.by_ids(user_ids: graph_user_ids, by: :graph_user_id)
+        Backend::Users.by_ids(user_ids: user_ids)
       end
 
-      def graph_user_ids
-        @graph_user_ids ||= begin
+      def user_ids
+        user_ids ||= begin
           user = Backend::Users.user_by_username(username: username)
 
-          Backend::UserFollowers.followee_ids(follower_id: user.graph_user_id.to_s)
+          Backend::UserFollowers.followee_ids(follower_id: user.id)
         end
       end
     end

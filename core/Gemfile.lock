@@ -8,11 +8,13 @@ GIT
       rack
 
 GIT
-  remote: git://github.com/Factlink/ohm.git
-  revision: bc6339a9d8119db59fd4cc379369b6a2ad1aa2ac
+  remote: git://github.com/Factlink/pavlov.git
+  revision: 971e0a799515f0042a782b23d85bbbfd5c547fb4
   specs:
-    ohm (0.2.0)
-      nest (~> 1.0)
+    pavlov (0.1.10)
+      activemodel (>= 3.2.7)
+      backports (~> 3.3)
+      virtus (= 0.5.5)
 
 GIT
   remote: git://github.com/Factlink/rack-xframe-options.git
@@ -84,9 +86,6 @@ GEM
       activesupport (>= 3.0)
       rack
       thread_safe
-    appsignal-moped (1.0.5)
-      appsignal (> 0.7)
-      moped (> 1.0)
     appsignal-redis (1.0.2)
       appsignal (> 0.7)
       redis (> 2.2)
@@ -156,7 +155,8 @@ GEM
       addressable
     daemons (1.1.9)
     database_cleaner (1.2.0)
-    descendants_tracker (0.0.3)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
     devise (2.2.8)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -236,17 +236,6 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.2)
-    mongoid (3.1.6)
-      activemodel (~> 3.2)
-      moped (~> 1.4)
-      origin (~> 1.0)
-      tzinfo (~> 0.3.29)
-    mongoid_rails_migrations (1.0.1)
-      activesupport (>= 3.2.0)
-      bundler (>= 1.0.0)
-      rails (>= 3.2.0)
-      railties (>= 3.2.0)
-    moped (1.5.2)
     multi_json (1.9.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -269,6 +258,8 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (~> 1.2)
+    ohm (0.1.3)
+      nest (~> 1.0)
     oily_png (1.1.1)
       chunky_png (~> 1.3.0)
     omniauth (1.2.1)
@@ -287,15 +278,11 @@ GEM
     omniauth-twitter (1.0.1)
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
-    origin (1.1.0)
     orm_adapter (0.5.0)
     parser (2.1.7)
       ast (~> 1.1)
       slop (~> 3.4, >= 3.4.5)
-    pavlov (0.1.9.0)
-      activemodel (>= 3.2.7)
-      backports (~> 3.3)
-      virtus (= 0.5.5)
+    pg (0.17.1)
     poltergeist (1.5.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -464,6 +451,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    turbo_dev_assets (0.0.2)
     tzinfo (0.3.39)
     uglifier (2.4.0)
       execjs (>= 0.3.0)
@@ -491,7 +479,6 @@ PLATFORMS
 DEPENDENCIES
   approvals (~> 0)
   appsignal
-  appsignal-moped
   appsignal-redis
   brakeman (~> 2.0.0)
   browser (~> 0.4.1)
@@ -516,14 +503,13 @@ DEPENDENCIES
   konacha (~> 3.0)
   lograge (~> 0)
   mixpanel!
-  mongoid (~> 3.1.6)
-  mongoid_rails_migrations (= 1.0.1)
   multi_json (~> 1.7)
-  ohm!
+  ohm (= 0.1.3)
   oily_png (~> 1.1)
   omniauth-facebook (~> 1.6.0)
   omniauth-twitter (~> 1.0.1)
-  pavlov (= 0.1.9.0)
+  pavlov!
+  pg
   poltergeist (~> 1.5)
   pry (~> 0)
   rack (~> 1)
@@ -560,6 +546,7 @@ DEPENDENCIES
   terminal-notifier-guard (~> 1.5)
   therubyracer (~> 0.12.0)
   thin (~> 1)
+  turbo_dev_assets
   uglifier (~> 2.0)
   url_normalizer!
   webmock

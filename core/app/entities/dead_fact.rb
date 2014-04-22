@@ -10,10 +10,6 @@ DeadFact = StrictStruct.new(
     displaystring || ""
   end
 
-  def trimmed_quote max_length
-    TrimmedString.new(displaystring).trimmed_quote(max_length)
-  end
-
   def host # Move to site when we have a reference to DeadSite or so
     URI.parse(site_url).host
   end

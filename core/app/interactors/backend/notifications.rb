@@ -25,7 +25,7 @@ module Backend
     def users_receiving(type:)
       check_type!(type)
 
-      User.where(:confirmed_at.ne => nil).where(:"receives_#{type}" => true)
+      User.where("confirmed_at IS NOT NULL").where(:"receives_#{type}" => true)
     end
 
     def reset_edit_token(user:)

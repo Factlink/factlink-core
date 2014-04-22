@@ -65,6 +65,8 @@ RSpec.configure do |config|
 
   if ENV["CIRCLE_ARTIFACTS"]
     Capybara.save_and_open_page_path = "#{ENV["CIRCLE_ARTIFACTS"]}/capybara_output"
+  else
+    FileUtils.rm_rf(Dir.glob("#{Capybara.save_and_open_page_path}/*"))
   end
 
   config.mock_with :rspec
@@ -74,8 +76,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     ElasticSearch.create
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.orm = "mongoid"
+    DatabaseCleaner[:active_record].strategy = :truncation
   end
 
   config.before(:each) do
