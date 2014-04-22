@@ -29,8 +29,7 @@ module Backend
       comments_creators_ids = comments.map(&:created_by).map(&:id)
       comments_opinionated_ids =
         comments.flat_map do |comment|
-          believable = ::Believable.new(Ohm::Key.new("Comment:#{comment.id}:believable"))
-          believable.opinionated_users_ids
+          CommentVote.where(comment_id: comment.id).map(&:user_id)
         end
       comments_creators_ids + comments_opinionated_ids
     end

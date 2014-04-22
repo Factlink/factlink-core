@@ -10,7 +10,9 @@ describe Activity::Listener do
     stub_const 'Blob', Class.new(OurOhm)
     stub_const 'Foo', Class.new(OurOhm)
     class Foo
-      timestamped_set :activities, Activity
+      def activities
+        TimestampedSet.new(key, Activity)
+      end
     end
     stub_const 'Interactors::SendMailForActivity', double
   end

@@ -1,8 +1,18 @@
-class Ohm::Model::SortedSet < Ohm::Model::Collection
-  alias :count :size
+class TimestampedSet
+  def self.current_time(time=nil)
+    time ||= DateTime.now
+    (time.to_time.to_f*1000).to_i
+  end
 
-  def assign(set)
-    apply(key,:zunionstore,[set.key],{:aggregate => :max})
+  attr_reader :key, :model
+  def initialize key, model_class
+    @key = key
+    @model = model_class
+  end
+
+  def add object, timestamp
+    timestamp ||= self.class.current_time
+    @key.zadd timestamp, object.id
   end
 
   def below(limit,opts={})
@@ -36,11 +46,11 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     key.zrange(0, -1)
   end
 
-  protected
-    # @private
-    def apply(target,operation,*args)
-      target.send(operation,*args)
-      self.class.new(target,Ohm::Model::Wrapper.wrap(model),&@score_calculator)
-    end
+  def all
+    ids.map { |id| model[id] }
+  end
 
+  def inspect
+    "#<TimestampedSet (#{model}): #{key.zrange(0,-1).inspect}>"
+  end
 end
