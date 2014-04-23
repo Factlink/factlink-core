@@ -34,7 +34,7 @@ window.ReactFeedSelection = React.createClass
 
     fact.save {},
       success: =>
-        @refs.challengeDescription.getDOMNode().value = ''
+        @refs.challengeDescription.updateText ''
         @refs.challengeName.getDOMNode().value = ''
         Factlink.notificationCenter.success 'Challenge created!'
       error: ->
