@@ -283,9 +283,10 @@ GEM
       ast (~> 1.1)
       slop (~> 3.4, >= 3.4.5)
     pg (0.17.1)
-    pg_search (0.5.7)
-      activerecord (>= 3)
-      activesupport (>= 3)
+    pg_search (0.7.3)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
     poltergeist (1.5.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -505,7 +506,7 @@ DEPENDENCIES
   omniauth-twitter (~> 1.0.1)
   pavlov!
   pg
-  pg_search (~> 0.5.7)
+  pg_search (~> 0.7.3)
   poltergeist (~> 1.5)
   pry (~> 0)
   rack (~> 1)
