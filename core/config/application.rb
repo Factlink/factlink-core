@@ -62,7 +62,7 @@ module FactlinkUI
     # config.middleware.use Rack::XFrameOptions, "SAMEORIGIN", ["/client/blank"]
 
 
-    config.middleware.insert_before("Rack::Lock", "Rack::Rewrite") do
+    config.middleware.insert 0, Rack::Rewrite do
       r301 %r{^\/(.+)\/(\?.*)?$}, '/$1$2'
     end
 
