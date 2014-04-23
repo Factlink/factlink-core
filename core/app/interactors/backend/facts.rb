@@ -24,8 +24,9 @@ module Backend
       end
     end
 
-    def create(displaystring:, site_title:, site_url:, created_at:, fact_id: nil)
+    def create(displaystring:, site_title:, site_url:, created_at:, user_id:, fact_id: nil)
       fact_data = FactData.new
+      fact_data.user_id = user_id
       fact_data.displaystring = displaystring
       fact_data.title = site_title
       fact_data.site_url = UrlNormalizer.normalize(site_url)

@@ -1,7 +1,7 @@
 class FactData < ActiveRecord::Base
   # TODO: already choose a good database name here
   # TODO: after SQL conversion call "site_url" "url" ?
-  attr_accessible :displaystring, :fact_id, :site_url, :title
+  attr_accessible :displaystring, :fact_id, :site_url, :title, :user_id
 
   # attr_accessible []
   # For compatibility with Activity::Listener
