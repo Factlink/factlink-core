@@ -3,7 +3,8 @@ source 'https://rails-assets.org'
 
 ruby '2.1.0'
 
-gem 'rails', '3.2.17' # this is too important to update automatically
+gem 'rails', '4.0.0' # this is too important to update automatically
+gem 'protected_attributes', '~> 1.0.3'
 gem 'rake', '~> 10.1.0', require: false
 
 # Postgres
@@ -33,7 +34,7 @@ gem 'mixpanel', github: 'Factlink/mixpanel'
 gem 'json', '~> 1.8'
 
 # User authentication and authorization
-gem 'devise', '~> 2.2.3'
+gem 'devise', '~> 3.0.0'
 gem 'cancan', '~> 1.6.10'
 
 # social connections
@@ -84,7 +85,7 @@ group :assets do
 
   gem 'sprockets', '2.2.2.backport2' #upgrade awaiting rails 4
   gem 'sprockets-rails', :require => 'sprockets/railtie', :git => "git@github.com:logdown/sprockets-rails.git" #upgrade awaiting rails 4
-  gem 'sass-rails', '~> 4.0.1', :git => "git@github.com:logdown/sass-rails.git" #upgrade awaiting rails 4
+  gem 'sass-rails', '~> 4.0.1'
 end
 
 group :development do
@@ -92,7 +93,6 @@ group :development do
   # since we will notice when this fails
 
   # mesa want speed:
-  gem 'rails-dev-tweaks', '~> 0'
   gem 'turbo_dev_assets'
   gem 'pry', '~> 0', require: false
 
@@ -101,7 +101,6 @@ group :development do
   gem 'thin', '~> 1'
 
   gem 'lograge', '~> 0'
-  gem 'sextant', '~> 0'
 
   gem 'brakeman', '~> 2.0.0', require: false # upgrade awaiting sprockets upgrade awaiting rails 4
   gem 'rails_best_practices', '~> 1', require: false

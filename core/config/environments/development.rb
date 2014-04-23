@@ -45,8 +45,6 @@ FactlinkUI::Application.configure do
 
   config.lograge.enabled = true
 
-  config.dev_tweaks.log_autoload_notice = false
-
   config.middleware.use PrettyJsonResponse
   config.middleware.insert 0, TurboDevAssets
 end
