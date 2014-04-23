@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140422133557) do
+ActiveRecord::Schema.define(:version => 20140422140332) do
 
   create_table "comment_votes", :force => true do |t|
     t.integer  "comment_id"
@@ -42,6 +42,16 @@ ActiveRecord::Schema.define(:version => 20140422133557) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  create_table "fact_data_interestings", :force => true do |t|
+    t.integer  "fact_data_id"
+    t.integer  "user_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "fact_data_interestings", ["fact_data_id"], :name => "index_fact_data_interestings_on_fact_data_id"
+  add_index "fact_data_interestings", ["user_id"], :name => "index_fact_data_interestings_on_user_id"
 
   create_table "followings", :force => true do |t|
     t.integer  "followee_id"

@@ -10,8 +10,7 @@ module FactlinkImport
       ExecuteAsUser.new(FactlinkImport.user_for(fields[:username])).execute do |pavlov|
         pavlov.import = true
         pavlov.time = nil
-        dead_fact = pavlov.interactor(:'facts/set_opinion', fact_id: @fact_id,
-          opinion: 'believes')
+        dead_fact = pavlov.interactor(:'facts/set_interesting', fact_id: @fact_id)
       end
     end
   end

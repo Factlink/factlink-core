@@ -49,7 +49,9 @@ class FactData < ActiveRecord::Base
   end
 
   after_destroy do |fact_data|
-    Believable.new(Nest.new("Fact:#{fact_id}")).delete
+    FactDataInteresting.where(fact_data_id: fact_data.id)
+                       .each { |interesting| interesting.destroy }
+
     ElasticSearch::Index.new('factdata').delete fact_data.id
 
     fact_data.comments.each do |comment|

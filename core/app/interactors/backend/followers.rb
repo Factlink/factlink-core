@@ -40,7 +40,8 @@ module Backend
     end
 
     def direct_followers_for_fact fact_id
-      Believable.new(Ohm::Key.new('Fact')[fact_id]).opinionated_users_ids
+      fact_data_id = FactData.where(fact_id: fact_id).first.id
+      FactDataInteresting.where(fact_data_id: fact_data_id).map(&:user_id)
     end
   end
 end
