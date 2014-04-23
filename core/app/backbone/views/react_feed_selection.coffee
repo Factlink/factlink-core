@@ -21,7 +21,7 @@ window.ReactFeedSelection = React.createClass
     fact = new Fact
       displaystring: @refs.challengeDescription.getDOMNode().value
       site_title: @refs.challengeName.getDOMNode().value
-      site_url: 'http://kennisland.nl'
+      site_url: 'kennisland_challenge'
 
     fact.save {},
       success: =>
