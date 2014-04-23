@@ -17,16 +17,17 @@ module Interactors
       private
 
       def execute
-        Backend::Facts.create displaystring: displaystring,
+        dead_fact = Backend::Facts.create displaystring: displaystring,
           site_url: site_url, site_title: site_title, created_at: pavlov_options[:time],
           fact_id: (pavlov_options[:import] ? fact_id : nil)
 
         create_activity dead_fact
+        dead_fact
       end
 
       def create_activity(dead_fact)
         Backend::Activities.create \
-          graph_user_id: pavlov_options[:current_user].graph_user_id,
+          user_id: pavlov_options[:current_user].id,
           action: :created_fact,
           subject_id: dead_fact.id,
           subject_class: "FactData",

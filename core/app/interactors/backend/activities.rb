@@ -72,8 +72,8 @@ module Backend
             }
           when "created_fact"
             {
-                fact: Backend::Facts.get(fact_id: activity.subject.fact_id),
-                user: Backend::Users.by_ids(user_ids: [activity.user_id], by: :graph_user_id)
+                fact: Backend::Facts.get(fact_id: activity.subject_id),
+                user: Backend::Users.by_ids(user_ids: [activity.user_id]).first
             }
           end
 
