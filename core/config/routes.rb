@@ -12,9 +12,9 @@ FactlinkUI::Application.routes.draw do
   root :to => "home#index"
 
   scope '/api/beta' do
-    get '/feed' => "api/feed#global"
-    get '/feed/personal' => "api/feed#personal"
-    get '/feed/discussions' => "api/feed#discussions"
+    get '/feed' => "api/feed#global", as: 'something_alse_than_feed_as_well'
+    get '/feed/personal' => "api/feed#personal", as: 'something_else_than_feed'
+    get '/feed/discussions' => "api/feed#discussions", as: "insert_nonsense_here"
     get '/annotations/search' => 'api/annotations#search'
     post '/annotations' => 'api/annotations#create'
     get '/annotations/:id' => 'api/annotations#show'
@@ -24,7 +24,7 @@ FactlinkUI::Application.routes.draw do
     put '/users/:username/password' => 'api/users#change_password'
     get '/session' => 'api/sessions#current'
     post '/users/:username/delete' => 'api/users#destroy'
-    get '/search' => "api/search#all"
+    get '/search' => "api/search#all", as: 'something_else_than_search'
   end
 
   # Javascript Client calls
