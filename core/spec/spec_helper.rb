@@ -33,12 +33,7 @@ RSpec.configure do |config|
 
   config.use_transactional_examples = true
 
-  config.before(:suite) do
-    ElasticSearch.create
-  end
-
   config.before(:each) do
-    ElasticSearch.clean
     Ohm.flush
   end
 end

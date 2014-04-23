@@ -32,7 +32,6 @@ else
 fi
 
 ensureBrew redis
-ensureBrew elasticsearch
 ensureBrew node
 ensureBrew git-flow
 ensureBrew qt

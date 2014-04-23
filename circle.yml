@@ -1,9 +1,6 @@
 general:
   build_dir: core
 
-machine:
-  services:
-    - elasticsearch
 dependencies:
   cache_directories:
     - "~/factlink/js-library/node_modules"

@@ -1,4 +1,9 @@
 class FactData < ActiveRecord::Base
+  include PgSearch
+
+  multisearchable against: [:displaystring, :title]
+  pg_search_scope :search_by_content, against: [:displaystring, :title]
+
   # TODO: already choose a good database name here
   # TODO: after SQL conversion call "site_url" "url" ?
   attr_accessible :displaystring, :fact_id, :site_url, :title, :user_id
@@ -33,11 +38,6 @@ class FactData < ActiveRecord::Base
     fd
   end
 
-  def update_search_index
-    fields = {displaystring: displaystring, title: title}
-    ElasticSearch::Index.new('factdata').add id, fields
-  end
-
   before_save do |fact_data|
     id_key = Nest.new('Fact')[:id]
 
@@ -50,15 +50,9 @@ class FactData < ActiveRecord::Base
     end
   end
 
-  after_save do |fact_data|
-    fact_data.update_search_index
-  end
-
   after_destroy do |fact_data|
     FactDataInteresting.where(fact_data_id: fact_data.id)
                        .each { |interesting| interesting.destroy }
-
-    ElasticSearch::Index.new('factdata').delete fact_data.id
 
     fact_data.comments.each do |comment|
       comment.destroy
