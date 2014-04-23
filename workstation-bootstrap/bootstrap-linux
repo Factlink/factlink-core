@@ -5,7 +5,7 @@ echo "Updating apt-get & upgrading existing packages..."
 sudo apt-get -y -qq update
 sudo apt-get -y dist-upgrade
 
-type apt-add-repository || sudo apt-get -y install python-software-properties
+type apt-add-repository>/dev/null || sudo apt-get -y install python-software-properties
 
 # partner repo where skype is hiding
 # depending on your option during install this is already there
