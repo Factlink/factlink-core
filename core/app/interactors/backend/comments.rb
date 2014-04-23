@@ -2,25 +2,28 @@ module Backend
   module Comments
     extend self
 
-    def by_ids(ids:, current_graph_user_id:)
-      Comment.all_in(_id: Array(ids)).map do |comment|
-        dead(comment: comment, current_graph_user_id: current_graph_user_id)
+    def by_ids(ids:, current_user_id:)
+      Comment.where(id: ids).map do |comment|
+        dead(comment: comment, current_user_id: current_user_id)
       end
     end
 
-    def by_fact_id(fact_id:, current_graph_user_id:)
+    def by_fact_id(fact_id:, current_user_id:)
       fact_data_id = FactData.where(fact_id: fact_id).first.id
       Comment.where(fact_data_id: fact_data_id).map do |comment|
-        dead(comment: comment, current_graph_user_id: current_graph_user_id)
+        dead(comment: comment, current_user_id: current_user_id)
       end
     end
 
-    def remove_opinion(comment_id:, graph_user_id:)
-      believable(comment_id).remove_opinionated_id graph_user_id
+    def remove_opinion(comment_id:, user_id:)
+      CommentVote.where(comment_id: comment_id, user_id: user_id)
+                 .each {|comment_vote| comment_vote.destroy}
     end
 
-    def set_opinion(comment_id:, graph_user_id:, opinion:)
-      believable(comment_id).add_opiniated_id opinion, graph_user_id
+    def set_opinion(comment_id:, user_id:, opinion:)
+      remove_opinion(comment_id: comment_id, user_id: user_id)
+
+      CommentVote.create! comment_id: comment_id, user_id: user_id, opinion: opinion
     end
 
     def deletable?(comment_id)
@@ -29,8 +32,7 @@ module Backend
     end
 
     def opiniated(comment_id:, type:)
-      Backend::Users.by_ids(user_ids: believable(comment_id).opiniated_ids(type),
-        by: :graph_user_id)
+      Backend::Users.by_ids(user_ids: CommentVote.where(comment_id: comment_id, opinion: type).map(&:user_id))
     end
 
     def create(fact_id:, content:, user_id:, created_at:)
@@ -49,8 +51,9 @@ module Backend
 
     private
 
-    def dead(comment:, current_graph_user_id:)
-      current_user_opinion = current_user_opinion_for(comment_id: comment.id, current_graph_user_id: current_graph_user_id)
+    def dead(comment:, current_user_id:)
+      votes_counts = CommentVote.where(comment_id: comment.id).count(group: :opinion)
+      current_user_opinion = current_user_opinion_for(comment_id: comment.id, current_user_id: current_user_id)
 
       DeadComment.new(
         id: comment.id.to_s,
@@ -59,18 +62,21 @@ module Backend
         formatted_content: FormattedCommentContent.new(comment.content).html,
         sub_comments_count: Backend::SubComments.count(parent_id: comment.id),
         is_deletable: Backend::Comments.deletable?(comment.id),
-        tally: believable(comment.id).votes.merge(current_user_opinion: current_user_opinion)
+        tally: {
+          believes: votes_counts['believes'] || 0,
+          disbelieves: votes_counts['disbelieves'] || 0,
+          current_user_opinion: current_user_opinion,
+        }
       )
     end
 
-    def current_user_opinion_for(comment_id:, current_graph_user_id:)
-      return :no_vote unless current_graph_user_id
+    def current_user_opinion_for(comment_id:, current_user_id:)
+      return :no_vote unless current_user_id
 
-      believable(comment_id).opinion_of_graph_user_id current_graph_user_id
-    end
+      comment_vote = CommentVote.where(user_id: current_user_id, comment_id: comment_id).first
+      return :no_vote if comment_vote.nil?
 
-    def believable(comment_id)
-      ::Believable.new(Ohm::Key.new("Comment:#{comment_id}:believable"))
+      comment_vote.opinion
     end
   end
 end

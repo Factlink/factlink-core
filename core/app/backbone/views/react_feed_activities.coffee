@@ -32,7 +32,7 @@ window.ReactFeedActivitiesAutoLoading = React.createBackboneClass
     _div [],
       @model().map (model) =>
         ReactActivity model: model, key: model.id
-
+      ReactLoadingIndicator model: @model()
 
 window.ReactFeedActivitiesFixed = React.createBackboneClass
   displayName: 'ReactFeedActivitiesFixed'
@@ -67,13 +67,13 @@ ReactCreatedCommentActivity = React.createBackboneClass
     user = new User @model().get('user')
     fact = new Fact @model().get('fact')
     comment = new Comment @model().get('comment')
-    proxy_url = fact.get('proxy_open_url')
+    fact_link = fact.fact_show_link()
 
     ReactGenericActivity {
         model: user
         time: @model().get('created_at')
-        href: proxy_url
-        target: '_blank'
+        href: fact_link.href
+        target: fact_link.target
         activity_header_action: [
           _span ["feed-activity-description"],
             "commented on"
@@ -92,13 +92,13 @@ ReactCreatedSubCommentActivity = React.createBackboneClass
     fact = new Fact @model().get('fact')
     comment = new Comment @model().get('comment')
     sub_comment = new Comment @model().get('sub_comment')
-    proxy_url = fact.get('proxy_open_url')
+    fact_link = fact.fact_show_link()
 
     ReactGenericActivity {
         model: user
         time: @model().get('created_at')
-        href: proxy_url
-        target: '_blank'
+        href: fact_link.href
+        target: fact_link.target
         activity_header_action: [
           _span ["feed-activity-description"],
             "replied to"

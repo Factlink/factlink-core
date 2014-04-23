@@ -6,4 +6,4 @@ window.ReactLoadingIndicator = React.createBackboneClass
     if !@model() || @model().loading()
       _img ['ajax-loader', src: Factlink.Global.ajax_loader_image]
     else
-      _span()
+      _span ['spec-loading-indicator-done']

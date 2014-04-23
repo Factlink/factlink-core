@@ -8,7 +8,7 @@ module Interactors
       def execute
         Backend::Facts.remove_opinion \
           fact_id: fact_id,
-          graph_user_id: pavlov_options[:current_user].graph_user_id
+          user_id: pavlov_options[:current_user].id
 
         Backend::Facts.get(fact_id: fact_id)
       end

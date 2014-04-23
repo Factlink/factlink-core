@@ -9,16 +9,16 @@ module Interactors
         if opinion == 'no_vote'
           Backend::Comments.remove_opinion \
             comment_id: comment_id,
-            graph_user_id: pavlov_options[:current_user].graph_user_id
+            user_id: pavlov_options[:current_user].id
         else
           Backend::Comments.set_opinion \
             comment_id: comment_id,
             opinion: opinion,
-            graph_user_id: pavlov_options[:current_user].graph_user_id
+            user_id: pavlov_options[:current_user].id
         end
 
-        # TODO: why is there no current graph_user passed in here?
-        Backend::Comments.by_ids(ids: comment_id, current_graph_user_id: nil).first
+        # TODO: why is there no current user passed in here?
+        Backend::Comments.by_ids(ids: comment_id, current_user_id: nil).first
       end
 
       def validate

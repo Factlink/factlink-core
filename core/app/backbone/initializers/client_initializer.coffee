@@ -19,7 +19,7 @@ class ClientEnvoy
     fact.fetch()
     @_senderEnvoy 'highlightExistingFactlink', fact.id
 
-    showInSidebar ReactDiscussion
+    showInSidebar ReactDiscussionSidebar
       model: fact
       initiallyFocusAddComment: true
       key: getComponentKey()
@@ -37,7 +37,7 @@ class ClientEnvoy
       @_senderEnvoy 'highlightNewFactlink', displaystring, fact.id
       mp_track 'Annotation: Created'
 
-    showInSidebar ReactDiscussion
+    showInSidebar ReactDiscussionSidebar
       model: fact
       initiallyFocusAddComment: true
       key: getComponentKey()

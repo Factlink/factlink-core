@@ -14,7 +14,6 @@ FactlinkUI::Application.routes.draw do
   scope '/api/beta' do
     get '/feed' => "api/feed#global"
     get '/feed/personal' => "api/feed#personal"
-    get '/annotations/recently_viewed' => 'api/annotations#recently_viewed'
     get '/annotations/search' => 'api/annotations#search'
     post '/annotations' => 'api/annotations#create'
     get '/annotations/:id' => 'api/annotations#show'
@@ -58,6 +57,8 @@ FactlinkUI::Application.routes.draw do
   end
 
   resources :feedback # TODO: RESTRICT
+
+  get "/d/:id" => "frontend#show" #KL: edit discussion/annotation/factlink on site
 
   get "/:fact_slug/f/:id" => "facts#discussion_page_redirect"
   get "/f/:id" => "facts#discussion_page_redirect"

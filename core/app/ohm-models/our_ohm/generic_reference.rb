@@ -7,8 +7,8 @@ class OurOhm < Ohm::Model
       reader_c = :"#{name}_class"
       writer_c = :"#{name}_class="
 
-      attributes(self) << reader   unless attributes.include?(reader)
-      attributes(self) << reader_c unless attributes.include?(reader_c)
+      attributes << reader   unless attributes.include?(reader)
+      attributes << reader_c unless attributes.include?(reader_c)
 
       index reader
       index reader_c
@@ -27,7 +27,7 @@ class OurOhm < Ohm::Model
           if klass.ancestors.include? Ohm::Model
             klass[id]
           else
-            klass.find(id) # Return the ActiveModel object
+            klass.where(id: id).first # Return the ActiveModel object
           end
         end
       end

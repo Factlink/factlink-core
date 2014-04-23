@@ -3,6 +3,7 @@ require File.expand_path('../boot', __FILE__)
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
+require "active_record/railtie"
 require "pavlov/alpha_compatibility"
 
 Mime::Type.register "image/png", :png unless Mime::Type.lookup_by_extension(:png)
@@ -24,6 +25,10 @@ ActiveSupport.escape_html_entities_in_json = true
 
 
 module FactlinkUI
+  def self.Kennisland?
+    !ENV['KENNISLAND'].nil?
+  end
+
   class Application < Rails::Application
     config.autoload_paths << "#{config.root}/lib"
     config.autoload_paths << "#{config.root}/app/classes"
@@ -34,10 +39,8 @@ module FactlinkUI
 
     config.log_level = :info
 
-    require_dependency "#{config.root}/app/classes/redis_utils.rb"
     require_dependency "#{config.root}/app/ohm-models/our_ohm.rb"
     require_dependency "#{config.root}/app/ohm-models/activity.rb"
-    require_dependency "#{config.root}/app/ohm-models/graph_user.rb"
 
     Rails.application.config.generators.template_engine :erb
 
@@ -45,9 +48,8 @@ module FactlinkUI
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Use Mongoid as ORM
     config.generators do |g|
-      g.orm             :mongoid
+      g.orm             :active_record
     end
 
     # Custom directories with classes and modules you want to be autoloadable.
@@ -105,7 +107,8 @@ module FactlinkUI
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
+    # Therefore, we change the asset version whenever kennisland is toggled.
+    config.assets.version = FactlinkUI.Kennisland? ? '2.0' : '1.0'
 
     config.assets.precompile = [
       /\w+\.(?!js|css|less).+/,

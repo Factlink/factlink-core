@@ -11,7 +11,7 @@ describe Interactors::SubComments::Destroy do
   describe '#authorized?' do
     it 'denied when user has not got destroy permission on the sub_comment' do
       current_user = double :user, id: 'a1'
-      sub_comment = double :sub_comment, id: 'a3', created_by_id: 'b3'
+      sub_comment = double :sub_comment, id: '3', created_by_id: 'b3'
 
       ability = double
       ability.stub(:can?).with(:destroy, sub_comment).and_return(false)
@@ -30,7 +30,7 @@ describe Interactors::SubComments::Destroy do
   describe 'validations' do
     it 'without id doesn''t validate' do
       expect_validating(id: nil)
-        .to fail_validation('id should be an hexadecimal string.')
+        .to fail_validation('id should be an integer string.')
     end
   end
 
