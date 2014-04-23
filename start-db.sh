@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cd "$( dirname "${BASH_SOURCE[0]}" )"
+bin/ensure-postgres-socket-dir.sh
 . bin/kill-descendants-on-exit.sh
 
 (cd core && elasticsearch -f -Des.config=config/developmentservers/elasticsearch.yml -Des.cluster.name="elasticsearch_$(hostname)"  || kill $$)  2>&1| perl -pe "s/^/\x1b[0;31m[elasticsearch] \x1b[0m/" &
