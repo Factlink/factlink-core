@@ -7,10 +7,9 @@ module Interactors
       arguments :keywords
 
       def execute
-        records = ElasticSearch::Search.search keywords: keywords, types: [:factdata]
-
-        records.map do |record|
-          Backend::Facts.get_by_fact_data_id fact_data_id: record['_id']
+        facts = FactData.search_by_content(keywords)
+        facts.map do |fact|
+          Backend::Facts.get_by_fact_data_id fact_data_id: fact.id
         end
       end
 

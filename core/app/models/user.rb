@@ -4,6 +4,10 @@ require 'redis/objects'
 
 class User < ActiveRecord::Base
   include Redis::Objects
+  include PgSearch
+
+  multisearchable against: [:username, :full_name, :location, :biography],
+                  :if => :active?
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -193,19 +197,6 @@ class User < ActiveRecord::Base
   # and keep it public
   def valid_password?(password)
     super
-  end
-
-  def update_search_index
-    if active?
-      fields = {username: username, full_name: full_name}
-      ElasticSearch::Index.new('user').add id, fields
-    else
-      ElasticSearch::Index.new('user').delete id
-    end
-  end
-
-  after_save do |user|
-    user.update_search_index
   end
 
   after_update do |user|

@@ -75,13 +75,11 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   config.before(:suite) do
-    ElasticSearch.create
     DatabaseCleaner[:active_record].strategy = :truncation
   end
 
   config.before(:each) do
     Capybara.reset!
-    ElasticSearch.clean
     Ohm.flush
     DatabaseCleaner.clean
     FactoryGirl.reload

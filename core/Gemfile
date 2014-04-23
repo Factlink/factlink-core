@@ -8,6 +8,7 @@ gem 'rake', '~> 10.1.0', require: false
 
 # Postgres
 gem 'pg'
+gem 'pg_search', "~> 0.5.7"
 
 gem 'pavlov', github: 'Factlink/pavlov'
 
