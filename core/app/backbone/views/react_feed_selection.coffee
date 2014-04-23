@@ -24,6 +24,14 @@ window.ReactFeedSelection = React.createClass
       site_title: @refs.challengeName.getDOMNode().value
       site_url: 'kennisland_challenge'
 
+    newActivity =
+      new Activity
+        action: 'created_fact'
+        fact: fact.toJSON()
+        user: currentSession.user().toJSON()
+
+    @state.feeds.discussions.unshift newActivity
+
     fact.save {},
       success: =>
         @refs.challengeDescription.getDOMNode().value = ''
