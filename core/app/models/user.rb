@@ -4,6 +4,10 @@ require 'redis/objects'
 
 class User < ActiveRecord::Base
   include Redis::Objects
+  include PgSearch
+
+  multisearchable against: [:username, :full_name, :location, :biography],
+                  :if => :active?
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

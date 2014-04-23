@@ -1,4 +1,9 @@
 class FactData < ActiveRecord::Base
+  include PgSearch
+
+  multisearchable against: [:displaystring, :title]
+  pg_search_scope :search_by_content, against: [:displaystring, :title]
+
   # TODO: already choose a good database name here
   # TODO: after SQL conversion call "site_url" "url" ?
   attr_accessible :displaystring, :fact_id, :site_url, :title
