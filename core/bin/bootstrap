@@ -1,7 +1,7 @@
 #!/bin/bash
 echo 'Setting up core...'
 cd "$( dirname "${BASH_SOURCE[0]}" )"/..
-
+set -e
 
 if [[ ! -d './tmp/postgres' ]]; then
   initdb './tmp/postgres' -E utf8 --locale en_US.utf8 
