@@ -86,7 +86,7 @@ class Activity < OurOhm
   def subject_still_valid?
     return true unless subject_id
 
-    Kernel.const_defined?(subject_class) and subject
+    subject
   end
 end
 
