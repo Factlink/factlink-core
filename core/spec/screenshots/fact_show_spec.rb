@@ -12,7 +12,7 @@ describe "factlink", type: :feature do
     comment_text = "A comment...\n\n...with newlines!"
 
     as(@user) do |pavlov|
-      pavlov.interactor(:'facts/set_opinion', fact_id: @factlink.fact_id, opinion: 'believes')
+      pavlov.interactor(:'facts/set_interesting', fact_id: @factlink.fact_id)
     end
 
     as(@user) do |p|
@@ -38,13 +38,13 @@ describe "factlink", type: :feature do
       and adding supporting factlink" do
     3.times do
       as(create :user) do |pavlov|
-        pavlov.interactor(:'facts/set_opinion', fact_id: @factlink.fact_id, opinion: 'believes')
+        pavlov.interactor(:'facts/set_interesting', fact_id: @factlink.fact_id)
       end
       as(create :user) do |pavlov|
-        pavlov.interactor(:'facts/set_opinion', fact_id: @factlink.fact_id, opinion: 'disbelieves')
+        pavlov.interactor(:'facts/set_interesting', fact_id: @factlink.fact_id)
       end
       as(create :user) do |pavlov|
-        pavlov.interactor(:'facts/set_opinion', fact_id: @factlink.fact_id, opinion: 'disbelieves')
+        pavlov.interactor(:'facts/set_interesting', fact_id: @factlink.fact_id)
       end
     end
 
