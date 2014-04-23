@@ -5,6 +5,7 @@ FactlinkUI::Application.configure do
   # every request.  This slows down response time but is perfect for development
   # since you don't have to restart the webserver when you make code changes.
   config.cache_classes = false
+  config.eager_load = false
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
@@ -21,9 +22,6 @@ FactlinkUI::Application.configure do
 
   # These options belong here
   config.action_mailer.default_url_options = { :host => 'localhost', :port => '3000' }
-
-  # Do not compress assets
-  config.assets.compress = false
 
   # Expands the lines which load the assets
   config.assets.debug = true
