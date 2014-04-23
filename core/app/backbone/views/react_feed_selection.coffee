@@ -3,7 +3,7 @@ window.ReactFeedSelection = React.createClass
   mixins: [UpdateOnSignInOrOutMixin]
 
   getInitialState: ->
-    feedChoice: 'global'
+    feedChoice: if window.is_kennisland then 'discussions' else 'global'
     feeds:
       global: new GlobalFeedActivities
       personal: new PersonalFeedActivities
