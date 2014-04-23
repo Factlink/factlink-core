@@ -61,6 +61,7 @@ window.ReactFeedSelection = React.createClass
               ReactTextArea
                 ref: 'challengeDescription'
                 placeholder: 'Describe the challenge'
+                storageKey: 'createChallengeDescription'
               _button ["button-confirm", onClick: @_postChallenge],
                 "Create challenge"
         ]
