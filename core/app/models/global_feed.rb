@@ -24,7 +24,7 @@ class GlobalFeed
 
   def all_discussions
     key = @key[:all_discussions]
-    Ohm::Model::TimestampedSet.new(key, Ohm::Model::Wrapper.wrap(Activity))
+    TimestampedSet.new(key, Activity)
   end
 
 end
