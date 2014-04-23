@@ -199,19 +199,6 @@ class User < ActiveRecord::Base
     super
   end
 
-  def update_search_index
-    if active?
-      fields = {username: username, full_name: full_name}
-      ElasticSearch::Index.new('user').add id, fields
-    else
-      ElasticSearch::Index.new('user').delete id
-    end
-  end
-
-  after_save do |user|
-    user.update_search_index
-  end
-
   after_update do |user|
     UserObserverTask.handle_changes user
   end

@@ -118,10 +118,6 @@ RBENV_INIT
   if [[ ! -f $shell_init_file ]] || ! grep -q '/usr/lib/chromium-browser/' $shell_init_file; then
     echo -e '\nexport PATH=$PATH:/usr/lib/chromium-browser/\n' >> $shell_init_file
   fi
-
-  if [[ ! -f $shell_init_file ]] || ! grep -q '/usr/share/elasticsearch/bin/' $shell_init_file; then
-    echo -e '\nexport PATH=$PATH:/usr/share/elasticsearch/bin/\n' >> $shell_init_file
-  fi
 }
 update_shell_init_file ~/.zshrc
 update_shell_init_file ~/.bashrc
@@ -133,7 +129,6 @@ export PATH="/usr/lib/postgresql/9.3/bin:$PATH"
 sudo mkdir -p /var/run/postgresql/
 sudo chmod 777 /var/run/postgresql/ # this is necessary to mitigate ubuntu's unhandy compiled-in constant postgres socket dir.
 export PATH="~/.node/bin:$PATH"
-export PATH=$PATH:/usr/share/elasticsearch/bin
 
 echo 'setting up npm to install as your user...'
 # This is important, otherwise npm install -g won't execute without sudo
@@ -174,24 +169,11 @@ gem install bundle git-up
 
 rbenv rehash || :
 
-### Check http://www.elasticsearch.org/download/ for latest version of ElasticSearch and replace version below
-ES_VERSION=1.1.0
-[ ! -f /tmp/elasticsearch-${ES_VERSION}.deb ] && curl https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${ES_VERSION}.deb -o /tmp/elasticsearch-${ES_VERSION}.deb
-sudo dpkg -i /tmp/elasticsearch-${ES_VERSION}.deb
-sudo service elasticsearch stop
-#sudo service elasticsearch start
 
 echo 'Installing jslint, supervisor and grunt-cli'
 #npm install supervisor grunt-cli
 npm install supervisor grunt-cli -g
 
-echo 'disabling elasticsearch via upstart...'
-echo 'manual' | sudo tee "/etc/init/elasticsearch.override" 1>/dev/null
-sudo service elasticsearch stop
-
-echo 'disabling elasticsearch, postgresql, redis-server via SystemV init scripts...'
-sudo update-rc.d -f elasticsearch remove
-sudo service elasticsearch stop || :
 sudo update-rc.d -f postgresql remove
 sudo service postgresql stop || :
 sudo update-rc.d -f redis-server remove

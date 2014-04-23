@@ -32,11 +32,6 @@ class FactData < ActiveRecord::Base
     fd
   end
 
-  def update_search_index
-    fields = {displaystring: displaystring, title: title}
-    ElasticSearch::Index.new('factdata').add id, fields
-  end
-
   before_save do |fact_data|
     id_key = Nest.new('Fact')[:id]
 
@@ -49,15 +44,9 @@ class FactData < ActiveRecord::Base
     end
   end
 
-  after_save do |fact_data|
-    fact_data.update_search_index
-  end
-
   after_destroy do |fact_data|
     FactDataInteresting.where(fact_data_id: fact_data.id)
                        .each { |interesting| interesting.destroy }
-
-    ElasticSearch::Index.new('factdata').delete fact_data.id
 
     fact_data.comments.each do |comment|
       comment.destroy

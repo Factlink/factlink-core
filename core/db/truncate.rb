@@ -7,9 +7,6 @@ def self.truncate
     resque_redis_conf = YAML::load_file(Rails.root.join('config/resque.yml'))[Rails.env]
     Redis.new(url: "redis://#{resque_redis_conf}/0").flushall
 
-    # truncate elasticsearch
-    ElasticSearch.truncate
-
     # from http://stackoverflow.com/a/6150228/623827
     config = ActiveRecord::Base.configurations[::Rails.env]
     ActiveRecord::Base.establish_connection
