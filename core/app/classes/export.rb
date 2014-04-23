@@ -42,9 +42,11 @@ class Export
 
   def facts(output)
     FactData.all.sort_by(&:fact_id).each do |fact_data|
-      output << import('FactlinkImport.fact', fields_from_object(fact_data, [
+      output << import('FactlinkImport.fact',
+         {username: User.find(fact_data.user_id).username}.merge(
+                       fields_from_object(fact_data, [
         :fact_id, :displaystring, :title, :url, :created_at
-      ])) + " do\n"
+      ]))) + " do\n"
 
       sorted_votes = Backend::Facts.votes(fact_id: fact_data.fact_id).sort do |a, b|
         a[:username] <=> b[:username]

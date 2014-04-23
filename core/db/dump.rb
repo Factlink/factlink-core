@@ -37,8 +37,8 @@ FactlinkImport.fact({username: "jjoos", fact_id: "12", displaystring: ". Google 
   interesting({username: "jjoos", })
 end
 FactlinkImport.fact({username: "eamon", fact_id: "13", displaystring: "Obesity is growing at alarming rates worldwide, and the biggest culprit is overeating", title: "http://www.sciencedaily.com/", url: "http://www.sciencedaily.com/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
-  interesting({username: "jjoos", })
   interesting({username: "eamon", })
+  interesting({username: "jjoos", })
 end
 FactlinkImport.fact({username: "mark", fact_id: "14", displaystring: " New Depiction of Light Could Boost Telecommunications Channels Physicists have presented a new way to map spiraling light that could help harness untapped data channels in optical fibers. Increased bandwidth would ease the burden on fiber-optic telecommunications networks taxed ...  > full story more on: Optics; Graphene; Inorganic Chemistry; Chemistry; Physics; Computer Modeling ", title: "http://www.sciencedaily.com/", url: "http://www.sciencedaily.com/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
   interesting({username: "jjoos", })
