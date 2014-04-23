@@ -1,5 +1,6 @@
 class Comment < ActiveRecord::Base
   attr_accessible :content, :created_by_id, :fact_data_id
+  attr_accessible :format # nil is plain text
   belongs_to :fact_data, class_name: 'FactData'
 
   def created_by
