@@ -17,9 +17,25 @@ module Interactors
       private
 
       def execute
-        Backend::Facts.create displaystring: displaystring,
-          site_url: site_url, site_title: site_title, created_at: pavlov_options[:time],
-          fact_id: (pavlov_options[:import] ? fact_id : nil)
+        dead_fact = Backend::Facts.create(
+            displaystring: displaystring,
+            site_url: site_url, site_title: site_title, created_at: pavlov_options[:time],
+            fact_id: (pavlov_options[:import] ? fact_id : nil),
+            created_by_id: pavlov_options[:current_user].id
+        )
+
+        create_activity dead_fact
+        dead_fact
+      end
+
+      def create_activity(dead_fact)
+        Backend::Activities.create \
+          user_id: pavlov_options[:current_user].id,
+          action: :created_fact,
+          subject_id: dead_fact.id,
+          subject_class: "FactData",
+          time: pavlov_options[:time],
+          send_mails: pavlov_options[:send_mails]
       end
 
       def validate

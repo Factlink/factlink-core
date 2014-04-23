@@ -17,7 +17,7 @@ class Activity < OurOhm
   end
 
   def self.valid_actions_in_stream_activities
-     %w(created_comment created_sub_comment followed_user)
+    %w(created_comment created_sub_comment followed_user created_fact)
   end
 
   def self.valid_actions
@@ -86,7 +86,7 @@ class Activity < OurOhm
   def subject_still_valid?
     return true unless subject_id
 
-    Kernel.const_defined?(subject_class) and subject
+    subject
   end
 end
 

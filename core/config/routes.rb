@@ -14,6 +14,7 @@ FactlinkUI::Application.routes.draw do
   scope '/api/beta' do
     get '/feed' => "api/feed#global", as: 'something_alse_than_feed_as_well'
     get '/feed/personal' => "api/feed#personal", as: 'something_else_than_feed'
+    get '/feed/discussions' => "api/feed#discussions", as: "insert_nonsense_here"
     get '/annotations/search' => 'api/annotations#search'
     post '/annotations' => 'api/annotations#create'
     get '/annotations/:id' => 'api/annotations#show'

@@ -5,8 +5,13 @@ class FactData < ActiveRecord::Base
   pg_search_scope :search_by_content, against: [:displaystring, :title]
 
   # TODO: already choose a good database name here
-  # TODO: after SQL conversion call "site_url" "url" ?
-  attr_accessible :displaystring, :fact_id, :site_url, :title
+  attr_accessible :displaystring, :fact_id, :site_url, :title, :created_by_id
+
+  # attr_accessible []
+  # For compatibility with Activity::Listener
+  def self.[](fact_id)
+    FactData.where(fact_id: fact_id).first
+  end
 
   #index({ site_url: 1 })
 

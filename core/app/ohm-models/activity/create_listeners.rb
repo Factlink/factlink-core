@@ -88,6 +88,7 @@ class Activity < OurOhm
       create_notification_activities
       create_stream_activities
       create_global_all_activities
+      create_global_discussions
     end
 
     def create_notification_activities
@@ -156,6 +157,19 @@ class Activity < OurOhm
                  write_ids: write_ids
         activity subject_class: "SubComment",
                  action: :created_sub_comment,
+                 write_ids: write_ids
+      end
+
+    end
+
+    def create_global_discussions
+      write_ids = ->(a) { [0] } # irrelevant, fake id; GlobalFeed is a singleton.
+
+      Activity::Listener.register do
+        activity_for "GlobalFeed"
+        named :all_discussions
+        activity subject_class: "FactData",
+                 action: :created_fact,
                  write_ids: write_ids
       end
 

@@ -1,4 +1,5 @@
 window.ReactFact = React.createBackboneClass
+  displayName: 'ReactFact'
   render: ->
     fact_url_host = @model().factUrlHost()
     _div ['annotation'],
