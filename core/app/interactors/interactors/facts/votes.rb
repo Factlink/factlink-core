@@ -10,8 +10,7 @@ module Interactors
         Backend::Facts.votes(fact_id: fact_id).map do |vote|
           {
             username: vote[:user].username,
-            user: vote[:user],
-            type: vote[:type]
+            user: vote[:user]
           }
         end
       end

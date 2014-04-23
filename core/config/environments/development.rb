@@ -51,7 +51,7 @@ FactlinkUI::Application.configure do
   config.dev_tweaks.log_autoload_notice = false
 
   config.middleware.use PrettyJsonResponse
-  config.middleware.insert_before(ActionDispatch::Static, TurboDev)
+  config.middleware.insert 0, TurboDevAssets
 end
 
 

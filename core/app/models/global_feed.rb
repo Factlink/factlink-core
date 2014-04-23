@@ -7,7 +7,11 @@ class GlobalFeed
     @key = Nest.new(:global_feed)
   end
 
-  def self.[](ignored_id)
+  def first
+    self
+  end
+
+  def self.where(ignored_id)
     # to support listeners created in create_listeners this class must behave as if it were a
     # non-singleton because Listener.process always looks up the instance by "id"
     instance
@@ -15,7 +19,7 @@ class GlobalFeed
 
   def all_activities
     key = @key[:all_activities]
-    Ohm::Model::TimestampedSet.new(key, Ohm::Model::Wrapper.wrap(Activity))
+    TimestampedSet.new(key, Activity)
   end
 
   def all_discussions

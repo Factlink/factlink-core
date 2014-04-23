@@ -6,17 +6,17 @@ ruby '2.1.0'
 gem 'rails', '3.2.17' # this is too important to update automatically
 gem 'rake', '~> 10.1.0', require: false
 
-# Mongo
-gem 'mongoid', '~> 3.1.6'
+# Postgres
+gem 'pg'
 
-gem 'pavlov', '= 0.1.9.0'
+gem 'pavlov', github: 'Factlink/pavlov'
 
 # Simple value objects
 gem 'strict_struct', '= 0.0.4' # by @markijbema, ask him if he pushed breaking changes in new versions
 
 # Redis
 gem 'redis', '~> 2.2.1'
-gem 'ohm', github: 'Factlink/ohm' # we need the tribalvibes fork (0.1.4), for polymorphism
+gem 'ohm', '= 0.1.3'
 gem 'redis-objects', '~> 0.5.3' # cannot be upgraded to 0.6 until we update redis to 3.0 or bigger
 gem 'multi_json', '~> 1.7'
 
@@ -28,14 +28,8 @@ gem 'resque_mailer', '~> 2.2.6'
 
 gem 'mixpanel', github: 'Factlink/mixpanel'
 
-gem "sentry-raven", '~> 0.7.1'
-gem "resque-sentry", '~> 1.1.1'
-
 # Everyone loves JSON
 gem 'json', '~> 1.8'
-
-# Needed for migrations to be compatible when no sql backend is available
-gem 'mongoid_rails_migrations', '1.0.1' # TODO look if this needs to be pinned
 
 # User authentication and authorization
 gem 'devise', '~> 2.2.3'
@@ -66,7 +60,6 @@ gem 'rack-xframe-options', github: 'Factlink/rack-xframe-options'
 gem 'rack-rewrite', '~> 1.3.3'
 
 gem 'appsignal'
-gem 'appsignal-moped'
 gem 'appsignal-redis'
 
 group :assets do
@@ -99,6 +92,7 @@ group :development do
 
   # mesa want speed:
   gem 'rails-dev-tweaks', '~> 0'
+  gem 'turbo_dev_assets'
   gem 'pry', '~> 0', require: false
 
   #for static files serving

@@ -2,37 +2,19 @@ require 'open-uri'
 require 'digest/md5'
 require 'redis/objects'
 
-class User
-  include Mongoid::Document
-  include Mongoid::Timestamps
+class User < ActiveRecord::Base
   include Redis::Objects
 
-  # For compatibility with Activity::Listener
-  def self.[](graph_user_id)
-    User.where(graph_user_id: graph_user_id).first
-  end
-
-  field :notification_settings_edit_token, type: String
-
-  USERNAME_MAX_LENGTH = 20 # WARNING: must be shorter than mongo ids(24 chars) to avoid confusing ids with usernames!
-
-  field :username
-  field :full_name    # TODO:EMN minimum length?  require space?
-
-  index(username: 1)
-
-  field :location
-  field :biography
-
-  field :graph_user_id
-  index(graph_user_id: 1)
-
-  field :deleted,     type: Boolean, default: false
-
-  field :admin,       type: Boolean, default: false
-
-  field :receives_mailed_notifications,  type: Boolean, default: true
-  field :receives_digest, type: Boolean, default: true
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable,
+  # :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable,
+  :recoverable,   # Password retrieval
+  :rememberable,  # 'Remember me' box
+  :trackable,     # Log sign in count, timestamps and IP address
+  :validatable,   # Validation of email and password
+  :confirmable,   # Require e-mail verification
+  :registerable   # Allow registration
 
   attr_accessible :username, :full_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
@@ -41,6 +23,22 @@ class User
                   :password, :password_confirmation, :receives_mailed_notifications,
                   :receives_digest, :email, :admin,
         as: :admin
+
+  after_initialize :set_default_values!
+  def set_default_values!
+    {
+      deleted: false,
+      admin: false,
+      receives_mailed_notifications: true,
+      receives_digest: true,
+    }.each do |attribute_name, default_value|
+      self[attribute_name] = default_value unless attribute_present?(attribute_name)
+    end
+  end
+
+  USERNAME_MAX_LENGTH = 20
+
+  #index(username: 1)
 
   USERNAME_BLACKLIST = [
     :users, :facts, :site, :templates, :search, :system, :tos, :pages, :privacy,
@@ -73,41 +71,11 @@ class User
   validates_length_of     :location, maximum: 127
   validates_length_of     :biography, maximum: 1023
 
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :lockable, :timeoutable and :omniauthable,
-  devise :database_authenticatable,
-  :recoverable,   # Password retrieval
-  :rememberable,  # 'Remember me' box
-  :trackable,     # Log sign in count, timestamps and IP address
-  :validatable,   # Validation of email and password
-  :confirmable,   # Require e-mail verification
-  :registerable   # Allow registration
+  def comments
+    Comments.where(created_by_id: self.id)
+  end
 
-  ## Database authenticatable
-    field :email,              :type => String, :default => ""
-    field :encrypted_password, :type => String, :default => ""
-
-
-  ## Recoverable
-    field :reset_password_token,   :type => String
-    field :reset_password_sent_at, :type => Time
-
-  ## Rememberable
-    field :remember_created_at, :type => Time
-
-  ## Trackable
-    field :sign_in_count,      :type => Integer
-    field :current_sign_in_at, :type => Time
-    field :last_sign_in_at,    :type => Time
-    field :current_sign_in_ip, :type => String
-    field :last_sign_in_ip,    :type => String
-
-  ## Confirmable
-    field :confirmation_token,   :type => String
-    field :confirmed_at,         :type => Time
-    field :confirmation_sent_at, :type => Time
-
-  scope :active, where(:deleted.ne => true)
+  scope :active, where(deleted: false)
 
   class << self
     # List of fields that are stored in Mixpanel.
@@ -140,9 +108,8 @@ class User
 
     def valid_username?(username)
       validators = self.validators.select { |v| v.attributes == [:username] && v.options[:with].class == Regexp }.map { |v| v.options[:with] }
-      case_insensitive_regexp = /\A#{Regexp.escape(username)}\z/i
 
-      not find_by(username: case_insensitive_regexp) and validators.all? { |regex| regex.match(username) }
+      where(username: username.downcase).count == 0 and validators.all? { |regex| regex.match(username) }
     end
 
     def import_export_simple_fields
@@ -182,16 +149,9 @@ class User
   end
 
   private def activity_set(name:)
-    key = Nest.new('GraphUser')[graph_user_id][name]
-    Ohm::Model::TimestampedSet.new(key, Ohm::Model::Wrapper.wrap(Activity))
+    key = Nest.new('User')[id][name]
+    TimestampedSet.new(key, Activity)
   end
-
-  private def create_graph_user
-    graph_user = GraphUser.new
-    graph_user.save
-    self.graph_user_id = graph_user.id
-  end
-  before_create :create_graph_user
 
   def self.human_attribute_name(attr, options = {})
     attr.to_s == 'non_field_error' ? '' : super

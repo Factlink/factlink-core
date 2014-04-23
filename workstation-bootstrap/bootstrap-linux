@@ -46,7 +46,6 @@ sudo apt-get -y install \
            chromium-chromedriver \
            openvpn \
            phantomjs \
-           mongodb \
            redis-server \
            rbenv \
            openjdk-7-jre-headless \
@@ -186,21 +185,17 @@ echo 'Installing jslint, supervisor and grunt-cli'
 #npm install supervisor grunt-cli
 npm install supervisor grunt-cli -g
 
-echo 'disabling mongo via upstart...'
-echo 'manual' | sudo tee "/etc/init/mongodb.override" 1>/dev/null
 echo 'disabling elasticsearch via upstart...'
 echo 'manual' | sudo tee "/etc/init/elasticsearch.override" 1>/dev/null
 sudo service elasticsearch stop
 
-echo 'disabling elasticsearch, postgresql, mongod & redis-server via SystemV init scripts...'
+echo 'disabling elasticsearch, postgresql, redis-server via SystemV init scripts...'
 sudo update-rc.d -f elasticsearch remove
 sudo service elasticsearch stop || :
 sudo update-rc.d -f postgresql remove
 sudo service postgresql stop || :
 sudo update-rc.d -f redis-server remove
 sudo service redis-server stop || :
-sudo update-rc.d -f mongodb remove
-sudo service mongodb stop || :
 
 
 # You can connect to multiple VPN connections from the terminal just do:

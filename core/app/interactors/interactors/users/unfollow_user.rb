@@ -13,8 +13,8 @@ module Interactors
         user_to_unfollow = Backend::Users.user_by_username(username: username)
 
         Backend::UserFollowers.unfollow \
-          follower_id: current_user.graph_user_id,
-          followee_id: user_to_unfollow.graph_user_id
+          follower_id: current_user.id,
+          followee_id: user_to_unfollow.id
 
         nil
       end

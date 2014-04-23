@@ -4,7 +4,7 @@ module Backend
 
     def get(fact_id:)
       fact_data = FactData.where(fact_id: fact_id).first
-      raise Mongoid::Errors::DocumentNotFound, FactData, {fact_id: fact_id} unless fact_data
+      raise ActiveRecord::RecordNotFound, ["FactData", {fact_id: fact_id}] unless fact_data
 
       dead(fact_data)
     end
@@ -15,7 +15,13 @@ module Backend
     end
 
     def votes(fact_id:)
-      votes_for(fact_id, 'believes') + votes_for(fact_id, 'disbelieves')
+      fact_data_id = FactData.where(fact_id: fact_id).first.id
+      user_ids = FactDataInteresting.where(fact_data_id: fact_data_id).map(&:user_id)
+      dead_users = Backend::Users.by_ids(user_ids: user_ids)
+
+      dead_users.map do |user|
+        { username: user.username, user: user }
+      end
     end
 
     def create(displaystring:, site_title:, site_url:, created_at:, fact_id: nil)
@@ -31,22 +37,18 @@ module Backend
       dead(fact_data)
     end
 
-    def remove_opinion(fact_id:, graph_user_id:)
-      believable(fact_id).remove_opinionated_id graph_user_id
+    def remove_interesting(fact_id:, user_id:)
+      fact_data_id = FactData.where(fact_id: fact_id).first.id
+
+      FactDataInteresting.where(fact_data_id: fact_data_id, user_id: user_id)
+                         .each {|interesting| interesting.destroy}
     end
 
-    def set_opinion(fact_id:, graph_user_id:, opinion:)
-      believable(fact_id).add_opiniated_id opinion, graph_user_id
-    end
+    def set_interesting(fact_id:, user_id:)
+      remove_interesting fact_id: fact_id, user_id: user_id
 
-    def recently_viewed(user_id:)
-      RecentlyViewedFacts.by_user_id(user_id).top_ids(5).map do |fact_id|
-        get(fact_id: fact_id)
-      end
-    end
-
-    def add_to_recently_viewed(fact_id:, user_id:)
-      RecentlyViewedFacts.by_user_id(user_id).add_fact_id fact_id
+      fact_data_id = FactData.where(fact_id: fact_id).first.id
+      FactDataInteresting.create! fact_data_id: fact_data_id, user_id: user_id
     end
 
     def for_url(site_url:)
@@ -58,19 +60,6 @@ module Backend
     end
 
     private
-
-    def votes_for(fact_id, type)
-      graph_user_ids = believable(fact_id).opiniated_ids(type)
-      dead_users = Backend::Users.by_ids(user_ids: graph_user_ids, by: :graph_user_id)
-
-      dead_users.map do |user|
-        { username: user.username, user: user, type: type }
-      end
-    end
-
-    def believable(fact_id)
-      Believable.new Nest.new("Fact:#{fact_id}")
-    end
 
     def dead(fact_data)
       DeadFact.new id: fact_data.fact_id,

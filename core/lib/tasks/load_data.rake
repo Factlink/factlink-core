@@ -14,12 +14,7 @@ end
 namespace :db do
   task :truncate => :environment do
     require File.expand_path('../../../db/truncate.rb', __FILE__)
-    truncate(:users => :truncate)
-  end
-
-  task :truncate_keep_users => :environment do
-    require File.expand_path('../../../db/truncate.rb', __FILE__)
-    truncate(:users => :keep)
+    truncate
   end
 
   task :export, [:filename] => [:environment, :migrate] do |task, args|
@@ -42,7 +37,6 @@ namespace :db do
       The following commands are available:
 
       rake db:truncate              # Truncate database
-      rake db:truncate_keep_users   # Truncate database, but keep the users
       rake db:export[db/dump.rb]    # Export the database to db/dump.rb
       rake db:import[db/dump.rb]    # Import the database from db/dump.rb
       rake db:help                  # Show this help file

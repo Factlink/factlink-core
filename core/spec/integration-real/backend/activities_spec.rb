@@ -25,7 +25,7 @@ describe 'activity queries' do
         fact_data = create :fact_data
         as(current_user) do |pavlov|
           pavlov.send_mails = true
-          pavlov.interactor(:'facts/set_opinion', fact_id: fact_data.fact_id, opinion: 'believes')
+          pavlov.interactor(:'facts/set_interesting', fact_id: fact_data.fact_id)
         end
 
         comment = nil
@@ -39,7 +39,7 @@ describe 'activity queries' do
       it "creates a stream activity for the interacting users" do
         fact_data = create :fact_data
         as(current_user) do |pavlov|
-          pavlov.interactor(:'facts/set_opinion', fact_id: fact_data.fact_id, opinion: 'believes')
+          pavlov.interactor(:'facts/set_interesting', fact_id: fact_data.fact_id)
         end
 
         comment = nil
@@ -85,7 +85,7 @@ describe 'activity queries' do
           end
 
           as(current_user) do |pavlov|
-            pavlov.interactor(:'facts/set_opinion', fact_id: fact_data.fact_id, opinion: 'believes')
+            pavlov.interactor(:'facts/set_interesting', fact_id: fact_data.fact_id)
           end
 
           as(other_user) do |pavlov|
@@ -109,7 +109,7 @@ describe 'activity queries' do
 
           as(current_user) do |pavlov|
             pavlov.send_mails = true
-            pavlov.interactor(:'facts/set_opinion', fact_id: fact_data.fact_id, opinion: 'believes')
+            pavlov.interactor(:'facts/set_interesting', fact_id: fact_data.fact_id)
           end
 
           as(other_user) do |pavlov|

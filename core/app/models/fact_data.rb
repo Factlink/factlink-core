@@ -1,20 +1,15 @@
-class FactData
-  include Mongoid::Document
-  include Mongoid::Timestamps
+class FactData < ActiveRecord::Base
+  # TODO: already choose a good database name here
+  # TODO: after SQL conversion call "site_url" "url" ?
+  attr_accessible :displaystring, :fact_id, :site_url, :title
 
-  attr_accessible []
+  # attr_accessible []
   # For compatibility with Activity::Listener
   def self.[](fact_id)
     FactData.where(fact_id: fact_id).first
   end
 
-
-  field :title,           type: String
-  field :displaystring,   type: String
-  field :site_url,        type: String # TODO: after SQL conversion call this "url"
-  field :fact_id,         type: String
-
-  index({ site_url: 1 })
+  #index({ site_url: 1 })
 
   has_many :comments
 
@@ -35,7 +30,7 @@ class FactData
   end
 
   def self.valid(fd)
-    fd and fd.fact_id
+    fd
   end
 
   def update_search_index
@@ -60,7 +55,9 @@ class FactData
   end
 
   after_destroy do |fact_data|
-    Believable.new(Nest.new("Fact:#{fact_id}")).delete
+    FactDataInteresting.where(fact_data_id: fact_data.id)
+                       .each { |interesting| interesting.destroy }
+
     ElasticSearch::Index.new('factdata').delete fact_data.id
 
     fact_data.comments.each do |comment|

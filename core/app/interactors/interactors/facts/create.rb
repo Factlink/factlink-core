@@ -17,19 +17,11 @@ module Interactors
       private
 
       def execute
-        dead_fact = Backend::Facts.create displaystring: displaystring,
-                                          site_url: site_url, site_title: site_title, created_at: pavlov_options[:time],
+        Backend::Facts.create displaystring: displaystring,
+          site_url: site_url, site_title: site_title, created_at: pavlov_options[:time],
           fact_id: (pavlov_options[:import] ? fact_id : nil)
 
-        if user
-          Backend::Facts.add_to_recently_viewed \
-            fact_id: dead_fact.id,
-            user_id: user.id
-        end
-
         create_activity dead_fact
-
-        dead_fact
       end
 
       def create_activity(dead_fact)
@@ -40,10 +32,6 @@ module Interactors
           subject_class: "FactData",
           time: pavlov_options[:time],
           send_mails: pavlov_options[:send_mails]
-      end
-
-      def user
-        pavlov_options[:current_user]
       end
 
       def validate

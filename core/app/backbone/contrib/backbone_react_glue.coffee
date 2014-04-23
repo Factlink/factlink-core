@@ -1,10 +1,3 @@
-class window.ReactView extends Backbone.View
-  tagName: 'span'
-  initialize: (options) ->
-    throw "You haven't defined component, silly developer" unless options.component
-    @on 'show', ->
-      React.renderComponent(@options.component, @el)
-
 define_tag = (tag) ->
   return unless {}.hasOwnProperty.call(React.DOM, tag) and tag != 'injection'
 

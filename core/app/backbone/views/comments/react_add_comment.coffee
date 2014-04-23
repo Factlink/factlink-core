@@ -28,14 +28,8 @@ ReactSearchFacts = React.createClass
         onInsert: @props.onInsert
 
   _factSearchResults: ->
-    unless @____factSearchResults
-      recently_viewed_facts = new RecentlyViewedFacts
-      recently_viewed_facts.fetch()
+    @____factSearchResults ?= new FactSearchResults
 
-      @____factSearchResults = new FactSearchResults [],
-        recently_viewed_facts: recently_viewed_facts
-
-    @____factSearchResults
 
 window.ReactAddComment = React.createBackboneClass
   displayName: 'ReactAddComment'

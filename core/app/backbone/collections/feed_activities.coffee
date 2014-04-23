@@ -18,7 +18,7 @@ class window.DiscussionsFeedActivities extends Backbone.Factlink.Collection
 
 
 
-class window.PersonalFeedActivities extends Backbone.Collection
+class window.PersonalFeedActivities extends Backbone.Factlink.Collection
   _.extend @prototype, AutoloadCollectionOnTimestamp
   model: Activity
 

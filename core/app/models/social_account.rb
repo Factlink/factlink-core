@@ -1,11 +1,5 @@
-class SocialAccount
-  include Mongoid::Document
-  include Mongoid::Timestamps
-
-  field :provider_name, type: String
-  field :omniauth_obj_string, type: String
-  field :omniauth_obj_id, type: String
-  field :user_id, type: String
+class SocialAccount < ActiveRecord::Base
+  attr_accessible :omniauth_obj_id, :omniauth_obj_string, :provider_name, :user_id, :created_at, :updated_at
 
   validates_presence_of :provider_name
   validates_presence_of :omniauth_obj_string

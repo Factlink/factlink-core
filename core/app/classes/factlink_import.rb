@@ -10,8 +10,7 @@ module FactlinkImport
       ExecuteAsUser.new(FactlinkImport.user_for(fields[:username])).execute do |pavlov|
         pavlov.import = true
         pavlov.time = nil
-        dead_fact = pavlov.interactor(:'facts/set_opinion', fact_id: @fact_id,
-          opinion: 'believes')
+        dead_fact = pavlov.interactor(:'facts/set_interesting', fact_id: @fact_id)
       end
     end
   end
@@ -69,7 +68,7 @@ module FactlinkImport
 
   def social_account(fields)
     create_fields = fields.slice(*SocialAccount.import_export_simple_fields)
-    create_fields[:user] = user_for(fields[:username])
+    create_fields[:user_id] = user_for(fields[:username]).id.to_s
     SocialAccount.create! create_fields
   end
 
