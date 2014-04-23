@@ -5,7 +5,7 @@ echo "Updating apt-get & upgrading existing packages..."
 sudo apt-get -y -qq update
 sudo apt-get -y dist-upgrade
 
-type apt-add-repository || sudo apt-get -y install python-software-properties
+type apt-add-repository>/dev/null || sudo apt-get -y install python-software-properties
 
 # partner repo where skype is hiding
 # depending on your option during install this is already there
@@ -23,24 +23,12 @@ sudo apt-key list | grep -q -e "Launchpad PPA for NoobsLab" || sudo apt-add-repo
 sudo apt-add-repository -y "deb http://downloads.hipchat.com/linux/apt stable main"
 sudo apt-key list | grep -q -e "HipChat Signing Key (Atlassian)" || wget -q -O - https://www.hipchat.com/keys/hipchat-linux.key | sudo apt-key add -
 
-sudo apt-key list | grep -q -e "f_lux" || sudo add-apt-repository -y ppa:kilian/f.lux
-sudo sed -i s/saucy/raring/ /etc/apt/sources.list.d/kilian-f_lux-saucy.list
 
 sudo apt-get -y -qq update
 
 sudo apt-get -y install \
            build-essential \
            curl \
-           libssl-dev \
-           libyaml-dev \
-           libsqlite3-dev \
-           libreadline-dev \
-           zlib1g \
-           zlib1g-dev \
-           libmysqlclient-dev \
-           libcurl4-openssl-dev \
-           libxslt-dev \
-           libxml2-dev \
            sublime-text \
            google-chrome-stable \
            chromium-chromedriver \
@@ -75,8 +63,8 @@ sudo apt-get -y install \
            cryptsetup \
            gnome-disk-utility \
            npm \
-           fluxgui \
            unar # needed for virtualbox
+
 
 [ ! -f /usr/local/bin/node ] && sudo ln -s `which nodejs` /usr/local/bin/node
 

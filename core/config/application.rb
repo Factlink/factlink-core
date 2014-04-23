@@ -2,7 +2,6 @@ require File.expand_path('../boot', __FILE__)
 
 require "action_controller/railtie"
 require "action_mailer/railtie"
-require "active_resource/railtie"
 require "active_record/railtie"
 require "pavlov/alpha_compatibility"
 
@@ -63,7 +62,7 @@ module FactlinkUI
     # config.middleware.use Rack::XFrameOptions, "SAMEORIGIN", ["/client/blank"]
 
 
-    config.middleware.insert_before("Rack::Lock", "Rack::Rewrite") do
+    config.middleware.insert 0, Rack::Rewrite do
       r301 %r{^\/(.+)\/(\?.*)?$}, '/$1$2'
     end
 
