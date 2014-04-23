@@ -29,16 +29,6 @@ sudo apt-get -y -qq update
 sudo apt-get -y install \
            build-essential \
            curl \
-           libssl-dev \
-           libyaml-dev \
-           libsqlite3-dev \
-           libreadline-dev \
-           zlib1g \
-           zlib1g-dev \
-           libmysqlclient-dev \
-           libcurl4-openssl-dev \
-           libxslt-dev \
-           libxml2-dev \
            sublime-text \
            google-chrome-stable \
            chromium-chromedriver \
@@ -74,6 +64,7 @@ sudo apt-get -y install \
            gnome-disk-utility \
            npm \
            unar # needed for virtualbox
+
 
 [ ! -f /usr/local/bin/node ] && sudo ln -s `which nodejs` /usr/local/bin/node
 
