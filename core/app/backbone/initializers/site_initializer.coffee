@@ -10,16 +10,16 @@ class FactlinkRouter extends Backbone.Router
 
     'search': 'search' # must be named
 
-    ':username/edit': ->
+    'user/:username/edit': ->
       showComponent ReactProfileEdit model: currentSession.user()
 
-    ':username/notification-settings': ->
+    'user/:username/notification-settings': ->
       showComponent ReactNotificationSettings model: currentSession.user()
 
-    ':username/change-password': ->
+    'user/:username/change-password': ->
       showComponent ReactChangePassword model: currentSession.user().password()
 
-    ':username': (username) ->
+    'user/:username': (username) ->
       user = new User(username: username)
       user.fetch()
 

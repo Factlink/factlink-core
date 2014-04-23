@@ -4,4 +4,4 @@ class window.Following extends Backbone.Factlink.Collection
   initialize: (models, options) ->
     @user = options.user
 
-  url: -> "/#{@user.get('username')}/following"
+  url: -> "/user/#{@user.get('username')}/following"

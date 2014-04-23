@@ -40,7 +40,7 @@ window.ReactTopbarMenu = React.createClass
                " On your site"
           ]
         _li ['dropdown-menu-item'],
-         _a [href: "/#{currentSession.user().get('username')}/edit", rel: 'backbone'],
+         _a [href: "/user/#{currentSession.user().get('username')}/edit", rel: 'backbone'],
            _i ['icon-cog']
            " Settings"
         _li ['dropdown-menu-item'],
@@ -85,7 +85,7 @@ window.ReactTopbar = React.createClass
                 'Feed'
             _li ['topbar-divider']
             _li ['topbar-menu-item'],
-              _a ['topbar-menu-link', href: "/#{currentSession.user().get('username')}", rel: 'backbone'],
+              _a ['topbar-menu-link', href: "/user/#{currentSession.user().get('username')}", rel: 'backbone'],
                 _img ['topbar-profile-image image-30px', src: currentSession.user().avatar_url(30)]
                 currentSession.user().get('name')
             _li ['topbar-divider']

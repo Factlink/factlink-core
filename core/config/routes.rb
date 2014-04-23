@@ -139,7 +139,7 @@ FactlinkUI::Application.routes.draw do
 
   get "/search" => "frontend#show", as: "search"
 
-  scope "/:username" do
+  scope "/user/:username" do
     get "/" => "frontend#user_profile", as: "user_profile"
     get "/edit" => "frontend#show", as: 'edit_user'
     get "/change-password" => "frontend#show", as: 'change_password'
