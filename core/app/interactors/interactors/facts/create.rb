@@ -21,7 +21,7 @@ module Interactors
             displaystring: displaystring,
             site_url: site_url, site_title: site_title, created_at: pavlov_options[:time],
             fact_id: (pavlov_options[:import] ? fact_id : nil),
-            user_id: pavlov_options[:current_user].id
+            created_by_id: pavlov_options[:current_user].id
         )
 
         create_activity dead_fact
