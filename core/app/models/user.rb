@@ -148,10 +148,6 @@ class User < ActiveRecord::Base
     activity_set(name: :own_activities)
   end
 
-  def notifications
-    activity_set(name: :notifications)
-  end
-
   private def activity_set(name:)
     key = Nest.new('User')[id][name]
     TimestampedSet.new(key, Activity)
