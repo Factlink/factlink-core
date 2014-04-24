@@ -21,7 +21,7 @@
         "deleted": false
       },
       "created_at": "<created_at>",
-      "format": null,
+      "markup_format": null,
       "content": "content",
       "formatted_content": "content",
       "sub_comments_count": 0,

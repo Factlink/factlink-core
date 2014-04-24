@@ -11,7 +11,7 @@
         "deleted": false
       },
       "created_at": "<created_at>",
-      "format": null,
+      "markup_format": null,
       "content": "a comment",
       "formatted_content": "a comment",
       "sub_comments_count": 0,
@@ -32,7 +32,7 @@
         "deleted": false
       },
       "created_at": "<created_at>",
-      "format": null,
+      "markup_format": null,
       "content": "a comment",
       "formatted_content": "a comment",
       "sub_comments_count": 0,

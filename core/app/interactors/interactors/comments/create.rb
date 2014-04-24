@@ -3,13 +3,13 @@ module Interactors
     class Create
       include Pavlov::Interactor
 
-      arguments :fact_id, :content, :format
+      arguments :fact_id, :content, :markup_format
 
       def execute
         comment = Backend::Comments.create \
           fact_id: fact_id,
           content: content,
-          format: format,
+          markup_format: markup_format,
           user_id: pavlov_options[:current_user].id.to_s,
           created_at: pavlov_options[:time]
 
@@ -42,9 +42,9 @@ module Interactors
         validate_regex   :content, content, /\S/,
           "should not be empty."
         validate_integer_string :fact_id, fact_id
-        validate_in_set :format, format, [nil, 'anecdote']
+        validate_in_set :markup_format, markup_format, [nil, 'anecdote']
 
-        if format == 'anecdote'
+        if markup_format == 'anecdote'
           anecdote = JSON.parse(content)
           unless  %w{introduction insight resources actions effect}.all?{|key| anecdote.has_key?(key)}
             fail 'Incorrect anecdote format'

@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(:version => 20140423132851) do
     t.string   "created_by_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
-    t.string   "format"
+    t.string   "markup_format"
   end
 
   add_index "comments", ["fact_data_id"], :name => "index_comments_on_fact_data_id"
