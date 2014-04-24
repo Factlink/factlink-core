@@ -2,11 +2,9 @@ ReactCommentVoteFactlink = React.createBackboneClass
   displayName: 'ReactCommentVoteFactlink'
 
   _on_up_vote: ->
-    mp_track "Comment: Upvote click"
     @model().clickCurrentUserOpinion 'believes'
 
   _on_down_vote: ->
-    mp_track "Comment: Downvote click"
     @model().clickCurrentUserOpinion 'disbelieves'
 
   render: ->
@@ -41,7 +39,6 @@ ReactCommentVoteKennisland = React.createBackboneClass
   displayName: 'ReactCommentVoteKennisland'
 
   _on_up_vote: ->
-    mp_track "Comment: Upvote click"
     @model().clickCurrentUserOpinion 'believes'
 
   render: ->

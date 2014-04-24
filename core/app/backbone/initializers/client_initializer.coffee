@@ -5,8 +5,6 @@ showInSidebar = (elements...)->
   component = ReactDiscussionSidebarContainer({}, elements...)
   el = document.querySelector('.js-discussion-sidebar-region')
   React.renderComponent(component, el)
-  if elements.length > 0
-    mp_track 'Discussion Sidebar: Open'
 
 class ClientEnvoy
   constructor: (senderEnvoy) ->
@@ -35,7 +33,6 @@ class ClientEnvoy
 
     fact.once 'sync', =>
       @_senderEnvoy 'highlightNewFactlink', displaystring, fact.id
-      mp_track 'Annotation: Created'
 
     showInSidebar ReactDiscussionSidebar
       model: fact
@@ -76,7 +73,6 @@ Factlink.clientInitializer = ->
 
   Factlink.vent.on 'close_discussion_sidebar', ->
     console.info 'closing modal'
-    mp_track "Discussion Sidebar: Close"
 
     showInSidebar()
 

@@ -6,7 +6,6 @@ class FactlinkRouter extends Backbone.Router
   routes:
     'feed': ->
       showComponent ReactFeedSelection()
-      mp_track 'Viewed feed'
 
     'search': 'search' # must be named
 
@@ -51,10 +50,6 @@ class FactlinkRouter extends Backbone.Router
     results.fetch()
 
     showComponent ReactSearchResults model: results
-
-    mp_track 'Search: Top bar search',
-      query: query
-
 
 Factlink.siteInitializer = ->
   Factlink.commonInitializer()

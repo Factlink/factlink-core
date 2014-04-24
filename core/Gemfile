@@ -28,8 +28,6 @@ gem 'multi_json', '~> 1.7'
 gem 'resque', '= 1.23.0', require: 'resque/server'
 gem 'resque_mailer', '~> 2.2.6'
 
-gem 'mixpanel', github: 'Factlink/mixpanel'
-
 # Everyone loves JSON
 gem 'json', '~> 1.8'
 

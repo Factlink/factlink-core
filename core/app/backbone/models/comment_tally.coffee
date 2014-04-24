@@ -41,7 +41,6 @@ class window.CommentTally extends Backbone.Model
     @save {},
       success: =>
         @_setOpinionAgainAfterCollectionFetch opinion_type
-        mp_track "Comment: Vote", url: @url(), opinion: opinion_type
       error: =>
         @_setCurrentUserOpinion @previous_opinion_type
 
