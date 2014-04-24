@@ -78,7 +78,7 @@ ReactAnecdoteOrComment = React.createClass
             onChange: (e) => @setState anecdote_selected: e.target.checked
           ]
           _label [htmlFor: 'CommentChoice_Anecdote'],
-            'Anecdote'
+            Factlink.Global.t.anecdote.capitalize()
 
           _input [
             'radio-toggle-button'

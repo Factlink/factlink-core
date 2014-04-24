@@ -21,7 +21,7 @@ window.ReactAddAnecdote = React.createBackboneClass
       _button ['button-confirm button-small add-anecdote-post-button'
         onClick: => @refs.signinPopover.submit(=> @_submit())
       ],
-        'Post anecdote'
+        'Post ' + Factlink.Global.t.anecdote
         ReactSigninPopover
           ref: 'signinPopover'
 
