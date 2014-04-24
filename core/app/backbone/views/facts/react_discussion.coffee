@@ -81,7 +81,7 @@ ReactAnecdoteOrComment = React.createClass
             Factlink.Global.t.anecdote.capitalize()
 
           _input [
-            'radio-toggle-button'
+            'radio-toggle-button spec-anecdote-or-comment-select-comment'
             id: 'CommentChoice_Comment'
             type: 'radio'
             checked: !@state.anecdote_selected

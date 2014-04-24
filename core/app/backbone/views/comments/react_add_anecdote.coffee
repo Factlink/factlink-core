@@ -12,7 +12,7 @@ window.ReactAddAnecdote = React.createBackboneClass
         onSubmit: => @refs.signinPopover.submit(=> @_submit())
 
   render: ->
-    _div ['add-anecdote spec-add-comment-form'],
+    _div ['add-anecdote'],
       @renderField('introduction', 'Introduction')
       @renderField('insight', 'Sudden insight')
       @renderField('resources', 'Resources')
