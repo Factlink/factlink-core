@@ -1,0 +1,24 @@
+.anecdote-or-comment {
+  margin: 10px 0;
+  padding-top: 10px;
+  background: white;
+  border-top: 1px lightgrey solid;
+}
+
+.anecdote-or-comment-choice {
+  padding: 0 $votePadding;
+}
+
+.add-anecdote {
+  margin-top: 10px;
+  border-top: 1px lightgrey solid;
+  padding: $votePadding;
+  display: inline-block; // new block formatting context
+  width: 100%;
+}
+
+.add-anecdote-post-button {
+  display: inline-block;
+  width: 120px;
+  float: right;
+}

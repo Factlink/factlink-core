@@ -43,6 +43,8 @@ window.ReactTextArea = React.createClass
     if @isMounted()
       @refs.textarea.getDOMNode().focus()
 
+  getText: ->
+    @state.text
 
   $_textarea: ->
     $(@getDOMNode())
