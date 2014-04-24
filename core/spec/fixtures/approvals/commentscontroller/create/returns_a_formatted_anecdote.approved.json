@@ -1,0 +1,19 @@
+{
+  "id": "<id>",
+  "created_by": {
+    "id": "<id>",
+    "name": "John1 Doe1",
+    "username": "johndoe1",
+    "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+    "deleted": false
+  },
+  "created_at": "<created_at>",
+  "formatted_content": "<p><strong>Introduction</strong></p><p>Some introduction</p><p><strong>Sudden insight</strong></p><p>Some insight</p><p><strong>Resources</strong></p><p>Some resources</p><p><strong>Actions</strong></p><p>Some actions</p><p><strong>Effect + evaluation</strong></p><p>Some effect</p>",
+  "sub_comments_count": 0,
+  "is_deletable": true,
+  "tally": {
+    "believes": 1,
+    "disbelieves": 0,
+    "current_user_opinion": "believes"
+  }
+}

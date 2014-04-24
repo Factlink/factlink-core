@@ -35,13 +35,14 @@ module Backend
       Backend::Users.by_ids(user_ids: CommentVote.where(comment_id: comment_id, opinion: type).map(&:user_id))
     end
 
-    def create(fact_id:, content:, user_id:, created_at:)
+    def create(fact_id:, content:, user_id:, created_at:, markup_format:)
       fact_data = FactData.where(fact_id: fact_id.to_s).first
 
       comment = Comment.new
       comment.fact_data_id = fact_data.id.to_s
       comment.created_by_id = user_id
       comment.content = content
+      comment.markup_format = markup_format
       comment.created_at = created_at
       comment.updated_at = created_at
       comment.save!
@@ -55,11 +56,17 @@ module Backend
       votes_counts = CommentVote.where(comment_id: comment.id).distinct.group(:opinion).count
       current_user_opinion = current_user_opinion_for(comment_id: comment.id, current_user_id: current_user_id)
 
+      if comment.markup_format == 'anecdote'
+        formatted_content = FormattedAnecdoteContent.new(comment.content).html
+      else
+        formatted_content = FormattedCommentContent.new(comment.content).html
+      end
+
       DeadComment.new(
         id: comment.id.to_s,
         created_by: Backend::Users.by_ids(user_ids: comment.created_by_id).first,
         created_at: comment.created_at.utc.iso8601,
-        formatted_content: FormattedCommentContent.new(comment.content).html,
+        formatted_content: formatted_content,
         sub_comments_count: Backend::SubComments.count(parent_id: comment.id),
         is_deletable: Backend::Comments.deletable?(comment.id),
         tally: {

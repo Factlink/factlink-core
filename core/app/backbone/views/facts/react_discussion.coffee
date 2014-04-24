@@ -53,6 +53,7 @@ ReactCollapsedText = React.createClass
         ],
           '(more)'
 
+
 window.ReactDiscussionSidebar = React.createBackboneClass
   displayName: "ReactDiscussionSidebar"
   render: ->
@@ -81,7 +82,7 @@ window.ReactDiscussionStandalone = React.createBackboneClass
 
       ReactOpinionateArea
         model: @model().getOpinionators()
-      ReactAddComment
+      ReactAddAnecdoteOrComment
         model: @model().comments()
         initiallyFocus: @props.initiallyFocusAddComment
         site_url: @props.site_url
