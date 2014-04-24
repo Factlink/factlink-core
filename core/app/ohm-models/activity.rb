@@ -12,12 +12,8 @@ class Activity < OurOhm
   attribute :action
   index     :action
 
-  def self.valid_actions_in_stream_activities
-    %w(created_comment created_sub_comment followed_user created_fact)
-  end
-
   def self.valid_actions
-    valid_actions_in_stream_activities
+    %w(created_comment created_sub_comment followed_user created_fact)
   end
 
   def validate

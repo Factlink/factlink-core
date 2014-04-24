@@ -75,7 +75,7 @@ class Activity < OurOhm
       ]
 
       stream_activities.map{ |a| a[:action] }.flatten.map(&:to_s).each do |action|
-        unless Activity.valid_actions_in_stream_activities.include? action
+        unless Activity.valid_actions.include? action
           fail "Invalid activity action for stream: #{action}"
         end
       end
