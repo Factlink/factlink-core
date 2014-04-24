@@ -83,8 +83,6 @@ group :assets do
   gem "rails-assets-jquery-autosize"
   gem 'rails-assets-tether'
 
-  gem 'sprockets', '2.2.2.backport2' #upgrade awaiting rails 4
-  gem 'sprockets-rails', :require => 'sprockets/railtie', :git => "git@github.com:logdown/sprockets-rails.git" #upgrade awaiting rails 4
   gem 'sass-rails', '~> 4.0.1'
 end
 

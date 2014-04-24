@@ -29,15 +29,6 @@ GIT
     url_normalizer (0.0.2)
       addressable
 
-GIT
-  remote: git@github.com:logdown/sprockets-rails.git
-  revision: 7f6d8d7241ee8f7cff151461d8afe5bd64c6aa92
-  specs:
-    sprockets-rails (2.0.1)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      sprockets (~> 2.2)
-
 GEM
   remote: http://rubygems.org/
   remote: https://rails-assets.org/
@@ -405,11 +396,15 @@ GEM
       temple (~> 0.6.3)
       tilt (~> 1.3, >= 1.3.3)
     slop (3.4.7)
-    sprockets (2.2.2.backport2)
+    sprockets (2.12.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    sprockets-rails (2.0.1)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      sprockets (~> 2.8)
     strict_struct (0.0.4)
     temple (0.6.7)
     terminal-notifier-guard (1.5.3)
@@ -515,8 +510,6 @@ DEPENDENCIES
   selenium-webdriver
   sinon-chai-rails (~> 1.0)
   sinon-rails (~> 1.4)
-  sprockets (= 2.2.2.backport2)
-  sprockets-rails!
   strict_struct (= 0.0.4)
   terminal-notifier-guard (~> 1.5)
   therubyracer (~> 0.12.0)
