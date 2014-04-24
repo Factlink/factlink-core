@@ -79,28 +79,9 @@ class User < ActiveRecord::Base
     Comments.where(created_by_id: self.id)
   end
 
-  scope :active, where(deleted: false)
+  scope :active, ->{ where(deleted: false) }
 
   class << self
-    # List of fields that are stored in Mixpanel.
-    # The key   represents how the field is stored in our Model
-    # The value represents how it is stored in Mixpanel
-    def mixpaneled_fields
-      {
-        "full_name"      => "name",
-        "username"        => "username",
-        "email"           => "email",
-        "created_at"      => "created",
-        "last_sign_in_at" => "last_login",
-        "receives_mailed_notifications" => "receives_mailed_notifications",
-        "receives_digest" => "receives_digest",
-        "location"        => "location",
-        "biography"       => "biography",
-        "deleted"         => "deleted",
-        "confirmed_at"    => "confirmed_at"
-      }
-    end
-
     # this methods defined which fields are to be removed
     # when the user is deleted (anonymized)
     def personal_information_fields
@@ -148,10 +129,6 @@ class User < ActiveRecord::Base
     activity_set(name: :own_activities)
   end
 
-  def notifications
-    activity_set(name: :notifications)
-  end
-
   private def activity_set(name:)
     key = Nest.new('User')[id][name]
     TimestampedSet.new(key, Activity)
@@ -197,9 +174,5 @@ class User < ActiveRecord::Base
   # and keep it public
   def valid_password?(password)
     super
-  end
-
-  after_update do |user|
-    UserObserverTask.handle_changes user
   end
 end

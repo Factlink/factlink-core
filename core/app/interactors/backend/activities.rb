@@ -122,11 +122,18 @@ module Backend
     private
 
     def send_mail_for_activity(activity:)
-      listeners = Activity::Listener.all[{class: "User", list: :notifications}]
+      case activity.action.to_s
+      when "created_comment"
+        user_ids = Backend::Followers.followers_for_fact_id(activity.subject.fact_data.fact_id)
+      when "created_sub_comment"
+        user_ids = Backend::Followers.followers_for_fact_id(activity.subject.parent.fact_data.fact_id)
+      when "followed_user"
+        user_ids = [activity.subject_id]
+      else
+        user_ids = []
+      end
 
-      user_ids = listeners.map do |listener|
-          listener.add_to(activity)
-        end.flatten
+      user_ids = user_ids.reject {|id| id.to_s == activity.user_id.to_s }
 
       recipients = Backend::Notifications.users_receiving(type: 'mailed_notifications')
                                          .where(id: user_ids)

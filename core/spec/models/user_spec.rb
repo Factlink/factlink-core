@@ -89,7 +89,7 @@ describe User do
       it "doesn't return deleted users" do
         user = create :user, deleted: true
 
-        active_users = User.active.all
+        active_users = User.active.load
         expect(active_users).to be_empty
       end
     end

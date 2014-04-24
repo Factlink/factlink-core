@@ -3,6 +3,8 @@
   background: white;
   position: relative;
   padding: $votePadding;
+  white-space: pre-line;
+  word-break: break-word;
 }
 
 .top-annotation-text {

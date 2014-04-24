@@ -39,18 +39,3 @@
 .footer-right {
   @extend %clearfix;
 }
-
-.mixpanel-logo {
-  opacity: 0.5;
-
-  &:hover {
-    opacity: 1;
-    transition: opacity 0.2s ease;
-  }
-
-  > img {
-    width: 60px;
-    vertical-align: middle;
-    margin-top: -4px;
-  }
-}

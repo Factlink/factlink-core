@@ -3,7 +3,8 @@ source 'https://rails-assets.org'
 
 ruby '2.1.0'
 
-gem 'rails', '3.2.17' # this is too important to update automatically
+gem 'rails', '4.1.0' # this is too important to update automatically
+gem 'protected_attributes', '~> 1.0.3'
 gem 'rake', '~> 10.1.0', require: false
 
 # Postgres
@@ -27,13 +28,11 @@ gem 'multi_json', '~> 1.7'
 gem 'resque', '= 1.23.0', require: 'resque/server'
 gem 'resque_mailer', '~> 2.2.6'
 
-gem 'mixpanel', github: 'Factlink/mixpanel'
-
 # Everyone loves JSON
 gem 'json', '~> 1.8'
 
 # User authentication and authorization
-gem 'devise', '~> 2.2.3'
+gem 'devise', '~> 3.0.0'
 gem 'cancan', '~> 1.6.10'
 
 # social connections
@@ -82,9 +81,9 @@ group :assets do
   gem "rails-assets-jquery-autosize"
   gem 'rails-assets-tether'
 
-  gem 'sprockets', '2.2.2.backport2' #upgrade awaiting rails 4
-  gem 'sprockets-rails', :require => 'sprockets/railtie', :git => "git@github.com:logdown/sprockets-rails.git" #upgrade awaiting rails 4
-  gem 'sass-rails', '~> 4.0.1', :git => "git@github.com:logdown/sass-rails.git" #upgrade awaiting rails 4
+  gem 'sprockets', '2.11.0'
+
+  gem 'sass-rails', '~> 4.0.1'
 end
 
 group :development do
@@ -92,7 +91,6 @@ group :development do
   # since we will notice when this fails
 
   # mesa want speed:
-  gem 'rails-dev-tweaks', '~> 0'
   gem 'turbo_dev_assets'
   gem 'pry', '~> 0', require: false
 
@@ -101,7 +99,6 @@ group :development do
   gem 'thin', '~> 1'
 
   gem 'lograge', '~> 0'
-  gem 'sextant', '~> 0'
 
   gem 'brakeman', '~> 2.0.0', require: false # upgrade awaiting sprockets upgrade awaiting rails 4
   gem 'rails_best_practices', '~> 1', require: false
@@ -139,5 +136,5 @@ group :test, :development do # TODO why is there a :development here?
 
   gem 'sinon-chai-rails', '~> 1.0'
   gem 'sinon-rails', '~> 1.4'
-  gem 'scss-lint', '~> 0.20'
+  gem 'scss-lint', '~> 0.23'
 end
