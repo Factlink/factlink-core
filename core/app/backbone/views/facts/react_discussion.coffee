@@ -70,7 +70,7 @@ window.ReactDiscussionStandalone = React.createBackboneClass
         _div ['top-annotation-text'],
           if @model().get('displaystring')
             if window.is_kennisland
-              text: @model().get('displaystring')
+              @model().get('displaystring')
             else
               ReactCollapsedText
                 text: @model().get('displaystring')
