@@ -84,7 +84,6 @@ window.ReactAddComment = React.createBackboneClass
     _button ['button-confirm button-small add-comment-post-button'
       onClick: => @refs.signinPopover.submit(=> @_submit())
       disabled: !@_comment().isValid()
-      ref: 'post'
     ],
       Factlink.Global.t.post_comment
       ReactSigninPopover
