@@ -69,9 +69,12 @@ window.ReactDiscussionStandalone = React.createBackboneClass
       _div ['top-annotation'],
         _div ['top-annotation-text'],
           if @model().get('displaystring')
-            ReactCollapsedText
+            if window.is_kennisland
               text: @model().get('displaystring')
-              size: 150
+            else
+              ReactCollapsedText
+                text: @model().get('displaystring')
+                size: 150
           else
             _div ["loading-indicator-centered"],
               ReactLoadingIndicator()
