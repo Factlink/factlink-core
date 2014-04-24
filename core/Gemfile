@@ -83,6 +83,8 @@ group :assets do
   gem "rails-assets-jquery-autosize"
   gem 'rails-assets-tether'
 
+  gem 'sprockets', '2.11.0'
+
   gem 'sass-rails', '~> 4.0.1'
 end
 
@@ -136,5 +138,5 @@ group :test, :development do # TODO why is there a :development here?
 
   gem 'sinon-chai-rails', '~> 1.0'
   gem 'sinon-rails', '~> 1.4'
-  gem 'scss-lint', '~> 0.20'
+  gem 'scss-lint', '~> 0.23'
 end
