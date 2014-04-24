@@ -82,25 +82,6 @@ class User < ActiveRecord::Base
   scope :active, ->{ where(deleted: false) }
 
   class << self
-    # List of fields that are stored in Mixpanel.
-    # The key   represents how the field is stored in our Model
-    # The value represents how it is stored in Mixpanel
-    def mixpaneled_fields
-      {
-        "full_name"      => "name",
-        "username"        => "username",
-        "email"           => "email",
-        "created_at"      => "created",
-        "last_sign_in_at" => "last_login",
-        "receives_mailed_notifications" => "receives_mailed_notifications",
-        "receives_digest" => "receives_digest",
-        "location"        => "location",
-        "biography"       => "biography",
-        "deleted"         => "deleted",
-        "confirmed_at"    => "confirmed_at"
-      }
-    end
-
     # this methods defined which fields are to be removed
     # when the user is deleted (anonymized)
     def personal_information_fields
