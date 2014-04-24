@@ -3,10 +3,11 @@ window.ReactFeedSelection = React.createClass
   mixins: [UpdateOnSignInOrOutMixin]
 
   getInitialState: ->
-    feedChoice: 'global'
+    feedChoice: if window.is_kennisland then 'discussions' else 'global'
     feeds:
       global: new GlobalFeedActivities
       personal: new PersonalFeedActivities
+      discussions: new DiscussionsFeedActivities
 
 
   _handleFeedChoiceChange: (e) ->
@@ -23,9 +24,17 @@ window.ReactFeedSelection = React.createClass
       site_title: @refs.challengeName.getDOMNode().value
       site_url: 'kennisland_challenge'
 
+    newActivity =
+      new Activity
+        action: 'created_fact'
+        fact: fact.toJSON()
+        user: currentSession.user().toJSON()
+
+    @state.feeds.discussions.unshift newActivity
+
     fact.save {},
       success: =>
-        @refs.challengeDescription.getDOMNode().value = ''
+        @refs.challengeDescription.updateText ''
         @refs.challengeName.getDOMNode().value = ''
         Factlink.notificationCenter.success 'Challenge created!'
       error: ->
@@ -36,6 +45,12 @@ window.ReactFeedSelection = React.createClass
       if currentSession.signedIn()
         [
           _div ['feed-selection-row'],
+            if window.is_kennisland
+              [
+                _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'discussions', id: 'FeedChoice_Discussions', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='discussions' ]
+                _label [ htmlFor: 'FeedChoice_Discussions' ],
+                  'Challenges'
+              ]
             _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'global', id: 'FeedChoice_Global', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='global'  ]
             _label [ htmlFor: 'FeedChoice_Global' ],
               'Global'
@@ -44,9 +59,10 @@ window.ReactFeedSelection = React.createClass
             _label [ htmlFor: 'FeedChoice_Personal' ],
               'Personal'
 
+
             if window.is_kennisland
               _button ['button-success feed-selection-install-extension-button', onClick: @_toggle_create_challenge],
-                "Create challenge"
+                (if !@state.show_create_challenge then "Create challenge" else "Cancel")
             else
               _div ['feed-selection-install-extension-button'],
                 ReactInstallExtensionOrBookmarklet()

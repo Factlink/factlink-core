@@ -21,4 +21,10 @@ class GlobalFeed
     key = @key[:all_activities]
     TimestampedSet.new(key, Activity)
   end
+
+  def all_discussions
+    key = @key[:all_discussions]
+    TimestampedSet.new(key, Activity)
+  end
+
 end

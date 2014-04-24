@@ -24,7 +24,8 @@ class OurOhm < Ohm::Model
         if klass == NilClass
           nil
         else
-          if klass.ancestors.include? Ohm::Model
+          #HACK: lookup using [] not find to support ohm/mongoid
+          if klass.respond_to?(:[]) # was: klass.ancestors.include? Ohm::Model
             klass[id]
           else
             klass.where(id: id).first # Return the ActiveModel object

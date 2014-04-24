@@ -64,6 +64,8 @@ $headerBorder: 1px;
 
 .feed-activity-content {
   color: $baseFontColor;
+  white-space: pre-line;
+  word-break: break-word;
 
   &:hover .feed-comment-box-balloon:before {
     @extend .feed-activity-box-balloon;

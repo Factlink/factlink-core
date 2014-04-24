@@ -74,7 +74,7 @@ module FactlinkImport
 
   def fact(fields, &block)
     dead_fact = nil
-    ExecuteAsUser.new(nil).execute do |pavlov|
+    ExecuteAsUser.new(user_for(fields[:username])).execute do |pavlov|
       pavlov.import = true
       pavlov.time = fields[:created_at]
       dead_fact = pavlov.interactor(:'facts/create', fact_id: fields[:fact_id],
