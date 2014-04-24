@@ -10,10 +10,6 @@ module Backend
       ].flatten.uniq
     end
 
-    def followers_for_sub_comments sub_comments
-      followers_for_comments(sub_comments.map(&:parent))
-    end
-
     private
 
     def followers_for_comments comments

@@ -126,7 +126,7 @@ module Backend
       when "created_comment"
         user_ids = Backend::Followers.followers_for_fact_id(activity.subject.fact_data.fact_id)
       when "created_sub_comment"
-        user_ids = Backend::Followers.followers_for_sub_comments([activity.subject])
+        user_ids = Backend::Followers.followers_for_fact_id(activity.subject.parent.fact_data.fact_id)
       when "followed_user"
         user_ids = [activity.subject_id]
       else
