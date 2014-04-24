@@ -43,3 +43,4 @@ window.ReactAddAnecdote = React.createBackboneClass
 
     @model().unshift(comment)
     comment.saveWithFactAndWithState()
+    @model().fact.getOpinionators().setInterested true
