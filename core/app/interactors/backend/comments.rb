@@ -52,7 +52,7 @@ module Backend
     private
 
     def dead(comment:, current_user_id:)
-      votes_counts = CommentVote.where(comment_id: comment.id).count(group: :opinion)
+      votes_counts = CommentVote.where(comment_id: comment.id).distinct.group(:opinion).count
       current_user_opinion = current_user_opinion_for(comment_id: comment.id, current_user_id: current_user_id)
 
       DeadComment.new(

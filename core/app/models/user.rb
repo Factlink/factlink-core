@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
     Comments.where(created_by_id: self.id)
   end
 
-  scope :active, where(deleted: false)
+  scope :active, ->{ where(deleted: false) }
 
   class << self
     # List of fields that are stored in Mixpanel.
