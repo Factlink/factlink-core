@@ -1,11 +1,22 @@
 ReactCommentVoteFactlink = React.createBackboneClass
   displayName: 'ReactCommentVoteFactlink'
+  propTypes:
+    fact_opinionators: React.PropTypes.instanceOf(InterestedUsers).isRequired
+    model: React.PropTypes.instanceOf(Comment).isRequired
 
   _on_up_vote: ->
-    @model().clickCurrentUserOpinion 'believes'
+    if @model().get('current_user_opinion') == 'believes'
+      @model().saveCurrentUserOpinion 'no_vote'
+    else
+      @model().saveCurrentUserOpinion 'believes'
+      @props.fact_opinionators.setInterested true
 
   _on_down_vote: ->
-    @model().clickCurrentUserOpinion 'disbelieves'
+    if @model().get('current_user_opinion') == 'disbelieves'
+      @model().saveCurrentUserOpinion 'no_vote'
+    else
+      @model().saveCurrentUserOpinion 'disbelieves'
+      @props.fact_opinionators.setInterested true
 
   render: ->
     _div ['comment-votes'],
@@ -39,7 +50,11 @@ ReactCommentVoteKennisland = React.createBackboneClass
   displayName: 'ReactCommentVoteKennisland'
 
   _on_up_vote: ->
-    @model().clickCurrentUserOpinion 'believes'
+    if @model().get('current_user_opinion') == 'believes'
+      @model().saveCurrentUserOpinion 'no_vote'
+    else
+      @model().saveCurrentUserOpinion 'believes'
+      @props.fact_opinionators.setInterested true
 
   render: ->
     _div ['comment-votes'],
