@@ -62,7 +62,7 @@ window.ReactFeedSelection = React.createClass
 
             if window.is_kennisland
               _button ['button-success feed-selection-install-extension-button', onClick: @_toggle_create_challenge],
-                "Create challenge"
+                (if !@state.show_create_challenge then "Create challenge" else "Cancel")
             else
               _div ['feed-selection-install-extension-button'],
                 ReactInstallExtensionOrBookmarklet()
