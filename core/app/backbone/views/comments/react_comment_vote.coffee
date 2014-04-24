@@ -2,7 +2,7 @@ ReactCommentVoteFactlink = React.createBackboneClass
   displayName: 'ReactCommentVoteFactlink'
   propTypes:
     fact_opinionators: React.PropTypes.instanceOf(InterestedUsers).isRequired
-    model: React.PropTypes.instanceOf(Comment).isRequired
+    model: React.PropTypes.instanceOf(CommentTally).isRequired
 
   _on_up_vote: ->
     if @model().get('current_user_opinion') == 'believes'
