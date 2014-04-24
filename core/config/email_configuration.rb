@@ -1,15 +1,3 @@
-
-sendgrid_settings = {
-  user_name: "factlink",
-  password: '4q"_NdREV89[s0zq',
-  domain: "factlink.com",
-  address: "smtp.sendgrid.net",
-  port: 587,
-  authentication: :plain,
-  enable_starttls_auto: true,
-  openssl_verify_mode: "none" # secure connection, but not verifying
-}
-
 mandrill_settings = {
   user_name: "mark@factlink.com",
   password: 'YKJLeC_CBFnr1sxc6dtjXw',
@@ -27,7 +15,7 @@ mailcatcher_settings = {
 }
 
 if ['production', 'staging'].include? Rails.env
-  ActionMailer::Base.smtp_settings = sendgrid_settings
+  ActionMailer::Base.smtp_settings = mandrill_settings
 else
   ActionMailer::Base.smtp_settings = mailcatcher_settings
 end
