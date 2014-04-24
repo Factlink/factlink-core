@@ -53,6 +53,7 @@ ReactCollapsedText = React.createClass
         ],
           '(more)'
 
+
 window.ReactDiscussionSidebar = React.createBackboneClass
   displayName: "ReactDiscussionSidebar"
   render: ->
@@ -60,42 +61,6 @@ window.ReactDiscussionSidebar = React.createBackboneClass
       ReactSidebarLogin()
       @transferPropsTo ReactDiscussionStandalone()
 
-ReactAnecdoteOrComment = React.createClass
-  displayName: 'ReactAnecdoteOrComment'
-
-  getInitialState: ->
-    anecdote_selected: true
-
-  render: ->
-    if window.is_kennisland
-      _div ['anecdote-or-comment'],
-        _div ['anecdote-or-comment-choice'],
-          _input [
-            'radio-toggle-button'
-            id: 'CommentChoice_Anecdote'
-            type: 'radio'
-            checked: @state.anecdote_selected
-            onChange: (e) => @setState anecdote_selected: e.target.checked
-          ]
-          _label [htmlFor: 'CommentChoice_Anecdote'],
-            Factlink.Global.t.anecdote.capitalize()
-
-          _input [
-            'radio-toggle-button'
-            id: 'CommentChoice_Comment'
-            type: 'radio'
-            checked: !@state.anecdote_selected
-            onChange: (e) => @setState anecdote_selected: !e.target.checked
-          ]
-          _label [htmlFor: 'CommentChoice_Comment', 'spec-anecdote-or-comment-select-comment'],
-            'Comment'
-
-        if @state.anecdote_selected
-          @transferPropsTo ReactAddAnecdote()
-        else
-          @transferPropsTo ReactAddComment()
-    else
-      @transferPropsTo ReactAddComment()
 
 window.ReactDiscussionStandalone = React.createBackboneClass
   displayName: 'ReactDiscussionStandalone'
@@ -117,7 +82,7 @@ window.ReactDiscussionStandalone = React.createBackboneClass
 
       ReactOpinionateArea
         model: @model().getOpinionators()
-      ReactAnecdoteOrComment
+      ReactAddAnecdoteOrComment
         model: @model().comments()
         initiallyFocus: @props.initiallyFocusAddComment
         site_url: @props.site_url
