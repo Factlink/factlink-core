@@ -179,8 +179,4 @@ class User < ActiveRecord::Base
   def valid_password?(password)
     super
   end
-
-  after_update do |user|
-    UserObserverTask.handle_changes user
-  end
 end
