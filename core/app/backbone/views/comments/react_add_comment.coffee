@@ -107,7 +107,6 @@ window.ReactAddComment = React.createBackboneClass
   _onTextareaChange: (text) ->
     @setState(text: text)
     @setState(controlsOpened: true) if text.length > 0
-    mp_track "Annotation: Started typing"
 
   _onSearchInsert: (text) ->
     @refs.textarea.insert text
@@ -118,11 +117,7 @@ window.ReactAddComment = React.createBackboneClass
     return unless comment.isValid()
 
     @model().unshift(comment)
-    comment.saveWithFactAndWithState {},
-      success: ->
-        mp_track "Annotation: Added comment",
-          factlink_id: comment.collection.fact.id
-
+    comment.saveWithFactAndWithState {}
     @setState @getInitialState()
     @refs.textarea.updateText ''
 

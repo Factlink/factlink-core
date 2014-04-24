@@ -34,7 +34,6 @@ class window.User extends Backbone.Model
         @set 'statistics_follower_count', @get('statistics_follower_count')-1
 
     @set 'statistics_follower_count', @get('statistics_follower_count')+1
-    mp_track 'User: Followed'
 
   unfollow: ->
     self = currentSession.user().following.get(@id)
@@ -46,7 +45,6 @@ class window.User extends Backbone.Model
         @set 'statistics_follower_count', @get('statistics_follower_count')+1
 
     @set 'statistics_follower_count', @get('statistics_follower_count')-1
-    mp_track 'User: Unfollowed'
 
   followed_by_me: ->
     currentSession.user().following.some (model) =>

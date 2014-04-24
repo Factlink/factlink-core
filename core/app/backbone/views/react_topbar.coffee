@@ -59,16 +59,13 @@ window.ReactTopbarSearch = React.createBackboneClass
     url = '/search?s=' + encodeURIComponent @model().get('query')
     Backbone.history.navigate url, true
 
-  _onFocus: ->
-    mp_track "Search: Top bar search focussed"
-
   _onChange: (e) ->
     @model().set query: e.target.value
 
   render: ->
     _div ['topbar-search'],
       _form [onSubmit: @_onSubmit],
-        _input ['topbar-search-field', id: 'spec-search', onFocus: @_onFocus,
+        _input ['topbar-search-field', id: 'spec-search',
                 onChange: @_onChange, value: @model().get('query')]
 
 window.ReactTopbar = React.createClass
