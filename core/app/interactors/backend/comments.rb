@@ -56,13 +56,17 @@ module Backend
       votes_counts = CommentVote.where(comment_id: comment.id).count(group: :opinion)
       current_user_opinion = current_user_opinion_for(comment_id: comment.id, current_user_id: current_user_id)
 
+      if comment.markup_format == 'anecdote'
+        formatted_content = FormattedAnecdoteContent.new(comment.content).html
+      else
+        formatted_content = FormattedCommentContent.new(comment.content).html
+      end
+
       DeadComment.new(
         id: comment.id.to_s,
         created_by: Backend::Users.by_ids(user_ids: comment.created_by_id).first,
         created_at: comment.created_at.utc.iso8601,
-        markup_format: comment.markup_format,
-        content: comment.content, # only for comments with 'anecdote' format
-        formatted_content: FormattedCommentContent.new(comment.content).html,
+        formatted_content: formatted_content,
         sub_comments_count: Backend::SubComments.count(parent_id: comment.id),
         is_deletable: Backend::Comments.deletable?(comment.id),
         tally: {
