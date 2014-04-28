@@ -12,6 +12,8 @@ window.ReactInput = React.createBackboneClass
   displayName: 'ReactInput'
 
   render: ->
+    if @model().get(@props.attribute) == undefined
+      console.error 'ReactInput undefined value for model', @model(), @props.attribute,  @model().get(@props.attribute)
     _div ['control-group'],
       _label [],
         _span ['control-label'],

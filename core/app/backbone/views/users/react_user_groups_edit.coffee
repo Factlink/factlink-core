@@ -11,12 +11,32 @@ window.ReactGroupMembershipEdit = React.createClass
         ReactAdminGroupEdit user: @props.user
       else
         "Natch!"
-        
+
 
 
 window.ReactAdminGroupEdit = React.createClass
   displayName: 'ReactAdminGroupEdit'
   mixins: [React.BackboneMixin('user')]
 
+  getInitialState: ->
+    @_freshState()
+
+  _freshState: ->
+    group: new Group
+
+  _submit: ->
+    alert('TODO: ' + JSON.stringify(@state.group.toJSON()))
+    @setState @_freshState()
+
   render: ->
-    _span [], JSON.stringify(@props.user.toJSON(),null,true)
+    console.log 'rendering', @state.group.cid
+    _span [],
+      ReactSubmittableForm {
+          onSubmit: @_submit
+          model: @state.group
+          label: '(admin!) Add Group'
+        },
+          ReactInput
+            model: @state.group
+            label: 'Group name'
+            attribute: 'groupname'
