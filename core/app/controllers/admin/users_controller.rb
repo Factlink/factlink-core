@@ -49,8 +49,12 @@ class Admin::UsersController < AdminController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
+  def sort_order
+    sort_column + " " + sort_direction.upcase
+  end
+
   def get_users
-    @users = User.order(sort_column + " " + sort_direction.upcase)
+    @users = User.order(sort_order)
   end
 
   def set_available_user_features
