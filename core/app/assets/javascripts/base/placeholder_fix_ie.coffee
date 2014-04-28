@@ -1,6 +1,6 @@
 # This only affects the inputs/textareas that aren't loaded through Backbone Views because they don't exist here
 
-window.resetPlaceholders = ->
+$ ->
   $('.placeholder')
     .not(':password')
     .trigger('blur.placeholder')
@@ -14,6 +14,3 @@ window.resetPlaceholders = ->
 
   $('input, textarea')
     .placeholder()
-
-$ ->
-  resetPlaceholders()
