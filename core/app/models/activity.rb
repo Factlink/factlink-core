@@ -10,6 +10,7 @@ class Activity < ActiveRecord::Base
 
   # WARNING: if this method returns false, we assume it will never become
   #          valid again either, and remove/destroy freely.
+  # TODO: remove this, and instead do cascading delete in subjects
   def still_valid?
     valid? and user_still_valid? and subject_still_valid?
   end
