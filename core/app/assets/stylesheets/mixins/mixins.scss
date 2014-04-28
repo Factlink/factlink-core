@@ -60,23 +60,6 @@
   border-bottom-left-radius: $radius;
 }
 
-@mixin transform($args) {
-  -webkit-transform: $args;
-     -moz-transform: $args;
-      -ms-transform: $args;
-       -o-transform: $args;
-          transform: $args;
-}
-
-@mixin transform-origin($args) {
-  -webkit-transform-origin: $args;
-  -moz-transform-origin: $args;
-  -ms-transform-origin: $args;
-  -o-transform-origin: $args;
-  transform-origin: $args;
-}
-
-
 @mixin background-clip($clip) {
   -webkit-background-clip: $clip;
      -moz-background-clip: $clip;
