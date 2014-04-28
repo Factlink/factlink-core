@@ -8,7 +8,7 @@ extension_install_options_by_browser =
     href: 'https://factlink.github.io/browser-extensions/firefox/factlink-extension.xpi'
     iconClass: 'firefox-icon'
   safari:
-    href: 'https://static.factlink.com/extension/firefox/factlink.safariextz'
+    href: 'https://factlink.github.io/browser-extensions/safari/factlink.safariextz'
     iconClass: 'safari-icon'
   chrome:
     href: 'javascript:chrome.webstore.install()'
