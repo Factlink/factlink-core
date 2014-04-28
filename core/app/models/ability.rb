@@ -62,6 +62,7 @@ class Ability
       can :access, AdminArea
       can :configure, FactlinkWebapp
       can :manage, User
+      can :create, Group
     end
 
     can :update, user
