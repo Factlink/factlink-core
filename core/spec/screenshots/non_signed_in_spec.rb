@@ -12,7 +12,7 @@ describe "Non signed in pages:", type: :feature do
       fact_data = create :fact_data, displaystring: 'Throngs of them!!1!'
       as(user) do |pavlov|
         pavlov.interactor(:'comments/create',
-                           fact_id: fact_data.fact_id,
+                           fact_id: fact_data.fact_id.to_s,
                            content: 'content')
       end
       sign_out_user

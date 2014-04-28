@@ -46,7 +46,7 @@ class Export
          {username: User.find(fact_data.created_by_id).username}.merge(
                        fields_from_object(fact_data, [
         :fact_id, :displaystring, :title, :url, :created_at
-      ]))) + " do\n"
+      ]).merge(fact_id: fact_data.fact_id.to_s))) + " do\n"
 
       sorted_votes = Backend::Facts.votes(fact_id: fact_data.fact_id).sort do |a, b|
         a[:username] <=> b[:username]
@@ -72,7 +72,7 @@ class Export
       comment_array.sort_by(&comment_sorter).each do |comment|
         output << import('FactlinkImport.comment',
           fields_from_object(comment, [:content, :created_at]).merge(
-            fact_id: fact_data.fact_id, username: comment.created_by.username)
+            fact_id: fact_data.fact_id.to_s, username: comment.created_by.username)
         ) + " do\n"
 
         Backend::Comments.opiniated(comment_id: comment.id.to_s, type: 'believes').to_a.sort_by(&:username).each do |believer|
