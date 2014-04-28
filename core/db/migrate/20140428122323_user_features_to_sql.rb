@@ -6,6 +6,10 @@ class UserFeaturesToSql < ActiveRecord::Migration
       end
       user.save!
     end
+
+    Nest.new('admin_global_features').smembers.each do |feature|
+      Feature.create!(name: feature)
+    end
   end
 
   def down
