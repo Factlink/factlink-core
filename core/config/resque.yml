@@ -1,4 +1,0 @@
-development: localhost:6380
-test: localhost:6380
-staging: 172.18.64.15:6379
-production: 172.18.64.26:6379

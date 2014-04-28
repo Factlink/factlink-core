@@ -35,22 +35,6 @@ set :default_environment, {
   PATH: '/usr/local/rbenv/shims:/usr/local/rbenv/bin:$PATH'
 }
 
-namespace :action do
-
-  task :start_resque do
-    run "sudo monit start resque"
-  end
-
-  task :stop_resque do
-    run "sudo monit stop resque"
-  end
-
-  task :stop_background_processes do
-    run "#{current_path}/bin/server/stop_background_scripts.sh"
-  end
-
-end
-
 namespace :deploy do
   task :all do
     set_conf_path="export CONFIG_PATH=#{deploy_to}/current; export NODE_ENV=#{deploy_env};"
@@ -63,12 +47,6 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
-
-  task :check_installed_packages do
-    run "sh #{current_release}/bin/server/check_installed_packages.sh"
-  end
-
-  # end
 
   #
   #  Only precompile if files have changed
@@ -85,13 +63,7 @@ $stdout.sync = true
 before 'deploy:all',      'deploy'
 after 'deploy:all',       'deploy:restart'
 
-before 'deploy:migrate',  'action:stop_background_processes'
-
 after 'deploy',           'deploy:migrate'
-
-after 'deploy:migrate',   'action:start_resque'
-
-after 'deploy:update',    'deploy:check_installed_packages'
 
 after 'deploy:check_installed_packages', 'deploy:cleanup'
 
