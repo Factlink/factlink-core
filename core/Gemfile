@@ -39,9 +39,6 @@ gem 'cancan', '~> 1.6.10'
 gem 'omniauth-facebook', '~> 1.6.0'
 gem 'omniauth-twitter', '~> 1.0.1'
 
-# social sharing
-gem 'koala', '~> 1.9.0'
-
 gem 'httparty', '~> 0.13.0'
 
 #browser detection
