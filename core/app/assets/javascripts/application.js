@@ -16,6 +16,5 @@
 //= require_tree ./base
 //= require_tree ./lib
 //= require jquery.scrollTo
-//= require lib/prevent_scroll_propagation
 //= require postFactlinkObject
 //= require factlink.backbone
