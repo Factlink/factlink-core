@@ -3,41 +3,35 @@ module Backend
     extend self
 
     def get(activity_id:)
-      dead(Activity[activity_id])
+      dead(Activity.find(activity_id))
     end
 
-    def activities_older_than(activities_set:, timestamp: nil, count: nil)
-      #watch out: don't use defaults other than nil since nill is automatically passed in at the rails controller level.
-      timestamp = timestamp || 'inf'
-      count = count ? count.to_i : 20
-      retrieved_activities = Enumerator.new do |yielder|
-        while true
-          current =
-              activities_set.below(timestamp,
-                                   count: count, #count here is merely the batch-size; anything larger than 0 is valid.
-                                   reversed: true,
-                                   withscores: true)
-          if current.none?
-            break
-          else
-            timestamp = current.last[:score]
-            current.each { |o| yielder.yield o }
-          end
-        end
-      end.lazy
-
-      retrieved_activities
-        .map { |scored_activity| scored_activity_to_dead_activity scored_activity }
-        .reject { |o| o.nil? }
-        .take(count)
-        .to_a
+    def global(timestamp: nil, count: 20)
+      timestamp ||= Time.now
+      Activity.where(action: %w(created_comment created_sub_comment))
+              .where("created_at <= ?", timestamp)
+              .order("created_at DESC")
+              .limit(count)
+              .map(&method(:dead))
     end
 
-    private def scored_activity_to_dead_activity(item: , score:)
-      dead_activity = dead(item)
-      return nil if dead_activity.nil?
+    def global_discussions(timestamp: nil, count: 20)
+      timestamp ||= Time.now
+      Activity.where(action: 'created_fact')
+              .where("created_at <= ?", timestamp)
+              .order("created_at DESC")
+              .limit(count)
+              .map(&method(:dead))
+    end
 
-      dead_activity.merge(timestamp: score)
+    def users(timestamp: nil, username: username)
+      timestamp ||= Time.now
+      user = User.where(username: username).first
+      Activity.where(action: %w(created_comment created_sub_comment followed_user), user_id: user.id)
+              .where("created_at <= ?", timestamp)
+              .order("created_at DESC")
+              .limit(20)
+              .map(&method(:dead))
     end
 
     private def dead(activity)
@@ -47,6 +41,7 @@ module Backend
           action: activity.action,
           created_at: activity.created_at.to_time,
           id: activity.id,
+          timestamp: activity.created_at.utc.to_s,
       }
       specialized_data =
           case activity.action
@@ -84,36 +79,15 @@ module Backend
       #are gone.  This  causes errors.  We ignore such activities.
     end
 
-    def add_activities_to_follower_stream(followed_user_id:, current_user_id:)
-      activities_set = User.where(id: followed_user_id).first.own_activities
+    def create(user_id:, action:, subject: nil, time:, send_mails:)
+      activity = Activity.new
+      activity.user_id = user_id
+      activity.action = action.to_s
+      activity.subject = subject
+      activity.created_at = time.utc
+      activity.updated_at = time.utc
+      activity.save!
 
-      activities = activities_set.below('inf',
-                    count: 7,
-                    reversed: true,
-                    withscores: false).compact
-
-      current_user = User.where(id: current_user_id).first
-
-      activities.each do |activity|
-        activity.add_to_list_with_score current_user.stream_activities
-      end
-    end
-
-    def create(user_id:, action:, subject: nil, subject_id: nil, subject_class: nil, time:, send_mails:)
-      if subject
-        subject_id = subject.id.to_s
-        subject_class = subject.class.to_s
-      elsif not (subject_id && subject_class)
-        raise "INVALID SUBJECT"
-      end
-      activity = Activity.create \
-        user_id: user_id,
-        action: action,
-        subject_id: subject_id,
-        subject_class: subject_class,
-        created_at: time.utc.to_s
-
-      Resque.enqueue(ProcessActivity, activity.id)
       send_mail_for_activity activity: activity if send_mails
 
       nil

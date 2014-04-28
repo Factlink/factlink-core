@@ -13,8 +13,8 @@ describe 'activity queries' do
     SendActivityMailToUser.stub(:perform) do |user_id, activity_id|
       @mails_by_username_and_activity << {
         username: User.find(user_id).username,
-        subject_class: Activity[activity_id].subject_class,
-        action: Activity[activity_id].action
+        subject_type: Activity.find(activity_id).subject_type,
+        action: Activity.find(activity_id).action
       }
     end
   end

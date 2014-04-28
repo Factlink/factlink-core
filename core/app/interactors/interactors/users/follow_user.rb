@@ -48,11 +48,6 @@ module Interactors
           subject: user_to_follow,
           time: pavlov_options[:time],
           send_mails: pavlov_options[:send_mails]
-
-
-        Backend::Activities.add_activities_to_follower_stream(
-          followed_user_id: user_to_follow.id,
-          current_user_id: current_user.id)
       end
 
 

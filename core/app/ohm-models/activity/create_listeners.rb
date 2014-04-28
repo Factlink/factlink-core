@@ -1,6 +1,6 @@
 require 'pavlov'
 
-class Activity < OurOhm
+class Activity < ActiveRecord::Base
   class ListenerCreator
     #
     # in the following code, 'you' is anyone in the write_ids
@@ -16,7 +16,7 @@ class Activity < OurOhm
 
     def forUser_comment_was_added_to_a_fact_you_follow
       {
-        subject_class: "Comment",
+        subject_type: "Comment",
         action: :created_comment,
         write_ids: ->(a) { reject_self(Backend::Followers.followers_for_fact_id(a.subject.fact_data.fact_id),a) }
       }
@@ -24,7 +24,7 @@ class Activity < OurOhm
 
     def forUser_follower_created_comment
       {
-        subject_class: "Comment",
+        subject_type: "Comment",
         action: :created_comment,
         write_ids: people_who_follow_user_of_activity
       }
@@ -32,7 +32,7 @@ class Activity < OurOhm
 
     def forUser_someone_added_a_subcomment_to_a_fact_you_follow
       {
-        subject_class: "SubComment",
+        subject_type: "SubComment",
         action: :created_sub_comment,
         write_ids: ->(a) { reject_self(Backend::Followers.followers_for_fact_id(a.subject.parent.fact_data.fact_id),a) }
       }
@@ -40,7 +40,7 @@ class Activity < OurOhm
 
     def forUser_follower_created_sub_comment
       {
-        subject_class: "SubComment",
+        subject_type: "SubComment",
         action: :created_sub_comment,
         write_ids: people_who_follow_user_of_activity
       }
@@ -50,7 +50,7 @@ class Activity < OurOhm
       # If you follow someone, you get activities when they follow someone,
       # except when they follow you
       {
-        subject_class: 'User',
+        subject_type: 'User',
         action: 'followed_user',
         write_ids: ->(a) { (Backend::UserFollowers.follower_ids(followee_id: a.user_id) - [a.subject_id.to_i]) }
       }
@@ -104,10 +104,10 @@ class Activity < OurOhm
       Activity::Listener.register do
         activity_for "GlobalFeed"
         named :all_activities
-        activity subject_class: "Comment",
+        activity subject_type: "Comment",
                  action: :created_comment,
                  write_ids: write_ids
-        activity subject_class: "SubComment",
+        activity subject_type: "SubComment",
                  action: :created_sub_comment,
                  write_ids: write_ids
       end
@@ -120,7 +120,7 @@ class Activity < OurOhm
       Activity::Listener.register do
         activity_for "GlobalFeed"
         named :all_discussions
-        activity subject_class: "FactData",
+        activity subject_type: "FactData",
                  action: :created_fact,
                  write_ids: write_ids
       end

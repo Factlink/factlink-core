@@ -9,8 +9,8 @@ class FactData < ActiveRecord::Base
 
   # attr_accessible []
   # For compatibility with Activity::Listener
-  def self.[](fact_id)
-    FactData.where(fact_id: fact_id).first
+  def self.[](id)
+    find(id)
   end
 
   #index({ site_url: 1 })

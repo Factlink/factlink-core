@@ -1,6 +1,6 @@
 require 'active_support/core_ext/hash/slice'
 
-class Activity < OurOhm
+class Activity < ActiveRecord::Base
   class Listener
     def self.all
       @all ||= {}
@@ -61,7 +61,7 @@ class Activity < OurOhm
     end
 
     def get_fields_query query
-      fields_to_match = :subject_class, :action
+      fields_to_match = :subject_type, :action
       fields_query = query.slice(*fields_to_match)
 
       extra_keys = query.keys -
