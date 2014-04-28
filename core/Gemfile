@@ -76,6 +76,7 @@ group :assets do
   gem "rails-assets-backbone", '~> 1.1.2' #beware, backbone does not use semver!
 
   gem "rails-assets-react"
+  gem "rails-assets-react.backbone"
   gem "rails-assets-jquery-autosize"
   gem 'rails-assets-tether'
 
