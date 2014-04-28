@@ -121,19 +121,6 @@ class User < ActiveRecord::Base
     !deleted
   end
 
-  def stream_activities
-    activity_set(name: :stream_activities)
-  end
-
-  def own_activities
-    activity_set(name: :own_activities)
-  end
-
-  private def activity_set(name:)
-    key = Nest.new('User')[id][name]
-    TimestampedSet.new(key, Activity)
-  end
-
   def self.human_attribute_name(attr, options = {})
     attr.to_s == 'non_field_error' ? '' : super
   end
