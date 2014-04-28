@@ -6,42 +6,37 @@ module Backend
       dead(Activity.find(activity_id))
     end
 
-    def global(timestamp: nil, count: 20)
-      timestamp ||= Time.now
-      Activity.where(action: %w(created_comment created_sub_comment))
-              .where("created_at <= ?", timestamp)
-              .order("created_at DESC")
-              .limit(count)
-              .map(&method(:dead))
+    def global(timestamp:, count:)
+      relation = Activity.where(action: %w(created_comment created_sub_comment))
+
+      feed relation: relation, timestamp: timestamp, count: count
     end
 
-    def global_discussions(timestamp: nil, count: 20)
-      timestamp ||= Time.now
-      Activity.where(action: 'created_fact')
-              .where("created_at <= ?", timestamp)
-              .order("created_at DESC")
-              .limit(count)
-              .map(&method(:dead))
+    def global_discussions(timestamp:, count:)
+      relation = Activity.where(action: 'created_fact')
+
+      feed relation: relation, timestamp: timestamp, count: count
     end
 
-    def users(timestamp: nil, username: username)
-      timestamp ||= Time.now
+    def users(timestamp:, username: username)
       user = User.where(username: username).first
-      Activity.where(action: %w(created_comment created_sub_comment followed_user), user_id: user.id)
-              .where("created_at <= ?", timestamp)
-              .order("created_at DESC")
-              .limit(20)
-              .map(&method(:dead))
+      relation = Activity.where(action: %w(created_comment created_sub_comment followed_user), user_id: user.id)
+
+      feed relation: relation, timestamp: timestamp
     end
 
-    def personal(timestamp: nil, user_id:)
+    def personal(timestamp:, user_id:)
+      feed Activity.joins("LEFT JOIN sub_comments ON sub_comments.id = activities.subject_id AND activities.subject_type = 'SubComment' LEFT JOIN comments ON comments.id = sub_comments.parent_id OR (comments.id = activities.subject_id AND activities.subject_type = 'Comment') LEFT JOIN fact_data_interestings ON fact_data_interestings.fact_data_id = comments.fact_data_id LEFT JOIN followings ON followings.followee_id = activities.user_id")
+                   .where('fact_data_interestings.user_id = ? OR followings.follower_id = ?', user_id, user_id)
+                   .where(action: %w(created_comment created_sub_comment followed_user))
+    end
+
+    private def feed(relation:, timestamp: nil, count: 20)
       timestamp ||= Time.now
-      Activity.joins("LEFT JOIN sub_comments ON sub_comments.id = activities.subject_id AND activities.subject_type = 'SubComment' LEFT JOIN comments ON comments.id = sub_comments.parent_id OR (comments.id = activities.subject_id AND activities.subject_type = 'Comment') LEFT JOIN fact_data_interestings ON fact_data_interestings.fact_data_id = comments.fact_data_id LEFT JOIN followings ON followings.followee_id = activities.user_id")
-              .where('fact_data_interestings.user_id = ? OR followings.follower_id = ?', user_id, user_id)
-              .where(action: %w(created_comment created_sub_comment followed_user))
-              .where("activities.created_at <= ?", timestamp)
+
+      relation.where("activities.created_at <= ?", timestamp)
               .order('activities.created_at DESC')
-              .limit(20)
+              .limit(count)
               .map(&method(:dead))
     end
 
