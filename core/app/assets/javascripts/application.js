@@ -16,6 +16,6 @@
 //= require ./globals
 
 //= require_tree ./base
-//= require_tree ./lib
+//= require_tree ./utils
 //= require postFactlinkObject
 //= require factlink.backbone
