@@ -6,11 +6,12 @@ module Interactors
       arguments :timestamp
 
       def authorized?
-        true
+        pavlov_options[:current_user]
       end
 
       def execute
-        [] # TODO
+        Backend::Activities.personal(timestamp: timestamp,
+          user_id: pavlov_options[:current_user].id)
       end
 
       def validate

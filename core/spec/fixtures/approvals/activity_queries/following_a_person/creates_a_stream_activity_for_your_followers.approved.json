@@ -1,3 +1,22 @@
 [
-
+  {
+    "action": "followed_user",
+    "created_at": "<created_at>",
+    "id": "<id>",
+    "timestamp": "<timestamp>",
+    "followed_user": {
+      "id": "<id>",
+      "name": "John3 Doe3",
+      "username": "johndoe3",
+      "gravatar_hash": "0c0b78bf3bb3107091bdb93c94ba73a3",
+      "deleted": false
+    },
+    "user": {
+      "id": "<id>",
+      "name": "John2 Doe2",
+      "username": "johndoe2",
+      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
+      "deleted": false
+    }
+  }
 ]
