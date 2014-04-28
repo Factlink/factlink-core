@@ -28,7 +28,7 @@ class MailSubscriptionsController < ApplicationController
     case subscribe_action.to_s
     when 'unsubscribe'
       success = Backend::Notifications.unsubscribe(user: user, type: type)
-      SubscriptionsMailer.unsubscribe(user.id, type).deliver
+      SendUnsubscribeMailToUser.new.async.perform(user.id, type)
       success
     when 'subscribe'
       Backend::Notifications.subscribe(user: user, type: type)
