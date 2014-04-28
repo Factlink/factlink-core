@@ -20,7 +20,6 @@ gem 'strict_struct', '= 0.0.4' # by @markijbema, ask him if he pushed breaking c
 gem 'redis', '~> 2.2.1'
 gem 'redis-objects', '~> 0.5.3' # cannot be upgraded to 0.6 until we update redis to 3.0 or bigger
 gem 'multi_json', '~> 1.7'
-gem 'nest', '~> 1.1.2'
 
 gem 'sucker_punch'
 

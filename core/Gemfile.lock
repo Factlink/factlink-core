@@ -213,8 +213,6 @@ GEM
     multi_json (1.9.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    nest (1.1.2)
-      redis
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -455,7 +453,6 @@ DEPENDENCIES
   konacha (~> 3.0)
   lograge (~> 0)
   multi_json (~> 1.7)
-  nest (~> 1.1.2)
   ohnoes!
   oily_png (~> 1.1)
   omniauth-facebook (~> 1.6.0)
