@@ -45,8 +45,7 @@ module Interactors
         Backend::Activities.create \
           user_id: current_user.id,
           action: :followed_user,
-          subject_id: user_to_follow.id,
-          subject_class: 'User',
+          subject: user_to_follow,
           time: pavlov_options[:time],
           send_mails: pavlov_options[:send_mails]
 
