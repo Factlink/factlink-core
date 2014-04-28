@@ -27,6 +27,7 @@ gem 'nest', '~> 1.1.2'
 # which requires redis > 3.0
 gem 'resque', '= 1.23.0', require: 'resque/server'
 gem 'resque_mailer', '~> 2.2.6'
+gem 'sucker_punch'
 
 # Everyone loves JSON
 gem 'json', '~> 1.8'

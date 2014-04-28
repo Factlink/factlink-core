@@ -127,7 +127,7 @@ module Backend
                                          .where(id: user_ids)
 
       recipients.each do |user|
-        Resque.enqueue SendActivityMailToUser, user.id, activity.id
+        SendActivityMailToUser.new.async.perform(user.id, activity.id)
       end
     end
   end

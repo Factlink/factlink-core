@@ -10,12 +10,17 @@ describe 'activity queries' do
     FactoryGirl.reload
 
     @mails_by_username_and_activity = []
-    SendActivityMailToUser.stub(:perform) do |user_id, activity_id|
-      @mails_by_username_and_activity << {
-        username: User.find(user_id).username,
-        subject_type: Activity.find(activity_id).subject_type,
-        action: Activity.find(activity_id).action
-      }
+    SendActivityMailToUser.stub(:new) do
+      job = double
+      job.stub async: job
+      job.stub(:perform) do |user_id, activity_id|
+        @mails_by_username_and_activity << {
+          username: User.find(user_id).username,
+          subject_type: Activity.find(activity_id).subject_type,
+          action: Activity.find(activity_id).action
+        }
+      end
+      job
     end
   end
 
