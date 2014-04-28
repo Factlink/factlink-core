@@ -29,7 +29,6 @@
   </head>
   <body class="controller_<%= controller.controller_name -%> action_<%= controller.action_name -%><%= " show_footer" if defined? show_footer and show_footer %>">
     <%= render 'flash/notification_center', notice: notice, alert: alert %>
-    <%= render 'feedback/button' unless defined? dont_render_feedback %>
 
     <div id="js-topbar-region"></div>
 
@@ -39,7 +38,6 @@
       <%= render "base/footer" %>
     <% end %>
 
-    <%= render "feedback/frame" %>
     <%= render "base/env_warning" %>
 
     <%= javascript_include_base %>
