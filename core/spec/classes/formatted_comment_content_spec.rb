@@ -27,9 +27,9 @@ describe FormattedCommentContent do
       FactlinkUI::Application.config.stub(core_url: 'http://factlink.com')
 
       fact_data = create :fact_data
-      dead_fact = Backend::Facts.get(fact_id: fact_data.fact_id)
+      dead_fact = Backend::Facts.get(fact_id: fact_data.fact_id.to_s)
 
-      friendly_fact_url = FactlinkUI::Application.config.core_url + "/f/#{fact_data.fact_id}"
+      friendly_fact_url = FactlinkUI::Application.config.core_url + "/f/#{fact_data.fact_id.to_s}"
       proxy_open_url = dead_fact.proxy_open_url
       displaystring = dead_fact.displaystring
 

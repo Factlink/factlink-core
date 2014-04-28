@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140428122323) do
+ActiveRecord::Schema.define(version: 20140428132653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20140428122323) do
     t.text     "title"
     t.text     "displaystring"
     t.text     "site_url"
-    t.string   "fact_id"
+    t.integer  "fact_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "created_by_id"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20140428122323) do
   end
 
   add_index "features", ["user_id", "name"], name: "index_features_on_user_id_and_name", unique: true, using: :btree
+  add_index "features", ["user_id"], name: "index_features_on_user_id", using: :btree
 
   create_table "followings", force: true do |t|
     t.integer  "followee_id"

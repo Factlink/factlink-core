@@ -40,7 +40,7 @@ class FactData < ActiveRecord::Base
         id_key.set fact_data.fact_id
       end
     else
-      fact_data.fact_id = id_key.incr.to_s
+      fact_data.fact_id = id_key.incr.to_i
     end
   end
 

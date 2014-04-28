@@ -13,13 +13,13 @@ describe "factlink", type: :feature do
 
     it "can be agreed" do
       @factlink = create :fact_data
-      open_discussion_sidebar_for @factlink.fact_id
+      open_discussion_sidebar_for @factlink.fact_id.to_s
 
       find('.spec-button-interesting').click
 
       eventually_succeeds do
         as(@user) do |pavlov|
-          expect(pavlov.interactor(:'facts/votes', fact_id: @factlink.fact_id).length).to eq 1
+          expect(pavlov.interactor(:'facts/votes', fact_id: @factlink.fact_id.to_s).length).to eq 1
         end
       end
     end
@@ -31,7 +31,7 @@ describe "factlink", type: :feature do
 
       @factlink_evidence = create :fact_data, displaystring: "Fact: " + displaystring
 
-      open_discussion_sidebar_for @factlink.fact_id
+      open_discussion_sidebar_for @factlink.fact_id.to_s
       add_existing_factlink @factlink_evidence.displaystring
     end
   end
@@ -39,7 +39,7 @@ describe "factlink", type: :feature do
   it "a non logged user can log in now" do
     factlink = create :fact_data
 
-    open_discussion_sidebar_for factlink.fact_id
+    open_discussion_sidebar_for factlink.fact_id.to_s
 
     fill_in_comment_textarea 'Some text to show Post button'
     click_button 'Post'
