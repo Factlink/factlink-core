@@ -10,17 +10,7 @@ module Interactors
       end
 
       def execute
-        return [] unless current_user
-
-        Backend::Activities.activities_older_than(activities_set: activities, timestamp: timestamp)
-      end
-
-      def activities
-        current_user.stream_activities
-      end
-
-      def current_user
-        pavlov_options[:current_user]
+        [] # TODO
       end
 
       def validate
