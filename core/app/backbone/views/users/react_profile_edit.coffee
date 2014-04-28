@@ -169,7 +169,7 @@ window.ReactProfileEdit = React.createBackboneClass
               className: 'profile-edit-email-disabled'
             },
               'To change your email address, please '
-              _a ['js-feedback-modal-link'], 'contact us'
+              _a [href: 'mailto:support@factlink.com'], 'contact us'
               '.'
 
           _hr []
