@@ -1,6 +1,3 @@
-require_relative 'activity/listener'
-require_relative 'activity/create_listeners'
-
 class Activity < ActiveRecord::Base
   attr_accessible :action, :user_id, :created_at, :updated_at
   belongs_to :subject, polymorphic: true
@@ -42,5 +39,3 @@ class Activity < ActiveRecord::Base
     subject
   end
 end
-
-Activity::ListenerCreator.new.create_activity_listeners

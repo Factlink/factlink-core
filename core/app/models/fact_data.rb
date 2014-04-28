@@ -7,12 +7,6 @@ class FactData < ActiveRecord::Base
   # TODO: already choose a good database name here
   attr_accessible :displaystring, :fact_id, :site_url, :title, :created_by_id
 
-  # attr_accessible []
-  # For compatibility with Activity::Listener
-  def self.[](id)
-    find(id)
-  end
-
   #index({ site_url: 1 })
 
   has_many :comments
