@@ -10,7 +10,7 @@ module Interactors
       end
 
       def execute
-        Backend::Activities.personal(timestamp: timestamp,
+        Backend::Activities.personal(newest_timestamp: timestamp,
           user_id: pavlov_options[:current_user].id)
       end
 

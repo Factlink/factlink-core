@@ -10,7 +10,7 @@ module Interactors
       end
 
       def execute
-        Backend::Activities.users(timestamp: timestamp, username: username)
+        Backend::Activities.users(newest_timestamp: timestamp, username: username)
       end
 
       def validate

@@ -10,7 +10,7 @@ module Interactors
       end
 
       def execute
-        Backend::Activities.global_discussions(timestamp: timestamp, count: count)
+        Backend::Activities.global_discussions(newest_timestamp: timestamp, count: count)
       end
 
       def validate

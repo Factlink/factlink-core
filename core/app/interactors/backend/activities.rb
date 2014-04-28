@@ -6,35 +6,35 @@ module Backend
       dead(Activity.find(activity_id))
     end
 
-    def global(timestamp:, count:)
+    def global(newest_timestamp:, count:)
       relation = Activity.where(action: %w(created_comment created_sub_comment))
 
-      feed relation: relation, timestamp: timestamp, count: count
+      feed relation: relation, newest_timestamp: newest_timestamp, count: count
     end
 
-    def global_discussions(timestamp:, count:)
+    def global_discussions(newest_timestamp:, count:)
       relation = Activity.where(action: 'created_fact')
 
-      feed relation: relation, timestamp: timestamp, count: count
+      feed relation: relation, newest_timestamp: newest_timestamp, count: count
     end
 
-    def users(timestamp:, username: username)
+    def users(newest_timestamp:, username: username)
       user = User.where(username: username).first
       relation = Activity.where(action: %w(created_comment created_sub_comment followed_user), user_id: user.id)
 
-      feed relation: relation, timestamp: timestamp
+      feed relation: relation, newest_timestamp: newest_timestamp
     end
 
-    def personal(timestamp:, user_id:)
+    def personal(newest_timestamp:, user_id:)
       feed Activity.joins("LEFT JOIN sub_comments ON sub_comments.id = activities.subject_id AND activities.subject_type = 'SubComment' LEFT JOIN comments ON comments.id = sub_comments.parent_id OR (comments.id = activities.subject_id AND activities.subject_type = 'Comment') LEFT JOIN fact_data_interestings ON fact_data_interestings.fact_data_id = comments.fact_data_id LEFT JOIN followings ON followings.followee_id = activities.user_id")
                    .where('fact_data_interestings.user_id = ? OR followings.follower_id = ?', user_id, user_id)
                    .where(action: %w(created_comment created_sub_comment followed_user))
     end
 
-    private def feed(relation:, timestamp: nil, count: 20)
-      timestamp ||= Time.now
+    private def feed(relation:, newest_timestamp: nil, count: 20)
+      newest_timestamp ||= Time.now
 
-      relation.where("activities.created_at <= ?", timestamp)
+      relation.where("activities.created_at <= ?", newest_timestamp)
               .order('activities.created_at DESC')
               .limit(count)
               .map(&method(:dead))
