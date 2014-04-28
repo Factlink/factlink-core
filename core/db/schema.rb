@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20140428092748) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "created_by_id"
+    t.integer  "group_id"
   end
 
   create_table "fact_data_interestings", force: true do |t|
@@ -79,6 +80,20 @@ ActiveRecord::Schema.define(version: 20140428092748) do
 
   add_index "followings", ["followee_id"], name: "index_followings_on_followee_id", using: :btree
   add_index "followings", ["follower_id"], name: "index_followings_on_follower_id", using: :btree
+
+  create_table "groups", force: true do |t|
+    t.string "groupname", null: false
+  end
+
+  add_index "groups", ["groupname"], name: "index_groups_on_groupname", unique: true, using: :btree
+
+  create_table "groups_users", id: false, force: true do |t|
+    t.integer "group_id", null: false
+    t.integer "user_id",  null: false
+  end
+
+  add_index "groups_users", ["group_id", "user_id"], name: "index_groups_users_on_group_id_and_user_id", unique: true, using: :btree
+  add_index "groups_users", ["user_id", "group_id"], name: "index_groups_users_on_user_id_and_group_id", using: :btree
 
   create_table "pg_search_documents", force: true do |t|
     t.text     "content"

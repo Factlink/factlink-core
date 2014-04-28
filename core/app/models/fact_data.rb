@@ -10,6 +10,7 @@ class FactData < ActiveRecord::Base
   #index({ site_url: 1 })
 
   has_many :comments
+  belongs_to :group
 
   validates_format_of :displaystring, allow_nil: true, with: /\A.*\S.*\z/m
 

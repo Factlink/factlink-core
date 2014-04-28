@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
                   :receives_digest, :email, :admin,
         as: :admin
 
+  has_and_belongs_to_many :groups
+
   after_initialize :set_default_values!
   def set_default_values!
     {

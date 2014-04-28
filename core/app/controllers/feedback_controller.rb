@@ -1,2 +1,0 @@
-class FeedbackController < ApplicationController
-end
