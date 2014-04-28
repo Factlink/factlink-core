@@ -2,10 +2,9 @@ class CleanupActivitiesWorker
   @queue = :zzz_janitor
 
   def self.perform
-    Activity.all.ids.each do |id|
-      a = Activity[id]
+    Activity.all.each do |a|
       unless a.still_valid?
-        a.delete
+        a.destroy
       end
     end
   end

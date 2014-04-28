@@ -3,6 +3,7 @@
     "action": "created_comment",
     "created_at": "<created_at>",
     "id": "<id>",
+    "timestamp": "<timestamp>",
     "fact": {
       "id": "<id>",
       "site_url": "http://example.org/1.html",
@@ -36,7 +37,6 @@
       "username": "johndoe2",
       "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
       "deleted": false
-    },
-    "timestamp": "<timestamp>"
+    }
   }
 ]

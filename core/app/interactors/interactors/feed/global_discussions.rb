@@ -10,12 +10,7 @@ module Interactors
       end
 
       def execute
-        Backend::Activities.activities_older_than(activities_set: activities,
-                                                  timestamp: timestamp, count: count)
-      end
-
-      def activities
-        GlobalFeed.instance.all_discussions
+        Backend::Activities.global_discussions(newest_timestamp: timestamp, count: count)
       end
 
       def validate

@@ -32,8 +32,7 @@ module Interactors
         Backend::Activities.create \
           user_id: pavlov_options[:current_user].id,
           action: :created_fact,
-          subject_id: dead_fact.id,
-          subject_class: "FactData",
+          subject: FactData.where(fact_id: dead_fact.id).first,
           time: pavlov_options[:time],
           send_mails: pavlov_options[:send_mails]
       end

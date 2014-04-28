@@ -1,7 +1,7 @@
 [
   {
     "username": "johndoe2",
-    "subject_class": "User",
+    "subject_type": "User",
     "action": "followed_user"
   }
 ]
