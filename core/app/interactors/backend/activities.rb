@@ -72,7 +72,7 @@ module Backend
             }
           when "created_fact"
             {
-                fact: Backend::Facts.get(fact_id: activity.subject_id),
+                fact: Backend::Facts.get(fact_id: activity.subject_id.to_s),
                 user: Backend::Users.by_ids(user_ids: [activity.user_id]).first
             }
           end
