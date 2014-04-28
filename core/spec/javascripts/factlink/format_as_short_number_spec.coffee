@@ -1,4 +1,4 @@
-#= require lib/format_as_short_number
+#= require utils/format_as_short_number
 
 describe 'window.format_as_short_number', ->
 
