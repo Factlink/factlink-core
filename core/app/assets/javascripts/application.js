@@ -9,7 +9,6 @@
 //= require underscore
 //= require console_polyfill
 //= require function_bind_polyfill
-//= require jquery.color
 //= require jquery.placeholder
 //= require ohnoes
 
