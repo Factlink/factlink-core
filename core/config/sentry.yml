@@ -1,9 +1,0 @@
-staging:
-  ravenjs:
-    public: "6b7054ff904045918dc2bc862862dd21"
-    project_id: "8"
-
-production:
-  ravenjs:
-    public: "d4b75842922b4d66a80dfdb8bd18ec8c"
-    project_id: "6"

@@ -11,8 +11,6 @@
 //= require function_bind_polyfill
 //= require jquery.color
 //= require jquery.placeholder
-//= require raven
-
 
 //= require_tree ./base
 //= require_tree ./lib
