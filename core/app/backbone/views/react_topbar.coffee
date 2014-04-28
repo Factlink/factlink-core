@@ -65,7 +65,7 @@ window.ReactTopbarSearch = React.createBackboneClass
   render: ->
     _div ['topbar-search'],
       _form [onSubmit: @_onSubmit],
-        _input ['topbar-search-field', id: 'spec-search',
+        _input ['topbar-search-field', id: 'spec-search', placeholder: 'Search...',
                 onChange: @_onChange, value: @model().get('query')]
 
 window.ReactTopbar = React.createClass
