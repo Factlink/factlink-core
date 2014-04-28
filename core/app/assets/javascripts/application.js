@@ -1,5 +1,3 @@
-// Factlink configuration
-//= require_tree ./globals
 
 // All the default libraries/files needed for all pages on Factlink
 //= require console_polyfill
@@ -13,6 +11,9 @@
 
 //= require underscore
 //= require ohnoes
+
+// Factlink configuration
+//= require ./globals
 
 //= require_tree ./base
 //= require_tree ./lib

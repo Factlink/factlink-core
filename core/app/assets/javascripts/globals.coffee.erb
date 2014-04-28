@@ -4,9 +4,15 @@
 window.is_kennisland = <%=FactlinkUI.Kennisland?.to_json %>;
 window.Factlink ||= {}
 
+bookmarklet = ->
+  script = document.createElement("script")
+  script.src = <%= (FactlinkUI::Application.config.jslib_url  + '?o=bookmarklet').to_json %>
+  script.onload = -> __internalFactlinkState("bookmarkletLoaded")
+  document.head.appendChild(script)
+
 Factlink.Global =
   ajax_loader_image: '<%= image_path("ajax-loader.gif") %>'
-  bookmarklet_link: null # Set in bookmarklet.coffee.erb
+  bookmarklet_link: 'javascript:' + bookmarklet.toString()
 
   facebook_app_id: '<%= FactlinkUI::Application.config.omniauth_conf['facebook']['id'] %>'
 
@@ -14,6 +20,7 @@ Factlink.Global =
   environment: "<%= Rails.env %>"
   t: {}
   signed_in: false
+
 
 <%
   [
