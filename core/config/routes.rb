@@ -141,6 +141,7 @@ FactlinkUI::Application.routes.draw do
   scope "/user/:username" do
     get "/" => "frontend#user_profile", as: "user_profile"
     get "/edit" => "frontend#show", as: 'edit_user'
+    get "/groups" => "frontend#show"
     get "/change-password" => "frontend#show", as: 'change_password'
     get "/notification-settings" => "frontend#show", as: 'user_notification_settings'
 
