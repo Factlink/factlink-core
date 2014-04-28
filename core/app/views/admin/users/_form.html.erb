@@ -107,7 +107,7 @@
       <label<%if @globally_enabled_features.include? feat %>
         class="admin-form-irrelevant-feature"
         <% end%> >
-        <%= check_box_tag("user[features][#{feat}]", "1", @user.features.member?(feat)) %> <%= feat %>
+        <%= check_box_tag("user[features][#{feat}]", "1", @user.features.map(&:name).member?(feat)) %> <%= feat %>
       </label>
     </li>
     <% end %>

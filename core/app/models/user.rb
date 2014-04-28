@@ -1,9 +1,7 @@
 require 'open-uri'
 require 'digest/md5'
-require 'redis/objects'
 
 class User < ActiveRecord::Base
-  include Redis::Objects
   include PgSearch
 
   multisearchable against: [:username, :full_name, :location, :biography],
@@ -28,6 +26,7 @@ class User < ActiveRecord::Base
                   :receives_digest, :email, :admin,
         as: :admin
 
+  has_many :features
   has_and_belongs_to_many :groups
 
   after_initialize :set_default_values!
@@ -139,15 +138,6 @@ class User < ActiveRecord::Base
   # Do check for deleted accounts though!
   def active_for_authentication?
     !deleted
-  end
-
-  set :features
-  def features=(values)
-    values ||= []
-    features.del
-    values.each do |val|
-      features << val
-    end
   end
 
   def social_accounts
