@@ -26,9 +26,15 @@ module Backend
     end
 
     def personal(newest_timestamp:, user_id:)
-      relation = Activity.joins("LEFT JOIN sub_comments ON sub_comments.id = activities.subject_id AND activities.subject_type = 'SubComment' LEFT JOIN comments ON comments.id = sub_comments.parent_id OR (comments.id = activities.subject_id AND activities.subject_type = 'Comment') LEFT JOIN fact_data_interestings ON fact_data_interestings.fact_data_id = comments.fact_data_id LEFT JOIN followings ON followings.followee_id = activities.user_id")
-                         .where('fact_data_interestings.user_id = ? OR followings.follower_id = ?', user_id, user_id)
-                         .where(action: %w(created_comment created_sub_comment followed_user))
+      relation = Activity
+        .joins("
+          LEFT JOIN sub_comments ON sub_comments.id = activities.subject_id AND activities.subject_type = 'SubComment'
+          LEFT JOIN comments ON comments.id = sub_comments.parent_id OR (comments.id = activities.subject_id AND activities.subject_type = 'Comment')
+          LEFT JOIN fact_data_interestings ON fact_data_interestings.fact_data_id = comments.fact_data_id
+          LEFT JOIN followings ON followings.followee_id = activities.user_id
+        ")
+        .where('fact_data_interestings.user_id = ? OR followings.follower_id = ?', user_id, user_id)
+        .where(action: %w(created_comment created_sub_comment followed_user))
 
       feed relation: relation, newest_timestamp: newest_timestamp
     end
