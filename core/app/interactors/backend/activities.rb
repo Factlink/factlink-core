@@ -46,6 +46,7 @@ module Backend
               .order('activities.created_at DESC')
               .limit(count)
               .map(&method(:dead))
+              .compact
     end
 
     private def dead(activity)
