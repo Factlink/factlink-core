@@ -38,9 +38,6 @@ module FactlinkUI
 
     config.log_level = :info
 
-    require_dependency "#{config.root}/app/ohm-models/our_ohm.rb"
-    require_dependency "#{config.root}/app/ohm-models/activity.rb"
-
     Rails.application.config.generators.template_engine :erb
 
     # Settings in config/environments/* take precedence over those specified here.

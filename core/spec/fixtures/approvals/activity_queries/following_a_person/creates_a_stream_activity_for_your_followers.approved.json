@@ -3,6 +3,7 @@
     "action": "followed_user",
     "created_at": "<created_at>",
     "id": "<id>",
+    "timestamp": "<timestamp>",
     "followed_user": {
       "id": "<id>",
       "name": "John3 Doe3",
@@ -16,7 +17,6 @@
       "username": "johndoe2",
       "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
       "deleted": false
-    },
-    "timestamp": "<timestamp>"
+    }
   }
 ]

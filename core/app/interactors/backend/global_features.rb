@@ -3,23 +3,14 @@ module Backend
     extend self
 
     def all
-      redis_set.smembers
+      Feature.where(user_id: nil).map(&:name)
     end
 
     def set(features)
-      redis_set.del
+      Feature.where(user_id: nil).each(&:destroy)
       features.each do |feature|
-        redis_set.sadd feature
-        #TODO replace sadd feature with sadd array-of-features
-        # once we update to redis-rb 3.0 / redis 2.4 which support
-        # variadic adds.
+        Feature.create!(name: feature)
       end
-    end
-
-    private
-
-    def redis_set
-      Nest.new(:admin_global_features)
     end
   end
 end

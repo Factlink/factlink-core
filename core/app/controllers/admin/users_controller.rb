@@ -14,8 +14,15 @@ class Admin::UsersController < AdminController
       params[:user][:password] = nil
       params[:user][:password_confirmation] = nil
     end
+
+    @user.features.each(&:destroy)
+    params[:user].fetch(:features,{}).keys.each do |feature|
+      @user.features << Feature.create!(name: feature)
+    end
+    @user.save!
+    params[:user][:features] = nil
+
     if @user.assign_attributes(params[:user], as: :admin) and @user.save
-      @user.features = params[:user].fetch(:features,{}).keys
       redirect_to admin_users_path, notice: 'User was successfully updated.'
     else
       render :edit
@@ -49,8 +56,12 @@ class Admin::UsersController < AdminController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
+  def sort_order
+    sort_column + " " + sort_direction.upcase
+  end
+
   def get_users
-    @users = User.order(sort_column + " " + sort_direction.upcase)
+    @users = User.order(sort_order)
   end
 
   def set_available_user_features

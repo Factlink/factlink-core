@@ -1,4 +1,4 @@
-#= require lib/string_hash
+#= require utils/string_hash
 
 describe 'window.string_hash', ->
   tests = [

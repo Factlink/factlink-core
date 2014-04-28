@@ -19,7 +19,7 @@ module Admin::UsersHelper
   end
 
   def features_count_for(user)
-    user.features.count { |f| Ability::FEATURES.include? f }
+    user.features.count { |f| Ability::FEATURES.include? f.name }
   end
 
   def features_count_class_for(user)

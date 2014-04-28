@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140428083445) do
+ActiveRecord::Schema.define(version: 20140428122323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: true do |t|
+    t.string   "action"
+    t.string   "subject_type"
+    t.integer  "subject_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activities", ["action"], name: "index_activities_on_action", using: :btree
+  add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
   create_table "comment_votes", force: true do |t|
     t.integer  "comment_id"
@@ -58,6 +70,15 @@ ActiveRecord::Schema.define(version: 20140428083445) do
 
   add_index "fact_data_interestings", ["fact_data_id"], name: "index_fact_data_interestings_on_fact_data_id", using: :btree
   add_index "fact_data_interestings", ["user_id"], name: "index_fact_data_interestings_on_user_id", using: :btree
+
+  create_table "features", force: true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "features", ["user_id", "name"], name: "index_features_on_user_id_and_name", unique: true, using: :btree
 
   create_table "followings", force: true do |t|
     t.integer  "followee_id"
@@ -139,6 +160,7 @@ ActiveRecord::Schema.define(version: 20140428083445) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.string   "features",                         default: "", null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

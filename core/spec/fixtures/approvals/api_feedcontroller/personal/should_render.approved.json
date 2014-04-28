@@ -3,6 +3,7 @@
     "action": "followed_user",
     "created_at": "<created_at>",
     "id": "<id>",
+    "timestamp": "<timestamp>",
     "followed_user": {
       "id": "<id>",
       "name": "John3 Doe3",
@@ -16,13 +17,33 @@
       "username": "johndoe2",
       "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
       "deleted": false
+    }
+  },
+  {
+    "action": "followed_user",
+    "created_at": "<created_at>",
+    "id": "<id>",
+    "timestamp": "<timestamp>",
+    "followed_user": {
+      "id": "<id>",
+      "name": "John1 Doe1",
+      "username": "johndoe1",
+      "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+      "deleted": false
     },
-    "timestamp": "<timestamp>"
+    "user": {
+      "id": "<id>",
+      "name": "John2 Doe2",
+      "username": "johndoe2",
+      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
+      "deleted": false
+    }
   },
   {
     "action": "created_comment",
     "created_at": "<created_at>",
     "id": "<id>",
+    "timestamp": "<timestamp>",
     "fact": {
       "id": "<id>",
       "site_url": "http://example.org/1.html",
@@ -56,13 +77,13 @@
       "username": "johndoe2",
       "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
       "deleted": false
-    },
-    "timestamp": "<timestamp>"
+    }
   },
   {
     "action": "created_sub_comment",
     "created_at": "<created_at>",
     "id": "<id>",
+    "timestamp": "<timestamp>",
     "fact": {
       "id": "<id>",
       "site_url": "http://example.org/1.html",
@@ -108,7 +129,6 @@
       "username": "johndoe2",
       "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
       "deleted": false
-    },
-    "timestamp": "<timestamp>"
+    }
   }
 ]
