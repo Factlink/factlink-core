@@ -12,12 +12,6 @@ describe Activity do
       expect(activity).to be_still_valid
     end
 
-    it "should be valid when the subject is unset/not set" do
-      Backend::Activities.create(user_id: gu.id, action: :followed_user, time: Time.at(0), send_mails: false)
-      activity = Activity.last
-      expect(activity).to be_still_valid
-    end
-
     it "should not be valid if the user is deleted" do
       deleted_user = create :user, deleted: true
       Backend::Activities.create(user_id: deleted_user.id, action: :followed_user, time: Time.at(0), send_mails: false)

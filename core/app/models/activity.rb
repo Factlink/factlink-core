@@ -18,16 +18,11 @@ class Activity < ActiveRecord::Base
   private
 
   def user_still_valid?
-    return true if not user_id
-
     real_user = User.where(id: user_id).first
-
     real_user && !real_user.deleted
   end
 
   def subject_still_valid?
-    return true unless subject_id
-
     subject
   end
 end
