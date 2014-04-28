@@ -33,7 +33,7 @@ module Backend
       feed relation: relation, newest_timestamp: newest_timestamp
     end
 
-    private def feed(relation:, newest_timestamp: nil, count: 20)
+    private def feed(relation:, newest_timestamp:, count: 20)
       newest_timestamp ||= Time.now
 
       relation.where("activities.created_at <= ?", newest_timestamp)
