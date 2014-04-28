@@ -19,12 +19,6 @@ module Acceptance
     visit "/users/sign_out"
   end
 
-  def enable_features(user, *features)
-    fail "FeatureNonExistent" unless features.all? { |f| Ability::FEATURES.include? f.to_s }
-
-    user.features = features
-  end
-
   def enable_global_features(*features)
     fail "FeatureNonExistent" unless features.all? { |f| Ability::FEATURES.include? f.to_s }
 

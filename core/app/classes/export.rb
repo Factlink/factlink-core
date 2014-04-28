@@ -20,7 +20,7 @@ class Export
     User.all.sort_by(&:username).each do |user|
       output << import('FactlinkImport.user', fields_from_object(user, User.import_export_simple_fields + [
         :encrypted_password, :confirmed_at, :confirmation_token, :confirmation_sent_at
-      ]).merge(features: user.features.to_a.sort.join(' '))) + "\n"
+      ]).merge(features: user.features.map(&:name).sort.join(' '))) + "\n"
 
       user.social_accounts.sort_by(&:provider_name).each do |social_account|
         output << import('FactlinkImport.social_account',
