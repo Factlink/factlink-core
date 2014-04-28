@@ -20,6 +20,14 @@ GIT
     url_normalizer (0.0.2)
       addressable
 
+GIT
+  remote: git://github.com/markijbema/ohnoes.git
+  revision: a1d3c6ed0ad620e43b637fa70970fea0ce26dd23
+  specs:
+    ohnoes (0.0.1)
+      appsignal
+      rails (>= 3.1)
+
 GEM
   remote: http://rubygems.org/
   remote: https://rails-assets.org/
@@ -469,6 +477,7 @@ DEPENDENCIES
   lograge (~> 0)
   multi_json (~> 1.7)
   ohm (= 0.1.3)
+  ohnoes!
   oily_png (~> 1.1)
   omniauth-facebook (~> 1.6.0)
   omniauth-twitter (~> 1.0.1)

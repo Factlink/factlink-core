@@ -1,12 +1,12 @@
 FactlinkUI::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
-
   # User Authentication
   devise_for :users, :controllers => {  confirmations: "users/confirmations",
                                         sessions:      "users/sessions",
                                         passwords:      "users/passwords"
                                       }
+  mount Ohnoes::Engine => '/ohnoes'
 
   # Web Front-end
   root :to => "home#index"
