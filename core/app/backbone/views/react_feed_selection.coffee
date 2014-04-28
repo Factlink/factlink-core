@@ -42,7 +42,7 @@ window.ReactFeedSelection = React.createClass
 
   render: ->
     _div [],
-      if currentSession.signedIn()
+      (if currentSession.signedIn()
         [
           _div ['feed-selection-row'],
             if window.is_kennisland
@@ -80,7 +80,7 @@ window.ReactFeedSelection = React.createClass
                 storageKey: 'createChallengeDescription'
               _button ["button-confirm", onClick: @_postChallenge],
                 "Create challenge"
-        ]
+        ])...
 
       ReactFeedActivitiesAutoLoading
         model: @state.feeds[@state.feedChoice]
