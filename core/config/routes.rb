@@ -17,6 +17,7 @@ FactlinkUI::Application.routes.draw do
     get '/feed/discussions' => "api/feed#discussions", as: "insert_nonsense_here"
     get '/annotations/search' => 'api/annotations#search'
     post '/annotations' => 'api/annotations#create'
+    post '/groups' => 'api/groups#create'
     get '/annotations/:id' => 'api/annotations#show'
     get '/users/:username/feed' => 'api/users#feed'
     get '/users/:username' => 'api/users#show'
