@@ -54,7 +54,7 @@ GEM
     approvals (0.0.13)
       nokogiri (~> 1.6)
       thor (~> 0.18)
-    appsignal (0.8.7)
+    appsignal (0.8.10)
       activesupport (>= 3.0)
       rack
       thread_safe
