@@ -42,7 +42,7 @@ ReactCommentTwitterShare = React.createBackboneClass
 
   _onClick: ->
     unless twttr.widgets?
-      ravenCapture('Tried to use Twitter button while Twitter has not been loaded')
+      console.info('Tried to use Twitter button while Twitter has not been loaded')
 
   componentDidMount: -> updateTwitter()
   componentDidUpdate: -> updateTwitter()
