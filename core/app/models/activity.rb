@@ -8,14 +8,6 @@ class Activity < ActiveRecord::Base
 
   validates :action, inclusion: { in: valid_actions }
 
-  def user=(new_user)
-    self.user_id = new_user.id.to_s
-  end
-
-  def user
-    User.where(id: user_id).first
-  end
-
   # WARNING: if this method returns false, we assume it will never become
   #          valid again either, and remove/destroy freely.
   def still_valid?
@@ -26,9 +18,8 @@ class Activity < ActiveRecord::Base
 
   def user_still_valid?
     return true if not user_id
-    return false unless user
 
-    real_user = User.where(id: user.id).first
+    real_user = User.where(id: user_id).first
 
     real_user && !real_user.deleted
   end
