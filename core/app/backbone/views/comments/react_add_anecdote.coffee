@@ -42,5 +42,6 @@ window.ReactAddAnecdote = React.createBackboneClass
     return unless comment.isValid()
 
     @model().unshift(comment)
-    comment.saveWithFactAndWithState()
-    @model().fact.getOpinionators().setInterested true
+    comment.saveWithFactAndWithState {},
+      success: =>
+        @model().fact.getOpinionators().setInterested true
