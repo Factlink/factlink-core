@@ -5,7 +5,7 @@ determineBrowser = ->
 
 extension_install_options_by_browser =
   firefox:
-    href: 'https://static.factlink.com/extension/firefox/factlink-latest.xpi'
+    href: 'https://factlink.github.io/browser-extensions/firefox/factlink-extension.xpi'
     iconClass: 'firefox-icon'
   safari:
     href: 'https://static.factlink.com/extension/firefox/factlink.safariextz'
