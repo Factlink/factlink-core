@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20140428122323) do
     t.datetime "updated_at"
   end
 
-  add_index "features", ["user_id"], name: "index_features_on_user_id", using: :btree
+  add_index "features", ["user_id", "name"], name: "index_features_on_user_id_and_name", unique: true, using: :btree
 
   create_table "followings", force: true do |t|
     t.integer  "followee_id"
