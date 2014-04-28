@@ -1,8 +1,6 @@
 
 // All the default libraries/files needed for all pages on Factlink
-//= require console_polyfill
-//= require function_bind_polyfill
-//= require local_storage_polyfill
+//= require_tree ./polyfill
 
 //= require jquery_ujs
 //= require jquery.scrollTo
