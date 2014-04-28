@@ -9,5 +9,4 @@ connection_hash = case Rails.env.to_sym
     {host: '172.18.64.22', port: 6379}
   end
 
-Ohm.connect(connection_hash)
 Redis.current = Redis.new(connection_hash)

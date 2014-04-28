@@ -80,7 +80,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     Capybara.reset!
-    Ohm.flush
+    Redis.current.flushdb
     DatabaseCleaner.clean
     FactoryGirl.reload
     Capybara::Screenshot.autosave_on_failure = true

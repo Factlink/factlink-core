@@ -34,7 +34,7 @@ RSpec.configure do |config|
   config.use_transactional_examples = true
 
   config.before(:each) do
-    Ohm.flush
+    Redis.current.flushdb
   end
 end
 
