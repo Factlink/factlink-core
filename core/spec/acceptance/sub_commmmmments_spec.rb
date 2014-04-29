@@ -11,12 +11,12 @@ feature "sub_comments", type: :feature do
     user = create :user
 
     as(user) do |pavlov|
-      pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: "believes", content: "test", pavlov_options: pavlov_options)
+      pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_s, type: "believes", content: "test", pavlov_options: pavlov_options)
     end
     sub_comment_text = "Berlioz' death was predicted by the man with the pince-nez"
 
     switch_to_user(user)
-    open_discussion_sidebar_for fact_data.fact_id
+    open_discussion_sidebar_for fact_data.fact_id.to_s
 
     click_link '(0) Reply'
 
@@ -25,7 +25,7 @@ feature "sub_comments", type: :feature do
 
     switch_to_user(create :user)
 
-    open_discussion_sidebar_for fact_data.fact_id
+    open_discussion_sidebar_for fact_data.fact_id.to_s
 
     find_link('(1) Reply') #open by default, no need to click
 

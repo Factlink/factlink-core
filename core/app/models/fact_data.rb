@@ -33,15 +33,7 @@ class FactData < ActiveRecord::Base
   end
 
   before_save do |fact_data|
-    id_key = Nest.new('Fact')[:id]
-
-    if fact_data.fact_id
-      if fact_data.fact_id.to_i > id_key.get.to_i
-        id_key.set fact_data.fact_id
-      end
-    else
-      fact_data.fact_id = id_key.incr.to_s
-    end
+    fact_data.fact_id ||= (self.class.maximum(:fact_id) || 0) + 1
   end
 
   after_destroy do |fact_data|

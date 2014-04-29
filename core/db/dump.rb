@@ -27,34 +27,6 @@ FactlinkImport.fact({username: "eamon", fact_id: "1", displaystring: "Oil is sti
   interesting({username: "remon", })
   interesting({username: "tomdev", })
 end
-FactlinkImport.fact({username: "jjoos", fact_id: "10", displaystring: "When viruses infect a cell, they take over its cellular machinery for their own purpose -- that is, creating more copies of the virus.", title: "http://www.sciencedaily.com/releases/2011/08/110826134012.htm", url: "http://www.sciencedaily.com/releases/2011/08/110826134012.htm", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
-  interesting({username: "jjoos", })
-end
-FactlinkImport.fact({username: "jjoos", fact_id: "11", displaystring: ". Google plans to shut down the social applications developed by Slide, a company it acquired a year ago for US$182 million.", title: "http://slashdot.org/", url: "http://slashdot.org/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
-  interesting({username: "jjoos", })
-end
-FactlinkImport.fact({username: "jjoos", fact_id: "12", displaystring: ". Google plans to shut down the social applications developed by Slide, a company it acquired a year ago for US$182 million.  ", title: "http://localhost:3000/", url: "http://localhost:3000/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
-  interesting({username: "jjoos", })
-end
-FactlinkImport.fact({username: "eamon", fact_id: "13", displaystring: "Obesity is growing at alarming rates worldwide, and the biggest culprit is overeating", title: "http://www.sciencedaily.com/", url: "http://www.sciencedaily.com/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
-  interesting({username: "eamon", })
-  interesting({username: "jjoos", })
-end
-FactlinkImport.fact({username: "mark", fact_id: "14", displaystring: " New Depiction of Light Could Boost Telecommunications Channels Physicists have presented a new way to map spiraling light that could help harness untapped data channels in optical fibers. Increased bandwidth would ease the burden on fiber-optic telecommunications networks taxed ...  > full story more on: Optics; Graphene; Inorganic Chemistry; Chemistry; Physics; Computer Modeling ", title: "http://www.sciencedaily.com/", url: "http://www.sciencedaily.com/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
-  interesting({username: "jjoos", })
-end
-FactlinkImport.fact({username: "eamon", fact_id: "15", displaystring: " First Glimpse Into Birth of the Milky Way For almost 20 years astrophysicists have been trying to recreate the formation of spiral galaxies such as our Milky Way realistically. Now astrophysicists and astronomers present the world's first realistic simulation of the ...  > full story more on: Galaxies; Astrophysics; Stars; Astronomy; Dark Matter; Solar System ", title: "http://www.sciencedaily.com/", url: "http://www.sciencedaily.com/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
-  interesting({username: "jjoos", })
-end
-FactlinkImport.fact({username: "eamon", fact_id: "16", displaystring: "De veiligheid van liften in Nederland is in gevaar doordat vier van de zes bedrijven die liften mogen keuren niet onafhankelijk zijn van hun opdrachtgevers. ", title: "http://www.nrc.nl/nieuws/2011/08/29/veiligheid-liften-in-gevaar-omdat-keuringen-niet-onafhankelijk-zijn/", url: "http://www.nrc.nl/nieuws/2011/08/29/veiligheid-liften-in-gevaar-omdat-keuringen-niet-onafhankelijk-zijn/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
-  interesting({username: "jjoos", })
-end
-FactlinkImport.fact({username: "eamon", fact_id: "17", displaystring: "Stanford microsurgeons have used a poloxamer gel and bioadhesive, rather than a needle and thread, to join together blood vessels", title: "http://slashdot.org/", url: "http://slashdot.org/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
-  interesting({username: "jjoos", })
-end
-FactlinkImport.fact({username: "eamon", fact_id: "18", displaystring: "\"On earth, nuclear reactors are under attack because of concerns over damage caused by natural disasters. In space, however, nuclear technology may get a new lease on life.", title: "http://slashdot.org/", url: "http://slashdot.org/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
-  interesting({username: "jjoos", })
-end
 FactlinkImport.fact({username: "eamon", fact_id: "2", displaystring: "Molecules that are not accessible to microbes persist and could have toxic effects", title: "http://www.sciencedaily.com/releases/2011/08/110801111752.htm", url: "http://www.sciencedaily.com/releases/2011/08/110801111752.htm", created_at: Time.parse("2014-04-10T12:13:03Z"), }) do
   interesting({username: "jjoos", })
   interesting({username: "mark", })
@@ -92,6 +64,34 @@ end
 FactlinkImport.fact({username: "eamon", fact_id: "9", displaystring: "The plant Arabidopsis thaliana is found throughout the entire northern hemisphere", title: "http://www.sciencedaily.com/", url: "http://www.sciencedaily.com/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
   interesting({username: "jjoos", })
 end
+FactlinkImport.fact({username: "jjoos", fact_id: "10", displaystring: "When viruses infect a cell, they take over its cellular machinery for their own purpose -- that is, creating more copies of the virus.", title: "http://www.sciencedaily.com/releases/2011/08/110826134012.htm", url: "http://www.sciencedaily.com/releases/2011/08/110826134012.htm", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
+  interesting({username: "jjoos", })
+end
+FactlinkImport.fact({username: "jjoos", fact_id: "11", displaystring: ". Google plans to shut down the social applications developed by Slide, a company it acquired a year ago for US$182 million.", title: "http://slashdot.org/", url: "http://slashdot.org/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
+  interesting({username: "jjoos", })
+end
+FactlinkImport.fact({username: "jjoos", fact_id: "12", displaystring: ". Google plans to shut down the social applications developed by Slide, a company it acquired a year ago for US$182 million.  ", title: "http://localhost:3000/", url: "http://localhost:3000/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
+  interesting({username: "jjoos", })
+end
+FactlinkImport.fact({username: "eamon", fact_id: "13", displaystring: "Obesity is growing at alarming rates worldwide, and the biggest culprit is overeating", title: "http://www.sciencedaily.com/", url: "http://www.sciencedaily.com/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
+  interesting({username: "eamon", })
+  interesting({username: "jjoos", })
+end
+FactlinkImport.fact({username: "mark", fact_id: "14", displaystring: " New Depiction of Light Could Boost Telecommunications Channels Physicists have presented a new way to map spiraling light that could help harness untapped data channels in optical fibers. Increased bandwidth would ease the burden on fiber-optic telecommunications networks taxed ...  > full story more on: Optics; Graphene; Inorganic Chemistry; Chemistry; Physics; Computer Modeling ", title: "http://www.sciencedaily.com/", url: "http://www.sciencedaily.com/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
+  interesting({username: "jjoos", })
+end
+FactlinkImport.fact({username: "eamon", fact_id: "15", displaystring: " First Glimpse Into Birth of the Milky Way For almost 20 years astrophysicists have been trying to recreate the formation of spiral galaxies such as our Milky Way realistically. Now astrophysicists and astronomers present the world's first realistic simulation of the ...  > full story more on: Galaxies; Astrophysics; Stars; Astronomy; Dark Matter; Solar System ", title: "http://www.sciencedaily.com/", url: "http://www.sciencedaily.com/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
+  interesting({username: "jjoos", })
+end
+FactlinkImport.fact({username: "eamon", fact_id: "16", displaystring: "De veiligheid van liften in Nederland is in gevaar doordat vier van de zes bedrijven die liften mogen keuren niet onafhankelijk zijn van hun opdrachtgevers. ", title: "http://www.nrc.nl/nieuws/2011/08/29/veiligheid-liften-in-gevaar-omdat-keuringen-niet-onafhankelijk-zijn/", url: "http://www.nrc.nl/nieuws/2011/08/29/veiligheid-liften-in-gevaar-omdat-keuringen-niet-onafhankelijk-zijn/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
+  interesting({username: "jjoos", })
+end
+FactlinkImport.fact({username: "eamon", fact_id: "17", displaystring: "Stanford microsurgeons have used a poloxamer gel and bioadhesive, rather than a needle and thread, to join together blood vessels", title: "http://slashdot.org/", url: "http://slashdot.org/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
+  interesting({username: "jjoos", })
+end
+FactlinkImport.fact({username: "eamon", fact_id: "18", displaystring: "\"On earth, nuclear reactors are under attack because of concerns over damage caused by natural disasters. In space, however, nuclear technology may get a new lease on life.", title: "http://slashdot.org/", url: "http://slashdot.org/", created_at: Time.parse("2014-04-10T12:13:04Z"), }) do
+  interesting({username: "jjoos", })
+end
 FactlinkImport.comment({content: "Are you on crack?", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "1", username: "luuk", }) do
 end
 FactlinkImport.comment({content: "I totally agree, because I like plants and stuff.", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "1", username: "jens", }) do
@@ -100,8 +100,6 @@ end
 FactlinkImport.comment({content: "Let's stay on topic and buy cr4ck at http://goo.gl/shine", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "1", username: "tomdev", }) do
   opinion({opinion: "disbelieves", username: "jens", })
   opinion({opinion: "disbelieves", username: "remon", })
-end
-FactlinkImport.comment({content: "I like money $$$$", created_at: Time.parse("2014-04-10T12:13:04Z"), fact_id: "12", username: "luuk", }) do
 end
 FactlinkImport.comment({content: "This was because nutrients such as nitrogen and phosphorus -- usually essential to enable microbes to grow and make new cells -- were scarce in the water and oil in the slick.", created_at: Time.parse("2014-04-10T12:13:03Z"), fact_id: "2", username: "eamon", }) do
 end
@@ -112,4 +110,6 @@ FactlinkImport.comment({content: "All your base are belong to us. So give your P
   sub_comment({content: "Super weird...", created_at: Time.parse("2014-04-14T09:00:00Z"), username: "remon", })
   sub_comment({content: "Or should I say, extremely strange!", created_at: Time.parse("2014-04-14T10:00:00Z"), username: "remon", })
   sub_comment({content: "SDF", created_at: Time.parse("2014-04-14T11:00:00Z"), username: "remon", })
+end
+FactlinkImport.comment({content: "I like money $$$$", created_at: Time.parse("2014-04-10T12:13:04Z"), fact_id: "12", username: "luuk", }) do
 end

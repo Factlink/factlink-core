@@ -63,7 +63,7 @@ module Backend
     private
 
     def dead(fact_data)
-      DeadFact.new id: fact_data.fact_id,
+      DeadFact.new id: fact_data.fact_id.to_s,
                    site_url: fact_data.site_url,
                    displaystring: fact_data.displaystring,
                    created_at: fact_data.created_at,
