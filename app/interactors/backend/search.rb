@@ -14,7 +14,7 @@ module Backend
       case type
       when'FactData'
         fact_data = FactData.find(id)
-        return nil if fact_data.nil? || FactData.invalid(fact_data)
+        return nil if fact_data.nil?
 
         fact = Backend::Facts.get(fact_id: fact_data.fact_id)
 

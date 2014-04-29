@@ -24,16 +24,6 @@ class FactData < ActiveRecord::Base
     displaystring || ""
   end
 
-  #returns whether a given factdata should be considered
-  #unsuitable for usage/viewing
-  def self.invalid(fd)
-    not valid(fd)
-  end
-
-  def self.valid(fd)
-    fd
-  end
-
   before_save do |fact_data|
     fact_data.fact_id ||= (self.class.maximum(:fact_id) || 0) + 1
   end
