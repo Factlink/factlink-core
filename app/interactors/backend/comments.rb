@@ -69,7 +69,7 @@ module Backend
         content: comment.content,
         formatted_content: formatted_content,
         sub_comments_count: Backend::SubComments.count(parent_id: comment.id),
-        is_deletable: Backend::Comments.deletable?(comment.id),
+        is_deletable: deletable?(comment.id),
         tally: {
           believes: votes_counts['believes'] || 0,
           disbelieves: votes_counts['disbelieves'] || 0,
