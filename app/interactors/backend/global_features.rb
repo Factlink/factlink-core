@@ -7,7 +7,7 @@ module Backend
     end
 
     def set(features)
-      Feature.where(user_id: nil).each(&:destroy)
+      Feature.where(user_id: nil).destroy_all
       features.each do |feature|
         Feature.create!(name: feature)
       end
