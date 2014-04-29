@@ -2,13 +2,19 @@ window.ReactGroupMembershipEdit = React.createClass
   displayName: 'ReactGroupMembershipEdit'
   mixins: [UpdateOnSignInOrOutMixin, React.BackboneMixin('user')]
 
+  getInitialState: ->
+    groups = new Groups
+    groups.fetch()
+    groups: groups
 
   render: ->
     return _span([], 'Please sign in.') unless currentSession.signedIn()
 
     _span [],
       if @props.user.get('admin')
-        ReactAdminGroupEdit user: @props.user
+        ReactAdminGroupEdit
+          user: @props.user
+          groups: @state.groups
       else
         "Natch!"
 
@@ -16,7 +22,7 @@ window.ReactGroupMembershipEdit = React.createClass
 
 window.ReactAdminGroupEdit = React.createClass
   displayName: 'ReactAdminGroupEdit'
-  mixins: [React.BackboneMixin('user')]
+  mixins: [React.BackboneMixin('user'), React.BackboneMixin('groups')]
 
   getInitialState: ->
     @_freshState()
@@ -25,7 +31,9 @@ window.ReactAdminGroupEdit = React.createClass
     group: new Group
 
   _submit: ->
-    @state.group.save creator: @props.user.get('username'),
+    group = @state.group
+    @props.groups.add group
+    group.save creator: @props.user.get('username'),
       success: (o)=>
         Factlink.notificationCenter.success "Group #{o.get('groupname')} created."
       error: (o)=>
@@ -35,7 +43,7 @@ window.ReactAdminGroupEdit = React.createClass
 
   render: ->
     console.log 'rendering', @state.group.cid
-    _span [],
+    _div [],
       ReactSubmittableForm {
           onSubmit: @_submit
           model: @state.group
@@ -45,3 +53,4 @@ window.ReactAdminGroupEdit = React.createClass
             model: @state.group
             label: 'Group name'
             attribute: 'groupname'
+
