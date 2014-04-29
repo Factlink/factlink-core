@@ -142,7 +142,6 @@ end
 
 require_relative './initializers/core.rb'
 
-
 FactlinkUI::Application.config.support_email = ENV.fetch('FACTLINK_SUPPORT_EMAIL', 'support@factlink.com')
 FactlinkUI::Application.config.support_name = ENV.fetch('FACTLINK_SUPPORT_NAME', 'Factlink')
 
