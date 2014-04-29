@@ -12,6 +12,7 @@ class FactData < ActiveRecord::Base
   belongs_to :group
   has_many :fact_data_interestings, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :activities, as: :subject, dependent: :destroy
 
   validates_format_of :displaystring, allow_nil: true, with: /\A.*\S.*\z/m
 

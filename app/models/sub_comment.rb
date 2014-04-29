@@ -1,9 +1,10 @@
 class SubComment < ActiveRecord::Base
   attr_accessible :content, :created_by_id, :parent_id
 
-
   # TODO: rename to :comment
   belongs_to :parent, class_name: 'Comment'
+
+  has_many :activities, as: :subject, dependent: :destroy
 
   def created_by
     User.where(id: created_by_id).first
