@@ -9,8 +9,9 @@ class FactData < ActiveRecord::Base
 
   #index({ site_url: 1 })
 
-  has_many :comments
   belongs_to :group
+  has_many :fact_data_interestings, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates_format_of :displaystring, allow_nil: true, with: /\A.*\S.*\z/m
 
@@ -34,14 +35,5 @@ class FactData < ActiveRecord::Base
 
   before_save do |fact_data|
     fact_data.fact_id ||= (self.class.maximum(:fact_id) || 0) + 1
-  end
-
-  after_destroy do |fact_data|
-    FactDataInteresting.where(fact_data_id: fact_data.id)
-                       .each { |interesting| interesting.destroy }
-
-    fact_data.comments.each do |comment|
-      comment.destroy
-    end
   end
 end
