@@ -1,19 +1,20 @@
 FactlinkUI::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
-
   # User Authentication
   devise_for :users, :controllers => {  confirmations: "users/confirmations",
                                         sessions:      "users/sessions",
                                         passwords:      "users/passwords"
                                       }
+  mount Ohnoes::Engine => '/ohnoes'
 
   # Web Front-end
   root :to => "home#index"
 
   scope '/api/beta' do
-    get '/feed' => "api/feed#global"
-    get '/feed/personal' => "api/feed#personal"
+    get '/feed' => "api/feed#global", as: 'something_alse_than_feed_as_well'
+    get '/feed/personal' => "api/feed#personal", as: 'something_else_than_feed'
+    get '/feed/discussions' => "api/feed#discussions", as: "insert_nonsense_here"
     get '/annotations/search' => 'api/annotations#search'
     post '/annotations' => 'api/annotations#create'
     get '/annotations/:id' => 'api/annotations#show'
@@ -23,7 +24,7 @@ FactlinkUI::Application.routes.draw do
     put '/users/:username/password' => 'api/users#change_password'
     get '/session' => 'api/sessions#current'
     post '/users/:username/delete' => 'api/users#destroy'
-    get '/search' => "api/search#all"
+    get '/search' => "api/search#all", as: 'something_else_than_search'
   end
 
   # Javascript Client calls
@@ -56,7 +57,7 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  resources :feedback # TODO: RESTRICT
+  get "/d/:id" => "frontend#show" #KL: edit discussion/annotation/factlink on site
 
   get "/:fact_slug/f/:id" => "facts#discussion_page_redirect"
   get "/f/:id" => "facts#discussion_page_redirect"
@@ -137,7 +138,7 @@ FactlinkUI::Application.routes.draw do
 
   get "/search" => "frontend#show", as: "search"
 
-  scope "/:username" do
+  scope "/user/:username" do
     get "/" => "frontend#user_profile", as: "user_profile"
     get "/edit" => "frontend#show", as: 'edit_user'
     get "/change-password" => "frontend#show", as: 'change_password'

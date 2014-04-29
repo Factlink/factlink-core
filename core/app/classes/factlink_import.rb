@@ -10,8 +10,7 @@ module FactlinkImport
       ExecuteAsUser.new(FactlinkImport.user_for(fields[:username])).execute do |pavlov|
         pavlov.import = true
         pavlov.time = nil
-        dead_fact = pavlov.interactor(:'facts/set_opinion', fact_id: @fact_id,
-          opinion: 'believes')
+        dead_fact = pavlov.interactor(:'facts/set_interesting', fact_id: @fact_id)
       end
     end
   end
@@ -55,7 +54,9 @@ module FactlinkImport
     user.skip_confirmation_notification!
     user.save!
 
-    user.features = fields[:features].split(' ')
+    fields[:features].split(' ').each do |feature|
+      user.features << Feature.create!(name: feature)
+    end
 
     user.confirmed_at = fields[:confirmed_at]
     user.confirmation_token = fields[:confirmation_token]
@@ -75,7 +76,7 @@ module FactlinkImport
 
   def fact(fields, &block)
     dead_fact = nil
-    ExecuteAsUser.new(nil).execute do |pavlov|
+    ExecuteAsUser.new(user_for(fields[:username])).execute do |pavlov|
       pavlov.import = true
       pavlov.time = fields[:created_at]
       dead_fact = pavlov.interactor(:'facts/create', fact_id: fields[:fact_id],

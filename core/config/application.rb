@@ -2,7 +2,6 @@ require File.expand_path('../boot', __FILE__)
 
 require "action_controller/railtie"
 require "action_mailer/railtie"
-require "active_resource/railtie"
 require "active_record/railtie"
 require "pavlov/alpha_compatibility"
 
@@ -25,6 +24,10 @@ ActiveSupport.escape_html_entities_in_json = true
 
 
 module FactlinkUI
+  def self.Kennisland?
+    !ENV['KENNISLAND'].nil?
+  end
+
   class Application < Rails::Application
     config.autoload_paths << "#{config.root}/lib"
     config.autoload_paths << "#{config.root}/app/classes"
@@ -34,9 +37,6 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/app/interactors"
 
     config.log_level = :info
-
-    require_dependency "#{config.root}/app/ohm-models/our_ohm.rb"
-    require_dependency "#{config.root}/app/ohm-models/activity.rb"
 
     Rails.application.config.generators.template_engine :erb
 
@@ -59,9 +59,14 @@ module FactlinkUI
     # config.middleware.use Rack::XFrameOptions, "SAMEORIGIN", ["/client/blank"]
 
 
-    config.middleware.insert_before("Rack::Lock", "Rack::Rewrite") do
+    config.middleware.insert 0, Rack::Rewrite do
       r301 %r{^\/(.+)\/(\?.*)?$}, '/$1$2'
     end
+
+    config.action_dispatch.default_headers = {
+      'X-XSS-Protection' => '1; mode=block',
+      'X-Content-Type-Options' => 'nosniff'
+    }
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -103,7 +108,8 @@ module FactlinkUI
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
+    # Therefore, we change the asset version whenever kennisland is toggled.
+    config.assets.version = FactlinkUI.Kennisland? ? '2.0' : '1.0'
 
     config.assets.precompile = [
       /\w+\.(?!js|css|less).+/,

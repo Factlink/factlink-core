@@ -1,11 +1,16 @@
 class FactData < ActiveRecord::Base
+  include PgSearch
+
+  multisearchable against: [:displaystring, :title]
+  pg_search_scope :search_by_content, against: [:displaystring, :title]
+
   # TODO: already choose a good database name here
-  # TODO: after SQL conversion call "site_url" "url" ?
-  attr_accessible :displaystring, :fact_id, :site_url, :title
+  attr_accessible :displaystring, :fact_id, :site_url, :title, :created_by_id
 
   #index({ site_url: 1 })
 
   has_many :comments
+  belongs_to :group
 
   validates_format_of :displaystring, allow_nil: true, with: /\A.*\S.*\z/m
 
@@ -27,30 +32,13 @@ class FactData < ActiveRecord::Base
     fd
   end
 
-  def update_search_index
-    fields = {displaystring: displaystring, title: title}
-    ElasticSearch::Index.new('factdata').add id, fields
-  end
-
   before_save do |fact_data|
-    id_key = Nest.new('Fact')[:id]
-
-    if fact_data.fact_id
-      if fact_data.fact_id.to_i > id_key.get.to_i
-        id_key.set fact_data.fact_id
-      end
-    else
-      fact_data.fact_id = id_key.incr.to_s
-    end
-  end
-
-  after_save do |fact_data|
-    fact_data.update_search_index
+    fact_data.fact_id ||= (self.class.maximum(:fact_id) || 0) + 1
   end
 
   after_destroy do |fact_data|
-    Believable.new(Nest.new("Fact:#{fact_id}")).delete
-    ElasticSearch::Index.new('factdata').delete fact_data.id
+    FactDataInteresting.where(fact_data_id: fact_data.id)
+                       .each { |interesting| interesting.destroy }
 
     fact_data.comments.each do |comment|
       comment.destroy

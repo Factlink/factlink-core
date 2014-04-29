@@ -5,7 +5,7 @@ describe Api::SessionsController do
 
   let(:user) do
     create(:user).tap do |user|
-      user.features = ['some_feature']
+      user.features << Feature.create!(name: 'some_feature')
     end
   end
 

@@ -14,6 +14,7 @@ require 'poltergeist_style_overrides'
 require 'webmock'
 require 'capybara-screenshot/rspec'
 require 'database_cleaner'
+require 'sucker_punch/testing/inline'
 
 require 'pavlov_helper'
 
@@ -75,14 +76,12 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   config.before(:suite) do
-    ElasticSearch.create
     DatabaseCleaner[:active_record].strategy = :truncation
   end
 
   config.before(:each) do
     Capybara.reset!
-    ElasticSearch.clean
-    Ohm.flush
+    Redis.current.flushdb
     DatabaseCleaner.clean
     FactoryGirl.reload
     Capybara::Screenshot.autosave_on_failure = true

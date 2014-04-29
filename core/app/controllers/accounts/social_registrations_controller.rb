@@ -88,18 +88,12 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
   # with warden using the devise strategies, using params.
   # Therefore we set the params, authenticate, and then restore them.
   def user_authenticated_with_warden email, password
-    previous_email = params[:user][:email]
-    previous_password = params[:user][:password]
-    params[:user][:email] = email
-    params[:user][:password] = password
-
-    allow_params_authentication!
-    user = warden.authenticate(scope: :user)
-
-    params[:user][:email] = previous_email
-    params[:user][:password] = previous_password
-
-    user
+    user = User.where(email: email).first
+    if user && user.valid_password?(password)
+      user
+    else
+      nil
+    end
   end
 
   def sign_up_new_user email, password, full_name

@@ -106,7 +106,7 @@ module.exports = (grunt) ->
         ]
       dist_static_content:
         files: [
-          { src: ['robots.txt', 'images/**/*'], cwd: 'build', dest: 'output/dist', expand: true }
+          { src: ['robots.txt'], cwd: 'build', dest: 'output/dist', expand: true }
         ]
     watch:
       files: ['app/**/*', 'Gruntfile.coffee']

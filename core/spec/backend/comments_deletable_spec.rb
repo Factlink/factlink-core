@@ -10,7 +10,7 @@ describe Backend::Comments do
     let(:comment) do
       dead_comment = as(user) do |context|
         context.interactor(:'comments/create',
-                           fact_id: fact_data.fact_id,
+                           fact_id: fact_data.fact_id.to_s,
                            type: 'believes',
                            content: 'content')
       end

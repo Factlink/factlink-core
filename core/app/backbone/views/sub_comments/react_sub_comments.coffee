@@ -41,6 +41,8 @@ ReactSubCommentsAdd = React.createBackboneClass
     @model().add(sub_comment)
     sub_comment.saveWithState()
 
+    @props.fact_opinionators.setInterested true
+
     @refs.textarea.updateText ''
     @setState opened: false
 

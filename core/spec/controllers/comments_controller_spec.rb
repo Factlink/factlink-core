@@ -56,4 +56,32 @@ describe CommentsController do
       verify { response.body }
     end
   end
+
+  describe :create do
+    it "returns a formatted anecdote" do
+      FactoryGirl.reload
+
+      authenticate_user!(user)
+      dead_fact = nil
+
+      as(user) do |pavlov|
+        dead_fact = pavlov.interactor(:'facts/create',
+                                     displaystring: 'displaystring',
+                                     site_url: 'url',
+                                     site_title: 'title')
+      end
+
+      anecdote = {
+        introduction: 'Some introduction',
+        insight: 'Some insight',
+        resources: 'Some resources',
+        actions: 'Some actions',
+        effect: 'Some effect',
+      }
+
+      post :create, id: dead_fact.id, content: anecdote.to_json, markup_format: 'anecdote', format: :json
+
+      verify { response.body }
+    end
+  end
 end

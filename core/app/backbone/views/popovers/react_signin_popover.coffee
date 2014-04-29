@@ -53,7 +53,6 @@ window.ReactSigninPopover = React.createClass
     if currentSession.signedIn() && @state.opened
       @state.callback()
       @setState opened: false, callback: null
-      mp_track "Sign in with Popover"
 
     @forceUpdate()
 

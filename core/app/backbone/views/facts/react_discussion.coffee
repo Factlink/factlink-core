@@ -54,26 +54,35 @@ ReactCollapsedText = React.createClass
           '(more)'
 
 
-window.ReactDiscussion = React.createBackboneClass
-  displayName: 'ReactDiscussion'
-
+window.ReactDiscussionSidebar = React.createBackboneClass
+  displayName: "ReactDiscussionSidebar"
   render: ->
     _div ['discussion'],
       ReactSidebarLogin()
+      @transferPropsTo ReactDiscussionStandalone()
 
+
+window.ReactDiscussionStandalone = React.createBackboneClass
+  displayName: 'ReactDiscussionStandalone'
+
+  render: ->
+    _div [],
       _div ['top-annotation'],
         _div ['top-annotation-text'],
           if @model().get('displaystring')
-            ReactCollapsedText
-              text: @model().get('displaystring')
-              size: 150
+            if window.is_kennisland
+              @model().get('displaystring')
+            else
+              ReactCollapsedText
+                text: @model().get('displaystring')
+                size: 150
           else
             _div ["loading-indicator-centered"],
               ReactLoadingIndicator()
 
       ReactOpinionateArea
         model: @model().getOpinionators()
-      ReactAddComment
+      ReactAddAnecdoteOrComment
         model: @model().comments()
         initiallyFocus: @props.initiallyFocusAddComment
         site_url: @props.site_url

@@ -6,21 +6,12 @@ module Interactors
       arguments :timestamp
 
       def authorized?
-        true
+        pavlov_options[:current_user]
       end
 
       def execute
-        return [] unless current_user
-
-        Backend::Activities.activities_older_than(activities_set: activities, timestamp: timestamp)
-      end
-
-      def activities
-        current_user.stream_activities
-      end
-
-      def current_user
-        pavlov_options[:current_user]
+        Backend::Activities.personal(newest_timestamp: timestamp,
+          user_id: pavlov_options[:current_user].id)
       end
 
       def validate

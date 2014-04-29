@@ -10,7 +10,7 @@ window.ReactSidebarLogin = React.createBackboneClass
     else
       _ul ['discussion-menu'],
         _li ['discussion-menu-item'],
-          _a [href: "/#{currentSession.user().get('username')}", rel: 'backbone'],
+          _a [href: "/user/#{currentSession.user().get('username')}", rel: 'backbone'],
             _img ['image-30px topbar-profile-image', src: currentSession.user().avatar_url(30)],
             _span ['discussion-menu-username'],
               currentSession.user().get('name')

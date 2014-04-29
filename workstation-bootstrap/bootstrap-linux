@@ -5,7 +5,7 @@ echo "Updating apt-get & upgrading existing packages..."
 sudo apt-get -y -qq update
 sudo apt-get -y dist-upgrade
 
-type apt-add-repository || sudo apt-get -y install python-software-properties
+type apt-add-repository>/dev/null || sudo apt-get -y install python-software-properties
 
 # partner repo where skype is hiding
 # depending on your option during install this is already there
@@ -23,24 +23,12 @@ sudo apt-key list | grep -q -e "Launchpad PPA for NoobsLab" || sudo apt-add-repo
 sudo apt-add-repository -y "deb http://downloads.hipchat.com/linux/apt stable main"
 sudo apt-key list | grep -q -e "HipChat Signing Key (Atlassian)" || wget -q -O - https://www.hipchat.com/keys/hipchat-linux.key | sudo apt-key add -
 
-sudo apt-key list | grep -q -e "f_lux" || sudo add-apt-repository -y ppa:kilian/f.lux
-sudo sed -i s/saucy/raring/ /etc/apt/sources.list.d/kilian-f_lux-saucy.list
 
 sudo apt-get -y -qq update
 
 sudo apt-get -y install \
            build-essential \
            curl \
-           libssl-dev \
-           libyaml-dev \
-           libsqlite3-dev \
-           libreadline-dev \
-           zlib1g \
-           zlib1g-dev \
-           libmysqlclient-dev \
-           libcurl4-openssl-dev \
-           libxslt-dev \
-           libxml2-dev \
            sublime-text \
            google-chrome-stable \
            chromium-chromedriver \
@@ -75,8 +63,8 @@ sudo apt-get -y install \
            cryptsetup \
            gnome-disk-utility \
            npm \
-           fluxgui \
            unar # needed for virtualbox
+
 
 [ ! -f /usr/local/bin/node ] && sudo ln -s `which nodejs` /usr/local/bin/node
 
@@ -118,10 +106,6 @@ RBENV_INIT
   if [[ ! -f $shell_init_file ]] || ! grep -q '/usr/lib/chromium-browser/' $shell_init_file; then
     echo -e '\nexport PATH=$PATH:/usr/lib/chromium-browser/\n' >> $shell_init_file
   fi
-
-  if [[ ! -f $shell_init_file ]] || ! grep -q '/usr/share/elasticsearch/bin/' $shell_init_file; then
-    echo -e '\nexport PATH=$PATH:/usr/share/elasticsearch/bin/\n' >> $shell_init_file
-  fi
 }
 update_shell_init_file ~/.zshrc
 update_shell_init_file ~/.bashrc
@@ -133,7 +117,6 @@ export PATH="/usr/lib/postgresql/9.3/bin:$PATH"
 sudo mkdir -p /var/run/postgresql/
 sudo chmod 777 /var/run/postgresql/ # this is necessary to mitigate ubuntu's unhandy compiled-in constant postgres socket dir.
 export PATH="~/.node/bin:$PATH"
-export PATH=$PATH:/usr/share/elasticsearch/bin
 
 echo 'setting up npm to install as your user...'
 # This is important, otherwise npm install -g won't execute without sudo
@@ -174,24 +157,11 @@ gem install bundle git-up
 
 rbenv rehash || :
 
-### Check http://www.elasticsearch.org/download/ for latest version of ElasticSearch and replace version below
-ES_VERSION=1.1.0
-[ ! -f /tmp/elasticsearch-${ES_VERSION}.deb ] && curl https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${ES_VERSION}.deb -o /tmp/elasticsearch-${ES_VERSION}.deb
-sudo dpkg -i /tmp/elasticsearch-${ES_VERSION}.deb
-sudo service elasticsearch stop
-#sudo service elasticsearch start
 
 echo 'Installing jslint, supervisor and grunt-cli'
 #npm install supervisor grunt-cli
 npm install supervisor grunt-cli -g
 
-echo 'disabling elasticsearch via upstart...'
-echo 'manual' | sudo tee "/etc/init/elasticsearch.override" 1>/dev/null
-sudo service elasticsearch stop
-
-echo 'disabling elasticsearch, postgresql, redis-server via SystemV init scripts...'
-sudo update-rc.d -f elasticsearch remove
-sudo service elasticsearch stop || :
 sudo update-rc.d -f postgresql remove
 sudo service postgresql stop || :
 sudo update-rc.d -f redis-server remove

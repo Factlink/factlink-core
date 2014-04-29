@@ -1,9 +1,11 @@
 require 'open-uri'
 require 'digest/md5'
-require 'redis/objects'
 
 class User < ActiveRecord::Base
-  include Redis::Objects
+  include PgSearch
+
+  multisearchable against: [:username, :full_name, :location, :biography],
+                  :if => :active?
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -23,6 +25,9 @@ class User < ActiveRecord::Base
                   :password, :password_confirmation, :receives_mailed_notifications,
                   :receives_digest, :email, :admin,
         as: :admin
+
+  has_many :features
+  has_and_belongs_to_many :groups
 
   after_initialize :set_default_values!
   def set_default_values!
@@ -51,7 +56,7 @@ class User < ActiveRecord::Base
                           :with => /\A.{2,}\Z/,
                           :message => "at least 2 characters needed"
   validates_format_of     :username,
-                          :with => Regexp.new('^' + (USERNAME_BLACKLIST.map { |x| '(?!'+x.to_s+'$)' }.join '') + '.*'),
+                          :with => Regexp.new('\A' + (USERNAME_BLACKLIST.map { |x| '(?!'+x.to_s+'$)' }.join '') + '.*'),
                           :message => "this username is reserved"
   validates_format_of     :username,
                           :with => /\A[a-z0-9_]*\Z/i,
@@ -75,28 +80,9 @@ class User < ActiveRecord::Base
     Comments.where(created_by_id: self.id)
   end
 
-  scope :active, where(deleted: false)
+  scope :active, ->{ where(deleted: false) }
 
   class << self
-    # List of fields that are stored in Mixpanel.
-    # The key   represents how the field is stored in our Model
-    # The value represents how it is stored in Mixpanel
-    def mixpaneled_fields
-      {
-        "full_name"      => "name",
-        "username"        => "username",
-        "email"           => "email",
-        "created_at"      => "created",
-        "last_sign_in_at" => "last_login",
-        "receives_mailed_notifications" => "receives_mailed_notifications",
-        "receives_digest" => "receives_digest",
-        "location"        => "location",
-        "biography"       => "biography",
-        "deleted"         => "deleted",
-        "confirmed_at"    => "confirmed_at"
-      }
-    end
-
     # this methods defined which fields are to be removed
     # when the user is deleted (anonymized)
     def personal_information_fields
@@ -136,23 +122,6 @@ class User < ActiveRecord::Base
     !deleted
   end
 
-  def stream_activities
-    activity_set(name: :stream_activities)
-  end
-
-  def own_activities
-    activity_set(name: :own_activities)
-  end
-
-  def notifications
-    activity_set(name: :notifications)
-  end
-
-  private def activity_set(name:)
-    key = Nest.new('User')[id][name]
-    TimestampedSet.new(key, Activity)
-  end
-
   def self.human_attribute_name(attr, options = {})
     attr.to_s == 'non_field_error' ? '' : super
   end
@@ -171,15 +140,6 @@ class User < ActiveRecord::Base
     !deleted
   end
 
-  set :features
-  def features=(values)
-    values ||= []
-    features.del
-    values.each do |val|
-      features << val
-    end
-  end
-
   def social_accounts
     SocialAccount.where(user_id: id.to_s)
   end
@@ -193,22 +153,5 @@ class User < ActiveRecord::Base
   # and keep it public
   def valid_password?(password)
     super
-  end
-
-  def update_search_index
-    if active?
-      fields = {username: username, full_name: full_name}
-      ElasticSearch::Index.new('user').add id, fields
-    else
-      ElasticSearch::Index.new('user').delete id
-    end
-  end
-
-  after_save do |user|
-    user.update_search_index
-  end
-
-  after_update do |user|
-    UserObserverTask.handle_changes user
   end
 end

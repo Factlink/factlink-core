@@ -10,41 +10,46 @@ describe 'activity queries' do
     FactoryGirl.reload
 
     @mails_by_username_and_activity = []
-    SendActivityMailToUser.stub(:perform) do |user_id, activity_id|
-      @mails_by_username_and_activity << {
-        username: User.find(user_id).username,
-        subject_class: Activity[activity_id].subject_class,
-        action: Activity[activity_id].action
-      }
+    SendActivityMailToUser.stub(:new) do
+      job = double
+      job.stub async: job
+      job.stub(:perform) do |user_id, activity_id|
+        @mails_by_username_and_activity << {
+          username: User.find(user_id).username,
+          subject_type: Activity.find(activity_id).subject_type,
+          action: Activity.find(activity_id).action
+        }
+      end
+      job
     end
   end
 
   describe :comments do
     context "creating a comment" do
-      it "creates a notification for the interacting users" do
+      it "creates a notification for users that find the fact interesting" do
         fact_data = create :fact_data
         as(current_user) do |pavlov|
           pavlov.send_mails = true
-          pavlov.interactor(:'facts/set_opinion', fact_id: fact_data.fact_id, opinion: 'believes')
+          pavlov.interactor(:'facts/set_interesting', fact_id: fact_data.fact_id.to_s)
         end
 
         comment = nil
         as(create :user) do |pavlov|
           pavlov.send_mails = true
-          comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'believes', content: 'content')
+          comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_s, type: 'believes', content: 'content')
         end
 
         verify { @mails_by_username_and_activity }
       end
-      it "creates a stream activity for the interacting users" do
+      it "creates a stream activity for users that find the fact interesting" do
         fact_data = create :fact_data
         as(current_user) do |pavlov|
-          pavlov.interactor(:'facts/set_opinion', fact_id: fact_data.fact_id, opinion: 'believes')
+          pavlov.interactor(:'facts/set_interesting', fact_id: fact_data.fact_id.to_s)
         end
 
         comment = nil
         as(create :user) do |pavlov|
-          comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'believes', content: 'content')
+          comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_s, type: 'believes', content: 'content')
         end
 
         as(current_user) do |pavlov|
@@ -61,7 +66,7 @@ describe 'activity queries' do
 
         comment = nil
         as(followee) do |pavlov|
-          comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'believes', content: 'content')
+          comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_s, type: 'believes', content: 'content')
         end
 
         as(current_user) do |pavlov|
@@ -74,166 +79,70 @@ describe 'activity queries' do
 
   describe :sub_comments do
     context "creating a sub comment on a comment" do
-      context "gu1 believes the topfact" do
-        it "creates a stream activity" do
-          comment, sub_comment = ()
+      it "creates a stream activity for those that find the top fact interesting" do
+        comment, sub_comment = ()
 
-          fact_data = create :fact_data
+        fact_data = create :fact_data
 
-          as(other_user) do |pavlov|
-            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'disbelieves', content: 'content')
-          end
-
-          as(current_user) do |pavlov|
-            pavlov.interactor(:'facts/set_opinion', fact_id: fact_data.fact_id, opinion: 'believes')
-          end
-
-          as(other_user) do |pavlov|
-            sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
-          end
-
-          as(current_user) do |pavlov|
-            verify { pavlov.interactor(:'feed/personal') }
-          end
+        as(other_user) do |pavlov|
+          comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_s, type: 'disbelieves', content: 'content')
         end
 
-        it "does not create a notification" do
-          comment, sub_comment = ()
-
-          fact_data = create :fact_data
-
-          as(other_user) do |pavlov|
-            pavlov.send_mails = true
-            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'disbelieves', content: 'content')
-          end
-
-          as(current_user) do |pavlov|
-            pavlov.send_mails = true
-            pavlov.interactor(:'facts/set_opinion', fact_id: fact_data.fact_id, opinion: 'believes')
-          end
-
-          as(other_user) do |pavlov|
-            pavlov.send_mails = true
-            sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
-          end
-
-          verify { @mails_by_username_and_activity }
+        as(current_user) do |pavlov|
+          pavlov.interactor(:'facts/set_interesting', fact_id: fact_data.fact_id.to_s)
         end
 
-        it "creates a stream activity for the user's followers" do
-          comment, sub_comment = ()
+        as(other_user) do |pavlov|
+          sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
+        end
 
-          fact_data = create :fact_data
-
-          as(create :user) do |pavlov|
-            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'disbelieves', content: 'content')
-          end
-
-          as(current_user) do |pavlov|
-            pavlov.interactor(:'users/follow_user', username: other_user.username)
-          end
-
-          as(other_user) do |pavlov|
-            sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
-          end
-
-          as(current_user) do |pavlov|
-            verify { pavlov.interactor(:'feed/personal') }
-          end
+        as(current_user) do |pavlov|
+          verify { pavlov.interactor(:'feed/personal') }
         end
       end
 
-      context "gu1 believes the comment" do
-        it "creates a stream activity" do
-          comment, sub_comment = ()
+      it "creates a notification for those that find the top fact interesting" do
+        comment, sub_comment = ()
 
-          fact_data = create :fact_data
+        fact_data = create :fact_data
 
-          as(other_user) do |pavlov|
-            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'disbelieves', content: 'content')
-          end
-
-          as(current_user) do |pavlov|
-            pavlov.interactor(:'comments/update_opinion', comment_id: comment.id.to_s, opinion: 'believes')
-          end
-
-          as(other_user) do |pavlov|
-            sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
-          end
-
-          as(current_user) do |pavlov|
-            verify { pavlov.interactor(:'feed/personal') }
-          end
+        as(other_user) do |pavlov|
+          pavlov.send_mails = true
+          comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_s, type: 'disbelieves', content: 'content')
         end
 
-        it "creates a notification" do
-          comment, sub_comment = ()
-
-          fact_data = create :fact_data
-
-          as(other_user) do |pavlov|
-            pavlov.send_mails = true
-            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'disbelieves', content: 'content')
-          end
-
-          as(current_user) do |pavlov|
-            pavlov.send_mails = true
-            pavlov.interactor(:'comments/update_opinion', comment_id: comment.id.to_s, opinion: 'believes')
-          end
-
-          as(other_user) do |pavlov|
-            pavlov.send_mails = true
-            sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
-          end
-
-          verify { @mails_by_username_and_activity }
+        as(current_user) do |pavlov|
+          pavlov.send_mails = true
+          pavlov.interactor(:'facts/set_interesting', fact_id: fact_data.fact_id.to_s)
         end
+
+        as(other_user) do |pavlov|
+          pavlov.send_mails = true
+          sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
+        end
+
+        verify { @mails_by_username_and_activity }
       end
 
-      context "gu1 has added a subcomment to the comment" do
-        it "creates a stream activity" do
-          comment, sub_comment = ()
+      it "creates a stream activity for the user's followers" do
+        comment, sub_comment = ()
 
-          fact_data = create :fact_data
+        fact_data = create :fact_data
 
-          as(other_user) do |pavlov|
-            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'disbelieves', content: 'content')
-          end
-
-          as(current_user) do |pavlov|
-            pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
-          end
-
-          as(other_user) do |pavlov|
-            sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
-          end
-
-          as(current_user) do |pavlov|
-            verify { pavlov.interactor(:'feed/personal') }
-          end
+        as(create :user) do |pavlov|
+          comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id.to_s, type: 'disbelieves', content: 'content')
         end
 
-        it "creates a notification" do
-          comment, sub_comment = ()
+        as(current_user) do |pavlov|
+          pavlov.interactor(:'users/follow_user', username: other_user.username)
+        end
 
-          fact_data = create :fact_data
+        as(other_user) do |pavlov|
+          sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
+        end
 
-          as(other_user) do |pavlov|
-            pavlov.send_mails = true
-            comment = pavlov.interactor(:'comments/create', fact_id: fact_data.fact_id, type: 'disbelieves', content: 'content')
-          end
-
-          as(current_user) do |pavlov|
-            pavlov.send_mails = true
-            pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
-          end
-
-          as(other_user) do |pavlov|
-            pavlov.send_mails = true
-            sub_comment = pavlov.interactor(:'sub_comments/create', comment_id: comment.id.to_s, content: 'content')
-          end
-
-          verify { @mails_by_username_and_activity }
+        as(current_user) do |pavlov|
+          verify { pavlov.interactor(:'feed/personal') }
         end
       end
     end

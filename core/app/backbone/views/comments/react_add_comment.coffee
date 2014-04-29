@@ -84,7 +84,6 @@ window.ReactAddComment = React.createBackboneClass
     _button ['button-confirm button-small add-comment-post-button'
       onClick: => @refs.signinPopover.submit(=> @_submit())
       disabled: !@_comment().isValid()
-      ref: 'post'
     ],
       Factlink.Global.t.post_comment
       ReactSigninPopover
@@ -107,7 +106,6 @@ window.ReactAddComment = React.createBackboneClass
   _onTextareaChange: (text) ->
     @setState(text: text)
     @setState(controlsOpened: true) if text.length > 0
-    mp_track "Annotation: Started typing"
 
   _onSearchInsert: (text) ->
     @refs.textarea.insert text
@@ -119,9 +117,8 @@ window.ReactAddComment = React.createBackboneClass
 
     @model().unshift(comment)
     comment.saveWithFactAndWithState {},
-      success: ->
-        mp_track "Annotation: Added comment",
-          factlink_id: comment.collection.fact.id
+      success: =>
+        @model().fact.getOpinionators().setInterested true
 
     @setState @getInitialState()
     @refs.textarea.updateText ''

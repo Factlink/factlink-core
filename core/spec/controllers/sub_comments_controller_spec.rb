@@ -12,7 +12,7 @@ describe SubCommentsController do
 
       as(user) do |p|
         @fact_data = create :fact_data
-        @comment = p.interactor(:'comments/create', fact_id: @fact_data.fact_id, content:'yo')
+        @comment = p.interactor(:'comments/create', fact_id: @fact_data.fact_id.to_s, content:'yo')
         p.interactor(:'sub_comments/create',
                       comment_id: @comment.id.to_s, content: 'hey')
       end
@@ -25,7 +25,7 @@ describe SubCommentsController do
     it 'works' do
       authenticate_user!(user)
 
-      get :index, id: @fact_data.fact_id, comment_id: @comment.id
+      get :index, id: @fact_data.fact_id.to_s, comment_id: @comment.id
 
       expect(response).to be_success
       verify { response.body }

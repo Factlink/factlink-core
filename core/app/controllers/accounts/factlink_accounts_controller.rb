@@ -38,15 +38,14 @@ class Accounts::FactlinkAccountsController < Accounts::BaseController
   # with warden using the devise strategies, using params.
   # Therefore we set the params, and authenticate.
   def parse_user_new_session(user_params)
-    params[:user] = user_params
-    allow_params_authentication!
-
-    unless user = warden.authenticate(scope: :user)
+    user = User.where(email: user_params[:email]).first
+    if user && user.valid_password?(user_params[:password])
+      user
+    else
       user = User.new
       user.errors.add :email, 'incorrect email address or password'
+      user
     end
-
-    user
   end
 
   def parse_user_new_account(user_params)

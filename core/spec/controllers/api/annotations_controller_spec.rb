@@ -20,7 +20,7 @@ describe Api::AnnotationsController do
                                      site_url: 'url',
                                      site_title: 'title')
 
-        pavlov.interactor(:'facts/set_opinion', fact_id: dead_fact.id, opinion: 'believes')
+        pavlov.interactor(:'facts/set_interesting', fact_id: dead_fact.id)
       end
 
       get :show, id: dead_fact.id, format: :json
@@ -39,7 +39,7 @@ describe Api::AnnotationsController do
                                      site_url: 'url',
                                      site_title: 'title')
 
-        pavlov.interactor(:'facts/set_opinion', fact_id: dead_fact.id, opinion: 'believes')
+        pavlov.interactor(:'facts/set_interesting', fact_id: dead_fact.id)
       end
 
       get :show, id: dead_fact.id, format: :json

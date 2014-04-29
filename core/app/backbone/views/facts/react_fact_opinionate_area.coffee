@@ -52,18 +52,12 @@ FactInterestedButton = React.createBackboneClass
     model = @model()
     is_interested = model.is_current_user_interested()
 
-    opinionTally = model.countBy (opinionator) -> opinionator.get('type')
-    _.defaults opinionTally,
-      believes: 0,
-      disbelieves: 0
-    opinionTallyTotal = opinionTally.believes + opinionTally.disbelieves
-
     _button [
           "button-interesting spec-button-interesting"
           onClick: => @refs.signinPopover.submit(-> model.setInterested(!is_interested))
         ],
       _div ['button-interesting-tally'],
-        opinionTallyTotal
+        model.length
 
       _i [
         "icon-star button-interesting-star"

@@ -24,7 +24,6 @@ class Ability
     define_comment_abilities
     define_sub_comment_abilities
     define_user_abilities
-    define_user_activities_abilities
   end
 
   def define_anonymous_user_abilities
@@ -67,15 +66,6 @@ class Ability
 
     can :update, user
     can :destroy, user
-  end
-
-  def define_user_activities_abilities
-    return unless signed_in?
-
-    can :index, Activity
-    can :see_activities, User do |u|
-      u.id == user.id
-    end
   end
 
   FEATURES = %w(

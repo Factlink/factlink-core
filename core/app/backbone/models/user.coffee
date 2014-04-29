@@ -18,7 +18,7 @@ class window.User extends Backbone.Model
       md5d_email = @get('gravatar_hash')
       "https://secure.gravatar.com/avatar/#{md5d_email}?size=#{size}&rating=PG&default=retro"
 
-  link: -> "/#{@get('username')}"
+  link: -> "/user/#{@get('username')}"
   editLink: -> "#{@link()}/edit"
 
   feed_activities: ->
@@ -34,7 +34,6 @@ class window.User extends Backbone.Model
         @set 'statistics_follower_count', @get('statistics_follower_count')-1
 
     @set 'statistics_follower_count', @get('statistics_follower_count')+1
-    mp_track 'User: Followed'
 
   unfollow: ->
     self = currentSession.user().following.get(@id)
@@ -46,7 +45,6 @@ class window.User extends Backbone.Model
         @set 'statistics_follower_count', @get('statistics_follower_count')+1
 
     @set 'statistics_follower_count', @get('statistics_follower_count')-1
-    mp_track 'User: Unfollowed'
 
   followed_by_me: ->
     currentSession.user().following.some (model) =>

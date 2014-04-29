@@ -1,9 +1,6 @@
 general:
   build_dir: core
 
-machine:
-  services:
-    - elasticsearch
 dependencies:
   cache_directories:
     - "~/factlink/js-library/node_modules"
@@ -17,6 +14,7 @@ test:
     - bundle exec rake konacha:load_poltergeist konacha:run
     - cd ~/factlink/js-library; grunt
     - bundle exec rspec spec/acceptance spec/screenshots --profile
+    - KENNISLAND= bundle exec rspec spec/acceptance spec/screenshots --profile
     - bin/copy_received_fixtures_for_circleci.sh
     - bundle exec brakeman --except SessionSettings -q -z
     - bundle exec scss-lint app/assets/stylesheets/ --config ../.scss-lint.yml

@@ -6,25 +6,37 @@ class FactlinkRouter extends Backbone.Router
   routes:
     'feed': ->
       showComponent ReactFeedSelection()
-      mp_track 'Viewed feed'
 
     'search': 'search' # must be named
 
-    ':username/edit': ->
+    'user/:username/edit': ->
       showComponent ReactProfileEdit model: currentSession.user()
 
-    ':username/notification-settings': ->
+    'user/:username/notification-settings': ->
       showComponent ReactNotificationSettings model: currentSession.user()
 
-    ':username/change-password': ->
+    'user/:username/change-password': ->
       showComponent ReactChangePassword model: currentSession.user().password()
 
-    ':username': (username) ->
+    'user/:username': (username) ->
       user = new User(username: username)
       user.fetch()
 
       showComponent ReactProfile model: user
+    'd/:fact_id': (fact_id) ->
+      if !window.is_kennisland
+        alert('This is not supported in factlink mode!')
 
+      Factlink.load_client_dependencies()
+
+      fact = new Fact id: fact_id
+      fact.fetch()
+
+      showComponent ReactDiscussionStandalone
+        model: fact
+        initiallyFocusAddComment: true
+        key: fact_id
+        site_url: ('f/' + fact_id)
   search: (params={}) ->
     @once 'route', (route) ->
       return if route == 'search'
@@ -38,10 +50,6 @@ class FactlinkRouter extends Backbone.Router
     results.fetch()
 
     showComponent ReactSearchResults model: results
-
-    mp_track 'Search: Top bar search',
-      query: query
-
 
 Factlink.siteInitializer = ->
   Factlink.commonInitializer()

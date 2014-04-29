@@ -3,41 +3,50 @@ module Backend
     extend self
 
     def get(activity_id:)
-      dead(Activity[activity_id])
+      dead(Activity.find(activity_id))
     end
 
-    def activities_older_than(activities_set:, timestamp: nil, count: nil)
-      #watch out: don't use defaults other than nil since nill is automatically passed in at the rails controller level.
-      timestamp = timestamp || 'inf'
-      count = count ? count.to_i : 20
-      retrieved_activities = Enumerator.new do |yielder|
-        while true
-          current =
-              activities_set.below(timestamp,
-                                   count: count, #count here is merely the batch-size; anything larger than 0 is valid.
-                                   reversed: true,
-                                   withscores: true)
-          if current.none?
-            break
-          else
-            timestamp = current.last[:score]
-            current.each { |o| yielder.yield o }
-          end
-        end
-      end.lazy
+    def global(newest_timestamp:, count:)
+      relation = Activity.where(action: %w(created_comment created_sub_comment))
 
-      retrieved_activities
-        .map { |scored_activity| scored_activity_to_dead_activity scored_activity }
-        .reject { |o| o.nil? }
-        .take(count)
-        .to_a
+      feed relation: relation, newest_timestamp: newest_timestamp, count: count
     end
 
-    private def scored_activity_to_dead_activity(item: , score:)
-      dead_activity = dead(item)
-      return nil if dead_activity.nil?
+    def global_discussions(newest_timestamp:, count:)
+      relation = Activity.where(action: 'created_fact')
 
-      dead_activity.merge(timestamp: score)
+      feed relation: relation, newest_timestamp: newest_timestamp, count: count
+    end
+
+    def users(newest_timestamp:, username: username)
+      user = User.where(username: username).first
+      relation = Activity.where(action: %w(created_comment created_sub_comment followed_user), user_id: user.id)
+
+      feed relation: relation, newest_timestamp: newest_timestamp
+    end
+
+    def personal(newest_timestamp:, user_id:)
+      relation = Activity
+        .joins("
+          LEFT JOIN sub_comments ON sub_comments.id = activities.subject_id AND activities.subject_type = 'SubComment'
+          LEFT JOIN comments ON comments.id = sub_comments.parent_id OR (comments.id = activities.subject_id AND activities.subject_type = 'Comment')
+          LEFT JOIN fact_data_interestings ON fact_data_interestings.fact_data_id = comments.fact_data_id
+          LEFT JOIN followings ON followings.followee_id = activities.user_id
+        ")
+        .where('fact_data_interestings.user_id = ? OR followings.follower_id = ?', user_id, user_id)
+        .where(action: %w(created_comment created_sub_comment followed_user))
+
+      feed relation: relation, newest_timestamp: newest_timestamp
+    end
+
+    private def feed(relation:, newest_timestamp:, count: 20)
+      newest_timestamp ||= Time.now
+
+      relation.where("activities.created_at <= ?", newest_timestamp)
+              .order('activities.created_at DESC')
+              .limit(count)
+              .map(&method(:dead))
+              .compact
     end
 
     private def dead(activity)
@@ -47,6 +56,7 @@ module Backend
           action: activity.action,
           created_at: activity.created_at.to_time,
           id: activity.id,
+          timestamp: activity.created_at.utc.to_s,
       }
       specialized_data =
           case activity.action
@@ -70,45 +80,29 @@ module Backend
                 followed_user: Backend::Users.by_ids(user_ids: activity.subject_id).first,
                 user: Backend::Users.by_ids(user_ids: activity.user_id).first,
             }
+          when "created_fact"
+            {
+                fact: Backend::Facts.get(fact_id: activity.subject_id.to_s),
+                user: Backend::Users.by_ids(user_ids: [activity.user_id]).first
+            }
           end
 
       base_activity_data.merge(specialized_data)
     rescue StandardError => e
-      raise e if Rails.env.test?
+      raise e if Rails.env.test? || Rails.env.development?
       nil #activities may become "invalid" in which case the facts/comments/users they refer to
       #are gone.  This  causes errors.  We ignore such activities.
     end
 
-    def add_activities_to_follower_stream(followed_user_id:, current_user_id:)
-      activities_set = User.where(id: followed_user_id).first.own_activities
+    def create(user_id:, action:, subject: nil, time:, send_mails:)
+      activity = Activity.new
+      activity.user_id = user_id
+      activity.action = action.to_s
+      activity.subject = subject
+      activity.created_at = time.utc
+      activity.updated_at = time.utc
+      activity.save!
 
-      activities = activities_set.below('inf',
-                    count: 7,
-                    reversed: true,
-                    withscores: false).compact
-
-      current_user = User.where(id: current_user_id).first
-
-      activities.each do |activity|
-        activity.add_to_list_with_score current_user.stream_activities
-      end
-    end
-
-    def create(user_id:, action:, subject: nil, subject_id: nil, subject_class: nil, time:, send_mails:)
-      if subject
-        subject_id = subject.id.to_s
-        subject_class = subject.class.to_s
-      elsif not (subject_id && subject_class)
-        raise "INVALID SUBJECT"
-      end
-      activity = Activity.create \
-        user_id: user_id,
-        action: action,
-        subject_id: subject_id,
-        subject_class: subject_class,
-        created_at: time.utc.to_s
-
-      Resque.enqueue(ProcessActivity, activity.id)
       send_mail_for_activity activity: activity if send_mails
 
       nil
@@ -117,17 +111,24 @@ module Backend
     private
 
     def send_mail_for_activity(activity:)
-      listeners = Activity::Listener.all[{class: "User", list: :notifications}]
+      case activity.action.to_s
+      when "created_comment"
+        user_ids = Backend::Followers.followers_for_fact_id(activity.subject.fact_data.fact_id)
+      when "created_sub_comment"
+        user_ids = Backend::Followers.followers_for_fact_id(activity.subject.parent.fact_data.fact_id)
+      when "followed_user"
+        user_ids = [activity.subject_id]
+      else
+        user_ids = []
+      end
 
-      user_ids = listeners.map do |listener|
-          listener.add_to(activity)
-        end.flatten
+      user_ids = user_ids.reject {|id| id.to_s == activity.user_id.to_s }
 
       recipients = Backend::Notifications.users_receiving(type: 'mailed_notifications')
                                          .where(id: user_ids)
 
       recipients.each do |user|
-        Resque.enqueue SendActivityMailToUser, user.id, activity.id
+        SendActivityMailToUser.new.async.perform(user.id, activity.id)
       end
     end
   end

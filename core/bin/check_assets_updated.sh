@@ -7,7 +7,7 @@
 
 # sort -d is to make sure the file order is always the same
 CURRENT_SHASUM=`shasum -b $(ls config/locales/* | sort -d) | shasum -b | perl -pe 's/\s*\*-\s*//'`
-RECORDED_SHASUM=`cat app/assets/javascripts/globals/globals.coffee.erb  | grep '# SHASUM' | perl -pe 's/.*:\s*//'`
+RECORDED_SHASUM=`cat app/assets/javascripts/globals.coffee.erb  | grep '# SHASUM' | perl -pe 's/.*:\s*//'`
 
 echo "SHASUM of the locales: $CURRENT_SHASUM"
 echo "SHASUM in globals.coffee.erb: $RECORDED_SHASUM"

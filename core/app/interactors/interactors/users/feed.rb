@@ -10,12 +10,11 @@ module Interactors
       end
 
       def execute
-        Backend::Activities.activities_older_than(activities_set: activities, timestamp: timestamp)
+        Backend::Activities.users(newest_timestamp: timestamp, username: username)
       end
 
-      def activities
-        user = User.where(username: username).first
-        user.own_activities
+      def validate
+        validate_string :timestamp, timestamp unless timestamp.nil?
       end
     end
   end

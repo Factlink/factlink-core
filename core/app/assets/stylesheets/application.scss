@@ -5,12 +5,10 @@
 @import "mixins/mixins";
 @import "mixins/triangle_arrows";
 
-@import "base/feedback/button";
 @import "base/topbar/dropdown_menu";
 @import "base/accounts_popup";
 @import "base/buttons";
 @import "base/content";
-@import "base/feedback";
 @import "base/footer";
 @import "base/header";
 @import "base/radio_toggle_buttons";
@@ -54,6 +52,7 @@
 @import "facts/share_fact_selection";
 @import "facts/top_annotation";
 
+@import "comments/anecdote_or_comment";
 @import "comments/add_comment";
 @import "comments/comments";
 @import "comments/formatted_comment_content";
@@ -71,3 +70,6 @@
 @import "frontend/fluid_layout";
 @import "frontend/loading";
 @import "frontend/tabs";
+
+//Kennisland
+@import "kennisland/challenges"

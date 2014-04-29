@@ -33,7 +33,7 @@ class window.CommentTally extends Backbone.Model
     if @_comment.collection.loading()
       @_comment.collection.once 'sync', => @_setCurrentUserOpinion opinion_type
 
-  _saveCurrentUserOpinion: (opinion_type) ->
+  saveCurrentUserOpinion: (opinion_type) ->
     @previous_opinion_type = @get('current_user_opinion')
     return if @previous_opinion_type == opinion_type
 
@@ -41,15 +41,7 @@ class window.CommentTally extends Backbone.Model
     @save {},
       success: =>
         @_setOpinionAgainAfterCollectionFetch opinion_type
-        mp_track "Comment: Vote", url: @url(), opinion: opinion_type
       error: =>
         @_setCurrentUserOpinion @previous_opinion_type
-
-  clickCurrentUserOpinion: (opinion_type) ->
-    if @get('current_user_opinion') == opinion_type
-      @_saveCurrentUserOpinion 'no_vote'
-    else
-      @_saveCurrentUserOpinion opinion_type
-
 
   relevance: -> @get('believes') - @get('disbelieves')
