@@ -4,6 +4,7 @@ class Comment < ActiveRecord::Base
   belongs_to :fact_data, class_name: 'FactData'
   has_many :activities, as: :subject, dependent: :destroy
   has_many :sub_comments, foreign_key: :parent_id, inverse_of: :parent, dependent: :destroy
+  has_many :comment_votes, dependent: :destroy
 
   def created_by
     user = User.where(id: created_by_id).first
