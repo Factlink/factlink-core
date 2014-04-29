@@ -4,13 +4,6 @@ class SubComment < ActiveRecord::Base
   # TODO: rename to :comment
   belongs_to :parent, class_name: 'Comment'
 
+  belongs_to :created_by, class_name: :User
   has_many :activities, as: :subject, dependent: :destroy
-
-  def created_by
-    User.where(id: created_by_id).first
-  end
-
-  def created_by=(user)
-    self.created_by_id = user.id.to_s
-  end
 end
