@@ -10,41 +10,31 @@ This project is the factlink core application. Currently it consists of
 
 For setting up the basic dependencies on your system, see:
 
-https://github.com/Factlink/core/wiki/Setting-up-a-developer-environment
+https://github.com/Factlink/factlink/wiki/Setting-up-a-developer-environment
 
-Now to setup factlink, go to your projectdir, and save the following script there:
-https://github.com/Factlink/core/blob/develop/script/setup_env.sh
+Checkout this repo.
 
-Now run the script:
+To install system level prerequisites, run `bin/bootstrap-mac` or `bin/bootstrap-linux` (or read those files to verify you've got everything)
 
-```
-sh setup_env.sh
-```
+Then you're basically set!
 
-Now run the factlinkapps by starting the db's and the webservers
+You can start factlink by running
 
 ```
-./start-db.sh
-./start-web.sh
+./start-all.sh
 ```
+
+If you want more fine-grained control, the local db+bundler dependencies can be installed with `bin/bootstrap`, and the db without anything else can be started with `./start-db.sh` and the web-servers without the db or bootstrapping with `./start-web.sh`.
+
+`./start-all.sh` avoids overheard by not running various bootstrap steps unnecessarily - to do so it compares sha1 hashes of the last executed code version with the current situation.  If every things go haywire, just delete `*.sha-cache` and everything will be re-bootstrapped.
+
 
 Now open your browser and surf to http://localhost:3000
 
 ## Running the tests
 
-The first time you need to install soundcheck
-
-```
-gem install soundcheck --pre
-```
-
-After that, simply do the following (from the base dir):
-
-```
-cd core
-soundcheck
-```
+`bundle exec rspec spec/unit spec; bundle exec rspec spec/acceptance spec/screenshots`
 
 ## Licensing
 
-This project is closed source, (C) Factlink
+This project is TODO licensed, (C) Factlink
