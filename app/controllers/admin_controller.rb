@@ -18,13 +18,6 @@ class AdminController < ApplicationController
     raise 'This is an intentional error'
   end
 
-  # GET /a/cleanup_feed
-  def cleanup_feed
-    CleanupActivitiesWorker.new.async.perform
-    flash[:notice] = "Scheduled Clean invalid activities"
-    redirect_to :back
-  end
-
   before_filter :set_cache_buster
   def set_cache_buster
      response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
