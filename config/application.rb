@@ -141,6 +141,9 @@ rescue
   FactlinkUI::Application.config.version_number = 'unknown'
 end
 
+FactlinkUI::Application.config.support_email = ENV.fetch('FACTLINK_SUPPORT_EMAIL', 'support@factlink.com')
+FactlinkUI::Application.config.support_name = ENV.fetch('FACTLINK_SUPPORT_NAME', 'Factlink')
+
 # Securityfix:
 ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)
 #puts "Here comes a warning because we are very secure:"

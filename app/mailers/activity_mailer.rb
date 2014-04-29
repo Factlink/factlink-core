@@ -20,9 +20,9 @@ class ActivityMailer < ActionMailer::Base
 
   def from
     if ['development', 'staging'].include? Rails.env
-      "\"Factlink #{Rails.env}\" <support@factlink.com>"
+      "\"#{FactlinkUI::Application.config.support_name} #{Rails.env}\" <#{FactlinkUI::Application.config.support_email}>"
     else
-      "\"Factlink\" <support@factlink.com>"
+      "\"#{FactlinkUI::Application.config.support_name}\" <#{FactlinkUI::Application.config.support_email}>"
     end
   end
 
