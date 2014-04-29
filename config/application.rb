@@ -7,7 +7,6 @@ require "pavlov/alpha_compatibility"
 
 if ENV['HEROKU']
   require "rails_12factor"
-  require "passenger"
 end
 
 Mime::Type.register "image/png", :png unless Mime::Type.lookup_by_extension(:png)
