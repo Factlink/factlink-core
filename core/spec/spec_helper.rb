@@ -33,10 +33,6 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
 
   config.use_transactional_examples = true
-
-  config.before(:each) do
-    Redis.current.flushdb
-  end
 end
 
 Approvals.configure do |c|
