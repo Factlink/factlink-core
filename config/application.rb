@@ -22,7 +22,6 @@ require 'coffee_script'
 
 ActiveSupport.escape_html_entities_in_json = true
 
-
 module FactlinkUI
   def self.Kennisland?
     !ENV['KENNISLAND'].nil?
@@ -140,6 +139,11 @@ begin
 rescue
   FactlinkUI::Application.config.version_number = 'unknown'
 end
+
+require_relative './initializers/core.rb'
+
+FactlinkUI::Application.config.support_email = ENV.fetch('FACTLINK_SUPPORT_EMAIL', 'support@factlink.com')
+FactlinkUI::Application.config.support_name = ENV.fetch('FACTLINK_SUPPORT_NAME', 'Factlink')
 
 # Securityfix:
 ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)

@@ -21,7 +21,6 @@ FactlinkUI::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 
   # These options belong here
-  config.action_mailer.default_url_options = { :host => 'localhost', :port => '3000' }
 
   # Expands the lines which load the assets
   config.assets.debug = true
