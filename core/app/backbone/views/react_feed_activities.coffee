@@ -9,7 +9,7 @@ stripLinks = (formatted_content) ->
 
 window.ReactFeedActivitiesAutoLoading = React.createBackboneClass
   displayName: 'ReactFeedActivitiesAutoLoading'
-  changeOptions: 'sync'
+  changeOptions: 'add remove sort reset sync'
 
   # this function loads more activities, if we're almost at the bottom of the list
   checkScrolledPosition: ->
