@@ -11,6 +11,7 @@
         "deleted": false
       },
       "created_at": "<created_at>",
+      "content": "a comment",
       "formatted_content": "a comment",
       "sub_comments_count": 0,
       "is_deletable": true,
@@ -30,6 +31,7 @@
         "deleted": false
       },
       "created_at": "<created_at>",
+      "content": "a comment",
       "formatted_content": "a comment",
       "sub_comments_count": 0,
       "is_deletable": true,

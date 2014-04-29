@@ -22,6 +22,7 @@
         "deleted": false
       },
       "created_at": "<created_at>",
+      "content": "content",
       "formatted_content": "content",
       "sub_comments_count": 1,
       "is_deletable": false,
@@ -74,6 +75,7 @@
         "deleted": false
       },
       "created_at": "<created_at>",
+      "content": "content",
       "formatted_content": "content",
       "sub_comments_count": 1,
       "is_deletable": false,

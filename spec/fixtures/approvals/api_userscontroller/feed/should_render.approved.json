@@ -22,6 +22,7 @@
         "deleted": false
       },
       "created_at": "<created_at>",
+      "content": "hoi",
       "formatted_content": "hoi",
       "sub_comments_count": 2,
       "is_deletable": false,
@@ -74,6 +75,7 @@
         "deleted": false
       },
       "created_at": "<created_at>",
+      "content": "hoi",
       "formatted_content": "hoi",
       "sub_comments_count": 2,
       "is_deletable": false,
