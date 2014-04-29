@@ -20,7 +20,7 @@ class AdminController < ApplicationController
 
   # GET /a/cleanup_feed
   def cleanup_feed
-    Resque.enqueue CleanupActivitiesWorker
+    CleanupActivitiesWorker.new.async.perform
     flash[:notice] = "Scheduled Clean invalid activities"
     redirect_to :back
   end

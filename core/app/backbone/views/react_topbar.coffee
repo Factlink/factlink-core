@@ -19,9 +19,6 @@ window.ReactTopbarMenu = React.createClass
       _li ['dropdown-menu-item'],
         _a [href: '/a/cause_error'],
           'Cause Error'
-      _li ['dropdown-menu-item'],
-        _a [href: '/a/resque'],
-          'Resque'
 
   render: ->
     username = currentSession.user().get('username')

@@ -1,7 +1,7 @@
 class CleanupActivitiesWorker
-  @queue = :zzz_janitor
+  include SuckerPunch::Job
 
-  def self.perform
+  def perform
     Activity.all.each do |a|
       unless a.still_valid?
         a.destroy

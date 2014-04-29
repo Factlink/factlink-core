@@ -8,6 +8,7 @@ require 'rubygems'
 require 'pavlov_helper'
 require 'webmock'
 require 'approvals/rspec'
+require 'sucker_punch/testing/inline'
 
 I_AM_SPEC_HELPER = true
 

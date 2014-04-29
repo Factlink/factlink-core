@@ -14,6 +14,7 @@ require 'poltergeist_style_overrides'
 require 'webmock'
 require 'capybara-screenshot/rspec'
 require 'database_cleaner'
+require 'sucker_punch/testing/inline'
 
 require 'pavlov_helper'
 

@@ -1,6 +1,4 @@
 class ActivityMailer < ActionMailer::Base
-  include Resque::Mailer
-
   helper :activity_mailer
 
   layout "email_notification"
