@@ -89,6 +89,7 @@ module Backend
 
     def remove_activities user
       user.activities.destroy_all
+      user.activities_with_user_as_subject.destroy_all
     end
   end
 end
