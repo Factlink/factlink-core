@@ -41,4 +41,4 @@ class window.Comment extends Backbone.Model
       @saveWithState(attributes, options)
 
   textContent: ->
-    stripHtml(@.get('formatted_content')) || @.get('content')
+    stripHtml(@get('formatted_content')) || @get('content')
