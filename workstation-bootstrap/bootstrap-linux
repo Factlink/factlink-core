@@ -34,7 +34,6 @@ sudo apt-get -y install \
            chromium-chromedriver \
            openvpn \
            phantomjs \
-           redis-server \
            rbenv \
            openjdk-7-jre-headless \
            python \
@@ -164,8 +163,6 @@ npm install supervisor grunt-cli -g
 
 sudo update-rc.d -f postgresql remove
 sudo service postgresql stop || :
-sudo update-rc.d -f redis-server remove
-sudo service redis-server stop || :
 
 
 # You can connect to multiple VPN connections from the terminal just do:
