@@ -1,4 +1,4 @@
-window.ReactAddAnecdote = React.createBackboneClass
+window.ReactAddAnecdote = React.createClass
   displayName: 'ReactAddAnecdote'
 
   renderField: (key, label) ->
@@ -41,7 +41,7 @@ window.ReactAddAnecdote = React.createBackboneClass
 
     return unless comment.isValid()
 
-    @model().unshift(comment)
+    @props.comments.unshift(comment)
     comment.saveWithFactAndWithState {},
       success: =>
-        @model().fact.getOpinionators().setInterested true
+        @props.comments.fact.getOpinionators().setInterested true
