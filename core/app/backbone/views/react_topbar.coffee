@@ -25,7 +25,7 @@ window.ReactTopbarMenu = React.createClass
       _a ['dropdown-toggle', @props.linkClass, 'data-toggle': 'dropdown', href: 'javascript:'],
         _b ['caret']
       _ul ['dropdown-menu'],
-        if !window.is_kennisland
+        (if !window.is_kennisland
           [
             _li ['dropdown-menu-item'],
              _a [href: '/in-your-browser'],
@@ -36,6 +36,7 @@ window.ReactTopbarMenu = React.createClass
                _i ['icon-bookmark']
                " On your site"
           ]
+        else [])...
         _li ['dropdown-menu-item'],
          _a [href: "/user/#{currentSession.user().get('username')}/edit", rel: 'backbone'],
            _i ['icon-cog']
@@ -91,7 +92,7 @@ window.ReactTopbar = React.createClass
       else
         _div ['topbar-inner'],
           _ul ['topbar-menu'],
-            if !window.is_kennisland
+            (if !window.is_kennisland
               [
                 _li ['topbar-menu-item topbar-in-your-browser'],
                   _a ['topbar-menu-link', href: '/in-your-browser'],
@@ -101,6 +102,8 @@ window.ReactTopbar = React.createClass
                   _a ['topbar-menu-link', href: '/on-your-site'],
                     "On your site"
               ]
+            else
+              [])...
             _li ['topbar-divider topbar-on-your-site']
             _li ['topbar-menu-item'],
               _div ['topbar-connect'],
