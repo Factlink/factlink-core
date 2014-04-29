@@ -24,6 +24,7 @@
       "created_at": "<created_at>",
       "content": "hallo",
       "formatted_content": "hallo",
+      "markup_format": null,
       "sub_comments_count": 0,
       "is_deletable": true,
       "tally": {
@@ -65,6 +66,7 @@
       "created_at": "<created_at>",
       "content": "hoi",
       "formatted_content": "hoi",
+      "markup_format": null,
       "sub_comments_count": 2,
       "is_deletable": false,
       "tally": {
@@ -118,6 +120,7 @@
       "created_at": "<created_at>",
       "content": "hoi",
       "formatted_content": "hoi",
+      "markup_format": null,
       "sub_comments_count": 2,
       "is_deletable": false,
       "tally": {
@@ -171,6 +174,7 @@
       "created_at": "<created_at>",
       "content": "hoi",
       "formatted_content": "hoi",
+      "markup_format": null,
       "sub_comments_count": 2,
       "is_deletable": false,
       "tally": {

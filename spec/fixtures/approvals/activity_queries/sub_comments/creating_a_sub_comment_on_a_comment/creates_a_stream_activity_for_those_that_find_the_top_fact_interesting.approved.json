@@ -24,6 +24,7 @@
       "created_at": "<created_at>",
       "content": "content",
       "formatted_content": "content",
+      "markup_format": null,
       "sub_comments_count": 1,
       "is_deletable": false,
       "tally": {
@@ -77,6 +78,7 @@
       "created_at": "<created_at>",
       "content": "content",
       "formatted_content": "content",
+      "markup_format": null,
       "sub_comments_count": 1,
       "is_deletable": false,
       "tally": {

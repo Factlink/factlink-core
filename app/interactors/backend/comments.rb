@@ -68,6 +68,7 @@ module Backend
         created_at: comment.created_at.utc.iso8601,
         content: comment.content,
         formatted_content: formatted_content,
+        markup_format: comment.markup_format,
         sub_comments_count: Backend::SubComments.count(parent_id: comment.id),
         is_deletable: deletable?(comment.id),
         tally: {
