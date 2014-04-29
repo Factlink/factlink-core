@@ -1,0 +1,100 @@
+#!/bin/bash
+#abort this script on any error:
+set -e
+
+function ensureBrew {
+  echo "Ensuring $1 brew is installed and up to date..."
+  brew install $1 || brew upgrade $1
+}
+function ensureGem {
+  if gem list $1 -i > /dev/null; then
+    echo "$1 already installed; updating..."
+    gem update $1
+  else
+    echo "Installing $1..."
+    gem install $1
+  fi
+}
+
+if ! type java 2>&1 >/dev/null; then
+  echo "ERROR: Java is not yet installed - you can trigger the installer by running any java program (such as Java VisualVM)"
+  exit 1
+fi
+
+if type brew 2>&1 >/dev/null; then
+    echo "Brew already installed; updating."
+    brew update
+else
+  #do brew install before all other slow things so that the user doesn't need to wait
+  #brew install requires user interaction (sudo)
+    echo "Installing brew: brew will ask for confirmation."
+    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+fi
+
+ensureBrew node
+ensureBrew git-flow
+ensureBrew qt
+ensureBrew phantomjs
+ensureBrew postgresql
+ensureBrew pstree
+ensureBrew rbenv
+ensureBrew p7zip
+
+if egrep -q '^eval "\$\(rbenv init -\)"$' ~/.bash_profile ; then
+  echo "rbenv already installed in .bash_profile"
+else
+  echo "Installing rbenv init script into ~/.bash_profile"
+  echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+fi
+eval "$(rbenv init -)"
+export RUBY_VERSION=2.1.0
+echo "Checking for ruby ${RUBY_VERSION}"
+rbenv rehash
+if bash -c "rbenv global ${RUBY_VERSION}" ; then
+  #NOTE: we need to run the rbenv global TEST in a separate bash instance
+  #because rbenv installs a bash function and due to set -e interaction in can fail.
+  echo "Ruby ${RUBY_VERSION} already installed."
+else
+    git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build || :
+    pushd ~/.rbenv/plugins/ruby-build
+      git pull
+    popd
+    echo "Installing ruby ${RUBY_VERSION}..."
+    CC="clang" CXX="clang++" CFLAGS="-march=native -Os" rbenv install ${RUBY_VERSION}
+fi
+rbenv global ${RUBY_VERSION}
+rbenv rehash
+
+echo 'Installing jslint, supervisor and grunt-cli'
+
+npm install supervisor -g
+npm install grunt-cli -g
+npm install smoosh -g
+
+if ! type grunt 2>&1 >/dev/null; then
+  #/usr/local/share/npm/bin isn't yet in path
+  export PATH=$PATH:/usr/local/share/npm/bin
+  if ! type grunt 2>&1 >/dev/null; then
+    echo "ERROR: Cannot find grunt in path nor in /usr/local/share/npm/bin; exiting."
+    exit 1
+  fi
+  echo 'export PATH=$PATH:/usr/local/share/npm/bin' >> ~/.bash_profile
+fi
+
+#NOTE: Make unix socket writeable for Postgresql
+if [ ! -d '/var/pgsql_socket/' ]; then
+  sudo mkdir -p /var/pgsql_socket/
+  sudo chmod 777 /var/pgsql_socket/
+fi
+
+rbenv shell $RUBY_VERSION
+
+ensureGem bundler
+ensureGem git-up
+rbenv rehash
+rbenv shell --unset
+
+echo
+echo
+brew outdated
+echo "Your factlink development environment is done.  Happy hacking!"

@@ -1,0 +1,18 @@
+set -e
+
+if [ ! -f ~/.bashrc ] || ! egrep -q -e "alias bx='bundle exec'" ~/.bashrc; then
+  echo "alias bx='bundle exec'" >> ~/.bashrc
+  alias bx='bundle exec'
+fi
+
+if [ ! -f ~/.bashrc ] || ! egrep -q -e "export RUBY_CFLAGS" ~/.bashrc; then
+  echo 'export RUBY_CFLAGS="-O3 -march=native -fomit-frame-pointer -ftracer -pipe -fgcse-sm -fgcse-las -fipa-pta"' >> ~/.bashrc
+  export RUBY_CFLAGS="-O3 -march=native -fomit-frame-pointer -ftracer -pipe -fgcse-sm -fgcse-las -fipa-pta"
+fi
+
+sudo add-apt-repository ppa:tortoisehg-ppa/releases
+sudo apt-get update
+sudo apt-get install tortoisehg tortoisehg-nautilus python-setuptools nautilus-open-terminal coffeescript
+sudo easy_install keyring
+sudo easy_install mercurial_keyring
+sudo easy_install hg-git
