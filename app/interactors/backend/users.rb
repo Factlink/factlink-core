@@ -88,7 +88,7 @@ module Backend
     end
 
     def remove_activities user
-      user.activities.each(&:destroy)
+      user.activities.destroy_all
     end
   end
 end
