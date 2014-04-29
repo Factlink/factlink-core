@@ -61,7 +61,6 @@ facebook_conf =
     omniauth_conf[Rails.env][:facebook]
   end
 
-
 FactlinkUI::Application.config.facebook_app_id = facebook_conf['id']
 
 Rails.application.config.middleware.use OmniAuth::Builder do
@@ -71,7 +70,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     facebook_conf['secret'],
     scope: 'email',
     display: 'popup'
-
 end
 
 OmniAuth.config.on_failure = Accounts::SocialConnectionsController.action(:oauth_failure)
