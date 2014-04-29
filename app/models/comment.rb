@@ -12,6 +12,4 @@ class Comment < ActiveRecord::Base
   def created_by=(user)
     self.created_by_id = user.id.to_s
   end
-
-  #index({ fact_data: 1, opinion: 1, created_at: 1})
 end
