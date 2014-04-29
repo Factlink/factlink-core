@@ -3,7 +3,7 @@ window.ReactGroupMembershipEdit = React.createClass
   mixins: [UpdateOnSignInOrOutMixin, React.BackboneMixin('user')]
 
   getInitialState: ->
-    groups = new Groups
+    groups = new AllGroups
     groups.fetch()
     groups: groups
 
