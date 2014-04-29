@@ -5,12 +5,11 @@ module Interactors
       include Util::CanCan
 
       attribute :groupname, String
-      attribute :creator, String
+      attribute :members, [String]
       attribute :pavlov_options, Hash
 
       def authorized?
-        pavlov_options[:current_user].username == creator &&
-          can?(:create, Group)
+        can?(:create, Group)
       end
 
       private
@@ -18,13 +17,12 @@ module Interactors
       def execute
         Backend::Groups.create(
             groupname: groupname,
-            members: [pavlov_options[:current_user]]
+            usernames: members
         )
       end
 
       def validate
         validate_nonempty_string :groupname, groupname
-        validate_nonempty_string :creator, creator
       end
     end
   end

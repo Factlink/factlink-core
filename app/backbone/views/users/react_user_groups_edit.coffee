@@ -33,7 +33,7 @@ window.ReactAdminGroupEdit = React.createClass
   _submit: ->
     group = @state.group
     @props.groups.add group
-    group.save creator: @props.user.get('username'),
+    group.save members: [ @props.user.get('username') ],
       success: (o)=>
         Factlink.notificationCenter.success "Group #{o.get('groupname')} created."
       error: (o)=>
