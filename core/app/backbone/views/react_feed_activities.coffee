@@ -33,7 +33,7 @@ window.ReactFeedActivitiesAutoLoading = React.createBackboneClass
   render: ->
     _div [],
       if @model().length == 0 && !@model().loading()
-        "There aren\'t any comments."
+        "There aren't any comments."
       @model().map (model) =>
         ReactActivity model: model, key: model.id
       ReactLoadingIndicator model: @model()
