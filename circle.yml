@@ -1,6 +1,3 @@
-general:
-  build_dir: core
-
 dependencies:
   cache_directories:
     - "~/factlink/js-library/node_modules"
@@ -17,7 +14,7 @@ test:
     - KENNISLAND= bundle exec rspec spec/acceptance spec/screenshots --profile
     - bin/copy_received_fixtures_for_circleci.sh
     - bundle exec brakeman --except SessionSettings -q -z
-    - bundle exec scss-lint app/assets/stylesheets/ --config ../.scss-lint.yml
-    - bundle exec scss-lint ../js-library/app/css/ --config ../.scss-lint.yml
+    - bundle exec scss-lint app/assets/stylesheets/ --config .scss-lint.yml
+    - bundle exec scss-lint js-library/app/css/ --config .scss-lint.yml
     - bin/check_assets_updated.sh
-    - bundle exec rails_best_practices --silent
+    - bundle exec rails_best_practices -e 'js-library' --silent

@@ -12,18 +12,13 @@ def get_file(file)
 end
 
 namespace :db do
-  task :truncate => :environment do
-    require File.expand_path('../../../db/truncate.rb', __FILE__)
-    truncate
-  end
-
   task :export, [:filename] => [:environment, :migrate] do |task, args|
     File.open(args[:filename], 'w') do |file|
       file.write Export.new.export
     end
   end
 
-  task :import, [:filename] => [:environment, :truncate, :migrate] do |task, args|
+  task :import, [:filename] => [:environment, :reset, :migrate] do |task, args|
     require File.expand_path(args[:filename], Dir.pwd)
   end
 
@@ -36,7 +31,7 @@ namespace :db do
 
       The following commands are available:
 
-      rake db:truncate              # Truncate database
+      rake db:reset                 # Reset database
       rake db:export[db/dump.rb]    # Export the database to db/dump.rb
       rake db:import[db/dump.rb]    # Import the database from db/dump.rb
       rake db:help                  # Show this help file
