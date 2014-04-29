@@ -67,6 +67,11 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
   float: right;
 }
 
+.comment-edit-icon {
+  position: relative;
+  top: 1px;
+}
+
 // Irrelevant (faded out)
 .comment-irrelevant {
   opacity: 0.6;

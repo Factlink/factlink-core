@@ -9,6 +9,7 @@ window.ReactComment = React.createBackboneClass
 
   getInitialState: ->
     show_subcomments: undefined
+    editing: false
 
   _show_subcomments: ->
     if @state.show_subcomments != undefined
@@ -41,11 +42,16 @@ window.ReactComment = React.createBackboneClass
 
     _span [],
       _span ["comment-post-bottom"],
-        if @model().can_destroy()
-          _span ["comment-post-bottom-right"],
+        _span ["comment-post-bottom-right"],
+          if @model().can_destroy()
             ReactSlidingDeleteButton
               model: @model()
               onDelete: @_onDelete
+          if @model().can_edit() && @model().can_destroy()
+            @_separator()
+          if @model().can_edit()
+            _a [onClick: => @setState editing: !@state.editing],
+              _i ['icon-edit comment-edit-icon']
         _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments],
           "(#{sub_comment_count}) Reply"
         @_separator()
@@ -72,7 +78,10 @@ window.ReactComment = React.createBackboneClass
           fact_opinionators: @props.fact_opinionators
           model: @model()
 
-        @_content()
+        if @state.editing
+          _div [], 'Editing!'
+        else
+          @_content()
 
         if @model().get('save_failed') == true
           ReactRetryButton onClick: @_save
