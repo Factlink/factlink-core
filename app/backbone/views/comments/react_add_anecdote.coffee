@@ -8,7 +8,8 @@ window.ReactAddAnecdote = React.createClass
       _strong [], label
       ReactTextArea
         ref: key
-        storageKey: "add_anecdote_to_fact_#{key}_#{comment_add_uid}"
+        defaultValue: JSON.parse(@props.model.get('content'))[key] if @props.model
+        storageKey: "add_anecdote_to_fact_#{key}_#{comment_add_uid}" unless @props.model
         onSubmit: => @refs.signinPopover.submit(=> @_submit())
 
   render: ->
@@ -34,14 +35,17 @@ window.ReactAddAnecdote = React.createClass
       effect: @refs.effect.getText()
 
   _submit: ->
-    comment = new Comment
-      content: @_content()
-      markup_format: 'anecdote'
-      created_by: currentSession.user().toJSON()
+    if @props.model
+      @props.model.set 'content', @_content()
+      @props.model.saveWithState()
+    else
+      comment = new Comment
+        markup_format: 'anecdote'
+        created_by: currentSession.user().toJSON()
+        content: @_content()
+      @props.comments.unshift(comment)
+      comment.saveWithFactAndWithState {},
+        success: =>
+          @props.comments.fact.getOpinionators().setInterested true
 
-    return unless comment.isValid()
-
-    @props.comments.unshift(comment)
-    comment.saveWithFactAndWithState {},
-      success: =>
-        @props.comments.fact.getOpinionators().setInterested true
+    @props.onSubmit?()

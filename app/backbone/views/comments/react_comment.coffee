@@ -69,22 +69,34 @@ window.ReactComment = React.createBackboneClass
     relevant = @props.tally.relevance() >= 0
 
     _div ["comment-container", "spec-evidence-box", "comment-irrelevant" unless relevant],
-      _div ["comment-votes-container"],
-        ReactCommentVote
-          fact_opinionators: @props.fact_opinionators
-          model: @props.tally
-      _div ["comment-content-container"],
-        ReactCommentHeading
-          fact_opinionators: @props.fact_opinionators
-          model: @model()
-
-        if @state.editing
-          _div [], 'Editing!'
+      if @state.editing
+        if @model().get('markup_format') == 'anecdote'
+          ReactAddAnecdote
+            model: @model()
+            initiallyFocus: true
+            site_url: ''
+            onSubmit: => @setState editing: false
         else
-          @_content()
+          ReactAddComment
+            model: @model()
+            initiallyFocus: true
+            site_url: ''
+            onSubmit: => @setState editing: false
+      else
+        _div [],
+          _div ["comment-votes-container"],
+            ReactCommentVote
+              fact_opinionators: @props.fact_opinionators
+              model: @props.tally
+          _div ["comment-content-container"],
+            ReactCommentHeading
+              fact_opinionators: @props.fact_opinionators
+              model: @model()
 
-        if @model().get('save_failed') == true
-          ReactRetryButton onClick: @_save
+            @_content()
+
+            if @model().get('save_failed') == true
+              ReactRetryButton onClick: @_save
 
       _div ["comment-subcontent-container"],
         if not @model().isNew()

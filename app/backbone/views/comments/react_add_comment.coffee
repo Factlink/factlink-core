@@ -67,7 +67,8 @@ window.ReactAddComment = React.createClass
     #but not entirely loaded models.
     ReactTextArea
       ref: 'textarea'
-      storageKey: "add_comment_to_fact_#{comment_add_uid}"
+      defaultValue: @props.model.get('content') if @props.model
+      storageKey: "add_comment_to_fact_#{comment_add_uid}" unless @props.model
       onChange: @_onTextareaChange
       onSubmit: => @refs.signinPopover.submit(=> @_submit())
 
@@ -83,7 +84,7 @@ window.ReactAddComment = React.createClass
   _renderSubmitButton: ->
     _button ['button-confirm button-small add-comment-post-button'
       onClick: => @refs.signinPopover.submit(=> @_submit())
-      disabled: !@_comment().isValid()
+      disabled: !@_validComment()
     ],
       Factlink.Global.t.post_comment
       ReactSigninPopover
@@ -112,18 +113,25 @@ window.ReactAddComment = React.createClass
     @setState searchOpened: false
 
   _submit: ->
-    comment = @_comment()
-    return unless comment.isValid()
+    return unless @_validComment()
 
-    @props.comments.unshift(comment)
-    comment.saveWithFactAndWithState {},
-      success: =>
-        @props.comments.fact.getOpinionators().setInterested true
+    if @props.model
+      @props.model.set 'content', $.trim(@state.text)
+      @props.model.saveWithState()
+    else
+      comment = new Comment
+        created_by: currentSession.user().toJSON()
+        content: $.trim(@state.text)
+
+      @props.comments.unshift(comment)
+      comment.saveWithFactAndWithState {},
+        success: =>
+          @props.comments.fact.getOpinionators().setInterested true
 
     @setState @getInitialState()
     @refs.textarea.updateText ''
+    @props.onSubmit?()
 
-  _comment: ->
-    new Comment
-      content: $.trim(@state.text)
-      created_by: currentSession.user().toJSON()
+  _validComment: ->
+    comment = new Comment content: $.trim(@state.text)
+    comment.isValid()
