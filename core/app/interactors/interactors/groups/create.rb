@@ -16,7 +16,7 @@ module Interactors
       private
 
       def execute
-        Backend::Group.create(
+        Backend::Groups.create(
             groupname: groupname,
             members: [pavlov_options[:current_user]]
         )
