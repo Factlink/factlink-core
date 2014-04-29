@@ -34,6 +34,7 @@ module Backend
       mark_as_deleted user
       anonymize user
       remove_activities user
+      remove_features user
     end
 
     def profile(username:)
@@ -90,6 +91,10 @@ module Backend
     def remove_activities user
       user.activities.destroy_all
       user.activities_with_user_as_subject.destroy_all
+    end
+
+    def remove_features user
+      user.features.destroy_all
     end
   end
 end
