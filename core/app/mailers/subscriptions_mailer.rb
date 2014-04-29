@@ -1,6 +1,4 @@
 class SubscriptionsMailer < ActionMailer::Base
-  include Resque::Mailer
-
   default from: "Factlink <support@factlink.com>"
 
   def unsubscribe(user_id, type)

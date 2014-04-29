@@ -1,8 +1,3 @@
-class ResquedDeviseMailer < Devise::Mailer
-  include Resque::Mailer
-end
-
-
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
 Devise.setup do |config|
@@ -11,7 +6,7 @@ Devise.setup do |config|
   config.mailer_sender = "Factlink <support@factlink.com>"
 
   # Configure the class responsible to send e-mails.
-  config.mailer = "ResquedDeviseMailer"
+  config.mailer = "Devise::Mailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and

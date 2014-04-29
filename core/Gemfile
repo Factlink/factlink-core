@@ -22,11 +22,7 @@ gem 'redis-objects', '~> 0.5.3' # cannot be upgraded to 0.6 until we update redi
 gem 'multi_json', '~> 1.7'
 gem 'nest', '~> 1.1.2'
 
-# We should upgrade this to at least the latest 1.* version,
-# but 1.23.1 has a breaking change, and 1.24+ requires a redis-namespace
-# which requires redis > 3.0
-gem 'resque', '= 1.23.0', require: 'resque/server'
-gem 'resque_mailer', '~> 2.2.6'
+gem 'sucker_punch'
 
 # Everyone loves JSON
 gem 'json', '~> 1.8'

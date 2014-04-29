@@ -1,7 +1,9 @@
 class SendActivityMailToUser
-  @queue = :nnn_mail
+  include SuckerPunch::Job
 
-  def self.perform(user_id, activity_id)
-    ActivityMailer.new_activity(user_id, activity_id).deliver
+  def perform(user_id, activity_id)
+    ActiveRecord::Base.connection_pool.with_connection do
+      ActivityMailer.new_activity(user_id, activity_id).deliver
+    end
   end
 end
