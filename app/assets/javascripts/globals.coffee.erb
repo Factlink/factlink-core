@@ -14,7 +14,7 @@ Factlink.Global =
   ajax_loader_image: '<%= image_path("ajax-loader.gif") %>'
   bookmarklet_link: 'javascript:' + bookmarklet.toString()
 
-  facebook_app_id: '<%= FactlinkUI::Application.config.omniauth_conf['facebook']['id'] %>'
+  facebook_app_id: '<%= FactlinkUI::Application.config.facebook_app_id %>'
 
   core_url: "<%= URI.parse(FactlinkUI::Application.config.core_url).to_s %>"
   environment: "<%= Rails.env %>"

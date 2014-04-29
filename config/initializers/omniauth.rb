@@ -1,4 +1,4 @@
-omniauth_conf_complete = ActiveSupport::HashWithIndifferentAccess.new({
+omniauth_conf = ActiveSupport::HashWithIndifferentAccess.new({
   development: {
     facebook: {
       id: "283748838400237",
@@ -41,16 +41,34 @@ omniauth_conf_complete = ActiveSupport::HashWithIndifferentAccess.new({
   }
 })
 
-omniauth_conf = omniauth_conf_complete[Rails.env]
+twitter_conf =
+  if ENV['TWITTER_ID'] && ENV['TWITTER_SECRET']
+    ActiveSupport::HashWithIndifferentAccess.new({
+      id: ENV['TWITTER_ID'],
+      secret: ENV['TWITTER_SECRET'],
+    })
+  else
+    omniauth_conf[Rails.env][:twitter]
+  end
+
+facebook_conf =
+  if ENV['FACEBOOK_ID'] && ENV['FACEBOOK_SECRET']
+    ActiveSupport::HashWithIndifferentAccess.new({
+      id: ENV['FACEBOOK_ID'],
+      secret: ENV['FACEBOOK_SECRET'],
+    })
+  else
+    omniauth_conf[Rails.env][:facebook]
+  end
 
 
-FactlinkUI::Application.config.omniauth_conf = omniauth_conf
+FactlinkUI::Application.config.facebook_app_id = facebook_conf['id']
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :twitter, omniauth_conf['twitter']['id'], omniauth_conf['twitter']['secret']
+  provider :twitter, twitter_conf['id'], twitter_conf['secret']
   provider :facebook,
-    omniauth_conf['facebook']['id'],
-    omniauth_conf['facebook']['secret'],
+    facebook_conf['id'],
+    facebook_conf['secret'],
     scope: 'email',
     display: 'popup'
 
