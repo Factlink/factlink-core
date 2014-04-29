@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
         as: :admin
 
   has_many :features
+  has_many :activities
   has_and_belongs_to_many :groups
 
   after_initialize :set_default_values!

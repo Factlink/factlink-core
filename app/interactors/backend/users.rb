@@ -33,6 +33,7 @@ module Backend
       user = user_by_username username: username
       mark_as_deleted user
       anonymize user
+      remove_activities user
     end
 
     def profile(username:)
@@ -84,6 +85,10 @@ module Backend
         # TODO: properly deauthorize facebook here
         social_account.destroy
       end
+    end
+
+    def remove_activities user
+      user.activities.each(&:destroy)
     end
   end
 end
