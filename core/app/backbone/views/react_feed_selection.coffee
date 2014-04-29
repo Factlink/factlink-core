@@ -80,7 +80,8 @@ window.ReactFeedSelection = React.createClass
                 storageKey: 'createChallengeDescription'
               _button ["button-confirm", onClick: @_postChallenge],
                 "Create challenge"
-        ])...
+        ]
+      else [])...
 
       ReactFeedActivitiesAutoLoading
         model: @state.feeds[@state.feedChoice]

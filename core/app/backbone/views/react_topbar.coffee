@@ -38,7 +38,8 @@ window.ReactTopbarMenu = React.createClass
              _a [href: '/on-your-site'],
                _i ['icon-bookmark']
                " On your site"
-          ])...
+          ]
+        else [])...
         _li ['dropdown-menu-item'],
          _a [href: "/user/#{currentSession.user().get('username')}/edit", rel: 'backbone'],
            _i ['icon-cog']
@@ -103,7 +104,9 @@ window.ReactTopbar = React.createClass
                 _li ['topbar-menu-item topbar-on-your-site'],
                   _a ['topbar-menu-link', href: '/on-your-site'],
                     "On your site"
-              ])...
+              ]
+            else
+              [])...
             _li ['topbar-divider topbar-on-your-site']
             _li ['topbar-menu-item'],
               _div ['topbar-connect'],
