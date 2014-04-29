@@ -25,7 +25,12 @@ window.ReactAdminGroupEdit = React.createClass
     group: new Group
 
   _submit: ->
-    alert('TODO: ' + JSON.stringify(@state.group.toJSON()))
+    @state.group.save creator: @props.user.get('username'),
+      success: (o)=>
+        Factlink.notificationCenter.success "Group #{o.get('groupname')} created."
+      error: (o)=>
+        Factlink.notificationCenter.error  "Group #{o.get('groupname')} could not be created!"
+
     @setState @_freshState()
 
   render: ->
