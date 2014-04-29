@@ -46,12 +46,9 @@ module Backend
               .order('activities.created_at DESC')
               .limit(count)
               .map(&method(:dead))
-              .compact
     end
 
     private def dead(activity)
-      return nil unless activity.still_valid?
-
       base_activity_data = {
           action: activity.action,
           created_at: activity.created_at.to_time,
