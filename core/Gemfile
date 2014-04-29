@@ -16,11 +16,7 @@ gem 'pavlov', github: 'Factlink/pavlov'
 # Simple value objects
 gem 'strict_struct', '= 0.0.4' # by @markijbema, ask him if he pushed breaking changes in new versions
 
-# Redis
-gem 'redis', '~> 2.2.1'
-gem 'redis-objects', '~> 0.5.3' # cannot be upgraded to 0.6 until we update redis to 3.0 or bigger
 gem 'multi_json', '~> 1.7'
-gem 'nest', '~> 1.1.2'
 
 gem 'sucker_punch'
 
@@ -53,7 +49,6 @@ gem 'rack-xframe-options', github: 'Factlink/rack-xframe-options'
 gem 'rack-rewrite', '~> 1.3.3'
 
 gem 'appsignal'
-gem 'appsignal-redis'
 gem 'ohnoes', github: 'markijbema/ohnoes'
 
 group :assets do
