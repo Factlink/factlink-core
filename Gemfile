@@ -8,10 +8,7 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'rails', '4.1.0' # this is too important to update automatically
 
 gem 'rails_12factor', require: false
-<<<<<<< HEAD
 gem 'passenger', require: false
-=======
->>>>>>> 9caf2d7eaf17281f53a6b1febe4cf207ea3acfc4
 
 gem 'protected_attributes', '~> 1.0.3'
 gem 'rake', '~> 10.1.0', require: false
