@@ -83,7 +83,7 @@ window.ReactDiscussionStandalone = React.createBackboneClass
       ReactOpinionateArea
         model: @model().getOpinionators()
       ReactAddAnecdoteOrComment
-        model: @model().comments()
+        comments: @model().comments()
         initiallyFocus: @props.initiallyFocusAddComment
         site_url: @props.site_url
       ReactComments

@@ -31,7 +31,7 @@ ReactSearchFacts = React.createClass
     @____factSearchResults ?= new FactSearchResults
 
 
-window.ReactAddComment = React.createBackboneClass
+window.ReactAddComment = React.createClass
   displayName: 'ReactAddComment'
   mixins: [UpdateOnSignInOrOutMixin]
 
@@ -115,10 +115,10 @@ window.ReactAddComment = React.createBackboneClass
     comment = @_comment()
     return unless comment.isValid()
 
-    @model().unshift(comment)
+    @props.comments.unshift(comment)
     comment.saveWithFactAndWithState {},
       success: =>
-        @model().fact.getOpinionators().setInterested true
+        @props.comments.fact.getOpinionators().setInterested true
 
     @setState @getInitialState()
     @refs.textarea.updateText ''
