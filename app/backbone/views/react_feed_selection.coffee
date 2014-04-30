@@ -45,20 +45,18 @@ window.ReactFeedSelection = React.createClass
       (if currentSession.signedIn()
         [
           _div ['feed-selection-row'],
-            if window.is_kennisland
+            (if window.is_kennisland
+              []
+            else
               [
-                _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'discussions', id: 'FeedChoice_Discussions', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='discussions' ]
-                _label [ htmlFor: 'FeedChoice_Discussions' ],
-                  'Challenges'
-              ]
-            _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'global', id: 'FeedChoice_Global', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='global'  ]
-            _label [ htmlFor: 'FeedChoice_Global' ],
-              'Global'
+                _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'global', id: 'FeedChoice_Global', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='global'  ]
+                _label [ htmlFor: 'FeedChoice_Global' ],
+                  'Global'
 
-            _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'personal', id: 'FeedChoice_Personal', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='personal' ]
-            _label [ htmlFor: 'FeedChoice_Personal' ],
-              'Personal'
-
+                _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'personal', id: 'FeedChoice_Personal', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='personal' ]
+                _label [ htmlFor: 'FeedChoice_Personal' ],
+                  'Personal'
+              ])...
 
             if window.is_kennisland
               _button ['button-success feed-selection-install-extension-button', onClick: @_toggle_create_challenge],
