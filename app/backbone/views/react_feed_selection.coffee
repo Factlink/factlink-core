@@ -47,9 +47,10 @@ ReactKennislandFeedSelection = React.createClass
 
   _currentFeed: ->
     if @state.feedGroupId?
-      new GroupActivities [], group_id: @state.feedGroupId
+      @_globalActivities ?= {}
+      @_globalActivities[@state.feedGroupId] ?= new GroupActivities [], group_id: @state.feedGroupId
     else
-      new DiscussionsFeedActivities
+      @_globalActivities ?= new DiscussionsFeedActivities
 
   _groupButtons: ->
     return [] unless currentSession.signedIn()
