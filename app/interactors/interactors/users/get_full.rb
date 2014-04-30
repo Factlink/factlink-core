@@ -36,7 +36,8 @@ module Interactors
           statistics_following_count: profile[:following_count],
 
           location: profile[:location],
-          biography: profile[:biography]
+          biography: profile[:biography],
+          groups: user.groups,
         }
       end
 
@@ -53,7 +54,6 @@ module Interactors
           email: user.email,
           services: services,
           features: interactor(:'global_features/all') + user.features.map(&:name),
-          groups: user.groups,
           admin: user.admin,
         }
       end
