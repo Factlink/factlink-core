@@ -42,7 +42,7 @@ module Backend
     def group(newest_timestamp:, group_id:)
       relation = Activity
         .joins("
-          LEFT JOIN fact_data ON fact_data.id = activities.subject_id AND activities.subject_type = 'FactData'
+          INNER JOIN fact_data ON fact_data.id = activities.subject_id AND activities.subject_type = 'FactData'
         ")
         .where('fact_data.group_id = ?', group_id)
         .where(action: 'created_fact')
