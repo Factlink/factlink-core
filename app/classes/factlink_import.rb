@@ -39,6 +39,20 @@ module FactlinkImport
     end
   end
 
+  class FactlinkImportGroup
+    def initialize(groupname)
+      @groupname = groupname
+    end
+
+    def member(fields)
+      ExecuteAsUser.new(nil).execute do |pavlov|
+        pavlov.import = true
+        pavlov.time = nil
+        pavlov.interactor(:'groups/add_member', username: fields[:username], groupname: @groupname)
+      end
+    end
+  end
+
   def global_features(fields)
     Backend::GlobalFeatures.set fields[:features].split(' ')
   end
@@ -104,8 +118,10 @@ module FactlinkImport
 
     ExecuteAsUser.new(nil).execute do |pavlov|
       pavlov.import = true
-      group = pavlov.interactor(:'groups/create', groupname: fields[:groupname], creator: fields[:username])
+      group = pavlov.interactor(:'groups/create', groupname: fields[:groupname], members: [])
     end
+
+    FactlinkImportGroup.new(group.groupname).instance_eval(&block)
 
   end
 

@@ -113,10 +113,41 @@ FactlinkImport.comment({content: "All your base are belong to us. So give your P
 end
 FactlinkImport.comment({content: "I like money $$$$", created_at: Time.parse("2014-04-10T12:13:04Z"), fact_id: "12", username: "luuk", }) do
 end
-FactlinkImport.group({groupname: "Automobiles Group", }) do end
-FactlinkImport.group({groupname: "Epic meisters", }) do end
-FactlinkImport.group({groupname: "Group Name 1", }) do end
-FactlinkImport.group({groupname: "Lorem ipsum $%^#* and everything else", }) do end
-FactlinkImport.group({groupname: "Lorem ipsum $%^#* and everything else - copy", }) do end
-FactlinkImport.group({groupname: "Where people talk about all the time stuff and music and about myself", }) do end
-FactlinkImport.group({groupname: "yes", }) do end
+FactlinkImport.group({groupname: "Automobiles Group", }) do
+  member({username: "eamon", })
+  member({username: "jjoos", })
+end
+FactlinkImport.group({groupname: "Epic meisters", }) do
+  member({username: "eamon", })
+  member({username: "jan_paul", })
+  member({username: "jens", })
+  member({username: "jjoos", })
+  member({username: "luuk", })
+  member({username: "mark", })
+  member({username: "merijn", })
+  member({username: "remon", })
+  member({username: "tomdev", })
+end
+FactlinkImport.group({groupname: "Group Name 1", }) do
+  member({username: "merijn", })
+  member({username: "remon", })
+  member({username: "tomdev", })
+end
+FactlinkImport.group({groupname: "Lorem ipsum $%^#* and everything else", }) do
+  member({username: "jan_paul", })
+  member({username: "jens", })
+end
+FactlinkImport.group({groupname: "Lorem ipsum $%^#* and everything else - copy", }) do
+  member({username: "eamon", })
+  member({username: "jan_paul", })
+  member({username: "remon", })
+  member({username: "tomdev", })
+end
+FactlinkImport.group({groupname: "Where people talk about all the time stuff and music and about myself", }) do
+  member({username: "jan_paul", })
+  member({username: "jens", })
+  member({username: "jjoos", })
+end
+FactlinkImport.group({groupname: "yes", }) do
+  member({username: "tomdev", })
+end
