@@ -8,6 +8,5 @@ module Backend
       group.save!
       group #TODO: do we need a dead_group or something here?
     end
-
   end
 end
