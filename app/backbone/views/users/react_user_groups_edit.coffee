@@ -23,9 +23,6 @@ window.ReactAdminGroupEdit = React.createClass
   mixins: [React.BackboneMixin('user'), React.BackboneMixin('groups')]
 
   getInitialState: ->
-    @_freshState()
-
-  _freshState: ->
     group: new Group
 
   _submit: ->
@@ -37,7 +34,7 @@ window.ReactAdminGroupEdit = React.createClass
       error: (o)=>
         Factlink.notificationCenter.error  "Group #{o.get('groupname')} could not be created!"
 
-    @setState @_freshState()
+    @setState @getInitialState()
 
   render: ->
     _div [],
