@@ -2,10 +2,10 @@ window.ReactGroupMembershipEdit = React.createClass
   displayName: 'ReactGroupMembershipEdit'
   mixins: [UpdateOnSignInOrOutMixin, React.BackboneMixin('user')]
 
-  getInitialState: ->
+  componentWillMount: ->
     groups = new AllGroups
     groups.fetch()
-    groups: groups
+    setState groups: groups
 
   render: ->
     return _span([], 'Please sign in.') unless currentSession.signedIn()
@@ -17,8 +17,6 @@ window.ReactGroupMembershipEdit = React.createClass
           groups: @state.groups
       else
         "Placeholder for non-admin functionality that's to come."
-
-
 
 window.ReactAdminGroupEdit = React.createClass
   displayName: 'ReactAdminGroupEdit'
