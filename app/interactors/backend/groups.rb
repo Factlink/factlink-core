@@ -6,7 +6,6 @@ module Backend
       group.groupname = groupname
       group.users << usernames.map{ |username| User.where(username: username).first }
       group.save!
-      p group
       group #TODO: do we need a dead_group or something here?
     end
 
