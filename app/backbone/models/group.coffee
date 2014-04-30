@@ -3,9 +3,3 @@ class window.Group extends Backbone.Model
   defaults:
     groupname: ''
 
-
-class window.AllGroups extends Backbone.Factlink.Collection
-  model: Group
-
-  url: -> '/api/beta/groups'
-
