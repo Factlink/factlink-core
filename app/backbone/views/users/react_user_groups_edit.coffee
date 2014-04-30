@@ -16,7 +16,7 @@ window.ReactGroupMembershipEdit = React.createClass
           user: @props.user
           groups: @state.groups
       else
-        "Natch!"
+        "Placeholder for non-admin functionality that's to come."
 
 
 
