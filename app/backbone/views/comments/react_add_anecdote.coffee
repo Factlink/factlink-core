@@ -1,15 +1,30 @@
 window.ReactAddAnecdote = React.createClass
   displayName: 'ReactAddAnecdote'
 
-  renderField: (key, label) ->
-    comment_add_uid = string_hash(@props.site_url)
+  render: ->
+    ReactAnecdoteForm
+      onSubmit: (text) =>
+        comment = new Comment
+          markup_format: 'anecdote'
+          created_by: currentSession.user().toJSON()
+          content: $.trim(text)
 
+        @props.comments.unshift(comment)
+        comment.saveWithFactAndWithState {},
+          success: =>
+            @props.comments.fact.getOpinionators().setInterested true
+
+
+window.ReactAnecdoteForm = React.createClass
+  displayName: 'ReactAnecdoteForm'
+
+  renderField: (key, label) ->
     _div [],
       _strong [], label
       ReactTextArea
         ref: key
-        defaultValue: JSON.parse(@props.model.get('content'))[key] if @props.model
-        storageKey: "add_anecdote_to_fact_#{key}_#{comment_add_uid}" unless @props.model
+        defaultValue: JSON.parse(@props.defaultValue)[key] if @props.defaultValue
+        storageKey: "add_anecdote_to_fact_#{key}_#{string_hash(@props.site_url)}" if @props.site_url
         onSubmit: => @refs.signinPopover.submit(=> @_submit())
 
   render: ->
@@ -26,26 +41,16 @@ window.ReactAddAnecdote = React.createClass
         ReactSigninPopover
           ref: 'signinPopover'
 
-  _content: ->
-    JSON.stringify
+  _submit: ->
+    @props.onSubmit? JSON.stringify
       introduction: @refs.introduction.getText()
       insight: @refs.insight.getText()
       resources: @refs.resources.getText()
       actions: @refs.actions.getText()
       effect: @refs.effect.getText()
 
-  _submit: ->
-    if @props.model
-      @props.model.set 'content', @_content()
-      @props.model.saveWithState()
-    else
-      comment = new Comment
-        markup_format: 'anecdote'
-        created_by: currentSession.user().toJSON()
-        content: @_content()
-      @props.comments.unshift(comment)
-      comment.saveWithFactAndWithState {},
-        success: =>
-          @props.comments.fact.getOpinionators().setInterested true
-
-    @props.onSubmit?()
+    @refs.introduction.updateText ''
+    @refs.insight.updateText ''
+    @refs.resources.updateText ''
+    @refs.actions.updateText ''
+    @refs.effect.updateText ''

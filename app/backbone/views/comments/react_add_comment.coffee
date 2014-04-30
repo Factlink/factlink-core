@@ -33,6 +33,22 @@ ReactSearchFacts = React.createClass
 
 window.ReactAddComment = React.createClass
   displayName: 'ReactAddComment'
+
+  render: ->
+    ReactCommentForm
+      onSubmit: (text) =>
+        comment = new Comment
+          created_by: currentSession.user().toJSON()
+          content: $.trim(text)
+
+        @props.comments.unshift(comment)
+        comment.saveWithFactAndWithState {},
+          success: =>
+            @props.comments.fact.getOpinionators().setInterested true
+
+
+window.ReactCommentForm = React.createClass
+  displayName: 'ReactCommentForm'
   mixins: [UpdateOnSignInOrOutMixin]
 
   componentDidMount: ->
@@ -56,19 +72,17 @@ window.ReactAddComment = React.createClass
         , discussion_sidebar_slide_transition_duration + 100
 
   getInitialState: ->
-    text: ''
     controlsOpened: false
     searchOpened: false
 
   _renderTextArea: ->
-    comment_add_uid = string_hash(@props.site_url)
-    #note: we'd can't rely on *any* model attributes for the uid because
-    #the id is missing for new models, and everything else is missing for existing
-    #but not entirely loaded models.
     ReactTextArea
       ref: 'textarea'
-      defaultValue: @props.model.get('content') if @props.model
-      storageKey: "add_comment_to_fact_#{comment_add_uid}" unless @props.model
+      defaultValue: @props.defaultValue if @props.defaultValue
+      #note: we'd can't rely on *any* model attributes for the uid because
+      #the id is missing for new models, and everything else is missing for existing
+      #but not entirely loaded models.
+      storageKey: "add_comment_to_fact_#{string_hash(@props.site_url)}" if @props.site_url
       onChange: @_onTextareaChange
       onSubmit: => @refs.signinPopover.submit(=> @_submit())
 
@@ -105,7 +119,6 @@ window.ReactAddComment = React.createClass
           @_renderSearchRegion()
 
   _onTextareaChange: (text) ->
-    @setState(text: text)
     @setState(controlsOpened: true) if text.length > 0
 
   _onSearchInsert: (text) ->
@@ -115,23 +128,12 @@ window.ReactAddComment = React.createClass
   _submit: ->
     return unless @_validComment()
 
-    if @props.model
-      @props.model.set 'content', $.trim(@state.text)
-      @props.model.saveWithState()
-    else
-      comment = new Comment
-        created_by: currentSession.user().toJSON()
-        content: $.trim(@state.text)
-
-      @props.comments.unshift(comment)
-      comment.saveWithFactAndWithState {},
-        success: =>
-          @props.comments.fact.getOpinionators().setInterested true
-
+    @props.onSubmit? $.trim(@refs.textarea.getText())
     @setState @getInitialState()
     @refs.textarea.updateText ''
-    @props.onSubmit?()
 
   _validComment: ->
-    comment = new Comment content: $.trim(@state.text)
+    return false unless @refs
+
+    comment = new Comment content: $.trim(@refs.textarea.getText())
     comment.isValid()

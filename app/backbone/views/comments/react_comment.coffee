@@ -70,18 +70,19 @@ window.ReactComment = React.createBackboneClass
 
     _div ["comment-container", "spec-evidence-box", "comment-irrelevant" unless relevant],
       if @state.editing
-        if @model().get('markup_format') == 'anecdote'
-          ReactAddAnecdote
-            model: @model()
-            initiallyFocus: true
-            site_url: ''
-            onSubmit: => @setState editing: false
-        else
-          ReactAddComment
-            model: @model()
-            initiallyFocus: true
-            site_url: ''
-            onSubmit: => @setState editing: false
+        FormClass =
+          if @model().get('markup_format') == 'anecdote'
+            ReactAnecdoteForm
+          else
+            ReactCommentForm
+
+        FormClass
+          defaultValue: @model().get('content')
+          initiallyFocus: true
+          onSubmit: (text) =>
+            @model().set 'content', text
+            @model().saveWithState()
+            @setState editing: false
       else
         _div [],
           _div ["comment-votes-container"],
