@@ -114,14 +114,10 @@ end
 FactlinkImport.comment({content: "I like money $$$$", created_at: Time.parse("2014-04-10T12:13:04Z"), fact_id: "12", username: "luuk", }) do
 end
 
-if FactlinkUI.Kennisland?
-
-  FactlinkImport.group({groupname: "Group Name 1", created_at: Time.parse("2014-04-24T12:13:04Z"), username: "jjoos"})
-  FactlinkImport.group({groupname: "Automobiles Group", created_at: Time.parse("2014-04-25T12:17:04Z"), username: "tomdev"})
-  FactlinkImport.group({groupname: "Epic meisters", created_at: Time.parse("2014-04-26T12:19:04Z"), username: "mark"})
-  FactlinkImport.group({groupname: "Where people talk about all the time stuff and music and about myself", created_at: Time.parse("2014-04-26T12:20:04Z"), username: "mark"})
-  FactlinkImport.group({groupname: "Lorem ipsum $%^#* and everything else", created_at: Time.parse("2014-04-26T12:21:04Z"), username: "maarten"})
-  FactlinkImport.group({groupname: "Lorem ipsum $%^#* and everything else - copy", created_at: Time.parse("2014-04-26T12:22:04Z"), username: "maarten"})
-  FactlinkImport.group({groupname: "y", created_at: Time.parse("2014-04-26T12:22:04Z"), username: "eamon"})
-
-end
+FactlinkImport.group({groupname: "Group Name 1"}) do end
+FactlinkImport.group({groupname: "Automobiles Group"}) do end
+FactlinkImport.group({groupname: "Epic meisters"}) do end
+FactlinkImport.group({groupname: "Where people talk about all the time stuff and music and about myself"}) do end
+FactlinkImport.group({groupname: "Lorem ipsum $%^#* and everything else"}) do end
+FactlinkImport.group({groupname: "Lorem ipsum $%^#* and everything else - copy"}) do end
+FactlinkImport.group({groupname: "yes"}) do end
