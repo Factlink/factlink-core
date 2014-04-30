@@ -45,7 +45,7 @@ module FactlinkImport
     end
 
     def member(fields)
-      ExecuteAsUser.new(FactlinkImport.user_for(fields[:username])).execute do |pavlov|
+      ExecuteAsUser.new(nil).execute do |pavlov|
         pavlov.import = true
         pavlov.time = nil
         pavlov.interactor(:'groups/add_member', username: fields[:username], groupname: @groupname)
@@ -118,7 +118,7 @@ module FactlinkImport
 
     ExecuteAsUser.new(nil).execute do |pavlov|
       pavlov.import = true
-      group = pavlov.interactor(:'groups/create', groupname: fields[:groupname])
+      group = pavlov.interactor(:'groups/create', groupname: fields[:groupname], members: [])
     end
 
     FactlinkImportGroup.new(group.groupname).instance_eval(&block)
