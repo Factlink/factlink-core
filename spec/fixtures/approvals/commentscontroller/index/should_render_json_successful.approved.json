@@ -13,7 +13,7 @@
       "created_at": "<created_at>",
       "content": "a comment",
       "formatted_content": "a comment",
-      "markup_format": null,
+      "markup_format": "plaintext",
       "sub_comments_count": 0,
       "is_deletable": true,
       "tally": {
@@ -34,7 +34,7 @@
       "created_at": "<created_at>",
       "content": "a comment",
       "formatted_content": "a comment",
-      "markup_format": null,
+      "markup_format": "plaintext",
       "sub_comments_count": 0,
       "is_deletable": true,
       "tally": {

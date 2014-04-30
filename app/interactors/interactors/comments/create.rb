@@ -3,7 +3,10 @@ module Interactors
     class Create
       include Pavlov::Interactor
 
-      arguments :fact_id, :content, :markup_format
+      attribute :content, String
+      attribute :fact_id, String
+      attribute :markup_format, String, default: 'plaintext'
+      attribute :pavlov_options, Hash
 
       def execute
         comment = Backend::Comments.create \
@@ -42,7 +45,7 @@ module Interactors
         validate_regex   :content, content, /\S/,
           "should not be empty."
         validate_integer_string :fact_id, fact_id
-        validate_in_set :markup_format, markup_format, [nil, 'anecdote']
+        validate_in_set :markup_format, markup_format, ['plaintext', 'anecdote']
 
         if markup_format == 'anecdote'
           anecdote = JSON.parse(content)

@@ -38,6 +38,7 @@ window.ReactAddComment = React.createClass
     ReactCommentForm
       onSubmit: (text) =>
         comment = new Comment
+          markup_format: 'plaintext'
           created_by: currentSession.user().toJSON()
           content: $.trim(text)
 

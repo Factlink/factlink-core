@@ -10,7 +10,7 @@
   "created_at": "<created_at>",
   "content": "Gerard is een gekke meneer",
   "formatted_content": "Gerard is een gekke meneer",
-  "markup_format": null,
+  "markup_format": "plaintext",
   "sub_comments_count": 0,
   "is_deletable": true,
   "tally": {
