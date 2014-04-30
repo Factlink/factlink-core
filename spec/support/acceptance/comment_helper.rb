@@ -13,8 +13,6 @@ module Acceptance
       end
 
       def fill_in_comment_textarea text, original_text:''
-        switch_to_comment
-
         within '.spec-add-comment-form' do
           comment_input = find('.text_area_view')
           comment_input.click
