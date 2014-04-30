@@ -102,7 +102,15 @@ class Export
 
   def groups(output)
     Group.all.sort_by(&:groupname).each do |group|
-      output << import('FactlinkImport.group', fields_from_object(group, [:groupname])) + " do end\n"
+      output << import('FactlinkImport.group', fields_from_object(group, [:groupname])) + " do\n"
+
+      group.users.sort_by(&:username).each do |user|
+        output << '  '
+        output << import('member', fields_from_object(user, [:username]))
+        output << "\n"
+      end
+
+      output << "end\n"
     end
   end
 
