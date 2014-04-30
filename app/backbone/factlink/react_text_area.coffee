@@ -21,7 +21,7 @@ window.ReactTextArea = React.createClass
   getInitialState: ->
     text: ''
 
-  componentDidMount: ->
+  componentWillMount: ->
     if @props.defaultValue?
       @updateText @props.defaultValue
     else if @props.storageKey?
