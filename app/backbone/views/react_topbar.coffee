@@ -37,7 +37,10 @@ window.ReactTopbarMenu = React.createClass
                _i ['icon-bookmark']
                " On your site"
           ]
-        else if currentSession.user().get('admin') || currentSession.user().get('groups').length
+        else
+          []
+        )...
+        (if currentSession.user().get('admin') || currentSession.user().get('groups').length
           [
             _li ['dropdown-menu-item'],
               _a [href: "/user/#{username}/groups"],

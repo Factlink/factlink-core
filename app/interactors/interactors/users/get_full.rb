@@ -53,7 +53,7 @@ module Interactors
           email: user.email,
           services: services,
           features: interactor(:'global_features/all') + user.features.map(&:name),
-          groups: user.groups.map(&:groupname),
+          groups: user.groups.pluck(:groupname),
           admin: user.admin,
         }
       end
