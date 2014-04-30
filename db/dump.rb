@@ -114,8 +114,8 @@ end
 FactlinkImport.comment({content: "I like money $$$$", created_at: Time.parse("2014-04-10T12:13:04Z"), fact_id: "12", username: "luuk", }) do
 end
 FactlinkImport.group({groupname: "Automobiles Group", }) do
-  member({username: "jjoos"})
-  member({username: "eamon"})
+  member({username: "eamon", })
+  member({username: "jjoos", })
 end
 FactlinkImport.group({groupname: "Epic meisters", }) do
   member({username: "eamon", })
