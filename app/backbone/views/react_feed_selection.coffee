@@ -37,7 +37,8 @@ ReactKennislandFeedSelection = React.createClass
   mixins: [UpdateOnSignInOrOutMixin]
 
   getInitialState: ->
-    feedGroupId: null
+    feedGroupId: 'global'
+    show_create_challenge: false
 
   _toggle_create_challenge: ->
     @setState show_create_challenge: !@state.show_create_challenge
@@ -46,11 +47,11 @@ ReactKennislandFeedSelection = React.createClass
     @_currentFeed().unshift activity
 
   _currentFeed: ->
-    if @state.feedGroupId?
+    if @state.feedGroupId == 'global'
+      @_globalActivities ?= new DiscussionsFeedActivities
+    else
       @_globalActivities ?= {}
       @_globalActivities[@state.feedGroupId] ?= new GroupActivities [], group_id: @state.feedGroupId
-    else
-      @_globalActivities ?= new DiscussionsFeedActivities
 
   _groupButtons: ->
     return [] unless currentSession.signedIn()
@@ -62,7 +63,7 @@ ReactKennislandFeedSelection = React.createClass
           type: 'radio'
           id: "FeedChoice_Group_#{group.id}"
           checked: @state.feedGroupId == group.id
-          onChange: => @setState feedGroupId: group.id
+          onChange: => @setState feedGroupId: group.id, show_create_challenge: false
         ]
         _label [htmlFor: "FeedChoice_Group_#{group.id}"],
           group.groupname
@@ -70,6 +71,19 @@ ReactKennislandFeedSelection = React.createClass
 
   render: ->
     _div [],
+      _div ['feed-selection-row'],
+        _input [
+          'radio-toggle-button'
+          type: 'radio'
+          id: 'FeedChoice_Global'
+          checked: @state.feedGroupId == 'global'
+          onChange: => @setState feedGroupId: 'global', show_create_challenge: false
+        ]
+        _label [htmlFor: 'FeedChoice_Global'],
+          'Public'
+
+        @_groupButtons()...
+
       (if currentSession.signedIn()
         [
           _div ['feed-selection-row'],
@@ -79,25 +93,14 @@ ReactKennislandFeedSelection = React.createClass
           if @state.show_create_challenge
             ReactCreateChallenge
               onActivityCreated: @addActivity
+              groupId: @state.feedGroupId
+              key: 'create_challenge_' + @state.feedGroupId
         ]
       else [])...
 
-      _div ['feed-selection-row'],
-        _input [
-          'radio-toggle-button'
-          type: 'radio'
-          id: 'FeedChoice_Global'
-          checked: !@state.feedGroupId?
-          onChange: => @setState feedGroupId: null
-        ]
-        _label [htmlFor: 'FeedChoice_Global'],
-          'Global'
-
-        @_groupButtons()...
-
       ReactFeedActivitiesAutoLoading
         model: @_currentFeed()
-        key: @state.feedGroupId
+        key: 'feed_' + @state.feedGroupId
 
 if window.is_kennisland
   window.ReactFeedSelection = ReactKennislandFeedSelection
