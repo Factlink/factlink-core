@@ -6,7 +6,7 @@ describe Api::SessionsController do
   let(:user) do
     create(:user).tap do |user|
       user.features << Feature.create!(name: 'some_feature')
-      Backend::Groups.create(groupname:'abc', usernames: [ user.username] )
+      Backend::Groups.create(groupname: 'abc', usernames: [ user.username] )
     end
   end
 
