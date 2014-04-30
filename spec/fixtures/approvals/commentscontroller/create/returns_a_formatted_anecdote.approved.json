@@ -8,7 +8,9 @@
     "deleted": false
   },
   "created_at": "<created_at>",
+  "content": "{\"introduction\":\"Some introduction\",\"insight\":\"Some insight\",\"resources\":\"Some resources\",\"actions\":\"Some actions\",\"effect\":\"Some effect\"}",
   "formatted_content": "<p><strong>Introduction</strong></p><p>Some introduction</p><p><strong>Sudden insight</strong></p><p>Some insight</p><p><strong>Resources</strong></p><p>Some resources</p><p><strong>Actions</strong></p><p>Some actions</p><p><strong>Effect + evaluation</strong></p><p>Some effect</p>",
+  "markup_format": "anecdote",
   "sub_comments_count": 0,
   "is_deletable": true,
   "tally": {

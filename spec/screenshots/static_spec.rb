@@ -16,6 +16,8 @@ describe "Static pages:", type: :feature do
   end
 
   describe "Publisher landing page" do
+    next if FactlinkUI.Kennisland?
+
     it "renders correct" do
       visit "/"
 

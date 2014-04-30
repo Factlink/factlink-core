@@ -22,7 +22,9 @@
         "deleted": false
       },
       "created_at": "<created_at>",
+      "content": "content",
       "formatted_content": "content",
+      "markup_format": "plaintext",
       "sub_comments_count": 0,
       "is_deletable": true,
       "tally": {

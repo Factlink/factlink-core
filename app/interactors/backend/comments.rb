@@ -50,6 +50,15 @@ module Backend
       comment
     end
 
+    def update(comment_id:, content:, updated_at:)
+      comment = Comment.find(comment_id)
+      comment.content = content
+      comment.updated_at = updated_at
+      comment.save!
+
+      nil
+    end
+
     private
 
     def dead(comment:, current_user_id:)
@@ -66,9 +75,11 @@ module Backend
         id: comment.id.to_s,
         created_by: Backend::Users.by_ids(user_ids: comment.created_by_id).first,
         created_at: comment.created_at.utc.iso8601,
+        content: comment.content,
         formatted_content: formatted_content,
+        markup_format: comment.markup_format,
         sub_comments_count: Backend::SubComments.count(parent_id: comment.id),
-        is_deletable: Backend::Comments.deletable?(comment.id),
+        is_deletable: deletable?(comment.id),
         tally: {
           believes: votes_counts['believes'] || 0,
           disbelieves: votes_counts['disbelieves'] || 0,

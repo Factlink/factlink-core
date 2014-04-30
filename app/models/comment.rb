@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
   attr_accessible :content, :created_by_id, :fact_data_id
-  attr_accessible :markup_format # nil is plain text
+  attr_accessible :markup_format
   belongs_to :fact_data, class_name: 'FactData'
   belongs_to :created_by, class_name: :User
   has_many :activities, as: :subject, dependent: :destroy

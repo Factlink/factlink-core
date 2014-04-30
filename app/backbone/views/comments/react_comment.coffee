@@ -2,13 +2,14 @@
 
 window.ReactComment = React.createBackboneClass
   displayName: 'ReactComment'
-  mixins: [React.BackboneMixin('tally')]
+  mixins: [React.BackboneMixin('tally'), UpdateOnSignInOrOutMixin]
   propTypes:
     fact_opinionators: React.PropTypes.instanceOf(InterestedUsers).isRequired
     model: React.PropTypes.instanceOf(Comment).isRequired
 
   getInitialState: ->
     show_subcomments: undefined
+    editing: false
 
   _show_subcomments: ->
     if @state.show_subcomments != undefined
@@ -41,11 +42,16 @@ window.ReactComment = React.createBackboneClass
 
     _span [],
       _span ["comment-post-bottom"],
-        if @model().can_destroy()
-          _span ["comment-post-bottom-right"],
+        _span ["comment-post-bottom-right"],
+          if @model().can_destroy()
             ReactSlidingDeleteButton
               model: @model()
               onDelete: @_onDelete
+          if @model().can_edit() && @model().can_destroy()
+            @_separator()
+          if @model().can_edit()
+            _a ['spec-comment-edit', onClick: => @setState editing: !@state.editing],
+              _i ['icon-edit comment-edit-icon']
         _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments],
           "(#{sub_comment_count}) Reply"
         @_separator()
@@ -63,19 +69,35 @@ window.ReactComment = React.createBackboneClass
     relevant = @props.tally.relevance() >= 0
 
     _div ["comment-container", "spec-evidence-box", "comment-irrelevant" unless relevant],
-      _div ["comment-votes-container"],
-        ReactCommentVote
-          fact_opinionators: @props.fact_opinionators
-          model: @props.tally
-      _div ["comment-content-container"],
-        ReactCommentHeading
-          fact_opinionators: @props.fact_opinionators
-          model: @model()
+      if @state.editing
+        FormClass =
+          if @model().get('markup_format') == 'anecdote'
+            ReactAnecdoteForm
+          else
+            ReactCommentForm
 
-        @_content()
+        FormClass
+          defaultValue: @model().get('content')
+          initiallyFocus: true
+          onSubmit: (text) =>
+            @model().set 'content', text
+            @model().saveWithState()
+            @setState editing: false
+      else
+        _div [],
+          _div ["comment-votes-container"],
+            ReactCommentVote
+              fact_opinionators: @props.fact_opinionators
+              model: @props.tally
+          _div ["comment-content-container"],
+            ReactCommentHeading
+              fact_opinionators: @props.fact_opinionators
+              model: @model()
 
-        if @model().get('save_failed') == true
-          ReactRetryButton onClick: @_save
+            @_content()
+
+            if @model().get('save_failed') == true
+              ReactRetryButton onClick: @_save
 
       _div ["comment-subcontent-container"],
         if not @model().isNew()

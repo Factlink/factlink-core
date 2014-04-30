@@ -51,7 +51,7 @@ describe CommentsController do
                                      site_title: 'title')
       end
 
-      post :create, id: dead_fact.id, content: 'Gerard is een gekke meneer', format: :json
+      post :create, id: dead_fact.id, content: 'Gerard is een gekke meneer', markup_format: 'plaintext', format: :json
 
       verify { response.body }
     end
