@@ -1,0 +1,33 @@
+<% content_for :header do %>
+  <h1 class="header-heading">About Feed Forward</h1>
+  <p class="header-tagline">
+    A social network for knowledge.
+  </p>
+<% end %>
+
+<% content_for :content do %>
+<div class="about-container">
+  <div class="about-people">
+    <h4 class="about-header">Team</h4>
+
+    <ul class="faces-list">
+      <%= team_photo_tag "eamon", "Eamon Nerbonne", "eamonnerbonne" %>
+      <%= team_photo_tag "janpaul", "Jan Paul Posma", "janpaul123" %>
+      <%= team_photo_tag "luuk", "Luuk Hartsema", "hartsema" %>
+      <%= team_photo_tag "maarten", "Maarten van Gijssel", "maarten" %>
+      <%= team_photo_tag "mark", "Mark IJbema", "mark" %>
+      <%= team_photo_tag "martijn", "Martijn Russchen", "martijn" %>
+      <%= team_photo_tag "merijn", "Merijn Terheggen", "merijn" %>
+    </ul>
+
+  </div>
+  <div class="about-contact">
+    <h4 class="about-header">Contact</h4>
+
+    <p>
+      <b>General enquiries</b><br>
+      <a href="mailto:team@factlink.com">team@factlink.com</a>
+    </p>
+  </div>
+</div>
+<% end %>
