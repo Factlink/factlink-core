@@ -27,7 +27,9 @@
 .icon-off,
 .icon-apple,
 .icon-facebook,
-.icon-cog {
+.icon-cog,
+.icon-user,
+.icon-users {
   font-family: "fontello" !important;
   font-style: normal;
   font-weight: normal;
@@ -71,6 +73,9 @@
 .icon-apple:before { content: '\e80e'; } /* '' */
 .icon-facebook:before { content: '\e815'; } /* '' */
 .icon-cog:before { content: '\e806'; } /* '' */
+.icon-user:before { content: '\e80f'; } /* '' */
+.icon-users:before { content: '\e800'; } /* '' */
+
 
 .icon-factlink {
   background: image-url('FL-checkmark.svg') no-repeat;

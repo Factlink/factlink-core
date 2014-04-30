@@ -21,6 +21,7 @@ window.ReactTopbarMenu = React.createClass
           'Cause Error'
 
   render: ->
+    username = currentSession.user().get('username')
     @transferPropsTo _li ['dropdown'],
       _a ['dropdown-toggle', @props.linkClass, 'data-toggle': 'dropdown', href: 'javascript:'],
         _b ['caret']
@@ -36,9 +37,21 @@ window.ReactTopbarMenu = React.createClass
                _i ['icon-bookmark']
                " On your site"
           ]
-        else [])...
+        else
+          []
+        )...
+        (if currentSession.user().get('admin') || currentSession.user().get('groups').length
+          [
+            _li ['dropdown-menu-item'],
+              _a [href: "/user/#{username}/groups"],
+                _i ['icon-users']
+                " Groups"
+          ]
+        else
+          []
+        )...
         _li ['dropdown-menu-item'],
-         _a [href: "/user/#{currentSession.user().get('username')}/edit", rel: 'backbone'],
+         _a [href: "/user/#{username}/edit", rel: 'backbone'],
            _i ['icon-cog']
            " Settings"
         _li ['dropdown-menu-item'],

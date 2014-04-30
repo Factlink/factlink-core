@@ -15,9 +15,11 @@ FactlinkUI::Application.routes.draw do
     get '/feed' => "api/feed#global", as: 'something_alse_than_feed_as_well'
     get '/feed/personal' => "api/feed#personal", as: 'something_else_than_feed'
     get '/feed/discussions' => "api/feed#discussions", as: "insert_nonsense_here"
-    get '/annotations/search' => 'api/annotations#search'
+    get '/annotations/search' => 'api/annotations#search' #TODO:evil URL, clashes with get-by-id.
     post '/annotations' => 'api/annotations#create'
     get '/annotations/:id' => 'api/annotations#show'
+    post '/groups' => 'api/groups#create'
+    get '/groups' => 'api/groups#index'
     get '/users/:username/feed' => 'api/users#feed'
     get '/users/:username' => 'api/users#show'
     put '/users/:original_username' => 'api/users#update'
@@ -141,6 +143,7 @@ FactlinkUI::Application.routes.draw do
   scope "/user/:username" do
     get "/" => "frontend#user_profile", as: "user_profile"
     get "/edit" => "frontend#show", as: 'edit_user'
+    get "/groups" => "frontend#show"
     get "/change-password" => "frontend#show", as: 'change_password'
     get "/notification-settings" => "frontend#show", as: 'user_notification_settings'
 
