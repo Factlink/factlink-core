@@ -38,11 +38,7 @@ class Ability
 
   def define_fact_data_abilities
     can :read, FactData do |fact_data|
-      if fact_data.group
-        user.groups.include? fact_data.group
-      else
-        true
-      end
+      fact_data.group.nil? || user.groups.include?(fact_data.group)
     end
   end
 
