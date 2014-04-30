@@ -42,7 +42,6 @@ window.ReactAdminGroupEdit = React.createClass
     @setState @_freshState()
 
   render: ->
-    console.log 'rendering', @state.group.cid
     _div [],
       ReactSubmittableForm {
           onSubmit: @_submit
