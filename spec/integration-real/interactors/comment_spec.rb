@@ -47,4 +47,18 @@ describe 'comments' do
       expect(comments.map(&:formatted_content)).to eq [comment2.formatted_content]
     end
   end
+
+  it "updating comment" do
+    as(current_user) do |pavlov|
+      fact = pavlov.interactor :'facts/create', displaystring: 'a fact', site_url: 'http://example.org', site_title: ''
+
+      updated_content = 'Handige Harrie'
+      comment = pavlov.interactor :'comments/create', fact_id: fact.id, content: 'Gekke Gerrit'
+      pavlov.interactor :'comments/update', comment_id: comment.id.to_s, content: updated_content
+
+      comments = pavlov.interactor :'comments/for_fact_id', fact_id: fact.id.to_s
+
+      expect(comments.map(&:formatted_content)).to eq [updated_content]
+    end
+  end
 end

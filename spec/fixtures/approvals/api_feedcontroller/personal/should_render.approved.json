@@ -62,7 +62,9 @@
         "deleted": false
       },
       "created_at": "<created_at>",
+      "content": "hallo",
       "formatted_content": "hallo",
+      "markup_format": "plaintext",
       "sub_comments_count": 0,
       "is_deletable": true,
       "tally": {
@@ -102,7 +104,9 @@
         "deleted": false
       },
       "created_at": "<created_at>",
+      "content": "hoi",
       "formatted_content": "hoi",
+      "markup_format": "plaintext",
       "sub_comments_count": 2,
       "is_deletable": false,
       "tally": {

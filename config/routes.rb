@@ -42,6 +42,7 @@ FactlinkUI::Application.routes.draw do
     member do
       scope '/comments' do
         post "/" => 'comments#create'
+        put "/:comment_id" => 'comments#update'
         get "/" => 'comments#index'
         delete "/:id" => 'comments#destroy'
         put "/:id/opinion" => 'comments#update_opinion'

@@ -12,32 +12,6 @@ feature "adding comments to a fact", type: :feature do
 
   let(:factlink) { create :fact_data }
 
-  scenario "after adding a comment it should show up and persist" do
-
-    open_discussion_sidebar_for factlink.fact_id.to_s
-
-    comment = "The tomcat hopped on the bus after Berlioz' death"
-    add_comment comment
-
-    assert_comment_exists comment
-
-    open_discussion_sidebar_for factlink.fact_id.to_s # Reload the page
-
-    assert_comment_exists comment
-  end
-
-  scenario 'after adding a comment it has one upvote' do
-    open_discussion_sidebar_for factlink.fact_id.to_s
-
-    comment = 'Buffels zijn niet klein te krijgen joh'
-    add_comment comment
-    assert_comment_exists comment
-
-    open_discussion_sidebar_for factlink.fact_id.to_s
-
-    find('.spec-comment-vote-amount').should have_content 1
-  end
-
   scenario 'after adding a comment, the user should be able to reset his opinion' do
     open_discussion_sidebar_for factlink.fact_id.to_s
 
@@ -53,24 +27,6 @@ feature "adding comments to a fact", type: :feature do
     open_discussion_sidebar_for factlink.fact_id.to_s
 
     find('.spec-comment-vote-amount', text: "0")
-  end
-
-  scenario "after adding multiple comments they should show up and persist" do
-    open_discussion_sidebar_for factlink.fact_id.to_s
-
-    comment1 = 'Vroeger was Gerard een hengst'
-    comment2 = 'Henk is nog steeds een buffel'
-
-    add_comment comment1
-    add_comment comment2
-
-    assert_comment_exists comment1
-    assert_comment_exists comment2
-
-    open_discussion_sidebar_for factlink.fact_id.to_s # Reload the page
-
-    assert_comment_exists comment1
-    assert_comment_exists comment2
   end
 
   scenario 'comments and comments with links to annotations should be sorted on relevance' do
@@ -105,7 +61,7 @@ feature "adding comments to a fact", type: :feature do
     end
   end
 
-  scenario "after adding it can be removed" do
+  scenario "after adding it can be edited and removed" do
     open_discussion_sidebar_for factlink.fact_id.to_s
 
     comment = 'Vroeger had Gerard een hele stoere fiets'
@@ -113,13 +69,26 @@ feature "adding comments to a fact", type: :feature do
     add_comment comment
     assert_comment_exists comment
 
+    open_discussion_sidebar_for factlink.fact_id.to_s
+    assert_comment_exists comment
+    edited_comment = 'Nu heeft Gerard een stomme fiets'
+    within '.spec-evidence-box' do
+      find('.spec-comment-edit').click
+      fill_in_comment_textarea edited_comment, original_text: comment
+      click_button "Post"
+    end
+    assert_comment_exists edited_comment
+
+    open_discussion_sidebar_for factlink.fact_id.to_s
+    assert_comment_exists edited_comment
+
     find('.spec-delete-button-open').click
     click_button 'Delete'
 
-    page.should_not have_content comment
+    page.should_not have_content edited_comment
 
     open_discussion_sidebar_for factlink.fact_id.to_s
 
-    page.should_not have_content comment
+    page.should_not have_content edited_comment
   end
 end
