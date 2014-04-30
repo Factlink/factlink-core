@@ -75,6 +75,7 @@ window.ReactCommentForm = React.createClass
   getInitialState: ->
     controlsOpened: false
     searchOpened: false
+    validComment: false
 
   _renderTextArea: ->
     ReactTextArea
@@ -99,7 +100,7 @@ window.ReactCommentForm = React.createClass
   _renderSubmitButton: ->
     _button ['button-confirm button-small add-comment-post-button'
       onClick: => @refs.signinPopover.submit(=> @_submit())
-      disabled: !@_validComment()
+      disabled: !@state.validComment
     ],
       Factlink.Global.t.post_comment
       ReactSigninPopover
@@ -120,6 +121,7 @@ window.ReactCommentForm = React.createClass
           @_renderSearchRegion()
 
   _onTextareaChange: (text) ->
+    @setState(validComment: @_validComment(text))
     @setState(controlsOpened: true) if text.length > 0
 
   _onSearchInsert: (text) ->
@@ -127,14 +129,12 @@ window.ReactCommentForm = React.createClass
     @setState searchOpened: false
 
   _submit: ->
-    return unless @_validComment()
+    return unless @state.validComment
 
     @props.onSubmit? $.trim(@refs.textarea.getText())
     @setState @getInitialState()
     @refs.textarea.updateText ''
 
-  _validComment: ->
-    return false unless @refs
-
-    comment = new Comment content: $.trim(@refs.textarea.getText())
+  _validComment: (text) ->
+    comment = new Comment content: $.trim(text)
     comment.isValid()
