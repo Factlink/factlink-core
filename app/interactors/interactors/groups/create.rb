@@ -4,8 +4,8 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      attribute :groupname, String
-      attribute :members, [String]
+      attribute :groupname
+      attribute :members
       attribute :pavlov_options, Hash
 
       def authorized?
@@ -23,6 +23,11 @@ module Interactors
 
       def validate
         validate_nonempty_string :groupname, groupname
+        p members, members.is_a?(Array), members.is_a?(Array) && members.all?{|o| o.is_a?(String)}
+
+        unless members.is_a?(Array) && members.all?{|o| o.is_a?(String)}
+          errors.add :members, 'should be an array of strings'
+        end
       end
     end
   end
