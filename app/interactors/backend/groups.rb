@@ -1,7 +1,7 @@
 module Backend
   module Groups
     extend self
-    def create(groupname:, members:)
+    def create(groupname:, usernames:)
       group = Group.new
       group.groupname = groupname
       group.users << usernames.map{ |username| User.where(username: username).first }
