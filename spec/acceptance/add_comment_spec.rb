@@ -61,7 +61,7 @@ feature "adding comments to a fact", type: :feature do
     end
   end
 
-  scenario "after adding it can be removed" do
+  scenario "after adding it can be edited and removed" do
     open_discussion_sidebar_for factlink.fact_id.to_s
 
     comment = 'Vroeger had Gerard een hele stoere fiets'
@@ -69,13 +69,26 @@ feature "adding comments to a fact", type: :feature do
     add_comment comment
     assert_comment_exists comment
 
+    open_discussion_sidebar_for factlink.fact_id.to_s
+    assert_comment_exists comment
+    edited_comment = 'Nu heeft Gerard een stomme fiets'
+    within '.spec-evidence-box' do
+      find('.spec-comment-edit').click
+      fill_in_comment_textarea edited_comment, original_text: comment
+      click_button "Post"
+    end
+    assert_comment_exists edited_comment
+
+    open_discussion_sidebar_for factlink.fact_id.to_s
+    assert_comment_exists edited_comment
+
     find('.spec-delete-button-open').click
     click_button 'Delete'
 
-    page.should_not have_content comment
+    page.should_not have_content edited_comment
 
     open_discussion_sidebar_for factlink.fact_id.to_s
 
-    page.should_not have_content comment
+    page.should_not have_content edited_comment
   end
 end

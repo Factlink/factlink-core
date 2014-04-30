@@ -12,7 +12,7 @@ module Acceptance
         end
       end
 
-      def fill_in_comment_textarea text
+      def fill_in_comment_textarea text, original_text:''
         switch_to_comment
 
         within '.spec-add-comment-form' do
@@ -20,7 +20,7 @@ module Acceptance
           comment_input.click
 
           comment_input = find('.text_area_view')
-          comment_input.value.should eq ''
+          comment_input.value.should eq original_text
           comment_input.click
           comment_input.set text
           comment_input.value.should eq text

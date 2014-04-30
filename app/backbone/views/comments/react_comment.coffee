@@ -50,7 +50,7 @@ window.ReactComment = React.createBackboneClass
           if @model().can_edit() && @model().can_destroy()
             @_separator()
           if @model().can_edit()
-            _a [onClick: => @setState editing: !@state.editing],
+            _a ['spec-comment-edit', onClick: => @setState editing: !@state.editing],
               _i ['icon-edit comment-edit-icon']
         _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments],
           "(#{sub_comment_count}) Reply"
