@@ -2,7 +2,7 @@
 
 window.ReactComment = React.createBackboneClass
   displayName: 'ReactComment'
-  mixins: [React.BackboneMixin('tally')]
+  mixins: [React.BackboneMixin('tally'), UpdateOnSignInOrOutMixin]
   propTypes:
     fact_opinionators: React.PropTypes.instanceOf(InterestedUsers).isRequired
     model: React.PropTypes.instanceOf(Comment).isRequired
