@@ -6,6 +6,7 @@ describe "factlink", type: :feature do
 
   let(:user) { create :user }
 
+  unless FactlinkUI.Kennisland?
   it 'it renders 2 Factlinks' do
     create_default_activities_for user
 
@@ -16,4 +17,5 @@ describe "factlink", type: :feature do
     find('.spec-feed-activity+.spec-loading-indicator-done')
     assume_unchanged_screenshot 'feed'
   end
+end
 end

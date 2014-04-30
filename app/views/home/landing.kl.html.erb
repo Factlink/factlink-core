@@ -1,53 +1,36 @@
 <% content_for :header do %>
   <div class="static-pages-header">
     <h1 class="header-heading">Your innovation only becomes social when it is shared!</h1>
-    <p class="header-tagline">Start sharing stories and exchanging feedback to build a better future today.</p>
+    <p class="header-tagline">Start sharing challenges and exchanging feedback to build a better future today.</p>
 
-    <a target="_blank" href="/users/sign_in_or_up" class="button-success button-huge">Join Feedback Go Forward</a>
+    <a target="_blank" href="/users/sign_in_or_up" class="button-success button-huge">Join Feed Forward</a>
   </div>
 <% end %>
 
 <% content_for :content do %>
   <div class="static-pages-content">
-    <p><strong>Make innovation social</strong></br>
-    Make your innovation social by connecting to your innovation society</p>
-
-    <p><strong>Make innovation better</strong></br>
-    Make your innovation better by receiving real-time and automatic feedback from your innovation society</p>
-
-    <p><strong>Build visually attractive projects</strong></br>
-    Build a visually attractive, user-friendly project space to support your innovation initiative.</p>
-  </div><!--
-No whitespace because of inline-block
---><div class="static-pages-content">
     <p><strong>Connect to collectives</strong></br>
-    Connect to a global collective of change makers to improve your ideas</p>
+    Connect to a global collective of change makers to improve your innovation</p>
 
-    <p><strong>Share stories</strong></br>
-    Share your stories with your innovation society to show what you are doing</p>
+    <p><strong>Post challenges</strong></br>
+    Post challenges. Share your current challenge with your innovation collective to generate new ideas, advice and insights.</p>
 
     <p><strong>Exchange Feedback</strong></br>
     Give and get feedback from your collective of change makers to generate new ideas, advice and insights from innovations elsewhere</p>
+  </div><!--
+No whitespace because of inline-block
+--><div class="static-pages-content">
+    <p><strong>Make innovation social</strong></br>
+    Make your innovation social by connecting to your innovation collective</p>
+
+    <p><strong>Make innovation better</strong></br>
+    Make your innovation better by getting and giving feedbacck</p>
+
+    <p><strong>Build visually attractive projects</strong></br>
+    Build a crowdsourced story database to help each other in doing social innovation</p>
   </div>
 <% end %>
 
 <% content_for :below_content do %>
-  <div class="static-pages-below-content">
-    <div class="container">
-      <div class="content-aligned-center">
-        <div class="in-your-browser-cta-container">
-          <div class="static-pages-below-content-box">
-            <h1 class="static-pages-heading-h1">Join the revolution!</h1>
-            <p>Discussion and access to information are key to a well-functioning society. Install Factlink in your browser to share your knowledge and stay updated.</p>
-            <%= link_to "Learn more", in_your_browser_path, class: "button-confirm" %>
-          </div>
-          <div class="static-pages-below-content-box">
-            <h1 class="static-pages-heading-h1">Have your own site?</h1>
-            <p>You can use Factlink to have better discussions and more user engagement. Factlink is free and can be implemented on your site with a single line of code.</p>
-            <%= link_to "Learn more", on_your_site_path, class: "button-confirm" %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
 <% end %>

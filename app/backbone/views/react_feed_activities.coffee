@@ -84,8 +84,8 @@ ReactCreatedFactActivity = React.createBackboneClass
           fact.get('site_title')
         ]
       },
-      fact.get('displaystring')
-
+      _p [],
+        fact.get('displaystring'),
 
 ReactCreatedCommentActivity = React.createBackboneClass
   displayName: 'ReactCreatedCommentActivity'

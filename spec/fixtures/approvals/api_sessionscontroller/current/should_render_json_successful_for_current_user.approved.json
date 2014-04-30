@@ -22,7 +22,10 @@
       "some_feature"
     ],
     "groups": [
-
+      {
+        "id": "<id>",
+        "groupname": "abc"
+      }
     ],
     "admin": false
   }

@@ -33,6 +33,23 @@ ReactSearchFacts = React.createClass
 
 window.ReactAddComment = React.createClass
   displayName: 'ReactAddComment'
+
+  render: ->
+    ReactCommentForm
+      onSubmit: (text) =>
+        comment = new Comment
+          markup_format: 'plaintext'
+          created_by: currentSession.user().toJSON()
+          content: $.trim(text)
+
+        @props.comments.unshift(comment)
+        comment.saveWithFactAndWithState {},
+          success: =>
+            @props.comments.fact.getOpinionators().setInterested true
+
+
+window.ReactCommentForm = React.createClass
+  displayName: 'ReactCommentForm'
   mixins: [UpdateOnSignInOrOutMixin]
 
   componentDidMount: ->
@@ -56,18 +73,18 @@ window.ReactAddComment = React.createClass
         , discussion_sidebar_slide_transition_duration + 100
 
   getInitialState: ->
-    text: ''
     controlsOpened: false
     searchOpened: false
+    validComment: false
 
   _renderTextArea: ->
-    comment_add_uid = string_hash(@props.site_url)
-    #note: we'd can't rely on *any* model attributes for the uid because
-    #the id is missing for new models, and everything else is missing for existing
-    #but not entirely loaded models.
     ReactTextArea
       ref: 'textarea'
-      storageKey: "add_comment_to_fact_#{comment_add_uid}"
+      defaultValue: @props.defaultValue if @props.defaultValue
+      #note: we'd can't rely on *any* model attributes for the uid because
+      #the id is missing for new models, and everything else is missing for existing
+      #but not entirely loaded models.
+      storageKey: "add_comment_to_fact_#{string_hash(@props.site_url)}" if @props.site_url
       onChange: @_onTextareaChange
       onSubmit: => @refs.signinPopover.submit(=> @_submit())
 
@@ -83,7 +100,7 @@ window.ReactAddComment = React.createClass
   _renderSubmitButton: ->
     _button ['button-confirm button-small add-comment-post-button'
       onClick: => @refs.signinPopover.submit(=> @_submit())
-      disabled: !@_comment().isValid()
+      disabled: !@state.validComment
     ],
       Factlink.Global.t.post_comment
       ReactSigninPopover
@@ -104,7 +121,7 @@ window.ReactAddComment = React.createClass
           @_renderSearchRegion()
 
   _onTextareaChange: (text) ->
-    @setState(text: text)
+    @setState(validComment: @_validComment(text))
     @setState(controlsOpened: true) if text.length > 0
 
   _onSearchInsert: (text) ->
@@ -112,18 +129,12 @@ window.ReactAddComment = React.createClass
     @setState searchOpened: false
 
   _submit: ->
-    comment = @_comment()
-    return unless comment.isValid()
+    return unless @state.validComment
 
-    @props.comments.unshift(comment)
-    comment.saveWithFactAndWithState {},
-      success: =>
-        @props.comments.fact.getOpinionators().setInterested true
-
+    @props.onSubmit? $.trim(@refs.textarea.getText())
     @setState @getInitialState()
     @refs.textarea.updateText ''
 
-  _comment: ->
-    new Comment
-      content: $.trim(@state.text)
-      created_by: currentSession.user().toJSON()
+  _validComment: (text) ->
+    comment = new Comment content: $.trim(text)
+    comment.isValid()

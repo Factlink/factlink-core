@@ -20,6 +20,13 @@ WebMock.disable_net_connect!(:allow_localhost => true)
 Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f|require f }
 
 RSpec.configure do |config|
+  # Acceptance tests can in odd cases result in gunk in the DB because we
+  # can't use transactions there.
+
+  config.before(:suite) do
+    DatabaseCleaner.clean
+  end
+
   # Exclude integration tests in normal suite
   config.filter_run_excluding type: :feature
   config.mock_with :rspec
