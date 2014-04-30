@@ -12,3 +12,4 @@ server-management/growth-hacking/analyze-publishers/access.log
 /log
 /tmp
 .approvals
+.env

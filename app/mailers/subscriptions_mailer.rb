@@ -1,5 +1,5 @@
 class SubscriptionsMailer < ActionMailer::Base
-  default from: "Factlink <support@factlink.com>"
+  default from: "#{FactlinkUI::Application.config.support_name} <#{FactlinkUI::Application.config.support_email}>"
 
   def unsubscribe(user_id, type)
     @user = User.find(user_id)
