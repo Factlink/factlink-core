@@ -54,7 +54,7 @@ ReactKennislandFeedSelection = React.createClass
   _groupButtons: ->
     return [] unless currentSession.signedIn()
 
-    components = currentSession.user().get('groups').map (group) =>
+    currentSession.user().get('groups').map (group) =>
       [
         _input [
           'radio-toggle-button'
@@ -66,8 +66,6 @@ ReactKennislandFeedSelection = React.createClass
         _label [htmlFor: "FeedChoice_Group_#{group.id}"],
           group.groupname
       ]
-
-    _.flatten(components)
 
   render: ->
     _div [],
