@@ -67,4 +67,3 @@ if window.is_kennisland
   window.ReactFeedSelection = ReactKennislandFeedSelection
 else
   window.ReactFeedSelection = ReactFactlinkFeedSelection
-end
