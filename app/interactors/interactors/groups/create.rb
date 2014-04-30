@@ -9,7 +9,7 @@ module Interactors
       attribute :pavlov_options, Hash
 
       def authorized?
-        can?(:create, Group)
+        pavlov_options[:import] || can?(:create, Group)
       end
 
       private

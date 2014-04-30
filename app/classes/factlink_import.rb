@@ -98,6 +98,17 @@ module FactlinkImport
     FactlinkImportComment.new(dead_comment.id).instance_eval(&block)
   end
 
+  def group(fields, &block)
+
+    group = nil
+
+    ExecuteAsUser.new(nil).execute do |pavlov|
+      pavlov.import = true
+      group = pavlov.interactor(:'groups/create', groupname: fields[:groupname], creator: fields[:username])
+    end
+
+  end
+
   def follow(fields)
     ExecuteAsUser.new(user_for(fields[:follower_username])).execute do |pavlov|
       pavlov.import = true

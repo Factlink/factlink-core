@@ -6,6 +6,7 @@ class Export
     users(output)
     facts(output)
     comments(output)
+    groups(output)
 
     output
   end
@@ -96,6 +97,12 @@ class Export
 
         output << "end\n"
       end
+    end
+  end
+
+  def groups(output)
+    Group.all.sort_by(&:groupname).each do |group|
+      output << import('FactlinkImport.group', fields_from_object(group, [:groupname])) + " do end\n"
     end
   end
 
