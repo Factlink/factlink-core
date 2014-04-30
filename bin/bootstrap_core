@@ -34,15 +34,14 @@ exec 6<>/dev/tcp/127.0.0.1/5432 && ERROR_STATUS="" || ERROR_STATUS="closed"; exe
 
 
 if [[ -n "$ERROR_STATUS" ]]; then
-  ../start-db.sh &
+  ./start-db.sh &
   FOREMAN_PID=$!
   sleep 3
 fi
 
 bundle exec rake db:setup
-bundle exec rake db:test:prepare
 bundle exec rake db:migrate
-RAILS_ENV=test bundle exec rake db:migrate
+bundle exec rake db:test:prepare
 bundle exec rake db:import[db/dump.rb]
 
 if [[ -n "$FOREMAN_PID" ]]; then

@@ -47,6 +47,34 @@ describe Backend::Users do
 
       expect(saved_user.email).to eq "deleted+#{saved_user.username}@factlink.com"
     end
+
+    it 'removes activities' do
+      user = create :user
+
+      as(user) do |pavlov|
+        pavlov.interactor(:'comments/create', fact_id: create(:fact_data).fact_id.to_s, type: 'disbelieves', content: 'content')
+      end
+
+      expect(user.activities.size).to eq 1
+
+      described_class.delete username: user.username
+
+      expect(user.activities.size).to eq 0
+    end
+
+    it 'removes activities with user as subject' do
+      user = create :user
+
+      as(create :user) do |pavlov|
+        pavlov.interactor(:'users/follow_user', username: user.username)
+      end
+
+      expect(user.activities_with_user_as_subject.size).to eq 1
+
+      described_class.delete username: user.username
+
+      expect(user.activities_with_user_as_subject.size).to eq 0
+    end
   end
 
   describe ".user_by_username" do

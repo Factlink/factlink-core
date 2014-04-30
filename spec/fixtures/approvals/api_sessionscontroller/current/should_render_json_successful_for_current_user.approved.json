@@ -21,6 +21,9 @@
     "features": [
       "some_feature"
     ],
+    "groups": [
+
+    ],
     "admin": false
   }
 }

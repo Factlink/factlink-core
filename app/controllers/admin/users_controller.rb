@@ -15,7 +15,7 @@ class Admin::UsersController < AdminController
       params[:user][:password_confirmation] = nil
     end
 
-    @user.features.each(&:destroy)
+    @user.features.destroy_all
     params[:user].fetch(:features,{}).keys.each do |feature|
       @user.features << Feature.create!(name: feature)
     end

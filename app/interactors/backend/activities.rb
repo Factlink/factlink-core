@@ -46,12 +46,9 @@ module Backend
               .order('activities.created_at DESC')
               .limit(count)
               .map(&method(:dead))
-              .compact
     end
 
     private def dead(activity)
-      return nil unless activity.still_valid?
-
       base_activity_data = {
           action: activity.action,
           created_at: activity.created_at.to_time,
@@ -88,10 +85,6 @@ module Backend
           end
 
       base_activity_data.merge(specialized_data)
-    rescue StandardError => e
-      raise e if Rails.env.test? || Rails.env.development?
-      nil #activities may become "invalid" in which case the facts/comments/users they refer to
-      #are gone.  This  causes errors.  We ignore such activities.
     end
 
     def create(user_id:, action:, subject: nil, time:, send_mails:)
