@@ -14,6 +14,10 @@ class CommentsController < ApplicationController
     render text: 'something went wrong', :status => 400
   end
 
+  def update
+    render json: interactor(:'comments/update', comment_id: params[:comment_id], content: params[:content])
+  end
+
   def destroy
     interactor :'comments/delete', comment_id: params[:id].to_str
 

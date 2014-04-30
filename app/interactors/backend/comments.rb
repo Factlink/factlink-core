@@ -50,6 +50,15 @@ module Backend
       comment
     end
 
+    def update(comment_id:, content:, updated_at:)
+      comment = Comment.find(comment_id)
+      comment.content = content
+      comment.updated_at = updated_at
+      comment.save!
+
+      nil
+    end
+
     private
 
     def dead(comment:, current_user_id:)
