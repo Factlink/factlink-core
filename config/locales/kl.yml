@@ -14,3 +14,7 @@ kl:
 
   anecdote: "story"
 
+  app_name: 'Feed Forward'
+
+  add_comment_hint1: "How can you help?"
+  add_comment_hint2: "Got ideas how to help? Share your ideas here! For example: websites to look at, videos to watch, tools to use..."

@@ -10,7 +10,7 @@ describe "Logged-out visitors", type: :feature do
       click_link "About"
 
       within(:css, "h1") do
-        page.should have_content("About Factlink")
+        page.should have_content("About " + I18n.t(:app_name))
       end
     end
 

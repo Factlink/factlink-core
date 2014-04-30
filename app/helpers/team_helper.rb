@@ -1,6 +1,6 @@
 module TeamHelper
   def team_photo_tag photo, name, factlink_profile
-    html = link_to "https://factlink.com/#{factlink_profile}", title: "#{name}'s Factlink Profile" do
+    html = link_to "https://factlink.com/#{factlink_profile}", title: "#{name}'s #{I18n.t(:app_name)} Profile" do
       html = image_tag "team/#{photo}.jpg", alt: name, class: "team-photo", rel: "tooltip", title: name
     end
     html += content_tag "div", name, class: "team-member-name"

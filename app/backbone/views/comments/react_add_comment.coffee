@@ -87,6 +87,7 @@ window.ReactCommentForm = React.createClass
       storageKey: "add_comment_to_fact_#{string_hash(@props.site_url)}" if @props.site_url
       onChange: @_onTextareaChange
       onSubmit: => @refs.signinPopover.submit(=> @_submit())
+      placeholder: Factlink.Global.t.add_comment_hint2
 
   _renderSearchRegion: ->
     _div [],
@@ -110,7 +111,7 @@ window.ReactCommentForm = React.createClass
     _div ['add-comment-container comment-container'],
       _div ['add-comment spec-add-comment-form'],
         _div ['add-comment-question'],
-          'What do you think?'
+          Factlink.Global.t.add_comment_hint1
 
         @_renderTextArea()
         _div [

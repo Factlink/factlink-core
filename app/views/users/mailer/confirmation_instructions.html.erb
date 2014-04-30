@@ -1,6 +1,6 @@
 <% content_for :email_header do %>
   <h1 class="header-title">Hello <%= @resource.full_name %></h1>
-  <h2 class="header-subtitle">Welcome to Factlink! Please confirm your email by clicking below.</h2>
+  <h2 class="header-subtitle">Welcome to <%= t(:app_name) %>! Please confirm your email by clicking below.</h2>
 <% end %>
 
 <% content_for :email_body do %>
@@ -18,9 +18,9 @@
   </table>
 
   <br /><br />
-  <p>We’ve only built part of our vision of what Factlink could be. Please send us your <a href="mailto:<%= FactlinkUI::Application.config.support_email %>">feedback</a> so we can make it better!</p>
+  <p>We’ve only built part of our vision of what <%= t(:app_name) %> could be. Please send us your <a href="mailto:<%= FactlinkUI::Application.config.support_email %>">feedback</a> so we can make it better!</p>
 
-  <p><em>&mdash; The Factlink team</em></p>
+  <p><em>&mdash; The <%= t(:app_name) %> team</em></p>
 
 <% end %>
 
