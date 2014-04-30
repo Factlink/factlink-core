@@ -1,5 +1,5 @@
 <% content_for :account_popup_content do %>
-  <h1 class="accounts-popup-heading">Connect with your existing Factlink account</h1>
+  <h1 class="accounts-popup-heading">Connect with your existing <%= t(:app_name) %> account</h1>
 
   <%= form_for(@user, as: :user, url: social_accounts_new_path) do |f| %>
     <div class="accounts-popup-form">
