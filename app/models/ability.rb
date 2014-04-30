@@ -24,6 +24,7 @@ class Ability
     define_comment_abilities
     define_sub_comment_abilities
     define_user_abilities
+    define_group_abilities
   end
 
   def define_anonymous_user_abilities
@@ -67,6 +68,12 @@ class Ability
 
     can :update, user
     can :destroy, user
+  end
+
+  def define_group_abilities
+    can :access, Group do |group|
+      user.groups.include? group
+    end
   end
 
   FEATURES = %w(
