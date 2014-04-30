@@ -15,10 +15,7 @@ module Interactors
       private
 
       def execute
-        Backend::Groups.create(
-            groupname: groupname,
-            usernames: members
-        )
+        Backend::Groups.create(groupname: groupname, usernames: members)
       end
 
       def validate
