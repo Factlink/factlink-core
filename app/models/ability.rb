@@ -21,6 +21,7 @@ class Ability
 
     define_anonymous_user_abilities
 
+    define_fact_data_abilities
     define_comment_abilities
     define_sub_comment_abilities
     define_user_abilities
@@ -32,6 +33,16 @@ class Ability
 
     can :read, User do |u|
       u.active? || u.deleted # we show a special page for deleted users
+    end
+  end
+
+  def define_fact_data_abilities
+    can :read, FactData do |fact_data|
+      if fact_data.group
+        user.groups.include? fact_data.group
+      else
+        true
+      end
     end
   end
 
