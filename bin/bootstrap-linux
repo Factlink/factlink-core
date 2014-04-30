@@ -1,0 +1,195 @@
+#!/usr/bin/env bash
+#abort this script on any error:
+set -e
+echo "Updating apt-get & upgrading existing packages..."
+sudo apt-get -y -qq update
+sudo apt-get -y dist-upgrade
+
+type apt-add-repository>/dev/null || sudo apt-get -y install python-software-properties
+
+# partner repo where skype is hiding
+# depending on your option during install this is already there
+sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+
+sudo apt-key list | grep -q -e "ACCC4CF8" || wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main"
+
+sudo apt-add-repository -y "deb http://dl.google.com/linux/chrome/deb/ stable main"
+
+sudo apt-key list | grep -q -e "Google, Inc. Linux Package Signing Key" || wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+
+sudo apt-key list | grep -q -e "Launchpad PPA for NoobsLab" || sudo apt-add-repository -y ppa:webupd8team/sublime-text-2
+
+sudo apt-add-repository -y "deb http://downloads.hipchat.com/linux/apt stable main"
+sudo apt-key list | grep -q -e "HipChat Signing Key (Atlassian)" || wget -q -O - https://www.hipchat.com/keys/hipchat-linux.key | sudo apt-key add -
+
+
+sudo apt-get -y -qq update
+
+sudo apt-get -y install \
+           build-essential \
+           curl \
+           sublime-text \
+           google-chrome-stable \
+           chromium-chromedriver \
+           openvpn \
+           phantomjs \
+           rbenv \
+           openjdk-7-jre-headless \
+           python \
+           nodejs \
+           git-flow \
+           hipchat \
+           dkms \
+           virtualbox-dkms \
+           skype \
+           virtualbox \
+           virtualbox-guest-additions-iso \
+           virtualbox-guest-utils \
+           network-manager-openvpn \
+           unity-tweak-tool \
+           lm-sensors \
+           gkrellm \
+           icedtea-7-plugin \
+           stress \
+           htop \
+           postgresql-9.3 \
+           pgadmin3 \
+           libpq-dev \
+           imagemagick \
+           php5-curl \
+           php5-json \
+           cryptsetup \
+           gnome-disk-utility \
+           npm \
+           unar # needed for virtualbox
+
+
+[ ! -f /usr/local/bin/node ] && sudo ln -s `which nodejs` /usr/local/bin/node
+
+echo 'Adding sensor modules (coretemp) to the kernel...'
+< /etc/modules grep -q '^coretemp$' || echo "
+# Chip drivers for sensors
+coretemp
+" | sudo tee -a /etc/modules
+sudo service kmod start
+
+#not sure if ~/.rbenv actually exists yet, so...
+echo 'Running rbenv for the first time...'
+
+rbenv rehash || :
+
+function update_shell_init_file {
+  shell_init_file=$1
+  echo "Updating $shell_init_file"
+
+  if [[ ! -f $shell_init_file ]] || ! grep -q 'eval "$(rbenv init -)"' $shell_init_file; then
+
+    cat >> $shell_init_file <<"RBENV_INIT"
+if [[ -d $HOME/.rbenv ]] ; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+fi
+RBENV_INIT
+  fi
+
+  if [[ ! -f $shell_init_file ]] || ! grep -q '/usr/lib/postgresql/9.3/bin/' $shell_init_file; then
+    echo -e '\nexport PATH="/usr/lib/postgresql/9.3/bin:$PATH"\n' >> $shell_init_file
+  fi
+
+
+  if [[ ! -f $shell_init_file ]] || ! grep -q 'PATH=~/.node/bin' $shell_init_file; then
+    echo -e '\nexport PATH=~/.node/bin:$PATH\n' >> $shell_init_file
+  fi
+
+  if [[ ! -f $shell_init_file ]] || ! grep -q '/usr/lib/chromium-browser/' $shell_init_file; then
+    echo -e '\nexport PATH=$PATH:/usr/lib/chromium-browser/\n' >> $shell_init_file
+  fi
+}
+update_shell_init_file ~/.zshrc
+update_shell_init_file ~/.bashrc
+if [ -d "$HOME/.rbenv" ] ; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)" || :
+fi
+export PATH="/usr/lib/postgresql/9.3/bin:$PATH"
+sudo mkdir -p /var/run/postgresql/
+sudo chmod 777 /var/run/postgresql/ # this is necessary to mitigate ubuntu's unhandy compiled-in constant postgres socket dir.
+export PATH="~/.node/bin:$PATH"
+
+echo 'setting up npm to install as your user...'
+# This is important, otherwise npm install -g won't execute without sudo
+# if you DO use sudo then 'sudo npm install -g ...' will make root-owned directories in your home dir.
+# these root-owned directories in your home dir will make later non-sudo npm installs impossible.
+if [[ ! -f ~/.npmrc ]] || ! grep -q 'prefix = ~/.node' ~/.npmrc; then
+  echo prefix = ~/.node >> ~/.npmrc
+fi
+
+
+echo "Installing ruby-build"
+# Install ruby-build:
+mkdir -p ~/.rbenv/plugins
+pushd ~/.rbenv/plugins
+if [ ! -e ruby-build ]; then
+  git clone git://github.com/sstephenson/ruby-build.git
+else
+  cd ruby-build
+  git pull
+fi
+popd
+
+RUBY_VERSION=2.1.0
+
+echo "Checking for ruby ${RUBY_VERSION}"
+rbenv rehash || :
+if bash -c "rbenv global ${RUBY_VERSION}" ; then
+  #NOTE: we need to run the rbenv global TEST in a separate bash instance
+  #because rbenv installs a bash function and due to set -e interaction in can fail.
+  echo "Ruby ${RUBY_VERSION} already installed."
+else
+    echo "Installing ruby ${RUBY_VERSION}..."
+    rbenv install ${RUBY_VERSION} || :
+fi
+rbenv global ${RUBY_VERSION}
+
+gem install bundle git-up
+
+rbenv rehash || :
+
+
+echo 'Installing jslint, supervisor and grunt-cli'
+#npm install supervisor grunt-cli
+npm install supervisor grunt-cli -g
+
+sudo update-rc.d -f postgresql remove
+sudo service postgresql stop || :
+
+
+# You can connect to multiple VPN connections from the terminal just do:
+#sudo openvpn --config ~/.openvpn/hackerone/jan.ovpn &
+#sudo openvpn --config ~/.openvpn/inverselink/jan.ovpn &
+#sudo openvpn --config ~/.openvpn/factlink/jan.ovpn &
+
+sudo tee /usr/local/bin/subl >/dev/null <<\SUBL_SCRIPT
+#!/usr/bin/env bash
+
+nohup /opt/sublime_text_2/sublime_text --class=sublime-text-2 "$@" >/dev/null 2>&1 &
+
+SUBL_SCRIPT
+sudo chmod a+x /usr/local/bin/subl
+
+curl -s https://raw.github.com/xdissent/ievms/master/ievms.sh | bash
+#if you want, you could delete downloaded files, but then every time you update ievms
+#it'll take a LOOONG time:
+#find ~/.ievms -type f ! -name "*.vmdk" ! -name "*.iso" -exec rm {} \;
+
+echo -e "\n\nInstallation complete!"
+echo "If you want to use the sublime text package manager, run this in sublimetext console now, <ctrl>+\`"
+echo "import urllib2,os; pf='Package Control.sublime-package'; ipp = sublime.installed_packages_path(); os.makedirs( ipp ) if not os.path.exists(ipp) else None; urllib2.install_opener( urllib2.build_opener( urllib2.ProxyHandler( ))); open( os.path.join( ipp, pf), 'wb' ).write( urllib2.urlopen( 'http://sublime.wbond.net/' +pf.replace( ' ','%20' )).read()); print( 'Please restart Sublime Text to finish installation')"
+
+echo -e "\n If you run a lot of java programs, the following java font-fixes may be of interest: http://www.webupd8.org/2013/06/install-openjdk-patched-with-font-fixes.html"
+
+# TODO: fix arcanist install:
+# some_install_path/ $ git clone git://github.com/facebook/libphutil.git
+# some_install_path/ $ git clone git://github.com/facebook/arcanist.git
+# add some_install_path/arcanist/bin/ to your PATH environment variable

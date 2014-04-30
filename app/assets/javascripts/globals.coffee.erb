@@ -1,0 +1,44 @@
+# ensure we update this file when we update the locales
+# SHASUM of locales: 25c93c58a47ffdf1f5c64452cc580dccd82ef29d
+
+window.is_kennisland = <%=FactlinkUI.Kennisland?.to_json %>;
+window.Factlink ||= {}
+
+bookmarklet = ->
+  script = document.createElement("script")
+  script.src = <%= (FactlinkUI::Application.config.jslib_url  + '?o=bookmarklet').to_json %>
+  script.onload = -> __internalFactlinkState("bookmarkletLoaded")
+  document.head.appendChild(script)
+
+Factlink.Global =
+  ajax_loader_image: '<%= image_path("ajax-loader.gif") %>'
+  bookmarklet_link: 'javascript:' + bookmarklet.toString()
+
+  facebook_app_id: '<%= FactlinkUI::Application.config.facebook_app_id %>'
+
+  support_email: '<%= FactlinkUI::Application.config.support_email %>'
+
+  core_url: "<%= URI.parse(FactlinkUI::Application.config.core_url).to_s %>"
+  environment: "<%= Rails.env %>"
+  t: {}
+  signed_in: false
+
+
+<%
+  [
+    :follow_user,
+    :followed,
+    :following,
+    :unfollow,
+
+    :post_comment,
+    :post_subcomment,
+    :factlinks,
+
+    :anecdote
+  ].each do |translation|
+%>
+
+Factlink.Global.t.<%= translation.to_s %> = "<%= I18n.t(translation) %>"
+
+<% end %>

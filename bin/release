@@ -21,12 +21,10 @@ if [[ -z "$1" ]]
     exit 1
 fi
 
-cd core
-  bundle
-  git rev-parse HEAD > GIT_REVISION
-  bundle exec cap $env deploy
-  rm GIT_REVISION
-cd ..
+bundle
+git rev-parse HEAD > GIT_REVISION
+bundle exec cap $env deploy
+rm GIT_REVISION
 
 echo "Deployed Core"
 

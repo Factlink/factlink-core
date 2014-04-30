@@ -1,0 +1,9 @@
+<% content_for :header do %>
+  <h1 class="header-heading">Sad to see you go!</h1>
+<% end %>
+
+<% content_for :content do %>
+  <p>Your account has been deleted. It might take some time for all data to be removed.</p>
+
+  <p>We would be very grateful if you'd take a minute to tell us why you left. <a href="mailto:<%= FactlinkUI::Application.config.support_email %>">Leave feedback.</a></p>
+<% end %>

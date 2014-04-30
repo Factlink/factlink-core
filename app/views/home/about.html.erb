@@ -1,0 +1,68 @@
+<% content_for :header do %>
+  <h1 class="header-heading">About Factlink</h1>
+  <p class="header-tagline">
+    We're making the web more open and credible.
+  </p>
+<% end %>
+
+<% content_for :content do %>
+<div class="about-container">
+  <div class="about-people">
+    <h4 class="about-header">Team</h4>
+
+    <ul class="faces-list">
+      <%= team_photo_tag "eamon", "Eamon Nerbonne", "eamonnerbonne" %>
+      <%= team_photo_tag "janpaul", "Jan Paul Posma", "janpaul123" %>
+      <%= team_photo_tag "luuk", "Luuk Hartsema", "hartsema" %>
+      <%= team_photo_tag "maarten", "Maarten van Gijssel", "maarten" %>
+      <%= team_photo_tag "mark", "Mark IJbema", "mark" %>
+      <%= team_photo_tag "martijn", "Martijn Russchen", "martijn" %>
+      <%= team_photo_tag "merijn", "Merijn Terheggen", "merijn" %>
+    </ul>
+
+    <h4 class="about-header">Advisors and Collaborators</h4>
+
+    <ul class="faces-list">
+      <%= advisor_photo_tag "anne", "Anne Vrolyk" %>
+      <%= advisor_photo_tag "colin", "Colin Crawford" %>
+      <%= advisor_photo_tag "gordon", "Gordon Rios" %>
+      <%= advisor_photo_tag "knud", "Knud Balslev" %>
+      <%= advisor_photo_tag "michael", "Michael Lopez" %>
+      <%= advisor_photo_tag "roger", "Roger Magoulas" %>
+      <%= advisor_photo_tag "scott", "Scott Waterman" %>
+      <%= advisor_photo_tag "tonie", "Tonie Broekhuijsen" %>
+    </ul>
+  </div>
+  <div class="about-contact">
+    <h4 class="about-header">Contact</h4>
+
+    <p>
+      <b>General enquiries</b><br>
+      <a href="mailto:info@factlink.com">info@factlink.com</a>
+    </p>
+
+    <p>
+      <b>Feedback (thanks!)</b><br>
+      <a href="mailto:<%= FactlinkUI::Application.config.support_email %>"><%= FactlinkUI::Application.config.support_email %></a>
+    </p>
+
+    <p>
+      <b>US: Alameda</b><br>
+      Factlink Inc.<br>
+      1309 Santa Clara Ave #4<br>
+      CA 94501 Alameda<br>
+      United States of America<br>
+      +1 650 646 3697
+    </p>
+
+    <p>
+      <b>NL: Groningen</b><br>
+      Factlink B.V.<br>
+      Prinsenstraat 9B<br>
+      9711 CL Groningen<br>
+      The Netherlands<br>
+      +31 50 8512915
+    </p>
+  </div>
+</div>
+<% end %>

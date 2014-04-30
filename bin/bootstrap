@@ -25,7 +25,7 @@ pushd proxy
   git remote set-url proxy-staging dokku@188.226.211.29:proxy-staging
 popd
 
-RUBY_VERSION=`cat core/.ruby-version`
+RUBY_VERSION=`cat .ruby-version`
 
 echo "Checking for ruby ${RUBY_VERSION}"
 
@@ -74,7 +74,7 @@ cd testserver
 cd ..
 
 js-library/bin/bootstrap
-core/bin/bootstrap $1
+bin/bootstrap_core $1
 
 
 wait

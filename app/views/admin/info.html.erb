@@ -1,0 +1,31 @@
+<h1>Factlink::Info</h1>
+<table>
+  <tbody>
+    <tr>
+      <td class="name">Version</td>
+      <td class="value">
+        <%= FactlinkUI::Application.config.version_number %> (
+        <a href="https://github.com/Factlink/factlink/compare/<%= FactlinkUI::Application.config.version_number %>...master">
+          changes since this release
+        </a>
+        )
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h1>Ruby::Info</h1>
+Version <%= RUBY_VERSION %>-p<%= RUBY_PATCHLEVEL %>
+<h1>Rails::Info</h1>
+<%= @info.html_safe %>
+<h1>ENV</h1>
+<table>
+  <tbody>
+    <% ENV.each do |key, value| %>
+    <tr>
+      <th style="text-align: left;"><%= key %></th>
+      <td><%= value %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+

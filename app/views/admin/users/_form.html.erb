@@ -1,0 +1,117 @@
+<%= form_for(user, :url => [:admin, user]) do |f| %>
+<div class="top-aligned-inline-block">
+  <table class="admin-form">
+    <% if user.errors.any? %>
+    <tr><td>
+      <div class="alert-message block-message error">
+        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+        <ul>
+          <% user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    </td></tr>
+    <% end %>
+
+    <tr>
+      <th class="admin-form-label-column">
+        <%= f.label :username %>
+      </th>
+      <td>
+        <%= f.text_field :username %>
+      </td>
+    </tr>
+
+    <tr>
+      <th class="admin-form-label-column">
+        <%= f.label :email %>
+      </th>
+      <td>
+        <%= f.text_field :email %>
+      </td>
+    </tr>
+
+    <tr>
+      <th class="admin-form-label-column">
+        <%= f.label :full_name %>
+      </th>
+      <td>
+        <%= f.text_field :full_name %>
+      </td>
+    </tr>
+
+    <tr>
+      <th class="admin-form-label-column">
+        <%= f.label :location %>
+      </th>
+      <td>
+        <%= f.text_field :location %>
+      </td>
+    </tr>
+
+    <tr>
+      <th class="admin-form-label-column">
+        <%= f.label :biography, "Bio" %>
+      </th>
+      <td>
+        <%= f.text_area :biography, class: "admin-form-textarea" %>
+      </td>
+    </tr>
+
+    <tr>
+      <th class="admin-form-label-column">
+        <%= f.label :password %>
+      </th>
+      <td>
+        <%= f.text_field :password %>
+      </td>
+    </tr>
+
+    <tr>
+      <th class="admin-form-label-column">
+        <%= f.label :password_confirmation %>
+      </th>
+      <td>
+        <%= f.text_field :password_confirmation %>
+      </td>
+    </tr>
+
+    <tr class="alert-error">
+      <th class="admin-form-label-column">
+        <%= f.label :admin %>
+      </th>
+      <td>
+        <%= f.check_box :admin %>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2" style="text-align:right;">
+        <div class="form-actions">
+          <%= link_to 'cancel', admin_users_path, class: 'button' %>
+          <button type="submit" class="button-confirm" data-disable-with="Saving...">Save</button>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+<!-- Feature toggle -->
+<div class="admin-dangerous-area top-aligned-inline-block" style="margin-left:2em">
+  <h1>Features</h1>
+
+  <ul>
+    <% @user_features.each do |feat| %>
+    <li>
+      <label<%if @globally_enabled_features.include? feat %>
+        class="admin-form-irrelevant-feature"
+        <% end%> >
+        <%= check_box_tag("user[features][#{feat}]", "1", @user.features.map(&:name).member?(feat)) %> <%= feat %>
+      </label>
+    </li>
+    <% end %>
+  </ul>
+</div>
+
+<% end %>
