@@ -8,6 +8,7 @@ module Interactors
       attribute :site_url, String
       attribute :site_title, String
       attribute :fact_id, String, default: nil
+      attribute :group_id, Integer, default: nil
       attribute :pavlov_options, Hash
 
       def authorized?
@@ -21,7 +22,8 @@ module Interactors
             displaystring: displaystring,
             site_url: site_url, site_title: site_title, created_at: pavlov_options[:time],
             fact_id: (pavlov_options[:import] ? fact_id : nil),
-            created_by_id: pavlov_options[:current_user].id
+            created_by_id: pavlov_options[:current_user].id,
+            group_id: group_id
         )
 
         create_activity dead_fact
