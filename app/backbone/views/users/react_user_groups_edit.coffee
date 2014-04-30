@@ -5,7 +5,7 @@ window.ReactGroupMembershipEdit = React.createClass
   componentWillMount: ->
     groups = new AllGroups
     groups.fetch()
-    setState groups: groups
+    @setState groups: groups
 
   render: ->
     return _span([], 'Please sign in.') unless currentSession.signedIn()
