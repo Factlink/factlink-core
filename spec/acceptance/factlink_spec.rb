@@ -41,6 +41,7 @@ describe "factlink", type: :feature do
 
     open_discussion_sidebar_for factlink.fact_id.to_s
 
+    switch_to_comment
     fill_in_comment_textarea 'Some text to show Post button'
     click_button 'Post'
 

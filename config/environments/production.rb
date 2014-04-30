@@ -63,6 +63,12 @@ FactlinkUI::Application.configure do
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
 
+  if FactlinkUI.Kennisland?
+    I18n.default_locale = :kl
+  else
+    I18n.default_locale = :en
+  end
+
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 

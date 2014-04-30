@@ -21,8 +21,10 @@ window.ReactTextArea = React.createClass
   getInitialState: ->
     text: ''
 
-  componentDidMount: ->
-    if @props.storageKey?
+  componentWillMount: ->
+    if @props.defaultValue?
+      @updateText @props.defaultValue
+    else if @props.storageKey?
       storedText = safeLocalStorage.getItem(@props.storageKey)
       if storedText
         @updateText storedText
