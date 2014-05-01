@@ -9,7 +9,7 @@ module Interactors
       attribute :group_id, String
 
       def authorized?
-        pavlov_options[:import] || can?(:access, Group.where(groupname: groupname).first)
+        pavlov_options[:import] || can?(:access, Group.where(id: group_id).first)
       end
 
       private
