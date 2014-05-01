@@ -31,6 +31,7 @@ window.ReactAdminGroupEdit = React.createClass
     group.save members: [ @props.user.get('username') ],
       success: (o)=>
         Factlink.notificationCenter.success "Group #{o.get('groupname')} created."
+        currentSession.user().fetch()
       error: (o)=>
         Factlink.notificationCenter.error  "Group #{o.get('groupname')} could not be created!"
 
