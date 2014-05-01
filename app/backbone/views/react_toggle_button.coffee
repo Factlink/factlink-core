@@ -2,7 +2,6 @@ window.ReactToggleButton = React.createClass
   displayName: 'ReactToggleButton'
 
   render: ->
-    console.log @props
     _label [ 'radio-toggle-button' ],
       _input [
         type: 'radio',
