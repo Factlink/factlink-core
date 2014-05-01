@@ -7,24 +7,18 @@ ReactAddAnecdoteOrCommentKennisland = React.createClass
   render: ->
     _div ['anecdote-or-comment'],
       _div ['anecdote-or-comment-choice'],
-        _input [
-          'radio-toggle-button'
-          id: 'CommentChoice_Anecdote'
-          type: 'radio'
+        ReactToggleButton
+          name: 'CommentChoice'
+          value: 'Anecdote'
           checked: @state.anecdote_selected
           onChange: (e) => @setState anecdote_selected: e.target.checked
-        ]
-        _label [htmlFor: 'CommentChoice_Anecdote'],
           Factlink.Global.t.anecdote.capitalize()
 
-        _input [
-          'radio-toggle-button'
-          id: 'CommentChoice_Comment'
-          type: 'radio'
+        ReactToggleButton
+          name: 'CommentChoice'
+          value: 'Comment'
           checked: !@state.anecdote_selected
           onChange: (e) => @setState anecdote_selected: !e.target.checked
-        ]
-        _label [htmlFor: 'CommentChoice_Comment', 'spec-anecdote-or-comment-select-comment'],
           'Comment'
 
       if @state.anecdote_selected

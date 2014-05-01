@@ -17,12 +17,17 @@ ReactFactlinkFeedSelection = React.createClass
     _div [],
       if currentSession.signedIn()
         _div ['feed-selection-row'],
-          _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'global', id: 'FeedChoice_Global', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='global'  ]
-          _label [ htmlFor: 'FeedChoice_Global' ],
+          ReactToggleButton
+            name: 'FeedChoice'
+            value:'global'
+            checked: @state.feedChoice == 'global'
+            onChange: @_handleFeedChoiceChange
             'Global'
-
-          _input [ 'radio-toggle-button', type: 'radio', name: 'FeedChoice', value: 'personal', id: 'FeedChoice_Personal', onChange: @_handleFeedChoiceChange, checked: @state.feedChoice=='personal' ]
-          _label [ htmlFor: 'FeedChoice_Personal' ],
+          ReactToggleButton
+            name: 'FeedChoice'
+            value:'personal'
+            checked: @state.feedChoice == 'personal'
+            onChange: @_handleFeedChoiceChange
             'Personal'
 
           _div ['feed-selection-install-extension-button'],
@@ -57,29 +62,21 @@ ReactKennislandFeedSelection = React.createClass
     return [] unless currentSession.signedIn()
 
     currentSession.user().get('groups').map (group) =>
-      [
-        _input [
-          'radio-toggle-button'
-          type: 'radio'
-          id: "FeedChoice_Group_#{group.id}"
-          checked: @state.feedGroupId == group.id
-          onChange: => @setState feedGroupId: group.id, show_create_challenge: false
-        ]
-        _label [htmlFor: "FeedChoice_Group_#{group.id}"],
-          group.groupname
-      ]
+      ReactToggleButton
+        name:'FeedChoice'
+        value:group.id
+        checked: @state.feedGroupId == group.id
+        onChange: => @setState feedGroupId: group.id, show_create_challenge: false
+        group.groupname
 
   render: ->
     _div [],
       _div ['feed-selection-row'],
-        _input [
-          'radio-toggle-button'
-          type: 'radio'
-          id: 'FeedChoice_Global'
+        ReactToggleButton
+          name: 'FeedChoice'
+          value:'global'
           checked: @state.feedGroupId == 'global'
           onChange: => @setState feedGroupId: 'global', show_create_challenge: false
-        ]
-        _label [htmlFor: 'FeedChoice_Global'],
           'Public'
 
         @_groupButtons()...
