@@ -29,7 +29,7 @@ module Interactors
           id:                            user.id.to_s,
           name:                          user.full_name.strip, # MAYBE It might be better to do strip on save
           username:                      user.username,
-          avatar_url:                    Avatar.new(user),
+          avatar_url:                    Avatar.for_user(user),
           deleted: user.deleted,
 
           statistics_follower_count: profile[:followers_count],
