@@ -56,12 +56,16 @@ class Accounts::SocialConnectionsController < Accounts::BaseController
     if response.code == 200 || response.code == 400
       flash[:notice] = 'Succesfully disconnected.'
     else
-      flash[:notice] = 'To complete, please deauthorize Factlink at the Facebook website.'
+      flash[:notice] = "To complete, please deauthorize #{app_name} at the Facebook website."
     end
   end
 
   def deauthorize_twitter social_account
     social_account.destroy
-    flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
+    flash[:notice] = "To complete, please deauthorize #{app_name} at the Twitter website."
+  end
+
+  def app_name
+    I18n.t(:app_name)
   end
 end

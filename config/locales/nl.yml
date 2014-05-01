@@ -15,3 +15,7 @@ nl:
 
   anecdote: "verhaal"
 
+  app_name: 'Factlink'
+
+  add_comment_hint1: "What do you think?"
+  add_comment_hint2: ""

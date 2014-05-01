@@ -15,7 +15,7 @@ class Api::UsersController < ApplicationController
                                 current_user_password: params[:password])
     sign_out
     render json: {}
-  rescue Pavlov::ValidationError
-    render text: 'something went wrong', :status => 400
+  rescue Pavlov::ValidationError => e
+    render text: "something went wrong:\n#{e}", status: 400
   end
 end

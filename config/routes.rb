@@ -21,6 +21,7 @@ FactlinkUI::Application.routes.draw do
     post '/groups' => 'api/groups#create'
     get '/groups' => 'api/groups#index'
     put '/users/:username/groups/:group_id' => 'api/groups#add_member'
+    get '/groups/:group_id/feed' => 'api/groups#feed'
     get '/users/:username/feed' => 'api/users#feed'
     get '/users/:username' => 'api/users#show'
     put '/users/:original_username' => 'api/users#update'

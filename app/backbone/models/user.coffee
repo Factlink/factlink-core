@@ -15,8 +15,7 @@ class window.User extends Backbone.Model
     if(window.test_counter)
       'about:blank'
     else
-      md5d_email = @get('gravatar_hash')
-      "https://secure.gravatar.com/avatar/#{md5d_email}?size=#{size}&rating=PG&default=mm"
+      @get('avatar_url').replace(/<SIZE>/g, size)
 
   link: -> "/user/#{@get('username')}"
   editLink: -> "#{@link()}/edit"

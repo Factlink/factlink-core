@@ -24,13 +24,14 @@ module Backend
       end
     end
 
-    def create(displaystring:, site_title:, site_url:, created_at:, created_by_id:, fact_id: nil)
+    def create(displaystring:, site_title:, site_url:, created_at:, created_by_id:, fact_id: nil, group_id: nil)
       fact_data = FactData.new
       fact_data.created_by_id = created_by_id
       fact_data.displaystring = displaystring
       fact_data.title = site_title
       fact_data.site_url = UrlNormalizer.normalize(site_url)
       fact_data.fact_id = fact_id
+      fact_data.group_id = group_id
       fact_data.created_at = created_at
       fact_data.updated_at = created_at
       fact_data.save!

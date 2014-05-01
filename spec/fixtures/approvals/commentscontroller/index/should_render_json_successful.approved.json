@@ -7,7 +7,7 @@
         "id": "<id>",
         "name": "John1 Doe1",
         "username": "johndoe1",
-        "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+        "avatar_url": "https://secure.gravatar.com/avatar/bdcf52014be3eaaf4c83248bc7229900?size=<SIZE>&rating=PG&default=mm",
         "deleted": false
       },
       "created_at": "<created_at>",
@@ -28,7 +28,7 @@
         "id": "<id>",
         "name": "John2 Doe2",
         "username": "johndoe2",
-        "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
+        "avatar_url": "https://secure.gravatar.com/avatar/9ebe4ca61cfc3e9d3fc15b3e56710734?size=<SIZE>&rating=PG&default=mm",
         "deleted": false
       },
       "created_at": "<created_at>",

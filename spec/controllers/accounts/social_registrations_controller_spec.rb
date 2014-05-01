@@ -2,15 +2,29 @@ require 'spec_helper'
 
 describe Accounts::SocialRegistrationsController do
   render_views
+  let(:uid) { '10'}
+  let(:provider_name) { 'twitter' }
+  let(:omniauth_obj) do
+    {
+      'provider' => provider_name,
+      'uid' => '10',
+      'extra' => {
+        'raw_info' => {
+          'profile_image_url_https' => 'https://pbs.twimg.com/profile_images/1267267045/mijnhoofd_normal.png'
+        }
+      }
+    }
+  end
 
   describe :callback do
     context 'connected social account has been found' do
       it 'signs in' do
-        provider_name = 'twitter'
-        omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
         user = create :user
 
         user.social_account(provider_name).update_omniauth_obj!(omniauth_obj)
+
+
+        Avatar.for_user(user).to_json
 
         controller.request.env['omniauth.auth'] = omniauth_obj
         get :callback, provider_name: 'twitter'
@@ -21,8 +35,6 @@ describe Accounts::SocialRegistrationsController do
 
     context 'no connected social account has been found' do
       it 'gives an registration form' do
-        provider_name = 'twitter'
-        omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
 
         controller.request.env['omniauth.auth'] = omniauth_obj
         get :callback, provider_name: provider_name
@@ -31,10 +43,6 @@ describe Accounts::SocialRegistrationsController do
       end
 
       it 'creates a social account without a user' do
-        provider_name = 'twitter'
-        uid = '10'
-        omniauth_obj = {'provider' => provider_name, 'uid' => uid}
-
         controller.request.env['omniauth.auth'] = omniauth_obj
         get :callback, provider_name: provider_name
 
@@ -43,10 +51,6 @@ describe Accounts::SocialRegistrationsController do
       end
 
       it 'shows the form with hint about signing in, and terms' do
-        provider_name = 'twitter'
-        uid = '10'
-        omniauth_obj = {'provider' => provider_name, 'uid' => uid}
-
         controller.request.env['omniauth.auth'] = omniauth_obj
         get :callback, provider_name: provider_name
 
@@ -54,9 +58,6 @@ describe Accounts::SocialRegistrationsController do
       end
 
       it 'works when a previous connection was not finished' do
-        provider_name = 'twitter'
-        uid = '10'
-
         controller.request.env['omniauth.auth'] = {'provider' => provider_name, 'uid' => uid, 'attempt' => 1}
         get :callback, provider_name: provider_name
 
@@ -92,7 +93,8 @@ describe Accounts::SocialRegistrationsController do
         name = 'Jan Paul Posma'
 
         omniauth_obj = {'provider' => 'twitter', 'uid' => 'some_twitter_uid',
-                        'credentials' => {'token' => 'token', 'secret' => 'secret'}, 'info' => {'name' => name}}
+                        'credentials' => {'token' => 'token', 'secret' => 'secret'}, 'info' => {'name' => name},
+                        'extra' => {'raw_info' => {'profile_image_url_https' => 'https://pbs.twimg.com/profile_images/1267267045/mijnhoofd_normal.png'}}}
         twitter_account = SocialAccount.new provider_name: 'twitter', omniauth_obj_string: omniauth_obj.to_json
         twitter_account.save!
 

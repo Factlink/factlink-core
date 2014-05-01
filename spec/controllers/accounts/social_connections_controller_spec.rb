@@ -3,11 +3,15 @@ require 'spec_helper'
 describe Accounts::SocialConnectionsController do
   render_views
 
+  let(:extra_hash) do
+    {'raw_info' => {'profile_image_url_https' => 'https://pbs.twimg.com/profile_images/1267267045/mijnhoofd_normal.png'}}
+  end
+
   describe :callback do
     it 'connects the social account' do
       provider_name = 'twitter'
       uid = '10'
-      omniauth_obj = {'provider' => provider_name, 'uid' => uid}
+      omniauth_obj = {'provider' => provider_name, 'uid' => uid, "extra" => extra_hash}
       user = create :user
 
       sign_in user
@@ -23,8 +27,8 @@ describe Accounts::SocialConnectionsController do
       provider_name = 'twitter'
       old_uid = '10'
       new_uid = '20'
-      old_omniauth_obj = {'provider' => provider_name, 'uid' => old_uid}
-      new_omniauth_obj = {'provider' => provider_name, 'uid' => new_uid}
+      old_omniauth_obj = {'provider' => provider_name, 'uid' => old_uid, 'extra' => extra_hash}
+      new_omniauth_obj = {'provider' => provider_name, 'uid' => new_uid, 'extra' => extra_hash}
 
       user = create :user
       user.social_account(provider_name).update_omniauth_obj!(old_omniauth_obj)
@@ -39,7 +43,7 @@ describe Accounts::SocialConnectionsController do
 
     it 'removes spurious earlier social account objects' do
       provider_name = 'twitter'
-      omniauth_obj = {'provider' => provider_name, 'uid' => 'uid'}
+      omniauth_obj = {'provider' => provider_name, 'uid' => 'uid', 'extra' => extra_hash}
       create :social_account, :twitter, omniauth_obj_string: omniauth_obj.to_json
 
       user = create :user
@@ -54,7 +58,7 @@ describe Accounts::SocialConnectionsController do
 
     it 'shows an error when another user has been connected to that account already' do
       provider_name = 'twitter'
-      omniauth_obj = {'provider' => provider_name, 'uid' => 'uid'}
+      omniauth_obj = {'provider' => provider_name, 'uid' => 'uid', 'extra' => extra_hash}
 
       user = create :user
       sign_in user
