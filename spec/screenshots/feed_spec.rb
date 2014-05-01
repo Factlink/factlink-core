@@ -13,7 +13,7 @@ describe "factlink", type: :feature do
     sign_in_user(user)
 
     visit feed_path
-    find('label[for=FeedChoice_Personal]').click
+    find('label', text:'Personal').click
     find('.spec-feed-activity+.spec-loading-indicator-done')
     assume_unchanged_screenshot 'feed'
   end
