@@ -10,4 +10,4 @@ window.ReactToggleButton = React.createClass
         onChange: @props.onChange,
         checked: @props.checked
       ]
-    _span [], @props.children
+      _span [], @props.children
