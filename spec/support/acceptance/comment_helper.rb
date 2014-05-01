@@ -8,7 +8,7 @@ module Acceptance
 
       def switch_to_comment
         if FactlinkUI.Kennisland?
-          find('.spec-anecdote-or-comment-select-comment').click
+          find('label', text: 'Comment').click
         end
       end
 
