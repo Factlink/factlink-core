@@ -1,5 +1,5 @@
-window.ReactGroupButton = React.createClass
-  displayName: "ReactGroupButton"
+window.ReactAddToGroupCheckbox = React.createClass
+  displayName: "ReactAddToGroupCheckbox"
   mixins: [
     React.BackboneMixin('group')
     React.BackboneMixin('users_groups')
@@ -11,7 +11,6 @@ window.ReactGroupButton = React.createClass
        @props.users_groups.remove group
        Factlink.notificationCenter.error 'User could not be added to group, please try again.'
 
-
   render: ->
     in_group = @props.users_groups.some((group) => group.id == @props.group.id)
     _label [],
@@ -20,6 +19,3 @@ window.ReactGroupButton = React.createClass
       else
         _input [type: "checkbox", checked: false, onChange: @_addToGroup]
       @props.group.get('groupname')
-
-
-

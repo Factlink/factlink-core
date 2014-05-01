@@ -1,5 +1,5 @@
-window.ReactGroupButtons = React.createClass
-  displayName: "ReactGroupButtons"
+window.ReactAddToGroupCheckboxes = React.createClass
+  displayName: "ReactAddToGroupCheckboxes"
   mixins: [
     React.BackboneMixin('groups')
     React.BackboneMixin('user')
@@ -9,8 +9,7 @@ window.ReactGroupButtons = React.createClass
     _div [],
       _h4 null, "Groups:"
       @props.groups.map (group) =>
-        ReactGroupButton
+        ReactAddToGroupCheckbox
           group: group
           users_groups: @props.user.groups()
           key: group.id
-

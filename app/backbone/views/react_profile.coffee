@@ -36,7 +36,7 @@ window.ReactProfile = React.createBackboneClass
             if currentSession.signedIn() && !currentSession.isCurrentUser(@model())
               _div [],
                 ReactFollowUserButton user: @model()
-                ReactGroupButtons
+                ReactAddToGroupCheckboxes
                   groups: currentSession.user().groups()
                   user: @model()
         _div ['profile-box-item'],
