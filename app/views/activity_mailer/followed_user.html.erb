@@ -10,7 +10,7 @@
 <table cellpadding="0" cellspacing="0" border="0" id="user" width="100%">
   <tr>
     <td class="user-header">
-      <img class="user-image" src="<%= Gravatar.url(hash: @activity[:user].gravatar_hash, size: 32) %>" width="32" height="32" alt="<%= @activity[:user].name %>" />
+      <img class="user-image" src="<%= @activity[:user].avatar_url.fill_in(32) %>" width="32" height="32" alt="<%= @activity[:user].name %>" />
       <%= link_to_possibly_dead_user @activity[:user], class: "user-name" %>
     </td>
   </tr>

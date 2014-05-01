@@ -15,7 +15,7 @@ module Backend
           id: user.id.to_s,
           name: user.full_name.strip, # MAYBE It might be better to do strip on save
           username: user.username,
-          gravatar_hash: Gravatar.hash(user.email),
+          avatar_url: Gravatar.template_url(user.email),
           deleted: user.deleted
       end
     end
