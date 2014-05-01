@@ -9,6 +9,12 @@
     "statistics_following_count": 0,
     "location": null,
     "biography": null,
+    "groups": [
+      {
+        "id": "<id>",
+        "groupname": "abc"
+      }
+    ],
     "is_current_user": true,
     "receives_mailed_notifications": true,
     "receives_digest": true,
@@ -20,12 +26,6 @@
     },
     "features": [
       "some_feature"
-    ],
-    "groups": [
-      {
-        "id": "<id>",
-        "groupname": "abc"
-      }
     ],
     "admin": false
   }
