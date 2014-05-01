@@ -13,7 +13,8 @@ describe Interactors::Groups do
         group = pavlov.interactor :'groups/create', groupname: "bla", members: []
         groups1 = pavlov.interactor :'groups/list'
         expect(groups1.size).to eq 1
-        expect(group.users.size).to eq 0
+        # TODO: implement using interactor
+        expect(Group.find(group.id).users.size).to eq 0
       end
     end
     it 'Can create a group with two members' do
@@ -25,7 +26,8 @@ describe Interactors::Groups do
         ]
         groups1 = pavlov.interactor :'groups/list'
         expect(groups1.size).to eq 1
-        expect(group.users.size).to eq 2
+        # TODO: implement using interactor
+        expect(Group.find(group.id).users.size).to eq 2
       end
     end
   end

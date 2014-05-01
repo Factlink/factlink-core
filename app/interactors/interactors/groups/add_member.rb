@@ -6,23 +6,23 @@ module Interactors
 
       attribute :pavlov_options, Hash
       attribute :username, String
-      attribute :groupname, String
+      attribute :group_id, String
 
       def authorized?
-        pavlov_options[:import] || can?(:access, Group.where(groupname: groupname).first)
+        pavlov_options[:import] || can?(:access, Group.find_by(id: group_id))
       end
 
       private
 
       def execute
         Backend::Groups.add_member(
-            groupname: groupname,
+            group_id: group_id,
             username: username
         )
       end
 
       def validate
-        validate_nonempty_string :groupname, groupname
+        validate_integer_string :group_id, group_id
         validate_nonempty_string :username, username
       end
     end

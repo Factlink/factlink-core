@@ -34,8 +34,11 @@ window.ReactProfile = React.createBackboneClass
           _div ['profile-information-item'],
             ReactSocialStatistics model: @model()
             if currentSession.signedIn() && !currentSession.isCurrentUser(@model())
-              ReactFollowUserButton user: @model()
-
+              _div [],
+                ReactFollowUserButton user: @model()
+                ReactAddToGroupCheckboxes
+                  groups: currentSession.user().groups()
+                  user: @model()
         _div ['profile-box-item'],
           _h1 [],
             'Information'

@@ -23,6 +23,12 @@ class window.User extends Backbone.Model
   feed_activities: ->
     @_feed_activities ?= new UserActivities null, user: @
 
+  groups: ->
+    unless @_groups
+      @_groups = new UserGroups @get('groups'), user: @
+      @on 'change:groups', => @_groups.reset @get('groups')
+    @_groups
+
   is_following_users: ->
     !@following.isEmpty()
 

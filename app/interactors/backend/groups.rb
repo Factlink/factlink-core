@@ -6,18 +6,21 @@ module Backend
       group.groupname = groupname
       group.users << User.where(username: usernames)
       group.save!
-      group
+      dead(group)
     end
 
-    def add_member(username:, groupname:)
+    def add_member(username:, group_id:)
       user = Users.user_by_username username: username
-      group = group_by_groupname groupname: groupname
+      group = Group.find_by! id: group_id
       group.users << user
       group.save!
     end
 
-    def group_by_groupname(groupname:)
-      Group.find_by! groupname: groupname
+    private
+
+    def dead(group)
+      DeadGroup.new(id: group.id, groupname: group.groupname)
     end
+
   end
 end
