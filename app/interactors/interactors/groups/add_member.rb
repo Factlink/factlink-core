@@ -9,7 +9,7 @@ module Interactors
       attribute :group_id, String
 
       def authorized?
-        pavlov_options[:import] || can?(:access, Group.where(id: group_id).first)
+        pavlov_options[:import] || can?(:access, Group.find_by(id: group_id))
       end
 
       private
@@ -22,7 +22,7 @@ module Interactors
       end
 
       def validate
-        validate_nonempty_string :group_id, group_id
+        validate_integer_string :group_id, group_id
         validate_nonempty_string :username, username
       end
     end
