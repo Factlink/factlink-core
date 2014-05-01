@@ -8,7 +8,7 @@ window.ReactGroupButton = React.createClass
   _addToGroup: ->
     group = @props.users_groups.create @props.group.attributes,
       error: =>
-       group.destroy()
+       @props.users_groups.remove group
        Factlink.notificationCenter.error 'User could not be added to group, please try again.'
 
 
