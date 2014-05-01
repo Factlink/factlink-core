@@ -27,11 +27,7 @@ FactlinkUI::Application.configure do
 
   config.logger = Logger.new(STDOUT)
 
-  if FactlinkUI.Kennisland?
-    I18n.default_locale = :kl
-  else
-    I18n.default_locale = :nl
-  end
+  I18n.default_locale = FactlinkUI.Kennisland? ? :kl : :nl
 
   config.force_ssl = false
 
