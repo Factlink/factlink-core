@@ -10,8 +10,8 @@ class CommentsController < ApplicationController
 
   def create
     render json: interactor(:'comments/create', fact_id: params[:id], content: params[:content], markup_format: params[:markup_format])
-  rescue Pavlov::ValidationError
-    render text: 'something went wrong', :status => 400
+  rescue Pavlov::ValidationError => e
+    render text: "something went wrong:\n#{e}", status: 400
   end
 
   def update
