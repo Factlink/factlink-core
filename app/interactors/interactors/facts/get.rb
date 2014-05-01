@@ -11,7 +11,7 @@ module Interactors
       end
 
       def authorized?
-        true
+        can? :read, FactData.find_by(fact_id: id)
       end
 
       def validate
