@@ -3,6 +3,7 @@
   "name": "Deleted User",
   "username": "anonymous_b01dfacede",
   "avatar_url": "https://secure.gravatar.com/avatar/4be9a32b574a32932b4ca19c501bd4a7?size=<SIZE>&rating=PG&default=mm",
+  "avatar_type": "Gravatar",
   "deleted": true,
   "statistics_follower_count": 0,
   "statistics_following_count": 0,

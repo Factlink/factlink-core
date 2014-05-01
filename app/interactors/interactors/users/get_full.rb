@@ -25,11 +25,13 @@ module Interactors
       end
 
       def normal_properties
+        avatar = Avatar.for_user(user)
         {
           id:                            user.id.to_s,
           name:                          user.full_name.strip, # MAYBE It might be better to do strip on save
           username:                      user.username,
-          avatar_url:                    Avatar.for_user(user),
+          avatar_url:                    avatar,
+          avatar_type:                   avatar.provider,
           deleted: user.deleted,
 
           statistics_follower_count: profile[:followers_count],

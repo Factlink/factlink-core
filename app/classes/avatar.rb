@@ -17,6 +17,10 @@ class Avatar
     fill_in("<SIZE>")
   end
 
+  def provider
+    self.class.name.gsub /Avatar::|Avatar$/, ''
+  end
+
   class TwitterAvatar < Avatar
     def fill_in(size)
       @user.social_account('twitter')
