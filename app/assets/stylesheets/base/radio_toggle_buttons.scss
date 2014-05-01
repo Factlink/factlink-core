@@ -1,7 +1,7 @@
 
 .radio-toggle-button {
   @extend %non-selectable;
-  display:inline;
+  display: inline;
 }
 
 .radio-toggle-button > input {
@@ -30,11 +30,11 @@
   border-color: $darkerBackgroundColor;
 }
 
-.radio-toggle-button:first-of-type > span{
+.radio-toggle-button:first-of-type > span {
   border-radius: .3em 0 0 .3em;
 }
 
-.radio-toggle-button:last-of-type > span{
+.radio-toggle-button:last-of-type > span {
   border-radius: 0 .3em .3em 0;
 }
 
