@@ -2,7 +2,7 @@ DeadUser = StrictStruct.new(
   :id,
   :name,
   :username,
-  :gravatar_hash,
+  :avatar_url,
   :deleted
 ) do
 end

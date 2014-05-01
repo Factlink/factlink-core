@@ -35,6 +35,11 @@ FactoryGirl.define do
         provider: 'twitter',
         credentials: {token: 'token', secret: 'secret'},
         info: {'name' => 'Some Twitter Name'},
+        extra: {
+          raw_info: {
+            profile_image_url_https: 'https://pbs.twimg.com/profile_images/1267267045/mijnhoofd_normal.png'
+          }
+        }
       }.to_json)
     end
 

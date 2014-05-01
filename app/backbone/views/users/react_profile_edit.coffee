@@ -155,11 +155,10 @@ window.ReactProfileEdit = React.createBackboneClass
                     src: @model().avatar_url(80)
                   ]
 
-                  'This image is automatically grabbed from '
-                  _a [href: 'http://gravatar.com'], 'Gravatar'
-                  '. Edit your Gravatar account to edit the profile picture. We use '
-                  @model().get('email')
-                  '.'
+                  "This image is automatically grabbed from #{@model().get('avatar_type')}. "
+                  "Edit your #{@model().get('avatar_type')} account to edit the profile picture. "
+                  if @model().get('avatar_type') == 'Gravatar'
+                    "We use #{@model().get('email')}"
 
             ReactInput {
               model: @model()
