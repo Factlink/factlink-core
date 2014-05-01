@@ -6,10 +6,10 @@ window.ReactGroupButton = React.createClass
   ]
 
   _addToGroup: ->
-    debugger
-    @props.users_groups.create @props.group.attributes,
-      success: => console.info 'success'
-      error: => console.info 'error'
+    group = @props.users_groups.create @props.group.attributes,
+      error: =>
+       group.destroy()
+       Factlink.notificationCenter.error 'User could not be added to group, please try again.'
 
 
   render: ->
@@ -18,7 +18,7 @@ window.ReactGroupButton = React.createClass
       if in_group
         _input [type: "checkbox", checked: true, disabled: true]
       else
-        _input [type: "checkbox", onChange: @_addToGroup]
+        _input [type: "checkbox", checked: false, onChange: @_addToGroup]
       @props.group.get('groupname')
 
 
