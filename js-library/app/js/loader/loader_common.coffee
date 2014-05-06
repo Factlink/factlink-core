@@ -61,24 +61,17 @@ frame_style_code = __INLINE_FRAME_CSS_PLACEHOLDER__
 # create the factlink config object
 factlink_config = __INLINE_CONFIG_PLACEHOLDER__
 
-
-this_env = JSON.parse(factlink_config).env
-
 # concatenate the config and jail scripts
 jail_code = 'window.FactlinkConfig = ' + factlink_config + '; ' + jslib_jail_code
 
 
 if window.__internalFactlinkState
-  if window.__internalFactlinkState.env != this_env
-    alert("You're trying to load two different environments! loaded: #{window.__internalFactlinkState.env} - trying: #{this_env}")
   return
 
 queuedEvents = []
 window.__internalFactlinkState = ->
   queuedEvents.push(arguments)
   return
-
-window.__internalFactlinkState.env = this_env
 
 mkEl = (name, id, content) ->
   el = document.createElement(name)
@@ -130,7 +123,6 @@ whenHasBody = ->
   window.__internalFactlinkState = (args...) ->
     root.public_events.trigger(args...)
     return
-  window.__internalFactlinkState.env = this_env
 
   for args in queuedEvents
     window.__internalFactlinkState(args...)
