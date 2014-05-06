@@ -87,19 +87,6 @@ module.exports = (grunt) ->
           { src: 'build/js/loader/loader_common.min.js.gz', dest: 'output/dist/factlink_loader_basic.min.js.gz' }
           { src: 'build/js/loader/loader_common.min.js.gz', dest: 'output/dist/factlink_loader_bookmarklet.min.js.gz' }
         ]
-
-      config_development:
-        files: [
-          { src: ['development.json'], cwd: 'app/config', dest: 'build/js/jail_iframe/config', expand: true }
-        ]
-      config_staging:
-        files: [
-          { src: ['staging.json'], cwd: 'app/config', dest: 'build/js/jail_iframe/config', expand: true }
-        ]
-      config_production:
-        files: [
-          { src: ['production.json'], cwd: 'app/config', dest: 'build/js/jail_iframe/config', expand: true }
-        ]
       build:
         files: [
           { src: ['**/*.js', '**/*.png', '**/*.gif', '**/*.woff', 'robots.txt'], cwd: 'app', dest: 'build', expand: true }
@@ -122,10 +109,6 @@ module.exports = (grunt) ->
     grunt.config.set('shell.gzip_js_files.command', ':') #urgh, I feel dirty.
 
   grunt.task.registerTask 'code_inliner', 'Inline code from one file into another',  ->
-    config_file = null
-    grunt.file.recurse "build/js/jail_iframe/config/",
-        (file_path) -> config_file = file_path
-
     min_filename = (filename) -> filename.replace(/\.\w+$/,'.min$&')
     debug_filename = (filename) -> filename
     file_variant_funcs = [min_filename, debug_filename]
@@ -142,9 +125,6 @@ module.exports = (grunt) ->
     file_variant_funcs.forEach (file_variant_func) ->
       target_filepath = file_variant_func 'build/js/loader/loader_common.js'
 
-      inline_file_into_file config_file, target_filepath,
-        '__INLINE_CONFIG_PLACEHOLDER__'
-
       inline_file_into_file file_variant_func('build/css/basic.css'),
         target_filepath,
           '__INLINE_CSS_PLACEHOLDER__'
@@ -156,15 +136,11 @@ module.exports = (grunt) ->
         target_filepath, '__INLINE_JS_PLACEHOLDER__'
 
 
-  grunt.registerTask 'preprocessor', [
-    'clean', 'copy:build', 'coffee', 'sass', 'cssUrlEmbed', 'cssmin', ]
+  grunt.registerTask 'compile_production', [
+    'clean', 'copy:build', 'coffee', 'sass', 'cssUrlEmbed', 'cssmin', 'concat', 'mocha', 'uglify', 'code_inliner',
+    'shell:gzip_js_files', 'copy:dist_loader_aliases', 'copy:dist_static_content']
 
-  grunt.registerTask 'postprocessor', [
-    'concat', 'mocha', 'uglify', 'code_inliner', 'shell:gzip_js_files', 'copy:dist_loader_aliases', 'copy:dist_static_content' ]
-
-  grunt.registerTask 'compile_development', [ 'disable_compression', 'preprocessor', 'copy:config_development', 'postprocessor', ]
-  grunt.registerTask 'compile_staging',     [ 'preprocessor', 'copy:config_staging',     'postprocessor' ]
-  grunt.registerTask 'compile_production',  [ 'preprocessor', 'copy:config_production',  'postprocessor' ]
+  grunt.registerTask 'compile_development', [ 'disable_compression', 'compile_production', ]
 
   grunt.registerTask 'default', ['compile_development']
 

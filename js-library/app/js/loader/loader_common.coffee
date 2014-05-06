@@ -58,13 +58,6 @@ jslib_jail_code = __INLINE_JS_PLACEHOLDER__
 style_code = __INLINE_CSS_PLACEHOLDER__
 frame_style_code = __INLINE_FRAME_CSS_PLACEHOLDER__
 
-# create the factlink config object
-factlink_config = __INLINE_CONFIG_PLACEHOLDER__
-
-# concatenate the config and jail scripts
-jail_code = 'window.FactlinkConfig = ' + factlink_config + '; ' + jslib_jail_code
-
-
 if window.__internalFactlinkState
   return
 
@@ -109,7 +102,7 @@ whenHasBody = ->
 
 
   script_tag = jslib_jail_doc.createElement('script')
-  script_tag.appendChild(jslib_jail_doc.createTextNode(jail_code))
+  script_tag.appendChild(jslib_jail_doc.createTextNode(jslib_jail_code))
 
   jslib_jail_doc.documentElement.appendChild(script_tag)
 
