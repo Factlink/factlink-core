@@ -5,7 +5,7 @@
 <script>(function(){
     console.log(window.location, window.location.host);
     var script = document.createElement('script');
-    window.FactlinkConfig_override_uri =
+    window.FactlinkApiBaseUri =
         'http://' + window.location.host.replace(':12345',':3000').replace(':8080',':3000').replace(
         'staging.fct.li', 'factlink-staging.inverselink.com') + "/";
 
