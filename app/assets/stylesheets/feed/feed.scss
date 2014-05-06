@@ -64,8 +64,8 @@ $headerBorder: 1px;
 
 .feed-activity-content {
   color: $baseFontColor;
-  white-space: pre-line;
   word-break: break-word;
+  overflow: hidden;
 
   &:hover .feed-comment-box-balloon:before {
     @extend .feed-activity-box-balloon;
@@ -85,6 +85,11 @@ $headerBorder: 1px;
   &:hover .annotation-balloon {
     @extend .feed-activity-box-balloon;
     background-color: darken($lightYellow, 10);
+  }
+
+  &:hover .kennisland-challenge-box {
+    @extend .feed-activity-box-balloon;
+    background-color: darken($grayLighter, 10);
   }
 }
 
@@ -137,6 +142,7 @@ $headerBorder: 1px;
   padding: 5px 8px;
   border-radius: $baseBorderRadius;
   position: relative;
+  white-space: pre-line;
 
   &:before {
     content: '';
@@ -158,5 +164,18 @@ $headerBorder: 1px;
 
   @include from-width(600px) {
     margin: 10px 0;
+  }
+}
+
+.kennisland-challenge-box {
+  background: $grayLighter;
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: $baseBorderRadius;
+
+  margin-bottom: 5px;
+
+  @include from-width(600px) {
+    margin-bottom: 10px;
   }
 }
