@@ -77,6 +77,9 @@ group :assets do
   gem 'sprockets', '2.11.0'
 
   gem 'sass-rails', '~> 4.0.1'
+
+  gem 'ckeditor_rails'
+  gem 'sanitize'
 end
 
 group :development do

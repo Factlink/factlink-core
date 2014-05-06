@@ -1,7 +1,7 @@
 window.ReactCreateChallenge = React.createClass
   _postChallenge: ->
     fact = new Fact
-      displaystring: @refs.challengeDescription.getDOMNode().value
+      displaystring: @refs.challengeDescription.getHtml()
       site_title: @refs.challengeName.getDOMNode().value
       site_url: 'kennisland_challenge'
       group_id: @refs.challengeGroupId.state.value # they should implement a getValue
@@ -16,7 +16,7 @@ window.ReactCreateChallenge = React.createClass
 
     fact.save {},
       success: =>
-        @refs.challengeDescription.updateText ''
+        @refs.challengeDescription.updateHtml ''
         @refs.challengeName.getDOMNode().value = ''
         Factlink.notificationCenter.success 'Challenge created!'
       error: ->
@@ -29,7 +29,7 @@ window.ReactCreateChallenge = React.createClass
         ref: 'challengeName'
         placeholder: 'Title'
       ]
-      ReactTextArea
+      ReactCkeditorArea
         ref: 'challengeDescription'
         placeholder: 'Describe your challenge'
         storageKey: "createChallengeDescription_#{@props.groupId}"

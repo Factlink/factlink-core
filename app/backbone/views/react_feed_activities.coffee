@@ -84,8 +84,10 @@ ReactCreatedFactActivity = React.createBackboneClass
           fact.get('site_title')
         ]
       },
-      _p [],
-        fact.get('displaystring'),
+      _span [
+        'kennisland-challenge-box'
+        dangerouslySetInnerHTML: {__html: stripLinks(fact.get('html_content'))}
+      ]
 
 ReactCreatedCommentActivity = React.createBackboneClass
   displayName: 'ReactCreatedCommentActivity'

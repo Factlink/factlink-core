@@ -29,6 +29,7 @@ $avatarOffset: $avatarSize + 10px;
 
 .annotation-balloon {
   background: $lightYellow;
+  white-space: pre-line;
   word-wrap: break-word;
   max-width: 100%;
   display: inline-block;
