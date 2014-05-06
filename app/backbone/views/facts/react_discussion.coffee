@@ -68,17 +68,17 @@ window.ReactDiscussionStandalone = React.createBackboneClass
   render: ->
     _div [],
       _div ['top-annotation'],
-        _div ['top-annotation-text'],
-          if @model().get('displaystring')
-            if window.is_kennisland
-              @model().get('displaystring')
-            else
+        if @model().get('displaystring')
+          if window.is_kennisland
+            _span [dangerouslySetInnerHTML: {__html: @model().get('html_content')}]
+          else
+            _div ['top-annotation-text'],
               ReactCollapsedText
                 text: @model().get('displaystring')
                 size: 150
-          else
-            _div ["loading-indicator-centered"],
-              ReactLoadingIndicator()
+        else
+          _div ["loading-indicator-centered"],
+            ReactLoadingIndicator()
 
       ReactOpinionateArea
         model: @model().getOpinionators()

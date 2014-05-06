@@ -5,7 +5,8 @@
     "displaystring": "oil dobedoo",
     "created_at": "<created_at>",
     "site_title": "title",
-    "proxy_open_url": "http://localhost:8080/?url=url#factlink-open-2"
+    "proxy_open_url": "http://localhost:8080/?url=url#factlink-open-2",
+    "html_content": null
   },
   {
     "id": "<id>",
@@ -13,6 +14,7 @@
     "displaystring": "you got oil mister?",
     "created_at": "<created_at>",
     "site_title": "title",
-    "proxy_open_url": "http://localhost:8080/?url=url#factlink-open-3"
+    "proxy_open_url": "http://localhost:8080/?url=url#factlink-open-3",
+    "html_content": null
   }
 ]
