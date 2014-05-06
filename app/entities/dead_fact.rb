@@ -21,12 +21,15 @@ DeadFact = StrictStruct.new(
   end
 
   def to_hash
-    super.merge \
-      proxy_open_url: proxy_open_url,
-      html_content: html_content
+    if FactlinkUI.Kennisland?
+      super.merge \
+        proxy_open_url: proxy_open_url,
+        html_content: html_content
+    else
+      super.merge \
+        proxy_open_url: proxy_open_url
+    end
   end
-
-  ## KENNISLAND ONLY
 
   def html_content
     return nil unless FactlinkUI.Kennisland?

@@ -4,6 +4,5 @@
   "displaystring": "displaystring",
   "created_at": "<created_at>",
   "site_title": "title",
-  "proxy_open_url": "http://localhost:8080/?url=url#factlink-open-1",
-  "html_content": null
+  "proxy_open_url": "http://localhost:8080/?url=url#factlink-open-1"
 }
