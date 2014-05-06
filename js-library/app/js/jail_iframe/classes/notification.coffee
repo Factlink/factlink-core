@@ -3,7 +3,7 @@ FactlinkJailRoot.showShouldSelectTextNotification = ->
     message: 'To create an annotation, select a statement and click the Factlink button.'
     type_classes: 'fl-message-icon-add'
 
-FactlinkJailRoot.public_events.on 'loadedBookmarklet', ->
+FactlinkJailRoot.public_events.on 'bookmarkletLoaded', ->
   showNotification
     message: 'Factlink is loaded!'
     type_classes: 'fl-message-icon-time fl-message-success'
