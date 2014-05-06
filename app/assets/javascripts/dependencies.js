@@ -9,4 +9,5 @@
 //= require underscore
 
 //= require ckeditor-jquery
-//= require_tree ./ckeditor
+//= require ./ckeditor/plugins/youtube/plugin.js
+//= require ./ckeditor/plugins/youtube/plugin_lang_en.js
