@@ -47,11 +47,6 @@ window.ReactCkeditorArea = React.createClass
     @_editor.insertHtml(html)
     @_onChange()
 
-  _handleSubmit: (e) ->
-    if e.key == 'Enter' && (e.ctrlKey || e.metaKey)
-      e.stopPropagation()
-      @props.onSubmit()
-
   componentWillUnmount: ->
     @_editor.destroy()
 
@@ -66,4 +61,3 @@ window.ReactCkeditorArea = React.createClass
       contentEditable: true
       className: "ckeditor_contenteditable_area",
       placeholder: @props.placeholder || 'placeholder placeholder'
-      onKeyDown: @_handleSubmit
