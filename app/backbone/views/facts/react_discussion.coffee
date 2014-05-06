@@ -61,25 +61,13 @@ window.ReactDiscussionSidebar = React.createBackboneClass
       ReactSidebarLogin()
       @transferPropsTo ReactDiscussionStandalone()
 
-
 window.ReactDiscussionStandalone = React.createBackboneClass
   displayName: 'ReactDiscussionStandalone'
 
   render: ->
     _div [],
-      _div ['top-annotation'],
-        if @model().get('displaystring')
-          if window.is_kennisland
-            _span [dangerouslySetInnerHTML: {__html: @model().get('html_content')}]
-          else
-            _div ['top-annotation-text'],
-              ReactCollapsedText
-                text: @model().get('displaystring')
-                size: 150
-        else
-          _div ["loading-indicator-centered"],
-            ReactLoadingIndicator()
-
+      ReactTopAnnotation
+        model: @model()
       ReactOpinionateArea
         model: @model().getOpinionators()
       ReactAddAnecdoteOrComment
