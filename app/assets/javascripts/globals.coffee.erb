@@ -5,6 +5,7 @@ window.is_kennisland = <%=FactlinkUI.Kennisland?.to_json %>;
 window.Factlink ||= {}
 
 bookmarklet = ->
+  window.FactlinkApiBaseUri = <%= FactlinkUI::Application.config.core_url.to_json %>
   script = document.createElement("script")
   script.src = <%= (FactlinkUI::Application.config.jslib_url  + '?o=bookmarklet').to_json %>
   script.onload = -> __internalFactlinkState("bookmarkletLoaded")
@@ -12,7 +13,7 @@ bookmarklet = ->
 
 Factlink.Global =
   ajax_loader_image: '<%= image_path("ajax-loader.gif") %>'
-  bookmarklet_link: 'javascript:' + bookmarklet.toString()
+  bookmarklet_link: 'javascript:(' + bookmarklet.toString() + ')()'
 
   facebook_app_id: '<%= FactlinkUI::Application.config.facebook_app_id %>'
 
