@@ -48,7 +48,7 @@ window.ReactCkeditorArea = React.createClass
     @_onChange()
 
   _handleSubmit: (e) ->
-    if e.keyCode == 13 && (e.ctrlKey || e.metaKey)
+    if e.key == 'Enter' && (e.ctrlKey || e.metaKey)
       e.stopPropagation()
       @props.onSubmit()
 
