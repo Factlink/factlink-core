@@ -22,6 +22,17 @@ Factlink.Global =
   environment: "<%= Rails.env %>"
   t: {}
   signed_in: false
+  ckeditor_config:
+    customConfig: ''
+    language: 'en'
+    #filebrowserImageUploadUrl: '/images'
+
+    toolbar: [
+      { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', '-', 'RemoveFormat' ] },
+      { name: 'links', items: [ 'Link', 'NumberedList', 'Image', 'Youtube' ] },
+    ]
+
+    extraPlugins: 'youtube'
 
 <%
   [

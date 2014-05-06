@@ -7,3 +7,6 @@
 //= require jquery.placeholder
 
 //= require underscore
+
+//= require ckeditor-jquery
+//= require_tree ./ckeditor
