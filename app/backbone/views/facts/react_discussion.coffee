@@ -26,34 +26,6 @@ ReactComments = React.createBackboneClass
           key: comment.get('id') || ('new' + new_comment_id++)
           fact_opinionators: @model().fact.getOpinionators()
 
-
-ReactCollapsedText = React.createClass
-  displayName: 'ReactCollapsedText'
-
-  getInitialState: ->
-    expanded: false
-
-  render: ->
-    return _span [], @props.text if @props.text.length <= @props.size
-
-    if @state.expanded
-      _span [],
-        @props.text
-        ' '
-        _a [
-          onClick: => @setState expanded: false
-        ],
-          '(less)'
-    else
-      _span [],
-        @props.text.substring 0, @props.size
-        '\u2026 '
-        _a [
-          onClick: => @setState expanded: true
-        ],
-          '(more)'
-
-
 window.ReactDiscussionSidebar = React.createBackboneClass
   displayName: "ReactDiscussionSidebar"
   render: ->
