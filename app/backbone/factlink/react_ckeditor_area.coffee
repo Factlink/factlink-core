@@ -5,14 +5,19 @@ window.ReactCkeditorArea = React.createClass
 
   shouldComponentUpdate: -> false
 
-  _getLocalStorageBackup: -> @props.storageKey? && safeLocalStorage.getItem(@props.storageKey) || ""
+  _getLocalStorageBackup: ->
+    if @props.defaultValue?
+      @props.defaultValue
+    else if @props.storageKey?
+      safeLocalStorage.getItem(@props.storageKey)
 
   _setLocalStorageBackup: ->
-    if @props.storageKey?
-      if @_html
-        safeLocalStorage.setItem(@props.storageKey, @_html)
-      else
-        safeLocalStorage.removeItem(@props.storageKey)
+    return unless @props.storageKey?
+
+    if @_html
+      safeLocalStorage.setItem(@props.storageKey, @_html)
+    else
+      safeLocalStorage.removeItem(@props.storageKey)
 
   _onChange: ->
     newHtml = @_editor.getData()
@@ -20,11 +25,7 @@ window.ReactCkeditorArea = React.createClass
 
     @_html = newHtml
 
-    if @props.storageKey?
-      if newHtml
-        safeLocalStorage.setItem(@props.storageKey, newHtml)
-      else
-        safeLocalStorage.removeItem(@props.storageKey)
+    @_setLocalStorageBackup()
     @props.onChange?(newHtml)
 
   updateHtml: (html) ->
@@ -57,8 +58,8 @@ window.ReactCkeditorArea = React.createClass
   componentDidMount: ->
     @_editor = CKEDITOR.inline(@getDOMNode(), Factlink.Global.ckeditor_config);
     @_editor.on 'change', @_onChange
-    initialHtml = @_getLocalStorageBackup() || @props.defaultValue
-    @updateHtml initialHtml
+    initialHtml = @_getLocalStorageBackup()
+    @updateHtml initialHtml if initialHtml?
 
   render: ->
     _div
