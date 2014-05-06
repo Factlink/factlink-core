@@ -54,9 +54,12 @@ window.ReactComment = React.createBackboneClass
               _i ['icon-edit comment-edit-icon']
         _a ["spec-sub-comments-link", href:"javascript:", onClick: @_toggleSubcomments],
           "(#{sub_comment_count}) Reply"
-        @_separator()
-        ReactSlidingShareButton
-          model: @model()
+
+        unless window.is_kennisland
+          _span [],
+            @_separator()
+            ReactSlidingShareButton
+              model: @model()
       if @_show_subcomments()
         ReactSubComments
           model: @model().sub_comments()
