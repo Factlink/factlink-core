@@ -30,17 +30,6 @@ $stdout.sync = true
 
 after 'deploy:update', 'deploy:cleanup'
 
-before "deploy" do
-
-  config_path = "build/js/jail_iframe/config/";
-  config_files = Dir.new(config_path).to_a.select{|f|/\.json$/.match f}
-
-  if config_files != ["#{stage}.json"]
-
-    fail "\nWRONG CONFIGURATION:\n\nExpected only config file #{stage}.js in #{config_path}, found #{config_files}\n\nDid you forget to run 'grunt compile_#{stage}'?\n\n"
-  end
-end
-
 before "deploy:update_code" do
   print "Updating Code........"
 end
