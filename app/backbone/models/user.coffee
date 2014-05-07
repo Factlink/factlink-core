@@ -14,8 +14,10 @@ class window.User extends Backbone.Model
   avatar_url: (size) ->
     if(window.test_counter)
       'about:blank'
-    else
+    else if @has('avatar_url')
       @get('avatar_url').replace(/<SIZE>/g, size)
+    else
+      "https://secure.gravatar.com/avatar?size=#{size}&rating=PG&default=mm"
 
   link: -> "/user/#{@get('username')}"
   editLink: -> "#{@link()}/edit"
