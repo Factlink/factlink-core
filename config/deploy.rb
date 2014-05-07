@@ -6,7 +6,7 @@ logger.level = Logger::IMPORTANT
 #############
 # Application
 set :application, "core"
-set :keep_releases, 10
+set :keep_releases, 3
 
 ########
 # Stages
