@@ -25,3 +25,14 @@ FactlinkUI::Application.configure do
     port: port,
   }
 end
+
+FactlinkUI::Application.config.jslib_url =
+  FactlinkUI::Application.config.core_url + '/lib/dist/factlink_loader' +
+    if 'development' == Rails.env
+      '.js'
+    elsif 'test' == Rails.env
+       '.invalid.js';
+    else
+      '.min.js';
+    end
+
