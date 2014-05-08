@@ -1,8 +1,0 @@
-#!/bin/bash
-echo 'Setting up js-library...'
-cd "$( dirname "${BASH_SOURCE[0]}" )"/..
-shasum --check Gemfile.lock.sha-cache || (
-  bundle -j4
-  shasum Gemfile.lock > Gemfile.lock.sha-cache
-)
-npm install
