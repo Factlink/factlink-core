@@ -18,4 +18,4 @@ proxy_conf_complete = ActiveSupport::HashWithIndifferentAccess.new({
 })
 
 proxy_conf = proxy_conf_complete[Rails.env]
-FactlinkUI::Application.config.proxy_url = 'http://' + proxy_conf['hostname'] + ':' + proxy_conf['port'].to_s
+FactlinkUI::Application.config.proxy_url = URI.parse('http://' + proxy_conf['hostname'] + ':' + proxy_conf['port'].to_s).to_s
