@@ -31,8 +31,7 @@ FactlinkUI::Application.config.jslib_url =
     if 'development' == Rails.env
       '.js'
     elsif 'test' == Rails.env
-       '.invalid.js';
+      '.invalid.js'
     else
-      '.min.js';
+      '.min.js'
     end
-
