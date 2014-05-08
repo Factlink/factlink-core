@@ -13,9 +13,3 @@ test:
   <<: *default
   database: factlink_test
   socket: /tmp/.s.PGSQL.5432
-
-staging:
-  <<: *default
-
-production:
-  <<: *default

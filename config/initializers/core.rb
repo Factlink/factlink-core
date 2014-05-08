@@ -4,11 +4,9 @@
 core_conf_complete = ActiveSupport::HashWithIndifferentAccess.new({
   development: 'http://127.0.0.1:3000/',
   test: 'http://127.0.0.1:3005/',
-  staging: 'https://factlink-staging.inverselink.com:443/',
-  production: 'https://factlink.com:443/',
 })
 
-core_url = ENV.fetch('FACTLINK_HOSTNAME', core_conf_complete[Rails.env])
+core_url = ENV.fetch('FACTLINK_HOSTNAME') { core_conf_complete.fetch(Rails.env) }
 url, protocol, hostname, port = core_url.match(%r{^(https?)://([^:/]*)(?::([0-9]+))/$}).to_a
 unless url
   fail('invalid core url string')
