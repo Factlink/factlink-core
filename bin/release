@@ -31,9 +31,8 @@ echo "Deployed Core"
 cd js-library
   bundle
   npm install
-  grunt compile_production
+  grunt
   bundle exec cap $env deploy
-  grunt compile_development
 cd ..
 
 echo "Deployed js-library"

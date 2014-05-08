@@ -13,3 +13,4 @@ server-management/growth-hacking/analyze-publishers/access.log
 /tmp
 .approvals
 .env
+/js-library

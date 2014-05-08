@@ -6,6 +6,17 @@ set -e
 
 cd "$( dirname "${BASH_SOURCE[0]}" )"/..
 
+JS_LIBRARY_BRANCH=''
+
+if [[ ! -e js-library ]]; then
+  git clone git://github.com/Factlink/js-library.git js-library &
+else
+  pushd js-library
+    JS_LIBRARY_BRANCH=`git symbolic-ref HEAD 2>/dev/null`
+    git pull --ff-only &
+  popd
+fi
+
 PROXY_BRANCH=''
 
 if [[ ! -e proxy ]]; then
@@ -81,13 +92,20 @@ wait
 proxy/bin/bootstrap
 
 
-if [ "$PROXY_BRANCH" != "refs/heads/master" ]; then
+if [ "$JS_LIBRARY_BRANCH" != "refs/heads/master" ]; then
   echo -e "\n\n"
   for i in {1..5}
   do
-    echo 'WARNING: Your proxy subrepo is NOT at the master branch!'
+    echo 'WARNING: Your js-library subrepo is NOT at the master branch!'
   done
 else
-  echo "Your factlink development environment is done.  Happy hacking!"
+  if [ "$PROXY_BRANCH" != "refs/heads/master" ]; then
+    echo -e "\n\n"
+    for i in {1..5}
+    do
+      echo 'WARNING: Your proxy subrepo is NOT at the master branch!'
+    done
+  else
+    echo "Your factlink development environment is done.  Happy hacking!"
+  fi
 fi
-
