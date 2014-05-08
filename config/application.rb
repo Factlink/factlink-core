@@ -125,10 +125,16 @@ module FactlinkUI
       'application.js',
       'admin.js',
       'jquery.js',
+
+      'factlink_loader.js',
+      'factlink_loader.min.js',
     ]
 
     # Precompile additional assets
     config.assets.precompile += %w( .svg .eot .woff .ttf )
+
+    # For old static jslib paths
+    config.assets.prefix = "/lib/dist"
 
     # we only cache very little, so memory_store is fine for now
     config.cache_store = :memory_store

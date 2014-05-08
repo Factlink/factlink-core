@@ -73,6 +73,7 @@ group :assets do
   gem "rails-assets-react.backbone"
   gem "rails-assets-jquery-autosize"
   gem 'rails-assets-tether'
+  gem 'rails-assets-factlink-js-library', '= 0.1.0'
 
   gem 'sprockets', '2.11.0'
 

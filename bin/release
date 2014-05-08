@@ -28,15 +28,6 @@ rm GIT_REVISION
 
 echo "Deployed Core"
 
-cd js-library
-  bundle
-  npm install
-  grunt
-  bundle exec cap $env deploy
-cd ..
-
-echo "Deployed js-library"
-
 cd proxy
   git push proxy-$env master
 cd ..
