@@ -18,7 +18,7 @@
       <table cellpadding="0" cellspacing="0" border="0" class="added-comment-message-box">
         <tr>
           <td valign="top" class="message-user-image">
-            <img src="<%= @activity[:user].avatar_url.fill_in(32) %>" width="32" height="32" alt="<%= @activity[:comment].created_by.name %>" />
+            <img src="<%= @activity[:comment].created_by.avatar_url.fill_in(32) %>" width="32" height="32" alt="<%= @activity[:comment].created_by.name %>" />
             <%= link_to_possibly_dead_user(@activity[:comment].created_by, class: "user-name") %>
           </td>
         </tr>
