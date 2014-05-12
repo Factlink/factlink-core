@@ -84,7 +84,7 @@ ReactKennislandFeedSelection = React.createClass
       (if currentSession.signedIn()
         [
           _div ['feed-selection-row'],
-            _button ['button-success', onClick: @_toggle_create_challenge],
+            _button ['button-success feed-selection-install-extension-button', onClick: @_toggle_create_challenge],
               (if !@state.show_create_challenge then "Create challenge" else "Cancel")
 
           if @state.show_create_challenge
