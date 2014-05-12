@@ -1,10 +1,9 @@
 default: &defaults
   # Your push api key, it is possible to set this dynamically using ERB:
-  # push_api_key: "<%= ENV['APPSIGNAL_PUSH_API_KEY'] %>"
-  push_api_key: "<%= ENV.fetch('APPSIGNAL_PUSH_API_KEY', 'e3ddb47f-c103-4098-aae3-fac746282645') %>"
+  push_api_key: "<%= ENV['APPSIGNAL_PUSH_API_KEY'] %>"
 
   # Your app's name
-  name: "<%= ENV.fetch('APPSIGNAL_PUSH_API_NAME', 'Factlink Core') %>"
+  name: "<%= ENV['APPSIGNAL_PUSH_API_NAME'] %>"
 
   # The cuttoff point in ms above which a request is considered slow, default is 200
   slow_request_threshold: 240
@@ -12,7 +11,6 @@ default: &defaults
 # Configuration per environment, leave out an environment or set active
 # to false to not push metrics for that environment.
 development:
-  <<: *defaults
   active: false
 
 production:

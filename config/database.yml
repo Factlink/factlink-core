@@ -13,17 +13,3 @@ test:
   <<: *default
   database: factlink_test
   socket: /tmp/.s.PGSQL.5432
-
-staging:
-  <<: *default
-  database: factlink_staging
-  host: factlink-postgresql-staging.inverselink.com
-  username: postgres
-  password: "EfS-W3P3v:tOivmrHsPl9.8i2,xwO3asVcju:DGB:x,RIF.1Ksm4R6XrvGtZhppo63txK79Azonqm_ZLIlIMpiyJjEXxx9Hpu,sp"
-
-production:
-  <<: *default
-  database: factlink_production
-  host: factlink-postgresql-production.inverselink.com
-  username: postgres
-  password: "NrrOG7R8CJ4PQ9kLx_sV8NM,Y87wbjHdVEUZ5egn,7tiJLPsmte0zZHVB.1UUEgm4KPSPLF:AT.8uqt9b0erlQPuT.zyIo-1yA,3"
