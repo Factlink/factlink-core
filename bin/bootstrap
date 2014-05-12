@@ -84,11 +84,11 @@ cd testserver
   )
 cd ..
 
-js-library/bin/bootstrap
 bin/bootstrap_core $1
 
 
 wait
+js-library/bin/bootstrap
 proxy/bin/bootstrap
 
 
