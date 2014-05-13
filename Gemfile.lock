@@ -8,12 +8,6 @@ GIT
       virtus (= 0.5.5)
 
 GIT
-  remote: git://github.com/Factlink/rack-xframe-options.git
-  revision: 09c759164ea0add2c9eb48f0365b1beb79172377
-  specs:
-    rack-xframe-options (0.1.2)
-
-GIT
   remote: git://github.com/Factlink/url_normalizer.git
   revision: 39e9a6d291aac9313be8c9497934ee90b9127cea
   specs:
@@ -345,8 +339,6 @@ GEM
       sexp_processor (~> 4.1)
     rubyzip (1.1.3)
     safe_yaml (1.0.3)
-    sanitize (2.1.0)
-      nokogiri (>= 1.4.4)
     sass (3.3.7)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
@@ -447,10 +439,8 @@ DEPENDENCIES
   hub (~> 1)
   jquery-rails (~> 3.0)
   jquery-rails-cdn (~> 1.0.1)
-  json (~> 1.8)
   konacha (~> 3.0)
   lograge (~> 0)
-  multi_json (~> 1.7)
   ohnoes!
   oily_png (~> 1.1)
   omniauth-facebook (~> 1.6.0)
@@ -463,7 +453,6 @@ DEPENDENCIES
   pry (~> 0)
   rack (~> 1)
   rack-rewrite (~> 1.3.3)
-  rack-xframe-options!
   rails (= 4.1.0)
   rails-assets-backbone (~> 1.1.2)
   rails-assets-factlink-js-library (= 0.1.0)
@@ -478,7 +467,6 @@ DEPENDENCIES
   roadie (~> 2.4.3)
   rspec-rails (~> 2.13)
   rubocop
-  sanitize
   sass-rails (~> 4.0.1)
   scss-lint (~> 0.23)
   selenium

@@ -50,19 +50,12 @@ module FactlinkUI
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
 
-    # Block frame busting for all routes except client/blank
-    # If you update this route, also update it here please.
-    #
-    # Why?
-    # - /client/blank  : Loaded in iframe through JS Library
-    # config.middleware.use Rack::XFrameOptions, "SAMEORIGIN", ["/client/blank"]
-
-
     config.middleware.insert 0, Rack::Rewrite do
       r301 %r{^\/(.+)\/(\?.*)?$}, '/$1$2'
     end
 
     config.action_dispatch.default_headers = {
+      # NOT 'X-Frame-Options' => 'SAMEORIGIN',
       'X-XSS-Protection' => '1; mode=block',
       'X-Content-Type-Options' => 'nosniff'
     }

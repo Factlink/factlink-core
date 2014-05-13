@@ -23,12 +23,7 @@ gem 'pavlov', github: 'Factlink/pavlov'
 # Simple value objects
 gem 'strict_struct', '= 0.0.4' # by @markijbema, ask him if he pushed breaking changes in new versions
 
-gem 'multi_json', '~> 1.7'
-
 gem 'sucker_punch'
-
-# Everyone loves JSON
-gem 'json', '~> 1.8'
 
 # User authentication and authorization
 gem 'devise', '~> 3.0.0'
@@ -48,8 +43,6 @@ gem 'url_normalizer', github: 'Factlink/url_normalizer'
 
 gem 'roadie', '~> 2.4.3'
 
-# Set X-Frame-Headers
-gem 'rack-xframe-options', github: 'Factlink/rack-xframe-options'
 gem 'rack-rewrite', '~> 1.3.3'
 
 gem 'appsignal'
@@ -76,8 +69,6 @@ group :assets do
   gem 'sprockets', '2.11.0'
 
   gem 'sass-rails', '~> 4.0.1'
-
-  gem 'sanitize'
 end
 
 group :development do
