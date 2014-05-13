@@ -46,9 +46,6 @@ gem 'browser', '~> 0.4.1'
 # one of our own gems, to normalize urls
 gem 'url_normalizer', github: 'Factlink/url_normalizer'
 
-gem 'capistrano', '~> 2.15', require: false
-gem 'capistrano-ext', '~> 1.2.1',  require: false
-
 gem 'roadie', '~> 2.4.3'
 
 # Set X-Frame-Headers
