@@ -16,7 +16,7 @@ gem 'rake', '~> 10.1.0', require: false
 gem 'pg', '~> 0.17.1'
 gem 'pg_search', '~> 0.7.3'
 
-gem 'unicorn'
+gem 'unicorn', '~> 4.8.3', groups: [:staging, :production]
 
 gem 'pavlov', github: 'Factlink/pavlov'
 
