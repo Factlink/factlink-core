@@ -446,7 +446,7 @@ DEPENDENCIES
   omniauth-facebook (~> 1.6.0)
   omniauth-twitter (~> 1.0.1)
   pavlov!
-  pg
+  pg (~> 0.17.1)
   pg_search (~> 0.7.3)
   poltergeist (~> 1.5)
   protected_attributes (~> 1.0.3)
@@ -475,12 +475,12 @@ DEPENDENCIES
   sinon-rails (~> 1.4)
   sprockets (= 2.11.0)
   strict_struct (= 0.0.4)
-  sucker_punch
+  sucker_punch (~> 1.0.5)
   terminal-notifier-guard (~> 1.5)
   therubyracer (~> 0.12.1)
   thin (~> 1)
   turbo_dev_assets
   uglifier (~> 2.5)
-  unicorn
+  unicorn (~> 4.8.3)
   url_normalizer!
   webmock
