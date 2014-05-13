@@ -23,8 +23,6 @@ gem 'pavlov', github: 'Factlink/pavlov'
 # Simple value objects
 gem 'strict_struct', '= 0.0.4' # by @markijbema, ask him if he pushed breaking changes in new versions
 
-gem 'multi_json', '~> 1.7'
-
 gem 'sucker_punch'
 
 # Everyone loves JSON
