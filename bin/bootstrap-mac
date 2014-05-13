@@ -47,7 +47,7 @@ else
   echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
 fi
 eval "$(rbenv init -)"
-export RUBY_VERSION=2.1.1
+export RUBY_VERSION=2.1.2
 echo "Checking for ruby ${RUBY_VERSION}"
 rbenv rehash
 if bash -c "rbenv global ${RUBY_VERSION}" ; then
