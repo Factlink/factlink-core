@@ -6,12 +6,6 @@ module Acceptance
         page.find('.spec-open-search-facts-link').click
       end
 
-      def switch_to_comment
-        if FactlinkUI.Kennisland?
-          find('label', text: 'Comment').click
-        end
-      end
-
       def fill_in_comment_textarea text, original_text:''
         within '.spec-add-comment-form' do
           comment_input = find('.text_area_view')
@@ -26,7 +20,6 @@ module Acceptance
       end
 
       def add_comment text
-        switch_to_comment
         fill_in_comment_textarea text
 
         within '.spec-add-comment-form' do
@@ -37,7 +30,6 @@ module Acceptance
       end
 
       def add_existing_factlink text
-        switch_to_comment
 
         open_search_factlink
 
