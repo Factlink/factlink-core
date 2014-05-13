@@ -3,27 +3,25 @@ source 'https://rails-assets.org'
 
 ruby '2.1.2'
 
-gem 'dotenv-rails', groups: [:development, :test]
-
 gem 'rails', '4.1.0' # this is too important to update automatically
 
-gem 'rails_12factor', require: false
+gem 'rails_12factor', '~> 0.0.2', groups: [:staging, :production]
 
 gem 'protected_attributes', '~> 1.0.3'
 gem 'rake', '~> 10.1.0', require: false
 
 # Postgres
-gem 'pg'
-gem 'pg_search', "~> 0.7.3"
+gem 'pg', '~> 0.17.1'
+gem 'pg_search', '~> 0.7.3'
 
-gem 'unicorn'
+gem 'unicorn', '~> 4.8.3', groups: [:staging, :production]
 
 gem 'pavlov', github: 'Factlink/pavlov'
 
 # Simple value objects
 gem 'strict_struct', '= 0.0.4' # by @markijbema, ask him if he pushed breaking changes in new versions
 
-gem 'sucker_punch'
+gem 'sucker_punch', '~> 1.0.5'
 
 # User authentication and authorization
 gem 'devise', '~> 3.0.0'
@@ -33,7 +31,8 @@ gem 'cancan', '~> 1.6.10'
 gem 'omniauth-facebook', '~> 1.6.0'
 gem 'omniauth-twitter', '~> 1.0.1'
 
-gem 'httparty', '~> 0.13.0'
+# Used for deauthorizing Facebook
+gem 'httparty', '~> 0.13.1'
 
 #browser detection
 gem 'browser', '~> 0.4.1'
@@ -48,28 +47,22 @@ gem 'rack-rewrite', '~> 1.3.3'
 gem 'appsignal'
 gem 'ohnoes', github: 'markijbema/ohnoes'
 
-group :assets do
-  gem 'uglifier', '~> 2.0'
+# Asset pipeline
+gem 'uglifier', '~> 2.5'
+gem 'therubyracer', '~> 0.12.1'
+gem 'coffee-script', '~> 2.2.0'
+gem 'sass-rails', '~> 4.0.1'
 
-  gem 'therubyracer', '~> 0.12.0'
-
-  gem "coffee-script", '~> 2.2'
-
-  gem 'jquery-rails', '~> 3.0' #this is 1.10.2; not jquery 2.0 yet.  jquery-migrate claims 2.0 would be safe.
-  gem 'jquery-rails-cdn', '~> 1.0.1'
-
-  gem "rails-assets-backbone", '~> 1.1.2' #beware, backbone does not use semver!
-
-  gem "rails-assets-react"
-  gem "rails-assets-react.backbone"
-  gem "rails-assets-jquery-autosize"
-  gem 'rails-assets-tether'
-  gem 'rails-assets-factlink-js-library', '= 0.1.0'
-
-  gem 'sprockets', '2.11.0'
-
-  gem 'sass-rails', '~> 4.0.1'
-end
+# Assets
+gem 'jquery-rails', '~> 3.1.0' # this is 1.11.0; not jquery 2.0 yet.  jquery-migrate claims 2.0 would be safe.
+gem 'jquery-rails-cdn', '~> 1.0.2'
+gem 'rails-assets-backbone', '~> 1.1.2' # beware, backbone does not use semver!
+gem 'rails-assets-react', '~> 0.10.0'
+gem 'rails-assets-react.backbone', '~> 0.3.0'
+gem 'rails-assets-jquery-autosize', '~> 1.18.7'
+gem 'rails-assets-tether', '~> 0.6.5'
+gem 'rails-assets-factlink-js-library', '~> 0.1.0'
+gem 'sprockets', '2.11.0'
 
 group :development do
   # we allow all development gems to update always
@@ -111,7 +104,6 @@ group :test do
 end
 
 group :test, :development do # TODO why is there a :development here?
-  # we allow tests to upgrade everything but major
   gem 'konacha', '~> 3.0'
 
   gem 'poltergeist', '~> 1.5', require: false
@@ -122,4 +114,6 @@ group :test, :development do # TODO why is there a :development here?
   gem 'sinon-chai-rails', '~> 1.0'
   gem 'sinon-rails', '~> 1.4'
   gem 'scss-lint', '~> 0.23'
+
+  gem 'dotenv-rails', '~> 0.11'
 end

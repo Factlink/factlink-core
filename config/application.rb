@@ -5,10 +5,6 @@ require "action_mailer/railtie"
 require "active_record/railtie"
 require "pavlov/alpha_compatibility"
 
-if ENV['HEROKU']
-  require "rails_12factor"
-end
-
 Mime::Type.register "image/png", :png unless Mime::Type.lookup_by_extension(:png)
 Mime::Type.register "image/gif", :gif unless Mime::Type.lookup_by_extension(:gif)
 
