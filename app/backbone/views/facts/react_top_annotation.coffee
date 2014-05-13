@@ -25,8 +25,8 @@ ReactCollapsedText = React.createClass
           '(more)'
 
 
-ReactTopAnnotationFactlink = React.createBackboneClass
-  displayName: 'ReactTopAnnotationFactlink'
+window.ReactTopAnnotation = React.createBackboneClass
+  displayName: 'ReactTopAnnotation'
 
   render: ->
     _div ['top-annotation'],
@@ -38,21 +38,3 @@ ReactTopAnnotationFactlink = React.createBackboneClass
       else
         _div ["loading-indicator-centered"],
           ReactLoadingIndicator()
-
-
-ReactTopAnnotationKennisland = React.createBackboneClass
-  displayName: 'ReactTopAnnotationKennisland'
-
-  render: ->
-    _div ['top-annotation'],
-      if @model().get('html_content')
-        _span [dangerouslySetInnerHTML: {__html: @model().get('html_content')}]
-      else
-        _div ["loading-indicator-centered"],
-          ReactLoadingIndicator()
-
-
-if window.is_kennisland
-  window.ReactTopAnnotation = ReactTopAnnotationKennisland
-else
-  window.ReactTopAnnotation = ReactTopAnnotationFactlink
