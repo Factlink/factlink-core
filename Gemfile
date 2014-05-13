@@ -51,7 +51,7 @@ gem 'ohnoes', github: 'markijbema/ohnoes'
 gem 'uglifier', '~> 2.5'
 gem 'therubyracer', '~> 0.12.1'
 gem 'coffee-script', '~> 2.2.0'
-gem 'sass-rails', '~> 4.0.1'
+gem 'sass-rails', '~> 4.0.3'
 
 # Assets
 gem 'jquery-rails', '~> 3.1.0' # this is 1.11.0; not jquery 2.0 yet.  jquery-migrate claims 2.0 would be safe.
@@ -62,7 +62,6 @@ gem 'rails-assets-react.backbone', '~> 0.3.0'
 gem 'rails-assets-jquery-autosize', '~> 1.18.7'
 gem 'rails-assets-tether', '~> 0.6.5'
 gem 'rails-assets-factlink-js-library', '~> 0.1.0'
-gem 'sprockets', '2.11.0'
 
 group :development do
   # we allow all development gems to update always
@@ -113,7 +112,7 @@ group :test, :development do # TODO why is there a :development here?
 
   gem 'sinon-chai-rails', '~> 1.0'
   gem 'sinon-rails', '~> 1.4'
-  gem 'scss-lint', '~> 0.23'
+  # gem 'scss-lint', '~> 0.23' # Enable when sass-rails is updated
 
   gem 'dotenv-rails', '~> 0.11'
 end
