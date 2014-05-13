@@ -113,7 +113,7 @@ group :test, :development do # TODO why is there a :development here?
 
   gem 'sinon-chai-rails', '~> 1.0'
   gem 'sinon-rails', '~> 1.4'
-  gem 'scss-lint', '~> 0.23'
+  # gem 'scss-lint', '~> 0.23' # Enable when sass-rails is updated
 
   gem 'dotenv-rails', '~> 0.11'
 end
