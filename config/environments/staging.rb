@@ -35,9 +35,8 @@ FactlinkUI::Application.configure do
   # Use a different cache store in staging
   # config.cache_store = :mem_cache_store
 
-  # Disable Rails's static asset server
-  # In staging, Apache or nginx will already do this
-  config.serve_static_assets = false
+  config.serve_static_assets = true
+  config.static_cache_control = "public, max-age=#{1.day.to_i}"
 
   # Compress JavaScripts and CSS
   config.assets.js_compressor = :uglify
