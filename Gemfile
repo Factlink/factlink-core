@@ -8,7 +8,7 @@ gem 'rails', '4.1.1' # this is too important to update automatically
 gem 'rails_12factor', '~> 0.0.2', groups: [:staging, :production]
 
 gem 'protected_attributes', '~> 1.0.3'
-gem 'rake', '~> 10.1.0', require: false
+gem 'rake', '~> 10.3.1', require: false
 
 # Postgres
 gem 'pg', '~> 0.17.1'
