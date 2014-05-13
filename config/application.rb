@@ -27,10 +27,6 @@ require 'coffee_script'
 ActiveSupport.escape_html_entities_in_json = true
 
 module FactlinkUI
-  def self.Kennisland?
-    !ENV['KENNISLAND'].nil?
-  end
-
   class Application < Rails::Application
     config.autoload_paths << "#{config.root}/lib"
     config.autoload_paths << "#{config.root}/app/classes"
