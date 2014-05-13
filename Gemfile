@@ -16,6 +16,8 @@ gem 'rake', '~> 10.1.0', require: false
 gem 'pg'
 gem 'pg_search', "~> 0.7.3"
 
+gem 'unicorn'
+
 gem 'pavlov', github: 'Factlink/pavlov'
 
 # Simple value objects
