@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 source 'https://rails-assets.org'
 
-ruby '2.1.1'
+ruby '2.1.2'
 
 gem 'dotenv-rails', groups: [:development, :test]
 
