@@ -71,17 +71,11 @@ rbenv shell --unset
 
 
 cd local_development
-  shasum --check Gemfile.lock.sha-cache || (
-    bundle -j4
-    shasum Gemfile.lock > Gemfile.lock.sha-cache
-  )
+  bundle -j4
 cd ..
 
 cd testserver
-  shasum --check Gemfile.lock.sha-cache || (
-    bundle -j4
-    shasum Gemfile.lock > Gemfile.lock.sha-cache
-  )
+  bundle -j4
 cd ..
 
 bin/bootstrap_core $1
