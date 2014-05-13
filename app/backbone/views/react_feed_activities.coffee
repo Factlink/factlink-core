@@ -64,6 +64,7 @@ ReactActivity = React.createBackboneClass
       when "followed_user"
         ReactFollowedUserActivity model: @model()
 
+
 ReactCreatedFactActivity = React.createBackboneClass
   displayName: 'ReactCreatedFactActivity'
   mixins: [UpdateOnFeaturesChangeMixin]
@@ -80,14 +81,13 @@ ReactCreatedFactActivity = React.createBackboneClass
         target: fact_link.target
         activity_header_action: [
           _span ["feed-activity-description"],
-            "posted a challenge: "
+            "posted an annotation: "
           fact.get('site_title')
         ]
       },
-      _span [
-        'kennisland-challenge-box'
-        dangerouslySetInnerHTML: {__html: stripLinks(fact.get('html_content'))}
-      ]
+      _div ["feed-lowest-comment"],
+        ReactFact model: fact
+
 
 ReactCreatedCommentActivity = React.createBackboneClass
   displayName: 'ReactCreatedCommentActivity'
