@@ -3,11 +3,9 @@ source 'https://rails-assets.org'
 
 ruby '2.1.1'
 
-gem 'dotenv-rails', groups: [:development, :test]
-
 gem 'rails', '4.1.0' # this is too important to update automatically
 
-gem 'rails_12factor', groups: [:staging, :production]
+gem 'rails_12factor', '~> 0.0.2', groups: [:staging, :production]
 
 gem 'protected_attributes', '~> 1.0.3'
 gem 'rake', '~> 10.1.0', require: false
@@ -34,7 +32,7 @@ gem 'omniauth-facebook', '~> 1.6.0'
 gem 'omniauth-twitter', '~> 1.0.1'
 
 # Used for deauthorizing Facebook
-gem 'httparty', '~> 0.13.0'
+gem 'httparty', '~> 0.13.1'
 
 #browser detection
 gem 'browser', '~> 0.4.1'
@@ -106,7 +104,6 @@ group :test do
 end
 
 group :test, :development do # TODO why is there a :development here?
-  # we allow tests to upgrade everything but major
   gem 'konacha', '~> 3.0'
 
   gem 'poltergeist', '~> 1.5', require: false
@@ -117,4 +114,6 @@ group :test, :development do # TODO why is there a :development here?
   gem 'sinon-chai-rails', '~> 1.0'
   gem 'sinon-rails', '~> 1.4'
   gem 'scss-lint', '~> 0.23'
+
+  gem 'dotenv-rails', '~> 0.11'
 end

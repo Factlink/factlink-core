@@ -431,11 +431,11 @@ DEPENDENCIES
   coffee-script (~> 2.2.0)
   database_cleaner (~> 1.0)
   devise (~> 3.0.0)
-  dotenv-rails
+  dotenv-rails (~> 0.11)
   factory_girl_rails (~> 4.2)
   guard (~> 2.0)
   guard-rspec (~> 4.0)
-  httparty (~> 0.13.0)
+  httparty (~> 0.13.1)
   hub (~> 1)
   jquery-rails (~> 3.1.0)
   jquery-rails-cdn (~> 1.0.2)
@@ -460,7 +460,7 @@ DEPENDENCIES
   rails-assets-react (~> 0.10.0)
   rails-assets-react.backbone (~> 0.3.0)
   rails-assets-tether (~> 0.6.5)
-  rails_12factor
+  rails_12factor (~> 0.0.2)
   rails_best_practices (~> 1)
   rake (~> 10.1.0)
   rb-fsevent (~> 0.9.1)
