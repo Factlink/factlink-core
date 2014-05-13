@@ -45,14 +45,7 @@ module Interactors
         validate_regex   :content, content, /\S/,
           "should not be empty."
         validate_integer_string :fact_id, fact_id
-        validate_in_set :markup_format, markup_format, ['plaintext', 'anecdote']
-
-        if markup_format == 'anecdote'
-          anecdote = JSON.parse(content)
-          unless  %w{introduction insight resources actions effect}.all?{|key| anecdote.has_key?(key)}
-            fail 'Incorrect anecdote format'
-          end
-        end
+        validate_in_set :markup_format, markup_format, ['plaintext']
       end
     end
   end
