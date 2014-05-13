@@ -24,7 +24,9 @@ FactlinkUI::Application.configure do
   }
 end
 
-FactlinkUI::Application.config.jslib_url =
+FactlinkUI::Application.config.jslib_url = ENV['FACTLINK_JSLIB_URI']
+
+FactlinkUI::Application.config.jslib_url ||=
   FactlinkUI::Application.config.core_url + '/lib/dist/factlink_loader' +
     if 'development' == Rails.env
       '.js'
