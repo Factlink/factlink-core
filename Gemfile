@@ -24,7 +24,7 @@ gem 'strict_struct', '= 0.0.4' # by @markijbema, ask him if he pushed breaking c
 gem 'sucker_punch', '~> 1.0.5'
 
 # User authentication and authorization
-gem 'devise', '~> 3.0.0'
+gem 'devise', '~> 3.2.4'
 gem 'cancan', '~> 1.6.10'
 
 # social connections

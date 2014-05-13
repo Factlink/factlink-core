@@ -16,10 +16,7 @@ describe 'Password recovery', type: :feature do
 
     open_email(@user.email)
     current_email.should have_content('Reset password')
-
-    @user.reload
-
-    visit edit_user_password_path(reset_password_token: @user.reset_password_token)
+    current_email.click_link 'Reset password'
 
     fill_in "user_password", with: "our_house"
     fill_in "user_password_confirmation", with: "our_house"
