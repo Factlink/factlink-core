@@ -107,9 +107,7 @@ module Backend
       activity.updated_at = time.utc
       activity.save!
 
-      if !FactlinkUI.Kennisland?
-        send_mail_for_activity activity: activity if send_mails
-      end
+      send_mail_for_activity activity: activity if send_mails
 
       nil
     end
