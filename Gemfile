@@ -7,7 +7,7 @@ gem 'dotenv-rails', groups: [:development, :test]
 
 gem 'rails', '4.1.0' # this is too important to update automatically
 
-gem 'rails_12factor', require: false
+gem 'rails_12factor', groups: [:staging, :production]
 
 gem 'protected_attributes', '~> 1.0.3'
 gem 'rake', '~> 10.1.0', require: false
