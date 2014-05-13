@@ -62,7 +62,6 @@ gem 'rails-assets-react.backbone', '~> 0.3.0'
 gem 'rails-assets-jquery-autosize', '~> 1.18.7'
 gem 'rails-assets-tether', '~> 0.6.5'
 gem 'rails-assets-factlink-js-library', '~> 0.1.0'
-gem 'sprockets', '2.11.0'
 
 group :development do
   # we allow all development gems to update always
