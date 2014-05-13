@@ -7,20 +7,16 @@ module ScreenshotTest
       @page = page
     end
 
-    def kl_prefix
-      FactlinkUI.Kennisland? ? 'kl-' : ''
-    end
-
     def old_file
-      Rails.root.join("spec/screenshots/screenshots", "#{kl_prefix}#{@title}.png")
+      Rails.root.join("spec/screenshots/screenshots", "#{@title}.png")
     end
 
     def new_file
-      Rails.root.join "#{Capybara.save_and_open_page_path}" "/#{kl_prefix}#{@title}.png"
+      Rails.root.join "#{Capybara.save_and_open_page_path}" "/#{@title}.png"
     end
 
     def diff_file
-      Rails.root.join "#{Capybara.save_and_open_page_path}" "/#{kl_prefix}#{@title}-diff.png"
+      Rails.root.join "#{Capybara.save_and_open_page_path}" "/#{@title}-diff.png"
     end
 
     def size_changed?
