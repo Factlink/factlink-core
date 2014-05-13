@@ -1,7 +1,5 @@
-<% unless FactlinkUI.Kennisland? %>
 <% unless ['production', 'test'].include? Rails.env %>
 <div class="environment-message" onclick="event.target.style.display='none'">
   This is the factlink <%=Rails.env%> environment, not production!
 </div>
-<% end %>
 <% end %>
