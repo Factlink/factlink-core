@@ -13,8 +13,8 @@ gem 'protected_attributes', '~> 1.0.3'
 gem 'rake', '~> 10.1.0', require: false
 
 # Postgres
-gem 'pg'
-gem 'pg_search', "~> 0.7.3"
+gem 'pg', '~> 0.17.1'
+gem 'pg_search', '~> 0.7.3'
 
 gem 'unicorn'
 
