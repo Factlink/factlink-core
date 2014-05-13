@@ -46,10 +46,6 @@ module FactlinkUI
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
 
-    config.middleware.insert 0, Rack::Rewrite do
-      r301 %r{^\/(.+)\/(\?.*)?$}, '/$1$2'
-    end
-
     config.action_dispatch.default_headers = {
       # NOT 'X-Frame-Options' => 'SAMEORIGIN',
       'X-XSS-Protection' => '1; mode=block',

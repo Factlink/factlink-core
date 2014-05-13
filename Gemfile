@@ -42,8 +42,6 @@ gem 'url_normalizer', github: 'Factlink/url_normalizer'
 
 gem 'roadie', '~> 2.4.3'
 
-gem 'rack-rewrite', '~> 1.3.3'
-
 gem 'appsignal'
 gem 'ohnoes', github: 'markijbema/ohnoes'
 
