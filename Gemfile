@@ -48,28 +48,22 @@ gem 'rack-rewrite', '~> 1.3.3'
 gem 'appsignal'
 gem 'ohnoes', github: 'markijbema/ohnoes'
 
-group :assets do
-  gem 'uglifier', '~> 2.0'
+# Asset pipeline
+gem 'uglifier', '~> 2.5'
+gem 'therubyracer', '~> 0.12.1'
+gem 'coffee-script', '~> 2.2.0'
+gem 'sass-rails', '~> 4.0.1'
 
-  gem 'therubyracer', '~> 0.12.0'
-
-  gem "coffee-script", '~> 2.2'
-
-  gem 'jquery-rails', '~> 3.0' #this is 1.10.2; not jquery 2.0 yet.  jquery-migrate claims 2.0 would be safe.
-  gem 'jquery-rails-cdn', '~> 1.0.1'
-
-  gem "rails-assets-backbone", '~> 1.1.2' #beware, backbone does not use semver!
-
-  gem "rails-assets-react"
-  gem "rails-assets-react.backbone"
-  gem "rails-assets-jquery-autosize"
-  gem 'rails-assets-tether'
-  gem 'rails-assets-factlink-js-library', '= 0.1.0'
-
-  gem 'sprockets', '2.11.0'
-
-  gem 'sass-rails', '~> 4.0.1'
-end
+# Assets
+gem 'jquery-rails', '~> 3.1.0' # this is 1.11.0; not jquery 2.0 yet.  jquery-migrate claims 2.0 would be safe.
+gem 'jquery-rails-cdn', '~> 1.0.2'
+gem 'rails-assets-backbone', '~> 1.1.2' # beware, backbone does not use semver!
+gem 'rails-assets-react', '~> 0.10.0'
+gem 'rails-assets-react.backbone', '~> 0.3.0'
+gem 'rails-assets-jquery-autosize', '~> 1.18.7'
+gem 'rails-assets-tether', '~> 0.6.5'
+gem 'rails-assets-factlink-js-library', '~> 0.1.0'
+gem 'sprockets', '2.11.0'
 
 group :development do
   # we allow all development gems to update always
