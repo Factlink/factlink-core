@@ -33,7 +33,7 @@ window.ReactDiscussionSidebar = React.createBackboneClass
       ReactSidebarLogin()
       @transferPropsTo ReactDiscussionStandalone()
 
-window.ReactDiscussionStandalone = React.createBackboneClass
+ReactDiscussionStandalone = React.createBackboneClass
   displayName: 'ReactDiscussionStandalone'
 
   render: ->
