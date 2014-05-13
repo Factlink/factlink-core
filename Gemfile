@@ -51,7 +51,7 @@ gem 'ohnoes', github: 'markijbema/ohnoes'
 gem 'uglifier', '~> 2.5'
 gem 'therubyracer', '~> 0.12.1'
 gem 'coffee-script', '~> 2.2.0'
-gem 'sass-rails', '~> 4.0.1'
+gem 'sass-rails', '~> 4.0.3'
 
 # Assets
 gem 'jquery-rails', '~> 3.1.0' # this is 1.11.0; not jquery 2.0 yet.  jquery-migrate claims 2.0 would be safe.
