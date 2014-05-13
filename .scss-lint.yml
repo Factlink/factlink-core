@@ -91,7 +91,6 @@ linters:
     enabled: true
     exclude:
       - 'app/assets/stylesheets/base/radio_toggle_buttons.scss'
-      - 'js-library/app/css/_fadable_control.scss'
 
   UrlQuotes:
     enabled: true
