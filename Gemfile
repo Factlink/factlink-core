@@ -23,7 +23,7 @@ gem 'pavlov', github: 'Factlink/pavlov'
 # Simple value objects
 gem 'strict_struct', '= 0.0.4' # by @markijbema, ask him if he pushed breaking changes in new versions
 
-gem 'sucker_punch'
+gem 'sucker_punch', '~> 1.0.5'
 
 # User authentication and authorization
 gem 'devise', '~> 3.0.0'
