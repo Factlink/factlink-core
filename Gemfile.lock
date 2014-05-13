@@ -447,7 +447,6 @@ DEPENDENCIES
   hub (~> 1)
   jquery-rails (~> 3.0)
   jquery-rails-cdn (~> 1.0.1)
-  json (~> 1.8)
   konacha (~> 3.0)
   lograge (~> 0)
   ohnoes!

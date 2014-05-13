@@ -25,9 +25,6 @@ gem 'strict_struct', '= 0.0.4' # by @markijbema, ask him if he pushed breaking c
 
 gem 'sucker_punch'
 
-# Everyone loves JSON
-gem 'json', '~> 1.8'
-
 # User authentication and authorization
 gem 'devise', '~> 3.0.0'
 gem 'cancan', '~> 1.6.10'
