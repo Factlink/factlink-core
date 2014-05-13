@@ -7,7 +7,3 @@
 //= require jquery.placeholder
 
 //= require underscore
-
-//= require ckeditor-jquery
-//= require ./ckeditor/plugins/youtube/plugin.js
-//= require ./ckeditor/plugins/youtube/plugin_lang_en.js

@@ -79,7 +79,6 @@ group :assets do
 
   gem 'sass-rails', '~> 4.0.1'
 
-  gem 'ckeditor_rails'
   gem 'sanitize'
 end
 
