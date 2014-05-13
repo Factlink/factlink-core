@@ -6,8 +6,6 @@
     <title>
       <% if content_for? :title %>
         <%= yield :title %>
-      <% elsif FactlinkUI.Kennisland? %>
-        Feed Forward
       <% else %>
         Factlink &mdash; Share your knowledge for a better world
       <% end %>

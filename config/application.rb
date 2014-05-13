@@ -27,10 +27,6 @@ require 'coffee_script'
 ActiveSupport.escape_html_entities_in_json = true
 
 module FactlinkUI
-  def self.Kennisland?
-    !ENV['KENNISLAND'].nil?
-  end
-
   class Application < Rails::Application
     config.autoload_paths << "#{config.root}/lib"
     config.autoload_paths << "#{config.root}/app/classes"
@@ -111,8 +107,7 @@ module FactlinkUI
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
-    # Therefore, we change the asset version whenever kennisland is toggled.
-    config.assets.version = FactlinkUI.Kennisland? ? '2.0' : '1.0'
+    config.assets.version = '1.0'
 
     config.assets.precompile += [
       /\w+\.(?!js|css|less).+/,

@@ -86,11 +86,6 @@ $headerBorder: 1px;
     @extend .feed-activity-box-balloon;
     background-color: darken($lightYellow, 10);
   }
-
-  &:hover .kennisland-challenge-box {
-    @extend .feed-activity-box-balloon;
-    background-color: darken($grayLighter, 10);
-  }
 }
 
 .feed-activity-heading {
@@ -164,18 +159,5 @@ $headerBorder: 1px;
 
   @include from-width(600px) {
     margin: 10px 0;
-  }
-}
-
-.kennisland-challenge-box {
-  background: $grayLighter;
-  display: inline-block;
-  padding: 5px 8px;
-  border-radius: $baseBorderRadius;
-
-  margin-bottom: 5px;
-
-  @include from-width(600px) {
-    margin-bottom: 10px;
   }
 }

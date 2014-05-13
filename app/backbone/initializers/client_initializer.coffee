@@ -42,7 +42,6 @@ class ClientEnvoy
 
 printDevelopmentHelp = ->
   return unless Factlink.Global.environment == 'development'
-  return if window.is_kennisland
 
   console.group 'Factlink'
   console.log 'Greetings, stranger. Put any of the following commands in your console:'

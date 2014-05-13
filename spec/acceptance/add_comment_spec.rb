@@ -32,11 +32,9 @@ feature "adding comments to a fact", type: :feature do
   scenario 'comments and comments with links to annotations should be sorted on relevance' do
     open_discussion_sidebar_for factlink.fact_id.to_s
 
-    if !FactlinkUI.Kennisland?
-      comment1 = 'Buffels zijn niet klein te krijgen joh'
-      add_comment comment1
-      vote_comment :down, comment1
-    end
+    comment1 = 'Buffels zijn niet klein te krijgen joh'
+    add_comment comment1
+    vote_comment :down, comment1
 
     factlink2 = create :fact_data
     add_existing_factlink factlink2.displaystring
@@ -55,10 +53,7 @@ feature "adding comments to a fact", type: :feature do
     items = all '.spec-evidence-box'
     expect(items[0].text).to match (Regexp.new factlink2.displaystring)
     expect(items[1].text).to match (Regexp.new comment3)
-
-    if !FactlinkUI.Kennisland?
-      expect(items[2].text).to match (Regexp.new comment1)
-    end
+    expect(items[2].text).to match (Regexp.new comment1)
   end
 
   scenario "after adding it can be edited and removed" do

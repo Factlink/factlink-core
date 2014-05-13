@@ -7,6 +7,7 @@ window.ReactFeedSelection = React.createClass
     feeds:
       global: new GlobalFeedActivities
       personal: new PersonalFeedActivities
+      discussions_admin: new DiscussionsFeedActivities
 
   _handleFeedChoiceChange: (e) ->
     if(e.target.checked)
@@ -29,6 +30,14 @@ window.ReactFeedSelection = React.createClass
             checked: @state.feedChoice == 'personal'
             onChange: @_handleFeedChoiceChange
             'Personal'
+
+          if currentSession.user().get('admin')
+            ReactToggleButton
+              name: 'FeedChoice'
+              value: 'discussions_admin'
+              checked: @state.feedChoice == 'discussions_admin'
+              onChange: @_handleFeedChoiceChange
+              'Discussions (admin)'
 
           _div ['feed-selection-install-extension-button'],
             ReactInstallExtensionOrBookmarklet()

@@ -25,14 +25,10 @@ window.ReactUserTabs = React.createBackboneClass
         href: "/user/#{@model().get('username')}/change-password"
       ],
         'Change password'
-      (if !window.is_kennisland
-        [
-          spaced_middle_dot
-          _a [
-            'main-region-tab-active' if @props.page == 'notification-settings'
-            rel: 'backbone'
-            href: "/user/#{@model().get('username')}/notification-settings"
-          ],
-            'Notification Settings'
-        ]
-      else [])
+      spaced_middle_dot
+      _a [
+        'main-region-tab-active' if @props.page == 'notification-settings'
+        rel: 'backbone'
+        href: "/user/#{@model().get('username')}/notification-settings"
+      ],
+        'Notification Settings'

@@ -64,6 +64,7 @@ ReactActivity = React.createBackboneClass
       when "followed_user"
         ReactFollowedUserActivity model: @model()
 
+
 ReactCreatedFactActivity = React.createBackboneClass
   displayName: 'ReactCreatedFactActivity'
   mixins: [UpdateOnFeaturesChangeMixin]
@@ -71,23 +72,21 @@ ReactCreatedFactActivity = React.createBackboneClass
   render: ->
     user = new User @model().get('user')
     fact = new Fact @model().get('fact')
-    fact_link = fact.fact_show_link()
 
     ReactGenericActivity {
         model: user
         time: @model().get('created_at')
-        href: fact_link.href
-        target: fact_link.target
+        href: fact.fact_show_link()
+        target: '_blank'
         activity_header_action: [
           _span ["feed-activity-description"],
-            "posted a challenge: "
+            "posted an annotation: "
           fact.get('site_title')
         ]
       },
-      _span [
-        'kennisland-challenge-box'
-        dangerouslySetInnerHTML: {__html: stripLinks(fact.get('html_content'))}
-      ]
+      _div ["feed-lowest-comment"],
+        ReactFact model: fact
+
 
 ReactCreatedCommentActivity = React.createBackboneClass
   displayName: 'ReactCreatedCommentActivity'
@@ -97,13 +96,12 @@ ReactCreatedCommentActivity = React.createBackboneClass
     user = new User @model().get('user')
     fact = new Fact @model().get('fact')
     comment = new Comment @model().get('comment')
-    fact_link = fact.fact_show_link()
 
     ReactGenericActivity {
         model: user
         time: @model().get('created_at')
-        href: fact_link.href
-        target: fact_link.target
+        href: fact.fact_show_link()
+        target: '_blank'
         activity_header_action: [
           _span ["feed-activity-description"],
             "commented on"
@@ -122,13 +120,12 @@ ReactCreatedSubCommentActivity = React.createBackboneClass
     fact = new Fact @model().get('fact')
     comment = new Comment @model().get('comment')
     sub_comment = new Comment @model().get('sub_comment')
-    fact_link = fact.fact_show_link()
 
     ReactGenericActivity {
         model: user
         time: @model().get('created_at')
-        href: fact_link.href
-        target: fact_link.target
+        href: fact.fact_show_link()
+        target: '_blank'
         activity_header_action: [
           _span ["feed-activity-description"],
             "replied to"
