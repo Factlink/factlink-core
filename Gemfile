@@ -33,6 +33,7 @@ gem 'cancan', '~> 1.6.10'
 gem 'omniauth-facebook', '~> 1.6.0'
 gem 'omniauth-twitter', '~> 1.0.1'
 
+# Used for deauthorizing Facebook
 gem 'httparty', '~> 0.13.0'
 
 #browser detection
