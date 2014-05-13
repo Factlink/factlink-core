@@ -8,12 +8,6 @@ GIT
       virtus (= 0.5.5)
 
 GIT
-  remote: git://github.com/Factlink/rack-xframe-options.git
-  revision: 09c759164ea0add2c9eb48f0365b1beb79172377
-  specs:
-    rack-xframe-options (0.1.2)
-
-GIT
   remote: git://github.com/Factlink/url_normalizer.git
   revision: 39e9a6d291aac9313be8c9497934ee90b9127cea
   specs:
@@ -461,7 +455,6 @@ DEPENDENCIES
   pry (~> 0)
   rack (~> 1)
   rack-rewrite (~> 1.3.3)
-  rack-xframe-options!
   rails (= 4.1.0)
   rails-assets-backbone (~> 1.1.2)
   rails-assets-factlink-js-library (= 0.1.0)
