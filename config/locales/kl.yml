@@ -12,8 +12,6 @@ kl:
   following: "following"
   unfollow: "unfollow"
 
-  anecdote: "story"
-
   app_name: 'Feed Forward'
 
   add_comment_hint1: "How can you help?"

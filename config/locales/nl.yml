@@ -13,8 +13,6 @@ nl:
   following: "volgt"
   unfollow: "ontvolgen"
 
-  anecdote: "verhaal"
-
   app_name: 'Factlink'
 
   add_comment_hint1: "What do you think?"
