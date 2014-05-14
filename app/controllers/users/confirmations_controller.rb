@@ -19,4 +19,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     end
   end
 
+  def after_confirmation_path_for(resource_name, resource)
+    feed_path
+  end
 end
