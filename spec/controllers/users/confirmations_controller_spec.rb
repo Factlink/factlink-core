@@ -9,42 +9,50 @@ describe Users::ConfirmationsController do
   describe :show do
     render_views
 
-    it "confirms the user and redirects to setup page" do
-      user = create :user
+    before :each do
+      Devise.mailer.stub(:send) do |notification, klass, token, opts|
+        @token = token
+        Devise.mailer.stub(:send).and_return(double(deliver: nil)) # only stub once
 
-      get :show, confirmation_token: user.confirmation_token
+        double(deliver: nil)
+      end
 
-      user.reload
-      expect(user).to be_confirmed
+      @user = create :user
+    end
+
+    it "confirms the user and redirects to feed page" do
+      get :show, confirmation_token: @token
+
+      @user.reload
+      expect(@user).to be_confirmed
 
       expect(response).to redirect_to feed_path
+      expect(subject.current_user).to be_nil
     end
 
     it "works when the user is already signed in" do
-      user = create :user
+      sign_in(@user)
 
-      sign_in(user)
+      get :show, confirmation_token: @token
 
-      get :show, confirmation_token: user.confirmation_token
-
-      user.reload
-      expect(user).to be_confirmed
+      @user.reload
+      expect(@user).to be_confirmed
 
       expect(response).to redirect_to feed_path
+      expect(subject.current_user).to eq @user
     end
 
-    it "leaves another user signed in and shows an error" do
-      confirmation_user = create :user
+    it "keeps another user signed in" do
       signed_in_user = create :user
-
       sign_in(signed_in_user)
 
-      get :show, confirmation_token: confirmation_user.confirmation_token
+      get :show, confirmation_token: @token
 
-      confirmation_user.reload
-      expect(confirmation_user).to_not be_confirmed
+      @user.reload
+      expect(@user).to be_confirmed
 
-      expect(flash[:alert]).to match /already logged in with another account/
+      expect(response).to redirect_to feed_path
+      expect(subject.current_user).to eq signed_in_user
     end
   end
 end
