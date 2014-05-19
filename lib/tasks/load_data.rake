@@ -1,16 +1,3 @@
-
-def get_file(file)
-  # file is frozen string, can't be modified: so duplicate
-  file_name = file.dup
-
-  unless File.extname(file_name) == ".rb"
-    file_name << ".rb"
-  end
-
-  dump_dir = File.expand_path("#{Rails.root}/" + "db/init")
-  return File.join(dump_dir, file_name)
-end
-
 namespace :db do
   task :export, [:filename] => [:environment, :migrate] do |task, args|
     File.open(args[:filename], 'w') do |file|
