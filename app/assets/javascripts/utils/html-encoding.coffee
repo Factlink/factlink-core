@@ -1,4 +1,4 @@
-window.htmlEscape = (str)->
+htmlEscape = (str)->
     String(str).replace(/&/g, '&amp;').
                 replace(/"/g, '&quot;').
                 replace(/'/g, '&#39;').

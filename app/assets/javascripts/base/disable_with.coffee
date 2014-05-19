@@ -1,4 +1,4 @@
-window.disableInputWithDisableWith = ($el)->
+disableInputWithDisableWith = ($el)->
   disable_with_text = $el.attr("data-disable-with")
   return unless disable_with_text
 
