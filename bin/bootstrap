@@ -68,12 +68,6 @@ type bundler 2>/dev/null || gem install bundler
 rbenv rehash || :
 rbenv shell --unset
 
-
-
-cd local_development
-  bundle -j4
-cd ..
-
 cd testserver
   bundle -j4
 cd ..

@@ -81,6 +81,7 @@ group :development do
   gem 'hub', '~> 1', require: false
   gem 'selenium', require: false
   gem 'selenium-webdriver', require: false
+  gem "mailcatcher", require: false
 end
 
 group :test do
