@@ -6,15 +6,13 @@ $blogBreakpoint: 700px;
 }
 
 .blog-content {
-  padding: 0 20px;
-
   @include from-width($blogBreakpoint) {
     width: $blogWidth;
   }
-}
 
-.blog-content > p {
-  padding-right: 10px;
+  > p, > ul, > ol {
+    margin-right: 10px;
+  }
 }
 
 .blog-content-image {
@@ -66,6 +64,27 @@ ul.blog-content-list {
     -ms-transform: translateY(-100%);
     -moz-transform: translateY(-100%);
     -webkit-transform: translateY(-100%);
+  }
+}
+
+.blog-figure {
+  margin: 0;
+  display: inline-block;
+  margin-bottom: 0.8em;
+
+  img {
+    margin-bottom: 0;
+  }
+
+  figcaption {
+    font-size: 85%;
+    text-align: center;
+  }
+}
+
+.blog-image-half {
+  @include from-width($blogBreakpoint) {
+    width: 49%;
   }
 }
 

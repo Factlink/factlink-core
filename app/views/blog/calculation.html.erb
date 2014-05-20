@@ -35,18 +35,30 @@
     <li>A Factlink is created.</li>
   </ol>
 
-  <%= image_tag 'blog/calculation/annotate-agree-neutral-disagree.png', class: 'blog-content-image' %>
+  <aside class="blog-aside">
+    <%= image_tag 'blog/calculation/annotate-agree-neutral-disagree.png', class: 'blog-content-image' %>
+  </aside>
 
   <p>Once you created a Factlink on a website, other people with the browser extension could see it. It didn’t modify the website directly, as that’s not possible, but it altered how the website is rendered using the browser extension. Thus we called Factlink “a layer over the web”.</p>
 
   <p>You could then post the Factlink to a channel, such as “Brain development”. Others who subscribed to that channel, such as experts or interested people, would then see the Factlink on their activity feed. They could then give their opinion, add sources, and comment on the Factlink.</p>
 
-  <%= image_tag 'blog/calculation/channels.png', class: 'blog-content-image' %>
+  <aside class="blog-aside">
+    <%= image_tag 'blog/calculation/channels.png', class: 'blog-content-image' %>
+  </aside>
 
   <p>The annotation part of Factlink still works similarly to what we had then, except that we marked Factlinks using a checkmark in front of the text, while we now show an icon next on the right of a paragraph.</p>
 
-  <%= image_tag 'blog/calculation/checkmark.png', class: 'blog-content-image' %>
-
+  <div class="blog-full-width">
+    <figure class="blog-figure blog-image-half">
+      <%= image_tag 'blog/calculation/checkmark.png', class: 'blog-content-image' %>
+      <figcaption>original</figcaption>
+    </figure>
+    <figure class="blog-figure blog-image-half">
+      <%= image_tag 'blog/calculation/highlight.png', class: 'blog-content-image' %>
+      <figcaption>now</figcaption>
+    </figure>
+  </div>
 
   <h4>Voting on statements</h4>
 
@@ -169,8 +181,14 @@
   </aside>
 
   <div class="blog-full-width">
-    <%= image_tag 'blog/calculation/ndp-sketch.jpg', class: 'blog-content-image', style: 'width: 49%' %>
-    <%= image_tag 'blog/calculation/ndp-design.jpg', class: 'blog-content-image', style: 'width: 49%' %>
+    <figure class="blog-figure blog-image-half">
+      <%= image_tag 'blog/calculation/ndp-sketch.jpg', class: 'blog-content-image' %>
+      <figcaption>sketch</figcaption>
+    </figure>
+    <figure class="blog-figure blog-image-half">
+      <%= image_tag 'blog/calculation/ndp-design.jpg', class: 'blog-content-image' %>
+      <figcaption>design</figcaption>
+    </figure>
   </div>
 
   <p>In this design, the numbers in the middle represent not the relevance of the evidence, but the total number of agreeing or disagreeing votes of the evidence’s credibility distribution. All the numbers of the evidence and votes add up to the big number on top, which represents the “total amount of thinking” or “brain cycles” that people have put into it.</p>
