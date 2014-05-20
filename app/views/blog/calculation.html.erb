@@ -85,7 +85,7 @@
 
   <p>In theory, you could visualise the relevance of evidence with a Factwheel. However, to avoid confusion, we chose a different representation: voting arrows.</p>
 
-  <p>[screenshot]</p>
+  <%= image_tag 'blog/calculation/evidence.png', class: 'blog-content-image' %>
 
 
   <h4>Calculating credibility</h4>
@@ -163,13 +163,20 @@
 
   <p>More importantly, there were too many numbers on the screen, which was overwhelming. It also wasn’t clear what all the different numbers meant. We tried to address those problems with a design that showed all votes and evidence in one overview:</p>
 
-  <p>[screenshot of ndp]</p>
+  <aside class="blog-aside">
+    <p><%= link_to('Full resolution design', image_path( "blog/calculation/ndp-design-full.jpg")) %></p>
+  </aside>
+
+  <div class="blog-full-width">
+    <%= image_tag 'blog/calculation/ndp-sketch.jpg', class: 'blog-content-image', style: 'width: 49%' %>
+    <%= image_tag 'blog/calculation/ndp-design.jpg', class: 'blog-content-image', style: 'width: 49%' %>
+  </div>
 
   <p>In this design, the numbers in the middle represent not the relevance of the evidence, but the total number of agreeing or disagreeing votes of the evidence’s credibility distribution. All the numbers of the evidence and votes add up to the big number on top, which represents the “total amount of thinking” or “brain cycles” that people have put into it.</p>
 
   <p>Showing total contributing votes instead of relevance also subtly changed the meaning of upvote and downvote buttons. If you click upvote, you want the number to go up. Just adding an agreeing vote to the relevance of the evidence is not enough, as you often also need to agree with the underlying Factlink. Therefore we added popups when clicking on an upvote or downvote button, to ask what you think exactly:</p>
 
-  <p>[screenshot]</p>
+  <%= image_tag 'blog/calculation/ndp-popup.png', class: 'blog-content-image' %>
 
 
   <h4>Epilogue</h4>
