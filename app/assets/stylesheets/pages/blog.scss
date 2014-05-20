@@ -1,4 +1,4 @@
-$blogWidth: 70%;
+$blogWidth: 72%;
 $blogBreakpoint: 700px;
 
 .blog-container {
@@ -10,8 +10,9 @@ $blogBreakpoint: 700px;
     width: $blogWidth;
   }
 
-  > p, > ul, > ol {
+  p, ul, ol {
     margin-right: 10px;
+    padding-right: 10px;
   }
 }
 
