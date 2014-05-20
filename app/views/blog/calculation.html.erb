@@ -1,0 +1,179 @@
+<% content_for :title do %>Factlink’s Calculation<% end %>
+
+<% content_for :blog_content do %>
+
+  <p><%= link_to "&laquo; Blog".html_safe, blog_index_path %></p>
+
+  <time pubdate>XX May 2014</time>
+  <h1 class="static-pages-heading-h1">Factlink’s Calculation</h1>
+
+  <p>Half a year ago we decided to throw away half of our code. Before then, our product consisted of two parts:</p>
+
+  <ol>
+    <li>Annotation: browser extensions allowing to add information to any piece of text on the internet.</li>
+    <li>“Fact Graph”: interfaces for linking those pieces of text together, and a calculation that shows for each piece of text how credible it is.</li>
+  </ol>
+
+  <p>We kept 1, and threw away 2. In our previous article we looked at why we decided to focus on annotation. In this article we look at the other half, the “Fact Graph”. Because even though we threw it away, it still has value. We don’t want to outright abandon hundreds of hours on research and development. Instead, we’ll share it, in the hope that someone finds it useful.</p>
+
+  <h4>Factlink’s original goal</h4>
+
+  <p>What did we try to do anyway? In an internal document we wrote (emphasis added):</p>
+
+  <blockquote>“The goal of Factlink is to solve the problem of assigning credibility to sources. The traditional mental model of a few authoritative sources, such as investigative journalism and peer reviewed science, falls short in a world with billions of tweets and blogs. And, finding correct information simply based on text search and popularity does not seem to be a sustainable trend. Factlink tries to solve this fundamentally hard problem by <b>assigning scores</b> to <b>strings of text annotated by its users</b>.”</blockquote>
+
+  <p>In short, we tried to show if what you’re reading is true or not.</p>
+
+
+  <h4>Annotation</h4>
+
+  <p>We started out with annotating sentences on websites. After installing a browser extension, you could select a piece of text on any website, and create an annotation. We called these annotations “Factlinks”. It worked like this:</p>
+
+  <ol>
+    <li>Select a piece of text</li>
+    <li>Give your opinion on the piece of text: <span class="blog-calculation-agree">“agree”</span>, <span class="blog-calculation-disagree">“disagree”</span>, or <span class="blog-calculation-unsure">“neutral”</span> (which we later renamed to <span class="blog-calculation-unsure">“unsure”</span>)</li>
+    <li>A Factlink is created.</li>
+  </ol>
+
+  <%= image_tag 'blog/calculation/annotate-agree-neutral-disagree.png', class: 'blog-content-image' %>
+
+  <p>Once you created a Factlink on a website, other people with the browser extension could see it. It didn’t modify the website directly, as that’s not possible, but it altered how the website is rendered using the browser extension. Thus we called Factlink “a layer over the web”.</p>
+
+  <p>You could then post the Factlink to a channel, such as “Brain development”. Others who subscribed to that channel, such as experts or interested people, would then see the Factlink on their activity feed. They could then give their opinion, add sources, and comment on the Factlink.</p>
+
+  <%= image_tag 'blog/calculation/channels.png', class: 'blog-content-image' %>
+
+  <p>The annotation part of Factlink still works similarly to what we had then, except that we marked Factlinks using a checkmark in front of the text, while we now show an icon next on the right of a paragraph.</p>
+
+  <%= image_tag 'blog/calculation/checkmark.png', class: 'blog-content-image' %>
+
+
+  <h4>Voting on statements</h4>
+
+  <p>You could open a Factlink by clicking on the text. You would then see a circle with three colours, which we called the “Factwheel”. It served several purposes:</p>
+
+  <ol>
+    <li>The Factwheel showed the credibility of a piece of text. Green means <span class="blog-calculation-agree">credible</span>. Red means <span class="blog-calculation-disagree">not credible</span>. Blue means <span class="blog-calculation-unsure">uncertainty</span>.</li>
+    <li>The number inside the Factwheel represented the amount of effort people have put in to get at this number. The higher this number, the more reliable the credibility calculation.</li>
+    <li>You could click a colour on the Factwheel to cast a vote, for whether you <span class="blog-calculation-agree">agree</span>, <span class="blog-calculation-disagree">disagree</span>, or are <span class="blog-calculation-unsure">unsure</span>.</li>
+  </ol>
+
+  <p>Initially, we started out with just voting. If you <span class="blog-calculation-agree">agreed</span>, you clicked the green part, which would grow a little. And the number inside the circle would become larger. The same for the red and blue parts.</p>
+
+  <p>[example applet of Factlink with just Factwheel]</p>
+
+
+  <h4>Linking statements</h4>
+
+  <p>However, truth is not a popularity contest. Prevailing “truths” have often turned out not to be very true at all: the earth “was” once flat. So what is more powerful than opinions, what is a better predictor of truth? Hard evidence.</p>
+
+  <p>The key idea of our credibility calculation was evidence. You could add Factlinks as evidence for another Factlink. This evidence could be either <span class="blog-calculation-supporting">supporting</span> or <span class="blog-calculation-weakening">weakening</span>. Then, if the <span class="blog-calculation-supporting">supporting Factlink</span> was likely to be <span class="blog-calculation-agree">true</span>, then surely the Factlink it supported was also more likely to be <span class="blog-calculation-agree">true</span>. If a <span class="weakening">weakening Factlink</span> was likely to be <span class="blog-calculation-agree">true</span>, then surely the Factlink it weakened was more likely to be <span class="blog-calculation-disagree">false</span>. We called this network of evidence the “Fact Graph”.</p>
+
+  <p>An example. <span class="blog-calculation-f1">Factlink 1 (F1)</span> is: <span class="blog-calculation-factlink blog-calculation-f1">“Working from home is more productive than working in an office.”</span> You could find some evidence on a website that talks about personal experience, and annotate <span class="blog-calculation-f2">F2</span>: <span class="blog-calculation-factlink blog-calculation-f2">“I’m much happier working from home, so I work harder.”</span> You can add <span class="blog-calculation-f2">F2</span> as <span class="blog-calculation-supporting">supporting evidence</span> to <span class="blog-calculation-f1">F1</span>. If it turns out that <span class="blog-calculation-f2">F2</span> is <span class="blog-calculation-agree">very credible</span> &mdash; many people voted that they agree, or it gets a lot of supporting evidence &mdash; then in turn <span class="blog-calculation-f1">F1</span> will also become <span class="blog-calculation-agree">more credible</span>. The green part of the Factwheel of <span class="blog-calculation-f1">F1</span> will become bigger.</p>
+
+  <p>Say you find a counter argument on the web, which you annotate. <span class="blog-calculation-f3">F3</span>: <span class="blog-calculation-factlink blog-calculation-f3">“In conclusion, in 89% of the cases we have looked at, working in the office was most productive.”</span> This one might be added as <span class="blog-calculation-weakening">weakening evidence</span> to <span class="blog-calculation-f1">F1</span>. If it turns out <span class="blog-calculation-f3">F3</span> is <span class="blog-calculation-agree">credible</span>, then <span class="blog-calculation-f1">F1</span> becomes <span class="blog-calculation-disagree">less credible</span>. The red part of the Factwheel of <span class="blog-calculation-f1">F1</span> will become bigger.</p>
+
+  <p>[example applet of Factlink with those two as evidence]</p>
+
+  <p>What if someone adds nonsense <span class="blog-calculation-supporting">supporting evidence</span>, <span class="blog-calculation-f4">F4</span>: <span class="blog-calculation-factlink blog-calculation-f4">“The sky is blue.”</span> Someone can do this to falsely increase or decrease credibility of <span class="blog-calculation-f1">F1</span>, especially if <span class="blog-calculation-f4">F4</span> itself is <span class="blog-calculation-agree">very credible</span>. We could allow users to flag such invalid arguments, and have them removed by a moderator, or if enough people flag it.</p>
+
+  <p>But it might also be that evidence that looks like nonsense, is in fact relevant. It might just be that you don’t understand the subject matter well enough, or that it needs further explaining. Relevance isn’t binary, relevant and irrelevant, but it’s a scale. We are not just interested in the credibility of Factlinks, but also in the credibility of relations between Factlinks.</p>
+
+  <p>In the same way you can vote on the credibility of Factlinks, you can vote on the credibility of the relations between Factlinks, evidence. In an attempt to avoid confusion, we call this voting on relevance. You can <span class="blog-calculation-agree">agree</span> or <span class="blog-calculation-disagree">disagree</span> that evidence is relevant.</p>
+
+  <p>[infographic of relation also having a factwheel]</p>
+
+  <p>In theory, you could visualise the relevance of evidence with a Factwheel. However, to avoid confusion, we chose a different representation: voting arrows.</p>
+
+  <p>[screenshot]</p>
+
+
+  <h4>Calculating credibility</h4>
+
+  <p>How can we use these votes and evidence to get to a summary of how credible a Factlink is? For this, we first introduce some math. We define a credibility distribution to be a set of four numbers: &lt;<em>true</em>, <em>false</em>, <em>unsure</em>&gt;, or &lt;<em>t</em>, <em>f</em>, <em>u</em>&gt;. These numbers represent fractions of how <span class="blog-calculation-agree">true</span>, how <span class="blog-calculation-disagree">false</span>, or how <span class="blog-calculation-unsure">unsure</span> a Factlink is. The size of each number represents how much “work” or “thinking” has gone into reaching this conclusion. For now, let’s just say it’s the number of votes.</p>
+
+  <p>We denote the credibility distribution of a <span class="blog-calculation-f1">Factlink F1</span> as <em>d</em>(<span class="blog-calculation-f1">F1</span>). The numbers <em>t</em>, <em>f</em>, and <em>u</em> correspond to green, red, and blue parts of the Factwheel. The number inside the Factwheel is the sum of those numbers, representing the total amount of votes, or “thinking”.</p>
+
+  <p>Examples [with Factwheels]:</p>
+
+  <ol>
+    <li><em>d</em>(<span class="blog-calculation-factlink">“Generally agreed upon Factlink”</span>) = <span class="blog-calculation-agree">&lt;10000, 8, 13&gt;</span></li>
+    <li><em>d</em>(<span class="blog-calculation-factlink">“Factlink with only few votes”</span>) = <span class="blog-calculation-agree">&lt;2, 1, 0&gt;</span></li>
+    <li><em>d</em>(<span class="blog-calculation-factlink">“Factlink without any votes”</span>) = <span class="blog-calculation-unsure">&lt;0, 0, 0&gt;</span></li>
+    <li><em>d</em>(<span class="blog-calculation-factlink">“Highly controversial Factlink”</span>) = <span class="blog-calculation-undetermined">&lt;7839, 8009, 3041&gt;</span></li>
+    <li><em>d</em>(<span class="blog-calculation-factlink">“Vague or unknown Factlink”</span>) = <span class="blog-calculation-unsure">&lt;182, 119, 1205&gt;</span></li>
+  </ol>
+
+  <p>To be a bit more precise, the voting part of <span class="blog-calculation-f1">F1</span>’s credibility distribution <em>d<sub>v</sub></em>(<span class="blog-calculation-f1">F1</span>) is the sum of the credibility distribution of individual votes. An “agree” vote corresponds to <span class="blog-calculation-agree">&lt;1, 0, 0&gt;</span>, a “disagree” vote to <span class="blog-calculation-disagree">&lt;0, 1, 0&gt;</span> and an “unsure” vote to <span class="blog-calculation-unsure">&lt;0, 0, 1&gt;</span>.</p>
+
+  <p>To calculate the sum of different votes, we need to define addition on credibility distributions. An intuitive choice would be to just add up the numbers:</p>
+
+  <p>&lt;<em>t1</em>, <em>f1</em>, <em>u1</em>&gt; + &lt;<em>t2</em>, <em>f2</em>, <em>u2</em>&gt; = &lt;<em>t1</em>+<em>t2</em>, <em>f1</em>+<em>f2</em>, <em>u1</em>+<em>u2</em>&gt;</p>
+
+  <p>Now, if you have a <span class="blog-calculation-f1">Factlink F1</span> with, say, 2 <span class="blog-calculation-agree">agreeing</span> votes, and 1 <span class="blog-calculation-disagree">disagreeing</span> vote, you would get:</p>
+
+  <p><em>d<sub>v</sub></em>(<span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-agree">&lt;1, 0, 0&gt;</span> + <span class="blog-calculation-agree">&lt;1, 0, 0&gt;</span> + <span class="blog-calculation-disagree">&lt;0, 1, 0&gt;</span> = <span class="blog-calculation-agree">&lt;2, 1, 0&gt;</span></p>
+
+  <p>Looks reasonable, right? It becomes more interesting when we add evidence. How does good evidence change the credibility calculation? One way to look at it is to say that good evidence is the same as a lot of people voting. Bad evidence is the same as only a few people voting.</p>
+
+  <p>For example, if you have <span class="blog-calculation-supporting">supporting evidence</span>, that a lot of people find relevant, and a lot of people think is true, then that could count as a big vote in favour of the Factlink, say <span class="blog-calculation-agree">&lt;300, 0, 0&gt;</span>. Such evidence would weigh the same as 300 people voting in favour, so there must be a darn good reason why it weighs so much. In our model there must be 300 people <span class="blog-calculation-agree">agreeing</span> with the <span class="blog-calculation-supporting">supporting Factlink</span>, and 300 people saying that the relation is <span class="blog-calculation-agree">relevant</span>.</p>
+
+  <p>So, the evidence part of a Factlink’s credibility distribution is the sum of the credibility distribution of its evidence. <span class="blog-calculation-supporting">Supporting evidence</span>, denoted as <span class="blog-calculation-f2">F2</span> <span class="blog-calculation-supporting-arrow">⟶</span> <span class="blog-calculation-f1">F1</span> (<span class="blog-calculation-f2">F2</span> <span class="blog-calculation-supporting">supporting</span> <span class="blog-calculation-f1">F1</span>), has a credibility distribution <em>d</em>(<span class="blog-calculation-f2">F2</span> <span class="blog-calculation-supporting-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>). The same goes for <span class="blog-calculation-weakening">weakening evidence</span>, <span class="blog-calculation-f3">F3</span> <span class="blog-calculation-weakening-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>. Such a distribution is made up of the relevance votes on the evidence, and the credibility distribution of <span class="blog-calculation-f2">F2</span>:</p>
+
+  <p><em>d</em>(<span class="blog-calculation-f2">F2</span> <span class="blog-calculation-supporting-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) = &lt;<em>min</em>(<em>t1</em>-f1, <em>t2</em>-<em>f2</em>), 0, 0&gt;<br>
+    <em>d</em>(<span class="blog-calculation-f2">F2</span> <span class="blog-calculation-weakening-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) = &lt;0, <em>min</em>(<em>t1</em>-f1, <em>t2</em>-<em>f2</em>), 0&gt;<br>
+    where &lt;<em>t1</em>, <em>f1</em>, <em>u1</em>&gt; = <em>d<sub>v</sub></em>(<span class="blog-calculation-f2">F2</span> <span class="blog-calculation-supporting-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) (up/downvotes on evidence)<br>
+    and &lt;<em>t2</em>, <em>f2</em>, <em>u2</em>&gt; = <em>d</em>(<span class="blog-calculation-f2">F2</span>)</p>
+
+  <p>This ensures that we don’t puff up the importance of this complex opinion more than any of its constituent parts and bounds the information that can pass through evidence. It allows highly credible Factlinks to support or weaken other Factlinks, but requires matching relevance of the relationship to transmit their credibility.</p>
+
+  <p>The final credibility distribution of a <span class="blog-calculation-f1">Factlink F1</span> is the sum of the voting part <em>d<sub>v</sub></em>(<span class="blog-calculation-f1">F1</span>), and of the evidence part <em>d<sub>e</sub></em>(<span class="blog-calculation-f1">F1</span>), which we define as the sum of distributions of evidence of <span class="blog-calculation-f1">F1</span>. An example:</p>
+
+  <p><span class="blog-calculation-f1">F1</span> = <span class="blog-calculation-factlink blog-calculation-f1">“peanut butter is great”</span>, <em>d<sub>v</sub></em>(<span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-unsure">&lt;4, 2, 8&gt;</span><br>
+    <span class="blog-calculation-f2">F2</span> = <span class="blog-calculation-factlink blog-calculation-f2">“peanut butter has great taste”</span>, <em>d</em>(<span class="blog-calculation-f2">F2</span>) = <em>d<sub>v</sub></em>(<span class="blog-calculation-f2">F2</span>) = <span class="blog-calculation-agree">&lt;10, 3, 0&gt;</span><br>
+    <span class="blog-calculation-f3">F3</span> = <span class="blog-calculation-factlink blog-calculation-f3">“peanut butter has awful texture”</span>, <em>d</em>(<span class="blog-calculation-f3">F3</span>) = <em>d<sub>v</sub></em>(<span class="blog-calculation-f3">F3</span>) = <span class="blog-calculation-agree">&lt;6, 4, 2&gt;</span><br>
+    <em>d<sub>v</sub></em>(<span class="blog-calculation-f2">F2</span> <span class="blog-calculation-supporting-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-agree">&lt;11, 2, 0&gt;</span><br>
+    <em>d<sub>v</sub></em>(<span class="blog-calculation-f3">F3</span> <span class="blog-calculation-weakening-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-agree">&lt;9, 3, 0&gt;</span></p>
+
+  <p>Then:<br>
+    <em>d</em>(<span class="blog-calculation-f2">F2</span> <span class="blog-calculation-supporting-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) = &lt;<em>min</em>(11-2, 10-3), 0, 0&gt; = <span class="blog-calculation-agree">&lt;7, 0, 0&gt;</span><br>
+    <em>d</em>(<span class="blog-calculation-f3">F3</span> <span class="blog-calculation-weakening-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) = &lt;0, <em>min</em>(9-3, 6-4), 0&gt; = <span class="blog-calculation-disagree">&lt;0, 2, 0&gt;</span><br>
+    So <em>d<sub>e</sub></em>(<span class="blog-calculation-f1">F1</span>) = <em>d</em>(<span class="blog-calculation-f2">F2</span> <span class="blog-calculation-supporting-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) + <em>d</em>(<span class="blog-calculation-f3">F3</span> <span class="blog-calculation-weakening-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-agree">&lt;7, 2, 0&gt;</span><br>
+    So <em>d</em>(<span class="blog-calculation-f1">F1</span>) = <em>d<sub>v</sub></em>(<span class="blog-calculation-f1">F1</span>) + <em>d<sub>e</sub></em>(<span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-unsure">&lt;4, 2, 8&gt;</span> + <span class="blog-calculation-agree">&lt;7, 2, 0&gt;</span> = <b><span class="blog-calculation-agree">&lt;11, 4, 8&gt;</span></b></p>
+
+  <p>When now looking at <span class="blog-calculation-f1">F1</span>, you will see that the prevailing opinion is that peanut butter is great, even though the majority of people didn’t vote directly in agreement with that. However, quite a few people agreed with the underlying <span class="blog-calculation-supporting">supporting evidence</span>, and enough people agreed that the evidence was <span class="blog-calculation-agree">relevant</span>.</p>
+
+  <p>The kicker is that this final credibility distribution of <span class="blog-calculation-f1">F1</span> is used when <span class="blog-calculation-f1">F1</span> is used as evidence for other Factlinks, allowing votes to propagate throughout the network of Factlinks and evidence.</p>
+
+
+  <h4>Variations</h4>
+
+  <p>We’ve had various variations on this calculation, which might be worth mentioning. For example, you could add evidence for the uncertainty of a Factlink, which would add to the number of unsure votes.</p>
+
+  <p>The most notable addition was authority. You could gain authority when people found your evidence relevant. This encouraged making good connections between Factlinks. We didn’t award authority if someone agreed with a Factlink you annotated, as you shouldn’t be punished for not posting agreeable content. After all, the whole point was to call out misinformation on the web.</p>
+
+  <p>Authority was then used to weigh votes. The votes of people with high authority would thus weigh more than the votes of people with low authority. This way we tried to build moderation into the system: if people appreciated the evidence you posted, then your vote would weigh more than that of people who weren’t yet appreciated by the community.</p>
+
+  <p>Of course, people who have expertise on one topic often don’t know much about other topics. That’s why at one point we even had topic-specific authority, weighed by “topic channels” that people posted Factlinks to. But that’s another story.</p>
+
+
+  <h4>User interface</h4>
+
+  <p>The calculation has been designed to be directly visualised and interacted with. But building a good user interface proved tricky. We started out with tabs for supporting, weakening, and unsure votes and evidence. But that meant that the initially opened tab got the most attention.</p>
+
+  <p>More importantly, there were too many numbers on the screen, which was overwhelming. It also wasn’t clear what all the different numbers meant. We tried to address those problems with a design that showed all votes and evidence in one overview:</p>
+
+  <p>[screenshot of ndp]</p>
+
+  <p>In this design, the numbers in the middle represent not the relevance of the evidence, but the total number of agreeing or disagreeing votes of the evidence’s credibility distribution. All the numbers of the evidence and votes add up to the big number on top, which represents the “total amount of thinking” or “brain cycles” that people have put into it.</p>
+
+  <p>Showing total contributing votes instead of relevance also subtly changed the meaning of upvote and downvote buttons. If you click upvote, you want the number to go up. Just adding an agreeing vote to the relevance of the evidence is not enough, as you often also need to agree with the underlying Factlink. Therefore we added popups when clicking on an upvote or downvote button, to ask what you think exactly:</p>
+
+  <p>[screenshot]</p>
+
+
+  <h4>Epilogue</h4>
+
+  <p>In the end, we didn’t gain enough traction with this product, and decided to focus on annotation. But we think the idea was quite intriguing. We hope that someday online communities can visibly work together to assess the credibility of statements using evidence. To call out misinformation. We hope to have inspired you.</p>
+
+<% end %>

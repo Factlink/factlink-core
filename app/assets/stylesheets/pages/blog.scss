@@ -45,3 +45,148 @@ ul.blog-content-list {
   display: block;
   margin-bottom: 0.8em;
 }
+
+.blog-aside {
+  @include from-width(700px) {
+    position: absolute;
+    right: 0;
+    width: 25%;
+  }
+}
+
+$undeterminedColour: hsl(0, 0%, 40%);
+$agreeColour: hsl(76, 80%, 40%);
+$disagreeColour: hsl(15, 82%, 55%);
+$unsureColour: hsl(196, 78%, 55%);
+$agreeFillColour: hsl(76, 57%, 50%);
+$disagreeFillColour:hsl(15, 82%, 50%);
+$unsureFillColour: hsl(196, 78%, 50%);
+$agreeBackgroundColour: hsl(76, 57%, 86%);
+$disagreeBackgroundColour:hsl(15, 82%, 90%);
+$unsureBackgroundColour: hsl(196, 78%, 87%);
+
+.blog-calculation-f1 {
+  color: $undeterminedColour;
+}
+
+.blog-calculation-f2 {
+  color: $agreeColour;
+}
+
+.blog-calculation-f3 {
+  color: $disagreeColour;
+}
+
+.blog-calculation-f4 {
+  color: hsl(280, 78%, 55%);
+}
+
+.blog-calculation-factlink {
+  color: black;
+  background: hsl(0, 0%, 90%);
+}
+
+.blog-calculation-factlink.blog-calculation-f2 {
+  background: $agreeBackgroundColour;
+}
+
+.blog-calculation-factlink.blog-calculation-f3 {
+  background: $disagreeBackgroundColour;
+}
+
+.blog-calculation-factlink.blog-calculation-f4 {
+  background: hsl(280, 78%, 93%);
+}
+
+.blog-calculation-undetermined:before,
+.blog-calculation-agree:before,
+.blog-calculation-disagree:before,
+.blog-calculation-unsure:before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: text-top;
+  margin-right: 3px;
+}
+
+.blog-calculation-undetermined {
+  color: $undeterminedColour;
+}
+
+.blog-calculation-agree {
+  &:before {
+    background: asset-data-url('blog/calculation/100-0-0.png');
+  }
+  color: $agreeColour;
+}
+
+.blog-calculation-disagree {
+  &:before {
+    background: asset-data-url('blog/calculation/0-100-0.png');
+  }
+  color: $disagreeColour;
+}
+
+.blog-calculation-unsure {
+  &:before {
+    background: asset-data-url('blog/calculation/0-0-100.png');
+  }
+  color: $unsureColour;
+}
+
+.blog-calculation-supporting:before,
+.blog-calculation-weakening:before {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  border-radius: 100px;
+  text-align: center;
+  vertical-align: middle;
+  margin-right: 3px;
+  color: hsl(0, 100%, 100%);
+  margin-top: -1px;
+}
+
+.blog-calculation-supporting {
+  color: $agreeColour;
+  &:before {
+    content: '+';
+    background-color: $agreeFillColour;
+  }
+}
+
+.blog-calculation-weakening {
+  color: $disagreeColour;
+  &:before {
+    content: '–';
+    background-color: $disagreeFillColour;
+    line-height: 14px;
+  }
+}
+
+.blog-calculation-supporting-arrow,
+.blog-calculation-weakening-arrow {
+  position: relative;
+  top: 1px;
+  &:before {
+    position: absolute;
+    top: -6px;
+    width: 100%;
+    text-align: center;
+    margin-left: -1px;
+  }
+}
+.blog-calculation-supporting-arrow {
+  color: $agreeColour;
+  &:before {
+    content: '+';
+  }
+}
+.blog-calculation-weakening-arrow {
+  color: $disagreeColour;
+  &:before {
+    content: '–';
+  }
+}
