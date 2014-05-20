@@ -54,20 +54,6 @@ ul.blog-content-list {
   }
 }
 
-.blog-aside {
-  @include from-width($blogBreakpoint) {
-    position: absolute;
-    right: 0;
-    width: 25%;
-    font-size: 85%;
-    transform: translateY(-100%);
-    -o-transform: translateY(-100%);
-    -ms-transform: translateY(-100%);
-    -moz-transform: translateY(-100%);
-    -webkit-transform: translateY(-100%);
-  }
-}
-
 .blog-figure {
   margin: 0;
   display: inline-block;
@@ -80,6 +66,24 @@ ul.blog-content-list {
   figcaption {
     font-size: 85%;
     text-align: center;
+  }
+}
+
+.blog-aside {
+  @include from-width($blogBreakpoint) {
+    position: absolute;
+    right: 0;
+    width: 25%;
+    font-size: 85%;
+    transform: translateY(-100%);
+    -o-transform: translateY(-100%);
+    -ms-transform: translateY(-100%);
+    -moz-transform: translateY(-100%);
+    -webkit-transform: translateY(-100%);
+  }
+
+  .blog-figure figcaption {
+    font-size: 100%;
   }
 }
 

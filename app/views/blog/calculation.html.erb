@@ -36,7 +36,10 @@
   </ol>
 
   <aside class="blog-aside">
-    <%= image_tag 'blog/calculation/annotate-agree-neutral-disagree.png', class: 'blog-content-image' %>
+    <figure class="blog-figure">
+      <%= image_tag 'blog/calculation/annotate-agree-neutral-disagree.png', class: 'blog-content-image' %>
+      <figcaption>annotating a Factlink</figcaption>
+    </figure>
   </aside>
 
   <p>Once you created a Factlink on a website, other people with the browser extension could see it. It didn’t modify the website directly, as that’s not possible, but it altered how the website is rendered using the browser extension. Thus we called Factlink “a layer over the web”.</p>
@@ -44,7 +47,10 @@
   <p>You could then post the Factlink to a channel, such as “Brain development”. Others who subscribed to that channel, such as experts or interested people, would then see the Factlink on their activity feed. They could then give their opinion, add sources, and comment on the Factlink.</p>
 
   <aside class="blog-aside">
-    <%= image_tag 'blog/calculation/channels.png', class: 'blog-content-image' %>
+    <figure class="blog-figure">
+      <%= image_tag 'blog/calculation/channels.png', class: 'blog-content-image' %>
+      <figcaption>adding a Factlink to a channel</figcaption>
+    </figure>
   </aside>
 
   <p>The annotation part of Factlink still works similarly to what we had then, except that we marked Factlinks using a checkmark in front of the text, while we now show an icon next on the right of a paragraph.</p>
@@ -97,7 +103,10 @@
 
   <p>In theory, you could visualise the relevance of evidence with a Factwheel. However, to avoid confusion, we chose a different representation: voting arrows.</p>
 
-  <%= image_tag 'blog/calculation/evidence.png', class: 'blog-content-image' %>
+  <figure class="blog-figure">
+    <%= image_tag 'blog/calculation/evidence.png', class: 'blog-content-image' %>
+    <figcaption>arrows for voting on relevance, and Factwheel for voting on credibility</figcaption>
+  </figure>
 
 
   <h4>Calculating credibility</h4>
@@ -195,7 +204,10 @@
 
   <p>Showing total contributing votes instead of relevance also subtly changed the meaning of upvote and downvote buttons. If you click upvote, you want the number to go up. Just adding an agreeing vote to the relevance of the evidence is not enough, as you often also need to agree with the underlying Factlink. Therefore we added popups when clicking on an upvote or downvote button, to ask what you think exactly:</p>
 
-  <%= image_tag 'blog/calculation/ndp-popup.png', class: 'blog-content-image' %>
+  <figure class="blog-figure">
+    <%= image_tag 'blog/calculation/ndp-popup.png', class: 'blog-content-image' %>
+    <figcaption>clarification popup when voting</figcaption>
+  </figure>
 
 
   <h4>Epilogue</h4>
