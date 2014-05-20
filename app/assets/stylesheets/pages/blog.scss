@@ -1,6 +1,13 @@
+.blog-container {
+  position: relative;
+}
+
 .blog-content {
-  overflow: hidden;
   padding: 0 20px;
+
+  @include from-width(700px) {
+    width: 70%;
+  }
 }
 
 .blog-content > p {
@@ -16,10 +23,10 @@
 }
 
 .blog-about-box {
-  float: right;
-  max-width: 240px;
-  margin-left: 30px;
-  @include remove-element-below(600px);
+  position: absolute;
+  right: 0;
+  width: 26%;
+  @include remove-element-below(700px);
 }
 
 ul.blog-content-list {
