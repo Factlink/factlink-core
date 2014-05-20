@@ -104,43 +104,43 @@ $agreeBackgroundColour: hsl(76, 57%, 86%);
 $disagreeBackgroundColour:hsl(15, 82%, 90%);
 $unsureBackgroundColour: hsl(196, 78%, 87%);
 
-.blog-calculation-f1 {
+.blog-fact-graph-f1 {
   color: $undeterminedColour;
 }
 
-.blog-calculation-f2 {
+.blog-fact-graph-f2 {
   color: $agreeColour;
 }
 
-.blog-calculation-f3 {
+.blog-fact-graph-f3 {
   color: $disagreeColour;
 }
 
-.blog-calculation-f4 {
+.blog-fact-graph-f4 {
   color: hsl(280, 78%, 55%);
 }
 
-.blog-calculation-factlink {
+.blog-fact-graph-factlink {
   color: black;
   background: hsl(0, 0%, 90%);
 }
 
-.blog-calculation-factlink.blog-calculation-f2 {
+.blog-fact-graph-factlink.blog-fact-graph-f2 {
   background: $agreeBackgroundColour;
 }
 
-.blog-calculation-factlink.blog-calculation-f3 {
+.blog-fact-graph-factlink.blog-fact-graph-f3 {
   background: $disagreeBackgroundColour;
 }
 
-.blog-calculation-factlink.blog-calculation-f4 {
+.blog-fact-graph-factlink.blog-fact-graph-f4 {
   background: hsl(280, 78%, 93%);
 }
 
-.blog-calculation-undetermined:before,
-.blog-calculation-agree:before,
-.blog-calculation-disagree:before,
-.blog-calculation-unsure:before {
+.blog-fact-graph-undetermined:before,
+.blog-fact-graph-agree:before,
+.blog-fact-graph-disagree:before,
+.blog-fact-graph-unsure:before {
   content: '';
   display: inline-block;
   width: 20px;
@@ -149,43 +149,43 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
   margin-right: 3px;
 }
 
-.blog-calculation-undetermined {
+.blog-fact-graph-undetermined {
   color: $undeterminedColour;
 }
 
-.blog-calculation-agree {
+.blog-fact-graph-agree {
   &:before {
-    background: asset-data-url('blog/calculation/100-0-0.png');
+    background: asset-data-url('blog/fact_graph/100-0-0.png');
   }
   color: $agreeColour;
 }
 
-.blog-calculation-disagree {
+.blog-fact-graph-disagree {
   &:before {
-    background: asset-data-url('blog/calculation/0-100-0.png');
+    background: asset-data-url('blog/fact_graph/0-100-0.png');
   }
   color: $disagreeColour;
 }
 
-.blog-calculation-unsure {
+.blog-fact-graph-unsure {
   &:before {
-    background: asset-data-url('blog/calculation/0-0-100.png');
+    background: asset-data-url('blog/fact_graph/0-0-100.png');
   }
   color: $unsureColour;
 }
 
-.blog-calculation-2-1-0:before { background: asset-data-url('blog/calculation/2-1-0.png'); }
-.blog-calculation-4-2-8:before { background: asset-data-url('blog/calculation/4-2-8.png'); }
-.blog-calculation-6-4-2:before { background: asset-data-url('blog/calculation/6-4-2.png'); }
-.blog-calculation-7-2-0:before { background: asset-data-url('blog/calculation/7-2-0.png'); }
-.blog-calculation-9-3-0:before { background: asset-data-url('blog/calculation/9-3-0.png'); }
-.blog-calculation-10-3-0:before { background: asset-data-url('blog/calculation/9-3-0.png'); }
-.blog-calculation-11-2-0:before { background: asset-data-url('blog/calculation/11-2-0.png'); }
-.blog-calculation-11-4-8:before { background: asset-data-url('blog/calculation/11-4-8.png'); }
-.blog-calculation-7839-8009-3041:before { background: asset-data-url('blog/calculation/7839-8009-3041.png'); }
+.blog-fact-graph-2-1-0:before { background: asset-data-url('blog/fact_graph/2-1-0.png'); }
+.blog-fact-graph-4-2-8:before { background: asset-data-url('blog/fact_graph/4-2-8.png'); }
+.blog-fact-graph-6-4-2:before { background: asset-data-url('blog/fact_graph/6-4-2.png'); }
+.blog-fact-graph-7-2-0:before { background: asset-data-url('blog/fact_graph/7-2-0.png'); }
+.blog-fact-graph-9-3-0:before { background: asset-data-url('blog/fact_graph/9-3-0.png'); }
+.blog-fact-graph-10-3-0:before { background: asset-data-url('blog/fact_graph/9-3-0.png'); }
+.blog-fact-graph-11-2-0:before { background: asset-data-url('blog/fact_graph/11-2-0.png'); }
+.blog-fact-graph-11-4-8:before { background: asset-data-url('blog/fact_graph/11-4-8.png'); }
+.blog-fact-graph-7839-8009-3041:before { background: asset-data-url('blog/fact_graph/7839-8009-3041.png'); }
 
-.blog-calculation-supporting:before,
-.blog-calculation-weakening:before {
+.blog-fact-graph-supporting:before,
+.blog-fact-graph-weakening:before {
   display: inline-block;
   width: 16px;
   height: 16px;
@@ -198,7 +198,7 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
   margin-top: -1px;
 }
 
-.blog-calculation-supporting {
+.blog-fact-graph-supporting {
   color: $agreeColour;
   &:before {
     content: '+';
@@ -206,7 +206,7 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
   }
 }
 
-.blog-calculation-weakening {
+.blog-fact-graph-weakening {
   color: $disagreeColour;
   &:before {
     content: '–';
@@ -215,8 +215,8 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
   }
 }
 
-.blog-calculation-supporting-arrow,
-.blog-calculation-weakening-arrow {
+.blog-fact-graph-supporting-arrow,
+.blog-fact-graph-weakening-arrow {
   position: relative;
   top: 1px;
   &:before {
@@ -227,13 +227,13 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
     margin-left: -1px;
   }
 }
-.blog-calculation-supporting-arrow {
+.blog-fact-graph-supporting-arrow {
   color: $agreeColour;
   &:before {
     content: '+';
   }
 }
-.blog-calculation-weakening-arrow {
+.blog-fact-graph-weakening-arrow {
   color: $disagreeColour;
   &:before {
     content: '–';
