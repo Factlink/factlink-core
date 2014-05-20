@@ -72,7 +72,7 @@
 
   <p>Initially, we started out with just voting. If you <span class="blog-calculation-agree">agreed</span>, you clicked the green part, which would grow a little. And the number inside the circle would become larger. The same for the red and blue parts.</p>
 
-  <p>[example applet of Factlink with just Factwheel]</p>
+  <!-- [example applet of Factlink with just Factwheel] -->
 
 
   <h4>Linking statements</h4>
@@ -85,7 +85,7 @@
 
   <p>Say you find a counter argument on the web, which you annotate. <span class="blog-calculation-f3">F3</span>: <span class="blog-calculation-factlink blog-calculation-f3">“In conclusion, in 89% of the cases we have looked at, working in the office was most productive.”</span> This one might be added as <span class="blog-calculation-weakening">weakening evidence</span> to <span class="blog-calculation-f1">F1</span>. If it turns out <span class="blog-calculation-f3">F3</span> is <span class="blog-calculation-agree">credible</span>, then <span class="blog-calculation-f1">F1</span> becomes <span class="blog-calculation-disagree">less credible</span>. The red part of the Factwheel of <span class="blog-calculation-f1">F1</span> will become bigger.</p>
 
-  <p>[example applet of Factlink with those two as evidence]</p>
+  <!-- [example applet of Factlink with those two as evidence] -->
 
   <p>What if someone adds nonsense <span class="blog-calculation-supporting">supporting evidence</span>, <span class="blog-calculation-f4">F4</span>: <span class="blog-calculation-factlink blog-calculation-f4">“The sky is blue.”</span> Someone can do this to falsely increase or decrease credibility of <span class="blog-calculation-f1">F1</span>, especially if <span class="blog-calculation-f4">F4</span> itself is <span class="blog-calculation-agree">very credible</span>. We could allow users to flag such invalid arguments, and have them removed by a moderator, or if enough people flag it.</p>
 
@@ -93,7 +93,7 @@
 
   <p>In the same way you can vote on the credibility of Factlinks, you can vote on the credibility of the relations between Factlinks, evidence. In an attempt to avoid confusion, we call this voting on relevance. You can <span class="blog-calculation-agree">agree</span> or <span class="blog-calculation-disagree">disagree</span> that evidence is relevant.</p>
 
-  <p>[infographic of relation also having a factwheel]</p>
+  <!-- [infographic of relation also having a factwheel] -->
 
   <p>In theory, you could visualise the relevance of evidence with a Factwheel. However, to avoid confusion, we chose a different representation: voting arrows.</p>
 
@@ -106,7 +106,7 @@
 
   <p>We denote the credibility distribution of a <span class="blog-calculation-f1">Factlink F1</span> as <em>d</em>(<span class="blog-calculation-f1">F1</span>). The numbers <em>t</em>, <em>f</em>, and <em>u</em> correspond to green, red, and blue parts of the Factwheel. The number inside the Factwheel is the sum of those numbers, representing the total amount of votes, or “thinking”.</p>
 
-  <p>Examples [with Factwheels]:</p>
+  <p>Examples:</p>
 
   <ol>
     <li><em>d</em>(<span class="blog-calculation-factlink">“Generally agreed upon Factlink”</span>) = <span class="blog-calculation-agree">&lt;10000, 8, 13&gt;</span></li>
@@ -176,8 +176,8 @@
   <p>More importantly, there were too many numbers on the screen, which was overwhelming. It also wasn’t clear what all the different numbers meant. We tried to address those problems with a design that showed all votes and evidence in one overview:</p>
 
   <aside class="blog-aside">
-    <p>Compare the original and new design here in full resolution:
-      <%= link_to('original', image_path( "blog/calculation/odp-full.png")) %>, <%= link_to('new', image_path( "blog/calculation/ndp-design-full.jpg")) %>.</p>
+    <p>Compare the designs here in full resolution:
+      <%= link_to('original', image_path( "blog/calculation/odp-full.png")) %>, <%= link_to('sketch', image_path( "blog/calculation/ndp-sketch-full.jpg")) %>, <%= link_to('new', image_path( "blog/calculation/ndp-design-full.jpg")) %>.</p>
   </aside>
 
   <div class="blog-full-width">
