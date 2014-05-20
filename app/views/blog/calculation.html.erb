@@ -98,9 +98,9 @@
 
   <ol>
     <li><em>d</em>(<span class="blog-calculation-factlink">“Generally agreed upon Factlink”</span>) = <span class="blog-calculation-agree">&lt;10000, 8, 13&gt;</span></li>
-    <li><em>d</em>(<span class="blog-calculation-factlink">“Factlink with only few votes”</span>) = <span class="blog-calculation-agree">&lt;2, 1, 0&gt;</span></li>
+    <li><em>d</em>(<span class="blog-calculation-factlink">“Factlink with only few votes”</span>) = <span class="blog-calculation-agree blog-calculation-2-1-0">&lt;2, 1, 0&gt;</span></li>
     <li><em>d</em>(<span class="blog-calculation-factlink">“Factlink without any votes”</span>) = <span class="blog-calculation-unsure">&lt;0, 0, 0&gt;</span></li>
-    <li><em>d</em>(<span class="blog-calculation-factlink">“Highly controversial Factlink”</span>) = <span class="blog-calculation-undetermined">&lt;7839, 8009, 3041&gt;</span></li>
+    <li><em>d</em>(<span class="blog-calculation-factlink">“Highly controversial Factlink”</span>) = <span class="blog-calculation-undetermined blog-calculation-7839-8009-3041">&lt;7839, 8009, 3041&gt;</span></li>
     <li><em>d</em>(<span class="blog-calculation-factlink">“Vague or unknown Factlink”</span>) = <span class="blog-calculation-unsure">&lt;182, 119, 1205&gt;</span></li>
   </ol>
 
@@ -112,7 +112,7 @@
 
   <p>Now, if you have a <span class="blog-calculation-f1">Factlink F1</span> with, say, 2 <span class="blog-calculation-agree">agreeing</span> votes, and 1 <span class="blog-calculation-disagree">disagreeing</span> vote, you would get:</p>
 
-  <p><em>d<sub>v</sub></em>(<span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-agree">&lt;1, 0, 0&gt;</span> + <span class="blog-calculation-agree">&lt;1, 0, 0&gt;</span> + <span class="blog-calculation-disagree">&lt;0, 1, 0&gt;</span> = <span class="blog-calculation-agree">&lt;2, 1, 0&gt;</span></p>
+  <p><em>d<sub>v</sub></em>(<span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-agree">&lt;1, 0, 0&gt;</span> + <span class="blog-calculation-agree">&lt;1, 0, 0&gt;</span> + <span class="blog-calculation-disagree">&lt;0, 1, 0&gt;</span> = <span class="blog-calculation-agree blog-calculation-2-1-0">&lt;2, 1, 0&gt;</span></p>
 
   <p>Looks reasonable, right? It becomes more interesting when we add evidence. How does good evidence change the credibility calculation? One way to look at it is to say that good evidence is the same as a lot of people voting. Bad evidence is the same as only a few people voting.</p>
 
@@ -129,17 +129,17 @@
 
   <p>The final credibility distribution of a <span class="blog-calculation-f1">Factlink F1</span> is the sum of the voting part <em>d<sub>v</sub></em>(<span class="blog-calculation-f1">F1</span>), and of the evidence part <em>d<sub>e</sub></em>(<span class="blog-calculation-f1">F1</span>), which we define as the sum of distributions of evidence of <span class="blog-calculation-f1">F1</span>. An example:</p>
 
-  <p><span class="blog-calculation-f1">F1</span> = <span class="blog-calculation-factlink blog-calculation-f1">“peanut butter is great”</span>, <em>d<sub>v</sub></em>(<span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-unsure">&lt;4, 2, 8&gt;</span><br>
-    <span class="blog-calculation-f2">F2</span> = <span class="blog-calculation-factlink blog-calculation-f2">“peanut butter has great taste”</span>, <em>d</em>(<span class="blog-calculation-f2">F2</span>) = <em>d<sub>v</sub></em>(<span class="blog-calculation-f2">F2</span>) = <span class="blog-calculation-agree">&lt;10, 3, 0&gt;</span><br>
-    <span class="blog-calculation-f3">F3</span> = <span class="blog-calculation-factlink blog-calculation-f3">“peanut butter has awful texture”</span>, <em>d</em>(<span class="blog-calculation-f3">F3</span>) = <em>d<sub>v</sub></em>(<span class="blog-calculation-f3">F3</span>) = <span class="blog-calculation-agree">&lt;6, 4, 2&gt;</span><br>
-    <em>d<sub>v</sub></em>(<span class="blog-calculation-f2">F2</span> <span class="blog-calculation-supporting-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-agree">&lt;11, 2, 0&gt;</span><br>
-    <em>d<sub>v</sub></em>(<span class="blog-calculation-f3">F3</span> <span class="blog-calculation-weakening-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-agree">&lt;9, 3, 0&gt;</span></p>
+  <p><span class="blog-calculation-f1">F1</span> = <span class="blog-calculation-factlink blog-calculation-f1">“peanut butter is great”</span>, <em>d<sub>v</sub></em>(<span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-unsure blog-calculation-4-2-8">&lt;4, 2, 8&gt;</span><br>
+    <span class="blog-calculation-f2">F2</span> = <span class="blog-calculation-factlink blog-calculation-f2">“peanut butter has great taste”</span>, <em>d</em>(<span class="blog-calculation-f2">F2</span>) = <em>d<sub>v</sub></em>(<span class="blog-calculation-f2">F2</span>) = <span class="blog-calculation-agree blog-calculation-10-3-0">&lt;10, 3, 0&gt;</span><br>
+    <span class="blog-calculation-f3">F3</span> = <span class="blog-calculation-factlink blog-calculation-f3">“peanut butter has awful texture”</span>, <em>d</em>(<span class="blog-calculation-f3">F3</span>) = <em>d<sub>v</sub></em>(<span class="blog-calculation-f3">F3</span>) = <span class="blog-calculation-agree blog-calculation-6-4-2">&lt;6, 4, 2&gt;</span><br>
+    <em>d<sub>v</sub></em>(<span class="blog-calculation-f2">F2</span> <span class="blog-calculation-supporting-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-agree blog-calculation-11-2-0">&lt;11, 2, 0&gt;</span><br>
+    <em>d<sub>v</sub></em>(<span class="blog-calculation-f3">F3</span> <span class="blog-calculation-weakening-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-agree blog-calulcation-9-3-0">&lt;9, 3, 0&gt;</span></p>
 
   <p>Then:<br>
     <em>d</em>(<span class="blog-calculation-f2">F2</span> <span class="blog-calculation-supporting-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) = &lt;<em>min</em>(11-2, 10-3), 0, 0&gt; = <span class="blog-calculation-agree">&lt;7, 0, 0&gt;</span><br>
     <em>d</em>(<span class="blog-calculation-f3">F3</span> <span class="blog-calculation-weakening-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) = &lt;0, <em>min</em>(9-3, 6-4), 0&gt; = <span class="blog-calculation-disagree">&lt;0, 2, 0&gt;</span><br>
-    So <em>d<sub>e</sub></em>(<span class="blog-calculation-f1">F1</span>) = <em>d</em>(<span class="blog-calculation-f2">F2</span> <span class="blog-calculation-supporting-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) + <em>d</em>(<span class="blog-calculation-f3">F3</span> <span class="blog-calculation-weakening-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-agree">&lt;7, 2, 0&gt;</span><br>
-    So <em>d</em>(<span class="blog-calculation-f1">F1</span>) = <em>d<sub>v</sub></em>(<span class="blog-calculation-f1">F1</span>) + <em>d<sub>e</sub></em>(<span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-unsure">&lt;4, 2, 8&gt;</span> + <span class="blog-calculation-agree">&lt;7, 2, 0&gt;</span> = <b><span class="blog-calculation-agree">&lt;11, 4, 8&gt;</span></b></p>
+    So <em>d<sub>e</sub></em>(<span class="blog-calculation-f1">F1</span>) = <em>d</em>(<span class="blog-calculation-f2">F2</span> <span class="blog-calculation-supporting-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) + <em>d</em>(<span class="blog-calculation-f3">F3</span> <span class="blog-calculation-weakening-arrow">⟶</span> <span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-agree blog-calculation-7-2-0">&lt;7, 2, 0&gt;</span><br>
+    So <em>d</em>(<span class="blog-calculation-f1">F1</span>) = <em>d<sub>v</sub></em>(<span class="blog-calculation-f1">F1</span>) + <em>d<sub>e</sub></em>(<span class="blog-calculation-f1">F1</span>) = <span class="blog-calculation-unsure blog-calculation-4-2-8">&lt;4, 2, 8&gt;</span> + <span class="blog-calculation-agree blog-calculation-7-2-0">&lt;7, 2, 0&gt;</span> = <b><span class="blog-calculation-agree blog-calulcation-11-4-8">&lt;11, 4, 8&gt;</span></b></p>
 
   <p>When now looking at <span class="blog-calculation-f1">F1</span>, you will see that the prevailing opinion is that peanut butter is great, even though the majority of people didn’t vote directly in agreement with that. However, quite a few people agreed with the underlying <span class="blog-calculation-supporting">supporting evidence</span>, and enough people agreed that the evidence was <span class="blog-calculation-agree">relevant</span>.</p>
 
