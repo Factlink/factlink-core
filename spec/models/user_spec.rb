@@ -110,7 +110,7 @@ describe User do
 
       token = user.notification_settings_edit_token
 
-      expect(token).to match /\A\w{4,}\Z/
+      expect(token).to match /\A[\w-]{4,}\Z/
     end
 
     it "generates a random token" do
