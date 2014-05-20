@@ -36,10 +36,12 @@
   </ol>
 
   <aside class="blog-aside">
-    <figure class="blog-figure">
-      <%= image_tag 'blog/fact_graph/annotate-agree-neutral-disagree.png', class: 'blog-content-image' %>
-      <figcaption>annotating a Factlink</figcaption>
-    </figure>
+    <div class="blog-aside-inner">
+      <figure class="blog-figure">
+        <%= image_tag 'blog/fact_graph/annotate-agree-neutral-disagree.png', class: 'blog-content-image' %>
+        <figcaption>annotating a Factlink</figcaption>
+      </figure>
+    </div>
   </aside>
 
   <p>Once you created a Factlink on a website, other people with the browser extension could see it. It didn’t modify the website directly, as that’s not possible, but it altered how the website is rendered using the browser extension. Thus we called Factlink “a layer over the web”.</p>
@@ -47,10 +49,12 @@
   <p>You could then post the Factlink to a channel, such as “Brain development”. Others who subscribed to that channel, such as experts or interested people, would then see the Factlink on their activity feed. They could then give their opinion, add sources, and comment on the Factlink.</p>
 
   <aside class="blog-aside">
-    <figure class="blog-figure">
-      <%= image_tag 'blog/fact_graph/channels.png', class: 'blog-content-image' %>
-      <figcaption>adding a Factlink to a channel</figcaption>
-    </figure>
+    <div class="blog-aside-inner">
+      <figure class="blog-figure">
+        <%= image_tag 'blog/fact_graph/channels.png', class: 'blog-content-image' %>
+        <figcaption>adding a Factlink to a channel</figcaption>
+      </figure>
+    </div>
   </aside>
 
   <p>The annotation part of Factlink still works similarly to what we had then, except that we marked Factlinks using a checkmark in front of the text, while we now show an icon next on the right of a paragraph.</p>
@@ -185,8 +189,9 @@
   <p>More importantly, there were too many numbers on the screen, which was overwhelming. It also wasn’t clear what all the different numbers meant. We tried to address those problems with a design that showed all votes and evidence in one overview:</p>
 
   <aside class="blog-aside">
-    <p>Compare the designs here in full resolution:
-      <%= link_to('original', image_path( "blog/fact_graph/odp-full.png")) %>, <%= link_to('sketch', image_path( "blog/fact_graph/ndp-sketch-full.jpg")) %>, <%= link_to('new', image_path( "blog/fact_graph/ndp-design-full.jpg")) %>.</p>
+    <div class="blog-aside-inner">
+      <p>Compare the designs here in full resolution: <%= link_to('original', image_path( "blog/fact_graph/odp-full.png")) %>, <%= link_to('sketch', image_path( "blog/fact_graph/ndp-sketch-full.jpg")) %>, <%= link_to('new', image_path( "blog/fact_graph/ndp-design-full.jpg")) %>.</p>
+    </div>
   </aside>
 
   <div class="blog-full-width">
