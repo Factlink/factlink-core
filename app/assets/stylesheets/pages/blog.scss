@@ -1,10 +1,19 @@
-.blog-content {
-  overflow: hidden;
-  padding: 0 20px;
+$blogWidth: 72%;
+$blogBreakpoint: 700px;
+
+.blog-container {
+  position: relative;
 }
 
-.blog-content > p {
-  padding-right: 10px;
+.blog-content {
+  @include from-width($blogBreakpoint) {
+    width: $blogWidth;
+  }
+
+  p, ul, ol {
+    margin-right: 10px;
+    padding-right: 10px;
+  }
 }
 
 .blog-content-image {
@@ -16,10 +25,10 @@
 }
 
 .blog-about-box {
-  float: right;
-  max-width: 240px;
-  margin-left: 30px;
-  @include remove-element-below(600px);
+  position: absolute;
+  right: 0;
+  width: 26%;
+  @include remove-element-below($blogBreakpoint);
 }
 
 ul.blog-content-list {
@@ -37,4 +46,198 @@ ul.blog-content-list {
   font-style: italic;
   display: block;
   margin-bottom: 0.8em;
+}
+
+.blog-full-width {
+  @include from-width($blogBreakpoint) {
+    width: 100% / $blogWidth * 100%;
+  }
+}
+
+.blog-figure {
+  margin: 0;
+  display: inline-block;
+  margin-bottom: 0.8em;
+
+  img {
+    margin-bottom: 0;
+  }
+
+  figcaption {
+    font-size: 85%;
+    text-align: center;
+  }
+}
+
+.blog-aside {
+  @include from-width($blogBreakpoint) {
+    position: absolute;
+    right: 0;
+    width: 25%;
+    font-size: 85%;
+  }
+
+  .blog-figure figcaption {
+    font-size: 100%;
+  }
+}
+
+.blog-aside-inner {
+  @include from-width($blogBreakpoint) {
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+.blog-image-half {
+  @include from-width($blogBreakpoint) {
+    width: 49%;
+  }
+}
+
+$undeterminedColour: hsl(0, 0%, 40%);
+$agreeColour: hsl(76, 80%, 40%);
+$disagreeColour: hsl(15, 82%, 55%);
+$unsureColour: hsl(196, 78%, 55%);
+$agreeFillColour: hsl(76, 57%, 50%);
+$disagreeFillColour:hsl(15, 82%, 50%);
+$unsureFillColour: hsl(196, 78%, 50%);
+$agreeBackgroundColour: hsl(76, 57%, 86%);
+$disagreeBackgroundColour:hsl(15, 82%, 90%);
+$unsureBackgroundColour: hsl(196, 78%, 87%);
+
+.blog-fact-graph-f1 {
+  color: $undeterminedColour;
+}
+
+.blog-fact-graph-f2 {
+  color: $agreeColour;
+}
+
+.blog-fact-graph-f3 {
+  color: $disagreeColour;
+}
+
+.blog-fact-graph-f4 {
+  color: hsl(280, 78%, 55%);
+}
+
+.blog-fact-graph-factlink {
+  color: black;
+  background: hsl(0, 0%, 90%);
+}
+
+.blog-fact-graph-factlink.blog-fact-graph-f2 {
+  background: $agreeBackgroundColour;
+}
+
+.blog-fact-graph-factlink.blog-fact-graph-f3 {
+  background: $disagreeBackgroundColour;
+}
+
+.blog-fact-graph-factlink.blog-fact-graph-f4 {
+  background: hsl(280, 78%, 93%);
+}
+
+.blog-fact-graph-undetermined:before,
+.blog-fact-graph-agree:before,
+.blog-fact-graph-disagree:before,
+.blog-fact-graph-unsure:before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: text-top;
+  margin-right: 3px;
+}
+
+.blog-fact-graph-undetermined {
+  color: $undeterminedColour;
+}
+
+.blog-fact-graph-agree {
+  &:before {
+    background: asset-data-url('blog/fact_graph/100-0-0.png');
+  }
+  color: $agreeColour;
+}
+
+.blog-fact-graph-disagree {
+  &:before {
+    background: asset-data-url('blog/fact_graph/0-100-0.png');
+  }
+  color: $disagreeColour;
+}
+
+.blog-fact-graph-unsure {
+  &:before {
+    background: asset-data-url('blog/fact_graph/0-0-100.png');
+  }
+  color: $unsureColour;
+}
+
+.blog-fact-graph-2-1-0:before { background: asset-data-url('blog/fact_graph/2-1-0.png'); }
+.blog-fact-graph-4-2-8:before { background: asset-data-url('blog/fact_graph/4-2-8.png'); }
+.blog-fact-graph-6-4-2:before { background: asset-data-url('blog/fact_graph/6-4-2.png'); }
+.blog-fact-graph-7-2-0:before { background: asset-data-url('blog/fact_graph/7-2-0.png'); }
+.blog-fact-graph-9-3-0:before { background: asset-data-url('blog/fact_graph/9-3-0.png'); }
+.blog-fact-graph-10-3-0:before { background: asset-data-url('blog/fact_graph/9-3-0.png'); }
+.blog-fact-graph-11-2-0:before { background: asset-data-url('blog/fact_graph/11-2-0.png'); }
+.blog-fact-graph-11-4-8:before { background: asset-data-url('blog/fact_graph/11-4-8.png'); }
+.blog-fact-graph-7839-8009-3041:before { background: asset-data-url('blog/fact_graph/7839-8009-3041.png'); }
+
+.blog-fact-graph-supporting:before,
+.blog-fact-graph-weakening:before {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  border-radius: 100px;
+  text-align: center;
+  vertical-align: middle;
+  margin-right: 3px;
+  color: hsl(0, 100%, 100%);
+  margin-top: -1px;
+}
+
+.blog-fact-graph-supporting {
+  color: $agreeColour;
+  &:before {
+    content: '+';
+    background-color: $agreeFillColour;
+  }
+}
+
+.blog-fact-graph-weakening {
+  color: $disagreeColour;
+  &:before {
+    content: '–';
+    background-color: $disagreeFillColour;
+    line-height: 14px;
+  }
+}
+
+.blog-fact-graph-supporting-arrow,
+.blog-fact-graph-weakening-arrow {
+  position: relative;
+  top: 1px;
+  &:before {
+    position: absolute;
+    top: -6px;
+    width: 100%;
+    text-align: center;
+    margin-left: -1px;
+  }
+}
+.blog-fact-graph-supporting-arrow {
+  color: $agreeColour;
+  &:before {
+    content: '+';
+  }
+}
+.blog-fact-graph-weakening-arrow {
+  color: $disagreeColour;
+  &:before {
+    content: '–';
+  }
 }
