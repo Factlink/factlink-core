@@ -473,8 +473,6 @@ class BaseFactWheelView extends Marionette.ItemView
     showsAuthorityTooltip: true
     radius: 16
 
-    minimalVisiblePercentage: 15
-
     defaultStrokeOpacity: 0.2
     hoverStrokeOpacity: 0.5
     userOpinionStrokeOpacity: 1.0
@@ -490,11 +488,11 @@ class BaseFactWheelView extends Marionette.ItemView
         groupname: 'Disagree'
         color: "#e94e1b"
 
-  template: (options) ->
+  template: (options) =>
     """
       <div class="raphael_container"></div>
       <div class="html_container">
-        <div class="authority">#{options.authority}</div>
+        <div class="authority">#{@model.totalVotes()}</div>
       </div>
     """
 
@@ -530,13 +528,12 @@ class BaseFactWheelView extends Marionette.ItemView
   boxSize: -> @options.radius * 2 + @maxStrokeWidth() + 2
 
   reRender: ->
-    @$('.authority').text(@model.get('authority'))
+    @$('.authority').text(@model.totalVotes())
     @postRenderActions()
 
   postRenderActions: ->
     offset = 0
-    @calculateDisplayablePercentages()
-    for key, opinionType of @model.get('opinion_types')
+    for key, opinionType of @model.opinion_types()
       @createOrAnimateArc opinionType, offset
       offset += opinionType.displayPercentage
     @bindTooltips()
@@ -576,24 +573,6 @@ class BaseFactWheelView extends Marionette.ItemView
       opacity: opacity
     , arc_animation_speed(), "<>")
 
-  # This method also commits the calculated percentages to the model, maybe return instead?
-  calculateDisplayablePercentages: ->
-    too_much = 0
-    large_ones = 0
-
-    for key, opinionType of @model.get('opinion_types')
-      percentage = opinionType.percentage
-      if percentage < @options.minimalVisiblePercentage
-        too_much += @options.minimalVisiblePercentage - percentage
-      else large_ones += percentage  if percentage > 40
-
-    for key, opinionType of @model.get('opinion_types')
-      percentage = opinionType.percentage
-      if percentage < @options.minimalVisiblePercentage
-        percentage = @options.minimalVisiblePercentage
-      else percentage = percentage - ((percentage / large_ones) * too_much)  if percentage > 40
-      opinionType.displayPercentage = percentage
-
   bindCustomRaphaelAttributes: ->
     polarToRegular = (origin, radius, angle)->
       x: origin[0] + radius * Math.cos(angle),
@@ -615,7 +594,7 @@ class BaseFactWheelView extends Marionette.ItemView
       path: [["M", start.x, start.y], ["A", radius, radius, 0, direction, 0, end.x, end.y]]
 
   mouseoverOpinionType: (path, opinion_type) ->
-    destinationOpacity = if @model.get('opinion_types')[opinion_type].is_user_opinion
+    destinationOpacity = if @model.opinion_types()[opinion_type].is_user_opinion
                            @options.userOpinionStrokeOpacity
                          else
                            @options.hoverStrokeOpacity
@@ -626,7 +605,7 @@ class BaseFactWheelView extends Marionette.ItemView
     , arc_animation_speed(), "<>")
 
   mouseoutOpinionType: (path, opinion_type) ->
-    destinationOpacity = if @model.get('opinion_types')[opinion_type].is_user_opinion
+    destinationOpacity = if @model.opinion_types()[opinion_type].is_user_opinion
                            @options.userOpinionStrokeOpacity
                          else
                            @options.defaultStrokeOpacity
@@ -635,7 +614,8 @@ class BaseFactWheelView extends Marionette.ItemView
       opacity: destinationOpacity
     , arc_animation_speed(), "<>")
 
-  clickOpinionType: ->
+  clickOpinionType: (opinion_type) ->
+    @model.clickOpinionType opinion_type
 
   bindTooltips: ->
     if @options.showsTooltips
@@ -665,7 +645,7 @@ class BaseFactWheelView extends Marionette.ItemView
         margin: @maxStrokeWidth()/2 - 3
       selector: selector
       tooltipViewFactory: =>
-        new TextView text: @options.opinionStyles[name].groupname + ": " + @model.get('opinion_types')[name].percentage + "%"
+        new TextView text: @options.opinionStyles[name].groupname + ": " + @model.opinion_types()[name].percentage + "%"
 
   _tooltipSideForPath: (path) ->
     bbox = path.getBBox()
@@ -673,13 +653,58 @@ class BaseFactWheelView extends Marionette.ItemView
 
 #####
 
+class FactWheelModel extends Backbone.Model
+
+  clickOpinionType: (opinion_type) ->
+    if @get('current_user_opinion')
+      @set @get('current_user_opinion'), @get(@get('current_user_opinion'))-1
+
+    if opinion_type == @get('current_user_opinion')
+      @set 'current_user_opinion', null
+    else
+      @set opinion_type, @get(opinion_type)+1
+      @set 'current_user_opinion', opinion_type
+
+  totalVotes: ->
+    @get('believe') + @get('disbelieve') + @get('doubt')
+
+  opinion_types: ->
+    believe_votes = Math.round(100*@get('believe')/@totalVotes())
+    disbelieve_votes = Math.round(100*@get('disbelieve')/@totalVotes())
+
+    @calculateDisplayablePercentages
+      believe: {percentage: believe_votes, type: 'believe', is_user_opinion: (@get('current_user_opinion') == 'believe')}
+      doubt: {percentage: 100-believe_votes-disbelieve_votes, type: 'doubt', is_user_opinion: (@get('current_user_opinion') == 'doubt')}
+      disbelieve: {percentage: disbelieve_votes, type: 'disbelieve', is_user_opinion: (@get('current_user_opinion') == 'disbelieve')}
+
+  calculateDisplayablePercentages: (opinion_types) ->
+    too_much = 0
+    large_ones = 0
+    minimalVisiblePercentage = 15
+
+    for key, opinionType of opinion_types
+      percentage = opinionType.percentage
+      if percentage < minimalVisiblePercentage
+        too_much += minimalVisiblePercentage - percentage
+      else large_ones += percentage  if percentage > 40
+
+    for key, opinionType of opinion_types
+      percentage = opinionType.percentage
+      if percentage < minimalVisiblePercentage
+        percentage = minimalVisiblePercentage
+      else percentage = percentage - ((percentage / large_ones) * too_much)  if percentage > 40
+      opinionType.displayPercentage = percentage
+
+    return opinion_types
+
+#####
+
 window.createFactWheel = ->
-  model = new Backbone.Model
-    authority: 53
-    opinion_types:
-      believe: {percentage: 30, type: 'believe'}
-      doubt: {percentage: 0, type: 'doubt'}
-      disbelieve: {percentage: 70, type: 'disbelieve'}
+  model = new FactWheelModel
+    believe: 1
+    doubt: 2
+    disbelieve: 3
+    current_user_opinion: null
 
   view = new BaseFactWheelView model: model
   $container = $('<div class="fact-wheel"></div>')
