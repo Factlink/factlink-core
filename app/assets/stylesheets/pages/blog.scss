@@ -1,7 +1,7 @@
 $blogWidth: 72%;
 $blogBreakpoint: 700px;
 
-.blog-container {
+.blog-about-box-container {
   position: relative;
 }
 
@@ -52,6 +52,22 @@ ul.blog-content-list {
   @include from-width($blogBreakpoint) {
     width: 100% / $blogWidth * 100%;
   }
+
+  position: relative;
+  z-index: 1;
+  padding-top: 1em;
+  margin-bottom: 1em;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: -100000px;
+    right: -100000px;
+    top: 0;
+    bottom: 0;
+    background: #eee;
+    z-index: -1;
+  }
 }
 
 .blog-figure {
@@ -73,9 +89,8 @@ ul.blog-content-list {
 
 .blog-aside {
   @include from-width($blogBreakpoint) {
-    position: absolute;
-    right: 0;
-    width: 25%;
+    position: relative;
+    width: 100%;
     font-size: 85%;
     line-height: 1.2;
     font-style: italic;
@@ -90,12 +105,20 @@ ul.blog-content-list {
   @include from-width($blogBreakpoint) {
     position: absolute;
     bottom: 0;
+    left: 100%;
+    width: 38%;
+  }
+}
+
+.blog-aside-inner-top {
+  @include from-width($blogBreakpoint) {
+    bottom: auto;
   }
 }
 
 .blog-image-half {
   @include from-width($blogBreakpoint) {
-    width: 49%;
+    width: 49.5%;
   }
 }
 
