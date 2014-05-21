@@ -52,6 +52,22 @@ ul.blog-content-list {
   @include from-width($blogBreakpoint) {
     width: 100% / $blogWidth * 100%;
   }
+
+  position: relative;
+  z-index: 1;
+  padding-top: 1em;
+  margin-bottom: 1em;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: -100000px;
+    right: -100000px;
+    top: 0;
+    bottom: 0;
+    background: #eee;
+    z-index: -1;
+  }
 }
 
 .blog-figure {
@@ -90,13 +106,13 @@ ul.blog-content-list {
     position: absolute;
     bottom: 0;
     left: 100%;
-    width: 40%;
+    width: 38%;
   }
 }
 
 .blog-image-half {
   @include from-width($blogBreakpoint) {
-    width: 49%;
+    width: 49.5%;
   }
 }
 
