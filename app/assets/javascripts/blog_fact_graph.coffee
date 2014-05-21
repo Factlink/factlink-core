@@ -739,7 +739,7 @@ $(document).ready ->
     disbelieve: 1
     doubt: 1
     evidenceBelieve: ->
-      Math.min factWheelZ3.get('believe') - factWheelZ3.get('disbelieve'), factWheelZ3.get('believe') - factWheelZ3.get('disbelieve')
+      Math.min factWheelZ2.get('believe') - factWheelZ2.get('disbelieve'), factWheelZ3.get('believe') - factWheelZ3.get('disbelieve')
 
   factWheelZ2 = new FactWheelModel
     believe: 5
