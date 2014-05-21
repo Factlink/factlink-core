@@ -739,3 +739,26 @@ $(document).ready ->
   $('.js-blog-factwheel-3').append createFactWheel factWheel3
   $('.js-blog-factwheel-4').append createFactWheel factWheel4
 
+  factWheel5 = new FactWheelModel
+    believe: 2
+    disbelieve: 1
+    doubt: 1
+    evidenceBelieve: ->
+      Math.min factWheel6.get('believe') - factWheel6.get('disbelieve'), factWheel7.get('believe') - factWheel7.get('disbelieve')
+
+  factWheel6 = new FactWheelModel
+    believe: 5
+    disbelieve: 4
+    doubt: 0
+  factWheel6.on 'change', -> factWheel5.trigger 'change'
+
+  factWheel7 = new FactWheelModel
+    believe: 3
+    disbelieve: 2
+    doubt: 5
+  factWheel7.on 'change', -> factWheel5.trigger 'change'
+
+  $('.js-blog-factwheel-5').append createFactWheel factWheel5
+  $('.js-blog-factwheel-6').append createFactWheel factWheel6
+  $('.js-blog-factwheel-7').append createFactWheel factWheel7
+
