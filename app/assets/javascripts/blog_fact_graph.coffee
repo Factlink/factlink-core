@@ -665,12 +665,15 @@ class FactWheelModel extends Backbone.Model
       @set opinion_type, @get(opinion_type)+1
       @set 'current_user_opinion', opinion_type
 
+  evidenceBelieve: -> @get('evidenceBelieve')?() || 0
+  evidenceDisbelieve: -> @get('evidenceDisbelieve')?() || 0
+
   totalVotes: ->
-    @get('believe') + @get('disbelieve') + @get('doubt')
+    @get('believe') + @get('disbelieve') + @get('doubt') + @evidenceBelieve() + @evidenceDisbelieve()
 
   opinion_types: ->
-    believe_votes = Math.round(100*@get('believe')/@totalVotes())
-    disbelieve_votes = Math.round(100*@get('disbelieve')/@totalVotes())
+    believe_votes = Math.round(100*(@get('believe') + @evidenceBelieve())/@totalVotes())
+    disbelieve_votes = Math.round(100*(@get('disbelieve') + @evidenceDisbelieve())/@totalVotes())
 
     @calculateDisplayablePercentages
       believe: {percentage: believe_votes, type: 'believe', is_user_opinion: (@get('current_user_opinion') == 'believe')}
@@ -709,6 +712,30 @@ window.createFactWheel = (model) ->
 
 $(document).ready ->
   $('.js-blog-factwheel-1').append createFactWheel new FactWheelModel
-    believe: 7
-    disbelieve: 9
-    doubt: 4
+    believe: 2
+    disbelieve: 1
+    doubt: 1
+
+  factWheel2 = new FactWheelModel
+    believe: 2
+    disbelieve: 1
+    doubt: 1
+    evidenceBelieve: -> factWheel3.get('believe') - factWheel3.get('disbelieve')
+    evidenceDisbelieve: -> factWheel4.get('believe') - factWheel4.get('disbelieve')
+
+  factWheel3 = new FactWheelModel
+    believe: 3
+    disbelieve: 2
+    doubt: 5
+  factWheel3.on 'change', -> factWheel2.trigger 'change'
+
+  factWheel4 = new FactWheelModel
+    believe: 4
+    disbelieve: 2
+    doubt: 1
+  factWheel4.on 'change', -> factWheel2.trigger 'change'
+
+  $('.js-blog-factwheel-2').append createFactWheel factWheel2
+  $('.js-blog-factwheel-3').append createFactWheel factWheel3
+  $('.js-blog-factwheel-4').append createFactWheel factWheel4
+
