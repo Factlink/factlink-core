@@ -20,7 +20,6 @@ class Admin::UsersController < AdminController
       @user.features << Feature.create!(name: feature)
     end
     @user.save!
-    params[:user][:features] = nil
 
     if @user.update_attributes(params[:user], as: :admin)
       redirect_to admin_users_path, notice: 'User was successfully updated.'
