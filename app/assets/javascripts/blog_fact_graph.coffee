@@ -47,8 +47,8 @@ class TextView extends Marionette.ItemView
 class PopoverView extends Marionette.Layout
   template: ->
     """
-      <div class="factlink-popover-content js-popover-content"></div>
-      <div class="factlink-popover-arrow js-arrow"></div>
+      <div class="blog-fact-graph-factlink-popover-content js-popover-content"></div>
+      <div class="blog-fact-graph-factlink-popover-arrow js-arrow"></div>
     """
   className: => @options.popover_className
 
@@ -62,7 +62,7 @@ class PopoverView extends Marionette.Layout
     @on 'position', @onPosition, @
 
   onRender: ->
-    @$el.addClass @options.side
+    @$el.addClass 'blog-fact-graph-' + @options.side
     @contentRegion.show @options.contentView
 
     @updateMargins()
@@ -142,7 +142,7 @@ class CrossFadeRegion extends Marionette.Region
 
 class PositionedRegion extends CrossFadeRegion
 
-  el: '<div class="positioned-region"></div>'
+  el: '<div class="blog-fact-graph-positioned-region"></div>'
 
   bindToElement: ($bindEl, $container) ->
     @$bindEl = $bindEl
@@ -466,9 +466,8 @@ arc_animation_speed = ->
     200
 
 class BaseFactWheelView extends Marionette.ItemView
-  className: "wheel"
+  className: "blog-fact-graph-wheel"
   defaults:
-    respondsToMouse: true
     showsTooltips: true
     showsAuthorityTooltip: true
     radius: 16
@@ -490,10 +489,8 @@ class BaseFactWheelView extends Marionette.ItemView
 
   template: (options) =>
     """
-      <div class="raphael_container"></div>
-      <div class="html_container">
-        <div class="authority">#{@model.totalVotes()}</div>
-      </div>
+      <div class="blog-fact-graph-raphael_container"></div>
+      <div class="blog-fact-graph-authority">#{@model.totalVotes()}</div>
     """
 
   initialize: (options) ->
@@ -519,16 +516,15 @@ class BaseFactWheelView extends Marionette.ItemView
 
   renderRaphael: ->
     @$canvasEl = $('<div></div>')
-    @$canvasEl.addClass 'fact-wheel-responding-to-mouse' if @options.respondsToMouse
 
-    @$('.raphael_container').html(@$canvasEl)
+    @$('.blog-fact-graph-raphael_container').html(@$canvasEl)
     @canvas = Raphael @$canvasEl[0], @boxSize(), @boxSize()
     @bindCustomRaphaelAttributes()
 
   boxSize: -> @options.radius * 2 + @maxStrokeWidth() + 2
 
   reRender: ->
-    @$('.authority').text(@model.totalVotes())
+    @$('.blog-fact-graph-authority').text(@model.totalVotes())
     @postRenderActions()
 
   postRenderActions: ->
@@ -558,10 +554,9 @@ class BaseFactWheelView extends Marionette.ItemView
       opacity: opacity
 
     # Bind Mouse Events on the path
-    if @options.respondsToMouse || @options.showsTooltips
-      path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType.type)
-      path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType.type)
-      path.click _.bind(@clickOpinionType, this, opinionType.type)
+    path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType.type)
+    path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType.type)
+    path.click _.bind(@clickOpinionType, this, opinionType.type)
 
     @opinionTypeRaphaels[opinionType.type] = path
 
@@ -632,16 +627,16 @@ class BaseFactWheelView extends Marionette.ItemView
     makeTooltipForView @,
       positioning:
         side: 'top'
-        popover_className: 'translucent-popover'
+        popover_className: 'blog-fact-graph-translucent-popover'
         margin: @maxStrokeWidth()/2 - 7
-      selector: '.authority'
+      selector: '.blog-fact-graph-authority'
       tooltipViewFactory: => new TextView text: 'Total authority score'
 
   _makeTooltipForPath: (name, selector) ->
     makeTooltipForView @,
       positioning:
         side: @_tooltipSideForPath(@opinionTypeRaphaels[name])
-        popover_className: 'translucent-popover'
+        popover_className: 'blog-fact-graph-translucent-popover'
         margin: @maxStrokeWidth()/2 - 3
       selector: selector
       tooltipViewFactory: =>
@@ -702,9 +697,9 @@ class FactWheelModel extends Backbone.Model
 
 #####
 
-window.createFactWheel = (model) ->
+createFactWheel = (model) ->
   view = new BaseFactWheelView model: model
-  $container = $('<div class="fact-wheel"></div>')
+  $container = $('<div class="blog-fact-graph-fact-wheel"></div>')
   $container.append(view.el)
   view.render()
 
