@@ -37,6 +37,8 @@
     <script>window.FactlinkApiBaseUri = "<%= FactlinkUI::Application.config.core_url %>";</script>
     <script async defer src="<%= FactlinkUI::Application.config.jslib_url %>?o=blog"></script>
   <% end %>
+
+  <%= yield :blog_javascript %>
 <% end %>
 
 <%= render template: "layouts/static_pages" %>

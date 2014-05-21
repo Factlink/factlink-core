@@ -1,0 +1,100 @@
+@import "variables"; // for darkTranslucentGrey
+
+.blog-fact-graph-fact-wheel {
+  box-sizing: border-box;
+  float: left;
+  margin: 0;
+  position: relative;
+  -webkit-transform: translate3d(0, 0, 1px);
+  margin-right: 10px;
+
+  .blog-fact-graph-wheel {
+    position: relative; // for tooltips
+  }
+
+  .blog-fact-graph-authority {
+    position: absolute;
+    padding: 0 !important;
+    width: 22px;
+    height: 16px;
+    left: 12px;
+    top: 14px;
+    font-size: 11px;
+    line-height: 18px;
+    color: #999;
+    text-align: center;
+  }
+
+  svg {
+    display: block;
+    path:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+$triangleSize: 8px;
+
+.blog-fact-graph-translucent-popover {
+  position: relative;
+  visibility: visible;
+  display: inline-block;
+
+  > .blog-fact-graph-factlink-popover-content {
+    background: $darkTranslucentGrey;
+    color: white;
+    display: inline-block;
+    border-radius: 2px;
+    padding: 9px 18px;
+    text-align: center;
+  }
+
+  > .blog-fact-graph-factlink-popover-arrow {
+    border: floor($triangleSize) solid transparent;
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    margin: -8px;
+    box-sizing: content-box;
+  }
+
+  &.blog-fact-graph-top {
+    > .blog-fact-graph-factlink-popover-content {
+      margin-bottom: $triangleSize;
+    }
+    > .blog-fact-graph-factlink-popover-arrow {
+      top: 100%;
+      margin-top: -$triangleSize;
+      border-bottom: none;
+      border-top-color: $darkTranslucentGrey;
+    }
+  }
+  &.blog-fact-graph-right {
+    > .blog-fact-graph-factlink-popover-content {
+      margin-left: $triangleSize;
+    }
+    > .blog-fact-graph-factlink-popover-arrow {
+      right: 100%;
+      margin-right: -$triangleSize;
+      border-left: none;
+      border-right-color: $darkTranslucentGrey;
+    }
+  }
+  &.blog-fact-graph-left {
+    > .blog-fact-graph-factlink-popover-content {
+      margin-right: $triangleSize;
+    }
+    > .blog-fact-graph-factlink-popover-arrow {
+      left: 100%;
+      margin-left: -$triangleSize;
+      border-right: none;
+      border-left-color: $darkTranslucentGrey;
+    }
+  }
+}
+
+.blog-fact-graph-positioned-region {
+  position: absolute;
+  width: 500px; // maximum width for elements inside the positioned region
+  visibility: hidden;
+}
