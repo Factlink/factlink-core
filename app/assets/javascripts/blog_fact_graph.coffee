@@ -706,54 +706,54 @@ createFactWheel = (model) ->
   $container[0]
 
 $(document).ready ->
-  $('.js-blog-factwheel-1').append createFactWheel new FactWheelModel
+  $('.js-blog-factwheel-x').append createFactWheel new FactWheelModel
     believe: 2
     disbelieve: 1
     doubt: 1
 
-  factWheel2 = new FactWheelModel
+  factWheelY1 = new FactWheelModel
     believe: 2
     disbelieve: 1
     doubt: 1
-    evidenceBelieve: -> factWheel3.get('believe') - factWheel3.get('disbelieve')
-    evidenceDisbelieve: -> factWheel4.get('believe') - factWheel4.get('disbelieve')
+    evidenceBelieve: -> factWheelY2.get('believe') - factWheelY2.get('disbelieve')
+    evidenceDisbelieve: -> factWheelY3.get('believe') - factWheelY3.get('disbelieve')
 
-  factWheel3 = new FactWheelModel
+  factWheelY2 = new FactWheelModel
     believe: 3
     disbelieve: 2
     doubt: 5
-  factWheel3.on 'change', -> factWheel2.trigger 'change'
+  factWheelY2.on 'change', -> factWheelY1.trigger 'change'
 
-  factWheel4 = new FactWheelModel
+  factWheelY3 = new FactWheelModel
     believe: 4
     disbelieve: 2
     doubt: 1
-  factWheel4.on 'change', -> factWheel2.trigger 'change'
+  factWheelY3.on 'change', -> factWheelY1.trigger 'change'
 
-  $('.js-blog-factwheel-2').append createFactWheel factWheel2
-  $('.js-blog-factwheel-3').append createFactWheel factWheel3
-  $('.js-blog-factwheel-4').append createFactWheel factWheel4
+  $('.js-blog-factwheel-y1').append createFactWheel factWheelY1
+  $('.js-blog-factwheel-y2').append createFactWheel factWheelY2
+  $('.js-blog-factwheel-y3').append createFactWheel factWheelY3
 
-  factWheel5 = new FactWheelModel
+  factWheelZ1 = new FactWheelModel
     believe: 2
     disbelieve: 1
     doubt: 1
     evidenceBelieve: ->
-      Math.min factWheel6.get('believe') - factWheel6.get('disbelieve'), factWheel7.get('believe') - factWheel7.get('disbelieve')
+      Math.min factWheelZ3.get('believe') - factWheelZ3.get('disbelieve'), factWheelZ3.get('believe') - factWheelZ3.get('disbelieve')
 
-  factWheel6 = new FactWheelModel
+  factWheelZ2 = new FactWheelModel
     believe: 5
     disbelieve: 4
     doubt: 0
-  factWheel6.on 'change', -> factWheel5.trigger 'change'
+  factWheelZ2.on 'change', -> factWheelZ1.trigger 'change'
 
-  factWheel7 = new FactWheelModel
+  factWheelZ3 = new FactWheelModel
     believe: 3
     disbelieve: 2
     doubt: 5
-  factWheel7.on 'change', -> factWheel5.trigger 'change'
+  factWheelZ3.on 'change', -> factWheelZ1.trigger 'change'
 
-  $('.js-blog-factwheel-5').append createFactWheel factWheel5
-  $('.js-blog-factwheel-6').append createFactWheel factWheel6
-  $('.js-blog-factwheel-7').append createFactWheel factWheel7
+  $('.js-blog-factwheel-z1').append createFactWheel factWheelZ1
+  $('.js-blog-factwheel-z2').append createFactWheel factWheelZ2
+  $('.js-blog-factwheel-z3').append createFactWheel factWheelZ3
 
