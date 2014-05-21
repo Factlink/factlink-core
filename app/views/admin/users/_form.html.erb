@@ -1,19 +1,18 @@
 <%= form_for(user, :url => [:admin, user]) do |f| %>
 <div class="top-aligned-inline-block">
-  <table class="admin-form">
-    <% if user.errors.any? %>
-    <tr><td>
-      <div class="alert-message block-message error">
-        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-        <ul>
-          <% user.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-    </td></tr>
-    <% end %>
 
+  <% if user.errors.any? %>
+        <div class="alert-message block-message error">
+          <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+          <ul>
+            <% user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+  <% end %>
+
+  <table class="admin-form">
     <tr>
       <th class="admin-form-label-column">
         <%= f.label :username %>
