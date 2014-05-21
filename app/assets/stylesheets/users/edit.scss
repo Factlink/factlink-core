@@ -1,3 +1,11 @@
+.alert-message {
+  padding: 10px;
+}
+
+.alert-message h2 {
+  font-size: 12px;
+}
+
 .edit-user-container {
   @extend %clearfix;
   @extend %white-block-with-shadow;
