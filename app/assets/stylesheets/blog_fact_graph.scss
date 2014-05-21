@@ -44,16 +44,20 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
   background: hsl(280, 78%, 93%);
 }
 
-.blog-fact-graph-undetermined:before,
-.blog-fact-graph-agree:before,
-.blog-fact-graph-disagree:before,
-.blog-fact-graph-unsure:before {
-  content: '';
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  vertical-align: text-top;
-  margin-right: 3px;
+.blog-fact-graph-undetermined,
+.blog-fact-graph-agree,
+.blog-fact-graph-disagree,
+.blog-fact-graph-unsure {
+  white-space: nowrap;
+
+  &:before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: text-top;
+    margin-right: 3px;
+  }
 }
 
 .blog-fact-graph-undetermined {
@@ -91,18 +95,22 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
 .blog-fact-graph-11-4-8:before { background: asset-data-url('blog/fact_graph/11-4-8.png'); }
 .blog-fact-graph-7839-8009-3041:before { background: asset-data-url('blog/fact_graph/7839-8009-3041.png'); }
 
-.blog-fact-graph-supporting:before,
-.blog-fact-graph-weakening:before {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  line-height: 16px;
-  border-radius: 100px;
-  text-align: center;
-  vertical-align: middle;
-  margin-right: 3px;
-  color: hsl(0, 100%, 100%);
-  margin-top: -1px;
+.blog-fact-graph-supporting,
+.blog-fact-graph-weakening {
+  white-space: nowrap;
+
+  &:before {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border-radius: 100px;
+    text-align: center;
+    vertical-align: middle;
+    margin-right: 3px;
+    color: hsl(0, 100%, 100%);
+    margin-top: -1px;
+  }
 }
 
 .blog-fact-graph-supporting {
@@ -126,6 +134,8 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
 .blog-fact-graph-weakening-arrow {
   position: relative;
   top: 1px;
+  white-space: nowrap;
+
   &:before {
     position: absolute;
     top: -6px;
