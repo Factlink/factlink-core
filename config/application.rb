@@ -108,6 +108,9 @@ module FactlinkUI
 
       'factlink_loader.js',
       'factlink_loader.min.js',
+
+      'blog_fact_graph.js',
+      'blog_fact_graph.css',
     ]
 
     # Precompile additional assets
