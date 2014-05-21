@@ -9,6 +9,12 @@ class Admin::UsersController < AdminController
 
   layout "admin"
 
+  def edit
+    if flash[:model]
+      @user.update_attributes flash[:model]
+    end
+  end
+
   def update
     if params[:user][:password] == ''
       params[:user][:password] = nil
@@ -24,7 +30,8 @@ class Admin::UsersController < AdminController
     if @user.update_attributes(params[:user], as: :admin)
       redirect_to admin_users_path, notice: 'User was successfully updated.'
     else
-      render :edit
+      flash[:model] = params[:user]
+      redirect_to edit_admin_user_path(@user)
     end
   end
 
