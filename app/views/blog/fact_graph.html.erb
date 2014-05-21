@@ -159,13 +159,13 @@
 
   <p>We denote the credibility tuple of a <span class="blog-fact-graph-f1">Factlink F1</span> as <em>c</em>(<span class="blog-fact-graph-f1">F1</span>). The numbers <em>t</em>, <em>f</em>, and <em>u</em> correspond to green, red, and blue parts of the Factwheel. The number inside the Factwheel is the sum of those numbers, representing the total amount of votes, or the amount of “thinking” people have put in. For example:</p>
 
-  <ol>
-    <li><em>c</em>(<span class="blog-fact-graph-factlink">“Generally agreed upon Factlink”</span>) = <span class="blog-fact-graph-agree">&lt;10000, 8, 13&gt;</span></li>
-    <li><em>c</em>(<span class="blog-fact-graph-factlink">“Factlink with only few votes”</span>) = <span class="blog-fact-graph-agree blog-fact-graph-2-1-0">&lt;2, 1, 0&gt;</span></li>
-    <li><em>c</em>(<span class="blog-fact-graph-factlink">“Factlink without any votes”</span>) = <span class="blog-fact-graph-unsure">&lt;0, 0, 0&gt;</span></li>
-    <li><em>c</em>(<span class="blog-fact-graph-factlink">“Highly controversial Factlink”</span>) = <span class="blog-fact-graph-undetermined blog-fact-graph-7839-8009-3041">&lt;7839, 8009, 3041&gt;</span></li>
-    <li><em>c</em>(<span class="blog-fact-graph-factlink">“Vague or unknown Factlink”</span>) = <span class="blog-fact-graph-unsure">&lt;182, 119, 1205&gt;</span></li>
-  </ol>
+  <blockquote>
+    <em>c</em>(<span class="blog-fact-graph-factlink">“Generally agreed upon Factlink”</span>) = <span class="blog-fact-graph-agree">&lt;10000, 8, 13&gt;</span><br>
+    <em>c</em>(<span class="blog-fact-graph-factlink">“Factlink with only few votes”</span>) = <span class="blog-fact-graph-agree blog-fact-graph-2-1-0">&lt;2, 1, 0&gt;</span><br>
+    <em>c</em>(<span class="blog-fact-graph-factlink">“Factlink without any votes”</span>) = <span class="blog-fact-graph-unsure">&lt;0, 0, 0&gt;</span><br>
+    <em>c</em>(<span class="blog-fact-graph-factlink">“Highly controversial Factlink”</span>) = <span class="blog-fact-graph-undetermined blog-fact-graph-7839-8009-3041">&lt;7839, 8009, 3041&gt;</span><br>
+    <em>c</em>(<span class="blog-fact-graph-factlink">“Vague or unknown Factlink”</span>) = <span class="blog-fact-graph-unsure">&lt;182, 119, 1205&gt;</span>
+  </blockquote>
 
   <p>To be a bit more precise, the voting part of <span class="blog-fact-graph-f1">F1</span>’s credibility tuple <em>c<sub>v</sub></em>(<span class="blog-fact-graph-f1">F1</span>) is the sum of the credibility tuple of individual votes. An “agree” vote corresponds to <span class="blog-fact-graph-agree">&lt;1, 0, 0&gt;</span>, a “disagree” vote to <span class="blog-fact-graph-disagree">&lt;0, 1, 0&gt;</span> and an “unsure” vote to <span class="blog-fact-graph-unsure">&lt;0, 0, 1&gt;</span>.</p>
 
@@ -183,27 +183,31 @@
 
   <p>So, the evidence part of a Factlink’s credibility tuple is the sum of the credibility tuple of its evidence. <span class="blog-fact-graph-supporting">Supporting evidence</span>, denoted as <span class="blog-fact-graph-f2">F2</span> <span class="blog-fact-graph-supporting-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span> (<span class="blog-fact-graph-f2">F2</span> <span class="blog-fact-graph-supporting">supporting</span> <span class="blog-fact-graph-f1">F1</span>), has a credibility tuple <em>c</em>(<span class="blog-fact-graph-f2">F2</span> <span class="blog-fact-graph-supporting-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>). The same goes for <span class="blog-fact-graph-weakening">weakening evidence</span>, <span class="blog-fact-graph-f3">F3</span> <span class="blog-fact-graph-weakening-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>. Such a tuple is made up of the relevance votes on the evidence, and the credibility tuple of <span class="blog-fact-graph-f2">F2</span>:</p>
 
-  <p><em>c</em>(<span class="blog-fact-graph-f2">F2</span> <span class="blog-fact-graph-supporting-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) = &lt;<em>min</em>(<em>t1</em>-f1, <em>t2</em>-<em>f2</em>), 0, 0&gt;<br>
-    where &lt;<em>t1</em>, <em>f1</em>, <em>u1</em>&gt; = <em>c<sub>v</sub></em>(<span class="blog-fact-graph-f2">F2</span> <span class="blog-fact-graph-supporting-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) (up/downvotes on evidence)<br>
-    and &lt;<em>t2</em>, <em>f2</em>, <em>u2</em>&gt; = <em>c</em>(<span class="blog-fact-graph-f2">F2</span>)</p>
+  <blockquote>
+    <p><em>c</em>(<span class="blog-fact-graph-f2">F2</span> <span class="blog-fact-graph-supporting-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) = &lt;<em>min</em>(<em>t1</em>-f1, <em>t2</em>-<em>f2</em>), 0, 0&gt;<br>
+      where &lt;<em>t1</em>, <em>f1</em>, <em>u1</em>&gt; = <em>c<sub>v</sub></em>(<span class="blog-fact-graph-f2">F2</span> <span class="blog-fact-graph-supporting-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) (up/downvotes on evidence)<br>
+      and &lt;<em>t2</em>, <em>f2</em>, <em>u2</em>&gt; = <em>c</em>(<span class="blog-fact-graph-f2">F2</span>)</p>
 
-  <p>Similarly, <em>c</em>(<span class="blog-fact-graph-f3">F3</span> <span class="blog-fact-graph-weakening-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) = &lt;0, <em>min</em>(<em>t1</em>-f1, <em>t2</em>-<em>f2</em>), 0&gt;</p>
+    <p>Similarly, <em>c</em>(<span class="blog-fact-graph-f3">F3</span> <span class="blog-fact-graph-weakening-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) = &lt;0, <em>min</em>(<em>t1</em>-f1, <em>t2</em>-<em>f2</em>), 0&gt;</p>
+  </blockquote>
 
   <p>This ensures that we don’t puff up the importance of this complex opinion more than any of its constituent parts and bounds the information that can pass through evidence. It allows highly credible Factlinks to support or weaken other Factlinks, but requires matching relevance of the relationship to transmit their credibility.</p>
 
   <p>The final credibility tuple of a <span class="blog-fact-graph-f1">Factlink F1</span> is the sum of the voting part <em>c<sub>v</sub></em>(<span class="blog-fact-graph-f1">F1</span>), and of the evidence part <em>c<sub>e</sub></em>(<span class="blog-fact-graph-f1">F1</span>), which we define as the sum of tuples of evidence of <span class="blog-fact-graph-f1">F1</span>. An example:</p>
 
-  <p><span class="blog-fact-graph-f1">F1</span> = <span class="blog-fact-graph-factlink blog-fact-graph-f1">“peanut butter is great”</span>, <em>c<sub>v</sub></em>(<span class="blog-fact-graph-f1">F1</span>) = <span class="blog-fact-graph-unsure blog-fact-graph-4-2-8">&lt;4, 2, 8&gt;</span><br>
-    <span class="blog-fact-graph-f2">F2</span> = <span class="blog-fact-graph-factlink blog-fact-graph-f2">“peanut butter has great taste”</span>, <em>c</em>(<span class="blog-fact-graph-f2">F2</span>) = <em>c<sub>v</sub></em>(<span class="blog-fact-graph-f2">F2</span>) = <span class="blog-fact-graph-agree blog-fact-graph-10-3-0">&lt;10, 3, 0&gt;</span><br>
-    <span class="blog-fact-graph-f3">F3</span> = <span class="blog-fact-graph-factlink blog-fact-graph-f3">“peanut butter has awful texture”</span>, <em>c</em>(<span class="blog-fact-graph-f3">F3</span>) = <em>c<sub>v</sub></em>(<span class="blog-fact-graph-f3">F3</span>) = <span class="blog-fact-graph-agree blog-fact-graph-6-4-2">&lt;6, 4, 2&gt;</span><br>
-    <em>c<sub>v</sub></em>(<span class="blog-fact-graph-f2">F2</span> <span class="blog-fact-graph-supporting-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) = <span class="blog-fact-graph-agree blog-fact-graph-11-2-0">&lt;11, 2, 0&gt;</span><br>
-    <em>c<sub>v</sub></em>(<span class="blog-fact-graph-f3">F3</span> <span class="blog-fact-graph-weakening-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) = <span class="blog-fact-graph-agree blog-calulcation-9-3-0">&lt;9, 3, 0&gt;</span></p>
+  <blockquote>
+    <p><span class="blog-fact-graph-f1">F1</span> = <span class="blog-fact-graph-factlink blog-fact-graph-f1">“peanut butter is great”</span>, <em>c<sub>v</sub></em>(<span class="blog-fact-graph-f1">F1</span>) = <span class="blog-fact-graph-unsure blog-fact-graph-4-2-8">&lt;4, 2, 8&gt;</span><br>
+      <span class="blog-fact-graph-f2">F2</span> = <span class="blog-fact-graph-factlink blog-fact-graph-f2">“peanut butter has great taste”</span>, <em>c</em>(<span class="blog-fact-graph-f2">F2</span>) = <em>c<sub>v</sub></em>(<span class="blog-fact-graph-f2">F2</span>) = <span class="blog-fact-graph-agree blog-fact-graph-10-3-0">&lt;10, 3, 0&gt;</span><br>
+      <span class="blog-fact-graph-f3">F3</span> = <span class="blog-fact-graph-factlink blog-fact-graph-f3">“peanut butter has awful texture”</span>, <em>c</em>(<span class="blog-fact-graph-f3">F3</span>) = <em>c<sub>v</sub></em>(<span class="blog-fact-graph-f3">F3</span>) = <span class="blog-fact-graph-agree blog-fact-graph-6-4-2">&lt;6, 4, 2&gt;</span><br>
+      <em>c<sub>v</sub></em>(<span class="blog-fact-graph-f2">F2</span> <span class="blog-fact-graph-supporting-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) = <span class="blog-fact-graph-agree blog-fact-graph-11-2-0">&lt;11, 2, 0&gt;</span><br>
+      <em>c<sub>v</sub></em>(<span class="blog-fact-graph-f3">F3</span> <span class="blog-fact-graph-weakening-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) = <span class="blog-fact-graph-agree blog-calulcation-9-3-0">&lt;9, 3, 0&gt;</span></p>
 
-  <p>Then:<br>
-    <em>c</em>(<span class="blog-fact-graph-f2">F2</span> <span class="blog-fact-graph-supporting-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) = &lt;<em>min</em>(11-2, 10-3), 0, 0&gt; = <span class="blog-fact-graph-agree">&lt;7, 0, 0&gt;</span><br>
-    <em>c</em>(<span class="blog-fact-graph-f3">F3</span> <span class="blog-fact-graph-weakening-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) = &lt;0, <em>min</em>(9-3, 6-4), 0&gt; = <span class="blog-fact-graph-disagree">&lt;0, 2, 0&gt;</span><br>
-    So <em>c<sub>e</sub></em>(<span class="blog-fact-graph-f1">F1</span>) = <em>c</em>(<span class="blog-fact-graph-f2">F2</span> <span class="blog-fact-graph-supporting-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) + <em>c</em>(<span class="blog-fact-graph-f3">F3</span> <span class="blog-fact-graph-weakening-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) = <span class="blog-fact-graph-agree blog-fact-graph-7-2-0">&lt;7, 2, 0&gt;</span><br>
-    So <em>c</em>(<span class="blog-fact-graph-f1">F1</span>) = <em>c<sub>v</sub></em>(<span class="blog-fact-graph-f1">F1</span>) + <em>c<sub>e</sub></em>(<span class="blog-fact-graph-f1">F1</span>) = <span class="blog-fact-graph-unsure blog-fact-graph-4-2-8">&lt;4, 2, 8&gt;</span> + <span class="blog-fact-graph-agree blog-fact-graph-7-2-0">&lt;7, 2, 0&gt;</span> = <b><span class="blog-fact-graph-agree blog-calulcation-11-4-8">&lt;11, 4, 8&gt;</span></b></p>
+    <p>Then:<br>
+      <em>c</em>(<span class="blog-fact-graph-f2">F2</span> <span class="blog-fact-graph-supporting-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) = &lt;<em>min</em>(11-2, 10-3), 0, 0&gt; = <span class="blog-fact-graph-agree">&lt;7, 0, 0&gt;</span><br>
+      <em>c</em>(<span class="blog-fact-graph-f3">F3</span> <span class="blog-fact-graph-weakening-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) = &lt;0, <em>min</em>(9-3, 6-4), 0&gt; = <span class="blog-fact-graph-disagree">&lt;0, 2, 0&gt;</span><br>
+      So <em>c<sub>e</sub></em>(<span class="blog-fact-graph-f1">F1</span>) = <em>c</em>(<span class="blog-fact-graph-f2">F2</span> <span class="blog-fact-graph-supporting-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) + <em>c</em>(<span class="blog-fact-graph-f3">F3</span> <span class="blog-fact-graph-weakening-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>) = <span class="blog-fact-graph-agree blog-fact-graph-7-2-0">&lt;7, 2, 0&gt;</span><br>
+      So <em>c</em>(<span class="blog-fact-graph-f1">F1</span>) = <em>c<sub>v</sub></em>(<span class="blog-fact-graph-f1">F1</span>) + <em>c<sub>e</sub></em>(<span class="blog-fact-graph-f1">F1</span>) = <span class="blog-fact-graph-unsure blog-fact-graph-4-2-8">&lt;4, 2, 8&gt;</span> + <span class="blog-fact-graph-agree blog-fact-graph-7-2-0">&lt;7, 2, 0&gt;</span> = <b><span class="blog-fact-graph-agree blog-calulcation-11-4-8">&lt;11, 4, 8&gt;</span></b></p>
+  </blockquote>
 
   <p>When now looking at <span class="blog-fact-graph-f1">F1</span>, you will see that the prevailing opinion is that peanut butter is great, even though the majority of people didn’t vote directly in agreement with that. However, quite a few people agreed with the underlying <span class="blog-fact-graph-supporting">supporting evidence</span>, and enough people agreed that the evidence was <span class="blog-fact-graph-agree">relevant</span>.</p>
 
