@@ -110,6 +110,12 @@ ul.blog-content-list {
   }
 }
 
+.blog-aside-inner-top {
+  @include from-width($blogBreakpoint) {
+    bottom: auto;
+  }
+}
+
 .blog-image-half {
   @include from-width($blogBreakpoint) {
     width: 49.5%;
