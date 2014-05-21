@@ -161,6 +161,10 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
   display: inline-block;
   width: 100%;
   margin-bottom: 0.8em;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .blog-fact-graph-factwheel-text {

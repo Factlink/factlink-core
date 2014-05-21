@@ -65,7 +65,9 @@ ul.blog-content-list {
 
   figcaption {
     font-size: 85%;
+    line-height: 1.2;
     text-align: center;
+    font-style: italic;
   }
 }
 
@@ -75,6 +77,8 @@ ul.blog-content-list {
     right: 0;
     width: 25%;
     font-size: 85%;
+    line-height: 1.2;
+    font-style: italic;
   }
 
   .blog-figure figcaption {
@@ -99,4 +103,7 @@ ul.blog-content-list {
   padding: 10px;
   background: hsl(0, 0%, 95%);
   border-radius: $baseBorderRadius;
+  margin-bottom: 0.4em;
+  line-height: $baseLineHeight;
+  font-style: normal;
 }
