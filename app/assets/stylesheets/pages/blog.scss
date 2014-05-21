@@ -94,3 +94,9 @@ ul.blog-content-list {
     width: 49%;
   }
 }
+
+.blog-box {
+  padding: 10px;
+  background: hsl(0, 0%, 95%);
+  border-radius: $baseBorderRadius;
+}

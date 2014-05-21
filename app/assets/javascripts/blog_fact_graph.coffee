@@ -699,16 +699,16 @@ class FactWheelModel extends Backbone.Model
 
 #####
 
-window.createFactWheel = ->
-  model = new FactWheelModel
-    believe: 1
-    doubt: 2
-    disbelieve: 3
-    current_user_opinion: null
-
+window.createFactWheel = (model) ->
   view = new BaseFactWheelView model: model
   $container = $('<div class="fact-wheel"></div>')
   $container.append(view.el)
   view.render()
 
   $container[0]
+
+$(document).ready ->
+  $('.js-blog-factwheel-1').append createFactWheel new FactWheelModel
+    believe: 7
+    disbelieve: 9
+    doubt: 4

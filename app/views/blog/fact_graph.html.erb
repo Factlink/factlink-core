@@ -82,10 +82,16 @@
 
   <p>Initially, we started out with just voting. If you <span class="blog-fact-graph-agree">agreed</span>, you clicked the green part, which would grow a little. And the number inside the circle would become larger. The same for the red and blue parts.</p>
 
-  <!-- [example applet of Factlink with just Factwheel] -->
-
   <aside class="blog-aside">
-    <div class="blog-aside-inner js-blog-factwheel-1"></div>
+    <div class="blog-aside-inner">
+      <figure class="blog-figure">
+        <div class="blog-box">
+          <div class="js-blog-factwheel-1"></div>
+          <div style="overflow: hidden">“Working from home is more productive than working in an office.”</div>
+        </div>
+        <figcaption>Factlink with Factwheel</figcaption>
+      </figure>
+    </div>
   </aside>
 
 
@@ -228,10 +234,4 @@
 <% content_for :blog_javascript do %>
   <%= stylesheet_link_tag 'blog_fact_graph' %>
   <%= javascript_include_tag 'blog_fact_graph' %>
-
-  <script>
-    $(document).ready(function() {
-      $('.js-blog-factwheel-1').append(createFactWheel())
-    });
-  </script>
 <% end %>
