@@ -1,0 +1,119 @@
+@import "variables"; // for darkTranslucentGrey
+
+.fact-wheel {
+  box-sizing: border-box;
+  float: left;
+  margin: 0;
+  position: relative;
+  -webkit-transform: translate3d(0, 0, 1px);
+
+  .wheel {
+    position: relative; // for tooltips
+  }
+
+  input {
+    display: none;
+  }
+
+  .authority {
+    position: absolute;
+    padding: 0 !important;
+    width: 22px;
+    height: 16px;
+    left: 12px;
+    top: 14px;
+    font-size: 11px;
+    line-height: 18px;
+    color: #999;
+    text-align: center;
+  }
+
+  svg {
+    display: block;
+  }
+
+  .fact-wheel-responding-to-mouse {
+    svg {
+      path:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+$triangleSize: 8px;
+
+.translucent-popover {
+  position: relative;
+  visibility: visible;
+  display: inline-block;
+
+  > .factlink-popover-content {
+    background: $darkTranslucentGrey;
+    color: white;
+    display: inline-block;
+    border-radius: 2px;
+    padding: 9px 18px;
+    text-align: center;
+  }
+
+  > .factlink-popover-arrow {
+    border: floor($triangleSize) solid transparent;
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    margin: -8px;
+    box-sizing: content-box;
+  }
+
+  &.top {
+    > .factlink-popover-content {
+      margin-bottom: $triangleSize;
+    }
+    > .factlink-popover-arrow {
+      top: 100%;
+      margin-top: -$triangleSize;
+      border-bottom: none;
+      border-top-color: $darkTranslucentGrey;
+    }
+  }
+  &.right {
+    > .factlink-popover-content {
+      margin-left: $triangleSize;
+    }
+    > .factlink-popover-arrow {
+      right: 100%;
+      margin-right: -$triangleSize;
+      border-left: none;
+      border-right-color: $darkTranslucentGrey;
+    }
+  }
+  &.bottom {
+    > .factlink-popover-content {
+      margin-top: $triangleSize;
+    }
+    > .factlink-popover-arrow {
+      bottom: 100%;
+      margin-bottom: -$triangleSize;
+      border-top: none;
+      border-bottom-color: $darkTranslucentGrey;
+    }
+  }
+  &.left {
+    > .factlink-popover-content {
+      margin-right: $triangleSize;
+    }
+    > .factlink-popover-arrow {
+      left: 100%;
+      margin-left: -$triangleSize;
+      border-right: none;
+      border-left-color: $darkTranslucentGrey;
+    }
+  }
+}
+
+.positioned-region {
+  position: absolute;
+  width: 500px; // maximum width for elements inside the positioned region
+  visibility: hidden;
+}
