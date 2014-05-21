@@ -9,7 +9,7 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"/..
 JS_LIBRARY_BRANCH=''
 
 if [[ ! -e js-library ]]; then
-  git clone git://github.com/Factlink/js-library.git js-library &
+  git clone git@github.com:Factlink/js-library.git js-library &
 else
   pushd js-library
     JS_LIBRARY_BRANCH=`git symbolic-ref HEAD 2>/dev/null`
@@ -19,8 +19,8 @@ fi
 
 PROXY_BRANCH=''
 
-if [[ ! -e proxy ]]; then
-  git clone git://github.com/Factlink/web-proxy.git proxy &
+if [[ ! -e proxy ]]; then	
+  git clone git@github.com:Factlink/web-proxy.git proxy &	
 else
   pushd proxy
     PROXY_BRANCH=`git symbolic-ref HEAD 2>/dev/null`
