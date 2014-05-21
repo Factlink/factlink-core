@@ -1,7 +1,7 @@
 $blogWidth: 72%;
 $blogBreakpoint: 700px;
 
-.blog-container {
+.blog-about-box-container {
   position: relative;
 }
 
@@ -73,9 +73,8 @@ ul.blog-content-list {
 
 .blog-aside {
   @include from-width($blogBreakpoint) {
-    position: absolute;
-    right: 0;
-    width: 25%;
+    position: relative;
+    width: 100%;
     font-size: 85%;
     line-height: 1.2;
     font-style: italic;
@@ -90,6 +89,8 @@ ul.blog-content-list {
   @include from-width($blogBreakpoint) {
     position: absolute;
     bottom: 0;
+    left: 100%;
+    width: 40%;
   }
 }
 
