@@ -174,3 +174,41 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
 .blog-fact-graph-evidence-header {
   margin-bottom: 0.4em;
 }
+
+.blog-fact-graph-factwheel-click-me-container {
+  position: relative;
+}
+
+$arrowSize: 5px;
+.blog-fact-graph-factwheel-click-me {
+  background: hsl(0, 100%, 100%);
+  display: inline-block;
+  padding: 0 2px;
+  position: absolute;
+  top: -2em;
+  left: -0.35em;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -$arrowSize - 1px;
+    margin-left: -$arrowSize;
+    border: $arrowSize solid transparent;
+    border-bottom: none;
+    border-top-color: rgba(0,0,0,0.15);
+    z-index: 0;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -$arrowSize;
+    margin-left: -$arrowSize;
+    border: $arrowSize solid transparent;
+    border-bottom: none;
+    border-top-color: white;
+    z-index: 0;
+  }
+}
