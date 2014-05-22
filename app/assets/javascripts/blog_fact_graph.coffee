@@ -468,7 +468,8 @@ arc_animation_speed = ->
 class BaseFactWheelView extends Marionette.ItemView
   className: "blog-fact-graph-wheel"
   defaults:
-    showsTooltips: true
+    useHover: !('ontouchstart' of document)
+    showsTooltips: !('ontouchstart' of document)
     showsAuthorityTooltip: true
     radius: 16
 
@@ -554,8 +555,9 @@ class BaseFactWheelView extends Marionette.ItemView
       opacity: opacity
 
     # Bind Mouse Events on the path
-    path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType.type)
-    path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType.type)
+    if @options.useHover
+      path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType.type)
+      path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType.type)
     path.click _.bind(@clickOpinionType, this, opinionType.type)
 
     @opinionTypeRaphaels[opinionType.type] = path
@@ -706,6 +708,11 @@ createFactWheel = (model) ->
   $container[0]
 
 $(document).ready ->
+  if 'ontouchstart' of document
+    $('.js-blog-click-me').text 'touch me!'
+  else
+    $('.js-blog-click-me').text 'click me!'
+
   factWheelX = new FactWheelModel
     believe: 2
     disbelieve: 1

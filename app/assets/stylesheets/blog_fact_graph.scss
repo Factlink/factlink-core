@@ -132,29 +132,15 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
 
 .blog-fact-graph-supporting-arrow,
 .blog-fact-graph-weakening-arrow {
-  position: relative;
-  top: 1px;
-  white-space: nowrap;
-
-  &:before {
-    position: absolute;
-    top: -6px;
-    width: 100%;
-    text-align: center;
-    margin-left: -1px;
-  }
+  display: inline-block;
+  width: 17px;
+  height: 13px;
 }
 .blog-fact-graph-supporting-arrow {
-  color: $agreeColour;
-  &:before {
-    content: '+';
-  }
+  background: asset-data-url('blog/fact_graph/arrow-plus.png');
 }
 .blog-fact-graph-weakening-arrow {
-  color: $disagreeColour;
-  &:before {
-    content: '–';
-  }
+  background: asset-data-url('blog/fact_graph/arrow-min.png');
 }
 
 .blog-fact-graph-factwheel-container {
@@ -185,9 +171,15 @@ $arrowSize: 5px;
   display: inline-block;
   padding: 0 2px;
   position: absolute;
-  top: -2em;
-  left: -0.35em;
+  top: -25px;
+  left: 22px;
   box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
+
+  transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
 
   &:before {
     content: '';
