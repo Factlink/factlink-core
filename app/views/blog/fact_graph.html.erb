@@ -4,7 +4,7 @@
 
   <p><%= link_to "&laquo; Blog".html_safe, blog_index_path %></p>
 
-  <time><a href="https://factlink.com/user/janpaul123">Jan Paul Posma</a>, <span pubdate>22 May 2014</span></time>
+  <time><a href="https://factlink.com/user/janpaul123">Jan Paul Posma</a>, <span pubdate>26 May 2014</span></time>
   <h1 class="static-pages-heading-h1">Factlink’s Fact Graph</h1>
 
   <p>Half a year ago we decided to throw away half of our code. Before then, our product consisted of two parts:</p>
@@ -14,7 +14,7 @@
     <li>“Fact Graph”: interfaces for linking those pieces of text together, and a calculation that shows for each piece of text how credible it is.</li>
   </ol>
 
-  <p>We kept 1, and threw away 2. In our <%= link_to "previous article", blog_4_lessons_you_can_learn_from_factlinks_pivot_path %> we looked at why we decided to focus on annotation. In this article we look at the other half, the “Fact Graph”. Because even though we threw it away, it still has value. We don’t want to outright abandon hundreds of hours on research and development. Instead, we’ll share it, in the hope that someone finds it useful.</p>
+  <p>In our <%= link_to "previous article", blog_4_lessons_you_can_learn_from_factlinks_pivot_path %> we looked at why we decided to focus on annotation. In this article we look at the other half, the “Fact Graph”. We want to share some insights from the hundreds of hours of research and development with you. We look at our collaborative fact checking system in detail, especially the mathematics and user interface.</p>
 
   <h4>Factlink’s original goal</h4>
 
@@ -57,7 +57,7 @@
     </div>
   </aside>
 
-  <p>The annotation part of Factlink still works similarly to what we had originally, except that we marked Factlinks using a checkmark in front of the text, while we now show an icon next on the right of a paragraph.</p>
+  <p>The annotation part of Factlink still works similarly to what we had originally, except that we used to mark Factlinks using a checkmark in front of the text, while we now show an icon on the right of a paragraph.</p>
 
   <div class="blog-full-width">
     <figure class="blog-figure blog-image-half">
@@ -86,8 +86,11 @@
     <div class="blog-aside-inner">
       <figure class="blog-figure">
         <div class="blog-box">
-          <div class="js-blog-factwheel-x"></div>
-          <div class="blog-fact-graph-factwheel-text">“Working from home is more productive than working in an office.”</div>
+          <div class="blog-fact-graph-factwheel-click-me-container">
+            <div class="blog-fact-graph-factwheel-click-me js-blog-click-me">click me!</div>
+            <div class="js-blog-factwheel-x"></div>
+            <div class="blog-fact-graph-factwheel-text">“Working from home is more productive than working in an office.”</div>
+          </div>
         </div>
         <figcaption>Factlink with Factwheel</figcaption>
       </figure>
@@ -223,6 +226,15 @@
   <p>Authority was then used to weigh votes. The votes of people with high authority would thus weigh more than the votes of people with low authority. This way we tried to build moderation into the system: if people appreciated the evidence you posted, then your vote would weigh more than that of people who weren’t yet appreciated by the community.</p>
 
   <p>Of course, people who have expertise on one topic often don’t know much about other topics. That’s why at one point we even had topic-specific authority, weighed by “topic channels” that people posted Factlinks to. But that’s another story.</p>
+
+  <aside class="blog-aside">
+    <div class="blog-aside-inner">
+      <figure class="blog-figure">
+        <%= image_tag 'blog/fact_graph/channels-authority.png', class: 'blog-content-image' %>
+        <figcaption>people had authority on different topics</figcaption>
+      </figure>
+    </div>
+  </aside>
 
 
   <h4>User interface</h4>
