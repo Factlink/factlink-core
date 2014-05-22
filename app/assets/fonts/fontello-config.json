@@ -131,6 +131,18 @@
       "css": "twitter",
       "code": 59414,
       "src": "fontawesome"
+    },
+    {
+      "uid": "a66cdc7278e6b33b8bd44a141f5e1a8d",
+      "css": "plus-circled",
+      "code": 59399,
+      "src": "entypo"
+    },
+    {
+      "uid": "3eb93689881ad0804f87052a53edc2b6",
+      "css": "minus-circled",
+      "code": 59404,
+      "src": "entypo"
     }
   ]
 }

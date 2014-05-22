@@ -99,34 +99,25 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
 .blog-fact-graph-weakening {
   white-space: nowrap;
 
-  &:before {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    line-height: 16px;
-    border-radius: 100px;
-    text-align: center;
-    vertical-align: middle;
-    margin-right: 3px;
-    color: hsl(0, 100%, 100%);
-    margin-top: -1px;
+  .icon-plus-circled, .icon-minus-circled {
+    margin: 0;
+    position: relative;
+    top: -2px;
+    vertical-align: text-top;
   }
 }
 
 .blog-fact-graph-supporting {
   color: $agreeColour;
-  &:before {
-    content: '+';
-    background-color: $agreeFillColour;
+  .icon-plus-circled {
+    color: $agreeFillColour;
   }
 }
 
 .blog-fact-graph-weakening {
   color: $disagreeColour;
-  &:before {
-    content: '–';
-    background-color: $disagreeFillColour;
-    line-height: 14px;
+  .icon-minus-circled {
+    color: $disagreeFillColour;
   }
 }
 

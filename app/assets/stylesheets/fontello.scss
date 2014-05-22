@@ -29,7 +29,9 @@
 .icon-facebook,
 .icon-cog,
 .icon-user,
-.icon-users {
+.icon-users,
+.icon-minus-circled,
+.icon-plus-circled {
   font-family: "fontello" !important;
   font-style: normal;
   font-weight: normal;
@@ -75,6 +77,8 @@
 .icon-cog:before { content: '\e806'; } /* '' */
 .icon-user:before { content: '\e80f'; } /* '' */
 .icon-users:before { content: '\e800'; } /* '' */
+.icon-minus-circled:before { content: '\e80c'; } /* '' */
+.icon-plus-circled:before { content: '\e807'; } /* '' */
 
 
 .icon-factlink {
