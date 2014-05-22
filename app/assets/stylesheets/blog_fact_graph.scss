@@ -185,9 +185,15 @@ $arrowSize: 5px;
   display: inline-block;
   padding: 0 2px;
   position: absolute;
-  top: -2em;
-  left: -0.35em;
+  top: -25px;
+  left: 22px;
   box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
+
+  transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
 
   &:before {
     content: '';

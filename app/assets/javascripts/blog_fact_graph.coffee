@@ -708,6 +708,11 @@ createFactWheel = (model) ->
   $container[0]
 
 $(document).ready ->
+  if 'ontouchstart' of document
+    $('.js-blog-click-me').text 'touch me!'
+  else
+    $('.js-blog-click-me').text 'click me!'
+
   factWheelX = new FactWheelModel
     believe: 2
     disbelieve: 1
