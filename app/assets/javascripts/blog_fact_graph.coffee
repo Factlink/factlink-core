@@ -706,10 +706,13 @@ createFactWheel = (model) ->
   $container[0]
 
 $(document).ready ->
-  $('.js-blog-factwheel-x').append createFactWheel new FactWheelModel
+  factWheelX = new FactWheelModel
     believe: 2
     disbelieve: 1
     doubt: 1
+
+  factWheelX.on 'change', -> $('.js-blog-click-me').hide()
+  $('.js-blog-factwheel-x').append createFactWheel factWheelX
 
   factWheelY1 = new FactWheelModel
     believe: 2
