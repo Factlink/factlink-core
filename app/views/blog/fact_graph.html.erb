@@ -221,11 +221,11 @@
 
   <p>We’ve had various variations on this calculation, which might be worth mentioning. For example, you could add evidence for the uncertainty of a Factlink, which would add to the number of unsure votes.</p>
 
-  <p>The most notable addition was authority. You could gain authority when people found your evidence relevant. This encouraged making good connections between Factlinks. We didn’t award authority if someone agreed with a Factlink you annotated, as you shouldn’t be punished for not posting agreeable content. After all, the whole point was to call out misinformation on the web.</p>
+  <p>The most notable addition was authority. You could gain authority when people found your evidence <span class="blog-fact-graph-agree">relevant</span>. This encouraged making good connections between Factlinks. We didn’t award authority if someone agreed with a Factlink you annotated, as you shouldn’t be punished for not posting agreeable content. After all, the whole point was to call out misinformation on the web.</p>
 
-  <p>Authority was then used to weigh votes. The votes of people with high authority would thus weigh more than the votes of people with low authority. This way we tried to build moderation into the system: if people appreciated the evidence you posted, then your vote would weigh more than that of people who weren’t yet appreciated by the community.</p>
+  <p>Authority was then used to weigh votes. The votes of people with high authority would weigh more than the votes of people with low authority. This way we tried to build moderation into the system: if people appreciated the evidence you posted, then your vote would weigh more than that of people who weren’t yet appreciated by the community.</p>
 
-  <p>Of course, people who have expertise on one topic often don’t know much about other topics. That’s why at one point we even had topic-specific authority, weighed by “topic channels” that people posted Factlinks to. But that’s another story.</p>
+  <p>Of course, people who have expertise on one topic don’t necessarily know much about other topics. That’s why at one point we even had topic-specific authority, weighed by “topic channels” that people posted Factlinks to. But that’s another story.</p>
 
   <aside class="blog-aside">
     <div class="blog-aside-inner">
@@ -239,9 +239,9 @@
 
   <h4>User interface</h4>
 
-  <p>The calculation has been designed to be directly visualised and interacted with. But building a good user interface proved tricky. We started out with tabs for supporting, weakening, and unsure votes and evidence. But that meant that the initially opened tab got the most attention.</p>
+  <p>The calculation had been designed to be directly visualised and interacted with. But building a good user interface proved tricky. We started out with tabs for supporting and weakening evidence. But that meant that the initially opened tab got the most attention, an undesirable bias.</p>
 
-  <p>More importantly, there were too many numbers on the screen, which was overwhelming. It also wasn’t clear what all the different numbers meant. We tried to address those problems with a design that showed all votes and evidence in one overview:</p>
+  <p>More importantly, there were too many numbers on the screen, which was overwhelming to many users. It also wasn’t clear what all the different numbers meant. We tried to address those problems with a design that showed all votes and evidence in one overview:</p>
 
   <aside class="blog-aside">
     <div class="blog-aside-inner">
@@ -260,7 +260,7 @@
     </figure>
   </div>
 
-  <p>In this design, the numbers in the middle represent not the relevance of the evidence, but the total number of agreeing or disagreeing votes of the evidence’s credibility tuple. All the numbers of the evidence and votes add up to the big number on top, which represents the “total amount of thinking” or “brain cycles” that people have put into it.</p>
+  <p>In this design, the numbers in the middle represent not the relevance of the evidence, but the total number of votes contributed by the evidence’s credibility tuple (e.g. <em>t</em> from <em>c</em>(<span class="blog-fact-graph-f2">F2</span> <span class="blog-fact-graph-supporting-arrow">⟶</span> <span class="blog-fact-graph-f1">F1</span>)). All the numbers in the middle add up to the big number on top, which represents the “total amount of thinking” or “brain cycles” that people have put into it.</p>
 
   <aside class="blog-aside">
     <div class="blog-aside-inner blog-aside-inner-top">
