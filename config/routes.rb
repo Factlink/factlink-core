@@ -84,7 +84,7 @@ FactlinkUI::Application.routes.draw do
   get '/p/on-your-site', to: redirect("/on-your-site")
 
   get "/blog" => "blog#index", as: 'blog_index'
-  get "/blog/factlinks-fact-graph" => "blog#fact_graph", as: 'blog_calculation'
+  get "/blog/factlinks-fact-graph" => "blog#fact_graph", as: 'blog_fact_graph'
   get "/blog/4-lessons-you-can-learn-from-factlinks-pivot" => "blog#4_lessons_you_can_learn_from_factlinks_pivot", as: 'blog_4_lessons_you_can_learn_from_factlinks_pivot'
   get "/blog/the-annotated-web" => "blog#the_annotated_web", as: 'blog_the_annotated_web'
   get "/blog/learning-from-discussions" => "blog#learning_from_discussions", as: 'blog_learning_from_discussions'

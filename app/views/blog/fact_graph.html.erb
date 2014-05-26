@@ -7,16 +7,11 @@
   <time><a href="https://factlink.com/user/janpaul123">Jan Paul Posma</a>, <span pubdate>26 May 2014</span></time>
   <h1 class="static-pages-heading-h1">Factlink’s Fact Graph</h1>
 
-  <p>Half a year ago we decided to throw away half of our code. Before then, our product consisted of two parts:</p>
+  <p>Factlink started with a mission to annotate the world’s information, and to provide a platform in which credible information can surface. We called the second part the “Fact Graph”: the interfaces for linking pieces of text on the web together, and a calculation that shows for each piece of text how credible it is.</p>
 
-  <ol>
-    <li>Annotation: browser extensions allowing to add information to any piece of text on the internet.</li>
-    <li>“Fact Graph”: interfaces for linking those pieces of text together, and a calculation that shows for each piece of text how credible it is.</li>
-  </ol>
+  <p>For the last six months, we haven’t focused on the Fact Graph, as we wanted to <%= link_to "get annotation right first", blog_4_lessons_you_can_learn_from_factlinks_pivot_path %>. But today, we’re sharing the insights from the hundreds of hours of research into the Fact Graph. We look at our collaborative “fact checking” system in detail, especially the mathematics and user interfaces.</p>
 
-  <p>In our <%= link_to "previous article", blog_4_lessons_you_can_learn_from_factlinks_pivot_path %> we looked at why we decided to focus on annotation. In this article we look at the other half, the “Fact Graph”. We want to share some insights from the hundreds of hours of research and development with you. We look at our collaborative fact checking system in detail, especially the mathematics and user interface.</p>
-
-  <h4>Factlink’s original goal</h4>
+  <h4>Factlink’s original idea</h4>
 
   <p>What did we try to do anyway? In an internal document we wrote (emphasis added):</p>
 
@@ -44,7 +39,7 @@
     </div>
   </aside>
 
-  <p>Once you created a Factlink on a website, other people with the browser extension could see it. It didn’t modify the website directly, as that’s not possible, but it altered how the website is rendered using the browser extension. Thus we called Factlink “a layer over the web”.</p>
+  <p>Once you created a Factlink on a website, other people with the browser extension could see it. It didn’t modify the website directly, as that’s generally not possible, but it altered how the website is rendered using the browser extension.</p>
 
   <p>You could then post the Factlink to a channel, such as “Brain development”. Others who subscribed to that channel, such as experts or interested people, would see the Factlink on their activity feed. They could then give their opinion, add sources, and comment on the Factlink.</p>
 
@@ -80,7 +75,7 @@
     <li>You could click a colour on the Factwheel to cast a vote, for whether you <span class="blog-fact-graph-agree">agree</span>, <span class="blog-fact-graph-disagree">disagree</span>, or are <span class="blog-fact-graph-unsure">unsure</span>.</li>
   </ol>
 
-  <p>Initially, we started out with just voting. If you agreed, you clicked the green part, which would grow a little. And the number inside the circle would become larger. The same for the red and blue parts.</p>
+  <p>Initially, we started out with just voting. If you agreed, you clicked the green part, which would grow a bit. And the number inside the circle would become higher. Similarly for the red and blue parts.</p>
 
   <aside class="blog-aside">
     <div class="blog-aside-inner">
@@ -104,7 +99,7 @@
 
   <p>The key idea of our credibility calculation was evidence. You could add Factlinks as evidence for another Factlink. This evidence could be either supporting or weakening. If the <span class="blog-fact-graph-supporting"><i class="icon-plus-circled"></i> supporting Factlink</span> was likely to be <span class="blog-fact-graph-agree">true</span>, then the Factlink it supported was also more likely to be <span class="blog-fact-graph-agree">true</span>. If a <span class="blog-fact-graph-weakening"><i class="icon-minus-circled"></i> weakening Factlink</span> was likely to be <span class="blog-fact-graph-agree">true</span>, then the Factlink it weakened was more likely to be <span class="blog-fact-graph-disagree">false</span>. We called this network of evidence the “Fact Graph”.</p>
 
-  <p>An example. <span class="blog-fact-graph-f1">Factlink 1 (F1)</span> is: <span class="blog-fact-graph-factlink blog-fact-graph-f1">“Working from home is more productive than working in an office.”</span> You could find some evidence on a website that talks about personal experience, and annotate <span class="blog-fact-graph-f2">F2</span>: <span class="blog-fact-graph-factlink blog-fact-graph-f2">“I’m much happier working from home, so I work harder.”</span> You can add <span class="blog-fact-graph-f2">F2</span> as <span class="blog-fact-graph-supporting"><i class="icon-plus-circled"></i> supporting evidence</span> to <span class="blog-fact-graph-f1">F1</span>. If it turns out that <span class="blog-fact-graph-f2">F2</span> is <span class="blog-fact-graph-agree">very credible</span> &mdash; many people voted that they agree, or it gets a lot of supporting evidence &mdash; then in turn <span class="blog-fact-graph-f1">F1</span> will also become <span class="blog-fact-graph-agree">more credible</span>. The green part of the Factwheel of <span class="blog-fact-graph-f1">F1</span> will become bigger.</p>
+  <p>An example. <span class="blog-fact-graph-f1">Factlink 1 (F1)</span> is: <span class="blog-fact-graph-factlink blog-fact-graph-f1">“Working from home is more productive than working in an office.”</span> You could find a website talking about personal experience, and annotate <span class="blog-fact-graph-f2">F2</span>: <span class="blog-fact-graph-factlink blog-fact-graph-f2">“I’m much happier working from home, so I work harder.”</span> You can then add <span class="blog-fact-graph-f2">F2</span> as <span class="blog-fact-graph-supporting"><i class="icon-plus-circled"></i> supporting evidence</span> to <span class="blog-fact-graph-f1">F1</span>. If it turns out that <span class="blog-fact-graph-f2">F2</span> is <span class="blog-fact-graph-agree">very credible</span> &mdash; many people voted that they agree, or it gets a lot of supporting evidence &mdash; then in turn <span class="blog-fact-graph-f1">F1</span> will also become <span class="blog-fact-graph-agree">more credible</span>. The green part of the Factwheel of <span class="blog-fact-graph-f1">F1</span> will become bigger.</p>
 
   <p>Say you find a counter argument on the web, which you annotate. <span class="blog-fact-graph-f3">F3</span>: <span class="blog-fact-graph-factlink blog-fact-graph-f3">“In conclusion, in 89% of the cases we have looked at, working in the office was most productive.”</span> This one might be added as <span class="blog-fact-graph-weakening"><i class="icon-minus-circled"></i> weakening evidence</span> to <span class="blog-fact-graph-f1">F1</span>. If it turns out <span class="blog-fact-graph-f3">F3</span> is <span class="blog-fact-graph-agree">credible</span>, then <span class="blog-fact-graph-f1">F1</span> becomes <span class="blog-fact-graph-disagree">less credible</span>. The red part of the Factwheel of <span class="blog-fact-graph-f1">F1</span> will become bigger.</p>
 
@@ -127,11 +122,11 @@
     </div>
   </aside>
 
-  <p>What if someone adds nonsense <span class="blog-fact-graph-supporting"><i class="icon-plus-circled"></i> supporting evidence</span>, <span class="blog-fact-graph-f4">F4</span>: <span class="blog-fact-graph-factlink blog-fact-graph-f4">“The sky is blue.”</span> Someone can do this to falsely increase or decrease credibility of <span class="blog-fact-graph-f1">F1</span>, especially if <span class="blog-fact-graph-f4">F4</span> itself is <span class="blog-fact-graph-agree">very credible</span>. We could allow users to flag such invalid arguments, and have them removed by a moderator, or if enough people flag it.</p>
+  <p>What if someone adds nonsense <span class="blog-fact-graph-supporting"><i class="icon-plus-circled"></i> supporting evidence</span>, <span class="blog-fact-graph-f4">F4</span>: <span class="blog-fact-graph-factlink blog-fact-graph-f4">“The sky is blue.”</span> Someone can do this to falsely increase the credibility of <span class="blog-fact-graph-f1">F1</span>, especially if <span class="blog-fact-graph-f4">F4</span> itself is <span class="blog-fact-graph-agree">very credible</span>.</p>
 
-  <p>But it might also be that evidence that looks like nonsense, is in fact relevant. It might just be that you don’t understand the subject matter well enough, or that it needs further explaining. Relevance isn’t binary &mdash; either relevant or irrelevant &mdash; but it’s a scale. We are not just interested in the credibility of Factlinks, but also in the credibility of relations between Factlinks.</p>
+  <p>We could have users reporting such invalid arguments, and have them removed by a moderator. But it might also be that evidence that looks like nonsense, is in fact relevant. It might just be that you don’t understand the subject matter well enough, or that it needs further explaining. Relevance isn’t binary &mdash; either relevant or irrelevant &mdash; but it’s a scale.</p>
 
-  <p>In the same way you can vote on the credibility of Factlinks, you can vote on the credibility of the relations between Factlinks, evidence. In an attempt to avoid confusion, we call this voting on relevance. You can <span class="blog-fact-graph-agree">agree</span> or <span class="blog-fact-graph-disagree">disagree</span> that evidence is relevant.</p>
+  <p>In other words, we are not just interested in the credibility of Factlinks, but also in the credibility of relations between Factlinks. In our model, in the same way you can vote on the credibility of Factlinks, you can vote on the credibility of the relations between Factlinks: evidence. In an attempt to avoid confusion, we call this voting on relevance. You can <span class="blog-fact-graph-agree">agree</span> or <span class="blog-fact-graph-disagree">disagree</span> that evidence is relevant.</p>
 
   <aside class="blog-aside">
     <div class="blog-aside-inner">
