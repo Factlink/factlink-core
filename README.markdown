@@ -37,4 +37,4 @@ Now open your browser and surf to http://localhost:3000
 
 ## Licensing
 
-This project is TODO licensed, (C) Factlink
+Copyright (c) 2011-2014 Factlink Inc. and individual contributors. Licensed under MIT license, see [LICENSE.txt](LICENSE.txt) for the full license.
