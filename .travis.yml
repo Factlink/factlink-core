@@ -1,16 +1,22 @@
 language: ruby
 rvm:
-  - "2.1.2"
+- 2.1.2
 script:
-  - psql -c 'create database factlink_test;' -U postgres
-  - bundle exec rake db:setup
-  - bundle exec rspec spec --profile
-  - bundle exec rake konacha:load_poltergeist konacha:run
-  - bundle exec rspec spec/acceptance spec/screenshots --profile
-  - bundle exec brakeman --except SessionSettings -q -z
-  - bin/check_assets_updated.sh
-  - bundle exec rails_best_practices --silent
+- psql -c 'create database factlink_test;' -U postgres
+- bundle exec rake db:setup
+- bundle exec rspec spec --profile
+- bundle exec rake konacha:load_poltergeist konacha:run
+- bundle exec rspec spec/acceptance spec/screenshots --profile
+- bundle exec brakeman --except SessionSettings -q -z
+- bin/check_assets_updated.sh
+- bundle exec rails_best_practices --silent
 addons:
   code_climate:
     repo_token: 5bc532dd697587893f279a75aace11528bd17b63066856a48d22ddf40c7e8303
-  postgresql: "9.3"
+  postgresql: 9.3
+deploy:
+  api_key:
+    provider: heroku
+    secure: Dn4vYMG6a1L4b4aLNZQOI1kPK6IMRbiUV1w0naBTQoQaGBDLPjrvM/Szaz8ovT6DHqs70yzBTbZPrTOOH7A2GgotoUJS550W/1PaXOZ0btnc5CLtSa/ygSvrjYLfqidfzCOYhNlyOL9dMy47mzBj5wIgv2BQCB1HOSjqpDrao4U=
+    app: factlink-staging
+    run: "rake db:migrate"
