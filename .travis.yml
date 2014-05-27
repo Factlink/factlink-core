@@ -15,8 +15,8 @@ addons:
     repo_token: 5bc532dd697587893f279a75aace11528bd17b63066856a48d22ddf40c7e8303
   postgresql: 9.3
 deploy:
+  provider: heroku
+  app: factlink-staging
+  run: "rake db:migrate"
   api_key:
-    provider: heroku
     secure: Dn4vYMG6a1L4b4aLNZQOI1kPK6IMRbiUV1w0naBTQoQaGBDLPjrvM/Szaz8ovT6DHqs70yzBTbZPrTOOH7A2GgotoUJS550W/1PaXOZ0btnc5CLtSa/ygSvrjYLfqidfzCOYhNlyOL9dMy47mzBj5wIgv2BQCB1HOSjqpDrao4U=
-    app: factlink-staging
-    run: "rake db:migrate"
