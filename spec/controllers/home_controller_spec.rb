@@ -14,7 +14,7 @@ describe HomeController do
 
     it "shows in-your-browser page when not signed in" do
       get :index
-      expect(response.body).to match 'Share your knowledge for a better world'
+      expect(response.body).to match 'Share your knowledge with the world'
     end
   end
 end
