@@ -6,8 +6,10 @@ script:
 - bundle exec rake db:setup
 - bundle exec rspec spec --profile
 - bundle exec rake konacha:load_poltergeist konacha:run
-- bundle exec rspec spec/acceptance spec/screenshots --profile
+- bundle exec rspec spec/acceptance --profile
+- "bundle exec rspec spec/screenshots --profile || (./bin/upload_screenshots_to_imgur.sh && false)"
 - bundle exec brakeman --except SessionSettings -q -z
+# - bundle exec scss-lint app/assets/stylesheets/ --config .scss-lint.yml  # Enable when sass-rails is updated
 - bin/check_assets_updated.sh
 - bundle exec rails_best_practices --silent
 addons:
