@@ -8,6 +8,7 @@ script:
 - bundle exec rake konacha:load_poltergeist konacha:run
 - bundle exec rspec spec/acceptance spec/screenshots --profile
 - bundle exec brakeman --except SessionSettings -q -z
+# - bundle exec scss-lint app/assets/stylesheets/ --config .scss-lint.yml  # Enable when sass-rails is updated
 - bin/check_assets_updated.sh
 - bundle exec rails_best_practices --silent
 addons:
