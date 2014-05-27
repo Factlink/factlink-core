@@ -1,5 +1,8 @@
 unless defined?(I_AM_ACCEPTANCE_SPEC_HELPER)
 
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
@@ -12,9 +15,6 @@ require 'sucker_punch/testing/inline'
 
 I_AM_SPEC_HELPER = true
 
-# Don't do web requests from tests
-WebMock.disable_net_connect!(:allow_localhost => true)
-
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f|require f }
@@ -25,6 +25,11 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     DatabaseCleaner.clean
+    WebMock.disable_net_connect!(:allow_localhost => true)
+  end
+
+  config.after(:suite) do
+    WebMock.allow_net_connect!
   end
 
   # Exclude integration tests in normal suite

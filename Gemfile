@@ -98,6 +98,8 @@ group :test do
   gem 'terminal-notifier-guard', '~> 1.5', require: false
 
   gem 'approvals', '~> 0' # not locked, since test will break if something goes wrong here
+
+  gem "codeclimate-test-reporter", require: false
 end
 
 group :test, :development do # TODO why is there a :development here?

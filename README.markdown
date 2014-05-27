@@ -1,4 +1,6 @@
-## Core
+## Factlink.com core repo
+
+[![Build Status](https://travis-ci.org/Factlink/factlink-core.svg?branch=master)](https://travis-ci.org/Factlink/factlink-core) [![Dependency Status](https://gemnasium.com/Factlink/factlink-core.svg)](https://gemnasium.com/Factlink/factlink-core) [![Code Climate](https://codeclimate.com/github/Factlink/factlink-core.png)](https://codeclimate.com/github/Factlink/factlink-core) [![Code Climate](https://codeclimate.com/github/Factlink/factlink-core/coverage.png)](https://codeclimate.com/github/Factlink/factlink-core)
 
 This project is the factlink core application. Currently it consists of
 
