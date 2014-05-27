@@ -70,13 +70,11 @@ FactlinkUI::Application.routes.draw do
   get "/terms-of-service" => "home#terms_of_service", as: 'terms_of_service'
   get "/privacy" => "home#privacy", as: 'privacy'
   get "/about" => "home#about", as: 'about'
-  get "/jobs" => "home#jobs", as: 'jobs'
 
   # Support old urls until Google search index is updated
   get '/p/about', to: redirect("/about")
   get '/p/team', to: redirect("/about")
   get '/p/contact', to: redirect("/about")
-  get '/p/jobs', to: redirect("/jobs")
   get '/p/privacy', to: redirect("/privacy")
   get '/publisher', to: redirect("/on-your-site")
   get '/p/terms-of-service', to: redirect("/terms-of-service")

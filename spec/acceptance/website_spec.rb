@@ -14,13 +14,6 @@ describe "Logged-out visitors", type: :feature do
       end
     end
 
-    it "should be able to view the Jobs page", slow: true do
-      click_link "Jobs"
-      within(:css, "h1") do
-        page.should have_content("Jobs")
-      end
-    end
-
     it "should be able to view the TOS page", slow: true do
       click_link "Terms of Service"
       within(:css, "h1") do
