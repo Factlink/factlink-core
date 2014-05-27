@@ -16,8 +16,7 @@ download_cmds=""
 # Documentation: http://code.google.com/p/imgur-api/source/browse/wiki/ImageUploading.wiki?r=82
 # Also: http://planspace.blogspot.nl/2013/01/upload-images-to-your-imgur-account.html
 
-# $IMGUR_ACCESS_KEY set in .travis.yml (secure)
-
+IMGUR_ACCESS_KEY="e0b59989baa56c9a2b1e71a7a8e76574c831f5e3"
 for filepath in *.png; do
   result="$(curl -X POST -H "Authorization: Bearer $IMGUR_ACCESS_KEY" -F "image=@$filepath" https://api.imgur.com/3/upload )"
   if test "$(echo "$result" | underscore extract 'success')" != 'true'; then
