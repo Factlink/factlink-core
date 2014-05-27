@@ -34,6 +34,49 @@ See `.travis.yml` for various tests that we run.
 
 Screenshot tests can be tricky. On some systems they run correctly (typically Linux), which you can verify using `bundle exec rspec spec/screenshots` on master. If that works, you can update screenshots after running the tests using `bin/update_screenshots_locally.sh`. If the screenshots don't match locally, just let Travis build your branch, and look for imgur uploads. Then use the provided commands to download the images. Please remove the `*-diff.png` files before committing, they are just for debugging purposes.
 
+## Architecture
+
+There's quite a bit of legacy in our application, which we have tried to clean up over time. However, there are still some quirks in our application architecture. We would like to help you understand our application.
+
+### Different repos
+
+- **factlink-core:** The repo you're looking at. Runs the factlink.com website, and the discussion page that runs in an iframe ("client page"). This bootstrap script in this repo will checkout "js-library" and "web-proxy" repos in subdirectories, and start servers for them, to make development easier. See `start-web.sh` and `bin/bootstrap` for details.
+- [**js-library:**](https://github.com/Factlink/js-library) The Javascript annotation library that is included on websites, browser extensions, and in the proxy. The production version is hosted here: https://factlink.com/lib/dist/factlink_loader.min.js. The js-library opens https://factlink.com/client/blank in an iframe, and communicates with factlink-core using a postMessage API, using a wrapper that we call "envoy". The js-library is included on production using a [rails-assets](https://rails-assets.org) gem.
+- [**web-proxy:**](https://github.com/Factlink/web-proxy) Proxies arbitrary pages, and injects a script tag to the js-library. Runs on fct.li. It also detects if Factlink is already inserted on that page, in which case it just redirects.
+- [**browser-extensions:**](https://github.com/Factlink/browser-extensions) Extensions for Chrome, Firefox, and Safari. Just inserts script tag to js-library.
+- [**wordpress-plugin:**](https://github.com/Factlink/wordpress-plugin) Loads js-library on a Wordpress blog, with some controls to specify on which pages it should load exactly.
+- [**pivotx-plugin:**](https://github.com/Factlink/pivotx-plugin) Loads js-library on a PivotX site.
+- [**url_normalizer:**](https://github.com/Factlink/url_normalizer) Gem for converting an arbitrary URL to a canonical URL. Used for attaching annotations to a canonical URL.
+- [**factlink_blacklist:**](https://github.com/Factlink/factlink_blacklist) Regexes that matches URLs on which Factlink should be disabled for technical or privacy reasons. Generates a regex that can be used in browser extensions and such.
+
+### Terminology
+
+- **annotation = fact = FactData = "factlink":** A piece of text annotated on a website.
+- **comment:** A comment on an annotation.
+- **subcomment:** A comment on a comment.
+- **upvote = believes, downvote = disbelieves, tally:** Votes on comments. Terminology comes from our credibility calculation.
+- **client:** Pages that are shown within a transparent iframe through the js-library on someone else's site. Currently this is only the discussion page.
+- **publisher:** A publisher is a person, company, or website that has Factlink installed on their site. A canonical example is our own blog, on which you can use Factlink without installing a browser extension.
+
+### Backend
+
+Actual backend functionality is a bit scattered between Rails controllers, ActiveRecord models, "Backend" classes, [Pavlov](https://github.com/Factlink/pavlov) interactors, and "dead objects". This is the direction we were going: controllers and models shouldn't really do anything, the "Backend" classes are for interacting with the database through the models, and use case logic is in controllers. The reason for this is that we switched databases from Mongo/Redis/Elasticsearch to only Postgres.
+
+Our application is mostly a single-page-app in React, with the backend consisting of JSON APIs. All interactors should return "dead objects" (of which we can be sure they have no database interaction) which are directly serialised to JSON.
+
+Sign in/up screens all open in popups, because people need to be able to login from the discussion page, which is loaded in an iframe. The sign in/up flow does not follow the single-page-app/JSON paradigm, but is a traditional Rails flow.
+
+Activity mails are sent asynchronously using SuckerPunch, which does not require an additional worker, since we run on Heroku.
+
+### Frontend
+
+We use Backbone for our data layer, and for communicating with the JSON APIs. For rendering and interaction we use React. For popups and tooltips we use Tether, which spawns a new React component in the body and keeps it positioned next to any arbitrary React component.
+
+We use SCSS for stylesheets, and explicitly don't use any nesting, but scoped class names instead. This is to prevent naming collisions and to make it easier to find things. We try to keep style interactions as local as possible.
+
+### Servers
+
+We currently run on Heroku, with a Postgres database, Cloudflare for SSL and caching, and AppSignal for application monitoring. The [web-proxy](https://github.com/Factlink/web-proxy) runs on DigitalOcean. Staging environments are set up on https://staging.factlink.com and https://staging.fct.li (proxy), and are practically identical to production.
 
 ## Licensing
 
