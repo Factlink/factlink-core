@@ -16,7 +16,7 @@ describe User do
         username: "TestUser",
         full_name: "Test User",
         email: "test@emial.nl",
-        password: "test123"
+        password: "12345hoi"
       }
     end
 
@@ -101,7 +101,7 @@ describe User do
         username: "TestUser",
         full_name: "Test User",
         email: "test@example.org",
-        password: "test123"
+        password: "12345hoi"
       }
     end
 
@@ -137,7 +137,7 @@ describe User do
       user1 = User.create! valid_attributes, as: :admin
 
       old_token = user1.notification_settings_edit_token
-      user1.reset_password! 'hellohello', 'hellohello'
+      user1.reset_password! '12345hello', '12345hello'
       new_token = user1.notification_settings_edit_token
 
       expect(new_token).to_not eq old_token

@@ -10,8 +10,8 @@ describe Backend::Users do
         full_name: 'data',
         location: 'data',
         biography: 'data',
-        password: '123hoi',
-        password_confirmation: '123hoi',
+        password: '12345hoi',
+        password_confirmation: '12345hoi',
         deleted: true,
         reset_password_token: 'data',
         confirmation_token: 'data'
@@ -38,7 +38,7 @@ describe Backend::Users do
 
       # TODO: we might want to extract "deauthorizing someone" to a
       # separate command at some point
-      expect(saved_user.valid_password?('123hoi')).to be_false
+      expect(saved_user.valid_password?('12345hoi')).to be_false
       expect(saved_user.reset_password_token).to be_nil
 
       expect(saved_user.confirmation_token).to be_nil

@@ -77,6 +77,7 @@ class User < ActiveRecord::Base
   validates_presence_of   :encrypted_password
   validates_length_of     :location, maximum: 127
   validates_length_of     :biography, maximum: 1023
+  validates_with PasswordValidator, fields: :password
 
   def comments
     Comments.where(created_by_id: self.id)
@@ -95,7 +96,9 @@ class User < ActiveRecord::Base
     end
 
     def valid_username?(username)
-      validators = self.validators.select { |v| v.attributes == [:username] && v.options[:with].class == Regexp }.map { |v| v.options[:with] }
+      validators = self.validators.select do |v|
+        v.respond_to?(:attributes) && v.attributes == [:username] && v.options[:with].class == Regexp
+      end.map { |v| v.options[:with] }
 
       where(username: username.downcase).count == 0 and validators.all? { |regex| regex.match(username) }
     end

@@ -15,7 +15,7 @@ describe Accounts::FactlinkAccountsController do
     context 'giving correct credentials' do
       it 'signs in' do
         email = 'janpaul@factlink.com'
-        password = '123hoi'
+        password = '12345hoi'
         user = create :user, email: email, password: password
 
         post :create_session, user_new_session: {email: email, password: password}
@@ -38,7 +38,7 @@ describe Accounts::FactlinkAccountsController do
       it 'signs in' do
         full_name = 'Jan Paul Posma'
         email = 'janpaul@factlink.com'
-        password = '123hoi'
+        password = '12345hoi'
 
         post :create_account, user_new_account: {
           full_name: full_name, email: email,
