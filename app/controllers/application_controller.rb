@@ -66,14 +66,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  ##########
-  # Set the Access Control, so XHR request from other domains are allowed.
-  after_filter :set_access_control
-  def set_access_control
-    headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Request-Origin'] = '*'
-  end
-
   private
 
   def inject_special_test_code
