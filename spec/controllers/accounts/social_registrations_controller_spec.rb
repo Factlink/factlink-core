@@ -137,7 +137,7 @@ describe Accounts::SocialRegistrationsController do
 
       it 'connects the social account and signs in' do
         email = 'email@example.org'
-        password = '123hoi'
+        password = '12345hoi'
         user = create :user, email: email, password: password
         twitter_account = create :social_account, :twitter
 
@@ -152,7 +152,7 @@ describe Accounts::SocialRegistrationsController do
 
       it 'shows an error if the password is incorrect' do
         email = 'email@example.org'
-        password = '123hoi'
+        password = '12345hoi'
         user = create :user, email: email, password: password
         twitter_account = create :social_account, :twitter
 

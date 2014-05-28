@@ -6,8 +6,8 @@ describe 'Reserving an account', type: :feature do
     disable_html5_validations(page)
     fill_in 'user_new_account[full_name]',             with: 'Jane Doe'
     fill_in 'user_new_account[email]',                 with: 'janedoe@example.org'
-    fill_in 'user_new_account[password]',              with: '123hoi'
-    fill_in 'user_new_account[password_confirmation]', with: '123hoi'
+    fill_in 'user_new_account[password]',              with: '12345hoi'
+    fill_in 'user_new_account[password_confirmation]', with: '12345hoi'
     click_button 'Create account'
 
     page.should have_content('Redirecting you back to the application!')
@@ -28,8 +28,8 @@ describe 'Reserving an account', type: :feature do
     disable_html5_validations(page)
     fill_in 'user_new_account[full_name]',             with: name
     fill_in 'user_new_account[email]',                 with: 'janedoe@example.org'
-    fill_in 'user_new_account[password]',              with: '123hoi'
-    fill_in 'user_new_account[password_confirmation]', with: '123hoi'
+    fill_in 'user_new_account[password]',              with: '12345hoi'
+    fill_in 'user_new_account[password_confirmation]', with: '12345hoi'
     click_button 'Create account'
 
     admin = create(:user, :confirmed, :admin)
@@ -50,8 +50,8 @@ describe 'Reserving an account', type: :feature do
     disable_html5_validations(page)
     fill_in 'user_new_account[full_name]',             with: 'Jane Doe'
     fill_in 'user_new_account[email]',                 with: email_address
-    fill_in 'user_new_account[password]',              with: '123hoi'
-    fill_in 'user_new_account[password_confirmation]', with: '123hoi'
+    fill_in 'user_new_account[password]',              with: '12345hoi'
+    fill_in 'user_new_account[password_confirmation]', with: '12345hoi'
     click_button 'Create account'
 
     eventually_succeeds do

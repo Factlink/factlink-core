@@ -4,7 +4,7 @@ describe Interactors::Users::Delete do
   include PavlovSupport
 
   it 'persistant stores the delete flag' do
-    password = 'qwerty'
+    password = '12345hoi'
     user = create(:user, password: password, password_confirmation: password)
     initial_username = user.username
     expect(user.deleted).to eq(false)

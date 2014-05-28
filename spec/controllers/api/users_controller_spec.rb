@@ -41,7 +41,7 @@ describe Api::UsersController do
 
       deleted_user = create(:user)
       as(deleted_user) do |pavlov|
-        pavlov.interactor(:'users/delete', username: deleted_user.username, current_user_password: '123hoi')
+        pavlov.interactor(:'users/delete', username: deleted_user.username, current_user_password: '12345hoi')
       end
       deleted_user = User.find deleted_user.id
 
@@ -71,7 +71,7 @@ describe Api::UsersController do
 
       encrypted_password = old_user.encrypted_password
 
-      put :update, original_username: user.username, encrypted_password: "blaat_password", username: "new_username"
+      put :update, original_username: user.username, encrypted_password: "12345hoi", username: "new_username"
 
       new_user = User.find(user.id)
 
@@ -82,13 +82,13 @@ describe Api::UsersController do
 
   describe :destroy do
     it 'makes the user anonymous' do
-      user = create :user, username: 'someone', password: 'password', password_confirmation: 'password'
+      user = create :user, username: 'someone', password: '12345hoi', password_confirmation: '12345hoi'
       authenticate_user!(user)
 
       ability.should_receive(:can?).with(:destroy, user).and_return(true)
       subject.should_receive(:sign_out)
 
-      delete :destroy, username: 'someone', password: 'password'
+      delete :destroy, username: 'someone', password: '12345hoi'
 
       User.where(username: 'someone').first.should be_nil
     end

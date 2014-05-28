@@ -15,8 +15,8 @@ FactoryGirl.define do
     username
     email
     full_name
-    password '123hoi'
-    password_confirmation '123hoi'
+    password '12345hoi'
+    password_confirmation '12345hoi'
 
     trait :confirmed do
       confirmed_at DateTime.now
