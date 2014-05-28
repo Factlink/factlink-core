@@ -376,7 +376,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    strict_struct (0.0.4)
+    strict_struct (1.0.0)
     sucker_punch (1.0.5)
       celluloid (~> 0.15.2)
     temple (0.6.7)
@@ -476,7 +476,7 @@ DEPENDENCIES
   selenium-webdriver
   sinon-chai-rails (~> 1.0)
   sinon-rails (~> 1.4)
-  strict_struct (= 0.0.4)
+  strict_struct (~> 1.0)
   sucker_punch (~> 1.0.5)
   terminal-notifier-guard (~> 1.5)
   therubyracer (~> 0.12.1)

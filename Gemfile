@@ -19,7 +19,7 @@ gem 'unicorn', '~> 4.8.3', groups: [:staging, :production]
 gem 'pavlov', github: 'Factlink/pavlov'
 
 # Simple value objects
-gem 'strict_struct', '= 0.0.4' # by @markijbema, ask him if he pushed breaking changes in new versions
+gem 'strict_struct', '~> 1.0'
 
 gem 'sucker_punch', '~> 1.0.5'
 
