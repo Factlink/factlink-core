@@ -4,6 +4,7 @@ require 'cancan'
 require 'pavlov'
 
 class ApplicationController < ActionController::Base
+  ensure_security_headers
 
   include Pavlov::Helpers
   include Devise::Controllers::Rememberable
