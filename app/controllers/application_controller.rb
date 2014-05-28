@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  protect_from_forgery
+  protect_from_forgery with: :exception
 
   helper :all
 
