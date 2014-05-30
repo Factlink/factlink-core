@@ -76,7 +76,9 @@ class ApplicationController < ActionController::Base
   helper_method :inject_special_test_code
 
   def remembered_sign_in user, options={}
-    sign_in user, options
+    # added the :authentication event, otherwise the clean_up_csrf_token_on_authentication devise hook isn't run
+    # The hook makes sure the csrf token is renewed after an authentication event, which secures against CSRF token fixation attacks
+    sign_in user, options.merge(:event => :authentication)
     remember_me user
   end
 end
