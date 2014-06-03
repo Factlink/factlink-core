@@ -8,7 +8,7 @@ Factlink is an open-source project with the mission to make the world more open 
 
 This project used to be run by Factlink Inc., and is now a community project. We welcome new features and bugfixes, and support sharing code with other projects. All our projects are liberally licensed (MIT), allowing for maximal reuse. For more background information about Factlink, please check out our blog: https://factlink.com/blog.
 
-Factlink is being maintained by @markijbema, @janpaul132, @martijnrusschen, and @EamonNerbonne.
+Factlink is being maintained by @markijbema, @janpaul123, @martijnrusschen, and @EamonNerbonne.
 
 ## Installation
 
