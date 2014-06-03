@@ -12,6 +12,8 @@ class HomeController < ApplicationController
     end
   end
 
+  skip_before_filter :set_x_frame_options_header, only: [:index] # For janpaulposma.nl/#factlink iframe
+
   def index
     flash.keep
     if user_signed_in?
