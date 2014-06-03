@@ -21,7 +21,7 @@ class window.UserPassword extends Backbone.Model
 
       if attributes.password.length == 0
         password: '*'
-      else if attributes.password.length < 6 # seems to be enforced by Devis
+      else if attributes.password.length < 8 # seems to be enforced by Devise
         password: 'too short'
 
       if attributes.password_confirmation.length == 0
