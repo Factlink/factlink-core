@@ -63,6 +63,9 @@ class User < ActiveRecord::Base
   validates_format_of     :username,
                           :with => /\A[a-z0-9_]*\Z/i,
                           :message => "only (lowercase) letters, digits and _ are allowed"
+  validates_format_of     :full_name,
+                          :with => /\A(?!.*\x00).*\Z/i,
+                          :message => "no null bytes allowed in your full name"
   before_validation :username_to_lowercase
   def username_to_lowercase
     self.username = self.username.downcase if self.username
