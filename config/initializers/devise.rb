@@ -36,7 +36,7 @@ Devise.setup do |config|
   # to authenticate or find a user. Default is :email.
   config.case_insensitive_keys = [ :email ]
 
-  config.reset_password_within = 10.years # Also used for setting the initial password
+  config.reset_password_within = 6.hours # Also used for setting the initial password
 
   # Tell if authentication through request.params is enabled. True by default.
   # config.params_authenticatable = true
