@@ -46,6 +46,11 @@ describe User do
       expect(new_user.valid?).to be_false
     end
 
+    it "cannot contain null bytes" do
+      new_user.full_name = "\x00Gerard Ekdom"
+      expect(new_user.valid?).to be_false
+    end
+
     it "can be just one letter" do
       new_user.full_name = "a"
       expect(new_user.valid?).to be_true
