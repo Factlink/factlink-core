@@ -2,26 +2,31 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
   around_filter :render_trigger_event_on_social_account_error
 
   def callback
-    social_account = SocialAccount.find_by_provider_and_uid(provider_name, omniauth_obj['uid'])
 
-    if social_account and social_account.user
-      @user = social_account.user
-      remembered_sign_in @user
-
-      render_success_event
+    if params[:token] && params[:token] != session[:_csrf_token]
+      fail AccountError, "Can't authenticate, please try again!"
     else
-      if social_account # spurious account
-        social_account.destroy
+      social_account = SocialAccount.find_by_provider_and_uid(provider_name, omniauth_obj['uid'])
+
+      if social_account and social_account.user
+        @user = social_account.user
+        remembered_sign_in @user
+
+        render_success_event
+      else
+        if social_account # spurious account
+          social_account.destroy
+        end
+
+        @social_account = SocialAccount.new provider_name: provider_name
+        @social_account.update_omniauth_obj! omniauth_obj
+        session[:register_social_account_id] = @social_account.id.to_s
+
+        @user = User.new
+        @user.email = @social_account.email
+
+        render :'accounts/social_registrations/new'
       end
-
-      @social_account = SocialAccount.new provider_name: provider_name
-      @social_account.update_omniauth_obj! omniauth_obj
-      session[:register_social_account_id] = @social_account.id.to_s
-
-      @user = User.new
-      @user.email = @social_account.email
-
-      render :'accounts/social_registrations/new'
     end
   end
 

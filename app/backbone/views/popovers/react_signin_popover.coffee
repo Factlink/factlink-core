@@ -8,7 +8,7 @@ window.ReactSigninLinks = React.createClass
           'Sign in with: ',
           _a ["button-twitter js-accounts-popup-link",
             @props.buttonClassName || 'button-connect'
-            href: "/auth/twitter"
+            href: "/auth/twitter?token=#{encodeURIComponent(window.safeLocalStorage.getItem('factlink_csrf_token'))}"
           ],
             _i ["icon-twitter"]
           ' ',

@@ -5,20 +5,24 @@ class Accounts::SocialConnectionsController < Accounts::BaseController
   def callback
     authorize! :update, current_user
 
-    fail AccountError, "Error connecting." unless omniauth_obj
+    if params[:token] && params[:token] != session[:_csrf_token]
+      fail AccountError, "Can't authenticate, please try again!"
+    elsif not omniauth_obj
+      fail AccountError, "Error connecting."
+    else
+      social_account = SocialAccount.find_by_provider_and_uid(provider_name, omniauth_obj['uid'])
 
-    social_account = SocialAccount.find_by_provider_and_uid(provider_name, omniauth_obj['uid'])
+      if social_account && social_account.user && social_account.user != current_user
+        fail AccountError, "Already connected to a different account, please sign in to the connected account or reconnect your account."
+      end
 
-    if social_account && social_account.user && social_account.user != current_user
-      fail AccountError, "Already connected to a different account, please sign in to the connected account or reconnect your account."
+      if social_account # spurious or already connected account
+        social_account.destroy
+      end
+
+      current_user.social_account(provider_name).update_omniauth_obj!(omniauth_obj)
+      render_success_event
     end
-
-    if social_account # spurious or already connected account
-      social_account.destroy
-    end
-
-    current_user.social_account(provider_name).update_omniauth_obj!(omniauth_obj)
-    render_success_event
   end
 
   def deauthorize
