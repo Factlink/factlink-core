@@ -130,6 +130,10 @@ class User < ActiveRecord::Base
     !deleted
   end
 
+  def password_token_expired?
+    reset_password_token.nil? || !reset_password_period_valid?
+  end
+
   def self.human_attribute_name(attr, options = {})
     attr.to_s == 'non_field_error' ? '' : super
   end
