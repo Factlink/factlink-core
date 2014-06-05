@@ -4,7 +4,7 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
   def callback
 
     if params[:token] && params[:token] != session[:_csrf_token]
-      render_trigger_event 'account_error', "Can't authenticate, please try again!"
+      fail AccountError, "Can't authenticate, please try again!"
     else
       social_account = SocialAccount.find_by_provider_and_uid(provider_name, omniauth_obj['uid'])
 
