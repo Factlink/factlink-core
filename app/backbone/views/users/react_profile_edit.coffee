@@ -35,7 +35,7 @@ ReactSocialConnect = React.createBackboneClass
             else
               _a ["button-twitter js-accounts-popup-link",
                 # The "?use_authorize=true&x_auth_access_type=write" part is for some weird twitter bug
-                href: "/auth/twitter?use_authorize=true&x_auth_access_type=write"
+                href: "/auth/twitter?use_authorize=true&x_auth_access_type=write&token=#{encodeURIComponent(window.safeLocalStorage.getItem('factlink_csrf_token'))}"
               ],
                 _i ["icon-twitter"]
                 ' Connect with Twitter'
