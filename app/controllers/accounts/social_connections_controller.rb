@@ -7,9 +7,9 @@ class Accounts::SocialConnectionsController < Accounts::BaseController
 
     if params[:token] && params[:token] != session[:_csrf_token]
       render_trigger_event 'account_error', "Can't authenticate, please try again!"
+    elsif not omniauth_obj
+      fail AccountError, "Error connecting."
     else
-      fail AccountError, "Error connecting." unless omniauth_obj
-
       social_account = SocialAccount.find_by_provider_and_uid(provider_name, omniauth_obj['uid'])
 
       if social_account && social_account.user && social_account.user != current_user
