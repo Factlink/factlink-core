@@ -3,7 +3,7 @@ source 'https://rails-assets.org'
 
 ruby '2.1.2'
 
-gem 'rails', '4.1.1' # this is too important to update automatically
+gem 'rails', '4.1.4' # this is too important to update automatically
 
 gem 'rails_12factor', '~> 0.0.2', groups: [:staging, :production]
 
