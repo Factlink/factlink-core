@@ -61,6 +61,7 @@ $triangleSize: 8px;
     > .blog-fact-graph-factlink-popover-content {
       margin-bottom: $triangleSize;
     }
+    
     > .blog-fact-graph-factlink-popover-arrow {
       top: 100%;
       margin-top: -$triangleSize;
@@ -68,10 +69,12 @@ $triangleSize: 8px;
       border-top-color: $darkTranslucentGrey;
     }
   }
+
   &.blog-fact-graph-right {
     > .blog-fact-graph-factlink-popover-content {
       margin-left: $triangleSize;
     }
+
     > .blog-fact-graph-factlink-popover-arrow {
       right: 100%;
       margin-right: -$triangleSize;
@@ -79,10 +82,12 @@ $triangleSize: 8px;
       border-right-color: $darkTranslucentGrey;
     }
   }
+
   &.blog-fact-graph-left {
     > .blog-fact-graph-factlink-popover-content {
       margin-right: $triangleSize;
     }
+
     > .blog-fact-graph-factlink-popover-arrow {
       left: 100%;
       margin-left: -$triangleSize;

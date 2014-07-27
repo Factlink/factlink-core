@@ -30,18 +30,18 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
 .blog-fact-graph-factlink {
   color: black;
   background: hsl(0, 0%, 90%);
-}
 
-.blog-fact-graph-factlink.blog-fact-graph-f2 {
-  background: $agreeBackgroundColour;
-}
+  .blog-fact-graph-f2 {
+    background: $agreeBackgroundColour;
+  }
 
-.blog-fact-graph-factlink.blog-fact-graph-f3 {
-  background: $disagreeBackgroundColour;
-}
+  .blog-fact-graph-f3 {
+    background: $disagreeBackgroundColour;
+  }
 
-.blog-fact-graph-factlink.blog-fact-graph-f4 {
-  background: hsl(280, 78%, 93%);
+  .blog-fact-graph-f4 {
+    background: hsl(280, 78%, 93%);
+  }
 }
 
 .blog-fact-graph-undetermined,
@@ -114,6 +114,7 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
 
 .blog-fact-graph-supporting {
   color: $agreeColour;
+
   .icon-plus-circled {
     color: $agreeFillColour;
   }
@@ -121,6 +122,7 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
 
 .blog-fact-graph-weakening {
   color: $disagreeColour;
+
   .icon-minus-circled {
     color: $disagreeFillColour;
   }
@@ -132,9 +134,11 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
   width: 17px;
   height: 13px;
 }
+
 .blog-fact-graph-supporting-arrow {
   background: asset-data-url('blog/fact_graph/arrow-plus.png');
 }
+
 .blog-fact-graph-weakening-arrow {
   background: asset-data-url('blog/fact_graph/arrow-min.png');
 }
@@ -162,6 +166,7 @@ $unsureBackgroundColour: hsl(196, 78%, 87%);
 }
 
 $arrowSize: 5px;
+
 .blog-fact-graph-factwheel-click-me {
   background: hsl(0, 100%, 100%);
   display: inline-block;
@@ -188,6 +193,7 @@ $arrowSize: 5px;
     border-top-color: rgba(0, 0, 0, 0.15);
     z-index: 0;
   }
+
   &:after {
     content: '';
     position: absolute;

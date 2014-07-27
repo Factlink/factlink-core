@@ -19,6 +19,10 @@ a {
   &:hover {
     color: #214059;
   }
+
+  img {
+    border: none;
+  }
 }
 
 p {
@@ -32,18 +36,14 @@ img {
   -ms-interpolation-mode: bicubic;
 }
 
-a img {
-  border: none;
-}
-
-table td {
-  border-collapse: collapse;
-}
-
 table {
   border-collapse: collapse;
   mso-table-lspace: 0;
   mso-table-rspace: 0;
+
+  td {
+    border-collapse: collapse;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
