@@ -26,6 +26,7 @@
 
   svg {
     display: block;
+
     path:hover {
       cursor: pointer;
     }
@@ -61,7 +62,7 @@ $triangleSize: 8px;
     > .blog-fact-graph-factlink-popover-content {
       margin-bottom: $triangleSize;
     }
-    
+
     > .blog-fact-graph-factlink-popover-arrow {
       top: 100%;
       margin-top: -$triangleSize;
