@@ -3,7 +3,6 @@ rvm:
 - 2.1.2
 before_install:
 - gem install scss-lint --no-ri --version '=0.25.1'
-- scss-lint app/assets/stylesheets/ --config .scss-lint.yml
 script:
 - psql -c 'create database factlink_test;' -U postgres
 - bundle exec rake db:setup
@@ -12,6 +11,7 @@ script:
 - bundle exec rspec spec/acceptance --profile
 - "bundle exec rspec spec/screenshots --profile || (./bin/upload_screenshots_to_imgur.sh && false)"
 - bundle exec brakeman --except SessionSettings -q -z
+- scss-lint app/assets/stylesheets/ --config .scss-lint.yml
 - bin/check_assets_updated.sh
 - bundle exec rails_best_practices --silent
 addons:
