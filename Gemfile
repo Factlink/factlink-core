@@ -57,8 +57,8 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'jquery-rails', '~> 3.1.0' # this is 1.11.0; not jquery 2.0 yet.  jquery-migrate claims 2.0 would be safe.
 gem 'jquery-rails-cdn', '~> 1.0.2'
 gem 'rails-assets-backbone', '~> 1.1.2' # beware, backbone does not use semver!
-gem 'rails-assets-react', '~> 0.10.0'
 gem 'rails-assets-react.backbone', '~> 0.3.0'
+gem 'rails-assets-react', '~> 0.11.0'
 gem 'rails-assets-jquery-autosize', '~> 1.18.7'
 gem 'rails-assets-tether', '~> 0.6.5'
 gem 'rails-assets-factlink-js-library', '~> 0.1.0'
