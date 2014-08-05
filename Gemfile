@@ -10,11 +10,11 @@ gem 'rails_12factor', '~> 0.0.2', groups: [:staging, :production]
 gem 'protected_attributes', '~> 1.0.3'
 gem 'rake', '~> 10.3.1', require: false
 
-gem 'secure_headers', '~> 1.1.1'
+gem 'secure_headers', '~> 1.2.0'
 
 # Postgres
 gem 'pg', '~> 0.17.1'
-gem 'pg_search', '~> 0.7.3'
+gem 'pg_search', '~> 0.7.6'
 
 gem 'unicorn', '~> 4.8.3', groups: [:staging, :production]
 
@@ -37,7 +37,7 @@ gem 'omniauth-twitter', '~> 1.0.1'
 gem 'httparty', '~> 0.13.1'
 
 #browser detection
-gem 'browser', '~> 0.4.1'
+gem 'browser', '~> 0.6'
 
 # one of our own gems, to normalize urls
 gem 'url_normalizer', github: 'Factlink/url_normalizer'
@@ -50,15 +50,15 @@ gem 'ohnoes', github: 'markijbema/ohnoes'
 # Asset pipeline
 gem 'uglifier', '~> 2.5'
 gem 'therubyracer', '~> 0.12.1'
-gem 'coffee-script', '~> 2.2.0'
+gem 'coffee-script', '~> 2.3.0'
 gem 'sass-rails', '~> 4.0.3'
 
 # Assets
-gem 'jquery-rails', '~> 3.1.0' # this is 1.11.0; not jquery 2.0 yet.  jquery-migrate claims 2.0 would be safe.
-gem 'jquery-rails-cdn', '~> 1.0.2'
+gem 'jquery-rails', '~> 3.1.1' # this is 1.11.0; not jquery 2.0 yet.  jquery-migrate claims 2.0 would be safe.
+gem 'jquery-rails-cdn', '~> 1.0.3'
 gem 'rails-assets-backbone', '~> 1.1.2' # beware, backbone does not use semver!
-gem 'rails-assets-react', '~> 0.10.0'
-gem 'rails-assets-react.backbone', '~> 0.3.0'
+gem 'rails-assets-react', '~> 0.11.0'
+gem 'rails-assets-react.backbone', '~> 0.3.1'
 gem 'rails-assets-jquery-autosize', '~> 1.18.7'
 gem 'rails-assets-tether', '~> 0.6.5'
 gem 'rails-assets-factlink-js-library', '~> 0.1.0'
