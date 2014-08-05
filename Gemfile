@@ -77,7 +77,7 @@ group :development do
 
   gem 'lograge', '~> 0'
 
-  gem 'brakeman', '~> 2.6', require: false
+  gem 'brakeman', '~> 2.0.0', require: false # upgrade awaiting sprockets upgrade awaiting rails 4
   gem 'rails_best_practices', '~> 1', require: false
   gem 'rubocop', require: false
   gem 'hub', '~> 1', require: false
