@@ -37,7 +37,7 @@ gem 'omniauth-twitter', '~> 1.0.1'
 gem 'httparty', '~> 0.13.1'
 
 #browser detection
-gem 'browser', '~> 0.4.1'
+gem 'browser', '~> 0.6'
 
 # one of our own gems, to normalize urls
 gem 'url_normalizer', github: 'Factlink/url_normalizer'
