@@ -48,7 +48,7 @@
 }
 
 .dropdown:hover {
-  & > .dropdown-menu {
+  > .dropdown-menu {
     visibility: visible;
     opacity: 1;
     transition: visibility 0, opacity 0.2s 0;
