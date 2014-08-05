@@ -14,7 +14,7 @@ gem 'secure_headers', '~> 1.2.0'
 
 # Postgres
 gem 'pg', '~> 0.17.1'
-gem 'pg_search', '~> 0.7.3'
+gem 'pg_search', '~> 0.7.6'
 
 gem 'unicorn', '~> 4.8.3', groups: [:staging, :production]
 
@@ -50,7 +50,7 @@ gem 'ohnoes', github: 'markijbema/ohnoes'
 # Asset pipeline
 gem 'uglifier', '~> 2.5'
 gem 'therubyracer', '~> 0.12.1'
-gem 'coffee-script', '~> 2.2.0'
+gem 'coffee-script', '~> 2.3.0'
 gem 'sass-rails', '~> 4.0.3'
 
 # Assets
