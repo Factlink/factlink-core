@@ -54,8 +54,8 @@ gem 'coffee-script', '~> 2.2.0'
 gem 'sass-rails', '~> 4.0.3'
 
 # Assets
-gem 'jquery-rails', '~> 3.1.0' # this is 1.11.0; not jquery 2.0 yet.  jquery-migrate claims 2.0 would be safe.
-gem 'jquery-rails-cdn', '~> 1.0.2'
+gem 'jquery-rails', '~> 3.1.1' # this is 1.11.0; not jquery 2.0 yet.  jquery-migrate claims 2.0 would be safe.
+gem 'jquery-rails-cdn', '~> 1.0.3'
 gem 'rails-assets-backbone', '~> 1.1.2' # beware, backbone does not use semver!
 gem 'rails-assets-react', '~> 0.11.0'
 gem 'rails-assets-react.backbone', '~> 0.3.1'

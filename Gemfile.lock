@@ -167,10 +167,10 @@ GEM
     i18n (0.6.11)
     jar_wrapper (0.1.8)
       zip
-    jquery-rails (3.1.0)
+    jquery-rails (3.1.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-rails-cdn (1.0.2)
+    jquery-rails-cdn (1.0.3)
       jquery-rails
     json (1.8.1)
     jwt (0.1.13)
@@ -444,8 +444,8 @@ DEPENDENCIES
   guard-rspec (~> 4.0)
   httparty (~> 0.13.1)
   hub (~> 1)
-  jquery-rails (~> 3.1.0)
-  jquery-rails-cdn (~> 1.0.2)
+  jquery-rails (~> 3.1.1)
+  jquery-rails-cdn (~> 1.0.3)
   konacha (~> 3.0)
   lograge (~> 0)
   ohnoes!
