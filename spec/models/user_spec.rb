@@ -32,7 +32,7 @@ describe User do
 
   describe :username do
     let(:new_user) { build :user }
-    
+
     it "checks uniqueness case insensitively" do
       create :user, username: "TestUser"
       user2 = build  :user, username: "testuser"
@@ -41,6 +41,11 @@ describe User do
 
     it "cannot contain null bytes" do
       new_user.username = "\x00gerard"
+      expect(new_user.valid?).to be_false
+    end
+
+    it "Test for HackerOne report #24189" do
+      new_user.username = "gerard%0a"
       expect(new_user.valid?).to be_false
     end
   end
