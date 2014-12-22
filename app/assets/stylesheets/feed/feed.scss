@@ -44,7 +44,7 @@ $headerBorder: 1px;
   display: block;
   vertical-align: top;
   padding: 0 10px;
-  border-bottom: $headerBorder lightgrey solid;
+  border-bottom: $headerBorder #d3d3d3 solid;
   border-radius: $baseBorderRadius;
   color: $baseFontColor;
   background: white;

@@ -6,7 +6,7 @@
 }
 
 .on-your-site-container {
-  border-top: 1px lightgrey solid;
+  border-top: 1px #d3d3d3 solid;
   padding: 20px 0;
   text-align: center;
 
@@ -18,7 +18,7 @@
 
 .focused-discussion {
   padding: 10px;
-  border: 1px lightgrey solid;
+  border: 1px #d3d3d3 solid;
   border-radius: 4px;
 }
 
@@ -36,7 +36,7 @@
 }
 
 .focused-discussion-list-item {
-  background: lightgrey;
+  background: #d3d3d3;
   margin: 10px;
   padding: 4px;
   transition: background 0.5s ease;
@@ -78,7 +78,7 @@
 .higher-engagement {
   text-align: left;
   background-color: $factlinkBackgroundColor;
-  border: 1px lightgrey solid;
+  border: 1px #d3d3d3 solid;
   border-radius: 4px;
   padding-top: 3px;
 }
@@ -100,7 +100,7 @@
 
 .social-reach-icon-container {
   @extend %centering;
-  border: 1px lightgrey solid;
+  border: 1px #d3d3d3 solid;
 }
 
 .social-reach-icon {

@@ -42,7 +42,7 @@ $learnMoreColumnPadding: 20px;
   vertical-align: top;
   padding: 0 $learnMoreColumnPadding;
   border-left: none;
-  border-bottom: 1px lightgrey dotted;
+  border-bottom: 1px #d3d3d3 dotted;
 
   &:first-child {
     border-left: none;
@@ -51,7 +51,7 @@ $learnMoreColumnPadding: 20px;
   @include from-width(600px) {
     display: inline-block;
     width: 33.3%;
-    border-left: 1px lightgrey dotted;
+    border-left: 1px #d3d3d3 dotted;
     border-bottom: none;
   }
 }
@@ -130,7 +130,7 @@ $learnMoreColumnPadding: 20px;
   display: table-cell;
   padding: 3px 0 3px 5px;
   font-size: 9px;
-  color: lightgrey;
+  color: #d3d3d3;
 }
 
 .best-comment-list {
@@ -143,7 +143,7 @@ $learnMoreColumnPadding: 20px;
 }
 
 .best-comment-list-item {
-  background: lightgrey;
+  background: #d3d3d3;
   margin: 9px 9px 9px 3px;
   padding: 4px;
   transition: background 0.5s ease;
