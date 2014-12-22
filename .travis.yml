@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-- 2.1.2
+- 2.1.5
 before_install:
 - gem install scss-lint --no-ri --version '=0.26.2'
 script:
