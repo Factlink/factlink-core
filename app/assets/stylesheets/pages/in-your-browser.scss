@@ -44,15 +44,15 @@ $learnMoreColumnPadding: 20px;
   border-left: 0;
   border-bottom: 1px #d3d3d3 dotted;
 
-  &:first-child {
-    border-left: 0;
-  }
-
   @include from-width(600px) {
     display: inline-block;
     width: 33.3%;
     border-left: 1px #d3d3d3 dotted;
     border-bottom: 0;
+  }
+
+  &:first-child {
+    border-left: 0;
   }
 }
 

@@ -27,10 +27,10 @@ $blogBreakpoint: 700px;
 }
 
 .blog-about-box {
+  @include remove-element-below($blogBreakpoint);
   position: absolute;
   right: 0;
   width: 26%;
-  @include remove-element-below($blogBreakpoint);
 }
 
 ul.blog-content-list {
@@ -51,14 +51,14 @@ ul.blog-content-list {
 }
 
 .blog-full-width {
-  @include from-width($blogBreakpoint) {
-    width: 100% / $blogWidth * 100%;
-  }
-
   position: relative;
   z-index: 1;
   padding-top: 1em;
   margin-bottom: 1em;
+
+  @include from-width($blogBreakpoint) {
+    width: 100% / $blogWidth * 100%;
+  }
 
   &:before {
     content: "";

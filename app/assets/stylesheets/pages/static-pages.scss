@@ -41,10 +41,6 @@
   display: block;
   vertical-align: top;
 
-  &:first-child {
-    border-bottom: 1px solid #d3d3d3;
-  }
-
   @include from-width(600px) {
     display: table-cell;
     width: 50%;
@@ -53,6 +49,10 @@
       border-bottom: 0;
       border-right: 1px solid #d3d3d3;
     }
+  }
+
+  &:first-child {
+    border-bottom: 1px solid #d3d3d3;
   }
 }
 

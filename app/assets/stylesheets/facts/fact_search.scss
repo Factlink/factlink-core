@@ -1,7 +1,7 @@
 .fact-search-input-container {
+  @include box-sizing(border-box);
   background: #fff;
   border: 1px solid $baseBorderColor;
-  @include box-sizing(border-box);
   color: $baseFontColor;
   line-height: 18px;
   padding: 7px 9px 5px;
@@ -27,13 +27,12 @@
 }
 
 .fact-search-results {
+  @include box-sizing(border-box);
+  @include border-bottom-radius($baseBorderRadius);
   position: relative;
   margin-top: -3px;
   background: #fff;
   border: 1px solid $baseBorderColor;
-  @include box-sizing(border-box);
-  @include border-bottom-radius($baseBorderRadius);
-
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .17);
 
   overflow-y: auto;

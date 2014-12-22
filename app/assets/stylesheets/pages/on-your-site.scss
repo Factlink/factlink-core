@@ -66,12 +66,12 @@
   text-align: center;
 
   &:before {
+    @include paragraph-icon-arrow(2px);
     content: "";
     position: absolute;
     top: 12px;
     left: 5px;
     display: inline-block;
-    @include paragraph-icon-arrow(2px);
   }
 }
 
@@ -114,12 +114,12 @@
   background: #808080;
 
   &:before {
+    @include paragraph-icon-arrow(4px);
     content: "";
     position: absolute;
     top: 100%;
     right: 45%;
     display: block;
-    @include paragraph-icon-arrow(4px);
   }
 }
 

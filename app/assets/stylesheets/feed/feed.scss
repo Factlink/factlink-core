@@ -8,12 +8,12 @@ $headerBorder: 1px;
 .feed-activity {
   padding: $smallFeedPadding 0;
 
-  &:first-child {
-    padding-top: 0;
-  }
-
   @include from-width(600px) {
     padding: $feedPadding 0;
+  }
+
+  &:first-child {
+    padding-top: 0;
   }
 }
 
@@ -25,19 +25,19 @@ $headerBorder: 1px;
   height: $avatarSmallHeight;
   opacity: .9;
 
-  &:hover {
-    opacity: 1;
-  }
-
   @include from-width(600px) {
     height: $headerHeight;
     width: $headerHeight;
   }
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .feed-activity-followed-avatar {
-  margin: 0 3px;
   @include remove-element-below(600px);
+  margin: 0 3px;
 }
 
 .feed-activity-container {
@@ -131,7 +131,7 @@ $headerBorder: 1px;
 }
 
 .feed-comment-box-balloon {
-  margin-left: $avatarSmallHeight + 10px;;
+  margin-left: $avatarSmallHeight + 10px;
   background: $grayLighter;
   display: inline-block;
   padding: 5px 8px;

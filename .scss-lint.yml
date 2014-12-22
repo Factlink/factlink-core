@@ -53,7 +53,7 @@ linters:
     enabled: true
 
   IdSelector:
-    enabled: true
+    enabled: false
 
   ImportPath:
     enabled: true
@@ -81,6 +81,8 @@ linters:
   NestingDepth:
     enabled: true
     max_depth: 3
+    exclude:
+      - app/assets/stylesheets/devise_form.scss
 
   PlaceholderInExtend:
     enabled: false
@@ -93,7 +95,7 @@ linters:
     extra_properties: [mso-table-lspace, mso-table-rspace]
 
   QualifyingElement:
-    enabled: true
+    enabled: false
     allow_element_with_attribute: false
     allow_element_with_class: false
     allow_element_with_id: false
@@ -105,8 +107,8 @@ linters:
       - app/assets/stylesheets/devise_form.scss
 
   SelectorFormat:
-    enabled: true
-    convention: hyphenated_lowercase # or 'BEM', or 'snake_case', or 'camel_case', or a regex pattern
+    enabled: false
+    convention: BEM # or 'BEM', or 'snake_case', or 'camel_case', or a regex pattern
 
   Shorthand:
     enabled: true
@@ -162,7 +164,7 @@ linters:
     enabled: true
 
   VendorPrefixes:
-    enabled: true
+    enabled: false
     identifier_list: base
     include: []
     exclude: []

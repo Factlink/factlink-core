@@ -16,14 +16,13 @@ $buttonBgTransition: all .3s ease;
 }
 
 %button-base {
+  @include button-height($largeButtonHeight);
   position: relative;
   display: inline-block;
   z-index: 0;
   vertical-align: middle;
   font-family: inherit; //so that browsers don't use a system font for buttons.
   font-size: 13px;
-  @include button-height($largeButtonHeight);
-
   color: #fff;
   border-radius: $baseBorderRadius;
   border: 0;
@@ -172,8 +171,8 @@ $arrowSize: 5px;
 }
 
 .button-small {
-  font-size: 12px;
   @include button-height($baseButtonHeight);
+  font-size: 12px;
   padding: 0 $baseButtonPadding;
 }
 
@@ -218,7 +217,6 @@ $arrowSize: 5px;
 
 .button-interesting {
   @extend .button;
-
   background-color: #fff;
   padding: 0 10px 0 0;
   margin: 10px 0 0;

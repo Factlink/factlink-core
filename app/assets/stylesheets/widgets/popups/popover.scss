@@ -7,8 +7,8 @@
   z-index: 1;
 
   > .popover-content {
-    display: inline-block;
     @include background-clip(padding-box);
+    display: inline-block;
     background: #fff;
     border-radius: $baseBorderRadius;
     box-shadow: $blockBorder, 0 $PopoverShadowBottomSize 5px $PopoverShadowBottomColor;
@@ -74,12 +74,12 @@
   }
 
   > .popover-arrow {
+    @include box-sizing(content-box);
     border: floor($triangleSize) solid transparent;
     position: absolute;
     width: 2px;
     height: 2px;
     margin: -8px;
-    @include box-sizing(content-box);
   }
 }
 
