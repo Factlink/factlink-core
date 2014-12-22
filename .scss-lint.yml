@@ -22,6 +22,8 @@ linters:
 
   DeclarationOrder:
     enabled: true
+    exclude:
+      - app/assets/stylesheets/pages/static-pages.scss
 
   DuplicateProperty:
     enabled: true
