@@ -8,12 +8,12 @@ $headerBorder: 1px;
 .feed-activity {
   padding: $smallFeedPadding 0;
 
-  &:first-child {
-    padding-top: 0;
-  }
-
   @include from-width(600px) {
     padding: $feedPadding 0;
+  }
+
+  &:first-child {
+    padding-top: 0;
   }
 }
 
@@ -23,31 +23,31 @@ $headerBorder: 1px;
   vertical-align: middle;
   width: $avatarSmallHeight;
   height: $avatarSmallHeight;
-  opacity: 0.9;
-
-  &:hover {
-    opacity: 1;
-  }
+  opacity: .9;
 
   @include from-width(600px) {
     height: $headerHeight;
     width: $headerHeight;
   }
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .feed-activity-followed-avatar {
-  margin: 0 3px;
   @include remove-element-below(600px);
+  margin: 0 3px;
 }
 
 .feed-activity-container {
   display: block;
   vertical-align: top;
   padding: 0 10px;
-  border-bottom: $headerBorder lightgrey solid;
+  border-bottom: $headerBorder #d3d3d3 solid;
   border-radius: $baseBorderRadius;
   color: $baseFontColor;
-  background: white;
+  background: #fff;
   margin-left: $avatarSmallHeight + 2*$smallFeedPadding;
   min-height: $avatarSmallHeight;
 
@@ -59,7 +59,7 @@ $headerBorder: 1px;
 
 .feed-activity-box-balloon {
   color: $baseFontColor;
-  transition: 0.5s;
+  transition: .5s;
 }
 
 .feed-activity-content {
@@ -131,7 +131,7 @@ $headerBorder: 1px;
 }
 
 .feed-comment-box-balloon {
-  margin-left: $avatarSmallHeight + 10px;;
+  margin-left: $avatarSmallHeight + 10px;
   background: $grayLighter;
   display: inline-block;
   padding: 5px 8px;
@@ -140,7 +140,7 @@ $headerBorder: 1px;
   white-space: pre-line;
 
   &:before {
-    content: '';
+    content: "";
 
     position: absolute;
     left: -$triangleSize;
@@ -149,7 +149,7 @@ $headerBorder: 1px;
     width: 0;
     height: 1px;
     border: $triangleSize solid transparent;
-    border-left: none;
+    border-left: 0;
     border-right-color: $grayLighter;
   }
 }

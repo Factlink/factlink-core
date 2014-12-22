@@ -8,7 +8,7 @@
 
 .loading-indicator-image {
   @extend %centering-inner;
-  margin: 0 0.5em;
+  margin: 0 .5em;
 }
 
 .loading-indicator-label {
@@ -31,7 +31,7 @@
     width: 50%;
 
     &:first-child {
-      border-right: 1px solid lightgrey;
+      border-right: 1px solid #d3d3d3;
     }
   }
 }

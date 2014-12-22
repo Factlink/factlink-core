@@ -1,4 +1,4 @@
-$slideTime: 0.3s;
+$slideTime: .3s;
 
 .sliding-button {
   position: relative;
@@ -22,7 +22,7 @@ $slideTime: 0.3s;
   overflow: hidden;
   visibility: hidden;
   transition: visibility 0 $slideTime;
-  margin: 0 0.2em;
+  margin: 0 .2em;
 }
 
 .sliding-button-open .sliding-button-container-outer {

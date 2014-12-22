@@ -1,12 +1,13 @@
 @mixin triangle-arrow($borderExtraWidth) {
-  &, &:before {
+  &,
+  &:before {
     @include box-sizing(content-box);
     position: absolute;
     border: $triangleSize solid transparent;
   }
 
   &:before {
-    content: '';
+    content: "";
     z-index: -1;
     border-width: $triangleSize + $borderExtraWidth;
   }
@@ -17,11 +18,12 @@
   margin-bottom: -$triangleSize;
   margin-left: -$triangleSize;
 
-  &, &:before {
+  &,
+  &:before {
     height: 0;
     width: 1px;
-    border-bottom: none;
-    border-top-color: white;
+    border-bottom: 0;
+    border-top-color: #fff;
   }
 
   &:before {
@@ -31,15 +33,16 @@
   }
 }
 
-@mixin triangle-arrow-up($color: $triangleArrowBorderColor, $arrow-fill-color: white, $borderExtraWidth: 0) {
+@mixin triangle-arrow-up($color: $triangleArrowBorderColor, $arrow-fill-color: #fff, $borderExtraWidth: 0) {
   @include triangle-arrow($borderExtraWidth);
   margin-top: -$triangleSize;
   margin-left: -$triangleSize;
 
-  &, &:before {
+  &,
+  &:before {
     height: 0;
     width: 1px;
-    border-top: none;
+    border-top: 0;
     border-bottom-color: $arrow-fill-color;
   }
 
@@ -55,11 +58,12 @@
   margin-left: -$triangleSize;
   margin-top: -$triangleSize;
 
-  &, &:before {
+  &,
+  &:before {
     width: 0;
     height: 1px;
-    border-left: none;
-    border-right-color: white;
+    border-left: 0;
+    border-right-color: #fff;
   }
 
   &:before {
@@ -74,11 +78,12 @@
   margin-right: -$triangleSize;
   margin-top: -$triangleSize;
 
-  &, &:before {
+  &,
+  &:before {
     width: 0;
     height: 1px;
-    border-right: none;
-    border-left-color: white;
+    border-right: 0;
+    border-left-color: #fff;
   }
 
   &:before {

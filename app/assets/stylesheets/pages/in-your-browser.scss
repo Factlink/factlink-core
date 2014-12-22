@@ -17,7 +17,7 @@
 
   > li {
     list-style-type: initial;
-    margin-top: 0.5em;
+    margin-top: .5em;
   }
 }
 
@@ -41,18 +41,18 @@ $learnMoreColumnPadding: 20px;
   display: block;
   vertical-align: top;
   padding: 0 $learnMoreColumnPadding;
-  border-left: none;
-  border-bottom: 1px lightgrey dotted;
-
-  &:first-child {
-    border-left: none;
-  }
+  border-left: 0;
+  border-bottom: 1px #d3d3d3 dotted;
 
   @include from-width(600px) {
     display: inline-block;
     width: 33.3%;
-    border-left: 1px lightgrey dotted;
-    border-bottom: none;
+    border-left: 1px #d3d3d3 dotted;
+    border-bottom: 0;
+  }
+
+  &:first-child {
+    border-left: 0;
   }
 }
 
@@ -93,9 +93,9 @@ $learnMoreColumnPadding: 20px;
   @extend %white-block-with-shadow;
   @extend %centering-inner;
   position: relative;
-  font-size: 0.9em;
-  margin: 0 0.5em;
-  padding: 0.4em 0.6em;
+  font-size: .9em;
+  margin: 0 .5em;
+  padding: .4em .6em;
 }
 
 .social-conversation-talk-bubble-icon-right {
@@ -130,7 +130,7 @@ $learnMoreColumnPadding: 20px;
   display: table-cell;
   padding: 3px 0 3px 5px;
   font-size: 9px;
-  color: lightgrey;
+  color: #d3d3d3;
 }
 
 .best-comment-list {
@@ -143,8 +143,8 @@ $learnMoreColumnPadding: 20px;
 }
 
 .best-comment-list-item {
-  background: lightgrey;
+  background: #d3d3d3;
   margin: 9px 9px 9px 3px;
   padding: 4px;
-  transition: background 0.5s ease;
+  transition: background .5s ease;
 }

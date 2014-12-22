@@ -1,13 +1,13 @@
 .sub-comments-arrow {
+  @include triangle-arrow-up($arrow-fill-color: #f6f6f6);
   position: absolute;
   top: 1px;
   left: 35px;
-  @include triangle-arrow-up($arrow-fill-color: #f6f6f6);
 }
 
 .sub-comments-container {
   z-index: 1;
-  border-top: 1px lightgrey solid;
+  border-top: 1px #d3d3d3 solid;
   background: #f6f6f6;
   position: relative;
 }
@@ -23,7 +23,7 @@
 
 .sub-comment-add {
   @extend .sub-comment;
-  border-bottom: none;
+  border-bottom: 0;
 }
 
 .sub-comment-avatar-container {
