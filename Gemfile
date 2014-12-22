@@ -26,7 +26,7 @@ gem 'strict_struct', '~> 1.0'
 gem 'sucker_punch', '~> 1.0.5'
 
 # User authentication and authorization
-gem 'devise', '~> 3.2.4'
+gem 'devise', '~> 3.4.1'
 gem 'cancan', '~> 1.6.10'
 
 # social connections
