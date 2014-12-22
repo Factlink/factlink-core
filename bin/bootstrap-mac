@@ -31,6 +31,7 @@ else
     ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 fi
 
+ensureBrew git
 ensureBrew node
 ensureBrew git-flow
 ensureBrew qt
