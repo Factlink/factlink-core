@@ -1,4 +1,4 @@
-$buttonBgTransition: all 0.3s ease;
+$buttonBgTransition: all .3s ease;
 
 @mixin button-height ($button-height) {
   height: $button-height;
@@ -26,21 +26,21 @@ $buttonBgTransition: all 0.3s ease;
 
   color: #fff;
   border-radius: $baseBorderRadius;
-  border: none;
+  border: 0;
   padding: 0 $largeButtonPadding 1px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all .3s ease;
   white-space: nowrap;
 
   &:before {
     //this is an overlay for fading the background color.
     position: absolute;
-    content: '';
+    content: "";
     top: 0;
     right: 0;
     left: 0;
     bottom: 0;
-    border: 1px solid rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(0, 0, 0, .25);
     border-bottom-width: 2px;
 
     border-radius: inherit;
@@ -54,11 +54,12 @@ $buttonBgTransition: all 0.3s ease;
   }
 
   &:focus:before {
-    border-color: rgba(0, 0, 0, 0.45);
+    border-color: rgba(0, 0, 0, .45);
   }
 
-  &:hover:not(:disabled):before, &:active:before {
-    background-color: rgba(0, 0, 0, 0.1);
+  &:hover:not(:disabled):before,
+  &:active:before {
+    background-color: rgba(0, 0, 0, .1);
   }
 
   &:disabled {
@@ -70,9 +71,10 @@ $buttonBgTransition: all 0.3s ease;
     @extend %button-active-base;
   }
 
-  &:focus,&:active {
+  &:focus,
+  &:active {
     outline: none; //prevents ugly webkit active state
-    box-shadow: 0 0 0.5em rgba(black, 0.5);
+    box-shadow: 0 0 .5em rgba(#000, .5);
   }
 }
 
@@ -80,7 +82,7 @@ $arrowSize: 5px;
 
 %button-with-arrow-base {
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     border: $arrowSize solid;
     border-color: transparent currentColor;
@@ -117,8 +119,9 @@ $arrowSize: 5px;
     color: $arrow-color;
   }
 
-  &:hover:not(:disabled):after, &:active:after {
-    color: mix(black, $arrow-color, 10%);
+  &:hover:not(:disabled):after,
+  &:active:after {
+    color: mix(#000, $arrow-color, 10%);
   }
 }
 
@@ -148,7 +151,7 @@ $arrowSize: 5px;
   background-color: $green;
 
   &:disabled {
-    color: black;
+    color: #000;
     background-color: mix($green, #fff);
   }
 }
@@ -182,7 +185,8 @@ $arrowSize: 5px;
   font-size: 16px;
   vertical-align: middle;
 
-  .icon-twitter, .icon-facebook {
+  .icon-twitter,
+  .icon-facebook {
     vertical-align: sub;
     -webkit-font-smoothing: antialiased; // OS X makes fonts bolder than normal. This looks weird with those icons.
   }

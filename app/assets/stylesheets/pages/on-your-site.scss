@@ -1,6 +1,6 @@
 @mixin paragraph-icon-arrow($arrowWidth) {
-  border-top: $arrowWidth grey solid;
-  border-left: $arrowWidth grey solid;
+  border-top: $arrowWidth #808080 solid;
+  border-left: $arrowWidth #808080 solid;
   border-right: $arrowWidth #fff solid;
   border-bottom: $arrowWidth #fff solid;
 }
@@ -12,7 +12,7 @@
 
   &:first-child {
     padding: 0 0 20px;
-    border-top: none;
+    border-top: 0;
   }
 }
 
@@ -39,7 +39,7 @@
   background: #d3d3d3;
   margin: 10px;
   padding: 4px;
-  transition: background 0.5s ease;
+  transition: background .5s ease;
 }
 
 .focused-discussion-list:hover .focused-discussion-list-item {
@@ -62,7 +62,7 @@
   width: 16px;
   height: 12px;
   border-radius: 3px;
-  background: grey;
+  background: #808080;
   text-align: center;
 
   &:before {
@@ -87,7 +87,8 @@
   text-align: center;
 }
 
-.social-reach-avatar,.social-reach-icon-container {
+.social-reach-avatar,
+.social-reach-icon-container {
   display: inline-block;
   height: 60px;
   width: 60px;
@@ -110,7 +111,7 @@
   width: 25px;
   height: 17px;
   border-radius: 3px;
-  background: grey;
+  background: #808080;
 
   &:before {
     content: "";

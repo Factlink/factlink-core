@@ -90,7 +90,7 @@
     top: 100%;
     left: 50%;
     margin-top: 0;
-    border-bottom: none;
+    border-bottom: 0;
     border-top-color: $darkTranslucentGrey;
   }
 }
@@ -102,7 +102,7 @@
     right: 100%;
     top: 50%;
     margin-right: 0;
-    border-left: none;
+    border-left: 0;
     border-right-color: $darkTranslucentGrey;
   }
 }
@@ -114,7 +114,7 @@
     bottom: 100%;
     left: 50%;
     margin-bottom: 0;
-    border-top: none;
+    border-top: 0;
     border-bottom-color: $darkTranslucentGrey;
   }
 }
@@ -126,7 +126,7 @@
     left: 100%;
     top: 50%;
     margin-left: 0;
-    border-right: none;
+    border-right: 0;
     border-left-color: $darkTranslucentGrey;
   }
 }

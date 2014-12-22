@@ -4,8 +4,12 @@ body {
   line-height: $baseLineHeight;
 }
 
-h1, h2, h3, h4, h5 {
-  margin: 0.5em 0;
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: .5em 0;
   font-weight: $headingsFontWeight;
   text-rendering: optimizeLegibility; // Fix the character spacing for headings
 }
@@ -47,5 +51,5 @@ a {
 }
 
 p {
-  margin: 0 0 0.8em;
+  margin: 0 0 .8em;
 }

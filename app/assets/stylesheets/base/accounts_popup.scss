@@ -59,7 +59,8 @@ $separatorWidth: 35px;
   display: inline-block;
   vertical-align: top;
 
-  input[type=text], input[type=password] {
+  input[type=text],
+  input[type=password] {
     width: 100%;
   }
 }

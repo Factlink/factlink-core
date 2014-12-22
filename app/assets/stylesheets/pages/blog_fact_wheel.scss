@@ -66,7 +66,7 @@ $triangleSize: 8px;
     > .blog-fact-graph-factlink-popover-arrow {
       top: 100%;
       margin-top: -$triangleSize;
-      border-bottom: none;
+      border-bottom: 0;
       border-top-color: $darkTranslucentGrey;
     }
   }
@@ -79,7 +79,7 @@ $triangleSize: 8px;
     > .blog-fact-graph-factlink-popover-arrow {
       right: 100%;
       margin-right: -$triangleSize;
-      border-left: none;
+      border-left: 0;
       border-right-color: $darkTranslucentGrey;
     }
   }
@@ -92,7 +92,7 @@ $triangleSize: 8px;
     > .blog-fact-graph-factlink-popover-arrow {
       left: 100%;
       margin-left: -$triangleSize;
-      border-right: none;
+      border-right: 0;
       border-left-color: $darkTranslucentGrey;
     }
   }

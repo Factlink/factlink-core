@@ -16,14 +16,14 @@
 
 .bookmarklet-install-block {
   display: inline-block;
-  background: rgba(#fff, 0.5);
+  background: rgba(#fff, .5);
   padding: 1em 2em;
-  border-radius: 0.5em;
+  border-radius: .5em;
 }
 
 .in-your-browser-bookmarklet { cursor: move !important; }
 
-.in-your-browser-bookmarklet::after { content: 'Factlink bookmarklet'; }
+.in-your-browser-bookmarklet::after { content: "Factlink bookmarklet"; }
 
 i.in-your-browser-icon-layer,
 i.in-your-browser-icon-social {
@@ -33,11 +33,11 @@ i.in-your-browser-icon-social {
 }
 
 i.in-your-browser-icon-layer {
-  background: asset-data-url('landing/content/layer.png') no-repeat;
+  background: asset-data-url("landing/content/layer.png") no-repeat;
 }
 
 i.in-your-browser-icon-social {
-  background: asset-data-url('landing/content/social.png') no-repeat;
+  background: asset-data-url("landing/content/social.png") no-repeat;
 }
 
 .in-your-browser-feed {

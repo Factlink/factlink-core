@@ -30,8 +30,8 @@
 
   @include from-width(500px) {
     min-width: 350px;
-    width: calc(100% - 200px - 0.5em);
-    width: -webkit-calc(100% - 200px - 0.5em);
+    width: calc(100% - 200px - .5em);
+    width: -webkit-calc(100% - 200px - .5em);
   }
 }
 
@@ -44,7 +44,8 @@
   max-width: 500px;
 }
 
-.team-member-block, .team-advisor-block {
+.team-member-block,
+.team-advisor-block {
   position: relative;
   display: inline-block;
   vertical-align: top;

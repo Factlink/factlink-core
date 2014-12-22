@@ -1,7 +1,7 @@
 $discussionSidebarMaxWidth: 500px;
-$discussionSidebarShadow: rgba(50, 50, 50, 0.3);
+$discussionSidebarShadow: rgba(50, 50, 50, .3);
 // keep time in sync with discussion_sidebar_slide_transition_duration
-$discussionSidebarTransitionTime: 0.4s;
+$discussionSidebarTransitionTime: .4s;
 
 .discussion-sidebar-outer {
   position: fixed;
@@ -32,7 +32,7 @@ $discussionSidebarTransitionTime: 0.4s;
 }
 
 .discussion-sidebar-outer-visible {
-  background-color: rgba($factlinkBackgroundColor, 0.2); //TODO LESS -> SASS Workaround fade($factlinkBackgroundColor, 20%);
+  background-color: rgba($factlinkBackgroundColor, .2); //TODO LESS -> SASS Workaround fade($factlinkBackgroundColor, 20%);
   transition: background-color $discussionSidebarTransitionTime;
 
   .discussion-sidebar-inner {

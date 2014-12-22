@@ -17,7 +17,7 @@
 
   > li {
     list-style-type: initial;
-    margin-top: 0.5em;
+    margin-top: .5em;
   }
 }
 
@@ -41,18 +41,18 @@ $learnMoreColumnPadding: 20px;
   display: block;
   vertical-align: top;
   padding: 0 $learnMoreColumnPadding;
-  border-left: none;
+  border-left: 0;
   border-bottom: 1px #d3d3d3 dotted;
 
   &:first-child {
-    border-left: none;
+    border-left: 0;
   }
 
   @include from-width(600px) {
     display: inline-block;
     width: 33.3%;
     border-left: 1px #d3d3d3 dotted;
-    border-bottom: none;
+    border-bottom: 0;
   }
 }
 
@@ -93,9 +93,9 @@ $learnMoreColumnPadding: 20px;
   @extend %white-block-with-shadow;
   @extend %centering-inner;
   position: relative;
-  font-size: 0.9em;
-  margin: 0 0.5em;
-  padding: 0.4em 0.6em;
+  font-size: .9em;
+  margin: 0 .5em;
+  padding: .4em .6em;
 }
 
 .social-conversation-talk-bubble-icon-right {
@@ -146,5 +146,5 @@ $learnMoreColumnPadding: 20px;
   background: #d3d3d3;
   margin: 9px 9px 9px 3px;
   padding: 4px;
-  transition: background 0.5s ease;
+  transition: background .5s ease;
 }

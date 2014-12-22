@@ -23,7 +23,7 @@ $headerBorder: 1px;
   vertical-align: middle;
   width: $avatarSmallHeight;
   height: $avatarSmallHeight;
-  opacity: 0.9;
+  opacity: .9;
 
   &:hover {
     opacity: 1;
@@ -59,7 +59,7 @@ $headerBorder: 1px;
 
 .feed-activity-box-balloon {
   color: $baseFontColor;
-  transition: 0.5s;
+  transition: .5s;
 }
 
 .feed-activity-content {
@@ -140,7 +140,7 @@ $headerBorder: 1px;
   white-space: pre-line;
 
   &:before {
-    content: '';
+    content: "";
 
     position: absolute;
     left: -$triangleSize;
@@ -149,7 +149,7 @@ $headerBorder: 1px;
     width: 0;
     height: 1px;
     border: $triangleSize solid transparent;
-    border-left: none;
+    border-left: 0;
     border-right-color: $grayLighter;
   }
 }

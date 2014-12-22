@@ -6,7 +6,7 @@ $avatarSize: 24px;
 .button-interesting-tally {
   font-weight: 600;
   display: inline-block;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, .1);
   min-width: 34px;
   margin-right: 5px;
   text-align: center;
@@ -14,7 +14,7 @@ $avatarSize: 24px;
 
 .button-interesting-star {
   color: #d3d3d3;
-  transition: color 0.5s;
+  transition: color .5s;
   position: relative;
   top: 1px;
 }

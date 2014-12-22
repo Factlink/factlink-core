@@ -83,14 +83,14 @@ linters:
     max_depth: 3
 
   PlaceholderInExtend:
-    enabled: true
+    enabled: false
 
   PropertySortOrder:
     enabled: false
 
   PropertySpelling:
     enabled: true
-    extra_properties: []
+    extra_properties: [mso-table-lspace, mso-table-rspace]
 
   QualifyingElement:
     enabled: true
@@ -101,6 +101,8 @@ linters:
   SelectorDepth:
     enabled: true
     max_depth: 3
+    exclude:
+      - app/assets/stylesheets/devise_form.scss
 
   SelectorFormat:
     enabled: true
@@ -138,6 +140,8 @@ linters:
   StringQuotes:
     enabled: true
     style: double_quotes # or double_quotes
+    exclude:
+      - app/assets/stylesheets/fontello.scss
 
   TrailingSemicolon:
     enabled: true
