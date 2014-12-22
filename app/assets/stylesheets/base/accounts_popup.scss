@@ -3,7 +3,7 @@ $separatorWidth: 35px;
 
 .accounts-popup-topbar {
   @extend %centering;
-  background: white;
+  background: #fff;
   z-index: 1;
   height: $topbarHeight;
   border-bottom: 1px solid $baseBorderColor;
