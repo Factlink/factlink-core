@@ -1,8 +1,8 @@
 @mixin paragraph-icon-arrow($arrowWidth) {
   border-top: $arrowWidth grey solid;
   border-left: $arrowWidth grey solid;
-  border-right: $arrowWidth white solid;
-  border-bottom: $arrowWidth white solid;
+  border-right: $arrowWidth #fff solid;
+  border-bottom: $arrowWidth #fff solid;
 }
 
 .on-your-site-container {
@@ -56,7 +56,7 @@
 .focused-discussion-paragraph-icon {
   font-size: 10px;
   line-height: 12px;
-  color: white;
+  color: #fff;
   font-weight: 600;
   display: block;
   width: 16px;

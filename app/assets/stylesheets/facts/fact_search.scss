@@ -1,5 +1,5 @@
 .fact-search-input-container {
-  background: white;
+  background: #fff;
   border: 1px solid $baseBorderColor;
   @include box-sizing(border-box);
   color: $baseFontColor;
@@ -29,7 +29,7 @@
 .fact-search-results {
   position: relative;
   margin-top: -3px;
-  background: white;
+  background: #fff;
   border: 1px solid $baseBorderColor;
   @include box-sizing(border-box);
   @include border-bottom-radius($baseBorderRadius);

@@ -21,7 +21,7 @@
     height: 0;
     width: 1px;
     border-bottom: none;
-    border-top-color: white;
+    border-top-color: #fff;
   }
 
   &:before {
@@ -31,7 +31,7 @@
   }
 }
 
-@mixin triangle-arrow-up($color: $triangleArrowBorderColor, $arrow-fill-color: white, $borderExtraWidth: 0) {
+@mixin triangle-arrow-up($color: $triangleArrowBorderColor, $arrow-fill-color: #fff, $borderExtraWidth: 0) {
   @include triangle-arrow($borderExtraWidth);
   margin-top: -$triangleSize;
   margin-left: -$triangleSize;
@@ -59,7 +59,7 @@
     width: 0;
     height: 1px;
     border-left: none;
-    border-right-color: white;
+    border-right-color: #fff;
   }
 
   &:before {
@@ -78,7 +78,7 @@
     width: 0;
     height: 1px;
     border-right: none;
-    border-left-color: white;
+    border-left-color: #fff;
   }
 
   &:before {

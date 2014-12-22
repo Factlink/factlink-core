@@ -24,7 +24,7 @@ $buttonBgTransition: all 0.3s ease;
   font-size: 13px;
   @include button-height($largeButtonHeight);
 
-  color: white;
+  color: #fff;
   border-radius: $baseBorderRadius;
   border: none;
   padding: 0 $largeButtonPadding 1px;
@@ -50,7 +50,7 @@ $buttonBgTransition: all 0.3s ease;
   }
 
   &:hover {
-    color: white;
+    color: #fff;
   }
 
   &:focus:before {
@@ -149,7 +149,7 @@ $arrowSize: 5px;
 
   &:disabled {
     color: black;
-    background-color: mix($green, white);
+    background-color: mix($green, #fff);
   }
 }
 
@@ -215,7 +215,7 @@ $arrowSize: 5px;
 .button-interesting {
   @extend .button;
 
-  background-color: white;
+  background-color: #fff;
   padding: 0 10px 0 0;
   margin: 10px 0 0;
 }

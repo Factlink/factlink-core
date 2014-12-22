@@ -37,6 +37,6 @@
   &.comment-vote-active {
     @extend %button-active-base;
     background-color: $blue;
-    color: white;
+    color: #fff;
   }
 }
