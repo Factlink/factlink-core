@@ -5,9 +5,9 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
 
     if params[:token] && params[:token] != session[:_csrf_token]
       fail AccountError, "Can't authenticate, please try again!"
-    elsif params[:secret] && params[:secret] != session[:_csrf_token]
+    elsif params[:state] && params[:state] != session[:_csrf_token]
       fail AccountError, "Can't authenticate, please try again!"
-    elsif params[:token].nil? && params[:secret].nil?
+    elsif params[:token].nil? && params[:state].nil?
       fail AccountError, "Can't authenticate, please try again!"
     else
       social_account = SocialAccount.find_by_provider_and_uid(provider_name, omniauth_obj['uid'])

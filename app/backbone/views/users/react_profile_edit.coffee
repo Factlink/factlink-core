@@ -16,7 +16,7 @@ ReactSocialConnect = React.createBackboneClass
                   '(Disconnect)'
             else
               _a ["button-facebook js-accounts-popup-link",
-                href: "/auth/facebook?secret=#{encodeURIComponent(window.safeLocalStorage.getItem('factlink_csrf_token'))}"
+                href: "/auth/facebook?state=#{encodeURIComponent(window.safeLocalStorage.getItem('factlink_csrf_token'))}"
               ],
                 _i ["icon-facebook"]
                 ' Connect with Facebook'
