@@ -59,7 +59,7 @@ gem 'jquery-rails-cdn', '~> 1.0.3'
 gem 'rails-assets-backbone', '~> 1.1.2' # beware, backbone does not use semver!
 gem 'rails-assets-react', '~> 0.11.0'
 gem 'rails-assets-react.backbone', '~> 0.3.1'
-gem 'rails-assets-jquery-autosize', '~> 3.0.8'
+gem 'rails-assets-jquery-autosize', '~> 1.18.8'
 gem 'rails-assets-tether', '~> 1.1.0'
 gem 'rails-assets-factlink-js-library', '~> 0.2.0'
 
