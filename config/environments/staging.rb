@@ -35,7 +35,7 @@ FactlinkUI::Application.configure do
   # Use a different cache store in staging
   # config.cache_store = :mem_cache_store
 
-  config.serve_static_assets = true
+  config.serve_static_files = true
   config.static_cache_control = "public, max-age=#{1.day.to_i}"
 
   # Compress JavaScripts and CSS
