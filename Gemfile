@@ -42,7 +42,7 @@ gem 'browser', '~> 1.0'
 # one of our own gems, to normalize urls
 gem 'url_normalizer', github: 'Factlink/url_normalizer'
 
-gem 'roadie', '~> 3.0.5'
+gem 'roadie', '~> 2.4.3'
 
 gem 'appsignal'
 gem 'ohnoes', github: 'markijbema/ohnoes'
