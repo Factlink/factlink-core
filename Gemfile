@@ -1,9 +1,9 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
 ruby '2.1.7'
 
-gem 'rails', '4.1.8' # this is too important to update automatically
+gem 'rails', '4.1.10' # this is too important to update automatically
 
 gem 'rails_12factor', '~> 0.0.2', groups: [:staging, :production]
 
@@ -107,7 +107,7 @@ end
 group :test, :development do # TODO why is there a :development here?
   gem 'konacha', '~> 3.0'
 
-  gem 'poltergeist', '~> 1.5', require: false
+  gem 'poltergeist', '~> 1.6.0', require: false
   gem 'capybara', '~> 2.1', require: false
   gem 'capybara-screenshot', '~> 0.3', require: false
   gem 'capybara-email', '~> 2.0', require: false

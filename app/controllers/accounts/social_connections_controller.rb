@@ -7,10 +7,6 @@ class Accounts::SocialConnectionsController < Accounts::BaseController
 
     if params[:token] && params[:token] != session[:_csrf_token]
       fail AccountError, "Can't authenticate, please try again!"
-    elsif params[:state] && params[:state] != session[:_csrf_token]
-      fail AccountError, "Can't authenticate, please try again!"
-    elsif params[:token].nil? && params[:state].nil?
-      fail AccountError, "Can't authenticate, please try again!"
     elsif not omniauth_obj
       fail AccountError, "Error connecting."
     else
