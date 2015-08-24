@@ -7,10 +7,10 @@ gem 'rails', '4.1.10' # this is too important to update automatically
 
 gem 'rails_12factor', '~> 0.0.2', groups: [:staging, :production]
 
-gem 'protected_attributes', '~> 1.0.3'
-gem 'rake', '~> 10.3.1', require: false
+gem 'protected_attributes', '~> 1.1.3'
+gem 'rake', '~> 10.4.2', require: false
 
-gem 'secure_headers', '~> 1.2.0'
+gem 'secure_headers', '~> 2.2.3'
 
 # Postgres
 gem 'pg', '~> 0.18.2'
@@ -23,7 +23,7 @@ gem 'pavlov', github: 'Factlink/pavlov'
 # Simple value objects
 gem 'strict_struct', '~> 1.0'
 
-gem 'sucker_punch', '~> 1.0.5'
+gem 'sucker_punch', '~> 1.5.1'
 
 # User authentication and authorization
 gem 'devise', '~> 3.5.2'
@@ -42,7 +42,7 @@ gem 'browser', '~> 1.0'
 # one of our own gems, to normalize urls
 gem 'url_normalizer', github: 'Factlink/url_normalizer'
 
-gem 'roadie', '~> 2.4.3'
+gem 'roadie', '~> 3.0.5'
 
 gem 'appsignal'
 gem 'ohnoes', github: 'markijbema/ohnoes'
@@ -59,8 +59,8 @@ gem 'jquery-rails-cdn', '~> 1.0.3'
 gem 'rails-assets-backbone', '~> 1.1.2' # beware, backbone does not use semver!
 gem 'rails-assets-react', '~> 0.11.0'
 gem 'rails-assets-react.backbone', '~> 0.3.1'
-gem 'rails-assets-jquery-autosize', '~> 1.18.7'
-gem 'rails-assets-tether', '~> 0.6.5'
+gem 'rails-assets-jquery-autosize', '~> 3.0.8'
+gem 'rails-assets-tether', '~> 1.1.0'
 gem 'rails-assets-factlink-js-library', '~> 0.2.0'
 
 group :development do
@@ -72,7 +72,7 @@ group :development do
   gem 'pry', '~> 0', require: false
 
   #for static files serving
-  gem 'rack', '~> 1'
+  gem 'rack', '~> 1.5.2'
   gem 'thin', '~> 1'
 
   gem 'lograge', '~> 0'
