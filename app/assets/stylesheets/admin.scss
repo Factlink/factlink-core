@@ -36,7 +36,8 @@
   border-spacing: 0;
   max-width: 100%;
 
-  th, td {
+  th,
+  td {
     padding: 8px;
     text-align: left;
     vertical-align: top;
@@ -46,7 +47,7 @@
 
 .admin-label {
   font-weight: bold;
-  color: white;
+  color: #fff;
   vertical-align: baseline;
   white-space: nowrap;
   background-color: $grayLight;

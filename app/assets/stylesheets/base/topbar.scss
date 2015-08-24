@@ -1,6 +1,6 @@
 .topbar {
-  background-color: white;
-  border-bottom: 1px lightgrey solid;
+  background-color: #fff;
+  border-bottom: 1px #d3d3d3 solid;
 }
 
 .topbar-inner {
@@ -52,7 +52,7 @@
 
 
 .topbar-divider {
-  border-right: 1px lightgrey solid;
+  border-right: 1px #d3d3d3 solid;
   width: 0;
   height: $topbarHeight;
   float: left;
@@ -84,7 +84,7 @@
 }
 
 .topbar-menu-bookmarklet::after {
-  content: 'Bookmarklet';
+  content: "Bookmarklet";
   padding: 0 0 0 3px;
 }
 

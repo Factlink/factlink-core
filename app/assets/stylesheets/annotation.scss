@@ -16,9 +16,9 @@ $avatarOffset: $avatarSize + 10px;
 
   width: $avatarSize;
   height: $avatarSize;
-  border: 1px lightgrey solid;
+  border: 1px #d3d3d3 solid;
   border-radius: $baseBorderRadius;
-  background: white;
+  background: #fff;
 }
 
 .annotation-avatar {
@@ -38,7 +38,7 @@ $avatarOffset: $avatarSize + 10px;
   position: relative;
 
   &:before {
-    content: '';
+    content: "";
 
     position: absolute;
     left: -$triangleSize;
@@ -47,7 +47,7 @@ $avatarOffset: $avatarSize + 10px;
     width: 0;
     height: 1px;
     border: $triangleSize solid transparent;
-    border-left: none;
+    border-left: 0;
     border-right-color: $lightYellow;
   }
 }

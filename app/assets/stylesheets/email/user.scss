@@ -1,8 +1,9 @@
 .user-header {
-  padding: 0 0 0.5em 21px;
+  padding: 0 0 .5em 21px;
 }
 
-.user-image, .user-name {
+.user-image,
+.user-name {
   display: inline;
 }
 
@@ -10,7 +11,7 @@
   height: 32px;
   line-height: 32px;
   vertical-align: top;
-  margin-left: 0.5em;
+  margin-left: .5em;
   font-size: $emailTitleFontSize;
 }
 
@@ -20,7 +21,7 @@
 }
 
 .user-info-value {
-  padding-top: 0.5em;
+  padding-top: .5em;
 }
 
 .user-info-description {

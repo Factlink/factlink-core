@@ -1,5 +1,5 @@
 %extension-install-button {
-  margin-right: 0.6em;
+  margin-right: .6em;
   display: inline-block;
   vertical-align: middle;
   height: 24px;
@@ -16,15 +16,15 @@
 
 .chrome-icon {
   @extend %extension-install-button;
-  background-image: asset-data-url('browser-icons/Chrome-32x32.png');
+  background-image: asset-data-url("browser-icons/Chrome-32x32.png");
 }
 
 .firefox-icon {
   @extend %extension-install-button;
-  background-image: asset-data-url('browser-icons/Firefox-32x32.png');
+  background-image: asset-data-url("browser-icons/Firefox-32x32.png");
 }
 
 .safari-icon {
   @extend %extension-install-button;
-  background-image: asset-data-url('browser-icons/Safari-32x32.png');
+  background-image: asset-data-url("browser-icons/Safari-32x32.png");
 }

@@ -27,7 +27,8 @@ ul {
   }
 }
 
-input, textarea {
+input,
+textarea {
   @extend %user-input;
   font-family: inherit;
   font-size: inherit;

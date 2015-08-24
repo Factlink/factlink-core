@@ -56,8 +56,8 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 .comment-post-bottom {
   display: block;
   padding: 10px;
-  opacity: 0.4;
-  transition: opacity 0.5s ease;
+  opacity: .4;
+  transition: opacity .5s ease;
   font-size: $metaFontSize;
   color: $metaFontColor;
   margin: 0;
@@ -74,10 +74,10 @@ $commentCreatorAvatarSize: 32px; //has to be kept in sync with the avatar size.
 
 // Irrelevant (faded out)
 .comment-irrelevant {
-  opacity: 0.6;
-  transition: opacity 0.2s;
+  opacity: .6;
+  transition: opacity .2s;
 
   &:hover {
-    opacity: 0.9;
+    opacity: .9;
   }
 }

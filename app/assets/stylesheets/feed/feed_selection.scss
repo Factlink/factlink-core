@@ -1,10 +1,10 @@
 .feed-selection-row {
   @extend %clearfix;
-  padding: 0.5em 0 1.5em;
+  padding: .5em 0 1.5em;
   position: relative;
 }
 
 .feed-selection-install-extension-button {
-  float: right;
   @include remove-element-below(480px);
+  float: right;
 }
