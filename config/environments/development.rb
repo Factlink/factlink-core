@@ -27,7 +27,7 @@ FactlinkUI::Application.configure do
 
   config.logger = Logger.new(STDOUT)
 
-  I18n.default_locale = :nl
+  I18n.default_locale = :en
 
   config.force_ssl = false
 
