@@ -30,8 +30,8 @@ gem 'devise', '~> 3.4.1'
 gem 'cancan', '~> 1.6.10'
 
 # social connections
-gem 'omniauth-facebook', '~> 1.6.0'
-gem 'omniauth-twitter', '~> 1.0.1'
+gem 'omniauth-facebook', '~> 2.0.1'
+gem 'omniauth-twitter', '~> 1.2.1'
 
 # Used for deauthorizing Facebook
 gem 'httparty', '~> 0.13.1'
