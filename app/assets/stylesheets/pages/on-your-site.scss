@@ -1,24 +1,24 @@
 @mixin paragraph-icon-arrow($arrowWidth) {
-  border-top: $arrowWidth grey solid;
-  border-left: $arrowWidth grey solid;
-  border-right: $arrowWidth white solid;
-  border-bottom: $arrowWidth white solid;
+  border-top: $arrowWidth #808080 solid;
+  border-left: $arrowWidth #808080 solid;
+  border-right: $arrowWidth #fff solid;
+  border-bottom: $arrowWidth #fff solid;
 }
 
 .on-your-site-container {
-  border-top: 1px lightgrey solid;
+  border-top: 1px #d3d3d3 solid;
   padding: 20px 0;
   text-align: center;
 
   &:first-child {
     padding: 0 0 20px;
-    border-top: none;
+    border-top: 0;
   }
 }
 
 .focused-discussion {
   padding: 10px;
-  border: 1px lightgrey solid;
+  border: 1px #d3d3d3 solid;
   border-radius: 4px;
 }
 
@@ -36,10 +36,10 @@
 }
 
 .focused-discussion-list-item {
-  background: lightgrey;
+  background: #d3d3d3;
   margin: 10px;
   padding: 4px;
-  transition: background 0.5s ease;
+  transition: background .5s ease;
 }
 
 .focused-discussion-list:hover .focused-discussion-list-item {
@@ -56,29 +56,29 @@
 .focused-discussion-paragraph-icon {
   font-size: 10px;
   line-height: 12px;
-  color: white;
+  color: #fff;
   font-weight: 600;
   display: block;
   width: 16px;
   height: 12px;
   border-radius: 3px;
-  background: grey;
+  background: #808080;
   text-align: center;
 
   &:before {
+    @include paragraph-icon-arrow(2px);
     content: "";
     position: absolute;
     top: 12px;
     left: 5px;
     display: inline-block;
-    @include paragraph-icon-arrow(2px);
   }
 }
 
 .higher-engagement {
   text-align: left;
   background-color: $factlinkBackgroundColor;
-  border: 1px lightgrey solid;
+  border: 1px #d3d3d3 solid;
   border-radius: 4px;
   padding-top: 3px;
 }
@@ -87,7 +87,8 @@
   text-align: center;
 }
 
-.social-reach-avatar,.social-reach-icon-container {
+.social-reach-avatar,
+.social-reach-icon-container {
   display: inline-block;
   height: 60px;
   width: 60px;
@@ -100,7 +101,7 @@
 
 .social-reach-icon-container {
   @extend %centering;
-  border: 1px lightgrey solid;
+  border: 1px #d3d3d3 solid;
 }
 
 .social-reach-icon {
@@ -110,15 +111,15 @@
   width: 25px;
   height: 17px;
   border-radius: 3px;
-  background: grey;
+  background: #808080;
 
   &:before {
+    @include paragraph-icon-arrow(4px);
     content: "";
     position: absolute;
     top: 100%;
     right: 45%;
     display: block;
-    @include paragraph-icon-arrow(4px);
   }
 }
 

@@ -9,9 +9,9 @@
   display: inline-block;
   border-top-left-radius: $baseBorderRadius;
   border-top-right-radius: $baseBorderRadius;
-  border: 1px lightgrey solid;
-  border-bottom: none;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  border: 1px #d3d3d3 solid;
+  border-bottom: 0;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, .2);
 }
 
 .browser-window-bar {
@@ -21,7 +21,7 @@
   vertical-align: middle;
   border-top-left-radius: $baseBorderRadius;
   border-top-right-radius: $baseBorderRadius;
-  border-bottom: 1px lightgrey solid;
+  border-bottom: 1px #d3d3d3 solid;
 }
 
 .browser-window-video {

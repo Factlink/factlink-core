@@ -30,8 +30,8 @@
 
   @include from-width(500px) {
     min-width: 350px;
-    width: calc(100% - 200px - 0.5em);
-    width: -webkit-calc(100% - 200px - 0.5em);
+    width: calc(100% - 200px - .5em);
+    width: -webkit-calc(100% - 200px - .5em);
   }
 }
 
@@ -44,7 +44,8 @@
   max-width: 500px;
 }
 
-.team-member-block, .team-advisor-block {
+.team-member-block,
+.team-advisor-block {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -77,6 +78,7 @@
 
 
 .team-photo {
+  @include box-sizing(content-box);
   width: 135px;
   height: 135px;
   box-shadow: 0 1px 3px -1px rgba(0, 0, 0, .15);
@@ -84,7 +86,6 @@
   border-radius: 1000px;
   padding: 6px;
   border: 1px solid #cbcbcb;
-  @include box-sizing(content-box);
 
   &.advisor {
     width: 80px;

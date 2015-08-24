@@ -1,4 +1,4 @@
-$buttonBgTransition: all 0.3s ease;
+$buttonBgTransition: all .3s ease;
 
 @mixin button-height ($button-height) {
   height: $button-height;
@@ -16,31 +16,30 @@ $buttonBgTransition: all 0.3s ease;
 }
 
 %button-base {
+  @include button-height($largeButtonHeight);
   position: relative;
   display: inline-block;
   z-index: 0;
   vertical-align: middle;
   font-family: inherit; //so that browsers don't use a system font for buttons.
   font-size: 13px;
-  @include button-height($largeButtonHeight);
-
-  color: white;
+  color: #fff;
   border-radius: $baseBorderRadius;
-  border: none;
+  border: 0;
   padding: 0 $largeButtonPadding 1px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all .3s ease;
   white-space: nowrap;
 
   &:before {
     //this is an overlay for fading the background color.
     position: absolute;
-    content: '';
+    content: "";
     top: 0;
     right: 0;
     left: 0;
     bottom: 0;
-    border: 1px solid rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(0, 0, 0, .25);
     border-bottom-width: 2px;
 
     border-radius: inherit;
@@ -50,15 +49,16 @@ $buttonBgTransition: all 0.3s ease;
   }
 
   &:hover {
-    color: white;
+    color: #fff;
   }
 
   &:focus:before {
-    border-color: rgba(0, 0, 0, 0.45);
+    border-color: rgba(0, 0, 0, .45);
   }
 
-  &:hover:not(:disabled):before, &:active:before {
-    background-color: rgba(0, 0, 0, 0.1);
+  &:hover:not(:disabled):before,
+  &:active:before {
+    background-color: rgba(0, 0, 0, .1);
   }
 
   &:disabled {
@@ -70,9 +70,10 @@ $buttonBgTransition: all 0.3s ease;
     @extend %button-active-base;
   }
 
-  &:focus,&:active {
+  &:focus,
+  &:active {
     outline: none; //prevents ugly webkit active state
-    box-shadow: 0 0 0.5em rgba(black, 0.5);
+    box-shadow: 0 0 .5em rgba(#000, .5);
   }
 }
 
@@ -80,7 +81,7 @@ $arrowSize: 5px;
 
 %button-with-arrow-base {
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     border: $arrowSize solid;
     border-color: transparent currentColor;
@@ -117,8 +118,9 @@ $arrowSize: 5px;
     color: $arrow-color;
   }
 
-  &:hover:not(:disabled):after, &:active:after {
-    color: mix(black, $arrow-color, 10%);
+  &:hover:not(:disabled):after,
+  &:active:after {
+    color: mix(#000, $arrow-color, 10%);
   }
 }
 
@@ -148,8 +150,8 @@ $arrowSize: 5px;
   background-color: $green;
 
   &:disabled {
-    color: black;
-    background-color: mix($green, white);
+    color: #000;
+    background-color: mix($green, #fff);
   }
 }
 
@@ -169,8 +171,8 @@ $arrowSize: 5px;
 }
 
 .button-small {
-  font-size: 12px;
   @include button-height($baseButtonHeight);
+  font-size: 12px;
   padding: 0 $baseButtonPadding;
 }
 
@@ -182,7 +184,8 @@ $arrowSize: 5px;
   font-size: 16px;
   vertical-align: middle;
 
-  .icon-twitter, .icon-facebook {
+  .icon-twitter,
+  .icon-facebook {
     vertical-align: sub;
     -webkit-font-smoothing: antialiased; // OS X makes fonts bolder than normal. This looks weird with those icons.
   }
@@ -214,8 +217,7 @@ $arrowSize: 5px;
 
 .button-interesting {
   @extend .button;
-
-  background-color: white;
+  background-color: #fff;
   padding: 0 10px 0 0;
   margin: 10px 0 0;
 }

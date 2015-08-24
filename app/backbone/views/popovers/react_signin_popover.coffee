@@ -14,7 +14,7 @@ window.ReactSigninLinks = React.createClass
           ' ',
           _a ["button-facebook js-accounts-popup-link",
             @props.buttonClassName || 'button-connect'
-            href: "/auth/facebook"
+            href: "/auth/facebook?state=#{encodeURIComponent(window.safeLocalStorage.getItem('factlink_csrf_token'))}"
           ],
             _i ["icon-facebook"]
           ' ',

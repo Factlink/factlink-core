@@ -10,7 +10,9 @@ $blogBreakpoint: 700px;
     width: $blogWidth;
   }
 
-  p, ul, ol {
+  p,
+  ul,
+  ol {
     margin-right: 10px;
     padding-right: 10px;
   }
@@ -20,20 +22,20 @@ $blogBreakpoint: 700px;
   border: 1px solid #cbcbcb;
   padding: 4px;
   border-radius: 4px;
-  margin-bottom: 0.8em;
+  margin-bottom: .8em;
   max-width: 100%;
 }
 
 .blog-about-box {
+  @include remove-element-below($blogBreakpoint);
   position: absolute;
   right: 0;
   width: 26%;
-  @include remove-element-below($blogBreakpoint);
 }
 
 ul.blog-content-list {
   padding-left: 2em;
-  margin-bottom: 0.8em;
+  margin-bottom: .8em;
 
   > li {
     list-style-type: disc;
@@ -45,21 +47,21 @@ ul.blog-content-list {
   padding: 2px 10px;
   font-style: italic;
   display: block;
-  margin-bottom: 0.8em;
+  margin-bottom: .8em;
 }
 
 .blog-full-width {
-  @include from-width($blogBreakpoint) {
-    width: 100% / $blogWidth * 100%;
-  }
-
   position: relative;
   z-index: 1;
   padding-top: 1em;
   margin-bottom: 1em;
 
+  @include from-width($blogBreakpoint) {
+    width: 100% / $blogWidth * 100%;
+  }
+
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     left: -100000px;
     right: -100000px;
@@ -73,7 +75,7 @@ ul.blog-content-list {
 .blog-figure {
   margin: 0;
   display: inline-block;
-  margin-bottom: 0.8em;
+  margin-bottom: .8em;
 
   img {
     margin-bottom: 0;
@@ -126,7 +128,7 @@ ul.blog-content-list {
   padding: 10px;
   background: hsl(0, 0%, 95%);
   border-radius: $baseBorderRadius;
-  margin-bottom: 0.4em;
+  margin-bottom: .4em;
   line-height: $baseLineHeight;
   font-style: normal;
 }

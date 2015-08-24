@@ -6,15 +6,15 @@ $avatarSize: 24px;
 .button-interesting-tally {
   font-weight: 600;
   display: inline-block;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, .1);
   min-width: 34px;
   margin-right: 5px;
   text-align: center;
 }
 
 .button-interesting-star {
-  color: lightgrey;
-  transition: color 0.5s;
+  color: #d3d3d3;
+  transition: color .5s;
   position: relative;
   top: 1px;
 }
@@ -46,7 +46,7 @@ $avatarSize: 24px;
   margin-left: 3px;
   background: $blue;
   font-weight: 600;
-  color: white;
+  color: #fff;
   padding: 0 5px;
   border-radius: 3px;
   display: inline-block;
