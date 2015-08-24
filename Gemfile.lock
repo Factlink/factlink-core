@@ -347,8 +347,7 @@ GEM
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
-    secure_headers (2.2.3)
-      user_agent_parser
+    secure_headers (1.2.0)
     selenium (0.2.11)
       jar_wrapper
     selenium-webdriver (2.47.1)
@@ -408,7 +407,6 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    user_agent_parser (2.2.0)
     virtus (0.5.5)
       backports (~> 3.3)
       descendants_tracker (~> 0.0.1)
@@ -477,7 +475,7 @@ DEPENDENCIES
   rspec-rails (~> 2.13)
   rubocop
   sass-rails (~> 4.0.3)
-  secure_headers (~> 2.2.3)
+  secure_headers (~> 1.2.0)
   selenium
   selenium-webdriver
   sinon-chai-rails (~> 1.0)

@@ -10,7 +10,7 @@ gem 'rails_12factor', '~> 0.0.2', groups: [:staging, :production]
 gem 'protected_attributes', '~> 1.1.3'
 gem 'rake', '~> 10.4.2', require: false
 
-gem 'secure_headers', '~> 2.2.3'
+gem 'secure_headers', '~> 1.2.0'
 
 # Postgres
 gem 'pg', '~> 0.18.2'
