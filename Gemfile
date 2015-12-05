@@ -4,7 +4,6 @@ source 'https://rails-assets.org'
 ruby '2.1.7'
 
 gem 'rails', '4.2.3' # this is too important to update automatically
-gem 'responders'
 
 gem 'rails_12factor', '~> 0.0.2', groups: [:staging, :production]
 
@@ -71,8 +70,6 @@ group :development do
   # mesa want speed:
   gem 'turbo_dev_assets'
   gem 'pry', '~> 0', require: false
-
-  gem 'web-console', '~> 2.0'
 
   #for static files serving
   gem 'rack', '~> 1.6.0'
