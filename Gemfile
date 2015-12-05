@@ -3,7 +3,7 @@ source 'https://rails-assets.org'
 
 ruby '2.1.7'
 
-gem 'rails', '4.1.10' # this is too important to update automatically
+gem 'rails', '4.2.3' # this is too important to update automatically
 
 gem 'rails_12factor', '~> 0.0.2', groups: [:staging, :production]
 
@@ -72,7 +72,7 @@ group :development do
   gem 'pry', '~> 0', require: false
 
   #for static files serving
-  gem 'rack', '~> 1.5.2'
+  gem 'rack', '~> 1.6.0'
   gem 'thin', '~> 1'
 
   gem 'lograge', '~> 0'
