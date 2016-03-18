@@ -1,8 +1,8 @@
-mandrill_settings = {
+sendgrid_settings = {
   port:           '587',
-  address:        'smtp.mandrillapp.com',
-  user_name:      ENV['MANDRILL_USERNAME'],
-  password:       ENV['MANDRILL_APIKEY'],
+  address:        'smtp.sendgrid.net',
+  user_name:      ENV['SENDGRID_USERNAME'],
+  password:       ENV['SENDGRID_APIKEY'],
   domain:         'heroku.com',
   authentication: :plain
 }
@@ -14,7 +14,7 @@ mailcatcher_settings = {
 }
 
 if ['production', 'staging'].include? Rails.env
-  ActionMailer::Base.smtp_settings = mandrill_settings
+  ActionMailer::Base.smtp_settings sendgrid_settings
 else
   ActionMailer::Base.smtp_settings = mailcatcher_settings
 end
