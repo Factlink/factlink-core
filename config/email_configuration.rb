@@ -14,7 +14,7 @@ mailcatcher_settings = {
 }
 
 if ['production', 'staging'].include? Rails.env
-  ActionMailer::Base.smtp_settings sendgrid_settings
+  ActionMailer::Base.smtp_settings = sendgrid_settings
 else
   ActionMailer::Base.smtp_settings = mailcatcher_settings
 end
